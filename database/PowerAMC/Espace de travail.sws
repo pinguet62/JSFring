@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?PowerDesigner signature="Workspace" version="15.1.0.2850"?>
+<!-- Veuillez ne pas modifier ce fichier -->
+
+<Workspace>
+	<Local Expanded="Yes">
+		<Model Expanded="Yes" ID="{DDCA6787-1AD4-4C67-ABD3-E3154315160C}" Loaded="No" Name="Dictionary" Type="{FF4B6538-9856-42CF-B9B9-304ED370CEAA}" URL="Dictionary.prj"/>
+		<Model Expanded="Yes" ID="{DDCA6787-1AD4-4C67-ABD3-E3154315160C}" Loaded="No" Name="Dictionary" Type="{FF4B6538-9856-42CF-B9B9-304ED370CEAA}" URL="Dictionary.prj"/>
+		<Model Expanded="Yes" ID="{DDCA6787-1AD4-4C67-ABD3-E3154315160C}" Loaded="No" Name="Dictionary" Type="{FF4B6538-9856-42CF-B9B9-304ED370CEAA}" URL="Dictionary.prj"/>
+		<Model Expanded="Yes" ID="{DDCA6787-1AD4-4C67-ABD3-E3154315160C}" Name="Dictionary" Type="{FF4B6538-9856-42CF-B9B9-304ED370CEAA}" URL="Dictionary.prj"/>
+	</Local>
+	<BrowserModule Name="Référentiel"/>
+</Workspace>
