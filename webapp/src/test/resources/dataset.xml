@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Language Code="fr" Name="Français" />
+	<Language Code="en" Name="English" />
+	<Language Code="ar" Name="العربية" />
+</dataset>

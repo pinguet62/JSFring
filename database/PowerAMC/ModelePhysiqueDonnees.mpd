@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?PowerDesigner AppLocale="UTF16" ID="{EF0C01A6-38FD-4429-9CC5-29591417E9A6}" Label="" LastModificationDate="1403208484" Name="ModelePhysiqueDonnees" Objects="48" Symbols="8" Target="Microsoft SQL Server 2008" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" signature="PDM_DATA_MODEL_XML" version="15.1.0.2850"?>
+<?PowerDesigner AppLocale="UTF16" ID="{EF0C01A6-38FD-4429-9CC5-29591417E9A6}" Label="" LastModificationDate="1403348896" Name="ModelePhysiqueDonnees" Objects="49" Symbols="8" Target="MySQL 5.0" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" signature="PDM_DATA_MODEL_XML" version="15.1.0.2850"?>
 <!-- Veuillez ne pas modifier ce fichier -->
 
 <Model xmlns:a="attribute" xmlns:c="collection" xmlns:o="object">
@@ -12,10 +12,10 @@
 <a:Code>MODELEPHYSIQUEDONNEES</a:Code>
 <a:CreationDate>1402744380</a:CreationDate>
 <a:Creator>Julien</a:Creator>
-<a:ModificationDate>1403208484</a:ModificationDate>
+<a:ModificationDate>1403348896</a:ModificationDate>
 <a:Modifier>Julien</a:Modifier>
 <a:History>ORG {59464F4A-DB35-4AA8-A425-7C8EC0B0F42D}
-DAT 1403208484
+DAT 1403348896
 ATT 
 ATT FOPT
 DLD {848668DC-B448-42FE-92E2-38F450C02EB7},{97A4100D-AFF3-43B7-85A3-E28E6CFF43E9}
@@ -2600,9 +2600,9 @@ PhysOpts=</a:ModelOptionsText>
 <a:ObjectID>674A3EA1-DC9D-4839-A37B-39958E5B0D83</a:ObjectID>
 <a:Name>ModeleConceptuelDonnees</a:Name>
 <a:Code>MODELECONCEPTUELDONNEES</a:Code>
-<a:CreationDate>1403208484</a:CreationDate>
+<a:CreationDate>1403348896</a:CreationDate>
 <a:Creator>Julien</a:Creator>
-<a:ModificationDate>1403208484</a:ModificationDate>
+<a:ModificationDate>1403348896</a:ModificationDate>
 <a:Modifier>Julien</a:Modifier>
 <a:TargetStereotype/>
 <a:TargetID>59464F4A-DB35-4AA8-A425-7C8EC0B0F42D</a:TargetID>
@@ -2611,15 +2611,15 @@ PhysOpts=</a:ModelOptionsText>
 </c:GenerationOrigins>
 <c:DBMS>
 <o:Shortcut Id="o4">
-<a:ObjectID>A1D784AA-4A11-4D0F-BE1B-0DCFBBFE9A9F</a:ObjectID>
-<a:Name>Microsoft SQL Server 2008</a:Name>
-<a:Code>MSSQLSRV2008</a:Code>
-<a:CreationDate>1402763439</a:CreationDate>
+<a:ObjectID>86ED8D5F-C1D7-4BB6-8C4F-04C8775B9211</a:ObjectID>
+<a:Name>MySQL 5.0</a:Name>
+<a:Code>MYSQL50</a:Code>
+<a:CreationDate>1403348878</a:CreationDate>
 <a:Creator>Julien</a:Creator>
-<a:ModificationDate>1402763439</a:ModificationDate>
+<a:ModificationDate>1403348878</a:ModificationDate>
 <a:Modifier>Julien</a:Modifier>
 <a:TargetStereotype/>
-<a:TargetID>F5C20738-B05A-4F70-BC90-9B5EB9437766</a:TargetID>
+<a:TargetID>F4F16ECD-F2F1-4006-AF6F-638D5C65F35E</a:TargetID>
 <a:TargetClassID>4BA9F647-DAB1-11D1-9944-006097355D9B</a:TargetClassID>
 </o:Shortcut>
 </c:DBMS>
@@ -3234,7 +3234,7 @@ Shadow=0
 <a:PaperSource>15</a:PaperSource>
 <c:Symbols>
 <o:ReferenceSymbol Id="o6">
-<a:ModificationDate>1403208484</a:ModificationDate>
+<a:ModificationDate>1403348896</a:ModificationDate>
 <a:Rect>((4035,-1992), (17478,8988))</a:Rect>
 <a:ListOfPoints>((4035,-1992),(17478,-1992),(17478,8988))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
@@ -3255,7 +3255,7 @@ DESTINATION 0 Arial,8,N</a:FontList>
 </c:Object>
 </o:ReferenceSymbol>
 <o:ReferenceSymbol Id="o10">
-<a:ModificationDate>1403208484</a:ModificationDate>
+<a:ModificationDate>1403348896</a:ModificationDate>
 <a:Rect>((-17381,-1239), (-6692,8950))</a:Rect>
 <a:ListOfPoints>((-6692,-1239),(-17381,-1239),(-17381,8950))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
@@ -3276,7 +3276,7 @@ DESTINATION 0 Arial,8,N</a:FontList>
 </c:Object>
 </o:ReferenceSymbol>
 <o:ReferenceSymbol Id="o13">
-<a:ModificationDate>1403208484</a:ModificationDate>
+<a:ModificationDate>1403348896</a:ModificationDate>
 <a:Rect>((-36524,10508), (-20135,10958))</a:Rect>
 <a:ListOfPoints>((-36524,10913),(-26697,10913),(-26697,10552),(-20135,10552))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
@@ -3297,7 +3297,7 @@ DESTINATION 0 Arial,8,N</a:FontList>
 </c:Object>
 </o:ReferenceSymbol>
 <o:ReferenceSymbol Id="o16">
-<a:ModificationDate>1403208484</a:ModificationDate>
+<a:ModificationDate>1403348896</a:ModificationDate>
 <a:Rect>((-35324,8027), (-20185,8477))</a:Rect>
 <a:ListOfPoints>((-35324,8288),(-26247,8288),(-26247,8215),(-20185,8215))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
@@ -3318,7 +3318,7 @@ DESTINATION 0 Arial,8,N</a:FontList>
 </c:Object>
 </o:ReferenceSymbol>
 <o:TableSymbol Id="o11">
-<a:ModificationDate>1403208484</a:ModificationDate>
+<a:ModificationDate>1403348896</a:ModificationDate>
 <a:IconMode>-1</a:IconMode>
 <a:Rect>((-20671,7450), (-15703,11450))</a:Rect>
 <a:LineColor>11184640</a:LineColor>
@@ -3342,7 +3342,7 @@ LABL 0 Arial,8,N</a:FontList>
 </c:Object>
 </o:TableSymbol>
 <o:TableSymbol Id="o8">
-<a:ModificationDate>1403208484</a:ModificationDate>
+<a:ModificationDate>1403348896</a:ModificationDate>
 <a:IconMode>-1</a:IconMode>
 <a:Rect>((13501,8425), (23025,12424))</a:Rect>
 <a:LineColor>11184640</a:LineColor>
@@ -3366,7 +3366,7 @@ LABL 0 Arial,8,N</a:FontList>
 </c:Object>
 </o:TableSymbol>
 <o:TableSymbol Id="o7">
-<a:ModificationDate>1403208484</a:ModificationDate>
+<a:ModificationDate>1403348896</a:ModificationDate>
 <a:IconMode>-1</a:IconMode>
 <a:Rect>((-7347,-4943), (4419,1499))</a:Rect>
 <a:LineColor>11184640</a:LineColor>
@@ -3390,7 +3390,7 @@ LABL 0 Arial,8,N</a:FontList>
 </c:Object>
 </o:TableSymbol>
 <o:TableSymbol Id="o14">
-<a:ModificationDate>1403208484</a:ModificationDate>
+<a:ModificationDate>1403348896</a:ModificationDate>
 <a:IconMode>-1</a:IconMode>
 <a:Rect>((-43769,7788), (-31309,11787))</a:Rect>
 <a:LineColor>16744576</a:LineColor>
@@ -3887,7 +3887,7 @@ INS COLNCOL {848668DC-B448-42FE-92E2-38F450C02EB7}</a:History>
 <a:Code>DESCRIPTION_LANGAGE</a:Code>
 <a:CreationDate>1402744471</a:CreationDate>
 <a:Creator>Julien</a:Creator>
-<a:ModificationDate>1403124173</a:ModificationDate>
+<a:ModificationDate>1403348896</a:ModificationDate>
 <a:Modifier>Julien</a:Modifier>
 <a:History>ORG {589021E5-ED70-4AF8-9F1F-F631E795475F}
 DAT 1402744471
@@ -3898,7 +3898,6 @@ ATT FKCN</a:History>
 <a:Cardinality>0..*</a:Cardinality>
 <a:UpdateConstraint>1</a:UpdateConstraint>
 <a:DeleteConstraint>1</a:DeleteConstraint>
-<a:ImplementationType>T</a:ImplementationType>
 <c:ParentTable>
 <o:Table Ref="o19"/>
 </c:ParentTable>
@@ -3930,7 +3929,7 @@ ATT FKCN</a:History>
 <a:Code>DESCRIPTION_KEYWORD</a:Code>
 <a:CreationDate>1402746837</a:CreationDate>
 <a:Creator>Julien</a:Creator>
-<a:ModificationDate>1403124173</a:ModificationDate>
+<a:ModificationDate>1403348896</a:ModificationDate>
 <a:Modifier>Julien</a:Modifier>
 <a:History>ORG {BA88888D-DB65-46AA-9094-1E6DBA157AA7}
 DAT 1402746837
@@ -3941,7 +3940,6 @@ ATT FKCN</a:History>
 <a:Cardinality>0..*</a:Cardinality>
 <a:UpdateConstraint>1</a:UpdateConstraint>
 <a:DeleteConstraint>1</a:DeleteConstraint>
-<a:ImplementationType>T</a:ImplementationType>
 <c:ParentTable>
 <o:Table Ref="o18"/>
 </c:ParentTable>
@@ -3973,7 +3971,7 @@ ATT FKCN</a:History>
 <a:Code>SEE_ALSO_KEYWORD</a:Code>
 <a:CreationDate>0</a:CreationDate>
 <a:Creator/>
-<a:ModificationDate>1403124173</a:ModificationDate>
+<a:ModificationDate>1403348896</a:ModificationDate>
 <a:Modifier>Julien</a:Modifier>
 <a:History>ORG {249EDBE3-E7A3-4451-8CF2-5761220C084C}
 DAT 1402759714
@@ -3984,7 +3982,6 @@ ATT FKCN</a:History>
 <a:Cardinality>0..*</a:Cardinality>
 <a:UpdateConstraint>1</a:UpdateConstraint>
 <a:DeleteConstraint>1</a:DeleteConstraint>
-<a:ImplementationType>T</a:ImplementationType>
 <c:ParentTable>
 <o:Table Ref="o18"/>
 </c:ParentTable>
@@ -4016,7 +4013,7 @@ ATT FKCN</a:History>
 <a:Code>SEE_ALSO_ASSOCIATED_KEYWORD</a:Code>
 <a:CreationDate>0</a:CreationDate>
 <a:Creator/>
-<a:ModificationDate>1403124173</a:ModificationDate>
+<a:ModificationDate>1403348896</a:ModificationDate>
 <a:Modifier>Julien</a:Modifier>
 <a:History>ORG {88C368D7-7301-469B-9803-EE271DD01AB9}
 DAT 1402759714
@@ -4027,7 +4024,6 @@ ATT FKCN</a:History>
 <a:Cardinality>0..*</a:Cardinality>
 <a:UpdateConstraint>1</a:UpdateConstraint>
 <a:DeleteConstraint>1</a:DeleteConstraint>
-<a:ImplementationType>T</a:ImplementationType>
 <c:ParentTable>
 <o:Table Ref="o18"/>
 </c:ParentTable>
@@ -4072,7 +4068,7 @@ ATT FKCN</a:History>
 <a:Code>MODELECONCEPTUELDONNEES</a:Code>
 <a:CreationDate>1402744472</a:CreationDate>
 <a:Creator>Julien</a:Creator>
-<a:ModificationDate>1403124142</a:ModificationDate>
+<a:ModificationDate>1403348068</a:ModificationDate>
 <a:Modifier>Julien</a:Modifier>
 <a:TargetModelURL>file:///%[PRJ_ROOT_DIR]%/ModeleConceptuelDonnees.mcd</a:TargetModelURL>
 <a:TargetModelID>59464F4A-DB35-4AA8-A425-7C8EC0B0F42D</a:TargetModelID>
@@ -4082,15 +4078,15 @@ ATT FKCN</a:History>
 </c:SessionShortcuts>
 </o:TargetModel>
 <o:TargetModel Id="o56">
-<a:ObjectID>6416F5A1-85D7-4431-AC5A-2F5CE280A64E</a:ObjectID>
-<a:Name>Microsoft SQL Server 2008</a:Name>
-<a:Code>MSSQLSRV2008</a:Code>
-<a:CreationDate>1402763439</a:CreationDate>
+<a:ObjectID>25C85C86-89B3-46B9-BEEF-ED0611381134</a:ObjectID>
+<a:Name>MySQL 5.0</a:Name>
+<a:Code>MYSQL50</a:Code>
+<a:CreationDate>1403348878</a:CreationDate>
 <a:Creator>Julien</a:Creator>
-<a:ModificationDate>1403123989</a:ModificationDate>
+<a:ModificationDate>1403348878</a:ModificationDate>
 <a:Modifier>Julien</a:Modifier>
-<a:TargetModelURL>file:///%_DBMS%/sqlsv2k8.xdb</a:TargetModelURL>
-<a:TargetModelID>F5C20738-B05A-4F70-BC90-9B5EB9437766</a:TargetModelID>
+<a:TargetModelURL>file:///%_DBMS%/mysql50.xdb</a:TargetModelURL>
+<a:TargetModelID>F4F16ECD-F2F1-4006-AF6F-638D5C65F35E</a:TargetModelID>
 <a:TargetModelClassID>4BA9F647-DAB1-11D1-9944-006097355D9B</a:TargetModelClassID>
 <c:SessionShortcuts>
 <o:Shortcut Ref="o4"/>
