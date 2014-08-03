@@ -1,3 +1,7 @@
 /*
 Main CSS for Dictionary
 */
+
+body {
+	word-wrap: break-word;
+}

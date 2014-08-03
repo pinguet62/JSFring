@@ -11,9 +11,12 @@ import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.springframework.stereotype.Service;
+
 import fr.pinguet62.dictionary.model.Language;
 
 /** The DAO for {@link Language}. */
+@Service
 public final class LanguageDao {
 
 	/** The {@link EntityManager}. */
