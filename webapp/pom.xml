@@ -83,7 +83,7 @@
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
-			<version>4.0</version><!-- 5.0 -->
+			<version>5.0.RC2</version><!-- 5.0 -->
 		</dependency>
 		<dependency>
 			<groupId>org.primefaces.themes</groupId>

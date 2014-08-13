@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Login</title>
+	<h:outputStylesheet>
+        .ui-panel-footer {
+            text-align: center !important;
+        }
+    </h:outputStylesheet>
+</h:head>
+<h:body>
+	<h:form>
+		<div style="text-align: center;">
+			<p:panel header="Login" style="display: inline-block;">
+				<h:panelGrid cellpadding="5" columns="2">
+					<h:outputLabel for="username" value="Username" />
+					<p:inputText id="username" value="#{loginManagedBean.username}" />
+					<h:outputLabel for="password" value="Password" />
+					<p:inputText id="password" value="#{loginManagedBean.password}" />
+				</h:panelGrid>
+				<f:facet name="footer">
+					<p:commandButton value="Login" />
+				</f:facet>
+			</p:panel>
+		</div>
+	</h:form>
+</h:body>
+</html>
