@@ -12,6 +12,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -22,7 +24,9 @@ import fr.pinguet62.dictionary.model.Language;
 @ContextConfiguration(locations = "/applicationContext.xml")
 @DatabaseSetup("/dataset.xml")
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        DbUnitTestExecutionListener.class })
+        TransactionalTestExecutionListener.class,
+    DbUnitTestExecutionListener.class })
+@Transactional
 public final class ServiceTest {
 
     @Autowired
@@ -32,14 +36,16 @@ public final class ServiceTest {
     @Test
     public void test_create() {
         assertEquals(3, languageService.count());
-        languageService.create(new Language("es", "Espa�ol"));
+        languageService.create(new Language("es", "Español"));
         assertEquals(4, languageService.count());
+        languageService.create(new Language("cr", "ᓀᐦᐃᔭᐍᐏᐣ"));
+        assertEquals(5, languageService.count());
     }
 
     /** Test for {@link AbstractService#get(Serializable)}. */
     @Test
     public void test_get() {
-        assertEquals("Fran�ais", languageService.get("fr").getName());
+        assertEquals("Français", languageService.get("fr").getName());
         assertNull(languageService.get("  "));
     }
 

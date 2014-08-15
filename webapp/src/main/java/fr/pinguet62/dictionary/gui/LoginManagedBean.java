@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import fr.pinguet62.dictionary.service.LanguageService;
@@ -21,9 +22,8 @@ public final class LoginManagedBean implements Serializable {
     /** The password. */
     private String password;
 
-    // TODO test
-    // @Autowired
-    transient LanguageService service;
+    @Autowired
+    private transient LanguageService service;
 
     /** The username. */
     private String username;

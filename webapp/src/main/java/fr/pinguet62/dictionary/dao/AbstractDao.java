@@ -6,8 +6,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
@@ -29,10 +28,11 @@ import fr.pinguet62.dictionary.model.Language;
 @Repository
 public abstract class AbstractDao<T, PK extends Serializable> {
 
-    // TODO @PersistenceContext
     /** The {@link EntityManager}. */
-    private final EntityManager em = Persistence.createEntityManagerFactory(
-            "test").createEntityManager();
+    @PersistenceContext
+    private EntityManager em;
+    // private final EntityManager em =
+    // Persistence.createEntityManagerFactory("test").createEntityManager();
 
     private final Class<T> type;
 
@@ -63,12 +63,7 @@ public abstract class AbstractDao<T, PK extends Serializable> {
      * @return The created object.
      */
     public T create(T object) {
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
-
         em.persist(object);
-
-        tx.commit();
 
         return object;
     }
@@ -80,26 +75,16 @@ public abstract class AbstractDao<T, PK extends Serializable> {
      *            The object to delete.
      */
     public void delete(T object) {
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
-
         object = em.merge(object);
         em.remove(object);
-
-        tx.commit();
     }
 
     /** Delete all objects of table. */
     public void deleteAll() {
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
-
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaDelete<T> cd = cb.createCriteriaDelete(type);
         cd.from(type);
         em.createQuery(cd).executeUpdate();
-
-        tx.commit();
     }
 
     /**
@@ -151,14 +136,9 @@ public abstract class AbstractDao<T, PK extends Serializable> {
      * @return The updated object.
      */
     public T update(T object) {
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
-
         object = em.merge(object);
         em.persist(object);
         // TODO em.detach(object);
-
-        tx.commit();
 
         return object;
     }

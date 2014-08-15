@@ -6,4 +6,23 @@
 		http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 	<context:component-scan base-package="fr.pinguet62.dictionary" />
+
+	<!-- The connection to database -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/dictionary" />
+		<property name="username" value="root" />
+		<property name="password" value="AZE123qsd" />
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="default" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
 </beans>
