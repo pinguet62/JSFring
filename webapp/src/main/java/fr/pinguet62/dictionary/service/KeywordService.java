@@ -1,7 +1,9 @@
 package fr.pinguet62.dictionary.service;
 
+import org.springframework.stereotype.Service;
+
 import fr.pinguet62.dictionary.model.Keyword;
 
-public final class KeywordService extends AbstractService<Keyword, String> {
-
-}
+/** The service for {@link Keyword}. */
+//@Service
+//public final class KeywordService extends AbstractService<Keyword, String> {}

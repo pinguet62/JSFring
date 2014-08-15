@@ -14,6 +14,8 @@ import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.springframework.stereotype.Repository;
+
 import fr.pinguet62.dictionary.model.Language;
 
 /**
@@ -24,8 +26,10 @@ import fr.pinguet62.dictionary.model.Language;
  * @param <PK>
  *            The Primary key type.
  */
+@Repository
 public abstract class AbstractDao<T, PK extends Serializable> {
 
+    // TODO @PersistenceContext
     /** The {@link EntityManager}. */
     private final EntityManager em = Persistence.createEntityManagerFactory(
             "test").createEntityManager();

@@ -7,5 +7,4 @@ import fr.pinguet62.dictionary.model.Language;
 /** The service for {@link Language}. */
 @Service
 public final class LanguageService extends AbstractService<Language, String> {
-
 }
