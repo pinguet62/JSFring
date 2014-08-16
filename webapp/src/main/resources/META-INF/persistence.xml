@@ -3,19 +3,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 	version="2.0">
-	<persistence-unit name="test" transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="default" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<!-- Mapped classes -->
-		<!-- <class>fr.pinguet62.dictionary.model.Description</class>
-		<class>fr.pinguet62.dictionary.model.Keyword</class>
-		<class>fr.pinguet62.dictionary.model.Language</class> -->
 		<properties>
-			<!-- The connection to database -->
-			<!-- <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/dictionary" />
-			<property name="javax.persistence.jdbc.user" value="root" />
-			<property name="javax.persistence.jdbc.password" value="AZE123qsd" /> -->
-
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
 			<property name="hibernate.format_sql" value="true" />
 

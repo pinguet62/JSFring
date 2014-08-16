@@ -31,9 +31,11 @@ public abstract class AbstractDao<T, PK extends Serializable> {
     /** The {@link EntityManager}. */
     @PersistenceContext
     private EntityManager em;
-    // private final EntityManager em =
-    // Persistence.createEntityManagerFactory("test").createEntityManager();
 
+    /**
+     * The {@link Class} of the current {@link Entity}.<br/>
+     * Used by {@code Criteria} to determinate the target table.
+     */
     private final Class<T> type;
 
     @SuppressWarnings("unchecked")
@@ -115,7 +117,8 @@ public abstract class AbstractDao<T, PK extends Serializable> {
     }
 
     /**
-     * Get all objectS.
+     * Get all objectS.<br/>
+     * WARNING: If the number of objects is too large!
      *
      * @return The list of objects.
      */

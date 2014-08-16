@@ -20,6 +20,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import fr.pinguet62.dictionary.model.Language;
 
+/** Tests for {@link AbstractService}. */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "/applicationContext.xml")
 @DatabaseSetup("/dataset.xml")
@@ -29,6 +30,7 @@ import fr.pinguet62.dictionary.model.Language;
 @Transactional
 public final class ServiceTest {
 
+    /** The {@link AbstractService} to test. */
     @Autowired
     private LanguageService languageService;
 
@@ -46,7 +48,7 @@ public final class ServiceTest {
     @Test
     public void test_get() {
         assertEquals("Français", languageService.get("fr").getName());
-        assertNull(languageService.get("  "));
+        assertNull(languageService.get("??"));
     }
 
 }
