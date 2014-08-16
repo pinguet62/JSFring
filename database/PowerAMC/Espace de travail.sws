@@ -5,9 +5,8 @@
 <Workspace>
 	<Local Expanded="Yes">
 		<Model Expanded="Yes" ID="{DDCA6787-1AD4-4C67-ABD3-E3154315160C}" Loaded="No" Name="Dictionary" Type="{FF4B6538-9856-42CF-B9B9-304ED370CEAA}" URL="Dictionary.prj"/>
-		<Model Expanded="Yes" ID="{DDCA6787-1AD4-4C67-ABD3-E3154315160C}" Loaded="No" Name="Dictionary" Type="{FF4B6538-9856-42CF-B9B9-304ED370CEAA}" URL="Dictionary.prj"/>
-		<Model Expanded="Yes" ID="{DDCA6787-1AD4-4C67-ABD3-E3154315160C}" Loaded="No" Name="Dictionary" Type="{FF4B6538-9856-42CF-B9B9-304ED370CEAA}" URL="Dictionary.prj"/>
-		<Model Expanded="Yes" ID="{DDCA6787-1AD4-4C67-ABD3-E3154315160C}" Name="Dictionary" Type="{FF4B6538-9856-42CF-B9B9-304ED370CEAA}" URL="Dictionary.prj"/>
+		<Model Expanded="Yes" ID="{59464F4A-DB35-4AA8-A425-7C8EC0B0F42D}" Name="ModeleConceptuelDonnees" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="ModeleConceptuelDonnees.mcd"/>
+		<Model Expanded="Yes" ID="{EF0C01A6-38FD-4429-9CC5-29591417E9A6}" Name="ModelePhysiqueDonnees" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="ModelePhysiqueDonnees.mpd"/>
 	</Local>
 	<BrowserModule Name="Référentiel"/>
 </Workspace>

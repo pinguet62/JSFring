@@ -1,6 +1,6 @@
 package fr.pinguet62.dictionary.model;
 
-// Generated 22 juin 2014 17:17:59 by Hibernate Tools 4.0.0
+// Generated 16 août 2014 18:49:09 by Hibernate Tools 4.0.0
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,64 +21,64 @@ import javax.persistence.Table;
 @Table(name = "keyword", catalog = "dictionary")
 public class Keyword implements java.io.Serializable {
 
-	private int id;
-	private Set<Keyword> keywordsForAssociatedKeyword = new HashSet<Keyword>(0);
-	private Set<Keyword> keywordsForKeyword = new HashSet<Keyword>(0);
-	private Set<Description> descriptions = new HashSet<Description>(0);
+    private int id;
+    private Set<Keyword> keywordsForAssociatedKeyword = new HashSet<Keyword>(0);
+    private Set<Keyword> keywordsForKeyword = new HashSet<Keyword>(0);
+    private Set<Description> descriptions = new HashSet<Description>(0);
 
-	public Keyword() {
-	}
+    public Keyword() {
+    }
 
-	public Keyword(int id) {
-		this.id = id;
-	}
+    public Keyword(int id) {
+        this.id = id;
+    }
 
-	public Keyword(int id, Set<Keyword> keywordsForAssociatedKeyword,
-			Set<Keyword> keywordsForKeyword, Set<Description> descriptions) {
-		this.id = id;
-		this.keywordsForAssociatedKeyword = keywordsForAssociatedKeyword;
-		this.keywordsForKeyword = keywordsForKeyword;
-		this.descriptions = descriptions;
-	}
+    public Keyword(int id, Set<Keyword> keywordsForAssociatedKeyword,
+            Set<Keyword> keywordsForKeyword, Set<Description> descriptions) {
+        this.id = id;
+        this.keywordsForAssociatedKeyword = keywordsForAssociatedKeyword;
+        this.keywordsForKeyword = keywordsForKeyword;
+        this.descriptions = descriptions;
+    }
 
-	@Id
-	@Column(name = "ID", unique = true, nullable = false)
-	public int getId() {
-		return this.id;
-	}
+    @Id
+    @Column(name = "ID", unique = true, nullable = false)
+    public int getId() {
+        return this.id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "see_also", catalog = "dictionary", joinColumns = { @JoinColumn(name = "KEYWORD", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "ASSOCIATED_KEYWORD", nullable = false, updatable = false) })
-	public Set<Keyword> getKeywordsForAssociatedKeyword() {
-		return this.keywordsForAssociatedKeyword;
-	}
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "see_also", catalog = "dictionary", joinColumns = { @JoinColumn(name = "KEYWORD", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "ASSOCIATED_KEYWORD", nullable = false, updatable = false) })
+    public Set<Keyword> getKeywordsForAssociatedKeyword() {
+        return this.keywordsForAssociatedKeyword;
+    }
 
-	public void setKeywordsForAssociatedKeyword(
-			Set<Keyword> keywordsForAssociatedKeyword) {
-		this.keywordsForAssociatedKeyword = keywordsForAssociatedKeyword;
-	}
+    public void setKeywordsForAssociatedKeyword(
+            Set<Keyword> keywordsForAssociatedKeyword) {
+        this.keywordsForAssociatedKeyword = keywordsForAssociatedKeyword;
+    }
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "see_also", catalog = "dictionary", joinColumns = { @JoinColumn(name = "ASSOCIATED_KEYWORD", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "KEYWORD", nullable = false, updatable = false) })
-	public Set<Keyword> getKeywordsForKeyword() {
-		return this.keywordsForKeyword;
-	}
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "see_also", catalog = "dictionary", joinColumns = { @JoinColumn(name = "ASSOCIATED_KEYWORD", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "KEYWORD", nullable = false, updatable = false) })
+    public Set<Keyword> getKeywordsForKeyword() {
+        return this.keywordsForKeyword;
+    }
 
-	public void setKeywordsForKeyword(Set<Keyword> keywordsForKeyword) {
-		this.keywordsForKeyword = keywordsForKeyword;
-	}
+    public void setKeywordsForKeyword(Set<Keyword> keywordsForKeyword) {
+        this.keywordsForKeyword = keywordsForKeyword;
+    }
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "keyword")
-	public Set<Description> getDescriptions() {
-		return this.descriptions;
-	}
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "keyword")
+    public Set<Description> getDescriptions() {
+        return this.descriptions;
+    }
 
-	public void setDescriptions(Set<Description> descriptions) {
-		this.descriptions = descriptions;
-	}
+    public void setDescriptions(Set<Description> descriptions) {
+        this.descriptions = descriptions;
+    }
 
 }
