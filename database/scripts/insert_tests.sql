@@ -15,3 +15,14 @@ insert into `RIGHT` (CODE, TITLE) values ('USER_EDIT', 'Edition des utilisateurs
 
 insert into PROFILE (ID, TITLE) values (1, 'Profile admin'); /* Administration de profils & Association Profil/Droit */
 insert into PROFILE (ID, TITLE) values (2, 'User admin'); /* Administration d'utilisateurs & Association Utilisateur/Profil */
+
+insert into PROFILES_RIGHTS (PROFILE, `RIGHT`) values (1, 'PROFILE_EDIT');
+insert into PROFILES_RIGHTS (PROFILE, `RIGHT`) values (2, 'USER_SHOW');
+insert into PROFILES_RIGHTS (PROFILE, `RIGHT`) values (2, 'USER_EDIT');
+
+insert into USER (LOGIN, PASSWORD) values ('admin', 'admin');
+insert into USER (LOGIN, PASSWORD) values ('username', 'password');
+
+insert into USERS_PROFILES (USER, PROFILE) values ('admin', 1);
+insert into USERS_PROFILES (USER, PROFILE) values ('admin', 2);
+insert into USERS_PROFILES (USER, PROFILE) values ('username', 2);

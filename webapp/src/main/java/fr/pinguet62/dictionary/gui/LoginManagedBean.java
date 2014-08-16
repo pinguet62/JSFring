@@ -8,7 +8,7 @@ import javax.faces.bean.ViewScoped;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import fr.pinguet62.dictionary.service.LanguageService;
+import fr.pinguet62.dictionary.service.UserService;
 
 /** {@link ManagedBean} for user login. */
 @Component
@@ -23,7 +23,7 @@ public final class LoginManagedBean implements Serializable {
     private String password;
 
     @Autowired
-    private transient LanguageService service;
+    private transient UserService service;
 
     /** The username. */
     private String username;
