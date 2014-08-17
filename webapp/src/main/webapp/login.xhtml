@@ -16,17 +16,19 @@
     </h:outputStylesheet>
 </h:head>
 <h:body>
-	<h:form>
+	<h:form prependId="false">
 		<div style="text-align: center;">
 			<p:panel header="Login" style="display: inline-block;">
+				<p:messages />
 				<h:panelGrid cellpadding="5" columns="2">
-					<h:outputLabel for="username" value="Username" />
-					<p:inputText id="username" value="#{loginManagedBean.username}" />
-					<h:outputLabel for="password" value="Password" />
-					<p:inputText id="password" value="#{loginManagedBean.password}" />
+					<h:outputLabel for="j_username" value="Username" />
+					<p:inputText id="j_username" value="#{loginManagedBean.username}" />
+					<h:outputLabel for="j_password" value="Password" />
+					<p:inputText id="j_password" value="#{loginManagedBean.password}" />
 				</h:panelGrid>
 				<f:facet name="footer">
-					<p:commandButton value="Login" />
+					<p:commandButton ajax="false" action="#{loginManagedBean.login}"
+						type="submit" value="Sumbit" />
 				</f:facet>
 			</p:panel>
 		</div>

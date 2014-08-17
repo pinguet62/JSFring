@@ -1,29 +1,33 @@
 package fr.pinguet62.dictionary.gui;
 
+import java.io.IOException;
 import java.io.Serializable;
 
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import fr.pinguet62.dictionary.service.UserService;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 
 /** {@link ManagedBean} for user login. */
-@Component
 @ManagedBean
-@ViewScoped
+@RequestScoped
 public final class LoginManagedBean implements Serializable {
 
     /** Serial version UID. */
     private static final long serialVersionUID = 1L;
 
+    @ManagedProperty("#{param.error}")
+    private String error;
+
     /** The password. */
     private String password;
-
-    @Autowired
-    private transient UserService service;
 
     /** The username. */
     private String username;
@@ -44,6 +48,30 @@ public final class LoginManagedBean implements Serializable {
      */
     public String getUsername() {
         return username;
+    }
+
+    @PostConstruct
+    public void init() {
+        FacesContext.getCurrentInstance().addMessage(
+                null,
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                        "Username or password invalid."));
+    }
+
+    /** Redirect the request to the default Spring {@code login-processing-url}. */
+    public String login() throws ServletException, IOException {
+        ExternalContext context = FacesContext.getCurrentInstance()
+                .getExternalContext();
+        RequestDispatcher dispatcher = ((ServletRequest) context.getRequest())
+                .getRequestDispatcher("/j_spring_security_check");
+        dispatcher.forward((ServletRequest) context.getRequest(),
+                (ServletResponse) context.getResponse());
+        FacesContext.getCurrentInstance().responseComplete();
+        return null;
+    }
+
+    public void setError(String value) {
+        error = value;
     }
 
     /**
