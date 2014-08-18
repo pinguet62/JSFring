@@ -32,6 +32,10 @@ public final class LoginManagedBean implements Serializable {
     /** The username. */
     private String username;
 
+    public String getError() {
+        return error;
+    }
+
     /**
      * Get the password
      *
@@ -50,16 +54,20 @@ public final class LoginManagedBean implements Serializable {
         return username;
     }
 
+    /**
+     * If the URL is the redirect of Spring authentication fail: show a message.
+     */
     @PostConstruct
     public void init() {
-        FacesContext.getCurrentInstance().addMessage(
-                null,
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
-                        "Username or password invalid."));
+        if (error != null)
+            FacesContext.getCurrentInstance().addMessage(
+                    null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                            "Username or password invalid."));
     }
 
     /** Redirect the request to the default Spring {@code login-processing-url}. */
-    public String login() throws ServletException, IOException {
+    public void login() throws ServletException, IOException {
         ExternalContext context = FacesContext.getCurrentInstance()
                 .getExternalContext();
         RequestDispatcher dispatcher = ((ServletRequest) context.getRequest())
@@ -67,7 +75,6 @@ public final class LoginManagedBean implements Serializable {
         dispatcher.forward((ServletRequest) context.getRequest(),
                 (ServletResponse) context.getResponse());
         FacesContext.getCurrentInstance().responseComplete();
-        return null;
     }
 
     public void setError(String value) {

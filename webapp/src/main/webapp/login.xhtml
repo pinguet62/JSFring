@@ -19,7 +19,9 @@
 	<h:form prependId="false">
 		<div style="text-align: center;">
 			<p:panel header="Login" style="display: inline-block;">
-				<p:messages />
+				<h:outputText rendered="#{not empty loginManagedBean.error}" />
+				<p:messages autoUpdate="true" showDetail="true" />
+
 				<h:panelGrid cellpadding="5" columns="2">
 					<h:outputLabel for="j_username" value="Username" />
 					<p:inputText id="j_username" value="#{loginManagedBean.username}" />

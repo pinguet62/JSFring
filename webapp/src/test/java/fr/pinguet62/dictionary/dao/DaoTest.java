@@ -25,8 +25,8 @@ import fr.pinguet62.dictionary.model.Language;
 @ContextConfiguration(locations = "/applicationContext.xml")
 @DatabaseSetup("/dataset.xml")
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-    TransactionalTestExecutionListener.class,
-    DbUnitTestExecutionListener.class })
+        TransactionalTestExecutionListener.class,
+        DbUnitTestExecutionListener.class })
 @Transactional
 public final class DaoTest {
 
@@ -81,10 +81,10 @@ public final class DaoTest {
         assertNull(dao.get("??"));
     }
 
-    /** Test for {@link AbstractDao#list()}. */
+    /** Test for {@link AbstractDao#getAll()}. */
     @Test
-    public void test_list() {
-        List<Language> languages = dao.list();
+    public void test_getAll() {
+        List<Language> languages = dao.getAll();
         assertEquals(3, languages.size());
     }
 

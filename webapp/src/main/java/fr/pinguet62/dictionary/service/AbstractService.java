@@ -1,11 +1,10 @@
 package fr.pinguet62.dictionary.service;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.pinguet62.dictionary.dao.AbstractDao;
@@ -18,12 +17,22 @@ import fr.pinguet62.dictionary.dao.AbstractDao;
  * @param <PK>
  *            The Primary key type.
  */
-@Service
 public abstract class AbstractService<T, PK extends Serializable> {
 
     /** The {@link AbstractDao}. */
-    @Autowired
-    protected AbstractDao<T, PK> dao;
+    protected final AbstractDao<T, PK> dao;
+
+    /**
+     * Constructor with {@link AbstractDao}.<br/>
+     * The classes who inherit of this class must call this constructor with the
+     * associated {@link AbstractDao}.
+     *
+     * @param dao
+     *            The {@link AbstractDao}.
+     */
+    protected AbstractService(AbstractDao<T, PK> dao) {
+        this.dao = dao;
+    }
 
     /**
      * Get number of objects.
@@ -57,6 +66,16 @@ public abstract class AbstractService<T, PK extends Serializable> {
     @Transactional(readOnly = true)
     public T get(PK id) {
         return dao.get(id);
+    }
+
+    /**
+     * Get all objects.
+     *
+     * @return The objects.
+     */
+    @Transactional(readOnly = true)
+    public List<T> getAll() {
+        return dao.getAll();
     }
 
 }

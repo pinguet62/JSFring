@@ -117,12 +117,12 @@ public abstract class AbstractDao<T, PK extends Serializable> {
     }
 
     /**
-     * Get all objectS.<br/>
+     * Get all objectSs<br/>
      * WARNING: If the number of objects is too large!
      *
      * @return The list of objects.
      */
-    public List<T> list() {
+    public List<T> getAll() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<T> cq = cb.createQuery(type);
         Root<T> rootEntry = cq.from(type);
