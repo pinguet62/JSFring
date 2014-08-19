@@ -9,10 +9,31 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	template="/template/layout.xhtml">
 	<ui:define name="content">
-		<p:dataTable value="#{profilesManagedBean.list}" var="profile">
-			<p:column headerText="Title">
-				<h:outputText value="#{profile.title}" />
-			</p:column>
-		</p:dataTable>
+		<h:form id="form">
+			<p:dataTable value="#{profilesManagedBean.list}" var="profile">
+				<p:column headerText="Title">
+					<h:outputText value="#{profile.title}" />
+				</p:column>
+				<p:column style="width: 150px; text-align: center">
+					<p:commandButton icon="ui-icon-search" title="Show"
+						update=":form:profileDetail"
+						oncomplete="PF('profileDialog').show()">
+						<f:setPropertyActionListener
+							target="#{profilesManagedBean.selectedProfile}"
+							value="#{profile}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:dialog id="profileDetail" widgetVar="profileDialog"
+				header="#{profilesManagedBean.selectedProfile.title}"
+				showEffect="fade" hideEffect="fade" resizable="false">
+				<p:outputPanel>
+					<p:pickList value="#{profilesManagedBean.rightsAssociation}"
+						var="right" itemValue="#{right.code}" itemLabel="#{right.title}">
+					</p:pickList>
+				</p:outputPanel>
+			</p:dialog>
+		</h:form>
 	</ui:define>
 </ui:composition>
