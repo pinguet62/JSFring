@@ -25,8 +25,8 @@ import fr.pinguet62.dictionary.model.Language;
 @ContextConfiguration(locations = "/applicationContext.xml")
 @DatabaseSetup("/dataset.xml")
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        TransactionalTestExecutionListener.class,
-    DbUnitTestExecutionListener.class })
+    TransactionalTestExecutionListener.class,
+        DbUnitTestExecutionListener.class })
 @Transactional
 public final class ServiceTest {
 
@@ -49,6 +49,12 @@ public final class ServiceTest {
     public void test_get() {
         assertEquals("Français", languageService.get("fr").getName());
         assertNull(languageService.get("??"));
+    }
+
+    @Test
+    public void test_transaction() {
+        languageService.create(new Language("XX", "YYYYY"));
+        assertEquals(4, languageService.count());
     }
 
 }
