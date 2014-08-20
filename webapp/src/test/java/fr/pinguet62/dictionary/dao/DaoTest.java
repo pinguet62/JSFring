@@ -5,6 +5,11 @@ import static org.junit.Assert.assertNull;
 
 import java.util.List;
 
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +30,9 @@ import fr.pinguet62.dictionary.model.Language;
 @ContextConfiguration(locations = "/applicationContext.xml")
 @DatabaseSetup("/dataset.xml")
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        TransactionalTestExecutionListener.class,
-        DbUnitTestExecutionListener.class })
+    TransactionalTestExecutionListener.class,
+    // DisableForeignKeyChecksListener.class,
+    DbUnitTestExecutionListener.class })
 @Transactional
 public final class DaoTest {
 
@@ -86,6 +92,30 @@ public final class DaoTest {
     public void test_getAll() {
         List<Language> languages = dao.getAll();
         assertEquals(3, languages.size());
+    }
+
+    /** Test the relationship {@link ManyToMany}. */
+    @Test
+    public void test_manyToMany() {
+        // TODO
+    }
+
+    /** Test the relationship {@link ManyToOne}. */
+    @Test
+    public void test_manyToOne() {
+        // TODO
+    }
+
+    /** Test the relationship {@link OneToMany}. */
+    @Test
+    public void test_oneToMany() {
+        // TODO
+    }
+
+    /** Test the relationship {@link OneToOne}. */
+    @Test
+    public void test_oneToOne() {
+        // TODO
     }
 
     /** Test for {@link AbstractDao#update(Object)}. */

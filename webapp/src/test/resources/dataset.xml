@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<Language Code="fr" Name="Français" />
-	<Language Code="en" Name="English" />
-	<Language Code="ar" Name="العربية" />
+    <Language Code="fr" Name="Français" />
+    <Language Code="en" Name="English" />
+    <Language Code="ar" Name="العربية" />
+
+	<Right Code="RIGHT_RO" Title="Affichage des profils" />
+	<Right Code="PROFILE_RO" Title="Affichage des profils" />
+	<Right Code="PROFILE_RW" Title="Edition des profils" />
+	<Right Code="USER_RO" Title="Affichage des utilisateurs" />
+	<Right Code="USER_RW" Title="Edition des utilisateurs" />
+
+	<Profile Id="1" Title="Profile admin" />
+	<Profiles_Rights Profile="1" Right="RIGHT_RO" />
+	<Profiles_Rights Profile="1" Right="PROFILE_RO" />
+	<Profiles_Rights Profile="1" Right="PROFILE_RW" />
+
+	<Profile Id="2" Title="User admin" />
+	<Profiles_Rights Profile="2" Right="PROFILE_RO" />
+	<Profiles_Rights Profile="2" Right="USER_RO" />
+	<Profiles_Rights Profile="2" Right="USER_RW" />
+
+	<User Login="admin" Password="password" />
+	<Users_Profiles User="admin" Profile="1" />
+	<Users_Profiles User="admin" Profile="2" />
+
+	<User Login="admin profile" Password="password" />
+	<Users_Profiles User="admin profile" Profile="1" />
+
+	<User Login="admin user" Password="password" />
+	<Users_Profiles User="admin user" Profile="2" />
 </dataset>
