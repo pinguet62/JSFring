@@ -28,7 +28,7 @@ public final class ProfilesManagedBean {
      * The {@link Right} association (available/associated) of the selected
      * {@link Profile}.
      */
-    private DualListModel<Right> rightsAssociation = new DualListModel<>();
+    private DualListModel<Right> rightsAssociation;
 
     @Autowired
     private RightService rightService;
@@ -58,9 +58,11 @@ public final class ProfilesManagedBean {
     }
 
     /**
-     * Set the selected {@link Profile}.<br/>
-     * Call when the user click on "Show" button.<br/>
-     * Init the {@link Right} association.
+     * Call when the user click on "Show" button.
+     * <ul>
+     * <li>Set the selected {@link Profile};</li>
+     * <li>Init the {@link Right} association.</li>
+     * </ul>
      *
      * @param profile
      *            The selected {@link Profile}.
@@ -68,13 +70,13 @@ public final class ProfilesManagedBean {
     public void setSelectedProfile(Profile profile) {
         selectedProfile = profile;
 
-        List<Right> associatedRights = new ArrayList<>(
-                selectedProfile.getRights());
         List<Right> availableRights = rightService.getAll().stream()
                 .filter(right -> !selectedProfile.getRights().contains(right))
                 .collect(Collectors.toList());
-        rightsAssociation = new DualListModel<Right>(associatedRights,
-                availableRights);
+        List<Right> associatedRights = new ArrayList<>(
+                selectedProfile.getRights());
+        rightsAssociation = new DualListModel<Right>(availableRights,
+                associatedRights);
     }
 
 }

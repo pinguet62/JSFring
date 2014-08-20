@@ -25,12 +25,14 @@
 				</p:column>
 			</p:dataTable>
 
-			<p:dialog id="profileDetail" widgetVar="profileDialog"
+			<p:dialog id="profileDetail" widgetVar="profileDialog" dynamic="true"
 				header="#{profilesManagedBean.selectedProfile.title}"
 				showEffect="fade" hideEffect="fade" resizable="false">
 				<p:outputPanel>
 					<p:pickList value="#{profilesManagedBean.rightsAssociation}"
 						var="right" itemValue="#{right.code}" itemLabel="#{right.title}">
+						<f:facet name="sourceCaption">Available</f:facet>
+						<f:facet name="targetCaption">Associated</f:facet>
 					</p:pickList>
 				</p:outputPanel>
 			</p:dialog>
