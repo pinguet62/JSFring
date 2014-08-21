@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
@@ -30,7 +29,7 @@ import fr.pinguet62.dictionary.model.Language;
 public abstract class AbstractDao<T, PK extends Serializable> {
 
     /** The {@link EntityManager}. */
-    @PersistenceContext(type = PersistenceContextType.EXTENDED)
+    @PersistenceContext
     private EntityManager em;
 
     /**
@@ -67,7 +66,6 @@ public abstract class AbstractDao<T, PK extends Serializable> {
      */
     public T create(T object) {
         em.persist(object);
-
         return object;
     }
 
@@ -78,8 +76,10 @@ public abstract class AbstractDao<T, PK extends Serializable> {
      *            The object to delete.
      */
     public void delete(T object) {
-        object = em.merge(object);
-        em.remove(object);
+        Object id = em.getEntityManagerFactory().getPersistenceUnitUtil()
+                .getIdentifier(object);
+        T obj = em.getReference(type, id);
+        em.remove(obj);
     }
 
     /** Delete all objects of table. */
@@ -109,12 +109,7 @@ public abstract class AbstractDao<T, PK extends Serializable> {
      * @return The object, {@code null} if not found.
      */
     public T get(PK id) {
-        T object = em.find(type, id);
-        if (object == null)
-            return null;
-
-        em.detach(object);
-        return object;
+        return em.find(type, id);
     }
 
     /**
@@ -140,11 +135,7 @@ public abstract class AbstractDao<T, PK extends Serializable> {
      * @return The updated object.
      */
     public T update(T object) {
-        object = em.merge(object);
-        em.persist(object);
-        // TODO em.detach(object);
-
-        return object;
+        return em.merge(object);
     }
 
 }
