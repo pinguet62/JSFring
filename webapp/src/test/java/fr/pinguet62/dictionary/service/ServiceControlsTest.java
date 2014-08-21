@@ -14,9 +14,6 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
-
 import fr.pinguet62.dictionary.dao.RightDao;
 import fr.pinguet62.dictionary.model.Right;
 import fr.pinguet62.dictionary.service.BadService.RollbackMeIMFamousException;
@@ -53,10 +50,9 @@ class BadService {
 /** Tests that the controls of {@link AbstractService} are correct. */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "/applicationContext.xml")
-@DatabaseSetup("/dataset.xml")
+// @DatabaseSetup("/dataset.xml")
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-    TransactionalTestExecutionListener.class,
-    DbUnitTestExecutionListener.class })
+        TransactionalTestExecutionListener.class })
 @Transactional
 public final class ServiceControlsTest {
 

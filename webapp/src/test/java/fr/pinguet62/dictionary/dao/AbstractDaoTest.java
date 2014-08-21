@@ -5,11 +5,6 @@ import static org.junit.Assert.assertNull;
 
 import java.util.List;
 
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +26,19 @@ import fr.pinguet62.dictionary.model.Language;
 @DatabaseSetup("/dataset.xml")
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
     TransactionalTestExecutionListener.class,
-    // DisableForeignKeyChecksListener.class,
     DbUnitTestExecutionListener.class })
 @Transactional
-public final class DaoTest {
+public final class AbstractDaoTest {
 
     /** The {@link AbstractDao} to test. */
     @Autowired
     private LanguageDao dao;
+
+    /** Test for {@link AbstractDao#count()}. */
+    @Test
+    public void test_count() {
+        assertEquals(3, dao.count());
+    }
 
     /** Test for {@link AbstractDao#create(Object)}. */
     @Test
@@ -92,30 +92,6 @@ public final class DaoTest {
     public void test_getAll() {
         List<Language> languages = dao.getAll();
         assertEquals(3, languages.size());
-    }
-
-    /** Test the relationship {@link ManyToMany}. */
-    @Test
-    public void test_manyToMany() {
-        // TODO
-    }
-
-    /** Test the relationship {@link ManyToOne}. */
-    @Test
-    public void test_manyToOne() {
-        // TODO
-    }
-
-    /** Test the relationship {@link OneToMany}. */
-    @Test
-    public void test_oneToMany() {
-        // TODO
-    }
-
-    /** Test the relationship {@link OneToOne}. */
-    @Test
-    public void test_oneToOne() {
-        // TODO
     }
 
     /** Test for {@link AbstractDao#update(Object)}. */

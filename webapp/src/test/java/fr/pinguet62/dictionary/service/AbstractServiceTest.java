@@ -28,7 +28,7 @@ import fr.pinguet62.dictionary.model.Language;
     TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class })
 @Transactional
-public final class ServiceTest {
+public final class AbstractServiceTest {
 
     /** The {@link AbstractService} to test. */
     @Autowired
