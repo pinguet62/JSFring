@@ -7,6 +7,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -21,7 +23,7 @@ import javax.persistence.Table;
 @Table(name = "keyword", catalog = "dictionary")
 public class Keyword implements java.io.Serializable {
 
-    private int id;
+    private Integer id;
     private Set<Keyword> keywordsForAssociatedKeyword = new HashSet<Keyword>(0);
     private Set<Keyword> keywordsForKeyword = new HashSet<Keyword>(0);
     private Set<Description> descriptions = new HashSet<Description>(0);
@@ -42,8 +44,9 @@ public class Keyword implements java.io.Serializable {
     }
 
     @Id
+    @GeneratedValue(strategy = IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
 

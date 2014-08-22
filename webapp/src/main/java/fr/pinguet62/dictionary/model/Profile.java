@@ -4,9 +4,12 @@ package fr.pinguet62.dictionary.model;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -20,7 +23,7 @@ import javax.persistence.Table;
 @Table(name = "profile", catalog = "dictionary")
 public class Profile implements java.io.Serializable {
 
-    private int id;
+    private Integer id;
     private String title;
     private Set<User> users = new HashSet<User>(0);
     private Set<Right> rights = new HashSet<Right>(0);
@@ -40,43 +43,48 @@ public class Profile implements java.io.Serializable {
         this.rights = rights;
     }
 
+    public Profile(String title) {
+        this.title = title;
+    }
+
     @Id
+    @GeneratedValue(strategy = IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
-    public int getId() {
-        return this.id;
+    public Integer getId() {
+        return id;
+    }
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "profiles_rights", catalog = "dictionary", joinColumns = { @JoinColumn(name = "PROFILE", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "RIGHT", nullable = false, updatable = false) })
+    public Set<Right> getRights() {
+        return rights;
+    }
+
+    @Column(name = "TITLE", nullable = false, length = 30)
+    public String getTitle() {
+        return title;
+    }
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "users_profiles", catalog = "dictionary", joinColumns = { @JoinColumn(name = "PROFILE", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "USER", nullable = false, updatable = false) })
+    public Set<User> getUsers() {
+        return users;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    @Column(name = "TITLE", nullable = false, length = 30)
-    public String getTitle() {
-        return this.title;
+    public void setRights(Set<Right> rights) {
+        this.rights = rights;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "users_profiles", catalog = "dictionary", joinColumns = { @JoinColumn(name = "PROFILE", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "USER", nullable = false, updatable = false) })
-    public Set<User> getUsers() {
-        return this.users;
-    }
-
     public void setUsers(Set<User> users) {
         this.users = users;
-    }
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "profiles_rights", catalog = "dictionary", joinColumns = { @JoinColumn(name = "PROFILE", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "RIGHT", nullable = false, updatable = false) })
-    public Set<Right> getRights() {
-        return this.rights;
-    }
-
-    public void setRights(Set<Right> rights) {
-        this.rights = rights;
     }
 
 }
