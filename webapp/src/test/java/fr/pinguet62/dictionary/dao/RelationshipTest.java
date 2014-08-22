@@ -1,7 +1,9 @@
 package fr.pinguet62.dictionary.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -20,6 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
+import fr.pinguet62.dictionary.model.Description;
+import fr.pinguet62.dictionary.model.Keyword;
 import fr.pinguet62.dictionary.model.Profile;
 
 /** Tests of database tables associations. */
@@ -33,47 +37,91 @@ import fr.pinguet62.dictionary.model.Profile;
 public class RelationshipTest {
 
     @Autowired
+    private DescriptionDao descriptionDao;
+
+    @Autowired
+    private KeywordDao keywordDao;
+
+    @Autowired
+    private LanguageDao languageDao;
+
+    @Autowired
     private ProfileDao profileDao;
 
     @Autowired
     private RightDao rightDao;
 
-    /** Test the association {@link ManyToMany}. */
+    /** @see ManyToMany */
     @Test
     public void test_manyToMany_add() {
-        Profile profile1 = profileDao.get(1);
-        long initialCount = profile1.getRights().size();
-        profile1.getRights().add(rightDao.get("USER_RO"));
-        assertEquals(initialCount + 1, profile1.getRights().size());
-        profileDao.update(profile1);
-
-        Profile profile2 = profileDao.get(1);
-        assertEquals(initialCount + 1, profile2.getRights().size());
+        Profile profile = profileDao.get(1);
+        long initialCount = profile.getRights().size();
+        // add
+        profile.getRights().add(rightDao.get("USER_RO"));
+        assertEquals(initialCount + 1, profile.getRights().size());
+        profileDao.update(profile);
+        // test
+        assertEquals(initialCount + 1, profileDao.get(1).getRights().size());
     }
 
-    /** Test the association {@link ManyToMany}. */
+    /**
+     * @see ManyToMany#fetch()
+     * @see FetchType#LAZY
+     */
     @Test
-    public void test_manyToMany_load() {
+    public void test_manyToMany_lazyLoad() {
         Profile profile = profileDao.get(1);
         assertEquals(3, profile.getRights().size());
     }
 
-    /** Test the association {@link ManyToOne}. */
-    // @Test
+    /** @see ManyToOne */
+    @Test
     public void test_manyToOne() {
-        // TODO
+        fail("Not yet implemented");
     }
 
-    /** Test the association {@link OneToMany}. */
-    // @Test
-    public void test_oneToMany() {
-        // TODO
+    /** @see OneToMany */
+    @Test
+    public void test_oneToMany_add() {
+        Keyword keyword = keywordDao.get(1);
+        long initialCount = keyword.getDescriptions().size();
+        // add
+        keyword.getDescriptions().add(
+                new Description(languageDao.get("fr"), "Title", "Content"));
+        keywordDao.update(keyword);
+        // test
+        assertEquals(initialCount + 1, keywordDao.get(1).getDescriptions()
+                .size());
     }
 
-    /** Test the association {@link OneToOne}. */
-    // @Test
+    /**
+     * @see OneToMany
+     * @see FetchType#LAZY
+     */
+    @Test
+    public void test_oneToMany_lazyLoad() {
+        Keyword keyword = keywordDao.get(1);
+        assertEquals(2, keyword.getDescriptions().size());
+    }
+
+    /** @see OneToMany */
+    @Test
+    public void test_oneToMany_remove() {
+        Keyword keyword = keywordDao.get(1);
+        long initialCount = keyword.getDescriptions().size();
+        // remove
+        keyword.getDescriptions().remove(
+                keyword.getDescriptions().iterator().next());
+        keywordDao.update(keyword);
+        // test
+        assertEquals(initialCount - 1, keywordDao.get(1).getDescriptions()
+                .size());
+    }
+
+    /** @see OneToOne */
+    @Test
     public void test_oneToOne() {
-        // TODO
+        fail("Not yet implemented");
     }
 
 }
