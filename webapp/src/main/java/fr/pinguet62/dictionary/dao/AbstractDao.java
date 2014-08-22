@@ -15,8 +15,6 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
-import fr.pinguet62.dictionary.model.Language;
-
 /**
  * The generic DAO for entities.
  *
@@ -36,14 +34,9 @@ public abstract class AbstractDao<T, PK extends Serializable> {
      * The {@link Class} of the current {@link Entity}.<br/>
      * Used by {@code Criteria} to determinate the target table.
      */
-    private final Class<T> type;
-
     @SuppressWarnings("unchecked")
-    protected AbstractDao() {
-        ParameterizedType genericSuperclass = (ParameterizedType) getClass()
-                .getGenericSuperclass();
-        type = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
-    }
+    private final Class<T> type = (Class<T>) ((ParameterizedType) getClass()
+            .getGenericSuperclass()).getActualTypeArguments()[0];
 
     /**
      * Get number of objects.
@@ -53,7 +46,7 @@ public abstract class AbstractDao<T, PK extends Serializable> {
     public long count() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
-        cq.select(cb.count(cq.from(Language.class)));
+        cq.select(cb.count(cq.from(type)));
         return em.createQuery(cq).getSingleResult();
     }
 
