@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <Language Code="fr" Name="Français" />
-    <Language Code="en" Name="English" />
-    <Language Code="ar" Name="العربية" />
+	<!-- Admin -->
 
 	<Right Code="RIGHT_RO" Title="Affichage des profils" />
 	<Right Code="PROFILE_RO" Title="Affichage des profils" />
@@ -29,4 +27,19 @@
 
 	<User Login="admin user" Password="password" />
 	<Users_Profiles User="admin user" Profile="2" />
+
+	<!-- Data -->
+	<Language Code="fr" Name="Français" />
+	<Language Code="en" Name="English" />
+	<Language Code="ar" Name="العربية" />
+
+	<Keyword Id="1" />
+	<Description Keyword="1" Language="fr" Title="Java"
+		Content="Langage de programmation." />
+	<Description Keyword="1" Language="en" Title="Java"
+		Content="Programming language." />
+
+	<Keyword Id="2" />
+	<Description Keyword="2" Language="fr" Title="Golf"
+		Content="Voiture de la marque Volkswagen." />
 </dataset>
