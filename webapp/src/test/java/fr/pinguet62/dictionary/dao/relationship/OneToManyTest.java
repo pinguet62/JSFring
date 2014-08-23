@@ -1,13 +1,9 @@
-package fr.pinguet62.dictionary.dao;
+package fr.pinguet62.dictionary.dao.relationship;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,11 +18,16 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
+import fr.pinguet62.dictionary.dao.KeywordDao;
+import fr.pinguet62.dictionary.dao.LanguageDao;
 import fr.pinguet62.dictionary.model.Description;
 import fr.pinguet62.dictionary.model.Keyword;
-import fr.pinguet62.dictionary.model.Profile;
 
-/** Tests of database tables associations. */
+/**
+ * Tests for "one to many" associations of database tables.
+ *
+ * @see OneToMany
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "/applicationContext.xml")
 @DatabaseSetup("/dataset.xml")
@@ -34,10 +35,7 @@ import fr.pinguet62.dictionary.model.Profile;
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class })
 @Transactional
-public class RelationshipTest {
-
-    @Autowired
-    private DescriptionDao descriptionDao;
+public class OneToManyTest {
 
     @Autowired
     private KeywordDao keywordDao;
@@ -45,44 +43,14 @@ public class RelationshipTest {
     @Autowired
     private LanguageDao languageDao;
 
-    @Autowired
-    private ProfileDao profileDao;
-
-    @Autowired
-    private RightDao rightDao;
-
-    /** @see ManyToMany */
-    @Test
-    public void test_manyToMany_add() {
-        Profile profile = profileDao.get(1);
-        long initialCount = profile.getRights().size();
-        // add
-        profile.getRights().add(rightDao.get("USER_RO"));
-        assertEquals(initialCount + 1, profile.getRights().size());
-        profileDao.update(profile);
-        // test
-        assertEquals(initialCount + 1, profileDao.get(1).getRights().size());
-    }
-
     /**
-     * @see ManyToMany#fetch()
-     * @see FetchType#LAZY
+     * Add new item to the collection.
+     * <p>
+     * When the base object is updated, the new item must be automatically
+     * inserted.
      */
     @Test
-    public void test_manyToMany_lazyLoad() {
-        Profile profile = profileDao.get(1);
-        assertEquals(3, profile.getRights().size());
-    }
-
-    /** @see ManyToOne */
-    @Test
-    public void test_manyToOne() {
-        fail("Not yet implemented");
-    }
-
-    /** @see OneToMany */
-    @Test
-    public void test_oneToMany_add() {
+    public void test_add() {
         Keyword keyword = keywordDao.get(1);
         long initialCount = keyword.getDescriptions().size();
         // add
@@ -94,19 +62,21 @@ public class RelationshipTest {
                 .size());
     }
 
-    /**
-     * @see OneToMany
-     * @see FetchType#LAZY
-     */
+    /** @see FetchType#LAZY */
     @Test
-    public void test_oneToMany_lazyLoad() {
+    public void test_lazyLoad() {
         Keyword keyword = keywordDao.get(1);
         assertEquals(2, keyword.getDescriptions().size());
     }
 
-    /** @see OneToMany */
+    /**
+     * Remove an item to the collection.
+     * <p>
+     * When the base object is updated, the old item must be automatically
+     * removed.
+     */
     @Test
-    public void test_oneToMany_remove() {
+    public void test_remove() {
         Keyword keyword = keywordDao.get(1);
         long initialCount = keyword.getDescriptions().size();
         // remove
@@ -116,12 +86,6 @@ public class RelationshipTest {
         // test
         assertEquals(initialCount - 1, keywordDao.get(1).getDescriptions()
                 .size());
-    }
-
-    /** @see OneToOne */
-    @Test
-    public void test_oneToOne() {
-        fail("Not yet implemented");
     }
 
 }
