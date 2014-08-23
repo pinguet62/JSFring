@@ -30,7 +30,7 @@ import fr.pinguet62.dictionary.model.Profile;
     TransactionalTestExecutionListener.class,
     DbUnitTestExecutionListener.class })
 @Transactional
-public final class AbstractDaoTest {
+public class AbstractDaoTest {
 
     /** The {@link AbstractDao} to test. */
     @Autowired
