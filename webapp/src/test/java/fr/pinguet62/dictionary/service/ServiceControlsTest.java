@@ -13,8 +13,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import fr.pinguet62.dictionary.dao.RightDao;
 import fr.pinguet62.dictionary.model.Right;
@@ -29,7 +31,7 @@ class BadService {
     @Autowired
     RightDao rightDao;
 
-    private Right getRandomRight() {
+    private Right randomRight() {
         return new Right(UUID.randomUUID().toString().substring(0, 10), UUID
                 .randomUUID().toString().substring(0, 15));
     }
@@ -42,7 +44,7 @@ class BadService {
      */
     @Transactional(readOnly = true)
     void readOnlyMethod() {
-        rightDao.create(getRandomRight());
+        rightDao.create(randomRight());
     }
 
     /**
@@ -51,7 +53,7 @@ class BadService {
      */
     @Transactional
     void rollbackMethod() {
-        rightDao.create(getRandomRight());
+        rightDao.create(randomRight());
         throw new RollbackMeIMFamousException();
     }
 }
@@ -59,10 +61,10 @@ class BadService {
 /** Tests that the controls of {@link AbstractService} are correct. */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "/applicationContext.xml")
+@DatabaseSetup("/dataset.xml")
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-    TransactionalTestExecutionListener.class })
-@Transactional
-public final class ServiceControlsTest {
+    DbUnitTestExecutionListener.class })
+public class ServiceControlsTest {
 
     @Autowired
     BadService badService;
@@ -74,7 +76,6 @@ public final class ServiceControlsTest {
      * Test that {@link Service} methods annotated with
      * {@link Transactional#readOnly()} with value {@code true} will not insert
      * object into database.
-     * <p>
      *
      * @see BadService#readOnlyMethod()
      */

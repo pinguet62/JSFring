@@ -12,8 +12,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -25,10 +23,8 @@ import fr.pinguet62.dictionary.model.Language;
 @ContextConfiguration(locations = "/applicationContext.xml")
 @DatabaseSetup("/dataset.xml")
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        TransactionalTestExecutionListener.class,
-        DbUnitTestExecutionListener.class })
-@Transactional
-public final class AbstractServiceTest {
+    DbUnitTestExecutionListener.class })
+public class AbstractServiceTest {
 
     /** The {@link AbstractService} to test. */
     @Autowired
