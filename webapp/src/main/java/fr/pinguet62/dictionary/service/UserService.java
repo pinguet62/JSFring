@@ -8,7 +8,7 @@ import fr.pinguet62.dictionary.model.User;
 
 /** The service for {@link User}. */
 @Service
-public final class UserService extends AbstractService<User, String> {
+public class UserService extends AbstractService<User, String> {
 
     @Autowired
     protected UserService(UserDao dao) {

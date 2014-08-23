@@ -8,7 +8,7 @@ import fr.pinguet62.dictionary.model.Right;
 
 /** The service for {@link Right}. */
 @Service
-public final class RightService extends AbstractService<Right, String> {
+public class RightService extends AbstractService<Right, String> {
 
     @Autowired
     protected RightService(RightDao dao) {

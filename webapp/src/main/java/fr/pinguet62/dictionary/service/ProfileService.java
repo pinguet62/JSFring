@@ -8,7 +8,7 @@ import fr.pinguet62.dictionary.model.Profile;
 
 /** The service for {@link Profile}. */
 @Service
-public final class ProfileService extends AbstractService<Profile, Integer> {
+public class ProfileService extends AbstractService<Profile, Integer> {
 
     @Autowired
     protected ProfileService(ProfileDao dao) {
