@@ -5,6 +5,7 @@ import static org.junit.Assert.fail;
 
 import java.util.UUID;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,11 +67,50 @@ class BadService {
     DbUnitTestExecutionListener.class })
 public class ServiceControlsTest {
 
+    private static final Logger LOGGER = Logger
+            .getLogger(ServiceControlsTest.class);
+
     @Autowired
     BadService badService;
 
     @Autowired
     RightDao rightDao;
+
+    @Autowired
+    private ThreadTestService threadTestService;
+
+    @Test
+    public void test_concurrence() {
+        Thread t2 = new Thread(() -> {
+            threadTestService.method2();
+        });
+
+        Runnable runSecondThread = () -> {
+            LOGGER.debug("Thread2: start");
+            t2.start();
+        };
+        Runnable waitEndSecondThread = () -> {
+            try {
+                LOGGER.debug("Thread1: join Thread2...");
+                t2.join();
+                LOGGER.debug("Thread2: end");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        };
+        Thread t1 = new Thread(() -> threadTestService.method1(runSecondThread,
+                waitEndSecondThread));
+
+        LOGGER.debug("Thread1: start");
+        t1.start();
+        try {
+            LOGGER.debug("Thread1: join...");
+            t1.join();
+            LOGGER.debug("Thread1: end");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Test that {@link Service} methods annotated with
@@ -101,6 +141,47 @@ public class ServiceControlsTest {
         } catch (RollbackMeIMFamousException e) {
             assertEquals(initialCount, rightDao.count());
         }
+    }
+
+}
+
+@Service
+class ThreadTestService {
+
+    private static final Logger LOGGER = Logger
+            .getLogger(ThreadTestService.class);
+
+    @Autowired
+    private RightService rightService;
+
+    /**
+     * First method called for the test.
+     *
+     * <ul>
+     * <li>Start;</li>
+     * <li>Wait the authorization of {@link #method2()} to continue;</li>
+     * <li>Call stop method to wait exit.</li>
+     * </ul>
+     *
+     * @param runSecondThread
+     *            Run the second {@link Thread}.
+     * @param waitEndSecondThread
+     *            Wait the end of the second {@link Thread}.
+     */
+    @Transactional(readOnly = true)
+    public void method1(Runnable runSecondThread, Runnable waitEndSecondThread) {
+        LOGGER.debug("method1: started, start Thread2");
+        runSecondThread.run();
+        rightService.getAll();
+        LOGGER.debug("method1: waiting Thread2...");
+        waitEndSecondThread.run();
+    }
+
+    @Transactional(readOnly = true)
+    public void method2() {
+        LOGGER.debug("method2: started");
+        rightService.getAll();
+        LOGGER.debug("method2: finished");
     }
 
 }
