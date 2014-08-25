@@ -10,14 +10,32 @@
 	template="/template/layout.xhtml">
 	<ui:define name="content">
 		<h:form id="form">
+			<p:growl />
+
+			<script>
+				function showShow() {
+					PF('profileEditDialog').hide();
+					PF('profileShowDialog').show();
+				}
+				function showEdit() {
+					PF('profileShowDialog').hide();
+					PF('profileEditDialog').show();
+				}
+			</script>
+
 			<p:dataTable value="#{profilesManagedBean.list}" var="profile">
 				<p:column headerText="Title">
 					<h:outputText value="#{profile.title}" />
 				</p:column>
 				<p:column style="width: 150px; text-align: center">
 					<p:commandButton icon="ui-icon-search" title="Show"
-						update=":form:profileDetail"
-						oncomplete="PF('profileDialog').show()">
+						update=":form:profileShow" oncomplete="showShow()">
+						<f:setPropertyActionListener
+							target="#{profilesManagedBean.selectedProfile}"
+							value="#{profile}" />
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-pencil" title="Show"
+						update=":form:profileEdit" oncomplete="showEdit()">
 						<f:setPropertyActionListener
 							target="#{profilesManagedBean.selectedProfile}"
 							value="#{profile}" />
@@ -25,16 +43,41 @@
 				</p:column>
 			</p:dataTable>
 
-			<p:dialog id="profileDetail" widgetVar="profileDialog" dynamic="true"
-				header="#{profilesManagedBean.selectedProfile.title}"
-				showEffect="fade" hideEffect="fade" resizable="false">
-				<p:outputPanel>
-					<p:pickList value="#{profilesManagedBean.rightsAssociation}"
-						var="right" itemValue="#{right.code}" itemLabel="#{right.title}">
+			<p:dialog id="profileShow" widgetVar="profileShowDialog"
+				dynamic="true" header="Show" showEffect="fade" hideEffect="fade"
+				resizable="false">
+				<h:panelGrid columns="2">
+					<p:outputLabel for="titleShow" value="Title" />
+					<h:outputText id="titleShow"
+						value="#{profilesManagedBean.selectedProfile.title}" />
+					<p:outputLabel for="rightsShow" value="Rights" />
+					<p:dataList id="rightsShow"
+						value="#{profilesManagedBean.selectedProfile.rights}" var="right">
+						<f:facet name="header">
+							<h:outputText value="Associated" />
+						</f:facet>
+						<h:outputText value="#{right.title}" />
+					</p:dataList>
+				</h:panelGrid>
+			</p:dialog>
+			<p:dialog id="profileEdit" widgetVar="profileEditDialog"
+				dynamic="true" header="Edit" showEffect="fade" hideEffect="fade"
+				resizable="false">
+				<h:panelGrid columns="2">
+					<p:outputLabel for="titleEdit" value="Title" />
+					<p:inputText id="titleEdit"
+						value="#{profilesManagedBean.selectedProfile.title}" />
+					<p:outputLabel for="rightsEdit" value="Rights" />
+					<p:pickList id="rightsEdit"
+						value="#{profilesManagedBean.rightsAssociation}" var="right"
+						itemValue="#{right.code}" itemLabel="#{right.title}">
 						<f:facet name="sourceCaption">Available</f:facet>
 						<f:facet name="targetCaption">Associated</f:facet>
 					</p:pickList>
-				</p:outputPanel>
+				</h:panelGrid>
+				<p:commandButton value="Submit"
+					actionListener="#{profilesManagedBean.save}"
+					oncomplete="PF('profileEditDialog').hide();" />
 			</p:dialog>
 		</h:form>
 	</ui:define>

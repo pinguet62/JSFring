@@ -53,6 +53,15 @@ public final class ProfilesManagedBean {
         return selectedProfile;
     }
 
+    /**
+     * Call when the user click on "Submit" button into "Edit" dialog.
+     * <p>
+     * Save the modified {@link Profile}.
+     */
+    public void save() {
+        profileService.update(selectedProfile);
+    }
+
     public void setRightsAssociation(DualListModel<Right> rightsAssociation) {
         this.rightsAssociation = rightsAssociation;
     }
@@ -61,7 +70,7 @@ public final class ProfilesManagedBean {
      * Call when the user click on "Show" button.
      * <ul>
      * <li>Set the selected {@link Profile};</li>
-     * <li>Init the {@link Right} association.</li>
+     * <li>Initialize the {@link Right} association.</li>
      * </ul>
      *
      * @param profile
