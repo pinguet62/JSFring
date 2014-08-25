@@ -24,5 +24,27 @@
 			<to-view-id>/index.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
+		<!-- Administration -->
+		<navigation-case>
+			<from-outcome>users</from-outcome>
+			<to-view-id>/user/list.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>profiles</from-outcome>
+			<to-view-id>/profile/list.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<!-- User -->
+		<navigation-case>
+			<from-outcome>my-profile</from-outcome>
+			<to-view-id>/my-profile.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>change-password</from-outcome>
+			<to-view-id>/change-password.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
 	</navigation-rule>
 </faces-config>
