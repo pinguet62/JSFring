@@ -78,4 +78,16 @@ public abstract class AbstractService<T, PK extends Serializable> {
         return dao.getAll();
     }
 
+    /**
+     * Update an object.
+     *
+     * @param object
+     *            The object to update.
+     * @return The updated object.
+     */
+    @Transactional
+    public void update(T object) {
+        dao.update(object);
+    }
+
 }

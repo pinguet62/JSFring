@@ -34,7 +34,7 @@ public class AbstractServiceTest {
     private LanguageService languageService;
 
     @Autowired
-    ProfileService profileService;
+    private ProfileService profileService;
 
     /** @see AbstractService#create(Object) */
     @Test
@@ -63,10 +63,15 @@ public class AbstractServiceTest {
         assertEquals(3, profile.getRights().size());
     }
 
+    /** @see AbstractService#update(Object) */
     @Test
-    public void test_transaction() {
-        languageService.create(new Language("XX", "YYYYY"));
-        assertEquals(4, languageService.count());
+    public void test_update() {
+        Profile profile = profileService.get(1);
+        // update
+        profile.setTitle("new title");
+        profileService.update(profile);
+        // test
+        assertEquals("new title", profileService.get(1).getTitle());
     }
 
 }
