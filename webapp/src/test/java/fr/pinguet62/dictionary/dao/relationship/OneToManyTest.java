@@ -32,8 +32,8 @@ import fr.pinguet62.dictionary.model.Keyword;
 @ContextConfiguration(locations = "/applicationContext.xml")
 @DatabaseSetup("/dataset.xml")
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        TransactionalTestExecutionListener.class,
-        DbUnitTestExecutionListener.class })
+    TransactionalTestExecutionListener.class,
+    DbUnitTestExecutionListener.class })
 @Transactional
 public class OneToManyTest {
 
@@ -70,7 +70,7 @@ public class OneToManyTest {
     }
 
     /**
-     * Remove an item to the collection.
+     * Remove an item from the collection.
      * <p>
      * When the base object is updated, the old item must be automatically
      * removed.
@@ -86,6 +86,29 @@ public class OneToManyTest {
         // test
         assertEquals(initialCount - 1, keywordDao.get(1).getDescriptions()
                 .size());
+    }
+
+    /**
+     * Update an item of the collection.
+     * <p>
+     * When an item is modified, this item is updated.
+     */
+    @Test
+    public void test_update() {
+        Keyword keyword = keywordDao.get(1);
+        Description description = keyword.getDescriptions().stream()
+                .filter(d -> d.getLanguage().getCode().equals("fr")).findAny()
+                .get();
+        assertEquals("Langage de programmation.", description.getContent());
+        // update
+        description.setContent("Le Java c'est la vie !");
+        keywordDao.update(keyword);
+        // test
+        assertEquals(
+                "Le Java c'est la vie !",
+                keywordDao.get(1).getDescriptions().stream()
+                .filter(d -> d.getLanguage().getCode().equals("fr"))
+                .findAny().get().getContent());
     }
 
 }
