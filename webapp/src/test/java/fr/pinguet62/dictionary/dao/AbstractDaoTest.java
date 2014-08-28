@@ -27,12 +27,11 @@ import fr.pinguet62.dictionary.model.Profile;
 @ContextConfiguration(locations = "/applicationContext.xml")
 @DatabaseSetup("/dataset.xml")
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-    TransactionalTestExecutionListener.class,
-    DbUnitTestExecutionListener.class })
+        TransactionalTestExecutionListener.class,
+        DbUnitTestExecutionListener.class })
 @Transactional
 public class AbstractDaoTest {
 
-    /** The {@link AbstractDao} to test. */
     @Autowired
     private LanguageDao languageDao;
 
