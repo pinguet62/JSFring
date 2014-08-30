@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.pinguet62.dictionary.dao.AbstractDao;
+import fr.pinguet62.dictionary.filter.PaginationFilter;
+import fr.pinguet62.dictionary.filter.PaginationResult;
 
 /**
  * The generic service for entities.
@@ -56,6 +58,12 @@ public abstract class AbstractService<T, PK extends Serializable> {
         return dao.create(object);
     }
 
+    // TODO Comments
+    @Transactional(readOnly = true)
+    public PaginationResult<T> find(PaginationFilter filter) {
+        return dao.find(filter);
+    }
+
     /**
      * Get the object by id.
      *
@@ -76,6 +84,11 @@ public abstract class AbstractService<T, PK extends Serializable> {
     @Transactional(readOnly = true)
     public List<T> getAll() {
         return dao.getAll();
+    }
+
+    // TODO comment
+    public PaginationResult<T> toto(PaginationFilter filter) {
+        return dao.find(filter);
     }
 
     /**
