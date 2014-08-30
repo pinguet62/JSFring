@@ -1,7 +1,6 @@
 package fr.pinguet62.dictionary.dao;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -36,68 +35,105 @@ public class PanigationTest {
     private ProfileDao profileDao;
 
     /**
-     * All items are selected:
-     * <ul>
-     * <li>first page</li>
-     * <li>the number of item is equals to the total count.</li>
-     * </ul>
+     * Find all items.
+     * <p>
+     * The first index is {@code 0} and the page size is greater than the total
+     * count.
      */
     @Test
     public void test_all() {
-        assertEquals(2, profileDao.count());
+        final int totalCount = 2;
+        assertEquals(totalCount, profileDao.count());
 
         PaginationFilter filter = new PaginationFilter();
-        filter.setPage(1);
-        filter.setNumberPerPage(2);
+        filter.setFirst(0);
+        filter.setNumberPerPage(totalCount);
         PaginationResult<Profile> result = profileDao.find(filter);
 
-        assertEquals(2, result.getItems().size());
-        assertEquals(2, result.getTotalCount());
+        // total count
+        assertEquals(totalCount, result.getTotalCount());
+        // values
+        List<Profile> profiles = result.getItems();
+        assertEquals(totalCount, profiles.size());
     }
 
-    /** The result for a page too large must be empty. */
+    /** Test that the first page is correct. */
     @Test
-    public void test_empty() {
-        PaginationFilter filter = new PaginationFilter();
-        filter.setPage(99);
-        filter.setNumberPerPage(10);
-        PaginationResult<Profile> result = profileDao.find(filter);
-        assertEquals(0, result.getItems().size());
-        assertEquals(2, result.getTotalCount());
-    }
+    public void test_firstPage() {
+        final int totalCount = 25;
+        final int pageSize = 5;
 
-    /** Check that the first page is correct. */
-    @Test
-    public void test_first() {
         // prepare
-        for (int i = 3; i <= 25; i++)
-            profileDao.create(new Profile(String.valueOf(i)));
-        assertEquals(25, profileDao.getAll().size());
+        for (int i = 2; i < totalCount; i++)
+            profileDao.create(new Profile("title " + i));
+        assertEquals(totalCount, profileDao.getAll().size());
 
         PaginationFilter filter = new PaginationFilter();
-        filter.setPage(1);
-        filter.setNumberPerPage(10);
+        filter.setFirst(0);
+        filter.setNumberPerPage(pageSize);
         PaginationResult<Profile> result = profileDao.find(filter);
+
+        // total count
+        assertEquals(totalCount, result.getTotalCount());
+        // values
         List<Profile> profiles = result.getItems();
         assertEquals(1, profiles.get(0).getId().intValue());
         assertEquals(2, profiles.get(1).getId().intValue());
-        assertTrue(profiles.get(2).getId().intValue() > 3);
+        assertEquals("title 2", profiles.get(2).getTitle());
+        assertEquals("title 3", profiles.get(3).getTitle());
+        assertEquals("title 4", profiles.get(4).getTitle());
+        assertEquals(pageSize, profiles.size());
     }
 
-    /** Check that the last page (for a non-multiple count) is not full. */
+    /**
+     * Index too large: no result found.
+     * <p>
+     * They are 2 elements, and the result for item from {@code first=90} to
+     * {@code first+numberPerPage=90+5=95} index must be empty.
+     */
     @Test
-    public void test_lastNotFull() {
+    public void test_indexTooLarges() {
+        PaginationFilter filter = new PaginationFilter();
+        filter.setFirst(90);
+        filter.setNumberPerPage(5);
+        PaginationResult<Profile> result = profileDao.find(filter);
+
+        // total count
+        assertEquals(2, result.getTotalCount());
+        // values
+        List<Profile> profiles = result.getItems();
+        assertEquals(0, profiles.size());
+    }
+
+    /**
+     * Check that the last page is not full.
+     * <p>
+     * The total count is not a multiple of the page size.
+     */
+    @Test
+    public void test_lastPage() {
+        final int totalCount = 25;
+
         // prepare
-        for (int i = 3; i <= 25; i++)
-            profileDao.create(new Profile(String.valueOf(i)));
-        assertEquals(25, profileDao.getAll().size());
+        for (int i = 2; i < totalCount; i++)
+            profileDao.create(new Profile("title " + i));
+        assertEquals(totalCount, profileDao.getAll().size());
 
         PaginationFilter filter = new PaginationFilter();
-        filter.setPage(3);
+        filter.setFirst(20);
         filter.setNumberPerPage(10);
         PaginationResult<Profile> result = profileDao.find(filter);
-        assertEquals(5, result.getItems().size());
-        assertEquals(25, result.getTotalCount());
+
+        // total count
+        assertEquals(totalCount, result.getTotalCount());
+        // values
+        List<Profile> profiles = result.getItems();
+        assertEquals("title 20", profiles.get(0).getTitle());
+        assertEquals("title 21", profiles.get(1).getTitle());
+        assertEquals("title 22", profiles.get(2).getTitle());
+        assertEquals("title 23", profiles.get(3).getTitle());
+        assertEquals("title 24", profiles.get(4).getTitle());
+        assertEquals(5, profiles.size());
     }
 
 }
