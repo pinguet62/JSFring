@@ -1,6 +1,6 @@
 package fr.pinguet62.dictionary.model;
 
-// Generated 16 août 2014 18:49:09 by Hibernate Tools 4.0.0
+// Generated 16 aoÃ»t 2014 18:49:09 by Hibernate Tools 4.0.0
 
 import java.util.HashSet;
 import java.util.Set;
