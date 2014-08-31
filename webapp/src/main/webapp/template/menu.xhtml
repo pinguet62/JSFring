@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Home" outcome="index" icon="ui-icon-home" />
+			<p:submenu label="Administration" icon="ui-icon-gear">
+				<p:menuitem value="Users" outcome="users" icon="ui-icon-person" />
+				<p:menuitem value="Profiles" outcome="profiles" icon="ui-icon-flag" />
+			</p:submenu>
+			<f:facet name="options">
+				<p:menuButton value="TODO username">
+					<p:menuitem value="My account" outcome="my-profile"
+						icon="ui-icon-person" />
+					<p:menuitem value="Change password" outcome="change-password"
+						icon="ui-icon-locked" />
+					<p:menuitem value="Logout" icon="ui-icon-extlink" />
+				</p:menuButton>
+			</f:facet>
+		</p:menubar>
+	</h:form>
+</ui:composition>

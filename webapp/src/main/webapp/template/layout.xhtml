@@ -5,12 +5,29 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<h:outputStylesheet library="css" name="main.css" />
 	<title>Dictionary</title>
 </h:head>
 <h:body>
-	<ui:insert name="content" />
+	<p:layout fullPage="true">
+		<p:layoutUnit position="north" size="100">
+			<ui:include src="menu.xhtml" />
+		</p:layoutUnit>
+		<p:layoutUnit position="west" size="300"
+			style="overflow:hide !important">
+			<p:accordionPanel value="Top 5">
+                1<br />2<br />3<br />4<br />5
+            </p:accordionPanel>
+			<p:accordionPanel>
+                fr<br />en
+            </p:accordionPanel>
+		</p:layoutUnit>
+		<p:layoutUnit position="center">
+			<ui:insert name="content" />
+		</p:layoutUnit>
+	</p:layout>
 </h:body>
 </html>
