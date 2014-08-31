@@ -8,11 +8,16 @@
 	<packaging>war</packaging>
 	<url>http://maven.apache.org</url>
 	<version>1.0-SNAPSHOT</version>
+
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java-version>1.8</java-version>
+		<hivernate.version>4.3.6.Final</hivernate.version>
 		<spring.version>4.0.6.RELEASE</spring.version>
 		<spring-security.version>3.2.5.RELEASE</spring-security.version>
 	</properties>
+
+	<!-- Repositories -->
 	<repositories>
 		<repository>
 			<!-- PrimeFaces -->
@@ -22,6 +27,14 @@
 			<layout>default</layout>
 		</repository>
 	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>maven-annotation</id>
+			<url>http://maven-annotation-plugin.googlecode.com/svn/trunk/mavenrepo
+			</url>
+		</pluginRepository>
+	</pluginRepositories>
+
 	<dependencies>
 		<!-- ===== Others ===== -->
 		<!-- Logging -->
@@ -115,13 +128,20 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>4.3.6.Final</version>
+			<version>${hivernate.version}</version>
 		</dependency>
 		<!-- Provider -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>4.3.6.Final</version>
+			<version>${hivernate.version}</version>
+		</dependency>
+		<!-- Metamodel -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-jpamodelgen</artifactId>
+			<version>${hivernate.version}</version>
+			<optional>true</optional>
 		</dependency>
 
 		<!-- ===== Spring ===== -->
@@ -184,6 +204,7 @@
 			<version>1.1.0</version>
 		</dependency>
 	</dependencies>
+
 	<build>
 		<finalName>Dictionary</finalName>
 		<testResources>
@@ -191,6 +212,41 @@
 				<directory>${project.basedir}/src/test/resources</directory>
 			</testResource>
 		</testResources>
+
+		<!-- Plugins -->
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.bsc.maven</groupId>
+					<artifactId>maven-processor-plugin</artifactId>
+					<version>3.1.0-beta1</version>
+					<executions>
+						<execution>
+							<id>process</id>
+							<goals>
+								<goal>process</goal>
+							</goals>
+							<phase>generate-sources</phase>
+							<configuration>
+								<processors>
+									<processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor
+									</processor>
+								</processors>
+								<outputDirectory>src/main/java</outputDirectory>
+								<failOnError>false</failOnError>
+							</configuration>
+						</execution>
+					</executions>
+					<dependencies>
+						<dependency>
+							<groupId>org.hibernate</groupId>
+							<artifactId>hibernate-jpamodelgen</artifactId>
+							<version>${hivernate.version}</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -198,6 +254,7 @@
 				<configuration>
 					<source>${java-version}</source>
 					<target>${java-version}</target>
+					<compilerArgument>-proc:none</compilerArgument>
 				</configuration>
 			</plugin>
 		</plugins>
