@@ -10,7 +10,7 @@
 	template="/template/layout.xhtml">
 	<ui:define name="content">
 		<h:form id="form">
-			<p:growl />
+			<p:growl autoUpdate="true" />
 
 			<script>
 				function showShow() {
@@ -32,7 +32,8 @@
 					<p:columnToggler datasource="datatable" trigger="toggler" />
 				</f:facet>
 
-				<p:column headerText="Title">
+				<p:column headerText="Title" filterBy="#{profile.title}"
+					sortBy="#{profile.title}">
 					<h:outputText value="#{profile.title}" />
 				</p:column>
 				<p:column headerText="Actions"
@@ -86,7 +87,7 @@
 				</h:panelGrid>
 				<p:commandButton value="Submit"
 					actionListener="#{profilesManagedBean.save}"
-					oncomplete="PF('profileEditDialog').hide();" />
+					oncomplete="PF('profileEditDialog').hide();" update="datatable" />
 			</p:dialog>
 		</h:form>
 	</ui:define>

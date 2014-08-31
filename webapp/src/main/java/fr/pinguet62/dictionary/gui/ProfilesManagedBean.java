@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import org.primefaces.model.DualListModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,8 @@ import fr.pinguet62.dictionary.service.RightService;
 @ManagedBean
 @ViewScoped
 public final class ProfilesManagedBean {
+
+    private List<Profile> profiles;
 
     @Autowired
     private ProfileService profileService;
@@ -42,7 +47,7 @@ public final class ProfilesManagedBean {
      * @return The {@link Profile}s.
      */
     public List<Profile> getList() {
-        return profileService.getAll();
+        return profiles;
     }
 
     public DualListModel<Right> getRightsAssociation() {
@@ -53,6 +58,12 @@ public final class ProfilesManagedBean {
         return selectedProfile;
     }
 
+    /** Initialize the list of {@link Profile}s. */
+    @PostConstruct
+    private void init() {
+        profiles = profileService.getAll();
+    }
+
     /**
      * Call when the user click on "Submit" button into "Edit" dialog.
      * <p>
@@ -60,6 +71,10 @@ public final class ProfilesManagedBean {
      */
     public void save() {
         profileService.update(selectedProfile);
+        FacesContext.getCurrentInstance().addMessage(
+                null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Profile updated",
+                        selectedProfile.getTitle()));
     }
 
     public void setRightsAssociation(DualListModel<Right> rightsAssociation) {
