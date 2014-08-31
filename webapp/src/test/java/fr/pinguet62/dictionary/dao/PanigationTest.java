@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
-import fr.pinguet62.dictionary.filter.PaginationFilter;
+import fr.pinguet62.dictionary.filter.SearchFilter;
 import fr.pinguet62.dictionary.filter.PaginationResult;
 import fr.pinguet62.dictionary.model.Profile;
 
@@ -45,7 +45,7 @@ public class PanigationTest {
         final int totalCount = 2;
         assertEquals(totalCount, profileDao.count());
 
-        PaginationFilter filter = new PaginationFilter();
+        SearchFilter filter = new SearchFilter();
         filter.setFirst(0);
         filter.setNumberPerPage(totalCount);
         PaginationResult<Profile> result = profileDao.find(filter);
@@ -68,7 +68,7 @@ public class PanigationTest {
             profileDao.create(new Profile("title " + i));
         assertEquals(totalCount, profileDao.getAll().size());
 
-        PaginationFilter filter = new PaginationFilter();
+        SearchFilter filter = new SearchFilter();
         filter.setFirst(0);
         filter.setNumberPerPage(pageSize);
         PaginationResult<Profile> result = profileDao.find(filter);
@@ -93,7 +93,7 @@ public class PanigationTest {
      */
     @Test
     public void test_indexTooLarges() {
-        PaginationFilter filter = new PaginationFilter();
+        SearchFilter filter = new SearchFilter();
         filter.setFirst(90);
         filter.setNumberPerPage(5);
         PaginationResult<Profile> result = profileDao.find(filter);
@@ -119,7 +119,7 @@ public class PanigationTest {
             profileDao.create(new Profile("title " + i));
         assertEquals(totalCount, profileDao.getAll().size());
 
-        PaginationFilter filter = new PaginationFilter();
+        SearchFilter filter = new SearchFilter();
         filter.setFirst(20);
         filter.setNumberPerPage(10);
         PaginationResult<Profile> result = profileDao.find(filter);

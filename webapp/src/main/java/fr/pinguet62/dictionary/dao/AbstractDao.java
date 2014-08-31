@@ -3,6 +3,8 @@ package fr.pinguet62.dictionary.dao;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -12,14 +14,12 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Root;
 
-import org.hibernate.Criteria;
 import org.springframework.stereotype.Repository;
 
-import fr.pinguet62.dictionary.filter.PaginationFilter;
 import fr.pinguet62.dictionary.filter.PaginationResult;
+import fr.pinguet62.dictionary.filter.SearchFilter;
 
 /**
  * The generic DAO for entities.
@@ -31,6 +31,18 @@ import fr.pinguet62.dictionary.filter.PaginationResult;
  */
 @Repository
 public abstract class AbstractDao<T, PK extends Serializable> {
+
+    /** Apply the filter on fields to the {@link CriteriaQuery}. */
+    private static <T> void applyFilter(CriteriaBuilder cb,
+            CriteriaQuery<?> resultQuery, Root<T> from,
+            Map<String, Object> filters) {
+        if (filters == null)
+            return;
+
+        for (Entry<String, Object> filter : filters.entrySet())
+            resultQuery.where(cb.like(from.get(filter.getKey()),
+                    "%" + filter.getValue() + "%"));
+    }
 
     /** The {@link EntityManager}. */
     @PersistenceContext(type = PersistenceContextType.EXTENDED)
@@ -81,14 +93,6 @@ public abstract class AbstractDao<T, PK extends Serializable> {
         em.remove(obj);
     }
 
-    /** Delete all objects of table. */
-    public void deleteAll() {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaDelete<T> cd = cb.createCriteriaDelete(type);
-        cd.from(type);
-        em.createQuery(cd).executeUpdate();
-    }
-
     /**
      * Get the {@link Criteria} of object.
      *
@@ -99,22 +103,37 @@ public abstract class AbstractDao<T, PK extends Serializable> {
     // return session.createCriteria(type);
     // }
 
-    // TODO Comments
-    public PaginationResult<T> find(PaginationFilter filter) {
+    /** Delete all objects of table. */
+    public void deleteAll() {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaDelete<T> cd = cb.createCriteriaDelete(type);
+        cd.from(type);
+        em.createQuery(cd).executeUpdate();
+    }
+
+    /**
+     * Find objects by filter.
+     *
+     * @param filter
+     *            The {@link SearchFilter}.
+     * @return The list of found objects.
+     */
+    public PaginationResult<T> find(SearchFilter filter) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
 
         // Total count
         CriteriaQuery<Long> countQuery = cb.createQuery(Long.class);
-        Root<T> from = countQuery.from(type);
-        Expression<Long> count = cb.count(from);
-        countQuery.select(count);
+        Root<T> from1 = countQuery.from(type);
+        applyFilter(cb, countQuery, from1, filter.getFieldFilters());
+        countQuery.select(cb.count(from1));
         long totalCount = em.createQuery(countQuery).getSingleResult();
 
         // Results
         CriteriaQuery<T> resultQuery = cb.createQuery(type);
         Root<T> from2 = resultQuery.from(type);
-        CriteriaQuery<T> select = resultQuery.select(from2);
-        TypedQuery<T> typedQuery = em.createQuery(select);
+        applyFilter(cb, resultQuery, from2, filter.getFieldFilters());
+        resultQuery.select(from2);
+        TypedQuery<T> typedQuery = em.createQuery(resultQuery);
         typedQuery.setFirstResult(filter.getFirstIndex());
         typedQuery.setMaxResults(filter.getNumberPerPage());
         List<T> results = typedQuery.getResultList();

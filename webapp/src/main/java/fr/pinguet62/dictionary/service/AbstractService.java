@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.pinguet62.dictionary.dao.AbstractDao;
-import fr.pinguet62.dictionary.filter.PaginationFilter;
+import fr.pinguet62.dictionary.filter.SearchFilter;
 import fr.pinguet62.dictionary.filter.PaginationResult;
 
 /**
@@ -60,7 +60,7 @@ public abstract class AbstractService<T, PK extends Serializable> {
 
     // TODO Comments
     @Transactional(readOnly = true)
-    public PaginationResult<T> find(PaginationFilter filter) {
+    public PaginationResult<T> find(SearchFilter filter) {
         return dao.find(filter);
     }
 
@@ -87,7 +87,7 @@ public abstract class AbstractService<T, PK extends Serializable> {
     }
 
     // TODO comment
-    public PaginationResult<T> toto(PaginationFilter filter) {
+    public PaginationResult<T> toto(SearchFilter filter) {
         return dao.find(filter);
     }
 
