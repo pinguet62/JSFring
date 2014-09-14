@@ -19,9 +19,7 @@ import org.springframework.stereotype.Repository;
 import fr.pinguet62.dictionary.search.Order;
 import fr.pinguet62.dictionary.search.Query;
 import fr.pinguet62.dictionary.search.Result;
-import fr.pinguet62.dictionary.search.condition.BetweenCondition;
 import fr.pinguet62.dictionary.search.condition.Condition;
-import fr.pinguet62.dictionary.search.condition.EqualsCondition;
 import fr.pinguet62.dictionary.search.function.CountFunction;
 import fr.pinguet62.dictionary.search.function.Function;
 import fr.pinguet62.dictionary.search.function.IdentityFunction;
@@ -33,27 +31,6 @@ AbstractDao<T, PK> {
 
     @PersistenceContext(type = PersistenceContextType.EXTENDED)
     private EntityManager em;
-
-    /**
-     * Needed to cast the {@link Condition} to target class who implements
-     * {@link Comparable}.
-     *
-     * @param <Y>
-     *            Type who implements {@link Comparable}.
-     * @param condition
-     *            The {@link BetweenCondition}.
-     * @return The {@link Predicate}.
-     */
-    private <F, Y extends Comparable<? super Y>> Predicate applyBetweenCondition(
-            CriteriaBuilder cb, Root<F> from, Condition condition) {
-        BetweenCondition<F, Y> betweenCondition = (BetweenCondition<F, Y>) condition;
-        SingularAttribute<F, ? extends Y> attribute = betweenCondition
-                .getAttribute();
-
-        Predicate p = cb.between(from.get(attribute),
-                betweenCondition.getInf(), betweenCondition.getSup());
-        return p;
-    }
 
     public <F> long count(Query<F> query) {
         return get(query.select(Function.Count()));
@@ -95,16 +72,9 @@ AbstractDao<T, PK> {
 
         // TODO WHERE
         for (Condition condition : query.getWheres()) {
-            Predicate p;
-            if (condition instanceof BetweenCondition)
-                p = applyBetweenCondition(cb, from, condition);
-            else if (condition instanceof EqualsCondition) {
-                EqualsCondition equalsCondition = (EqualsCondition) condition;
-                p = cb.equal(from.get(equalsCondition.getAttribute()),
-                        equalsCondition.getValue());
-            } else
-                throw new UnsupportedOperationException("Unknow condition: "
-                        + condition);
+            java.util.function.Function<Condition, Predicate> converter = new ConditionBuilder<F>(
+                    cb, from);
+            Predicate p = converter.apply(condition);
             resultQuery.where(p);
         }
 
