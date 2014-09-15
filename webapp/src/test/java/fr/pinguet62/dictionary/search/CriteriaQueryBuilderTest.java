@@ -2,6 +2,7 @@ package fr.pinguet62.dictionary.search;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.util.List;
 
@@ -43,21 +44,26 @@ public class CriteriaQueryBuilderTest {
     RightSearchDao rightDao;
 
     @Test
-    public void count() {
-        Query<Right> query = Query.From(Right.class);
-        long count = rightDao.count(query);
-        assertEquals(5, count);
-    }
-
-    @Test
-    public void find_all() {
+    public void all() {
         Result<Right, Right> query = Query.From(Right.class).select();
         List<Right> rights = rightDao.find(query);
         assertEquals(5, rights.size());
     }
 
     @Test
-    public void find_attribute() {
+    public void count() {
+        Query<Right> query = Query.From(Right.class);
+        long count = rightDao.count(query);
+        assertEquals(5, count);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void find_nonUniqueResult() {
+        rightDao.get(Query.From(Right.class).select());
+    }
+
+    @Test
+    public void select_attribute() {
         Result<Right, String> query = Query.From(Right.class).select(
                 Right_.code);
 
@@ -66,11 +72,26 @@ public class CriteriaQueryBuilderTest {
     }
 
     @Test
-    public void find_where() {
-        Result<Right, Right> query = Query.From(Right.class)
-                .where(Condition.Equals(Right_.code, "RIGHT_RO")).select();
-        List<Right> rights = rightDao.find(query);
-        assertEquals(1, rights.size());
+    public void where_and_double() {
+        Result<Profile, Profile> query = Query
+                .From(Profile.class)
+                .where(Condition.And(Condition.Equals(Profile_.id, 1),
+                        Condition.Equals(Profile_.title, "Profile admin")))
+                .select();
+        Profile profile = rightDao.get(query);
+        assertNotNull(profile);
+        assertEquals(1, profile.getId().intValue());
+        assertEquals("Profile admin", profile.getTitle());
+    }
+
+    @Test
+    public void where_and_notFound() {
+        Result<Profile, Profile> query = Query
+                .From(Profile.class)
+                .where(Condition.And(Condition.Equals(Profile_.id, 1),
+                        Condition.Equals(Profile_.title, "inexist"))).select();
+        assertEquals(0, rightDao.find(query).size());
+        assertNull(rightDao.get(query));
     }
 
     @Test
@@ -80,6 +101,14 @@ public class CriteriaQueryBuilderTest {
         Profile profile = rightDao.get(query);
         assertNotNull(profile);
         assertEquals("Profile admin", profile.getTitle());
+    }
+
+    @Test
+    public void where_equals() {
+        Result<Right, Right> query = Query.From(Right.class)
+                .where(Condition.Equals(Right_.code, "RIGHT_RO")).select();
+        List<Right> rights = rightDao.find(query);
+        assertEquals(1, rights.size());
     }
 
 }

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.TypedQuery;
@@ -46,8 +48,16 @@ AbstractDao<T, PK> {
     // F => T
     public <F, S> S get(Result<F, S> queryResult) {
         TypedQuery<S> typedQuery = getTypedQuery(queryResult);
-        S result = typedQuery.getSingleResult();
-        return result;
+        try {
+            S result = typedQuery.getSingleResult();
+            return result;
+        } catch (NoResultException noResultException) {
+            return null;
+        } catch (NonUniqueResultException nonUniqueResultException) {
+            throw new RuntimeException("More than 1 item found. Use "
+                    + getClass().getSimpleName()
+                    + "#find to get results, or add more filters.");
+        }
     }
 
     // F => T

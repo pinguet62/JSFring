@@ -1,5 +1,6 @@
 package fr.pinguet62.dictionary.dao;
 
+import java.util.Arrays;
 import java.util.function.Function;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -7,6 +8,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.SingularAttribute;
 
+import fr.pinguet62.dictionary.search.condition.AndCondition;
 import fr.pinguet62.dictionary.search.condition.BetweenCondition;
 import fr.pinguet62.dictionary.search.condition.Condition;
 import fr.pinguet62.dictionary.search.condition.EqualsCondition;
@@ -18,7 +20,7 @@ import fr.pinguet62.dictionary.search.condition.EqualsCondition;
  *            The base type.
  */
 public final class ConditionBuilder<F> implements
-        Function<Condition, Predicate> {
+Function<Condition, Predicate> {
 
     private final CriteriaBuilder cb;
 
@@ -31,7 +33,13 @@ public final class ConditionBuilder<F> implements
 
     @Override
     public Predicate apply(Condition condition) {
-        if (condition instanceof BetweenCondition)
+        if (condition instanceof AndCondition) {
+            AndCondition andCondition = (AndCondition) condition;
+            Predicate[] predicatess = Arrays
+                    .asList(andCondition.getConditions()).stream()
+                    .map(c -> this.apply(c)).toArray(Predicate[]::new);
+            return cb.and(predicatess);
+        } else if (condition instanceof BetweenCondition)
             return applyBetweenCondition(cb, from, condition);
         else if (condition instanceof EqualsCondition) {
             EqualsCondition equalsCondition = (EqualsCondition) condition;
