@@ -15,6 +15,7 @@
 		<hivernate.version>4.3.6.Final</hivernate.version>
 		<spring.version>4.0.6.RELEASE</spring.version>
 		<spring-security.version>3.2.5.RELEASE</spring-security.version>
+		<querydsl.version>3.4.2</querydsl.version>
 	</properties>
 
 	<!-- Repositories -->
@@ -27,6 +28,13 @@
 			<layout>default</layout>
 		</repository>
 	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>maven-annotation</id>
+			<url>http://maven-annotation-plugin.googlecode.com/svn/trunk/mavenrepo
+			</url>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<dependencies>
 		<!-- ===== Others ===== -->
@@ -130,6 +138,19 @@
 			<version>${hivernate.version}</version>
 		</dependency>
 
+		<!-- Search query -->
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-apt</artifactId>
+			<version>${querydsl.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-jpa</artifactId>
+			<version>${querydsl.version}</version>
+		</dependency>
+
 		<!-- ===== Spring ===== -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -209,6 +230,23 @@
 					<target>${java-version}</target>
 					<compilerArgument>-proc:none</compilerArgument>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.mysema.maven</groupId>
+				<artifactId>apt-maven-plugin</artifactId>
+				<version>1.0.9</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>target/generated-sources/java</outputDirectory>
+							<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor
+							</processor>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
