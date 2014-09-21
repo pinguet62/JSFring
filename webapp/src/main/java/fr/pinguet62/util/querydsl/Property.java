@@ -6,7 +6,6 @@ import com.mysema.query.types.expr.SimpleExpression;
 import com.mysema.query.types.path.EntityPathBase;
 
 import fr.pinguet62.dictionary.model.QProfile;
-import fr.pinguet62.util.querydsl.Filter.FilterException;
 
 /** Utils for meta-model properties. */
 public final class Property {
@@ -59,7 +58,7 @@ public final class Property {
                 targetAttribute = (SimpleExpression<?>) field
                         .get(targetAttribute);
             } catch (IllegalArgumentException | IllegalAccessException exception) {
-                throw new FilterException(
+                throw new RuntimeException(
                         "Error during getting the attribute value: "
                                 + targetAttribute.getClass() + "#"
                                 + attributeName, exception);

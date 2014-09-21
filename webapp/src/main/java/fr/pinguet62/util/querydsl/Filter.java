@@ -17,7 +17,7 @@ import fr.pinguet62.dictionary.model.QProfile;
  * Use the {@code like} expression.
  */
 public final class Filter implements
-Function<Map<String, Object>, BooleanExpression> {
+        Function<Map<String, Object>, BooleanExpression> {
 
     /** Error during {@link FilterTest} application. */
     public static class FilterException extends RuntimeException {
@@ -78,8 +78,6 @@ Function<Map<String, Object>, BooleanExpression> {
      * @param filters
      *            The properties and the values.
      * @return The {@link BooleanExpression}.
-     * @throws FilterException
-     *             Attribute doen't found, or doen't support filter.
      * @throws UnsupportedOperationException
      *             The target field doen't exist or doen't support filter.
      */
@@ -90,7 +88,7 @@ Function<Map<String, Object>, BooleanExpression> {
             // Attribute
             String property = filter.getKey();
             SimpleExpression<?> attribute = new Property(meta)
-            .getAttribute(property);
+                    .getAttribute(property);
             // Condition
             Object value = filter.getValue();
             condition = applyLike(attribute, value);
