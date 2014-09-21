@@ -1,7 +1,10 @@
 package fr.pinguet62.dictionary.gui;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Map;
+
+import javax.persistence.Entity;
 
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.model.LazyDataModel;
@@ -17,6 +20,7 @@ import fr.pinguet62.dictionary.model.QUser;
 import fr.pinguet62.dictionary.service.AbstractService;
 import fr.pinguet62.util.querydsl.Filter;
 import fr.pinguet62.util.querydsl.Order;
+import fr.pinguet62.util.querydsl.ReflectionUtil;
 
 /**
  * Add methods to {@link LazyDataModel} for lazy loading: filtering and sorting.
@@ -24,30 +28,47 @@ import fr.pinguet62.util.querydsl.Order;
  * @param <T>
  *            The target type.
  */
-public abstract class AbstractLazyDataModel<T> extends LazyDataModel<T> {
+public class AbstractLazyDataModel<T> extends LazyDataModel<T> {
 
     /** Serial version UID. */
     private static final long serialVersionUID = 1;
+
+    /** The {@link EntityPath}. */
+    private final EntityPath<?> defaultMetaObject;
 
     /** The {@link AbstractService}. */
     transient protected final AbstractService<T, ?> service;
 
     /**
-     * Constructor.
+     * Constructor. <br/>
+     * Used by sub classes who the target type is set.
      *
      * @param service
      *            The {@link AbstractService}.
      */
-    public AbstractLazyDataModel(AbstractService<T, ?> service) {
+    @SuppressWarnings("unchecked")
+    protected AbstractLazyDataModel(AbstractService<T, ?> service) {
         this.service = service;
+
+        Class<T> entityType = (Class<T>) ((ParameterizedType) getClass()
+                .getGenericSuperclass()).getActualTypeArguments()[0];
+        defaultMetaObject = ReflectionUtil.getDefaultMetaObject(entityType);
     }
 
     /**
-     * Get the {@link EntityPath}.
-     * 
-     * @return The {@link EntityPath}.
+     * Constructor with {@link Entity} type.<br/>
+     * Used when this class is directly used without extending.
+     *
+     * @param service
+     *            The {@link AbstractService}.
+     * @param entityType
+     *            The {@link Entity} type.
      */
-    protected abstract EntityPath<?> getEntityPath();
+    public AbstractLazyDataModel(AbstractService<T, ?> service,
+            Class<T> entityType) {
+        this.service = service;
+        defaultMetaObject = ReflectionUtil.getDefaultMetaObject(entityType);
+    }
 
     /**
      * Load the lazy {@link DataTable}.
@@ -70,7 +91,7 @@ public abstract class AbstractLazyDataModel<T> extends LazyDataModel<T> {
     public List<T> load(int first, int pageSize, String sortField,
             SortOrder sortOrder, Map<String, Object> filters) {
         JPAQuery query = new JPAQuery();
-        query.from(getEntityPath());
+        query.from(defaultMetaObject);
 
         // Pagination
         query.offset(first);

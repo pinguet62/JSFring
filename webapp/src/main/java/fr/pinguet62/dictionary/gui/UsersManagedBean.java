@@ -32,7 +32,7 @@ public final class UsersManagedBean {
 
     @PostConstruct
     private void init() {
-        lazyDataModel = new UserLazyDataModel(userService);
+        lazyDataModel = new AbstractLazyDataModel<User>(userService, User.class);
     }
 
 }

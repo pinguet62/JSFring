@@ -2,9 +2,6 @@ package fr.pinguet62.dictionary.gui;
 
 import javax.faces.model.DataModel;
 
-import com.mysema.query.types.EntityPath;
-
-import fr.pinguet62.dictionary.model.QUser;
 import fr.pinguet62.dictionary.model.User;
 import fr.pinguet62.dictionary.service.UserService;
 
@@ -22,11 +19,6 @@ public final class UserLazyDataModel extends AbstractLazyDataModel<User> {
      */
     public UserLazyDataModel(UserService service) {
         super(service);
-    }
-
-    @Override
-    protected EntityPath<?> getEntityPath() {
-        return QUser.user;
     }
 
 }
