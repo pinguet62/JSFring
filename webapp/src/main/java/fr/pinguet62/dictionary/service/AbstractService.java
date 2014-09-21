@@ -7,9 +7,10 @@ import javax.persistence.Entity;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mysema.query.SearchResults;
+import com.mysema.query.jpa.impl.JPAQuery;
+
 import fr.pinguet62.dictionary.dao.AbstractDao;
-import fr.pinguet62.dictionary.filter.SearchFilter;
-import fr.pinguet62.dictionary.filter.PaginationResult;
 
 /**
  * The generic service for entities.
@@ -60,8 +61,8 @@ public abstract class AbstractService<T, PK extends Serializable> {
 
     // TODO Comments
     @Transactional(readOnly = true)
-    public PaginationResult<T> find(SearchFilter filter) {
-        return dao.find(filter);
+    public SearchResults<T> findPanginated(JPAQuery query) {
+        return dao.findPanginated(query);
     }
 
     /**
@@ -84,11 +85,6 @@ public abstract class AbstractService<T, PK extends Serializable> {
     @Transactional(readOnly = true)
     public List<T> getAll() {
         return dao.getAll();
-    }
-
-    // TODO comment
-    public PaginationResult<T> toto(SearchFilter filter) {
-        return dao.find(filter);
     }
 
     /**
