@@ -21,7 +21,7 @@ import javax.servlet.ServletResponse;
 public final class LoginManagedBean implements Serializable {
 
     /** Serial version UID. */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1;
 
     @ManagedProperty("#{param.error}")
     private String error;

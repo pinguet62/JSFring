@@ -22,7 +22,7 @@ import fr.pinguet62.util.querydsl.Order;
 public final class UserLazyDataModel extends LazyDataModel<User> {
 
     /** Serial version UID. */
-    private static final long serialVersionUID = 2376788230677414872L;
+    private static final long serialVersionUID = 1;
 
     /** The {@link AbstractService}. */
     transient private UserService service;

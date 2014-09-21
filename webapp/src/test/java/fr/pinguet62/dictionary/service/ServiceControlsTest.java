@@ -26,7 +26,7 @@ import fr.pinguet62.dictionary.service.BadService.RollbackMeIMFamousException;
 @Service
 class BadService {
     class RollbackMeIMFamousException extends RuntimeException {
-        private static final long serialVersionUID = 1L;
+        private static final long serialVersionUID = 1;
     }
 
     @Autowired
@@ -64,7 +64,7 @@ class BadService {
 @ContextConfiguration(locations = "/applicationContext.xml")
 @DatabaseSetup("/dataset.xml")
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-    DbUnitTestExecutionListener.class })
+        DbUnitTestExecutionListener.class })
 public class ServiceControlsTest {
 
     private static final Logger LOGGER = Logger

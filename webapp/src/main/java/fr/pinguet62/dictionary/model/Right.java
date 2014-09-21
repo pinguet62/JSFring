@@ -17,7 +17,7 @@ import javax.persistence.Table;
 public class Right implements java.io.Serializable {
 
     /** Serial version UID. */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1;
 
     private String code;
     private Set<Profile> profiles = new HashSet<Profile>(0);
