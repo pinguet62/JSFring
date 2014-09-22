@@ -6,7 +6,7 @@ import fr.pinguet62.dictionary.model.User;
 import fr.pinguet62.dictionary.service.UserService;
 
 /** Lazy {@link DataModel} for {@link User}. */
-public final class UserLazyDataModel extends AbstractLazyDataModel<User> {
+public final class UserLazyDataModel extends QuerydslLazyDataModel<User> {
 
     /** Serial version UID. */
     private static final long serialVersionUID = 1;

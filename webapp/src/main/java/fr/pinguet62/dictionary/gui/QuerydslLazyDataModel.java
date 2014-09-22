@@ -23,18 +23,18 @@ import fr.pinguet62.util.querydsl.Order;
 import fr.pinguet62.util.querydsl.ReflectionUtil;
 
 /**
- * Add methods to {@link LazyDataModel} for lazy loading: filtering and sorting.
+ * {@link LazyDataModel} using the Querydsl API.
  *
  * @param <T>
  *            The target type.
  */
-public class AbstractLazyDataModel<T> extends LazyDataModel<T> {
+public class QuerydslLazyDataModel<T> extends LazyDataModel<T> {
 
     /** Serial version UID. */
     private static final long serialVersionUID = 1;
 
-    /** The {@link EntityPath}. */
-    private final EntityPath<?> defaultMetaObject;
+    /** The default {@link EntityPath}. */
+    private final EntityPath<T> defaultMetaObject;
 
     /** The {@link AbstractService}. */
     transient protected final AbstractService<T, ?> service;
@@ -47,7 +47,7 @@ public class AbstractLazyDataModel<T> extends LazyDataModel<T> {
      *            The {@link AbstractService}.
      */
     @SuppressWarnings("unchecked")
-    protected AbstractLazyDataModel(AbstractService<T, ?> service) {
+    protected QuerydslLazyDataModel(AbstractService<T, ?> service) {
         this.service = service;
 
         Class<T> entityType = (Class<T>) ((ParameterizedType) getClass()
@@ -61,13 +61,13 @@ public class AbstractLazyDataModel<T> extends LazyDataModel<T> {
      *
      * @param service
      *            The {@link AbstractService}.
-     * @param entityType
-     *            The {@link Entity} type.
+     * @param defaultMetaObject
+     *            The default {@link EntityPath}.
      */
-    public AbstractLazyDataModel(AbstractService<T, ?> service,
-            Class<T> entityType) {
+    public QuerydslLazyDataModel(AbstractService<T, ?> service,
+            EntityPath<T> defaultMetaObject) {
         this.service = service;
-        defaultMetaObject = ReflectionUtil.getDefaultMetaObject(entityType);
+        this.defaultMetaObject = defaultMetaObject;
     }
 
     /**

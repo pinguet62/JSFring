@@ -8,6 +8,7 @@ import org.primefaces.model.LazyDataModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import fr.pinguet62.dictionary.model.QUser;
 import fr.pinguet62.dictionary.model.User;
 import fr.pinguet62.dictionary.service.UserService;
 
@@ -32,7 +33,7 @@ public final class UsersManagedBean {
 
     @PostConstruct
     private void init() {
-        lazyDataModel = new AbstractLazyDataModel<User>(userService, User.class);
+        lazyDataModel = new QuerydslLazyDataModel<User>(userService, QUser.user);
     }
 
 }
