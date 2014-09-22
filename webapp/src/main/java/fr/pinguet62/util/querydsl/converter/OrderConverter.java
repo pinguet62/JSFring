@@ -16,7 +16,7 @@ import com.mysema.query.types.path.EntityPathBase;
  * @see SortOrder
  */
 public final class OrderConverter implements
-        BiFunction<String, SortOrder, OrderSpecifier<?>> {
+BiFunction<String, SortOrder, OrderSpecifier<?>> {
 
     /** The meta object. */
     private final EntityPathBase<?> meta;
@@ -32,7 +32,7 @@ public final class OrderConverter implements
     }
 
     /**
-     * Get the applied {@link OrderSpecifier}.
+     * Apply the ordering: get the {@link OrderSpecifier}.
      *
      * @param property
      *            The property.
@@ -48,7 +48,7 @@ public final class OrderConverter implements
     public OrderSpecifier<?> apply(String property, SortOrder primeOrder) {
         // Attribute
         SimpleExpression<?> attribute = new PropertyConverter(meta)
-                .apply(property);
+        .apply(property);
         if (!(attribute instanceof ComparableExpressionBase))
             throw new UnsupportedOperationException("The field " + attribute
                     + " doesn't support ordering.");

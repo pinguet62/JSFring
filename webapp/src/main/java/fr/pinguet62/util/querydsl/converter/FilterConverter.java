@@ -19,7 +19,7 @@ import com.mysema.query.types.path.EntityPathBase;
  * {@link String} value.
  */
 public final class FilterConverter implements
-        Function<Map<String, Object>, BooleanExpression> {
+Function<Map<String, Object>, BooleanExpression> {
 
     // Default visibility for Unit-Testing
     /**
@@ -54,6 +54,8 @@ public final class FilterConverter implements
     }
 
     /**
+     * Apply the filter: get the {@link BooleanExpression}.
+     *
      * @param filters
      *            The association property/value.
      * @return The {@link BooleanExpression}. {@code null} if no filter is
@@ -68,7 +70,7 @@ public final class FilterConverter implements
             // Attribute
             String property = filter.getKey();
             SimpleExpression<?> attribute = new PropertyConverter(meta)
-                    .apply(property);
+            .apply(property);
             if (!(attribute instanceof ComparableExpressionBase))
                 throw new UnsupportedOperationException("The attribute "
                         + attribute
@@ -77,10 +79,10 @@ public final class FilterConverter implements
 
             // Condition
             Object value = filter.getValue();
-            condition = applyCriteria(comparable, value);
+            BooleanExpression c = applyCriteria(comparable, value);
 
             // Apply
-            condition = condition.and(condition);
+            condition = condition == null ? c : condition.and(c);
         }
         return condition;
     }
