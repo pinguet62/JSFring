@@ -1,4 +1,4 @@
-package fr.pinguet62.util.querydsl;
+package fr.pinguet62.util.querydsl.converter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -30,16 +30,17 @@ import fr.pinguet62.dictionary.model.QProfile;
 import fr.pinguet62.dictionary.model.QRight;
 import fr.pinguet62.dictionary.model.QUser;
 import fr.pinguet62.dictionary.model.User;
+import fr.pinguet62.util.querydsl.converter.FilterConverter;
 
-/** @see Filter */
+/** @see FilterConverter */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "/applicationContext.xml")
 @DatabaseSetup("/dataset.xml")
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-    TransactionalTestExecutionListener.class,
-    DbUnitTestExecutionListener.class })
+        TransactionalTestExecutionListener.class,
+        DbUnitTestExecutionListener.class })
 @Transactional
-public class FilterTest {
+public class FilterConverterTest {
 
     @Autowired
     private ProfileDao profileDao;
@@ -50,20 +51,20 @@ public class FilterTest {
     @Autowired
     private UserDao userDao;
 
-    /** @see Filter#apply(java.util.Map) */
+    /** @see FilterConverter#apply(java.util.Map) */
     @Test
     public void test_apply() {
         userDao.deleteAll();
 
-        userDao.create(new User("User 1", "Password 1"));
-        userDao.create(new User("User 2", "Password 2"));
-        userDao.create(new User("User 3", "Password 3"));
+        userDao.create(new User("User 12", "Password A"));
+        userDao.create(new User("User 21", "Password B"));
+        userDao.create(new User("User 33", "Password B"));
 
         QUser meta = QUser.user;
-        Filter filter = new Filter(meta);
+        FilterConverter filter = new FilterConverter(meta);
         Map<String, Object> filters = new HashMap<>();
-        filters.put(meta.login.toString(), "ser");
-        filters.put(meta.password.toString(), "2");
+        filters.put(meta.login.toString(), "2"); // 1 & 2
+        filters.put(meta.password.toString(), "B"); // 2 & 3
         BooleanExpression condition = filter.apply(filters);
 
         assertEquals(1, userDao
@@ -73,54 +74,39 @@ public class FilterTest {
     /**
      * The {@link BooleanExpression} value must be {@code null}.
      *
-     * @see Filter#apply(java.util.Map)
+     * @see FilterConverter#apply(java.util.Map)
      */
     @Test
     public void test_apply_empty() {
-        Filter filter = new Filter(QUser.user);
+        FilterConverter filter = new FilterConverter(QUser.user);
         Map<String, Object> filters = new HashMap<>();
 
         assertNull(filter.apply(filters));
     }
 
     /**
-     * @see Filter#applyLike(com.mysema.query.types.expr.SimpleExpression,
+     * @see FilterConverter#applyCriteria(com.mysema.query.types.expr.SimpleExpression,
      *      String)
      */
     @Test
     public void test_applyLike() {
-        BooleanExpression begin = Filter.applyLike(QRight.right.code, "RIGHT_");
+        BooleanExpression begin = FilterConverter.applyCriteria(QRight.right.code,
+                "RIGHT_");
         assertEquals(1,
                 rightDao.find(new JPAQuery().from(QRight.right).where(begin))
-                .size());
+                        .size());
 
-        BooleanExpression end = Filter.applyLike(QRight.right.code, "_RO");
+        BooleanExpression end = FilterConverter.applyCriteria(QRight.right.code,
+                "_RO");
         assertEquals(3,
                 rightDao.find(new JPAQuery().from(QRight.right).where(end))
-                .size());
-    }
-
-    /**
-     * No result found.
-     *
-     * @see Filter#applyLike(com.mysema.query.types.expr.SimpleExpression,
-     *      String)
-     */
-    @Test
-    public void test_applyLike_notFound() {
-        BooleanExpression condition = Filter.applyLike(QRight.right.code,
-                "TOTO");
-        assertEquals(
-                0,
-                rightDao.find(
-                        new JPAQuery().from(QRight.right).where(condition))
                         .size());
     }
 
     /**
      * Check that the search is correctly applied into number.
      *
-     * @see Filter#applyLike(com.mysema.query.types.expr.SimpleExpression,
+     * @see FilterConverter#applyCriteria(com.mysema.query.types.expr.SimpleExpression,
      *      String)
      */
     @Test
@@ -131,12 +117,29 @@ public class FilterTest {
                 .filter(id -> String.valueOf(id).contains("9")).count();
         assertTrue(nbWith9 >= 2);
 
-        BooleanExpression condition = Filter
-                .applyLike(QProfile.profile.id, "9");
+        BooleanExpression condition = FilterConverter.applyCriteria(
+                QProfile.profile.id, "9");
         assertEquals(
                 nbWith9,
                 profileDao.find(
                         new JPAQuery().from(QProfile.profile).where(condition))
+                        .size());
+    }
+
+    /**
+     * No result found.
+     *
+     * @see FilterConverter#applyCriteria(com.mysema.query.types.expr.SimpleExpression,
+     *      String)
+     */
+    @Test
+    public void test_applyLike_resultNotFound() {
+        BooleanExpression condition = FilterConverter.applyCriteria(
+                QRight.right.code, "TOTO");
+        assertEquals(
+                0,
+                rightDao.find(
+                        new JPAQuery().from(QRight.right).where(condition))
                         .size());
     }
 

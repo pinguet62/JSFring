@@ -1,4 +1,4 @@
-package fr.pinguet62.util.querydsl;
+package fr.pinguet62.util.querydsl.converter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -26,8 +26,9 @@ import com.mysema.query.types.OrderSpecifier;
 import fr.pinguet62.dictionary.dao.RightDao;
 import fr.pinguet62.dictionary.model.QRight;
 import fr.pinguet62.dictionary.model.Right;
+import fr.pinguet62.util.querydsl.converter.OrderConverter;
 
-/** @see Order */
+/** @see OrderConverter */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "/applicationContext.xml")
 @DatabaseSetup("/dataset.xml")
@@ -35,12 +36,12 @@ import fr.pinguet62.dictionary.model.Right;
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class })
 @Transactional
-public class OrderTest {
+public class OrderConverterTest {
 
     @Autowired
     RightDao rightDao;
 
-    /** @see Order#apply(String, org.primefaces.model.SortOrder) */
+    /** @see OrderConverter#apply(String, org.primefaces.model.SortOrder) */
     @Test
     public void test_apply() {
         QRight meta = QRight.right;
@@ -49,14 +50,14 @@ public class OrderTest {
         List<String> codes = rightDao.getAll().stream().map(Right::getCode)
                 .sorted().collect(Collectors.toList());
         JPAQuery queryAsc = new JPAQuery().from(meta).orderBy(
-                new Order(meta).apply("code", SortOrder.ASCENDING));
+                new OrderConverter(meta).apply("code", SortOrder.ASCENDING));
         assertEquals(codes, rightDao.find(queryAsc).stream()
                 .map(Right::getCode).collect(Collectors.toList()));
 
         // Descending
         Collections.reverse(codes);
         JPAQuery queryDesc = new JPAQuery().from(meta).orderBy(
-                new Order(meta).apply("code", SortOrder.DESCENDING));
+                new OrderConverter(meta).apply("code", SortOrder.DESCENDING));
         assertEquals(
                 codes,
                 rightDao.find(queryDesc).stream().map(Right::getCode)
@@ -66,12 +67,12 @@ public class OrderTest {
     /**
      * The {@link OrderSpecifier} must be null.
      *
-     * @see Order#apply(String, org.primefaces.model.SortOrder)
+     * @see OrderConverter#apply(String, org.primefaces.model.SortOrder)
      * @see SortOrder#UNSORTED
      */
     @Test
     public void test_apply_unsorded() {
-        assertNull(new Order(QRight.right).apply("code", SortOrder.UNSORTED));
+        assertNull(new OrderConverter(QRight.right).apply("code", SortOrder.UNSORTED));
     }
 
 }

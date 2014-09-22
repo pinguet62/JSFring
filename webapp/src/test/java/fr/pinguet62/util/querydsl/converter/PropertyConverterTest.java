@@ -1,4 +1,4 @@
-package fr.pinguet62.util.querydsl;
+package fr.pinguet62.util.querydsl.converter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -9,26 +9,26 @@ import org.junit.Test;
 
 import fr.pinguet62.dictionary.model.QDescription;
 
-/** @see Property */
-public final class PropertyTest {
+/** @see PropertyConverter */
+public final class PropertyConverterTest {
 
-    /** @see Property#getAttribute() */
+    /** @see PropertyConverter#getAttribute() */
     @Test
     public void test_getAttribute() {
         QDescription meta = QDescription.description;
-        Property property = new Property(meta);
-        assertEquals(meta.language.code, property.getAttribute("language.code"));
+        PropertyConverter property = new PropertyConverter(meta);
+        assertEquals(meta.language.code, property.apply("language.code"));
     }
 
-    /** @see Property#getAttribute() */
+    /** @see PropertyConverter#getAttribute() */
     @Test
     public void test_getAttribute_propertyNotFound() {
         QDescription meta = QDescription.description;
-        Property property = new Property(meta);
+        PropertyConverter property = new PropertyConverter(meta);
 
         for (String strProperty : Arrays.asList("", "toto", "language.toto"))
             try {
-                property.getAttribute(strProperty);
+                property.apply(strProperty);
                 fail();
             } catch (IllegalArgumentException exception) {
             }

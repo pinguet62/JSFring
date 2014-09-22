@@ -1,4 +1,4 @@
-package fr.pinguet62.util.querydsl;
+package fr.pinguet62.util.querydsl.converter;
 
 import java.util.function.BiFunction;
 
@@ -9,24 +9,25 @@ import com.mysema.query.types.expr.ComparableExpressionBase;
 import com.mysema.query.types.expr.SimpleExpression;
 import com.mysema.query.types.path.EntityPathBase;
 
-import fr.pinguet62.dictionary.model.QProfile;
-
-public final class Order implements
+/**
+ * Convert the property and the {@link SortOrder} of an {@link EntityPathBase}
+ * to the {@link OrderSpecifier} to apply.
+ *
+ * @see SortOrder
+ */
+public final class OrderConverter implements
         BiFunction<String, SortOrder, OrderSpecifier<?>> {
 
-    /**
-     * The meta object.<br/>
-     * For example {@link QProfile#profile}.
-     */
+    /** The meta object. */
     private final EntityPathBase<?> meta;
 
     /**
      * Constructor.
      *
      * @param meta
-     *            The The meta object.
+     *            The meta-object.
      */
-    public Order(EntityPathBase<?> meta) {
+    public OrderConverter(EntityPathBase<?> meta) {
         this.meta = meta;
     }
 
@@ -37,15 +38,17 @@ public final class Order implements
      *            The property.
      * @param primeOrder
      *            The {@link SortOrder} of PrimeFaces.
-     * @return The {@link OrderSpecifier}.
+     * @return The {@link OrderSpecifier}. {@code null} if the order is
+     *         {@link SortOrder#UNSORTED}.
      *
-     * @UnsupportedOperationException The field doen't support ordering.
+     * @throws UnsupportedOperationException
+     *             The field doen't support ordering.
      */
     @Override
     public OrderSpecifier<?> apply(String property, SortOrder primeOrder) {
         // Attribute
-        SimpleExpression<?> attribute = new Property(meta)
-                .getAttribute(property);
+        SimpleExpression<?> attribute = new PropertyConverter(meta)
+                .apply(property);
         if (!(attribute instanceof ComparableExpressionBase))
             throw new UnsupportedOperationException("The field " + attribute
                     + " doesn't support ordering.");
@@ -63,4 +66,5 @@ public final class Order implements
                 throw new IllegalArgumentException("Unknow sort: " + primeOrder);
         }
     }
+
 }

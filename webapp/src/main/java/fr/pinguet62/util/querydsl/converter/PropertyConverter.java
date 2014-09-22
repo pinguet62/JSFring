@@ -1,33 +1,30 @@
-package fr.pinguet62.util.querydsl;
+package fr.pinguet62.util.querydsl.converter;
 
 import java.lang.reflect.Field;
+import java.util.function.Function;
 
 import com.mysema.query.types.expr.SimpleExpression;
 import com.mysema.query.types.path.EntityPathBase;
 
-import fr.pinguet62.dictionary.model.QProfile;
-
 /** Utils for meta-model properties. */
-public final class Property {
+public final class PropertyConverter implements
+Function<String, SimpleExpression<?>> {
 
-    /**
-     * The meta object.<br/>
-     * For example {@link QProfile#profile}.
-     */
+    /** The meta object. */
     private final EntityPathBase<?> meta;
 
     /**
      * Constructor.
      *
      * @param meta
-     *            The The meta object.
+     *            The meta-object.
      */
-    public Property(EntityPathBase<?> meta) {
+    public PropertyConverter(EntityPathBase<?> meta) {
         this.meta = meta;
     }
 
     /**
-     * Get the value corresponding to the attribute.
+     * Apply the conversion: get the value corresponding to the attribute.
      * <p>
      * For example, from {@code meta} and {@code attr.subAttr}, the method will
      * return the value of attribute {@code meta.attr.subAttr}.
@@ -38,9 +35,10 @@ public final class Property {
      * @throws IllegalArgumentException
      *             Bad property value.
      * @throws NullPointerException
-     *             The parameter is {@code null}.
+     *             The property is {@code null}.
      */
-    public SimpleExpression<?> getAttribute(String property) {
+    @Override
+    public SimpleExpression<?> apply(String property) {
         SimpleExpression<?> targetAttribute = meta;
         for (String attributeName : property.split("\\.")) {
             // Field
