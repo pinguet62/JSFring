@@ -18,9 +18,9 @@ import com.mysema.query.types.expr.BooleanExpression;
 
 import fr.pinguet62.dictionary.model.QUser;
 import fr.pinguet62.dictionary.service.AbstractService;
-import fr.pinguet62.util.querydsl.Filter;
-import fr.pinguet62.util.querydsl.Order;
 import fr.pinguet62.util.querydsl.ReflectionUtil;
+import fr.pinguet62.util.querydsl.converter.FilterConverter;
+import fr.pinguet62.util.querydsl.converter.OrderConverter;
 
 /**
  * {@link LazyDataModel} using the Querydsl API for sorting and sorting.
@@ -90,7 +90,8 @@ public class QuerydslLazyDataModel<T> extends LazyDataModel<T> {
      * Load the lazy {@link DataTable}.
      *
      * @param first
-     *            The index of first element of current page.<br/>
+     *            The index of first element of current page. The minimum is
+     *            {@code 0}.<br/>
      *            For example, if {@code pageSize=5} and the current page is the
      *            3rd, the {@code first} will be 10.
      * @param pageSize
@@ -114,13 +115,14 @@ public class QuerydslLazyDataModel<T> extends LazyDataModel<T> {
         query.limit(pageSize);
         // Order
         if (sortField != null) {
-            OrderSpecifier<?> order = new Order(QUser.user).apply(sortField,
-                    sortOrder);
+            OrderSpecifier<?> order = new OrderConverter(QUser.user).apply(
+                    sortField, sortOrder);
             if (order != null)
                 query.orderBy(order);
         }
         // Filter
-        BooleanExpression condition = new Filter(QUser.user).apply(filters);
+        BooleanExpression condition = new FilterConverter(QUser.user)
+        .apply(filters);
         if (condition != null)
             query.where(condition);
 
