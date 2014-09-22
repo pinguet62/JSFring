@@ -23,25 +23,39 @@ import fr.pinguet62.util.querydsl.Order;
 import fr.pinguet62.util.querydsl.ReflectionUtil;
 
 /**
- * {@link LazyDataModel} using the Querydsl API.
+ * {@link LazyDataModel} using the Querydsl API for sorting and sorting.
+ * <p>
+ * The methods of {@link Entity}s must respect the default property naming:
+ * {@code get} + the name of attribute. For example {@code getName()} for the
+ * attribute {@code name}.
  *
  * @param <T>
- *            The target type.
+ *            The base type.
  */
 public class QuerydslLazyDataModel<T> extends LazyDataModel<T> {
 
     /** Serial version UID. */
     private static final long serialVersionUID = 1;
 
-    /** The default {@link EntityPath}. */
+    /** The default meta-object. */
     private final EntityPath<T> defaultMetaObject;
 
     /** The {@link AbstractService}. */
     transient protected final AbstractService<T, ?> service;
 
     /**
-     * Constructor. <br/>
-     * Used by sub classes who the target type is set.
+     * Constructor.
+     * <p>
+     * Used by sub classes who extends this class, and on which the target type
+     * is set. For example:
+     *
+     * <pre>
+     * class UserLazyDataModel extends QuerydslLazyDataModel&lt;User&gt; {
+     *     UserLazyDataModel(AbstractService&lt;T, ?&gt; service) {
+     *         super(service);
+     *     }
+     * }
+     * </pre>
      *
      * @param service
      *            The {@link AbstractService}.
@@ -56,13 +70,15 @@ public class QuerydslLazyDataModel<T> extends LazyDataModel<T> {
     }
 
     /**
-     * Constructor with {@link Entity} type.<br/>
-     * Used when this class is directly used without extending.
+     * Constructor with {@link Entity} type.
+     * <p>
+     * Used when this class is directly used without extending. For example:<br/>
+     * {@code new QuerydslLazyDataModel(service, QUser.user)}
      *
      * @param service
      *            The {@link AbstractService}.
      * @param defaultMetaObject
-     *            The default {@link EntityPath}.
+     *            The default meta-object.
      */
     public QuerydslLazyDataModel(AbstractService<T, ?> service,
             EntityPath<T> defaultMetaObject) {
