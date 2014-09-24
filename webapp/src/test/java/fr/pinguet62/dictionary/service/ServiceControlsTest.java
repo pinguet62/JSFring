@@ -5,9 +5,10 @@ import static org.junit.Assert.fail;
 
 import java.util.UUID;
 
-import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.test.context.ContextConfiguration;
@@ -67,7 +68,7 @@ class BadService {
         DbUnitTestExecutionListener.class })
 public class ServiceControlsTest {
 
-    private static final Logger LOGGER = Logger
+    private static final Logger LOGGER = LoggerFactory
             .getLogger(ServiceControlsTest.class);
 
     @Autowired
@@ -148,7 +149,7 @@ public class ServiceControlsTest {
 @Service
 class ThreadTestService {
 
-    private static final Logger LOGGER = Logger
+    private static final Logger LOGGER = LoggerFactory
             .getLogger(ThreadTestService.class);
 
     @Autowired
