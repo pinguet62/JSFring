@@ -18,6 +18,10 @@
 					filterBy="#{user.login}">
 					<h:outputText value="#{user.login}" />
 				</p:column>
+				<p:column headerText="Email" sortBy="#{user.email}"
+					filterBy="#{user.email}">
+					<h:outputText value="#{user.email}" />
+				</p:column>
 			</p:dataTable>
 		</h:form>
 	</ui:define>
