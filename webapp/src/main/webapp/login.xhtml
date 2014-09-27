@@ -8,19 +8,15 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
+    <h:outputStylesheet library="css" name="main.css" />
 	<title>Login</title>
-	<h:outputStylesheet>
-        .ui-panel-footer {
-            text-align: center !important;
-        }
-    </h:outputStylesheet>
 </h:head>
 <h:body>
 	<h:form prependId="false">
 		<div style="text-align: center;">
 			<p:panel header="Login" style="display: inline-block;">
 				<h:outputText rendered="#{not empty loginManagedBean.error}" />
-				<p:messages autoUpdate="true" showDetail="true" />
+				<p:messages autoUpdate="true" />
 
 				<h:panelGrid cellpadding="5" columns="2">
 					<h:outputLabel for="j_username" value="Username" />
@@ -28,6 +24,7 @@
 					<h:outputLabel for="j_password" value="Password" />
 					<p:inputText id="j_password" value="#{loginManagedBean.password}" />
 				</h:panelGrid>
+
 				<f:facet name="footer">
 					<p:commandButton ajax="false" action="#{loginManagedBean.login}"
 						type="submit" value="Sumbit" />

@@ -62,8 +62,8 @@ public final class LoginManagedBean implements Serializable {
         if (error != null)
             FacesContext.getCurrentInstance().addMessage(
                     null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
-                            "Username or password invalid."));
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                            "Username or password invalid.", null));
     }
 
     /** Redirect the request to the default Spring {@code login-processing-url}. */
