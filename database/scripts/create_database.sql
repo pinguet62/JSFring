@@ -14,7 +14,7 @@ drop table if exists PROFILE;
 
 drop table if exists PROFILES_RIGHTS;
 
-drop table if exists RIGHT;
+drop table if exists `RIGHT`;
 
 drop table if exists SEE_ALSO;
 
@@ -70,14 +70,14 @@ create table PROFILE
 create table PROFILES_RIGHTS
 (
    PROFILE              int not null,
-   RIGHT                varchar(30) not null,
-   primary key (PROFILE, RIGHT)
+   `RIGHT`                varchar(30) not null,
+   primary key (PROFILE, `RIGHT`)
 );
 
 /*==============================================================*/
 /* Table : RIGHT                                                */
 /*==============================================================*/
-create table RIGHT
+create table `RIGHT`
 (
    CODE                 varchar(30) not null,
    TITLE                varchar(50) not null,
@@ -125,8 +125,8 @@ alter table DESCRIPTION add constraint FK_DESCRIPTION_LANGAGE foreign key (LANGU
 alter table PROFILES_RIGHTS add constraint FK_PROFILES_RIGHTS_PROFILE foreign key (PROFILE)
       references PROFILE (ID) on delete restrict on update restrict;
 
-alter table PROFILES_RIGHTS add constraint FK_PROFILES_RIGHTS_RIGHT foreign key (RIGHT)
-      references RIGHT (CODE) on delete restrict on update restrict;
+alter table PROFILES_RIGHTS add constraint FK_PROFILES_RIGHTS_RIGHT foreign key (`RIGHT`)
+      references `RIGHT` (CODE) on delete restrict on update restrict;
 
 alter table SEE_ALSO add constraint FK_SEE_ALSO_ASSOCIATED_KEYWORD foreign key (ASSOCIATED_KEYWORD)
       references KEYWORD (ID) on delete restrict on update restrict;
