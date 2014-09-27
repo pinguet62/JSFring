@@ -101,7 +101,9 @@ create table USER
 (
    LOGIN                varchar(30) not null,
    PASSWORD             varchar(30) not null,
-   primary key (LOGIN)
+   EMAIL                varchar(255) not null,
+   primary key (LOGIN),
+   key AK_EMAIL (EMAIL)
 );
 
 /*==============================================================*/

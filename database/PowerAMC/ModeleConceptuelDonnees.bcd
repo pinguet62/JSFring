@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?PowerDesigner AppLocale="UTF16" ID="{59464F4A-DB35-4AA8-A425-7C8EC0B0F42D}" Label="" LastModificationDate="1408741326" Name="ModeleConceptuelDonnees" Objects="56" Symbols="21" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" signature="CDM_DATA_MODEL_XML" version="15.1.0.2850"?>
+<?PowerDesigner AppLocale="UTF16" ID="{59464F4A-DB35-4AA8-A425-7C8EC0B0F42D}" Label="" LastModificationDate="1411843974" Name="ModeleConceptuelDonnees" Objects="59" Symbols="21" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" signature="CDM_DATA_MODEL_XML" version="15.1.0.2850"?>
 <!-- Veuillez ne pas modifier ce fichier -->
 
 <Model xmlns:a="attribute" xmlns:c="collection" xmlns:o="object">
@@ -12,7 +12,7 @@
 <a:Code>MODELECONCEPTUELDONNEES</a:Code>
 <a:CreationDate>1402742005</a:CreationDate>
 <a:Creator>Julien</a:Creator>
-<a:ModificationDate>1408201608</a:ModificationDate>
+<a:ModificationDate>1411842885</a:ModificationDate>
 <a:Modifier>Julien</a:Modifier>
 <a:PackageOptionsText>[FolderOptions]
 
@@ -1312,8 +1312,8 @@ CARD 0 Arial,8,N</a:FontList>
 <o:AssociationLinkSymbol Id="o24">
 <a:CreationDate>1408189974</a:CreationDate>
 <a:ModificationDate>1408190100</a:ModificationDate>
-<a:Rect>((-29924,29138), (-18260,30312))</a:Rect>
-<a:ListOfPoints>((-29924,29138),(-18260,29138))</a:ListOfPoints>
+<a:Rect>((-29728,29130), (-18260,30304))</a:Rect>
+<a:ListOfPoints>((-29728,29130),(-18260,29130))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>0</a:ArrowStyle>
 <a:LineColor>16744576</a:LineColor>
@@ -1556,7 +1556,7 @@ Identifiers 0 Arial,8,N</a:FontList>
 <a:CreationDate>1408189750</a:CreationDate>
 <a:ModificationDate>1408201608</a:ModificationDate>
 <a:IconMode>-1</a:IconMode>
-<a:Rect>((-45634,26777), (-28616,31571))</a:Rect>
+<a:Rect>((-45866,25804), (-28384,32544))</a:Rect>
 <a:LineColor>11184640</a:LineColor>
 <a:FillColor>16777136</a:FillColor>
 <a:ShadowColor>12632256</a:ShadowColor>
@@ -1872,7 +1872,7 @@ LABL 0 Arial,8,N</a:FontList>
 <a:Code>USER</a:Code>
 <a:CreationDate>1408189750</a:CreationDate>
 <a:Creator>Julien</a:Creator>
-<a:ModificationDate>1408189795</a:ModificationDate>
+<a:ModificationDate>1411843945</a:ModificationDate>
 <a:Modifier>Julien</a:Modifier>
 <c:Identifiers>
 <o:Identifier Id="o73">
@@ -1885,6 +1885,18 @@ LABL 0 Arial,8,N</a:FontList>
 <a:Modifier>Julien</a:Modifier>
 <c:Identifier.Attributes>
 <o:EntityAttribute Ref="o74"/>
+</c:Identifier.Attributes>
+</o:Identifier>
+<o:Identifier Id="o75">
+<a:ObjectID>1E8DFE5B-320F-46D0-B579-23B7D68E9AA4</a:ObjectID>
+<a:Name>Email</a:Name>
+<a:Code>EMAIL</a:Code>
+<a:CreationDate>1411843889</a:CreationDate>
+<a:Creator>Julien</a:Creator>
+<a:ModificationDate>1411843974</a:ModificationDate>
+<a:Modifier>Julien</a:Modifier>
+<c:Identifier.Attributes>
+<o:EntityAttribute Ref="o76"/>
 </c:Identifier.Attributes>
 </o:Identifier>
 </c:Identifiers>
@@ -1900,10 +1912,10 @@ LABL 0 Arial,8,N</a:FontList>
 <a:Modifier>Julien</a:Modifier>
 <a:BaseAttribute.Mandatory>1</a:BaseAttribute.Mandatory>
 <c:DataItem>
-<o:DataItem Ref="o75"/>
+<o:DataItem Ref="o77"/>
 </c:DataItem>
 </o:EntityAttribute>
-<o:EntityAttribute Id="o76">
+<o:EntityAttribute Id="o78">
 <a:ObjectID>5AD54878-D40C-42A5-98BB-9F56F4B9EC2E</a:ObjectID>
 <a:CreationDate>1408189765</a:CreationDate>
 <a:Creator>Julien</a:Creator>
@@ -1911,7 +1923,18 @@ LABL 0 Arial,8,N</a:FontList>
 <a:Modifier>Julien</a:Modifier>
 <a:BaseAttribute.Mandatory>1</a:BaseAttribute.Mandatory>
 <c:DataItem>
-<o:DataItem Ref="o77"/>
+<o:DataItem Ref="o79"/>
+</c:DataItem>
+</o:EntityAttribute>
+<o:EntityAttribute Id="o76">
+<a:ObjectID>FAD05578-809A-48BE-AFC7-75065108B454</a:ObjectID>
+<a:CreationDate>1411842640</a:CreationDate>
+<a:Creator>Julien</a:Creator>
+<a:ModificationDate>1411843974</a:ModificationDate>
+<a:Modifier>Julien</a:Modifier>
+<a:BaseAttribute.Mandatory>1</a:BaseAttribute.Mandatory>
+<c:DataItem>
+<o:DataItem Ref="o80"/>
 </c:DataItem>
 </o:EntityAttribute>
 </c:Attributes>
@@ -1985,7 +2008,7 @@ LABL 0 Arial,8,N</a:FontList>
 <a:DataType>VA50</a:DataType>
 <a:Length>50</a:Length>
 </o:DataItem>
-<o:DataItem Id="o75">
+<o:DataItem Id="o77">
 <a:ObjectID>AC421618-16D2-4EA0-A3F8-3335E96E47C9</a:ObjectID>
 <a:Name>Login</a:Name>
 <a:Code>LOGIN</a:Code>
@@ -1997,7 +2020,7 @@ LABL 0 Arial,8,N</a:FontList>
 <a:DataType>VA30</a:DataType>
 <a:Length>30</a:Length>
 </o:DataItem>
-<o:DataItem Id="o77">
+<o:DataItem Id="o79">
 <a:ObjectID>C3D8AFE0-9C94-4CBA-B4B3-00430F50D364</a:ObjectID>
 <a:Name>Password</a:Name>
 <a:Code>PASSWORD</a:Code>
@@ -2052,6 +2075,17 @@ LABL 0 Arial,8,N</a:FontList>
 <a:Modifier>Julien</a:Modifier>
 <a:DataType>VA50</a:DataType>
 <a:Length>50</a:Length>
+</o:DataItem>
+<o:DataItem Id="o80">
+<a:ObjectID>A0A02730-A52A-4664-8B77-4B2C0AD8EBF0</a:ObjectID>
+<a:Name>Email</a:Name>
+<a:Code>EMAIL</a:Code>
+<a:CreationDate>1411842640</a:CreationDate>
+<a:Creator>Julien</a:Creator>
+<a:ModificationDate>1411842885</a:ModificationDate>
+<a:Modifier>Julien</a:Modifier>
+<a:DataType>VA256</a:DataType>
+<a:Length>256</a:Length>
 </o:DataItem>
 </c:DataItems>
 <c:Associations>
@@ -2244,7 +2278,7 @@ LABL 0 Arial,8,N</a:FontList>
 </o:AssociationLink>
 </c:AssociationsLinks>
 <c:TargetModels>
-<o:TargetModel Id="o78">
+<o:TargetModel Id="o81">
 <a:ObjectID>7A19FC58-2624-447D-9D8A-5FD4ACD52469</a:ObjectID>
 <a:Name>ModelePhysiqueDonnees</a:Name>
 <a:Code>MODELEPHYSIQUEDONNEES</a:Code>
