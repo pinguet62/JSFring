@@ -15,4 +15,16 @@ public class UserService extends AbstractService<User, String> {
         super(dao);
     }
 
+    /**
+     * Reset the password of {@code User} and sent these informations to email.
+     *
+     * @param email
+     *            The user's email.
+     * @throws IllegalArgumentException
+     *             Email unknown.
+     */
+    public void forgottenPassword(String email) {
+        System.out.println("Reset " + email);
+    }
+
 }

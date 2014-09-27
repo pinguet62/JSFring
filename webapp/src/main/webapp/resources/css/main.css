@@ -1,7 +1,11 @@
 /*
 Main CSS for Dictionary
 */
-
 body {
 	word-wrap: break-word;
+}
+
+/* PrimeFaces */
+.ui-panel-footer {
+	text-align: center !important;
 }
