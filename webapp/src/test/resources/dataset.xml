@@ -18,14 +18,14 @@
 	<Profiles_Rights Profile="2" Right="USER_RO" />
 	<Profiles_Rights Profile="2" Right="USER_RW" />
 
-	<User Login="admin" Password="password" />
+	<User Login="admin" Password="password" Email="admin@domain.fr" />
 	<Users_Profiles User="admin" Profile="1" />
 	<Users_Profiles User="admin" Profile="2" />
 
-	<User Login="admin profile" Password="password" />
+	<User Login="admin profile" Password="password" Email="admin_profile@domain.fr" />
 	<Users_Profiles User="admin profile" Profile="1" />
 
-	<User Login="admin user" Password="password" />
+	<User Login="admin user" Password="password" Email="admin_user@domain.fr" />
 	<Users_Profiles User="admin user" Profile="2" />
 
 	<!-- Data -->

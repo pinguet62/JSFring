@@ -30,15 +30,14 @@ import fr.pinguet62.dictionary.model.QProfile;
 import fr.pinguet62.dictionary.model.QRight;
 import fr.pinguet62.dictionary.model.QUser;
 import fr.pinguet62.dictionary.model.User;
-import fr.pinguet62.util.querydsl.converter.FilterConverter;
 
 /** @see FilterConverter */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "/applicationContext.xml")
 @DatabaseSetup("/dataset.xml")
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        TransactionalTestExecutionListener.class,
-        DbUnitTestExecutionListener.class })
+    TransactionalTestExecutionListener.class,
+    DbUnitTestExecutionListener.class })
 @Transactional
 public class FilterConverterTest {
 
@@ -56,9 +55,9 @@ public class FilterConverterTest {
     public void test_apply() {
         userDao.deleteAll();
 
-        userDao.create(new User("User 12", "Password A"));
-        userDao.create(new User("User 21", "Password B"));
-        userDao.create(new User("User 33", "Password B"));
+        userDao.create(new User("User 12", "Password A", "Email1@domain.com"));
+        userDao.create(new User("User 21", "Password B", "Email1@domain.com"));
+        userDao.create(new User("User 33", "Password B", "Email1@domain.com"));
 
         QUser meta = QUser.user;
         FilterConverter filter = new FilterConverter(meta);
@@ -90,17 +89,17 @@ public class FilterConverterTest {
      */
     @Test
     public void test_applyLike() {
-        BooleanExpression begin = FilterConverter.applyCriteria(QRight.right.code,
-                "RIGHT_");
+        BooleanExpression begin = FilterConverter.applyCriteria(
+                QRight.right.code, "RIGHT_");
         assertEquals(1,
                 rightDao.find(new JPAQuery().from(QRight.right).where(begin))
-                        .size());
+                .size());
 
-        BooleanExpression end = FilterConverter.applyCriteria(QRight.right.code,
-                "_RO");
+        BooleanExpression end = FilterConverter.applyCriteria(
+                QRight.right.code, "_RO");
         assertEquals(3,
                 rightDao.find(new JPAQuery().from(QRight.right).where(end))
-                        .size());
+                .size());
     }
 
     /**

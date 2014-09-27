@@ -23,19 +23,22 @@ public class User implements java.io.Serializable {
 
     private String login;
     private String password;
+    private String email;
     private Set<Profile> profiles = new HashSet<Profile>(0);
 
     public User() {
     }
 
-    public User(String login, String password) {
+    public User(String login, String password, String email) {
         this.login = login;
         this.password = password;
+        this.email = email;
     }
 
-    public User(String login, String password, Set<Profile> profiles) {
+    public User(String login, String password, String email, Set<Profile> profiles) {
         this.login = login;
         this.password = password;
+        this.email = email;
         this.profiles = profiles;
     }
 
@@ -48,6 +51,15 @@ public class User implements java.io.Serializable {
     @Column(name = "PASSWORD", nullable = false, length = 30)
     public String getPassword() {
         return password;
+    }
+
+    @Column(name = "EMAIL", nullable = false)
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @ManyToMany(fetch = FetchType.LAZY)
