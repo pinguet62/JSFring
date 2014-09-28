@@ -20,4 +20,19 @@
 		</property>
 	</bean>
 
+	<bean id="forgottenPasswordMessage" class="org.springframework.mail.SimpleMailMessage">
+		<property name="from" value="sender@gmail.com" />
+		<property name="subject" value="[Dictionary] SMPT test" />
+		<property name="text">
+			<value>
+          <![CDATA[
+              Hello
+              
+              Login: %s
+              New assword: %s
+          ]]>
+			</value>
+		</property>
+	</bean>
+
 </beans>

@@ -34,7 +34,7 @@ public abstract class AbstractDao<T, PK extends Serializable> {
 
     /** The {@link EntityManager}. */
     @PersistenceContext(type = PersistenceContextType.EXTENDED)
-    private EntityManager em;
+    protected EntityManager em;
 
     /**
      * The {@link Class} of the current {@link Entity}.<br/>
