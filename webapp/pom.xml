@@ -13,9 +13,9 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java-version>1.8</java-version>
 		<hivernate.version>4.3.6.Final</hivernate.version>
-		<spring.version>4.0.6.RELEASE</spring.version>
+		<spring.version>4.0.6.RELEASE</spring.version><!-- 4.1.0.RELEASE -->
 		<spring-security.version>3.2.5.RELEASE</spring-security.version>
-		<querydsl.version>3.4.2</querydsl.version>
+		<querydsl.version>3.4.3</querydsl.version>
 	</properties>
 
 	<!-- Repositories -->
