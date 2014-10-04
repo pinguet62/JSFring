@@ -8,11 +8,12 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 	<h:form>
-		<p:menubar>
+		<!-- Static -->
+		<!-- <p:menubar>
 			<p:menuitem value="Home" outcome="index" icon="ui-icon-home" />
 			<p:submenu label="Administration" icon="ui-icon-gear">
-				<p:menuitem value="Users" outcome="users" icon="ui-icon-person" />
-				<p:menuitem value="Profiles" outcome="profiles" icon="ui-icon-flag" />
+				<p:menuitem icon="ui-icon-person" value="Users" outcome="users" />
+				<p:menuitem icon="ui-icon-flag" value="Profiles" outcome="profiles" />
 			</p:submenu>
 			<f:facet name="options">
 				<p:menuButton value="TODO username">
@@ -23,6 +24,10 @@
 					<p:menuitem value="Logout" icon="ui-icon-extlink" />
 				</p:menuButton>
 			</f:facet>
-		</p:menubar>
+		</p:menubar> -->
+
+		<!-- Dynamic -->
+		<p:menubar model="#{menuManagedBean.model}" />
+		<p:breadCrumb model="#{menuManagedBean.breadcrumb}" />
 	</h:form>
 </ui:composition>
