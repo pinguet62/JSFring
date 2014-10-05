@@ -1,27 +1,37 @@
 package fr.pinguet62.dictionary.gui;
 
+import java.util.Locale;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Scope;
 
 import fr.pinguet62.dictionary.model.User;
 import fr.pinguet62.dictionary.service.UserService;
 
 /** {@link ManagedBean} for reset the password of an {@link User}. */
-@Component
-@ManagedBean
-@RequestScoped
+@Named
+@Scope("request")
+// TODO ViewScoped
 public final class ForgottenPasswordManagedBean {
 
     /** The email. */
     private String email;
 
-    @Autowired
+    @Inject
+    private MessageSource messageSource;
+
+    @Inject
     private UserService userService;
+
+    public ForgottenPasswordManagedBean() {
+        System.out.println("ForgottenPasswordManagedBean");
+    }
 
     public String getEmail() {
         return email;
@@ -29,18 +39,27 @@ public final class ForgottenPasswordManagedBean {
 
     /** Reset the password. */
     public void reset() {
+        Locale locale = FacesContext.getCurrentInstance().getViewRoot()
+                .getLocale();
+
         try {
             userService.forgottenPassword(email);
-            FacesContext.getCurrentInstance().addMessage(
+            String message = messageSource
+                    .getMessage("forgottenPassword.messages.informationsSent",
+                            null, locale);
+            FacesContext.getCurrentInstance()
+            .addMessage(
                     null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO,
-                            "Your login information was sent to you by email.",
-                            null));
+                            message, null));
         } catch (IllegalArgumentException exception) {
-            FacesContext.getCurrentInstance().addMessage(
+            String message = messageSource.getMessage(
+                    "forgottenPassword.messages.emailUnknown", null, locale);
+            FacesContext.getCurrentInstance()
+            .addMessage(
                     null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                            "Email unknown.", null));
+                            message, null));
         }
     }
 

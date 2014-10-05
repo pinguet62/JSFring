@@ -1,19 +1,20 @@
 package fr.pinguet62.dictionary.gui;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.application.NavigationCase;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.primefaces.component.breadcrumb.BreadCrumb;
 import org.primefaces.component.menubar.Menubar;
@@ -26,42 +27,27 @@ import org.primefaces.model.menu.MenuItem;
 import org.primefaces.model.menu.MenuModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Scope;
 
-@ManagedBean
-@RequestScoped
-public class MenuManagedBean implements Serializable {
+@Named
+@Scope("request")
+public class MenuManagedBean {
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(MenuManagedBean.class);
-
-    /** Serial version UID. */
-    private static final long serialVersionUID = 3909676962671942314L;
 
     /** The association of <b>outcome</b> and the {@link BreadCrumb}. */
     protected final Map<String, MenuModel> breadcrumbs = new HashMap<>();
 
     /** First {@link MenuItem} of {@link #model}. */
-    protected final DefaultMenuItem home;
+    protected DefaultMenuItem home;
+
+    @Inject
+    private MessageSource messageSource;
 
     /** The {@link Menubar}. */
     protected final MenuModel model = new DefaultMenuModel();
-
-    /**
-     * Constructor.
-     * <p>
-     * Initialize the {@link Menubar} and the {@link BreadCrumb}.
-     */
-    public MenuManagedBean() {
-        home = new DefaultMenuItem("Home");
-        home.setOutcome("index");
-        home.setIcon("ui-icon-home");
-
-        LOGGER.info("Initialization of MenuBar...");
-        initMenu();
-
-        LOGGER.info("Initialization of BreadCrumb...");
-        initBreadcrumbs();
-    }
 
     /**
      * Get the current <b>outcome</b> and return the associated
@@ -88,8 +74,28 @@ public class MenuManagedBean implements Serializable {
         return breadcrumbs.get(target.getFromOutcome());
     }
 
+    private String getMessage(String key) {
+        Locale locale = FacesContext.getCurrentInstance().getViewRoot()
+                .getLocale();
+        return messageSource.getMessage(key, null, locale);
+    }
+
     public MenuModel getModel() {
         return model;
+    }
+
+    /** Initialize the {@link Menubar} and the {@link BreadCrumb}. */
+    @PostConstruct
+    private void init() {
+        home = new DefaultMenuItem(getMessage("menubar.index"));
+        home.setOutcome("index");
+        home.setIcon("ui-icon-home");
+
+        LOGGER.info("Initialization of MenuBar...");
+        initMenu();
+
+        LOGGER.info("Initialization of BreadCrumb...");
+        initBreadcrumbs();
     }
 
     /**
@@ -180,22 +186,29 @@ public class MenuManagedBean implements Serializable {
         LOGGER.info("MenuItem 1: \"Home\"/index");
 
         // Level 2
-        DefaultSubMenu submenu2 = new DefaultSubMenu("Administration");
+        DefaultSubMenu submenu2 = new DefaultSubMenu(
+                getMessage("menubar.administration"));
         submenu2.setIcon("ui-icon-gear");
         model.addElement(submenu2);
         LOGGER.info("SubMenu 2: \"Administration\" ...");
         // Item 21
-        DefaultMenuItem item21 = new DefaultMenuItem("Users");
+        DefaultMenuItem item21 = new DefaultMenuItem(
+                getMessage("menubar.administration.users"));
         item21.setOutcome("users");
         item21.setIcon("ui-icon-person");
         submenu2.addElement(item21);
         LOGGER.info("MenuItem 21: \"Users\"/users");
         // Item 22
-        DefaultMenuItem item22 = new DefaultMenuItem("Profiles");
+        DefaultMenuItem item22 = new DefaultMenuItem(
+                getMessage("menubar.administration.profiles"));
         item22.setOutcome("profiles");
         item22.setIcon("ui-icon-flag");
         submenu2.addElement(item22);
         LOGGER.info("MenuItem 22: \"Profiles\"/profiles");
+    }
+
+    public void setMessageSource(MessageSource messageSource) {
+        this.messageSource = messageSource;
     }
 
 }
