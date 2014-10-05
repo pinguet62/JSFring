@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
+import fr.pinguet62.Config;
 import fr.pinguet62.dictionary.dao.ProfileDao;
 import fr.pinguet62.dictionary.model.Profile;
 import fr.pinguet62.dictionary.model.QProfile;
@@ -29,8 +30,8 @@ import fr.pinguet62.dictionary.service.ProfileService;
 
 /** @see QuerydslLazyDataModel */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/applicationContext.xml")
-@DatabaseSetup("/dataset.xml")
+@ContextConfiguration(locations = Config.SPRING)
+@DatabaseSetup(Config.DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
     TransactionalTestExecutionListener.class,
     DbUnitTestExecutionListener.class })

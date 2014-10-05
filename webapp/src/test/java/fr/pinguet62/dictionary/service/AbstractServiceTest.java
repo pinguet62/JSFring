@@ -19,15 +19,16 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
+import fr.pinguet62.Config;
 import fr.pinguet62.dictionary.model.Language;
 import fr.pinguet62.dictionary.model.Profile;
 
 /** Tests for {@link AbstractService}. */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/applicationContext.xml")
-@DatabaseSetup("/dataset.xml")
+@ContextConfiguration(locations = Config.SPRING)
+@DatabaseSetup(Config.DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        DbUnitTestExecutionListener.class })
+    DbUnitTestExecutionListener.class })
 public class AbstractServiceTest {
 
     @Autowired

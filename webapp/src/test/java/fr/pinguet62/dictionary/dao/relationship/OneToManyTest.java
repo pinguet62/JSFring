@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
+import fr.pinguet62.Config;
 import fr.pinguet62.dictionary.dao.KeywordDao;
 import fr.pinguet62.dictionary.dao.LanguageDao;
 import fr.pinguet62.dictionary.model.Description;
@@ -29,11 +30,11 @@ import fr.pinguet62.dictionary.model.Keyword;
  * @see OneToMany
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/applicationContext.xml")
-@DatabaseSetup("/dataset.xml")
+@ContextConfiguration(locations = Config.SPRING)
+@DatabaseSetup(Config.DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-    TransactionalTestExecutionListener.class,
-    DbUnitTestExecutionListener.class })
+        TransactionalTestExecutionListener.class,
+        DbUnitTestExecutionListener.class })
 @Transactional
 public class OneToManyTest {
 
@@ -107,8 +108,8 @@ public class OneToManyTest {
         assertEquals(
                 "Le Java c'est la vie !",
                 keywordDao.get(1).getDescriptions().stream()
-                .filter(d -> d.getLanguage().getCode().equals("fr"))
-                .findAny().get().getContent());
+                        .filter(d -> d.getLanguage().getCode().equals("fr"))
+                        .findAny().get().getContent());
     }
 
 }

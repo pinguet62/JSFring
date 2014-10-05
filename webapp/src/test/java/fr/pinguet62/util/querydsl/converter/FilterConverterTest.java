@@ -22,6 +22,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.types.expr.BooleanExpression;
 
+import fr.pinguet62.Config;
 import fr.pinguet62.dictionary.dao.ProfileDao;
 import fr.pinguet62.dictionary.dao.RightDao;
 import fr.pinguet62.dictionary.dao.UserDao;
@@ -33,11 +34,11 @@ import fr.pinguet62.dictionary.model.User;
 
 /** @see FilterConverter */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/applicationContext.xml")
-@DatabaseSetup("/dataset.xml")
+@ContextConfiguration(locations = Config.SPRING)
+@DatabaseSetup(Config.DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-    TransactionalTestExecutionListener.class,
-    DbUnitTestExecutionListener.class })
+        TransactionalTestExecutionListener.class,
+        DbUnitTestExecutionListener.class })
 @Transactional
 public class FilterConverterTest {
 
@@ -93,13 +94,13 @@ public class FilterConverterTest {
                 QRight.right.code, "RIGHT_");
         assertEquals(1,
                 rightDao.find(new JPAQuery().from(QRight.right).where(begin))
-                .size());
+                        .size());
 
         BooleanExpression end = FilterConverter.applyCriteria(
                 QRight.right.code, "_RO");
         assertEquals(3,
                 rightDao.find(new JPAQuery().from(QRight.right).where(end))
-                .size());
+                        .size());
     }
 
     /**

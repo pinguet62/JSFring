@@ -5,12 +5,12 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
 	<context:component-scan base-package="fr.pinguet62.dictionary" />
 
 	<import resource="spring-mail.xml" />
 
 	<!-- Hibernate -->
-
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -29,7 +29,6 @@
 	<tx:annotation-driven />
 
 	<!-- JPA -->
-
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
@@ -45,7 +44,6 @@
 	</bean>
 
 	<!-- DbUnit -->
-
 	<bean id="dbUnitDatabaseConfig" class="com.github.springtestdbunit.bean.DatabaseConfigBean">
 		<property name="escapePattern" value="`?`" />
 	</bean>

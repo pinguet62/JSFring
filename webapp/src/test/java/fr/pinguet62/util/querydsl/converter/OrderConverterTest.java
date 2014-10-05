@@ -23,18 +23,18 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.types.OrderSpecifier;
 
+import fr.pinguet62.Config;
 import fr.pinguet62.dictionary.dao.RightDao;
 import fr.pinguet62.dictionary.model.QRight;
 import fr.pinguet62.dictionary.model.Right;
-import fr.pinguet62.util.querydsl.converter.OrderConverter;
 
 /** @see OrderConverter */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/applicationContext.xml")
-@DatabaseSetup("/dataset.xml")
+@ContextConfiguration(locations = Config.SPRING)
+@DatabaseSetup(Config.DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        TransactionalTestExecutionListener.class,
-        DbUnitTestExecutionListener.class })
+    TransactionalTestExecutionListener.class,
+    DbUnitTestExecutionListener.class })
 @Transactional
 public class OrderConverterTest {
 
@@ -61,7 +61,7 @@ public class OrderConverterTest {
         assertEquals(
                 codes,
                 rightDao.find(queryDesc).stream().map(Right::getCode)
-                        .collect(Collectors.toList()));
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -72,7 +72,8 @@ public class OrderConverterTest {
      */
     @Test
     public void test_apply_unsorded() {
-        assertNull(new OrderConverter(QRight.right).apply("code", SortOrder.UNSORTED));
+        assertNull(new OrderConverter(QRight.right).apply("code",
+                SortOrder.UNSORTED));
     }
 
 }

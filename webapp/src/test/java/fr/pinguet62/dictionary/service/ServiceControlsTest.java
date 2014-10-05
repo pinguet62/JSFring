@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
+import fr.pinguet62.Config;
 import fr.pinguet62.dictionary.dao.RightDao;
 import fr.pinguet62.dictionary.model.Right;
 import fr.pinguet62.dictionary.service.BadService.RollbackMeIMFamousException;
@@ -62,10 +63,10 @@ class BadService {
 
 /** Tests that the controls of {@link AbstractService} are correct. */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/applicationContext.xml")
-@DatabaseSetup("/dataset.xml")
+@ContextConfiguration(locations = Config.SPRING)
+@DatabaseSetup(Config.DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        DbUnitTestExecutionListener.class })
+    DbUnitTestExecutionListener.class })
 public class ServiceControlsTest {
 
     private static final Logger LOGGER = LoggerFactory

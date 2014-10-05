@@ -25,12 +25,12 @@
 		<property name="subject" value="[Dictionary] SMPT test" />
 		<property name="text">
 			<value>
-          <![CDATA[
-              Hello
-              
-              Login: %s
-              New assword: %s
-          ]]>
+				<![CDATA[
+				Hello
+				
+				Login: %s
+				New assword: %s
+				]]>
 			</value>
 		</property>
 	</bean>
