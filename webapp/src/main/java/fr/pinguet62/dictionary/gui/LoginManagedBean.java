@@ -10,13 +10,14 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 /** {@link ManagedBean} for user login. */
-@ManagedBean
+@Named
 @RequestScoped
 public final class LoginManagedBean implements Serializable {
 

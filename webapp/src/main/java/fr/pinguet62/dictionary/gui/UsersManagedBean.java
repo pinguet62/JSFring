@@ -1,25 +1,23 @@
 package fr.pinguet62.dictionary.gui;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.primefaces.model.LazyDataModel;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import fr.pinguet62.dictionary.model.QUser;
 import fr.pinguet62.dictionary.model.User;
 import fr.pinguet62.dictionary.service.UserService;
 
-@Component
-@ManagedBean
+@Named
 @ViewScoped
 public final class UsersManagedBean {
 
     private LazyDataModel<User> lazyDataModel;
 
-    @Autowired
+    @Inject
     private UserService userService;
 
     /**

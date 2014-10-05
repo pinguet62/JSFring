@@ -6,27 +6,25 @@ import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.primefaces.model.DualListModel;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import fr.pinguet62.dictionary.model.Profile;
 import fr.pinguet62.dictionary.model.Right;
 import fr.pinguet62.dictionary.service.ProfileService;
 import fr.pinguet62.dictionary.service.RightService;
 
-@Component
-@ManagedBean
+@Named
 @ViewScoped
 public final class ProfilesManagedBean {
 
     private List<Profile> profiles;
 
-    @Autowired
+    @Inject
     private ProfileService profileService;
 
     /**
@@ -35,7 +33,7 @@ public final class ProfilesManagedBean {
      */
     private DualListModel<Right> rightsAssociation;
 
-    @Autowired
+    @Inject
     private RightService rightService;
 
     /** The {@link Profile} to display or update. */

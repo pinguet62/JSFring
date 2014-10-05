@@ -88,6 +88,11 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>5.1.2.Final</version>
 		</dependency>
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
 		<!-- JSP -->
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
@@ -166,6 +171,11 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
