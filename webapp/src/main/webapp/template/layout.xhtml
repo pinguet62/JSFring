@@ -10,6 +10,21 @@
 <h:head>
 	<h:outputStylesheet library="css" name="main.css" />
 	<title>Dictionary</title>
+	<h:outputStylesheet>
+		<!-- Sub-menu not hidden -->
+	    .ui-layout-north {
+	        z-index:20 !important;
+	        overflow:visible !important;
+	    }
+	    .ui-layout-north .ui-layout-unit-content {
+	        overflow:visible !important;
+	    }
+	    
+	    <!-- No border -->
+	    .ui-layout, .ui-layout-doc, .ui-layout-unit, .ui-layout-wrap, .ui-layout-bd, .ui-layout-hd {
+             border: none;
+        }
+    </h:outputStylesheet>
 </h:head>
 <h:body>
 	<p:layout fullPage="true">

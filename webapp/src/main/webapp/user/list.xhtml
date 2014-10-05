@@ -14,11 +14,11 @@
 				rows="2" lazy="true" paginator="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="2 5 10">
-				<p:column headerText="Login" sortBy="#{user.login}"
+				<p:column headerText="#{msg['user.login']}" sortBy="#{user.login}"
 					filterBy="#{user.login}">
 					<h:outputText value="#{user.login}" />
 				</p:column>
-				<p:column headerText="Email" sortBy="#{user.email}"
+				<p:column headerText="#{msg['user.email']}" sortBy="#{user.email}"
 					filterBy="#{user.email}">
 					<h:outputText value="#{user.email}" />
 				</p:column>

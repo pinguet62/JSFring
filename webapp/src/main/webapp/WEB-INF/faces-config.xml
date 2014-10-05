@@ -4,19 +4,22 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 	version="2.0">
 	<application>
-		<!-- Messages -->
+		<!-- i18n -->
 		<locale-config>
 			<default-locale>en</default-locale>
 			<supported-locale>en</supported-locale>
 			<supported-locale>fr</supported-locale>
 		</locale-config>
 		<resource-bundle>
-			<base-name>fr.pinguet62.croquette.messages</base-name>
+			<base-name>fr.pinguet62.dictionary.messages</base-name>
 			<var>msg</var>
 		</resource-bundle>
+
 		<!-- Spring -->
 		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+		<!-- <variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver> -->
 	</application>
+
 	<!-- Outcome -->
 	<navigation-rule>
 		<!-- Login -->

@@ -32,11 +32,11 @@
 					<p:columnToggler datasource="datatable" trigger="toggler" />
 				</f:facet>
 
-				<p:column headerText="Title" filterBy="#{profile.title}"
-					sortBy="#{profile.title}">
+				<p:column headerText="#{msg['profile.title']}"
+					filterBy="#{profile.title}" sortBy="#{profile.title}">
 					<h:outputText value="#{profile.title}" />
 				</p:column>
-				<p:column headerText="Actions"
+				<p:column headerText="#{msg['profile.actions']}"
 					style="width: 150px; text-align: center">
 					<p:commandButton icon="ui-icon-search" title="Show"
 						update=":form:profileShow" oncomplete="showShow()">

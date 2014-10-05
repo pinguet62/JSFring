@@ -8,8 +8,8 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-    <h:outputStylesheet library="css" name="main.css" />
-	<title>Login</title>
+	<h:outputStylesheet library="css" name="main.css" />
+	<title><h:outputText value="#{msg['login.pageTitle']}" /></title>
 </h:head>
 <h:body>
 	<h:form prependId="false">
@@ -19,17 +19,18 @@
 				<p:messages autoUpdate="true" />
 
 				<h:panelGrid cellpadding="5" columns="2">
-					<h:outputLabel for="j_username" value="Username" />
+					<h:outputLabel for="j_username" value="#{msg['login.username']}" />
 					<p:inputText id="j_username" value="#{loginManagedBean.username}" />
-					<h:outputLabel for="j_password" value="Password" />
+					<h:outputLabel for="j_password" value="#{msg['login.password']}" />
 					<p:inputText id="j_password" value="#{loginManagedBean.password}" />
 				</h:panelGrid>
 
 				<f:facet name="footer">
 					<p:commandButton ajax="false" action="#{loginManagedBean.login}"
-						type="submit" value="Sumbit" />
+						type="submit" value="#{msg['login.submit']}" />
 					<br />
-					<p:link outcome="forgottenPassword" value="Forgotten password?" />
+					<p:link outcome="forgottenPassword"
+						value="#{msg['login.forgottenPassword']}" />
 				</f:facet>
 			</p:panel>
 		</div>
