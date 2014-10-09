@@ -4,29 +4,27 @@ import java.util.Locale;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.Scope;
 
 import fr.pinguet62.dictionary.model.User;
 import fr.pinguet62.dictionary.service.UserService;
 
 /** {@link ManagedBean} for reset the password of an {@link User}. */
-@Named
-@Scope("request")
-// TODO ViewScoped
+@ManagedBean
+@ViewScoped
 public final class ForgottenPasswordManagedBean {
 
     /** The email. */
     private String email;
 
-    @Inject
+    @ManagedProperty("#{messageSource}")
     private MessageSource messageSource;
 
-    @Inject
+    @ManagedProperty("#{userService}")
     private UserService userService;
 
     public ForgottenPasswordManagedBean() {
@@ -65,6 +63,14 @@ public final class ForgottenPasswordManagedBean {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setMessageSource(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
 }

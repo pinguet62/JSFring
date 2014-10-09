@@ -12,9 +12,10 @@ import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.application.NavigationCase;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.primefaces.component.breadcrumb.BreadCrumb;
 import org.primefaces.component.menubar.Menubar;
@@ -28,10 +29,9 @@ import org.primefaces.model.menu.MenuModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.Scope;
 
-@Named
-@Scope("request")
+@ManagedBean
+@RequestScoped
 public class MenuManagedBean {
 
     private static final Logger LOGGER = LoggerFactory
@@ -43,7 +43,7 @@ public class MenuManagedBean {
     /** First {@link MenuItem} of {@link #model}. */
     protected DefaultMenuItem home;
 
-    @Inject
+    @ManagedProperty("#{messageSource}")
     private MessageSource messageSource;
 
     /** The {@link Menubar}. */
@@ -74,7 +74,15 @@ public class MenuManagedBean {
         return breadcrumbs.get(target.getFromOutcome());
     }
 
-    private String getMessage(String key) {
+    // protected: unittest without i18n
+    /**
+     * Get the i18n translation of value, using the {@link #messageSource}.
+     *
+     * @param key
+     *            The i18n key.
+     * @return The translated value.
+     */
+    protected String getMessage(String key) {
         Locale locale = FacesContext.getCurrentInstance().getViewRoot()
                 .getLocale();
         return messageSource.getMessage(key, null, locale);
@@ -86,7 +94,7 @@ public class MenuManagedBean {
 
     /** Initialize the {@link Menubar} and the {@link BreadCrumb}. */
     @PostConstruct
-    private void init() {
+    protected void init() {
         home = new DefaultMenuItem(getMessage("menubar.index"));
         home.setOutcome("index");
         home.setIcon("ui-icon-home");
@@ -173,6 +181,7 @@ public class MenuManagedBean {
             throw new IllegalArgumentException("Type unknown: " + last);
     }
 
+    // protected: unittest with data test
     /**
      * Initialize the {@link Menubar}.
      * <p>

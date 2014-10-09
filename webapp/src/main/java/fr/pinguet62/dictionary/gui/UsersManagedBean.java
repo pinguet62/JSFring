@@ -1,9 +1,9 @@
 package fr.pinguet62.dictionary.gui;
 
 import javax.annotation.PostConstruct;
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
 
 import org.primefaces.model.LazyDataModel;
 
@@ -11,13 +11,13 @@ import fr.pinguet62.dictionary.model.QUser;
 import fr.pinguet62.dictionary.model.User;
 import fr.pinguet62.dictionary.service.UserService;
 
-@Named
+@ManagedBean
 @ViewScoped
 public final class UsersManagedBean {
 
     private LazyDataModel<User> lazyDataModel;
 
-    @Inject
+    @ManagedProperty("#{userService}")
     private UserService userService;
 
     /**
@@ -32,6 +32,10 @@ public final class UsersManagedBean {
     @PostConstruct
     private void init() {
         lazyDataModel = new QuerydslLazyDataModel<User>(userService, QUser.user);
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
 }

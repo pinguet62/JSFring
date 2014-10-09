@@ -6,10 +6,10 @@ import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.primefaces.model.DualListModel;
 
@@ -18,13 +18,13 @@ import fr.pinguet62.dictionary.model.Right;
 import fr.pinguet62.dictionary.service.ProfileService;
 import fr.pinguet62.dictionary.service.RightService;
 
-@Named
+@ManagedBean
 @ViewScoped
 public final class ProfilesManagedBean {
 
     private List<Profile> profiles;
 
-    @Inject
+    @ManagedProperty("#{profileService}")
     private ProfileService profileService;
 
     /**
@@ -33,7 +33,7 @@ public final class ProfilesManagedBean {
      */
     private DualListModel<Right> rightsAssociation;
 
-    @Inject
+    @ManagedProperty("#{rightService}")
     private RightService rightService;
 
     /** The {@link Profile} to display or update. */
@@ -75,8 +75,16 @@ public final class ProfilesManagedBean {
                         selectedProfile.getTitle()));
     }
 
+    public void setProfileService(ProfileService profileService) {
+        this.profileService = profileService;
+    }
+
     public void setRightsAssociation(DualListModel<Right> rightsAssociation) {
         this.rightsAssociation = rightsAssociation;
+    }
+
+    public void setRightService(RightService rightService) {
+        this.rightService = rightService;
     }
 
     /**
