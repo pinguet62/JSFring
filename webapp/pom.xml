@@ -1,42 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-4.0.0.xsd">
-	<artifactId>Dictionary</artifactId>
-	<groupId>fr.pinguet62.dictionary</groupId>
 	<modelVersion>4.0.0</modelVersion>
-	<name>Dictionary</name>
-	<packaging>war</packaging>
-	<url>http://maven.apache.org</url>
+
+	<groupId>fr.pinguet62.dictionary</groupId>
+	<artifactId>Dictionary</artifactId>
 	<version>1.0-SNAPSHOT</version>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java-version>1.8</java-version>
-		<jsf-version>2.2.8-02</jsf-version>
-		<hivernate.version>4.3.6.Final</hivernate.version>
-		<querydsl.version>3.5.0</querydsl.version>
-		<spring.version>4.0.6.RELEASE</spring.version><!-- 4.1.0.RELEASE -->
-		<spring-security.version>3.2.5.RELEASE</spring-security.version>
-	</properties>
-
-	<!-- Repositories -->
-	<repositories>
-		<repository>
-			<!-- PrimeFaces -->
-			<id>prime-repo</id>
-			<name>PrimeFaces Maven Repository</name>
-			<url>http://repository.primefaces.org</url>
-			<layout>default</layout>
-		</repository>
-	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>maven-annotation</id>
-			<url>http://maven-annotation-plugin.googlecode.com/svn/trunk/mavenrepo
-			</url>
-		</pluginRepository>
-	</pluginRepositories>
-
+	<packaging>war</packaging>
 	<dependencies>
 		<!-- ===== Others ===== -->
 		<!-- Logging -->
@@ -229,6 +199,15 @@
 			<version>1.1.0</version>
 		</dependency>
 	</dependencies>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java-version>1.8</java-version>
+		<jsf-version>2.2.8-02</jsf-version>
+		<hivernate.version>4.3.6.Final</hivernate.version>
+		<querydsl.version>3.5.0</querydsl.version>
+		<spring.version>4.0.6.RELEASE</spring.version><!-- 4.1.0.RELEASE -->
+		<spring-security.version>3.2.5.RELEASE</spring-security.version>
+	</properties>
 
 	<build>
 		<finalName>Dictionary</finalName>
@@ -268,4 +247,52 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<name>Dictionary</name>
+	<description>
+		Web application who integrated JSF, JPA (Hibernate) and
+		Spring
+	</description>
+	<url>http://localhost:8081/Dictionary</url>
+	<licenses>
+		<license>
+			<name>
+				Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+				International
+				Public License
+			</name>
+			<url>http://creativecommons.org/licenses/by-nc-sa/4.0/</url>
+			<comments>CC BY-NC-SA 4.0</comments>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<id>pinguet62</id>
+			<name>PINGUET Julien</name>
+			<email>pinguet62@gmail.com</email>
+			<roles>
+				<role>architect</role>
+				<role>developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+	</developers>
+
+	<repositories>
+		<repository>
+			<!-- PrimeFaces -->
+			<id>prime-repo</id>
+			<name>PrimeFaces Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>maven-annotation</id>
+			<url>http://maven-annotation-plugin.googlecode.com/svn/trunk/mavenrepo
+			</url>
+		</pluginRepository>
+	</pluginRepositories>
+
 </project>
