@@ -14,7 +14,8 @@
 <h:body>
 	<h:form prependId="false">
 		<div style="text-align: center;">
-			<p:panel header="Login" style="display: inline-block;">
+			<p:panel header="#{msg['login.pageTitle']}"
+				style="display: inline-block;">
 				<h:outputText rendered="#{not empty loginManagedBean.error}" />
 				<p:messages autoUpdate="true" />
 

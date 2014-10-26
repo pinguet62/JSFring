@@ -16,8 +16,12 @@ import org.primefaces.model.menu.MenuModel;
 /** @see MenuManagedBean */
 public final class MenuManagedBeanTest {
 
-    class AMenu extends MenuManagedBean {
-        private static final long serialVersionUID = 1;
+    private class AMenu extends MenuManagedBean {
+        // Don't use {@link MenuManagedBean#messageSource}
+        @Override
+        protected String getMessage(String key) {
+            return key;
+        }
 
         @Override
         protected void initMenu() {
@@ -53,8 +57,9 @@ public final class MenuManagedBeanTest {
      * @see MenuManagedBean#breadcrumbs
      */
     @Test
-    public void test() {
+    public void test_content() {
         MenuManagedBean bean = new AMenu();
+        bean.init(); // @PostConstruct
         Map<String, MenuModel> breadcrumbs = bean.breadcrumbs;
         // 1
         MenuModel model1 = breadcrumbs.get("outcome 1");
