@@ -9,8 +9,8 @@
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
-		<property name="username" value="" />
-		<property name="password" value="" />
+		<property name="username" value="pinguet62test@gmail.com" />
+		<property name="password" value="AZER1234qsdf" />
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.smtp.auth">true</prop>
@@ -25,12 +25,12 @@
 		<property name="subject" value="[Dictionary] SMPT test" />
 		<property name="text">
 			<value>
-                <![CDATA[
-                Hello
-                
-                Login: %s
-                New assword: %s
-                ]]>
+				<![CDATA[
+				Hello
+				
+				Login: %s
+				New assword: %s
+				]]>
 			</value>
 		</property>
 	</bean>
