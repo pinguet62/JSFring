@@ -14,13 +14,12 @@ import org.primefaces.model.menu.MenuItem;
 import org.primefaces.model.menu.MenuModel;
 
 /** @see MenuManagedBean */
-public final class MenuManagedBeanTest {
+public final class AbstractMenuManagedBeanTest {
 
-    private class AMenu extends MenuManagedBean {
-        // Don't use {@link MenuManagedBean#messageSource}
+    private class AMenu extends AbstractMenuManagedBean {
         @Override
-        protected String getMessage(String key) {
-            return key;
+        protected DefaultMenuItem getHome() {
+            return new DefaultMenuItem();
         }
 
         @Override
@@ -58,7 +57,7 @@ public final class MenuManagedBeanTest {
      */
     @Test
     public void test_content() {
-        MenuManagedBean bean = new AMenu();
+        AbstractMenuManagedBean bean = new AMenu();
         bean.init(); // @PostConstruct
         Map<String, MenuModel> breadcrumbs = bean.breadcrumbs;
         // 1
