@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import fr.pinguet62.dictionary.model.QDescription;
+import fr.pinguet62.jsfring.model.QDescription;
 
 /** @see PropertyConverter */
 public final class PropertyConverterTest {

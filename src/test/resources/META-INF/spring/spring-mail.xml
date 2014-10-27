@@ -9,8 +9,8 @@
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
-		<property name="username" value="pinguet62test@gmail.com" />
-		<property name="password" value="AZER1234qsdf" />
+		<property name="username" value="" />
+		<property name="password" value="" />
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.smtp.auth">true</prop>
@@ -22,7 +22,7 @@
 
 	<bean id="forgottenPasswordMessage" class="org.springframework.mail.SimpleMailMessage">
 		<property name="from" value="sender@gmail.com" />
-		<property name="subject" value="[Dictionary] SMPT test" />
+		<property name="subject" value="[JSFring] SMPT test" />
 		<property name="text">
 			<value>
                 <![CDATA[

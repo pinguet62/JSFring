@@ -3,8 +3,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>fr.pinguet62.dictionary</groupId>
-	<artifactId>Dictionary</artifactId>
+	<groupId>fr.pinguet62</groupId>
+	<artifactId>JSFring</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<dependencies>
@@ -210,7 +210,7 @@
 	</properties>
 
 	<build>
-		<finalName>Dictionary</finalName>
+		<finalName>JSFring</finalName>
 		<testResources>
 			<testResource>
 				<directory>${project.basedir}/src/test/resources</directory>
@@ -248,12 +248,12 @@
 		</plugins>
 	</build>
 
-	<name>Dictionary</name>
+	<name>JSFring</name>
 	<description>
 		Web application who integrated JSF, JPA (Hibernate) and
 		Spring
 	</description>
-	<url>http://localhost:8081/Dictionary</url>
+	<url>http://localhost:8081/JSFring</url>
 	<licenses>
 		<license>
 			<name>

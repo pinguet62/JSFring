@@ -1,4 +1,6 @@
-# Dictionary
+# JSFring
+
+Integration of Spring into JSF project.
 
 Frameworks and APIs used:
 

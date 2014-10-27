@@ -11,7 +11,7 @@
 			<supported-locale>fr</supported-locale>
 		</locale-config>
 		<resource-bundle>
-			<base-name>fr.pinguet62.dictionary.messages</base-name>
+			<base-name>fr.pinguet62.jsfring.messages</base-name>
 			<var>msg</var>
 		</resource-bundle>
 

@@ -6,7 +6,7 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
-	<context:component-scan base-package="fr.pinguet62.dictionary" />
+	<context:component-scan base-package="fr.pinguet62.jsfring" />
 	<context:annotation-config />
 
 	<import resource="spring-mail.xml" />
@@ -15,7 +15,7 @@
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basename">
-			<value>fr.pinguet62.dictionary.messages</value>
+			<value>fr.pinguet62.jsfring.messages</value>
 		</property>
 	</bean>
 

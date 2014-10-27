@@ -24,17 +24,17 @@ import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.types.OrderSpecifier;
 
 import fr.pinguet62.Config;
-import fr.pinguet62.dictionary.dao.RightDao;
-import fr.pinguet62.dictionary.model.QRight;
-import fr.pinguet62.dictionary.model.Right;
+import fr.pinguet62.jsfring.dao.RightDao;
+import fr.pinguet62.jsfring.model.QRight;
+import fr.pinguet62.jsfring.model.Right;
 
 /** @see OrderConverter */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = Config.SPRING)
 @DatabaseSetup(Config.DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-    TransactionalTestExecutionListener.class,
-    DbUnitTestExecutionListener.class })
+        TransactionalTestExecutionListener.class,
+        DbUnitTestExecutionListener.class })
 @Transactional
 public class OrderConverterTest {
 
@@ -61,7 +61,7 @@ public class OrderConverterTest {
         assertEquals(
                 codes,
                 rightDao.find(queryDesc).stream().map(Right::getCode)
-                .collect(Collectors.toList()));
+                        .collect(Collectors.toList()));
     }
 
     /**

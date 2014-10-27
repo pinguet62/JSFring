@@ -10,12 +10,12 @@ import javax.persistence.Entity;
 
 import org.junit.Test;
 
-import fr.pinguet62.dictionary.model.Profile;
-import fr.pinguet62.dictionary.model.QProfile;
-import fr.pinguet62.dictionary.model.QRight;
-import fr.pinguet62.dictionary.model.QUser;
-import fr.pinguet62.dictionary.model.Right;
-import fr.pinguet62.dictionary.model.User;
+import fr.pinguet62.jsfring.model.Profile;
+import fr.pinguet62.jsfring.model.QProfile;
+import fr.pinguet62.jsfring.model.QRight;
+import fr.pinguet62.jsfring.model.QUser;
+import fr.pinguet62.jsfring.model.Right;
+import fr.pinguet62.jsfring.model.User;
 
 /** @see ReflectionUtil */
 public final class ReflectionUtilTest {

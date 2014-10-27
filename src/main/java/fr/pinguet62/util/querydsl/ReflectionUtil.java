@@ -11,8 +11,8 @@ import javax.persistence.Entity;
 import com.mysema.query.types.EntityPath;
 import com.mysema.query.types.path.EntityPathBase;
 
-import fr.pinguet62.dictionary.model.QRight;
-import fr.pinguet62.dictionary.model.Right;
+import fr.pinguet62.jsfring.model.QRight;
+import fr.pinguet62.jsfring.model.Right;
 
 public final class ReflectionUtil {
 
@@ -56,8 +56,8 @@ public final class ReflectionUtil {
                 .stream()
                 .filter(/* Static */attr -> Modifier.isStatic(attr
                         .getModifiers()))
-                        .filter(/* Same type */attr -> attr.getType().equals(
-                                metaObjectType)).collect(Collectors.toList());
+                .filter(/* Same type */attr -> attr.getType().equals(
+                        metaObjectType)).collect(Collectors.toList());
         if (fields.size() == 0)
             throw new IllegalArgumentException("Field not found.");
         else if (fields.size() >= 2)

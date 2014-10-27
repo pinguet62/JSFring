@@ -23,14 +23,14 @@ import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.types.expr.BooleanExpression;
 
 import fr.pinguet62.Config;
-import fr.pinguet62.dictionary.dao.ProfileDao;
-import fr.pinguet62.dictionary.dao.RightDao;
-import fr.pinguet62.dictionary.dao.UserDao;
-import fr.pinguet62.dictionary.model.Profile;
-import fr.pinguet62.dictionary.model.QProfile;
-import fr.pinguet62.dictionary.model.QRight;
-import fr.pinguet62.dictionary.model.QUser;
-import fr.pinguet62.dictionary.model.User;
+import fr.pinguet62.jsfring.dao.ProfileDao;
+import fr.pinguet62.jsfring.dao.RightDao;
+import fr.pinguet62.jsfring.dao.UserDao;
+import fr.pinguet62.jsfring.model.Profile;
+import fr.pinguet62.jsfring.model.QProfile;
+import fr.pinguet62.jsfring.model.QRight;
+import fr.pinguet62.jsfring.model.QUser;
+import fr.pinguet62.jsfring.model.User;
 
 /** @see FilterConverter */
 @RunWith(SpringJUnit4ClassRunner.class)
