@@ -10,8 +10,21 @@
 	template="/template/layout.xhtml">
 	<ui:define name="content">
 		<h:form id="form">
-			<p:dataTable value="#{usersManagedBean.lazyDataModel}" var="user"
-				rows="2" lazy="true" paginator="true"
+			<p:growl autoUpdate="true" />
+
+			<script>
+				function showShow() {
+					PF('userEditDialog').hide();
+					PF('userShowDialog').show();
+				}
+				function showEdit() {
+					PF('userShowDialog').hide();
+					PF('userEditDialog').show();
+				}
+			</script>
+
+			<p:dataTable id="datatable" value="#{usersManagedBean.lazyDataModel}"
+				var="user" rows="2" lazy="true" paginator="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="2 5 10">
 				<p:column headerText="#{msg['user.login']}" sortBy="#{user.login}"
@@ -22,7 +35,56 @@
 					filterBy="#{user.email}">
 					<h:outputText value="#{user.email}" />
 				</p:column>
+				<p:column headerText="#{msg['user.actions']}"
+					style="width: 150px; text-align: center">
+					<p:commandButton icon="ui-icon-search" title="Show"
+						update=":form:userShow" oncomplete="showShow()">
+						<f:setPropertyActionListener
+							target="#{usersManagedBean.selectedUser}" value="#{user}" />
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-pencil" title="Show"
+						update=":form:userEdit" oncomplete="showEdit()">
+						<f:setPropertyActionListener
+							target="#{usersManagedBean.selectedUser}" value="#{user}" />
+					</p:commandButton>
+				</p:column>
 			</p:dataTable>
+
+			<p:dialog id="userShow" widgetVar="userShowDialog" dynamic="true"
+				header="Show" showEffect="fade" hideEffect="fade" resizable="false">
+				<h:panelGrid columns="2">
+					<p:outputLabel for="loginShow" value="Login" />
+					<h:outputText id="loginShow"
+						value="#{usersManagedBean.selectedUser.login}" />
+					<p:outputLabel for="profilesShow" value="Profiles" />
+					<p:dataList id="profilesShow"
+						value="#{usersManagedBean.selectedUser.profiles}" var="profile">
+						<f:facet name="header">
+							<h:outputText value="Associated" />
+						</f:facet>
+						<h:outputText value="#{profile.title}" />
+					</p:dataList>
+				</h:panelGrid>
+			</p:dialog>
+			<p:dialog id="userEdit" widgetVar="userEditDialog" dynamic="true"
+				header="Edit" showEffect="fade" hideEffect="fade" resizable="false">
+				<h:panelGrid columns="2">
+					<p:outputLabel for="loginEdit" value="Login" />
+					<p:inputText id="loginEdit"
+						value="#{usersManagedBean.selectedUser.login}" />
+					<p:outputLabel for="profilesEdit" value="Profiles" />
+					<p:pickList id="profilesEdit"
+						value="#{usersManagedBean.profilesAssociation}" var="profile"
+						itemValue="#{profile}" itemLabel="#{profile.title}"
+						converter="#{profileConverter}">
+						<f:facet name="sourceCaption">Available</f:facet>
+						<f:facet name="targetCaption">Associated</f:facet>
+					</p:pickList>
+				</h:panelGrid>
+				<p:commandButton value="Submit"
+					actionListener="#{usersManagedBean.save}"
+					oncomplete="PF('userEditDialog').hide();" update="datatable" />
+			</p:dialog>
 		</h:form>
 	</ui:define>
 </ui:composition>
