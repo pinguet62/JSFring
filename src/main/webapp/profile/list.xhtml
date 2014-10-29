@@ -80,7 +80,8 @@
 					<p:outputLabel for="rightsEdit" value="Rights" />
 					<p:pickList id="rightsEdit"
 						value="#{profilesManagedBean.rightsAssociation}" var="right"
-						itemValue="#{right.code}" itemLabel="#{right.title}">
+						itemValue="#{right}" itemLabel="#{right.title}"
+						converter="#{rightConverter}">
 						<f:facet name="sourceCaption">Available</f:facet>
 						<f:facet name="targetCaption">Associated</f:facet>
 					</p:pickList>

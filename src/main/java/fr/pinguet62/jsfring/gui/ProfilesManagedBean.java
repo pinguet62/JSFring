@@ -22,14 +22,15 @@ import fr.pinguet62.jsfring.service.RightService;
 @ViewScoped
 public final class ProfilesManagedBean {
 
+    /** The list of {@link Profile}s to display. */
     private List<Profile> profiles;
 
     @ManagedProperty("#{profileService}")
     private ProfileService profileService;
 
     /**
-     * The {@link Right} association (available/associated) of the selected
-     * {@link Profile}.
+     * The {@link Right} association (available/associated) of the
+     * {@link #selectedProfile}.
      */
     private DualListModel<Right> rightsAssociation;
 
@@ -68,6 +69,9 @@ public final class ProfilesManagedBean {
      * Save the modified {@link Profile}.
      */
     public void save() {
+        selectedProfile.getRights().clear();
+        selectedProfile.getRights().addAll(rightsAssociation.getTarget());
+
         profileService.update(selectedProfile);
         FacesContext.getCurrentInstance().addMessage(
                 null,
@@ -75,6 +79,7 @@ public final class ProfilesManagedBean {
                         selectedProfile.getTitle()));
     }
 
+    // Inject
     public void setProfileService(ProfileService profileService) {
         this.profileService = profileService;
     }
@@ -83,12 +88,13 @@ public final class ProfilesManagedBean {
         this.rightsAssociation = rightsAssociation;
     }
 
+    // Inject
     public void setRightService(RightService rightService) {
         this.rightService = rightService;
     }
 
     /**
-     * Call when the user click on "Show" button.
+     * Call when the user click on "Show" or "Edit" button.
      * <ul>
      * <li>Set the selected {@link Profile};</li>
      * <li>Initialize the {@link Right} association.</li>
