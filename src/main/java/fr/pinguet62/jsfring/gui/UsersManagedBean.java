@@ -24,28 +24,24 @@ import fr.pinguet62.jsfring.service.UserService;
 @ViewScoped
 public final class UsersManagedBean {
 
+    /** The lazy list of {@link User}s to display. */
     private LazyDataModel<User> lazyDataModel;
 
     /**
-     * The {@link Profile} association (available/associated) of the selected
-     * {@link User}.
+     * The {@link Profile} association (available/associated) of the
+     * {@link #selectedUser}.
      */
     private DualListModel<Profile> profilesAssociation;
 
     @ManagedProperty("#{profileService}")
     private ProfileService profileService;
 
-    /** The {@link User} to display or update. */
+    /** The selected {@link User} to display or update. */
     private User selectedUser;
 
     @ManagedProperty("#{userService}")
     private UserService userService;
 
-    /**
-     * Get the lazy list of {@link User}s to display.
-     *
-     * @return The {@link UserLazyDataModel} of {@link User}s.
-     */
     public LazyDataModel<User> getLazyDataModel() {
         return lazyDataModel;
     }
@@ -111,6 +107,7 @@ public final class UsersManagedBean {
                 associatedProfiles);
     }
 
+    // Inject
     public void setUserService(UserService userService) {
         this.userService = userService;
     }

@@ -2,14 +2,16 @@ package fr.pinguet62.jsfring.model;
 
 // Generated 16 août 2014 18:49:09 by Hibernate Tools 4.0.0
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -24,9 +26,9 @@ import javax.persistence.Table;
 public class Profile implements java.io.Serializable {
 
     private Integer id;
+    private Set<Right> rights = new HashSet<Right>(0);
     private String title;
     private Set<User> users = new HashSet<User>(0);
-    private Set<Right> rights = new HashSet<Right>(0);
 
     public Profile() {
     }
@@ -45,6 +47,16 @@ public class Profile implements java.io.Serializable {
 
     public Profile(String title) {
         this.title = title;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Profile))
+            return false;
+        Profile other = (Profile) obj;
+        return Objects.equals(id, other.id);
     }
 
     @Id
@@ -69,6 +81,11 @@ public class Profile implements java.io.Serializable {
     @JoinTable(name = "users_profiles", catalog = "dictionary", joinColumns = { @JoinColumn(name = "PROFILE", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "USER", nullable = false, updatable = false) })
     public Set<User> getUsers() {
         return users;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     public void setId(int id) {

@@ -22,16 +22,26 @@ public class ProfileConverter implements Converter {
     @Autowired
     private ProfileService profileService;
 
+    /**
+     * @param id
+     *            The {@link Profile#id id} as {@link String}.
+     * @return The {@link Profile}.
+     */
     @Override
     public Object getAsObject(FacesContext context, UIComponent component,
-            String value) {
-        return profileService.get(Integer.parseInt(value));
+            String id) {
+        return profileService.get(Integer.parseInt(id));
     }
 
+    /**
+     * @param value
+     *            The {@link Profile}.
+     * @return The {@link Profile#id id} as {@link String}.
+     */
     @Override
     public String getAsString(FacesContext context, UIComponent component,
-            Object value) {
-        Profile profile = (Profile) value;
+            Object object) {
+        Profile profile = (Profile) object;
         return profile.getId().toString();
     }
 
