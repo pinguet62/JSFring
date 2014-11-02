@@ -1,6 +1,6 @@
-package fr.pinguet62.util.querydsl;
+package fr.pinguet62.jsfring.gui.util.querydsl;
 
-import static fr.pinguet62.util.querydsl.ReflectionUtil.getDefaultMetaObject;
+import static fr.pinguet62.jsfring.gui.util.querydsl.ReflectionUtil.getDefaultMetaObject;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 
 import org.junit.Test;
 
+import fr.pinguet62.jsfring.gui.util.querydsl.ReflectionUtil;
 import fr.pinguet62.jsfring.model.Profile;
 import fr.pinguet62.jsfring.model.QProfile;
 import fr.pinguet62.jsfring.model.QRight;

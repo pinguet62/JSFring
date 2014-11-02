@@ -1,4 +1,4 @@
-package fr.pinguet62.util.querydsl.converter;
+package fr.pinguet62.jsfring.gui.util.querydsl.converter;
 
 import java.util.function.BiFunction;
 

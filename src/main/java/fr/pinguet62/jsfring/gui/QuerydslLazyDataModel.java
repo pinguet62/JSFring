@@ -16,11 +16,11 @@ import com.mysema.query.types.EntityPath;
 import com.mysema.query.types.OrderSpecifier;
 import com.mysema.query.types.expr.BooleanExpression;
 
+import fr.pinguet62.jsfring.gui.util.querydsl.ReflectionUtil;
+import fr.pinguet62.jsfring.gui.util.querydsl.converter.FilterConverter;
+import fr.pinguet62.jsfring.gui.util.querydsl.converter.OrderConverter;
 import fr.pinguet62.jsfring.model.QUser;
 import fr.pinguet62.jsfring.service.AbstractService;
-import fr.pinguet62.util.querydsl.ReflectionUtil;
-import fr.pinguet62.util.querydsl.converter.FilterConverter;
-import fr.pinguet62.util.querydsl.converter.OrderConverter;
 
 /**
  * {@link LazyDataModel} using the Querydsl API for sorting and sorting.

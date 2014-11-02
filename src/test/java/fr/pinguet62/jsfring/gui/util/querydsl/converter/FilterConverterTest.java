@@ -1,4 +1,4 @@
-package fr.pinguet62.util.querydsl.converter;
+package fr.pinguet62.jsfring.gui.util.querydsl.converter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -26,6 +26,7 @@ import fr.pinguet62.Config;
 import fr.pinguet62.jsfring.dao.ProfileDao;
 import fr.pinguet62.jsfring.dao.RightDao;
 import fr.pinguet62.jsfring.dao.UserDao;
+import fr.pinguet62.jsfring.gui.util.querydsl.converter.FilterConverter;
 import fr.pinguet62.jsfring.model.Profile;
 import fr.pinguet62.jsfring.model.QProfile;
 import fr.pinguet62.jsfring.model.QRight;

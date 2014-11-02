@@ -1,4 +1,4 @@
-package fr.pinguet62.util.querydsl.converter;
+package fr.pinguet62.jsfring.gui.util.querydsl.converter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -25,6 +25,7 @@ import com.mysema.query.types.OrderSpecifier;
 
 import fr.pinguet62.Config;
 import fr.pinguet62.jsfring.dao.RightDao;
+import fr.pinguet62.jsfring.gui.util.querydsl.converter.OrderConverter;
 import fr.pinguet62.jsfring.model.QRight;
 import fr.pinguet62.jsfring.model.Right;
 

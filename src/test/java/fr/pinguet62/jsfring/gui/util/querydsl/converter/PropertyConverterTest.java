@@ -1,4 +1,4 @@
-package fr.pinguet62.util.querydsl.converter;
+package fr.pinguet62.jsfring.gui.util.querydsl.converter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
+import fr.pinguet62.jsfring.gui.util.querydsl.converter.PropertyConverter;
 import fr.pinguet62.jsfring.model.QDescription;
 
 /** @see PropertyConverter */
