@@ -8,7 +8,9 @@
 
 	<context:component-scan base-package="fr.pinguet62.jsfring" />
 	<context:annotation-config />
+	<tx:annotation-driven />
 
+	<import resource="database.xml" />
 	<import resource="spring-mail.xml" />
 
 	<!-- i18n: messages -->
@@ -19,36 +21,4 @@
 		</property>
 	</bean>
 
-	<!-- Hibernate -->
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="hibernateProperties">
-			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
-				<prop key="hibernate.show_sql">true</prop>
-			</props>
-		</property>
-	</bean>
-
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory" ref="entityManagerFactory" />
-	</bean>
-
-	<tx:annotation-driven />
-
-	<!-- JPA -->
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/dictionary" />
-		<property name="username" value="root" />
-		<property name="password" value="AZE123qsd" />
-	</bean>
-
-	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="persistenceUnitName" value="default" />
-	</bean>
 </beans>
