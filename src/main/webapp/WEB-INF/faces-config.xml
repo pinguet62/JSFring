@@ -15,9 +15,8 @@
 			<var>msg</var>
 		</resource-bundle>
 
-		<!-- Spring -->
+		<!-- Spring Security: JSF integration -->
 		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
-		<!-- <variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver> -->
 	</application>
 
 	<!-- Outcome -->

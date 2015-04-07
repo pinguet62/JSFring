@@ -27,28 +27,28 @@ public class MenuManagedBean extends AbstractMenuManagedBean {
     protected void initMenu() {
         // Item 1: home
         model.addElement(home);
-        LOGGER.info("MenuItem 1: \"Home\"/index");
+        LOGGER.trace("MenuItem 1: \"Home\"/index");
 
         // Level 2
         DefaultSubMenu submenu2 = new DefaultSubMenu(
                 getMessage("menubar.administration"));
         submenu2.setIcon("ui-icon-gear");
         model.addElement(submenu2);
-        LOGGER.info("SubMenu 2: \"Administration\" ...");
+        LOGGER.trace("SubMenu 2: \"Administration\" ...");
         // Item 21
         DefaultMenuItem item21 = new DefaultMenuItem(
                 getMessage("menubar.administration.users"));
         item21.setOutcome("users");
         item21.setIcon("ui-icon-person");
         submenu2.addElement(item21);
-        LOGGER.info("MenuItem 21: \"Users\"/users");
+        LOGGER.trace("MenuItem 21: \"Users\"/users");
         // Item 22
         DefaultMenuItem item22 = new DefaultMenuItem(
                 getMessage("menubar.administration.profiles"));
         item22.setOutcome("profiles");
         item22.setIcon("ui-icon-flag");
         submenu2.addElement(item22);
-        LOGGER.info("MenuItem 22: \"Profiles\"/profiles");
+        LOGGER.trace("MenuItem 22: \"Profiles\"/profiles");
     }
 
 }

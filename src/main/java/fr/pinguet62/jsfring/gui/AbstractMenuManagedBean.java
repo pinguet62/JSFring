@@ -112,10 +112,10 @@ public abstract class AbstractMenuManagedBean {
     protected void init() {
         home = getHome();
 
-        LOGGER.info("Initialization of MenuBar...");
+        LOGGER.trace("Initialization of MenuBar...");
         initMenu();
 
-        LOGGER.info("Initialization of BreadCrumb...");
+        LOGGER.trace("Initialization of BreadCrumb...");
         initBreadcrumbs();
     }
 
