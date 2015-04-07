@@ -7,6 +7,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:sec="http://www.springframework.org/security/tags"
 	template="/template/layout.xhtml">
 	<ui:define name="content">
 		<h:form id="form">
@@ -37,16 +38,20 @@
 				</p:column>
 				<p:column headerText="#{msg['user.actions']}"
 					style="width: 150px; text-align: center">
-					<p:commandButton icon="ui-icon-search" title="Show"
-						update=":form:userShow" oncomplete="showShow()">
-						<f:setPropertyActionListener
-							target="#{usersManagedBean.selectedUser}" value="#{user}" />
-					</p:commandButton>
-					<p:commandButton icon="ui-icon-pencil" title="Show"
-						update=":form:userEdit" oncomplete="showEdit()">
-						<f:setPropertyActionListener
-							target="#{usersManagedBean.selectedUser}" value="#{user}" />
-					</p:commandButton>
+					<sec:authorize ifAnyGranted="USER_RO">
+						<p:commandButton icon="ui-icon-search" title="Show"
+							update=":form:userShow" oncomplete="showShow()">
+							<f:setPropertyActionListener
+								target="#{usersManagedBean.selectedUser}" value="#{user}" />
+						</p:commandButton>
+					</sec:authorize>
+					<sec:authorize ifAnyGranted="USER_RW">
+						<p:commandButton icon="ui-icon-pencil" title="Edit"
+							update=":form:userEdit" oncomplete="showEdit()">
+							<f:setPropertyActionListener
+								target="#{usersManagedBean.selectedUser}" value="#{user}" />
+						</p:commandButton>
+					</sec:authorize>
 				</p:column>
 			</p:dataTable>
 

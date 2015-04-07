@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -10,7 +11,10 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mysema.query.jpa.impl.JPAQuery;
+
 import fr.pinguet62.jsfring.dao.UserDao;
+import fr.pinguet62.jsfring.model.QUser;
 import fr.pinguet62.jsfring.model.User;
 
 /** The service for {@link User}. */
@@ -61,6 +65,20 @@ public class UserService extends AbstractService<User, String> {
                 user.getLogin(), user.getPassword()));
         mailSender.send(message);
         LOGGER.info("New password sent to " + user.getLogin() + "'s email");
+    }
+
+    @Transactional(readOnly = true)
+    public User login(String username, String password) {
+        // Login
+        List<User> users = findPanginated(
+                new JPAQuery().from(QUser.user).where(
+                        QUser.user.login.eq(username))).getResults();
+        if (users.isEmpty())
+            return null;
+        User user = users.get(0);
+
+        // Password
+        return user.getPassword().equals(password) ? user : null;
     }
 
 }
