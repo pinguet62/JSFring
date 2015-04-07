@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.gui;
+package fr.pinguet62.jsfring.gui.login;
 
 import java.io.IOException;
 import java.io.Serializable;
