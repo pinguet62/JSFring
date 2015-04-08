@@ -28,6 +28,28 @@
 				var="user" rows="2" lazy="true" paginator="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="2 5 10">
+				<f:facet name="header">
+					<h:commandLink>
+						<p:graphicImage library="img" name="csv.png" width="24"
+							alt="ERROR" />
+						<p:dataExporter type="csv" target="datatable" fileName="users" />
+					</h:commandLink>
+					<h:commandLink>
+						<p:graphicImage library="img" name="xls.png" width="24"
+							alt="ERROR" />
+						<p:dataExporter type="xls" target="datatable" fileName="users" />
+					</h:commandLink>
+					<h:commandLink>
+						<p:graphicImage library="img" name="xml.png" width="24"
+							alt="ERROR" />
+						<p:dataExporter type="xml" target="datatable" fileName="users" />
+					</h:commandLink>
+					<h:commandLink>
+						<p:graphicImage library="img" name="pdf.png" width="24"
+							alt="ERROR" />
+						<p:dataExporter type="pdf" target="datatable" fileName="users" />
+					</h:commandLink>
+				</f:facet>
 				<p:column headerText="#{msg['user.login']}" sortBy="#{user.login}"
 					filterBy="#{user.login}">
 					<h:outputText value="#{user.login}" />

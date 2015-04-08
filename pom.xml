@@ -13,7 +13,7 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.7</version>
+			<version>1.7.12</version>
 		</dependency>
 		<!-- SMPT -->
 		<dependency>
@@ -27,7 +27,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12-beta-2</version>
+			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 		<!-- BdUnit -->
@@ -56,7 +56,7 @@
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
-			<version>2.1</version>
+			<version>2.2.1-b03</version>
 			<scope>provided</scope>
 		</dependency>
 		<!-- JSF -->
@@ -79,7 +79,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>5.1.2.Final</version><!-- 5.2.0.Alpha -->
+			<version>5.1.2.Final</version><!-- 5.2.0.Beta1 errors... -->
 		</dependency>
 		<!-- PrimeFaces -->
 		<dependency>
@@ -95,12 +95,23 @@
 		<dependency>
 			<groupId>org.atmosphere</groupId>
 			<artifactId>atmosphere-runtime</artifactId>
-			<version>2.1.3</version>
+			<version>2.1.3</version><!-- 2.3.0-RC6 -->
 		</dependency>
 		<dependency>
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
+		</dependency>
+		<!-- PrimeFaces: export -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.12-beta1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>4.2.1</version>
 		</dependency>
 
 		<!-- ===== JPA ===== -->
@@ -108,7 +119,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.33</version>
+			<version>5.1.35</version>
 		</dependency>
 		<!-- ORM -->
 		<dependency>
@@ -220,15 +231,16 @@
 		<dependency>
 			<groupId>com.github.springtestdbunit</groupId>
 			<artifactId>spring-test-dbunit</artifactId>
-			<version>1.1.0</version>
+			<version>1.2.1</version>
 		</dependency>
 	</dependencies>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java-version>1.8</java-version>
-		<jsf-version>2.2.8-02</jsf-version>
-		<hivernate.version>4.3.6.Final</hivernate.version>
-		<querydsl.version>3.5.0</querydsl.version>
+		<jsf-version>2.2.10</jsf-version>
+		<hivernate.version>4.3.6.Final</hivernate.version><!-- 5.0.0.Beta1 java.lang.NoSuchMethodError: 
+			org.hibernate.internal.CoreMessageLogger.debug -->
+		<querydsl.version>3.6.3</querydsl.version>
 		<spring.version>4.0.6.RELEASE</spring.version><!-- 4.1.0.RELEASE -->
 		<spring-webflow.version>2.4.1.RELEASE</spring-webflow.version>
 		<spring-security.version>3.1.4.RELEASE</spring-security.version>
