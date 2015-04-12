@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -12,51 +11,72 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.model.DualListModel;
-import org.primefaces.model.LazyDataModel;
+
+import com.mysema.query.jpa.impl.JPAQuery;
 
 import fr.pinguet62.jsfring.model.Profile;
 import fr.pinguet62.jsfring.model.QUser;
 import fr.pinguet62.jsfring.model.User;
+import fr.pinguet62.jsfring.service.AbstractService;
 import fr.pinguet62.jsfring.service.ProfileService;
 import fr.pinguet62.jsfring.service.UserService;
 
+/** @see User */
 @ManagedBean
 @ViewScoped
-public final class UsersManagedBean {
+public final class UsersManagedBean extends AbstractManagedBean<User> {
 
-    /** The lazy list of {@link User}s to display. */
-    private LazyDataModel<User> lazyDataModel;
+    private static final long serialVersionUID = 1;
 
+    // Property
     /**
      * The {@link Profile} association (available/associated) of the
      * {@link #selectedUser}.
+     *
+     * @see #getProfilesAssociation()
+     * @see #setProfilesAssociation(DualListModel)
      */
     private DualListModel<Profile> profilesAssociation;
 
+    // Inject
+    /** @see #setProfileService(ProfileService) */
     @ManagedProperty("#{profileService}")
     private ProfileService profileService;
 
-    /** The selected {@link User} to display or update. */
+    // Property
+    /**
+     * The selected {@link User} to display or update.
+     *
+     * @see #getSelectedUser()
+     * @see #setSelectedUser(User)
+     */
     private User selectedUser;
 
+    // Inject
+    /** @see #setUserService(UserService) */
     @ManagedProperty("#{userService}")
     private UserService userService;
 
-    public LazyDataModel<User> getLazyDataModel() {
-        return lazyDataModel;
-    }
-
+    // Property
+    /** @see #profilesAssociation */
     public DualListModel<Profile> getProfilesAssociation() {
         return profilesAssociation;
     }
 
+    @Override
+    protected JPAQuery getQuery() {
+        return new JPAQuery().from(QUser.user);
+    }
+
+    // Property
+    /** @see #selectedUser */
     public User getSelectedUser() {
         return selectedUser;
     }
 
-    @PostConstruct
-    private void init() {
-        lazyDataModel = new QuerydslLazyDataModel<User>(userService, QUser.user);
+    @Override
+    public AbstractService<User, ?> getService() {
+        return userService;
     }
 
     /**
@@ -75,16 +95,20 @@ public final class UsersManagedBean {
                         selectedUser.getLogin()));
     }
 
+    // Property
+    /** @see #profilesAssociation */
     public void setProfilesAssociation(
             DualListModel<Profile> profilesAssociation) {
         this.profilesAssociation = profilesAssociation;
     }
 
     // Inject
+    /** @see #profileService */
     public void setProfileService(ProfileService profileService) {
         this.profileService = profileService;
     }
 
+    // Property
     /**
      * Call when the user click on "Show" or "Edit" button.
      * <ul>
@@ -94,6 +118,7 @@ public final class UsersManagedBean {
      *
      * @param profile
      *            The selected {@link User}.
+     * @see #selectedUser
      */
     public void setSelectedUser(User user) {
         selectedUser = user;
@@ -108,6 +133,7 @@ public final class UsersManagedBean {
     }
 
     // Inject
+    /** @see #userService */
     public void setUserService(UserService userService) {
         this.userService = userService;
     }

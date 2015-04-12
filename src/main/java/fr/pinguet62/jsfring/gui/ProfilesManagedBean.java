@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -13,54 +12,71 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.model.DualListModel;
 
+import com.mysema.query.jpa.impl.JPAQuery;
+
 import fr.pinguet62.jsfring.model.Profile;
+import fr.pinguet62.jsfring.model.QProfile;
 import fr.pinguet62.jsfring.model.Right;
+import fr.pinguet62.jsfring.service.AbstractService;
 import fr.pinguet62.jsfring.service.ProfileService;
 import fr.pinguet62.jsfring.service.RightService;
 
+/** @see Profile */
 @ManagedBean
 @ViewScoped
-public final class ProfilesManagedBean {
+public final class ProfilesManagedBean extends AbstractManagedBean<Profile> {
 
-    /** The list of {@link Profile}s to display. */
-    private List<Profile> profiles;
+    private static final long serialVersionUID = 1;
 
+    // Inject
+    /** @see #setProfileService(ProfileService) */
     @ManagedProperty("#{profileService}")
     private ProfileService profileService;
 
+    // Property
     /**
      * The {@link Right} association (available/associated) of the
      * {@link #selectedProfile}.
+     *
+     * @see #getRightsAssociation()
+     * @see #setRightsAssociation(DualListModel)
      */
     private DualListModel<Right> rightsAssociation;
 
+    // Inject
+    /** @see #setRightService(RightService) */
     @ManagedProperty("#{rightService}")
     private RightService rightService;
 
-    /** The {@link Profile} to display or update. */
+    // Property
+    /**
+     * The {@link Profile} to display or update.
+     *
+     * @see #getSelectedProfile()
+     * @see #setSelectedProfile(Profile)
+     */
     private Profile selectedProfile;
 
-    /**
-     * Get the list of {@link Profile}s to display.
-     *
-     * @return The {@link Profile}s.
-     */
-    public List<Profile> getList() {
-        return profiles;
+    @Override
+    protected JPAQuery getQuery() {
+        return new JPAQuery().from(QProfile.profile);
     }
 
+    // Property
+    /** @see #rightsAssociation */
     public DualListModel<Right> getRightsAssociation() {
         return rightsAssociation;
     }
 
+    // Property
+    /** @see #selectedProfile */
     public Profile getSelectedProfile() {
         return selectedProfile;
     }
 
-    /** Initialize the list of {@link Profile}s. */
-    @PostConstruct
-    private void init() {
-        profiles = profileService.getAll();
+    @Override
+    public AbstractService<Profile, ?> getService() {
+        return profileService;
     }
 
     /**
@@ -80,19 +96,24 @@ public final class ProfilesManagedBean {
     }
 
     // Inject
+    /** @see #profileService */
     public void setProfileService(ProfileService profileService) {
         this.profileService = profileService;
     }
 
+    // Property
+    /** @see #rightsAssociation */
     public void setRightsAssociation(DualListModel<Right> rightsAssociation) {
         this.rightsAssociation = rightsAssociation;
     }
 
     // Inject
+    /** @see #rightService */
     public void setRightService(RightService rightService) {
         this.rightService = rightService;
     }
 
+    // Property
     /**
      * Call when the user click on "Show" or "Edit" button.
      * <ul>
@@ -102,6 +123,7 @@ public final class ProfilesManagedBean {
      *
      * @param profile
      *            The selected {@link Profile}.
+     * @see #selectedProfile
      */
     public void setSelectedProfile(Profile profile) {
         selectedProfile = profile;

@@ -61,6 +61,12 @@ public abstract class AbstractService<T, PK extends Serializable> {
 
     // TODO Comments
     @Transactional(readOnly = true)
+    public List<T> find(JPAQuery query) {
+        return dao.find(query);
+    }
+
+    // TODO Comments
+    @Transactional(readOnly = true)
     public SearchResults<T> findPanginated(JPAQuery query) {
         return dao.findPanginated(query);
     }
