@@ -34,7 +34,6 @@ import fr.pinguet62.jsfring.service.AbstractService;
  */
 public class QuerydslLazyDataModel<T> extends LazyDataModel<T> {
 
-    /** Serial version UID. */
     private static final long serialVersionUID = 1;
 
     /** The default meta-object. */
@@ -122,7 +121,7 @@ public class QuerydslLazyDataModel<T> extends LazyDataModel<T> {
         }
         // Filter
         BooleanExpression condition = new FilterConverter(QUser.user)
-                .apply(filters);
+        .apply(filters);
         if (condition != null)
             query.where(condition);
 

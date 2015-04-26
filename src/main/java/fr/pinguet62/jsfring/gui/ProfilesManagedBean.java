@@ -28,32 +28,28 @@ public final class ProfilesManagedBean extends AbstractManagedBean<Profile> {
 
     private static final long serialVersionUID = 1;
 
-    // Inject
-    /** @see #setProfileService(ProfileService) */
+    /** @inject.setter {@link #setProfileService(ProfileService)} */
     @ManagedProperty("#{profileService}")
-    private ProfileService profileService;
+    private transient ProfileService profileService;
 
-    // Property
     /**
      * The {@link Right} association (available/associated) of the
      * {@link #selectedProfile}.
      *
-     * @see #getRightsAssociation()
-     * @see #setRightsAssociation(DualListModel)
+     * @property.getter {@link #getRightsAssociation()}
+     * @property.setter {@link #setRightsAssociation(DualListModel)}
      */
     private DualListModel<Right> rightsAssociation;
 
-    // Inject
-    /** @see #setRightService(RightService) */
+    /** @inject.setter {@link #setRightService(RightService)} */
     @ManagedProperty("#{rightService}")
-    private RightService rightService;
+    private transient RightService rightService;
 
-    // Property
     /**
      * The {@link Profile} to display or update.
      *
-     * @see #getSelectedProfile()
-     * @see #setSelectedProfile(Profile)
+     * @property.getter {@link #getSelectedProfile()}
+     * @property.setter {@link #setSelectedProfile(Profile)}
      */
     private Profile selectedProfile;
 
@@ -62,14 +58,12 @@ public final class ProfilesManagedBean extends AbstractManagedBean<Profile> {
         return new JPAQuery().from(QProfile.profile);
     }
 
-    // Property
-    /** @see #rightsAssociation */
+    /** @property.attribute {@link #rightsAssociation} */
     public DualListModel<Right> getRightsAssociation() {
         return rightsAssociation;
     }
 
-    // Property
-    /** @see #selectedProfile */
+    /** @property.attribute {@link #selectedProfile} */
     public Profile getSelectedProfile() {
         return selectedProfile;
     }
@@ -95,20 +89,17 @@ public final class ProfilesManagedBean extends AbstractManagedBean<Profile> {
                         selectedProfile.getTitle()));
     }
 
-    // Inject
-    /** @see #profileService */
+    /** @inject.attribute {@link #profileService} */
     public void setProfileService(ProfileService profileService) {
         this.profileService = profileService;
     }
 
-    // Property
-    /** @see #rightsAssociation */
+    /** @property.attribute {@link #rightsAssociation} */
     public void setRightsAssociation(DualListModel<Right> rightsAssociation) {
         this.rightsAssociation = rightsAssociation;
     }
 
-    // Inject
-    /** @see #rightService */
+    /** @inject.attribute {@link #rightService} */
     public void setRightService(RightService rightService) {
         this.rightService = rightService;
     }
@@ -123,7 +114,7 @@ public final class ProfilesManagedBean extends AbstractManagedBean<Profile> {
      *
      * @param profile
      *            The selected {@link Profile}.
-     * @see #selectedProfile
+     * @property.attribute {@link #selectedProfile}
      */
     public void setSelectedProfile(Profile profile) {
         selectedProfile = profile;

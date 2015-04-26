@@ -44,7 +44,11 @@ public abstract class AbstractMenuManagedBean {
     /** First {@link MenuItem} of {@link #model}. */
     protected DefaultMenuItem home;
 
-    /** {@link Bean} for i18n. */
+    /**
+     * {@link Bean} for i18n.
+     *
+     * @inject.setter {@link #setMessageSource(MessageSource)}
+     */
     @ManagedProperty("#{messageSource}")
     private MessageSource messageSource;
 
@@ -204,7 +208,7 @@ public abstract class AbstractMenuManagedBean {
      */
     protected abstract void initMenu();
 
-    // Inject
+    /** @inject.attribute {@link #messageSource} */
     public final void setMessageSource(MessageSource messageSource) {
         this.messageSource = messageSource;
     }

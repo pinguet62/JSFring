@@ -18,19 +18,23 @@ import fr.pinguet62.jsfring.service.UserService;
 @ViewScoped
 public final class ForgottenPasswordManagedBean {
 
-    /** The email. */
+    /**
+     * The email.
+     *
+     * @property.getter {@link #getEmail()}
+     * @property.setter {@link #setEmail(String)}
+     */
     private String email;
 
+    /** @inject.setter {@link #setMessageSource(MessageSource)} */
     @ManagedProperty("#{messageSource}")
     private MessageSource messageSource;
 
+    /** @inject.setter {@link #setUserService(UserService)} */
     @ManagedProperty("#{userService}")
     private UserService userService;
 
-    public ForgottenPasswordManagedBean() {
-        System.out.println("ForgottenPasswordManagedBean");
-    }
-
+    /** @property.attribute {@link #email} */
     public String getEmail() {
         return email;
     }
@@ -61,14 +65,17 @@ public final class ForgottenPasswordManagedBean {
         }
     }
 
+    /** @property.attribute {@link #email} */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /** @inect.attribute {@link #messageSource} */
     public void setMessageSource(MessageSource messageSource) {
         this.messageSource = messageSource;
     }
 
+    /** @inect.attribute {@link #userService} */
     public void setUserService(UserService userService) {
         this.userService = userService;
     }

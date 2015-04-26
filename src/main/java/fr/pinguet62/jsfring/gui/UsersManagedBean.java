@@ -28,37 +28,32 @@ public final class UsersManagedBean extends AbstractManagedBean<User> {
 
     private static final long serialVersionUID = 1;
 
-    // Property
     /**
      * The {@link Profile} association (available/associated) of the
      * {@link #selectedUser}.
      *
-     * @see #getProfilesAssociation()
-     * @see #setProfilesAssociation(DualListModel)
+     * @property.getter {@link #getProfilesAssociation()}
+     * @property.setter {@link #setProfilesAssociation(DualListModel)}
      */
     private DualListModel<Profile> profilesAssociation;
 
-    // Inject
-    /** @see #setProfileService(ProfileService) */
+    /** @inject.setter {@link #setProfileService(ProfileService)} */
     @ManagedProperty("#{profileService}")
-    private ProfileService profileService;
+    private transient ProfileService profileService;
 
-    // Property
     /**
      * The selected {@link User} to display or update.
      *
-     * @see #getSelectedUser()
-     * @see #setSelectedUser(User)
+     * @property.getter {@link #getSelectedUser()}
+     * @property.setter {@link #setSelectedUser(User)}
      */
     private User selectedUser;
 
-    // Inject
-    /** @see #setUserService(UserService) */
+    /** @inject.setter {@link #setUserService(UserService)} */
     @ManagedProperty("#{userService}")
-    private UserService userService;
+    private transient UserService userService;
 
-    // Property
-    /** @see #profilesAssociation */
+    /** @property.attribute {@link #profilesAssociation} */
     public DualListModel<Profile> getProfilesAssociation() {
         return profilesAssociation;
     }
@@ -68,8 +63,7 @@ public final class UsersManagedBean extends AbstractManagedBean<User> {
         return new JPAQuery().from(QUser.user);
     }
 
-    // Property
-    /** @see #selectedUser */
+    /** @property.attribute {@link #selectedUser} */
     public User getSelectedUser() {
         return selectedUser;
     }
@@ -95,20 +89,17 @@ public final class UsersManagedBean extends AbstractManagedBean<User> {
                         selectedUser.getLogin()));
     }
 
-    // Property
-    /** @see #profilesAssociation */
+    /** @property.attribute {@link #profilesAssociation} */
     public void setProfilesAssociation(
             DualListModel<Profile> profilesAssociation) {
         this.profilesAssociation = profilesAssociation;
     }
 
-    // Inject
-    /** @see #profileService */
+    /** @inject.attribute {@link #profileService} */
     public void setProfileService(ProfileService profileService) {
         this.profileService = profileService;
     }
 
-    // Property
     /**
      * Call when the user click on "Show" or "Edit" button.
      * <ul>
@@ -118,7 +109,7 @@ public final class UsersManagedBean extends AbstractManagedBean<User> {
      *
      * @param profile
      *            The selected {@link User}.
-     * @see #selectedUser
+     * @property.attribute {@link #selectedUser}
      */
     public void setSelectedUser(User user) {
         selectedUser = user;
@@ -132,8 +123,7 @@ public final class UsersManagedBean extends AbstractManagedBean<User> {
                 associatedProfiles);
     }
 
-    // Inject
-    /** @see #userService */
+    /** @inject.attribute {@link #userService} */
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
