@@ -1,6 +1,7 @@
 package fr.pinguet62.jsfring.model;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -42,7 +43,7 @@ public class Right implements java.io.Serializable {
      *
      * @return {@code true} if the two {@link #code} are equals (and not
      *         {@code null}), {@code false} otherwise.
-     * @see {@link Object#equals(Object)}
+     * @see Object#equals(Object)
      */
     @Override
     public boolean equals(Object obj) {
@@ -51,9 +52,7 @@ public class Right implements java.io.Serializable {
         if (!(obj instanceof Right))
             return false;
         Right other = (Right) obj;
-        if ((code == null) || (other.code == null))
-            return false;
-        return code.equals(other.code);
+        return Objects.equals(code, other.code);
     }
 
     @Id
@@ -77,11 +76,11 @@ public class Right implements java.io.Serializable {
      * Get the {@code hashCode} of the {@link #code}.
      *
      * @return The {@link String#hashCode()} of the {@link #code}.
-     * @see {@link Object#hashCode()}
+     * @see Object#hashCode()
      */
     @Override
     public int hashCode() {
-        return code.hashCode();
+        return Objects.hash(code);
     }
 
     public void setCode(String code) {

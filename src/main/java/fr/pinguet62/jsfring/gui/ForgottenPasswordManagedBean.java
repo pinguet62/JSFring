@@ -50,18 +50,18 @@ public final class ForgottenPasswordManagedBean {
                     .getMessage("forgottenPassword.messages.informationsSent",
                             null, locale);
             FacesContext.getCurrentInstance()
-            .addMessage(
-                    null,
-                    new FacesMessage(FacesMessage.SEVERITY_INFO,
-                            message, null));
+                    .addMessage(
+                            null,
+                            new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                    message, null));
         } catch (IllegalArgumentException exception) {
             String message = messageSource.getMessage(
                     "forgottenPassword.messages.emailUnknown", null, locale);
             FacesContext.getCurrentInstance()
-            .addMessage(
-                    null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                            message, null));
+                    .addMessage(
+                            null,
+                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                    message, null));
         }
     }
 
@@ -70,12 +70,12 @@ public final class ForgottenPasswordManagedBean {
         this.email = email;
     }
 
-    /** @inect.attribute {@link #messageSource} */
+    /** @inject.attribute {@link #messageSource} */
     public void setMessageSource(MessageSource messageSource) {
         this.messageSource = messageSource;
     }
 
-    /** @inect.attribute {@link #userService} */
+    /** @inject.attribute {@link #userService} */
     public void setUserService(UserService userService) {
         this.userService = userService;
     }

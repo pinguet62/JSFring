@@ -34,7 +34,7 @@ public final class RightConverter implements Converter {
     }
 
     /**
-     * @param value
+     * @param object
      *            The {@link Right}.
      * @return The {@link Right#code code}.
      */

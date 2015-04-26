@@ -256,6 +256,7 @@
 
 		<!-- Plugins -->
 		<plugins>
+			<!-- Build -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -266,6 +267,7 @@
 					<compilerArgument>-proc:none</compilerArgument>
 				</configuration>
 			</plugin>
+			<!-- Meta-model -->
 			<plugin>
 				<groupId>com.mysema.maven</groupId>
 				<artifactId>apt-maven-plugin</artifactId>
@@ -282,6 +284,39 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<!-- Javadoc -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<additionalparam>-Xdoclint:none</additionalparam>
+					<!-- Customer tags -->
+					<tags>
+						<!-- Tags for properties -->
+						<tag>
+							<name>property.attribute</name>
+							<head>Property for attribute: </head>
+						</tag>
+						<tag>
+							<name>property.getter</name>
+							<head>Property get: </head>
+						</tag>
+						<tag>
+							<name>property.setter</name>
+							<head>Property set: </head>
+						</tag>
+						<!-- Tag for JSF injection -->
+						<tag>
+							<name>inject.attribute</name>
+							<head>Attribute injected: </head>
+						</tag>
+						<tag>
+							<name>inject.setter</name>
+							<head>Setter for injection: </head>
+						</tag>
+					</tags>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

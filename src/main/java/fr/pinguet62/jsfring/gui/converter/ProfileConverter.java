@@ -34,7 +34,7 @@ public class ProfileConverter implements Converter {
     }
 
     /**
-     * @param value
+     * @param object
      *            The {@link Profile}.
      * @return The {@link Profile#id id} as {@link String}.
      */

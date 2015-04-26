@@ -107,7 +107,7 @@ public final class UsersManagedBean extends AbstractManagedBean<User> {
      * <li>Initialize the {@link Profile} association.</li>
      * </ul>
      *
-     * @param profile
+     * @param user
      *            The selected {@link User}.
      * @property.attribute {@link #selectedUser}
      */

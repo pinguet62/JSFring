@@ -203,8 +203,6 @@ public abstract class AbstractMenuManagedBean {
      * Initialize the {@link Menubar}.
      * <p>
      * The first {@link MenuItem} is {@link #home}.
-     *
-     * @return The {@link MenuModel}.
      */
     protected abstract void initMenu();
 

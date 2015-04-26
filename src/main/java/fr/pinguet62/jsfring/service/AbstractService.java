@@ -98,7 +98,6 @@ public abstract class AbstractService<T, PK extends Serializable> {
      *
      * @param object
      *            The object to update.
-     * @return The updated object.
      */
     @Transactional
     public void update(T object) {
