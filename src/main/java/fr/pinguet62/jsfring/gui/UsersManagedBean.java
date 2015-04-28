@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 
 import org.primefaces.model.DualListModel;
 
@@ -24,13 +22,13 @@ import fr.pinguet62.jsfring.service.UserService;
 /** @see User */
 @ManagedBean
 @ViewScoped
-public final class UsersManagedBean extends AbstractManagedBean<User> {
+public final class UsersManagedBean extends AbstractCrudManagedBean<User> {
 
     private static final long serialVersionUID = 1;
 
     /**
      * The {@link Profile} association (available/associated) of the
-     * {@link #selectedUser}.
+     * {@link #getSelectedValue() selected user}.
      *
      * @property.getter {@link #getProfilesAssociation()}
      * @property.setter {@link #setProfilesAssociation(DualListModel)}
@@ -41,17 +39,14 @@ public final class UsersManagedBean extends AbstractManagedBean<User> {
     @ManagedProperty("#{profileService}")
     private transient ProfileService profileService;
 
-    /**
-     * The selected {@link User} to display or update.
-     *
-     * @property.getter {@link #getSelectedUser()}
-     * @property.setter {@link #setSelectedUser(User)}
-     */
-    private User selectedUser;
-
     /** @inject.setter {@link #setUserService(UserService)} */
     @ManagedProperty("#{userService}")
     private transient UserService userService;
+
+    @Override
+    protected User getNewValue() {
+        return new User();
+    }
 
     /** @property.attribute {@link #profilesAssociation} */
     public DualListModel<Profile> getProfilesAssociation() {
@@ -63,30 +58,9 @@ public final class UsersManagedBean extends AbstractManagedBean<User> {
         return new JPAQuery().from(QUser.user);
     }
 
-    /** @property.attribute {@link #selectedUser} */
-    public User getSelectedUser() {
-        return selectedUser;
-    }
-
     @Override
     public AbstractService<User, ?> getService() {
         return userService;
-    }
-
-    /**
-     * Call when the user click on "Submit" button into "Edit" dialog.
-     * <p>
-     * Save the modified {@link User}.
-     */
-    public void save() {
-        selectedUser.getProfiles().clear();
-        selectedUser.getProfiles().addAll(profilesAssociation.getTarget());
-
-        userService.update(selectedUser);
-        FacesContext.getCurrentInstance().addMessage(
-                null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "User updated",
-                        selectedUser.getLogin()));
     }
 
     /** @property.attribute {@link #profilesAssociation} */
@@ -109,13 +83,14 @@ public final class UsersManagedBean extends AbstractManagedBean<User> {
      *
      * @param user
      *            The selected {@link User}.
-     * @property.attribute {@link #selectedUser}
      */
-    public void setSelectedUser(User user) {
-        selectedUser = user;
+    @Override
+    public void setSelectedValue(User user) {
+        super.setSelectedValue(user);
 
-        List<Profile> associatedProfiles = new ArrayList<>(
-                selectedUser.getProfiles());
+        // Custom
+        List<Profile> associatedProfiles = new ArrayList<>(getSelectedValue()
+                .getProfiles());
         List<Profile> availableProfiles = profileService.getAll().stream()
                 .filter(profile -> !associatedProfiles.contains(profile))
                 .collect(Collectors.toList());
@@ -126,6 +101,21 @@ public final class UsersManagedBean extends AbstractManagedBean<User> {
     /** @inject.attribute {@link #userService} */
     public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+
+    /**
+     * Call when the user click on "Submit" button into "Edit" dialog.
+     * <p>
+     * Save the modified {@link User}.
+     */
+    @Override
+    public void update() {
+        // Profile association
+        getSelectedValue().getProfiles().clear();
+        getSelectedValue().getProfiles()
+        .addAll(profilesAssociation.getTarget());
+
+        super.update();
     }
 
 }

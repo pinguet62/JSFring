@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 
 import org.primefaces.model.DualListModel;
 
@@ -24,7 +22,7 @@ import fr.pinguet62.jsfring.service.RightService;
 /** @see Profile */
 @ManagedBean
 @ViewScoped
-public final class ProfilesManagedBean extends AbstractManagedBean<Profile> {
+public final class ProfilesManagedBean extends AbstractCrudManagedBean<Profile> {
 
     private static final long serialVersionUID = 1;
 
@@ -34,7 +32,7 @@ public final class ProfilesManagedBean extends AbstractManagedBean<Profile> {
 
     /**
      * The {@link Right} association (available/associated) of the
-     * {@link #selectedProfile}.
+     * {@link #getSelectedValue() selected profile}.
      *
      * @property.getter {@link #getRightsAssociation()}
      * @property.setter {@link #setRightsAssociation(DualListModel)}
@@ -45,13 +43,10 @@ public final class ProfilesManagedBean extends AbstractManagedBean<Profile> {
     @ManagedProperty("#{rightService}")
     private transient RightService rightService;
 
-    /**
-     * The {@link Profile} to display or update.
-     *
-     * @property.getter {@link #getSelectedProfile()}
-     * @property.setter {@link #setSelectedProfile(Profile)}
-     */
-    private Profile selectedProfile;
+    @Override
+    protected Profile getNewValue() {
+        return new Profile();
+    }
 
     @Override
     protected JPAQuery getQuery() {
@@ -63,30 +58,9 @@ public final class ProfilesManagedBean extends AbstractManagedBean<Profile> {
         return rightsAssociation;
     }
 
-    /** @property.attribute {@link #selectedProfile} */
-    public Profile getSelectedProfile() {
-        return selectedProfile;
-    }
-
     @Override
     public AbstractService<Profile, ?> getService() {
         return profileService;
-    }
-
-    /**
-     * Call when the user click on "Submit" button into "Edit" dialog.
-     * <p>
-     * Save the modified {@link Profile}.
-     */
-    public void save() {
-        selectedProfile.getRights().clear();
-        selectedProfile.getRights().addAll(rightsAssociation.getTarget());
-
-        profileService.update(selectedProfile);
-        FacesContext.getCurrentInstance().addMessage(
-                null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "Profile updated",
-                        selectedProfile.getTitle()));
     }
 
     /** @inject.attribute {@link #profileService} */
@@ -104,7 +78,6 @@ public final class ProfilesManagedBean extends AbstractManagedBean<Profile> {
         this.rightService = rightService;
     }
 
-    // Property
     /**
      * Call when the user click on "Show" or "Edit" button.
      * <ul>
@@ -114,18 +87,33 @@ public final class ProfilesManagedBean extends AbstractManagedBean<Profile> {
      *
      * @param profile
      *            The selected {@link Profile}.
-     * @property.attribute {@link #selectedProfile}
      */
-    public void setSelectedProfile(Profile profile) {
-        selectedProfile = profile;
+    @Override
+    public void setSelectedValue(Profile profile) {
+        super.setSelectedValue(profile);
 
+        // Custom
+        List<Right> associatedRights = new ArrayList<>(getSelectedValue()
+                .getRights());
         List<Right> availableRights = rightService.getAll().stream()
-                .filter(right -> !selectedProfile.getRights().contains(right))
+                .filter(right -> !associatedRights.contains(right))
                 .collect(Collectors.toList());
-        List<Right> associatedRights = new ArrayList<>(
-                selectedProfile.getRights());
         rightsAssociation = new DualListModel<Right>(availableRights,
                 associatedRights);
+    }
+
+    /**
+     * Call when the user click on "Submit" button into "Edit" dialog.
+     * <p>
+     * Save the modified {@link Profile}.
+     */
+    @Override
+    public void update() {
+        // Right association
+        getSelectedValue().getRights().clear();
+        getSelectedValue().getRights().addAll(rightsAssociation.getTarget());
+
+        super.update();
     }
 
 }

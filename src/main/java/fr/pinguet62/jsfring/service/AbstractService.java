@@ -58,6 +58,16 @@ public abstract class AbstractService<T, PK extends Serializable> {
     }
 
     /**
+     * Delete the object.
+     *
+     * @param object
+     *            The object to delete.
+     */
+    public void delete(T object) {
+        dao.delete(object);
+    }
+
+    /**
      * Get list of object from {@link JPAQuery}.
      *
      * @return The objects found.
