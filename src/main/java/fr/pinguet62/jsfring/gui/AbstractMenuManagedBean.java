@@ -56,7 +56,7 @@ public abstract class AbstractMenuManagedBean {
     protected final MenuModel model = new DefaultMenuModel();
 
     /**
-     * Generate the {@link BreadCrumb}:<br/>
+     * Generate the {@link BreadCrumb}:<br>
      * get the current <b>outcome</b> and return the associated
      * {@link BreadCrumb}.
      *
@@ -82,8 +82,8 @@ public abstract class AbstractMenuManagedBean {
     }
 
     /**
-     * Get the {@link MenuItem} for home link.<br/>
-     * Used as root of {@link BreadCrumb}.<br/>
+     * Get the {@link MenuItem} for home link.<br>
+     * Used as root of {@link BreadCrumb}.<br>
      * The value must not be {@code null}.
      */
     protected abstract DefaultMenuItem getHome();

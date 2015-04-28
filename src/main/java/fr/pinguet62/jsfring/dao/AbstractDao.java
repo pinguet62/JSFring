@@ -14,7 +14,6 @@ import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import org.hibernate.Criteria;
 import org.springframework.stereotype.Repository;
 
 import com.mysema.query.SearchResults;
@@ -37,7 +36,7 @@ public abstract class AbstractDao<T, PK extends Serializable> {
     protected EntityManager em;
 
     /**
-     * The {@link Class} of the current {@link Entity}.<br/>
+     * The {@link Class} of the current {@link Entity}.<br>
      * Used by {@code Criteria} to determinate the target table.
      */
     @SuppressWarnings("unchecked")
@@ -101,23 +100,13 @@ public abstract class AbstractDao<T, PK extends Serializable> {
         return emQuery.list(getBaseExpression());
     }
 
-    /**
-     * Get the {@link Criteria} of object.
-     *
-     * @return The {@link Criteria}.
-     */
-    // public Criteria getCriteria() {
-    // Session session = HibernateUtils.getSession();
-    // return session.createCriteria(type);
-    // }
-
     public SearchResults<T> findPanginated(JPAQuery query) {
         JPAQuery emQuery = query.clone(em);
         return emQuery.listResults(getBaseExpression());
     }
 
     /**
-     * Get the object by id. <br/>
+     * Get the object by id.<br>
      * Detach object of database.
      *
      * @param id
@@ -129,8 +118,11 @@ public abstract class AbstractDao<T, PK extends Serializable> {
     }
 
     /**
-     * Get all objectSs<br/>
-     * WARNING: If the number of objects is too large!
+     * Get all objects.
+     * <p>
+     * <b>WARNING:</b> If the number of objects is too large, prefer the
+     * {@link #find(JPAQuery) find} method with {@link JPAQuery#limit(long)
+     * limit}.
      *
      * @return The list of objects.
      */

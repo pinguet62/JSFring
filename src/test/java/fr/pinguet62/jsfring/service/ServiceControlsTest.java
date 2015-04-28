@@ -23,8 +23,6 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import fr.pinguet62.Config;
 import fr.pinguet62.jsfring.dao.RightDao;
 import fr.pinguet62.jsfring.model.Right;
-import fr.pinguet62.jsfring.service.AbstractService;
-import fr.pinguet62.jsfring.service.RightService;
 import fr.pinguet62.jsfring.service.BadService.RollbackMeIMFamousException;
 
 @Service
@@ -42,7 +40,7 @@ class BadService {
     }
 
     /**
-     * Read-only method who insert an object into database.<br/>
+     * Read-only method who insert an object into database.<br>
      * At the exit, no object must be inserted.
      * <p>
      * Tested by {@link ServiceControlsTest#test_readOnlyControl()}.
@@ -53,7 +51,7 @@ class BadService {
     }
 
     /**
-     * Insert an object and provokes an error.<br/>
+     * Insert an object and provokes an error.<br>
      * The inserted object must be removed after rollback.
      */
     @Transactional
@@ -68,7 +66,7 @@ class BadService {
 @ContextConfiguration(locations = Config.SPRING)
 @DatabaseSetup(Config.DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-    DbUnitTestExecutionListener.class })
+        DbUnitTestExecutionListener.class })
 public class ServiceControlsTest {
 
     private static final Logger LOGGER = LoggerFactory

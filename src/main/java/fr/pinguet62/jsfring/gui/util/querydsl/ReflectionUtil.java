@@ -17,7 +17,7 @@ import fr.pinguet62.jsfring.model.Right;
 public final class ReflectionUtil {
 
     /**
-     * Get the default meta-object of {@link Entity} class.<br/>
+     * Get the default meta-object of {@link Entity} class.<br>
      * For example the default meta-object of {@link Right} is
      * {@link QRight#right}.
      * <p>
@@ -25,7 +25,7 @@ public final class ReflectionUtil {
      * <ul>
      * <li>The same package that the {@link Entity} type;</li>
      * <li>The name of meta-class must be have the default target name,
-     * beginning by {@code Q}.<br/>
+     * beginning by {@code Q}.<br>
      * For example if the name is {@code mypackage.MyClass}, the meta-class must
      * be {@code mypackage.QMyClass}.</li>
      * </ul>
@@ -56,8 +56,8 @@ public final class ReflectionUtil {
                 .stream()
                 .filter(/* Static */attr -> Modifier.isStatic(attr
                         .getModifiers()))
-                .filter(/* Same type */attr -> attr.getType().equals(
-                        metaObjectType)).collect(Collectors.toList());
+                        .filter(/* Same type */attr -> attr.getType().equals(
+                                metaObjectType)).collect(Collectors.toList());
         if (fields.size() == 0)
             throw new IllegalArgumentException("Field not found.");
         else if (fields.size() >= 2)

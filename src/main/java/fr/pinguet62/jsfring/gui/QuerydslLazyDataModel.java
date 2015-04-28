@@ -71,7 +71,7 @@ public class QuerydslLazyDataModel<T> extends LazyDataModel<T> {
     /**
      * Constructor with {@link Entity} type.
      * <p>
-     * Used when this class is directly used without extending. For example:<br/>
+     * Used when this class is directly used without extending. For example:<br>
      * {@code new QuerydslLazyDataModel(service, QUser.user)}
      *
      * @param service
@@ -90,7 +90,7 @@ public class QuerydslLazyDataModel<T> extends LazyDataModel<T> {
      *
      * @param first
      *            The index of first element of current page. The minimum is
-     *            {@code 0}.<br/>
+     *            {@code 0}.<br>
      *            For example, if {@code pageSize=5} and the current page is the
      *            3rd, the {@code first} will be 10.
      * @param pageSize
@@ -121,7 +121,7 @@ public class QuerydslLazyDataModel<T> extends LazyDataModel<T> {
         }
         // Filter
         BooleanExpression condition = new FilterConverter(QUser.user)
-        .apply(filters);
+                .apply(filters);
         if (condition != null)
             query.where(condition);
 

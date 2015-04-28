@@ -33,8 +33,8 @@ import fr.pinguet62.jsfring.service.ProfileService;
 @ContextConfiguration(locations = Config.SPRING)
 @DatabaseSetup(Config.DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        TransactionalTestExecutionListener.class,
-        DbUnitTestExecutionListener.class })
+    TransactionalTestExecutionListener.class,
+    DbUnitTestExecutionListener.class })
 @Transactional
 public class QuerydslLazyDataModelTest {
 
@@ -71,7 +71,7 @@ public class QuerydslLazyDataModelTest {
     private List<Profile> getLoadResult(int first, int pageSize) {
         return new QuerydslLazyDataModel<Profile>(profileService,
                 QProfile.profile).load(first, pageSize, null, null,
-                new HashMap<String, Object>());
+                        new HashMap<String, Object>());
     }
 
     /**
@@ -97,7 +97,7 @@ public class QuerydslLazyDataModelTest {
     }
 
     /**
-     * The first page contains the first objects on database.<br/>
+     * The first page contains the first objects on database.<br>
      * No sort or filter applied.
      *
      * @see QuerydslLazyDataModel#load(int, int, String,
@@ -116,7 +116,7 @@ public class QuerydslLazyDataModelTest {
     }
 
     /**
-     * The last page is not full.<br/>
+     * The last page is not full.<br>
      * No sort or filter applied.
      *
      * @see QuerydslLazyDataModel#load(int, int, String,

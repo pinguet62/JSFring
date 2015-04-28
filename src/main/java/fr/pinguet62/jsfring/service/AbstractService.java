@@ -3,8 +3,6 @@ package fr.pinguet62.jsfring.service;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Entity;
-
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mysema.query.SearchResults;
@@ -16,7 +14,7 @@ import fr.pinguet62.jsfring.dao.AbstractDao;
  * The generic service for entities.
  *
  * @param <T>
- *            The {@link Entity} type.
+ *            The type of objects.
  * @param <PK>
  *            The Primary key type.
  */
@@ -26,7 +24,7 @@ public abstract class AbstractService<T, PK extends Serializable> {
     protected final AbstractDao<T, PK> dao;
 
     /**
-     * Constructor with {@link AbstractDao}.<br/>
+     * Constructor with {@link AbstractDao}.<br>
      * The classes who inherit of this class must call this constructor with the
      * associated {@link AbstractDao}.
      *
@@ -59,13 +57,21 @@ public abstract class AbstractService<T, PK extends Serializable> {
         return dao.create(object);
     }
 
-    // TODO Comments
+    /**
+     * Get list of object from {@link JPAQuery}.
+     *
+     * @return The objects found.
+     */
     @Transactional(readOnly = true)
     public List<T> find(JPAQuery query) {
         return dao.find(query);
     }
 
-    // TODO Comments
+    /**
+     * Get list of objects from paginated {@link JPAQuery}.
+     *
+     * @return The {@link SearchResults} who contains paginated objects.
+     */
     @Transactional(readOnly = true)
     public SearchResults<T> findPanginated(JPAQuery query) {
         return dao.findPanginated(query);
@@ -86,7 +92,7 @@ public abstract class AbstractService<T, PK extends Serializable> {
     /**
      * Get all objects.
      *
-     * @return The objects.
+     * @return All objects.
      */
     @Transactional(readOnly = true)
     public List<T> getAll() {
@@ -98,10 +104,11 @@ public abstract class AbstractService<T, PK extends Serializable> {
      *
      * @param object
      *            The object to update.
+     * @return The updated object.
      */
     @Transactional
-    public void update(T object) {
-        dao.update(object);
+    public T update(T object) {
+        return dao.update(object);
     }
 
 }
