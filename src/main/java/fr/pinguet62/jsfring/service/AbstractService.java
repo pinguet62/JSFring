@@ -63,6 +63,7 @@ public abstract class AbstractService<T, PK extends Serializable> {
      * @param object
      *            The object to delete.
      */
+    @Transactional
     public void delete(T object) {
         dao.delete(object);
     }

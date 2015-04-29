@@ -61,6 +61,14 @@
 						<f:setPropertyActionListener
 							target="#{profilesManagedBean.selectedValue}" value="#{profile}" />
 					</p:commandButton>
+					<p:commandButton icon="ui-icon-delete" title="Delete"
+						update="datatable">
+						<f:setPropertyActionListener
+							target="#{profilesManagedBean.selectedValue}" value="#{profile}" />
+						<f:actionListener binding="#{profilesManagedBean.delete()}" />
+						<p:confirm header="Confirmation" icon="ui-icon-alert"
+							message="Are you sure you want to delete the value?" />
+					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 
@@ -121,6 +129,13 @@
 					actionListener="#{profilesManagedBean.update}"
 					oncomplete="PF('profileUpdateDialog').hide();" update="datatable" />
 			</p:dialog>
+
+			<p:confirmDialog global="true">
+				<p:commandButton icon="ui-icon-check" value="Yes"
+					styleClass="ui-confirmdialog-yes" />
+				<p:commandButton icon="ui-icon-close" value="No"
+					styleClass="ui-confirmdialog-no" />
+			</p:confirmDialog>
 		</h:form>
 	</ui:define>
 </ui:composition>

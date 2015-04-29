@@ -35,11 +35,17 @@
 				var="user" rows="2" lazy="true" paginator="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="2 5 10">
-				<f:facet name="header">
+				<f:facet name="header"><div>
 					<p:commandButton id="toggler" type="button" value="Columns"
 						icon="ui-icon-calculator" style="float: left" />
 					<p:columnToggler datasource="datatable" trigger="toggler" />
 
+					<p:commandButton icon="ui-icon-plus" value="Create"
+						actionListener="#{usersManagedBean.postCreate}"
+						oncomplete="showCreate()" update=":form:userCreate"
+						style="float: right" /></div>
+				</f:facet>
+				<f:facet name="footer">
 					<h:commandLink>
 						<p:graphicImage library="img" name="csv.png" width="24"
 							alt="ERROR" />
@@ -60,11 +66,6 @@
 							alt="ERROR" />
 						<p:dataExporter type="pdf" target="datatable" fileName="users" />
 					</h:commandLink>
-
-					<p:commandButton icon="ui-icon-plus" value="Create"
-						actionListener="#{usersManagedBean.postCreate}"
-						oncomplete="showCreate()" update=":form:userCreate"
-						style="float: right" />
 				</f:facet>
 
 				<p:column headerText="#{msg['user.login']}" sortBy="#{user.login}"
