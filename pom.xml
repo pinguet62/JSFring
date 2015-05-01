@@ -11,9 +11,14 @@
 		<!-- ===== Others ===== -->
 		<!-- Logging -->
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.12</version>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>${log4j2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j2.version}</version>
 		</dependency>
 		<!-- SMPT -->
 		<dependency>
@@ -237,6 +242,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java-version>1.8</java-version>
+		<log4j2.version>2.1</log4j2.version>
 		<jsf-version>2.2.10</jsf-version>
 		<hivernate.version>4.3.6.Final</hivernate.version><!-- 5.0.0.Beta1 java.lang.NoSuchMethodError: 
 			org.hibernate.internal.CoreMessageLogger.debug -->
