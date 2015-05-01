@@ -10,8 +10,6 @@
 	template="/template/layout.xhtml">
 	<ui:define name="content">
 		<h:form id="form">
-			<p:growl autoUpdate="true" />
-
 			<script>
 				function showCreate() {
 					PF('profileShowDialog').hide();
@@ -24,7 +22,7 @@
 					PF('profileShowDialog').show();
 				}
 				function showUpdate() {
-					PF('profileCreateDialog').hide();
+					PF('profileCreatUeDialog').hide();
 					PF('profileShowDialog').hide();
 					PF('profileUpdateDialog').show();
 				}
