@@ -37,7 +37,7 @@ public final class ProfilesManagedBean extends AbstractCrudManagedBean<Profile> 
      * @property.getter {@link #getRightsAssociation()}
      * @property.setter {@link #setRightsAssociation(DualListModel)}
      */
-    private DualListModel<Right> rightsAssociation;
+    private DualListModel<Right> rightsAssociation = new DualListModel<Right>();
 
     /** @inject.setter {@link #setRightService(RightService)} */
     @ManagedProperty("#{rightService}")

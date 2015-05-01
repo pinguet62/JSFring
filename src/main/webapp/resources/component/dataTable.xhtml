@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface
+	shortDescription="PrimeFaces DataTable for CRUD operations.">
+	<composite:attribute name="managedBean" required="true"
+		type="fr.pinguet62.jsfring.gui.AbstractCrudManagedBean"
+		shortDescription="The ManagedBean used for CRUD operations." />
+	<composite:attribute name="title" type="java.lang.String"
+		shortDescription="Title who appears in header of datatable." />
+	<composite:attribute name="createView"
+		shortDescription="View for creation. Use 'selectedValue' as for current value." />
+	<composite:attribute name="showView"
+		shortDescription="View for show. Use 'selectedValue' as for current value." />
+	<composite:attribute name="updateView"
+		shortDescription="View for update. Use 'selectedValue' as for current value." />
+	<composite:attribute name="deletable" default="false" />
+</composite:interface>
+
+<!-- Notes -->
+<!-- <f:subview> used to evit duplicate ID with <ui:include> -->
+
+<composite:implementation>
+	<script>
+		function showCreateDialog() {
+			if (PF('showDialogWidget') != null)
+				PF('showDialogWidget').hide();
+			if (PF('updateDialogWidget') != null)
+				PF('updateDialogWidget').hide();
+			PF('createDialogWidget').show();
+		}
+		function showShowDialog() {
+			if (PF('createDialogWidget') != null)
+				PF('createDialogWidget').hide();
+			if (PF('updateDialogWidget') != null)
+				PF('updateDialogWidget').hide();
+			PF('showDialogWidget').show();
+		}
+		function showUpdateDialog() {
+			if (PF('createDialogWidget') != null)
+				PF('createDialogWidget').hide();
+			if (PF('showDialogWidget') != null)
+				PF('showDialogWidget').hide();
+			PF('updateDialogWidget').show();
+		}
+	</script>
+
+	<p:dataTable id="datatable" value="#{cc.attrs.managedBean.list}"
+		var="value">
+		<f:facet name="header">
+			<p:commandButton id="toggler" type="button"
+				value="#{msg['dataTable.columnToggler']}" icon="ui-icon-calculator"
+				style="float: left" />
+			<p:columnToggler datasource="datatable" trigger="toggler" />
+
+			<h:outputText value="#{cc.attrs.title}" />
+
+			<!-- Create -->
+			<c:if test="#{cc.attrs.createView != null}">
+				<p:commandButton icon="ui-icon-plus"
+					value="#{msg['dataTable.action.create.title']}"
+					actionListener="#{cc.attrs.managedBean.postCreate}"
+					oncomplete="showCreateDialog()" update="createDialog"
+					style="float: right" />
+				<p:dialog id="createDialog" widgetVar="createDialogWidget"
+					dynamic="true" header="#{msg['dataTable.action.create.title']}"
+					showEffect="fade" hideEffect="fade" resizable="false">
+					<f:subview id="createSubview">
+						<ui:include src="#{cc.attrs.createView}">
+							<ui:param name="managedBean" value="#{cc.attrs.managedBean}" />
+						</ui:include>
+					</f:subview>
+					<p:commandButton value="#{msg['dataTable.action.submit']}"
+						actionListener="#{cc.attrs.managedBean.create}"
+						oncomplete="PF('createDialogWidget').hide();" update="datatable" />
+				</p:dialog>
+			</c:if>
+		</f:facet>
+
+		<composite:insertChildren />
+
+		<p:column headerText="#{msg['datatable.actions.title']}"
+			style="width: 150px; text-align: center" exportable="false">
+			<!-- Show -->
+			<c:if test="#{cc.attrs.showView != null}">
+				<p:commandButton icon="ui-icon-search"
+					title="#{msg['dataTable.action.show.title']}" update="showDialog"
+					oncomplete="showShowDialog()">
+					<f:setPropertyActionListener
+						target="#{cc.attrs.managedBean.selectedValue}" value="#{value}" />
+				</p:commandButton>
+				<p:dialog id="showDialog" widgetVar="showDialogWidget"
+					dynamic="true" header="#{msg['dataTable.action.show.title']}"
+					showEffect="fade" hideEffect="fade" resizable="false">
+					<f:subview id="showSubview">
+						<ui:include src="#{cc.attrs.showView}">
+							<ui:param name="managedBean" value="#{cc.attrs.managedBean}" />
+						</ui:include>
+					</f:subview>
+				</p:dialog>
+			</c:if>
+
+			<!-- Update -->
+			<c:if test="#{cc.attrs.updateView != null}">
+				<p:commandButton icon="ui-icon-pencil"
+					title="#{msg['dataTable.action.update.title']}"
+					update="updateDialog" oncomplete="showUpdateDialog()">
+					<f:setPropertyActionListener
+						target="#{cc.attrs.managedBean.selectedValue}" value="#{value}" />
+				</p:commandButton>
+				<p:dialog id="updateDialog" widgetVar="updateDialogWidget"
+					dynamic="true" header="#{msg['dataTable.action.update.title']}"
+					showEffect="fade" hideEffect="fade" resizable="false">
+					<f:subview id="updateSubview">
+						<ui:include src="#{cc.attrs.updateView}">
+							<ui:param name="managedBean" value="#{cc.attrs.managedBean}" />
+						</ui:include>
+					</f:subview>
+					<p:commandButton value="Submit"
+						actionListener="#{cc.attrs.managedBean.update}"
+						oncomplete="PF('updateDialogWidget').hide();" update="datatable" />
+				</p:dialog>
+			</c:if>
+
+			<!-- Delete -->
+			<c:if test="#{cc.attrs.deletable}">
+				<p:commandButton icon="ui-icon-trash"
+					title="#{msg['dataTable.action.delete.title']}" update="datatable">
+					<f:setPropertyActionListener
+						target="#{cc.attrs.managedBean.selectedValue}" value="#{value}" />
+					<f:actionListener binding="#{cc.attrs.managedBean.delete()}" />
+					<p:confirm header="#{msg['dataTable.action.delete.title']}"
+						icon="ui-icon-alert"
+						message="#{msg['dataTable.action.delete.message']}" />
+				</p:commandButton>
+			</c:if>
+		</p:column>
+
+		<f:facet name="footer">
+			<!-- Extract -->
+			<h:commandLink>
+				<p:graphicImage library="img" name="csv.png" width="24" alt="ERROR" />
+				<p:dataExporter type="csv" target="datatable" fileName="export" />
+			</h:commandLink>
+			<h:commandLink>
+				<p:graphicImage library="img" name="xls.png" width="24" alt="ERROR" />
+				<p:dataExporter type="xls" target="datatable" fileName="export" />
+			</h:commandLink>
+			<h:commandLink>
+				<p:graphicImage library="img" name="xml.png" width="24" alt="ERROR" />
+				<p:dataExporter type="xml" target="datatable" fileName="export" />
+			</h:commandLink>
+			<h:commandLink>
+				<p:graphicImage library="img" name="pdf.png" width="24" alt="ERROR" />
+				<p:dataExporter type="pdf" target="datatable" fileName="export" />
+			</h:commandLink>
+		</f:facet>
+	</p:dataTable>
+
+	<p:confirmDialog global="true">
+		<p:commandButton icon="ui-icon-check" value="Yes"
+			styleClass="ui-confirmdialog-yes" />
+		<p:commandButton icon="ui-icon-close" value="No"
+			styleClass="ui-confirmdialog-no" />
+	</p:confirmDialog>
+</composite:implementation>
+
+</html>
