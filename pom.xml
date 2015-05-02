@@ -313,6 +313,7 @@
 								<artifactItem>
 									<!-- Webapp Runner -->
 									<!-- Used to deploy WAR in Heroku -->
+									<!-- $ java -jar target/dependency/webapp-runner.jar target/*.war -->
 									<groupId>com.github.jsimone</groupId>
 									<artifactId>webapp-runner</artifactId>
 									<version>7.0.57.2</version>
