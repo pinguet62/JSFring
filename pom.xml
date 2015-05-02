@@ -122,9 +122,16 @@
 		<!-- ===== JPA ===== -->
 		<!-- JDBC -->
 		<dependency>
+			<!-- env: local -->
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.35</version>
+		</dependency>
+		<dependency>
+			<!-- env: Heroku -->
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.4-1201-jdbc41</version>
 		</dependency>
 		<!-- ORM -->
 		<dependency>
@@ -262,17 +269,6 @@
 
 		<!-- Plugins -->
 		<plugins>
-			<!-- Build -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<source>${java-version}</source>
-					<target>${java-version}</target>
-					<compilerArgument>-proc:none</compilerArgument>
-				</configuration>
-			</plugin>
 			<!-- Meta-model -->
 			<plugin>
 				<groupId>com.mysema.maven</groupId>
@@ -287,6 +283,42 @@
 							<outputDirectory>target/generated-sources/java</outputDirectory>
 							<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor
 							</processor>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Build -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>${java-version}</source>
+					<target>${java-version}</target>
+					<compilerArgument>-proc:none</compilerArgument>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.10</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<!-- Webapp Runner -->
+									<!-- Used to deploy WAR in Heroku -->
+									<groupId>com.github.jsimone</groupId>
+									<artifactId>webapp-runner</artifactId>
+									<version>7.0.57.2</version>
+									<destFileName>webapp-runner.jar</destFileName>
+								</artifactItem>
+							</artifactItems>
 						</configuration>
 					</execution>
 				</executions>
