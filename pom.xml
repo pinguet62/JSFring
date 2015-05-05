@@ -132,6 +132,7 @@
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>9.4-1201-jdbc41</version>
+			<scope>provided</scope>
 		</dependency>
 		<!-- ORM -->
 		<dependency>
@@ -365,7 +366,7 @@
 		Web application who integrated JSF, JPA (Hibernate) and
 		Spring
 	</description>
-	<url>http://localhost:8081/JSFring</url>
+	<url>https://pinguet62-jsfring.herokuapp.com</url>
 	<licenses>
 		<license>
 			<name>

@@ -19,7 +19,7 @@
 		<!-- env=local: com.mysql.jdbc.Driver -->
 		<!-- env=heroku: org.postgresql.Driver -->
 		<property name="driverClassName"
-			value="#{ @dbUrl.getScheme()== 'mysql' ? 'com.mysql.jdbc.Driver' : 'org.postgresql.Driver' }" />
+			value="#{ @dbUrl.getScheme() == 'mysql' ? 'com.mysql.jdbc.Driver' : 'org.postgresql.Driver' }" />
 		<property name="url"
 			value="#{ 'jdbc:' + @dbUrl.getScheme() + '://' + @dbUrl.getHost() + ':' + @dbUrl.getPort() + @dbUrl.getPath() }" />
 		<property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] }" />
