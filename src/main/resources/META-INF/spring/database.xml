@@ -8,7 +8,7 @@
 
 	<!-- Database -->
 	<!-- Environment variable: DATABASE_URL -->
-	<!-- Format: TODO://username:password@host:port/dbname -->
+	<!-- Format: scheme://username:password@host:port/dbname -->
 	<!-- Example (env=local): mysql://root:AZE123qsd@localhost:3306/dictionary -->
 	<!-- Example (env=heroku): postgres://lveshvmnnklrze:v0hrZTKbqmS4PvwRKAQd9Q_L5f@ec2-184-73-165-195.compute-1.amazonaws.com:5432/d54utom7qlqe15 -->
 	<bean class="java.net.URI" id="dbUrl">
@@ -19,9 +19,9 @@
 		<!-- env=local: com.mysql.jdbc.Driver -->
 		<!-- env=heroku: org.postgresql.Driver -->
 		<property name="driverClassName"
-			value="#{ @dbUrl.getScheme() == 'mysql' ? 'com.mysql.jdbc.Driver' : 'org.postgresql.Driver' }" />
+			value="#{ @dbUrl.getScheme() == 'postgres' ? 'org.postgresql.Driver' : 'com.mysql.jdbc.Driver' }" />
 		<property name="url"
-			value="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + ':' + @dbUrl.getPort() + @dbUrl.getPath() }" />
+			value="#{ 'jdbc:' + (@dbUrl.getScheme() == 'postgres' ? 'postgresql' : 'mysql') + '://' + @dbUrl.getHost() + ':' + @dbUrl.getPort() + @dbUrl.getPath() }" />
 		<property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] }" />
 		<property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] }" />
 	</bean>
