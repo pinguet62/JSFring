@@ -7,133 +7,23 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p62="http://java.sun.com/jsf/composite/component"
 	template="/template/layout.xhtml">
+
 	<ui:define name="content">
 		<h:form id="form">
-			<script>
-				function showCreate() {
-					PF('profileShowDialog').hide();
-					PF('profileUpdateDialog').hide();
-					PF('profileCreateDialog').show();
-				}
-				function showShow() {
-					PF('profileCreateDialog').hide();
-					PF('profileUpdateDialog').hide();
-					PF('profileShowDialog').show();
-				}
-				function showUpdate() {
-					PF('profileCreatUeDialog').hide();
-					PF('profileShowDialog').hide();
-					PF('profileUpdateDialog').show();
-				}
-			</script>
-
-			<p:dataTable id="datatable" value="#{profilesManagedBean.list}"
-				var="profile">
-				<f:facet name="header">
-					<p:commandButton id="toggler" type="button" value="Columns"
-						icon="ui-icon-calculator" style="float: left" />
-					<p:columnToggler datasource="datatable" trigger="toggler" />
-
-					<h:outputText value="Profiles" />
-
-					<p:commandButton icon="ui-icon-plus" value="Create"
-						actionListener="#{profilesManagedBean.postCreate}"
-						oncomplete="showCreate()" update=":form:profileCreate"
-						style="float: right" />
-				</f:facet>
+			<p62:dataTable managedBean="#{profilesManagedBean}" title="Profiles"
+				var="value" createView="/profile/edit.xhtml"
+				showView="/profile/show.xhtml" updateView="/profile/edit.xhtml"
+				deletable="true">
 
 				<p:column headerText="#{msg['profile.title']}"
-					filterBy="#{profile.title}" sortBy="#{profile.title}">
-					<h:outputText value="#{profile.title}" />
+					filterBy="#{value.title}" sortBy="#{value.title}">
+					<h:outputText value="#{value.title}" />
 				</p:column>
-				<p:column headerText="#{msg['profile.actions']}"
-					style="width: 150px; text-align: center">
-					<p:commandButton icon="ui-icon-search" title="Show"
-						update=":form:profileShow" oncomplete="showShow()">
-						<f:setPropertyActionListener
-							target="#{profilesManagedBean.selectedValue}" value="#{profile}" />
-					</p:commandButton>
-					<p:commandButton icon="ui-icon-pencil" title="Show"
-						update=":form:profileUpdate" oncomplete="showUpdate()">
-						<f:setPropertyActionListener
-							target="#{profilesManagedBean.selectedValue}" value="#{profile}" />
-					</p:commandButton>
-					<p:commandButton icon="ui-icon-delete" title="Delete"
-						update="datatable">
-						<f:setPropertyActionListener
-							target="#{profilesManagedBean.selectedValue}" value="#{profile}" />
-						<f:actionListener binding="#{profilesManagedBean.delete()}" />
-						<p:confirm header="Confirmation" icon="ui-icon-alert"
-							message="Are you sure you want to delete the value?" />
-					</p:commandButton>
-				</p:column>
-			</p:dataTable>
 
-			<p:dialog id="profileCreate" widgetVar="profileCreateDialog"
-				dynamic="true" header="Create" showEffect="fade" hideEffect="fade"
-				resizable="false">
-				<h:panelGrid columns="2">
-					<p:outputLabel for="titleCreate" value="Title" />
-					<p:inputText id="titleCreate"
-						value="#{profilesManagedBean.selectedValue.title}" />
-					<p:outputLabel for="rightsCreate" value="Rights" />
-					<p:pickList id="rightsCreate"
-						value="#{profilesManagedBean.rightsAssociation}" var="right"
-						itemValue="#{right}" itemLabel="#{right.title}"
-						converter="#{rightConverter}">
-						<f:facet name="sourceCaption">Available</f:facet>
-						<f:facet name="targetCaption">Associated</f:facet>
-					</p:pickList>
-				</h:panelGrid>
-				<p:commandButton value="Submit"
-					actionListener="#{profilesManagedBean.create}"
-					oncomplete="PF('profileCreateDialog').hide();" update="datatable" />
-			</p:dialog>
-			<p:dialog id="profileShow" widgetVar="profileShowDialog"
-				dynamic="true" header="Show" showEffect="fade" hideEffect="fade"
-				resizable="false">
-				<h:panelGrid columns="2">
-					<p:outputLabel for="titleShow" value="Title" />
-					<h:outputText id="titleShow"
-						value="#{profilesManagedBean.selectedValue.title}" />
-					<p:outputLabel for="rightsShow" value="Rights" />
-					<p:dataList id="rightsShow"
-						value="#{profilesManagedBean.selectedValue.rights}" var="right">
-						<f:facet name="header">
-							<h:outputText value="Associated" />
-						</f:facet>
-						<h:outputText value="#{right.title}" />
-					</p:dataList>
-				</h:panelGrid>
-			</p:dialog>
-			<p:dialog id="profileUpdate" widgetVar="profileUpdateDialog"
-				dynamic="true" header="Update" showEffect="fade" hideEffect="fade"
-				resizable="false">
-				<h:panelGrid columns="2">
-					<p:outputLabel for="titleUpdate" value="Title" />
-					<p:inputText id="titleUpdate"
-						value="#{profilesManagedBean.selectedValue.title}" />
-					<p:outputLabel for="rightsUpdate" value="Rights" />
-					<p:pickList id="rightsUpdate"
-						value="#{profilesManagedBean.rightsAssociation}" var="right"
-						itemValue="#{right}" itemLabel="#{right.title}"
-						converter="#{rightConverter}">
-						<f:facet name="sourceCaption">Available</f:facet>
-						<f:facet name="targetCaption">Associated</f:facet>
-					</p:pickList>
-				</h:panelGrid>
-				<p:commandButton value="Submit"
-					actionListener="#{profilesManagedBean.update}"
-					oncomplete="PF('profileUpdateDialog').hide();" update="datatable" />
-			</p:dialog>
-
-			<p:confirmDialog global="true">
-				<p:commandButton icon="ui-icon-check" value="Yes"
-					styleClass="ui-confirmdialog-yes" />
-				<p:commandButton icon="ui-icon-close" value="No"
-					styleClass="ui-confirmdialog-no" />
-			</p:confirmDialog>
+			</p62:dataTable>
 		</h:form>
 	</ui:define>
+
 </ui:composition>

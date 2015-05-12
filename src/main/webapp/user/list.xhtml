@@ -7,66 +7,15 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:p62="http://java.sun.com/jsf/composite/component"
 	template="/template/layout.xhtml">
+
 	<ui:define name="content">
 		<h:form id="form">
-			<p:growl autoUpdate="true" />
-
-			<script>
-				function showCreate() {
-					PF('userShowDialog').hide();
-					PF('userUpdateDialog').hide();
-					PF('userCreateDialog').show();
-				}
-				function showShow() {
-					PF('userCreateDialog').hide();
-					PF('userUpdateDialog').hide();
-					PF('userShowDialog').show();
-				}
-				function showUpdate() {
-					PF('userCreateDialog').hide();
-					PF('userShowDialog').hide();
-					PF('userUpdateDialog').show();
-				}
-			</script>
-
-			<p:dataTable id="datatable" value="#{usersManagedBean.lazyDataModel}"
-				var="user" rows="2" lazy="true" paginator="true"
-				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-				rowsPerPageTemplate="2 5 10">
-				<f:facet name="header"><div>
-					<p:commandButton id="toggler" type="button" value="Columns"
-						icon="ui-icon-calculator" style="float: left" />
-					<p:columnToggler datasource="datatable" trigger="toggler" />
-
-					<p:commandButton icon="ui-icon-plus" value="Create"
-						actionListener="#{usersManagedBean.postCreate}"
-						oncomplete="showCreate()" update=":form:userCreate"
-						style="float: right" /></div>
-				</f:facet>
-				<f:facet name="footer">
-					<h:commandLink>
-						<p:graphicImage library="img" name="csv.png" width="24"
-							alt="ERROR" />
-						<p:dataExporter type="csv" target="datatable" fileName="users" />
-					</h:commandLink>
-					<h:commandLink>
-						<p:graphicImage library="img" name="xls.png" width="24"
-							alt="ERROR" />
-						<p:dataExporter type="xls" target="datatable" fileName="users" />
-					</h:commandLink>
-					<h:commandLink>
-						<p:graphicImage library="img" name="xml.png" width="24"
-							alt="ERROR" />
-						<p:dataExporter type="xml" target="datatable" fileName="users" />
-					</h:commandLink>
-					<h:commandLink>
-						<p:graphicImage library="img" name="pdf.png" width="24"
-							alt="ERROR" />
-						<p:dataExporter type="pdf" target="datatable" fileName="users" />
-					</h:commandLink>
-				</f:facet>
+			<p62:dataTable managedBean="#{usersManagedBean}" lazy="true"
+				title="Users" var="user" createView="/user/edit.xhtml"
+				showView="/user/show.xhtml" updateView="/user/edit.xhtml"
+				deletable="true">
 
 				<p:column headerText="#{msg['user.login']}" sortBy="#{user.login}"
 					filterBy="#{user.login}">
@@ -76,81 +25,9 @@
 					filterBy="#{user.email}">
 					<h:outputText value="#{user.email}" />
 				</p:column>
-				<p:column headerText="#{msg['user.actions']}"
-					style="width: 150px; text-align: center">
-					<!-- <sec:authorize ifAnyGranted="USER_RO"> -->
-					<p:commandButton icon="ui-icon-search" title="Show"
-						update=":form:userShow" oncomplete="showShow()">
-						<f:setPropertyActionListener
-							target="#{usersManagedBean.selectedValue}" value="#{user}" />
-					</p:commandButton>
-					<!-- </sec:authorize> -->
-					<!-- <sec:authorize ifAnyGranted="USER_RW"> -->
-					<p:commandButton icon="ui-icon-pencil" title="Update"
-						update=":form:userUpdate" oncomplete="showUpdate()">
-						<f:setPropertyActionListener
-							target="#{usersManagedBean.selectedValue}" value="#{user}" />
-					</p:commandButton>
-					<!-- </sec:authorize> -->
-				</p:column>
-			</p:dataTable>
 
-			<p:dialog id="userCreate" widgetVar="userCreateDialog" dynamic="true"
-				header="Create" showEffect="fade" hideEffect="fade"
-				resizable="false">
-				<h:panelGrid columns="2">
-					<p:outputLabel for="loginCreate" value="Login" />
-					<p:inputText id="loginCreate"
-						value="#{usersManagedBean.selectedValue.login}" />
-					<p:outputLabel for="profilesCreate" value="Profiles" />
-					<p:pickList id="profilesCreate"
-						value="#{usersManagedBean.profilesAssociation}" var="profile"
-						itemValue="#{profile}" itemLabel="#{profile.title}"
-						converter="#{profileConverter}">
-						<f:facet name="sourceCaption">Available</f:facet>
-						<f:facet name="targetCaption">Associated</f:facet>
-					</p:pickList>
-				</h:panelGrid>
-				<p:commandButton value="Submit"
-					actionListener="#{usersManagedBean.create}"
-					oncomplete="PF('userCreateDialog').hide();" update="datatable" />
-			</p:dialog>
-			<p:dialog id="userShow" widgetVar="userShowDialog" dynamic="true"
-				header="Show" showEffect="fade" hideEffect="fade" resizable="false">
-				<h:panelGrid columns="2">
-					<p:outputLabel for="loginShow" value="Login" />
-					<h:outputText id="loginShow"
-						value="#{usersManagedBean.selectedValue.login}" />
-					<p:outputLabel for="profilesShow" value="Profiles" />
-					<p:dataList id="profilesShow"
-						value="#{usersManagedBean.selectedValue.profiles}" var="profile">
-						<f:facet name="header">
-							<h:outputText value="Associated" />
-						</f:facet>
-						<h:outputText value="#{profile.title}" />
-					</p:dataList>
-				</h:panelGrid>
-			</p:dialog>
-			<p:dialog id="userUpdate" widgetVar="userUpdateDialog" dynamic="true"
-				header="Update" showEffect="fade" hideEffect="fade"
-				resizable="false">
-				<h:panelGrid columns="2">
-					<p:outputLabel for="loginUpdate" value="Login" />
-					<p:inputText id="loginUpdate"
-						value="#{usersManagedBean.selectedValue.login}" />
-					<p:outputLabel for="profilesUpdate" value="Profiles" />
-					<p:pickList id="profilesUpdate"
-						value="#{usersManagedBean.profilesAssociation}" var="profile"
-						itemValue="#{profile}" itemLabel="#{profile.title}"
-						converter="#{profileConverter}">
-						<f:facet name="sourceCaption">Available</f:facet>
-						<f:facet name="targetCaption">Associated</f:facet>
-					</p:pickList>
-				</h:panelGrid>
-				<p:commandButton value="Submit"
-					actionListener="#{usersManagedBean.update}"
-					oncomplete="PF('userUpdateDialog').hide();" update="datatable" />
-			</p:dialog>
+			</p62:dataTable>
 		</h:form>
 	</ui:define>
+
 </ui:composition>

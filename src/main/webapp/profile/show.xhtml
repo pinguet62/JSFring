@@ -10,15 +10,16 @@
 
 	<h:panelGrid columns="2">
 		<p:outputLabel for="title" value="Title" />
-		<p:inputText id="title" value="#{managedBean.selectedValue.title}" />
+		<h:outputText id="title" value="#{managedBean.selectedValue.title}" />
 
 		<p:outputLabel for="rights" value="Rights" />
-		<p:pickList id="rights" value="#{managedBean.rightsAssociation}"
-			var="right" itemValue="#{right}" itemLabel="#{right.title}"
-			converter="#{rightConverter}">
-			<f:facet name="sourceCaption">Available</f:facet>
-			<f:facet name="targetCaption">Associated</f:facet>
-		</p:pickList>
+		<p:dataList id="rightsShow"
+			value="#{managedBean.selectedValue.rights}" var="right">
+			<f:facet name="header">
+				<h:outputText value="Associated" />
+			</f:facet>
+			<h:outputText value="#{right.title}" />
+		</p:dataList>
 	</h:panelGrid>
 
 </ui:composition>
