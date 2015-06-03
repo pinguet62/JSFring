@@ -11,10 +11,6 @@
 
 <composite:interface
 	shortDescription="PrimeFaces DataTable for CRUD operations.">
-	<composite:attribute name="managedBean"
-		type="fr.pinguet62.jsfring.gui.AbstractCrudManagedBean"
-		shortDescription="The ManagedBean used for CRUD operations."
-		required="true" />
 	<composite:attribute name="lazy" type="java.lang.Boolean"
 		default="false" shortDescription="If loading must be lazy." />
 	<composite:attribute name="var" type="java.lang.String"
@@ -24,6 +20,10 @@
 		shortDescription="Title who appears in header of datatable." />
 
 	<!-- CRUD operations -->
+	<composite:attribute name="managedBean"
+		type="fr.pinguet62.jsfring.gui.AbstractCrudManagedBean"
+		shortDescription="The ManagedBean used for CRUD operations."
+		required="true" />
 	<composite:attribute name="createView"
 		shortDescription="View for creation. Use 'selectedValue' as for current value." />
 	<composite:attribute name="showView"

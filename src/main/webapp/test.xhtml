@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p62="http://java.sun.com/jsf/composite/component"
+	template="/template/layout.xhtml">
+
+	<ui:define name="content">
+		<h:form>
+			<!-- <p62:stringFilter title="String1"
+				filter="#{testManagedBean.stringFilter}" />
+			<br />
+			<p62:stringFilter title="String2"
+				filter="#{testManagedBean.stringFilter2}" />
+			<br /> -->
+			<p62:numberFilter id="Number1" title="Number1"
+				value="#{testManagedBean.numberFilter}" />
+			<br />
+			<!-- <p62:numberFilter id="Number2" title="Number2"
+				filter="#{testManagedBean.numberFilter2}" /> -->
+			<br />
+			<p:commandButton value="Valider" action="#{testManagedBean.validate}"
+				update="@form" />
+
+			<!-- <p62:inputDate value="#{testManagedBean.taDate}" /> -->
+			<!-- <p62:inputDate2 value="#{testManagedBean.taDate}" /> -->
+		</h:form>
+	</ui:define>
+
+</ui:composition>

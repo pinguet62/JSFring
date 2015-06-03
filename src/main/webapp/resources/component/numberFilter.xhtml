@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface componentType="filter">
+	<composite:attribute name="title" type="java.lang.String"
+		shortDescription="The label title." />
+	<composite:attribute name="value"
+		type="fr.pinguet62.jsfring.gui.component.filter.NumberPathFilter" />
+</composite:interface>
+
+<composite:implementation>
+
+	<!-- <c:set  target="#{cc}" var="#{cc.attrs.value}" /> -->
+
+	<h:outputScript library="js" name="filter.js" target="head" />
+
+	<div style="display: inline-block">
+		<p:outputLabel value="#{cc.attrs.title}"
+			style="display: inline-block; vertical-align: middle;" />
+
+		<p:selectOneMenu binding="#{cc.operatorSelectOneMenu}"
+			converter="fr.pinguet62.jsfring.gui.component.filter.OperatorConverter"
+			onchange="onOperatorNumberFilterChange(this.value, '#{cc.singleValueInputText.clientId}', '#{cc.leftValueInputText.clientId}', '#{cc.rigthValueInputText.clientId}')"
+			style="display: inline-block; vertical-align: middle;">
+			<f:selectItems value="#{cc.operators}" var="op" />
+		</p:selectOneMenu>
+
+		<!-- 1 parameter -->
+		<p:inputText id="singleValue" binding="#{cc.singleValueInputText}"
+			converter="javax.faces.Integer"
+			style="display: inline-block; vertical-align: middle;">
+			<f:validateDoubleRange minimum="5" maximum="8" />
+		</p:inputText>
+		<!-- 2 parameters -->
+		<p:inputText id="leftValue" binding="#{cc.leftValueInputText}"
+			converter="javax.faces.Integer"
+			style="display: none; vertical-align: middle;">
+			<f:validateDoubleRange minimum="5" maximum="8" />
+		</p:inputText>
+		<p:inputText id="rigthValue" binding="#{cc.rigthValueInputText}"
+			converter="javax.faces.Integer"
+			style="display: none; vertical-align: middle;">
+			<f:validateDoubleRange minimum="5" maximum="8" />
+		</p:inputText>
+	</div>
+
+</composite:implementation>
+
+</html>
