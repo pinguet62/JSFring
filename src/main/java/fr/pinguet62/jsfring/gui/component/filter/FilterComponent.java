@@ -20,11 +20,9 @@ import org.primefaces.component.selectonemenu.SelectOneMenu;
 @FacesComponent(value = "filter")
 public final class FilterComponent extends UIInput implements NamingContainer {
 
-    private InputText leftValueInputText, rigthValueInputText;
-
     private SelectOneMenu operatorSelectOneMenu;
 
-    private InputText singleValueInputText;
+    private InputText value1InputText, value2InputText;
 
     /**
      * The methods of {@link UIInput#processValidators(FacesContext)} who was
@@ -57,10 +55,8 @@ public final class FilterComponent extends UIInput implements NamingContainer {
         NumberPathFilter<Integer> filter = getValue();
 
         setOperator(filter.getOperator());
-        operatorSelectOneMenu.setValue(filter.getOperator());
-        singleValueInputText.setValue(filter.getSingleValue());
-        leftValueInputText.setValue(filter.getLeftValue());
-        rigthValueInputText.setValue(filter.getRigthValue());
+        value1InputText.setValue(filter.getValue1());
+        value2InputText.setValue(filter.getValue2());
 
         super.encodeBegin(context);
     }
@@ -77,9 +73,8 @@ public final class FilterComponent extends UIInput implements NamingContainer {
 
         // Update new values
         filter.setOperator((Operator) operatorSelectOneMenu.getValue());
-        filter.setSingleValue((Integer) singleValueInputText.getValue());
-        filter.setLeftValue((Integer) leftValueInputText.getValue());
-        filter.setRigthValue((Integer) rigthValueInputText.getValue());
+        filter.setValue1((Integer) value1InputText.getValue());
+        filter.setValue2((Integer) value2InputText.getValue());
 
         return filter;
     }
@@ -91,10 +86,6 @@ public final class FilterComponent extends UIInput implements NamingContainer {
     @Override
     public String getFamily() {
         return UINamingContainer.COMPONENT_FAMILY;
-    }
-
-    public InputText getLeftValueInputText() {
-        return leftValueInputText;
     }
 
     public Operator getOperator() {
@@ -112,14 +103,6 @@ public final class FilterComponent extends UIInput implements NamingContainer {
 
     public SelectOneMenu getOperatorSelectOneMenu() {
         return operatorSelectOneMenu;
-    }
-
-    public InputText getRigthValueInputText() {
-        return rigthValueInputText;
-    }
-
-    public InputText getSingleValueInputText() {
-        return singleValueInputText;
     }
 
     /**
@@ -142,6 +125,14 @@ public final class FilterComponent extends UIInput implements NamingContainer {
         return (NumberPathFilter<Integer>) super.getValue();
     }
 
+    public InputText getValue1InputText() {
+        return value1InputText;
+    }
+
+    public InputText getValue2InputText() {
+        return value2InputText;
+    }
+
     /**
      * Validate the components instead of {@link Operator} value. The validation
      * of no-requiered {@link InputText} are skipped.
@@ -154,16 +145,10 @@ public final class FilterComponent extends UIInput implements NamingContainer {
                 (String) operatorSelectOneMenu.getSubmittedValue());
         switch (operator.getNumberOfParameters()) {
             case 0:
-                singleValueInputText.setImmediate(true);
-                leftValueInputText.setImmediate(true);
-                rigthValueInputText.setImmediate(true);
-                break;
+                value1InputText.setImmediate(true);
             case 1:
-                leftValueInputText.setImmediate(true);
-                rigthValueInputText.setImmediate(true);
-                break;
+                value2InputText.setImmediate(true);
             case 2:
-                singleValueInputText.setImmediate(true);
                 break;
             default:
                 throw new IllegalArgumentException("Unknow operator: "
@@ -175,13 +160,8 @@ public final class FilterComponent extends UIInput implements NamingContainer {
 
         setImmediate(false);
         callSkipped(context);
-        singleValueInputText.setImmediate(false);
-        leftValueInputText.setImmediate(false);
-        rigthValueInputText.setImmediate(false);
-    }
-
-    public void setLeftValueInputText(InputText leftValueInputText) {
-        this.leftValueInputText = leftValueInputText;
+        value1InputText.setImmediate(false);
+        value2InputText.setImmediate(false);
     }
 
     public void setOperator(Operator operator) {
@@ -192,12 +172,12 @@ public final class FilterComponent extends UIInput implements NamingContainer {
         this.operatorSelectOneMenu = operatorSelectOneMenu;
     }
 
-    public void setRigthValueInputText(InputText rigthValueInputText) {
-        this.rigthValueInputText = rigthValueInputText;
+    public void setValue1InputText(InputText value1InputText) {
+        this.value1InputText = value1InputText;
     }
 
-    public void setSingleValueInputText(InputText singleValueInputText) {
-        this.singleValueInputText = singleValueInputText;
+    public void setValue2InputText(InputText value2InputText) {
+        this.value2InputText = value2InputText;
     }
 
 }

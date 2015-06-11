@@ -14,8 +14,6 @@ public final class NumberPathFilter<T extends Number & Comparable<T>>
 
     private static final long serialVersionUID = 1;
 
-    private T leftValue, rigthValue;
-
     /**
      * The selected {@link Operator} in {@link SelectOneMenu}.
      *
@@ -26,18 +24,10 @@ public final class NumberPathFilter<T extends Number & Comparable<T>>
 
     private final NumberExpression<T> path;
 
-    private T singleValue;
+    private T value1, value2;
 
     public NumberPathFilter(NumberExpression<T> path) {
         this.path = path;
-    }
-
-    // TODO test
-    public NumberPathFilter(NumberExpression<T> path, T i) {
-        this.path = path;
-        singleValue = i;
-        leftValue = i;
-        rigthValue = i;
     }
 
     @Override
@@ -48,65 +38,56 @@ public final class NumberPathFilter<T extends Number & Comparable<T>>
             return false;
         NumberPathFilter<T> other = (NumberPathFilter<T>) obj;
         return Objects.equals(operator, other.operator)
-                && Objects.equals(singleValue, other.singleValue)
-                && Objects.equals(leftValue, other.leftValue)
-                && Objects.equals(rigthValue, other.rigthValue);
+                && Objects.equals(value1, other.value1)
+                && Objects.equals(value2, other.value2);
     }
 
     @Override
     public BooleanExpression get() {
         switch (operator) {
             case BETWEEN:
-                return path.between(leftValue, rigthValue);
+                return path.between(value1, value2);
             case EQUALS_TO:
-                return path.eq(singleValue);
+                return path.eq(value1);
             case GREATER_THAN:
-                return path.gt(singleValue);
+                return path.gt(value1);
             case IS_NULL:
                 return path.isNull();
             case LESS_THAN:
-                return path.lt(singleValue);
+                return path.lt(value1);
             default:
                 throw new UnsupportedOperationException("Unknown operation: "
                         + operator);
         }
     }
 
-    public T getLeftValue() {
-        return leftValue;
-    }
-
     public Operator getOperator() {
         return operator;
     }
 
-    public T getRigthValue() {
-        return rigthValue;
+    public T getValue1() {
+        return value1;
     }
 
-    public T getSingleValue() {
-        return singleValue;
+    public T getValue2() {
+        return value2;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(operator, singleValue, leftValue, rigthValue);
-    }
-
-    public void setLeftValue(T leftValue) {
-        this.leftValue = leftValue;
+        return Objects.hash(operator, value2, value1);
     }
 
     public void setOperator(Operator operator) {
         this.operator = operator;
     }
 
-    public void setRigthValue(T rigthValue) {
-        this.rigthValue = rigthValue;
+    public void setValue1(T value1) {
+        this.value1 = value1;
     }
 
-    public void setSingleValue(T singleValue) {
-        this.singleValue = singleValue;
+    public void setValue2(T value2) {
+        this.value2 = value2;
     }
 
     @Override
@@ -115,11 +96,10 @@ public final class NumberPathFilter<T extends Number & Comparable<T>>
             case 0:
                 return operator.getMessage();
             case 1:
-                return String.format("%s(%s)", operator.getMessage(),
-                        singleValue);
+                return String.format("%s(%s)", operator.getMessage(), value1);
             case 2:
                 return String.format("%s(%s, %s)", operator.getMessage(),
-                        leftValue, rigthValue);
+                        value1, value2);
             default:
                 throw new UnsupportedOperationException(
                         "Invalid number of parameters for operator " + operator);
