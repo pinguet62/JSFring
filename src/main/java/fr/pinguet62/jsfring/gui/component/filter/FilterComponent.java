@@ -56,6 +56,7 @@ public final class FilterComponent extends UIInput implements NamingContainer {
     public void encodeBegin(FacesContext context) throws IOException {
         NumberPathFilter<Integer> filter = getValue();
 
+        setOperator(filter.getOperator());
         operatorSelectOneMenu.setValue(filter.getOperator());
         singleValueInputText.setValue(filter.getSingleValue());
         leftValueInputText.setValue(filter.getLeftValue());
@@ -94,6 +95,10 @@ public final class FilterComponent extends UIInput implements NamingContainer {
 
     public InputText getLeftValueInputText() {
         return leftValueInputText;
+    }
+
+    public Operator getOperator() {
+        return (Operator) getStateHelper().get("operator");
     }
 
     /**
@@ -177,6 +182,10 @@ public final class FilterComponent extends UIInput implements NamingContainer {
 
     public void setLeftValueInputText(InputText leftValueInputText) {
         this.leftValueInputText = leftValueInputText;
+    }
+
+    public void setOperator(Operator operator) {
+        getStateHelper().put("operator", operator);
     }
 
     public void setOperatorSelectOneMenu(SelectOneMenu operatorSelectOneMenu) {

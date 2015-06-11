@@ -20,36 +20,42 @@
 
 	<!-- <c:set  target="#{cc}" var="#{cc.attrs.value}" /> -->
 
-	<h:outputScript library="js" name="filter.js" target="head" />
-
 	<div style="display: inline-block">
 		<p:outputLabel value="#{cc.attrs.title}"
 			style="display: inline-block; vertical-align: middle;" />
 
+		<!-- onchange="onOperatorNumberFilterChange(this.value, '#{cc.singleValueInputText.clientId}', '#{cc.leftValueInputText.clientId}', '#{cc.rigthValueInputText.clientId}')" -->
 		<p:selectOneMenu binding="#{cc.operatorSelectOneMenu}"
+			value="#{cc.operator}"
 			converter="fr.pinguet62.jsfring.gui.component.filter.OperatorConverter"
-			onchange="onOperatorNumberFilterChange(this.value, '#{cc.singleValueInputText.clientId}', '#{cc.leftValueInputText.clientId}', '#{cc.rigthValueInputText.clientId}')"
 			style="display: inline-block; vertical-align: middle;">
 			<f:selectItems value="#{cc.operators}" var="op" />
+			<!-- <f:ajax event="change" render="singleValue leftValue rigthValue" /> -->
+			<p:ajax event="change" update="values" />
 		</p:selectOneMenu>
 
-		<!-- 1 parameter -->
-		<p:inputText id="singleValue" binding="#{cc.singleValueInputText}"
-			converter="javax.faces.Integer"
-			style="display: inline-block; vertical-align: middle;">
-			<f:validateDoubleRange minimum="5" maximum="8" />
-		</p:inputText>
-		<!-- 2 parameters -->
-		<p:inputText id="leftValue" binding="#{cc.leftValueInputText}"
-			converter="javax.faces.Integer"
-			style="display: none; vertical-align: middle;">
-			<f:validateDoubleRange minimum="5" maximum="8" />
-		</p:inputText>
-		<p:inputText id="rigthValue" binding="#{cc.rigthValueInputText}"
-			converter="javax.faces.Integer"
-			style="display: none; vertical-align: middle;">
-			<f:validateDoubleRange minimum="5" maximum="8" />
-		</p:inputText>
+		<h:panelGroup id="values">
+			<!-- 1 parameter -->
+			<p:inputText id="singleValue" binding="#{cc.singleValueInputText}"
+				converter="javax.faces.Integer"
+				rendered="#{cc.operator.numberOfParameters == 1}"
+				style="display: inline-block; vertical-align: middle;">
+				<f:validateDoubleRange minimum="5" maximum="8" />
+			</p:inputText>
+			<!-- 2 parameters -->
+			<p:inputText id="leftValue" binding="#{cc.leftValueInputText}"
+				converter="javax.faces.Integer"
+				rendered="#{cc.operator.numberOfParameters == 2}"
+				style="display: inline-block; vertical-align: middle;">
+				<f:validateDoubleRange minimum="5" maximum="8" />
+			</p:inputText>
+			<p:inputText id="rigthValue" binding="#{cc.rigthValueInputText}"
+				converter="javax.faces.Integer"
+				rendered="#{cc.operator.numberOfParameters == 2}"
+				style="display: inline-block; vertical-align: middle;">
+				<f:validateDoubleRange minimum="5" maximum="8" />
+			</p:inputText>
+		</h:panelGroup>
 	</div>
 
 </composite:implementation>
