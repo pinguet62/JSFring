@@ -1,6 +1,8 @@
 package fr.pinguet62.jsfring.gui.component.filter;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.faces.application.Application;
 import javax.faces.component.FacesComponent;
@@ -15,6 +17,11 @@ import javax.faces.event.PreValidateEvent;
 
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
+
+import fr.pinguet62.jsfring.gui.component.filter.operator.BetweenOperator;
+import fr.pinguet62.jsfring.gui.component.filter.operator.EqualsToOperator;
+import fr.pinguet62.jsfring.gui.component.filter.operator.IsNullOperator;
+import fr.pinguet62.jsfring.gui.component.filter.operator.Operator;
 
 /** Classe who manage the filter (operator & value) {@link UIComponent}. */
 @FacesComponent(value = "filter")
@@ -72,7 +79,7 @@ public final class FilterComponent extends UIInput implements NamingContainer {
         NumberPathFilter<Integer> filter = getValue();
 
         // Update new values
-        filter.setOperator((Operator) operatorSelectOneMenu.getValue());
+        filter.setOperator((Operator<?>) operatorSelectOneMenu.getValue());
         filter.setValue1((Integer) value1InputText.getValue());
         filter.setValue2((Integer) value2InputText.getValue());
 
@@ -88,17 +95,20 @@ public final class FilterComponent extends UIInput implements NamingContainer {
         return UINamingContainer.COMPONENT_FAMILY;
     }
 
-    public Operator getOperator() {
-        return (Operator) getStateHelper().get("operator");
+    public Operator<?> getOperator() {
+        return (Operator<?>) getStateHelper().get("operator");
     }
 
     /**
-     * List of available {@link Operator}s.
+     * Get the list of {@link Operator}s, applicable on {@link #path}.
+     * <p>
+     * Override this method to add/remove/change the available filters.
      *
-     * @see Operator#values()
+     * @return The ordered list of {@link Operator}s.
      */
-    public Operator[] getOperators() {
-        return Operator.values();
+    public <T extends Number & Comparable<T>> List<Operator<T>> getOperators() {
+        return Arrays.asList(new IsNullOperator<T>(),
+                new EqualsToOperator<T>(), new BetweenOperator<T>());
     }
 
     public SelectOneMenu getOperatorSelectOneMenu() {
@@ -140,7 +150,7 @@ public final class FilterComponent extends UIInput implements NamingContainer {
     // TODO change using of "immediate" attribute to another good method
     @Override
     public void processValidators(FacesContext context) {
-        Operator operator = new OperatorConverter().getAsObject(
+        Operator<?> operator = new OperatorConverter().getAsObject(
                 FacesContext.getCurrentInstance(), operatorSelectOneMenu,
                 (String) operatorSelectOneMenu.getSubmittedValue());
         switch (operator.getNumberOfParameters()) {
@@ -154,17 +164,17 @@ public final class FilterComponent extends UIInput implements NamingContainer {
                 throw new IllegalArgumentException("Unknow operator: "
                         + operator);
         }
-        setImmediate(true);
+        // setImmediate(true);
 
         super.processValidators(context);
 
-        setImmediate(false);
+        // setImmediate(false);
         callSkipped(context);
         value1InputText.setImmediate(false);
         value2InputText.setImmediate(false);
     }
 
-    public void setOperator(Operator operator) {
+    public void setOperator(Operator<?> operator) {
         getStateHelper().put("operator", operator);
     }
 

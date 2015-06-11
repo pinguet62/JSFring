@@ -18,8 +18,6 @@
 
 <composite:implementation>
 
-	<!-- <c:set  target="#{cc}" var="#{cc.attrs.value}" /> -->
-
 	<div style="display: inline-block">
 		<p:outputLabel value="#{cc.attrs.title}"
 			style="display: inline-block; vertical-align: middle;" />
@@ -28,7 +26,8 @@
 			value="#{cc.operator}"
 			converter="fr.pinguet62.jsfring.gui.component.filter.OperatorConverter"
 			style="display: inline-block; vertical-align: middle;">
-			<f:selectItems value="#{cc.operators}" />
+			<f:selectItems value="#{cc.value.operators}" var="op"
+				itemValue="#{op}" itemLabel="#{op.message}" />
 			<p:ajax event="change" update="values" />
 		</p:selectOneMenu>
 
@@ -37,12 +36,14 @@
 				converter="javax.faces.Integer"
 				rendered="#{cc.operator.numberOfParameters >= 1}"
 				style="display: inline-block; vertical-align: middle;">
+				<f:validateRequired />
 				<f:validateDoubleRange minimum="5" maximum="8" />
 			</p:inputText>
 			<p:inputText binding="#{cc.value2InputText}"
 				converter="javax.faces.Integer"
 				rendered="#{cc.operator.numberOfParameters >= 2}"
 				style="display: inline-block; vertical-align: middle;">
+				<f:validateRequired />
 				<f:validateDoubleRange minimum="5" maximum="8" />
 			</p:inputText>
 		</h:panelGroup>

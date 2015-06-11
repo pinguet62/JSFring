@@ -5,29 +5,31 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-/**
- * Use the default convertion: {@link Operator#toString()} <>
- * {@link Operator#valueOf(String)}.
- *
- * @see Operator#valueOf(String)
- * @see Operator#toString()
- */
+import fr.pinguet62.jsfring.gui.component.filter.operator.Operator;
+
+/** Use the default class name as key for {@link Operator}. */
 @FacesConverter(value = "fr.pinguet62.jsfring.gui.component.filter.OperatorConverter", forClass = Operator.class)
 public final class OperatorConverter implements Converter {
 
-    /** @see Operator#valueOf(String) */
+    /** @see Class#newInstance() */
     @Override
-    public Operator getAsObject(FacesContext context, UIComponent component,
-            String value) {
-        return Operator.valueOf(value);
+    public Operator<?> getAsObject(FacesContext context, UIComponent component,
+            String className) {
+        try {
+            return (Operator<?>) Class.forName(className).newInstance();
+        } catch (InstantiationException | IllegalAccessException
+                | ClassNotFoundException e) {
+            throw new IllegalArgumentException(
+                    "Error during creation of operator", e);
+        }
     }
 
-    /** @see @see Operator#toString() */
+    /** @see Class#getName() */
     @Override
     public String getAsString(FacesContext context, UIComponent component,
             Object value) {
-        Operator operator = (Operator) value;
-        return operator.toString();
+        Operator<?> operator = (Operator<?>) value;
+        return operator.getClass().getName();
     }
 
 }

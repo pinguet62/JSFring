@@ -1,6 +1,8 @@
 package fr.pinguet62.jsfring.gui.component.filter;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -8,6 +10,11 @@ import org.primefaces.component.selectonemenu.SelectOneMenu;
 
 import com.mysema.query.types.expr.BooleanExpression;
 import com.mysema.query.types.expr.NumberExpression;
+
+import fr.pinguet62.jsfring.gui.component.filter.operator.BetweenOperator;
+import fr.pinguet62.jsfring.gui.component.filter.operator.EqualsToOperator;
+import fr.pinguet62.jsfring.gui.component.filter.operator.IsNullOperator;
+import fr.pinguet62.jsfring.gui.component.filter.operator.Operator;
 
 public final class NumberPathFilter<T extends Number & Comparable<T>>
         implements Supplier<BooleanExpression>, Serializable {
@@ -20,7 +27,7 @@ public final class NumberPathFilter<T extends Number & Comparable<T>>
      * @property.getter {@link #getOperator()}
      * @property.setter {@link #setOperator(Operator)}
      */
-    private Operator operator = Operator.EQUALS_TO;
+    private Operator<T> operator = new EqualsToOperator<>();
 
     private final NumberExpression<T> path;
 
@@ -44,25 +51,23 @@ public final class NumberPathFilter<T extends Number & Comparable<T>>
 
     @Override
     public BooleanExpression get() {
-        switch (operator) {
-            case BETWEEN:
-                return path.between(value1, value2);
-            case EQUALS_TO:
-                return path.eq(value1);
-            case GREATER_THAN:
-                return path.gt(value1);
-            case IS_NULL:
-                return path.isNull();
-            case LESS_THAN:
-                return path.lt(value1);
-            default:
-                throw new UnsupportedOperationException("Unknown operation: "
-                        + operator);
-        }
+        return operator.apply(path, value1, value2);
     }
 
     public Operator getOperator() {
         return operator;
+    }
+
+    /**
+     * Get the list of {@link Operator}s, applicable on {@link #path}.
+     * <p>
+     * Override this method to add/remove/change the available filters.
+     *
+     * @return The ordered list of {@link Operator}s.
+     */
+    public List<Operator<T>> getOperators() {
+        return Arrays.asList(new IsNullOperator<T>(),
+                new EqualsToOperator<T>(), new BetweenOperator<T>());
     }
 
     public T getValue1() {
