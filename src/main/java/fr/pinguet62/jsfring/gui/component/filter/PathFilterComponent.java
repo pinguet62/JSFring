@@ -1,8 +1,6 @@
 package fr.pinguet62.jsfring.gui.component.filter;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 import javax.faces.application.Application;
 import javax.faces.component.FacesComponent;
@@ -18,40 +16,31 @@ import javax.faces.event.PreValidateEvent;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
 
-import fr.pinguet62.jsfring.gui.component.filter.operator.BetweenOperator;
-import fr.pinguet62.jsfring.gui.component.filter.operator.EqualsToOperator;
-import fr.pinguet62.jsfring.gui.component.filter.operator.IsNullOperator;
 import fr.pinguet62.jsfring.gui.component.filter.operator.Operator;
 
 /** Classe who manage the filter (operator & value) {@link UIComponent}. */
 @FacesComponent(value = "filter")
-public final class FilterComponent extends UIInput implements NamingContainer {
+public final class PathFilterComponent extends UIInput implements
+        NamingContainer {
 
     private SelectOneMenu operatorSelectOneMenu;
 
     private InputText value1InputText, value2InputText;
 
     /**
-     * The methods of {@link UIInput#processValidators(FacesContext)} who was
-     * skiped by the {@link #setImmediate(boolean)} method.
+     * Bloc of code, skipped in the method
+     * {@link UIInput#processValidators(FacesContext)}, because of
+     * {@link #setImmediate(boolean)}.
+     * <p>
+     * This code must be executed after child validations.
+     *
+     * @see #processValidators(FacesContext)
      */
     private void callSkipped(FacesContext context) {
         if (!isImmediate()) {
             Application application = context.getApplication();
             application.publishEvent(context, PreValidateEvent.class, this);
-
-            // super.executeValidate(FacesContext context)
-            try {
-                validate(context);
-            } catch (RuntimeException e) {
-                context.renderResponse();
-                throw e;
-            }
-            if (!isValid()) {
-                context.validationFailed();
-                context.renderResponse();
-            }
-
+            executeValidate(context);
             application.publishEvent(context, PostValidateEvent.class, this);
         }
     }
@@ -59,7 +48,7 @@ public final class FilterComponent extends UIInput implements NamingContainer {
     /** Initialize input fields with initial value passed in parameter. */
     @Override
     public void encodeBegin(FacesContext context) throws IOException {
-        NumberPathFilter<Integer> filter = getValue();
+        PathFilter<?, ?> filter = getValue();
 
         setOperator(filter.getOperator());
         value1InputText.setValue(filter.getValue1());
@@ -68,20 +57,34 @@ public final class FilterComponent extends UIInput implements NamingContainer {
         super.encodeBegin(context);
     }
 
+    /** @see UIInput#executeValidate(FacesContext) */
+    private void executeValidate(FacesContext context) {
+        try {
+            validate(context);
+        } catch (RuntimeException e) {
+            context.renderResponse();
+            throw e;
+        }
+        if (!isValid()) {
+            context.validationFailed();
+            context.renderResponse();
+        }
+    }
+
     /**
      * Update the initial value with new values.
      *
      * @return The new value.
      */
     @Override
-    protected NumberPathFilter<Integer> getConvertedValue(FacesContext context,
+    protected PathFilter<?, ?> getConvertedValue(FacesContext context,
             Object newSubmittedValue) throws ConverterException {
-        NumberPathFilter<Integer> filter = getValue();
+        PathFilter<?, ?> filter = getValue();
 
         // Update new values
-        filter.setOperator((Operator<?>) operatorSelectOneMenu.getValue());
-        filter.setValue1((Integer) value1InputText.getValue());
-        filter.setValue2((Integer) value2InputText.getValue());
+        filter.setOperator((Operator<?, ?>) operatorSelectOneMenu.getValue());
+        filter.setValue1(value1InputText.getValue());
+        filter.setValue2(value2InputText.getValue());
 
         return filter;
     }
@@ -95,20 +98,8 @@ public final class FilterComponent extends UIInput implements NamingContainer {
         return UINamingContainer.COMPONENT_FAMILY;
     }
 
-    public Operator<?> getOperator() {
-        return (Operator<?>) getStateHelper().get("operator");
-    }
-
-    /**
-     * Get the list of {@link Operator}s, applicable on {@link #path}.
-     * <p>
-     * Override this method to add/remove/change the available filters.
-     *
-     * @return The ordered list of {@link Operator}s.
-     */
-    public <T extends Number & Comparable<T>> List<Operator<T>> getOperators() {
-        return Arrays.asList(new IsNullOperator<T>(),
-                new EqualsToOperator<T>(), new BetweenOperator<T>());
+    public Operator<?, ?> getOperator() {
+        return (Operator<?, ?>) getStateHelper().get("operator");
     }
 
     public SelectOneMenu getOperatorSelectOneMenu() {
@@ -128,11 +119,11 @@ public final class FilterComponent extends UIInput implements NamingContainer {
     /**
      * {@inheritDoc}
      *
-     * @return The value casted to type {@link NumberPathFilter}.
+     * @return The value casted to type {@link PathFilter}.
      */
     @Override
-    public NumberPathFilter<Integer> getValue() {
-        return (NumberPathFilter<Integer>) super.getValue();
+    public PathFilter<?, ?> getValue() {
+        return (PathFilter<?, ?>) super.getValue();
     }
 
     public InputText getValue1InputText() {
@@ -150,7 +141,7 @@ public final class FilterComponent extends UIInput implements NamingContainer {
     // TODO change using of "immediate" attribute to another good method
     @Override
     public void processValidators(FacesContext context) {
-        Operator<?> operator = new OperatorConverter().getAsObject(
+        Operator<?, ?> operator = new OperatorConverter().getAsObject(
                 FacesContext.getCurrentInstance(), operatorSelectOneMenu,
                 (String) operatorSelectOneMenu.getSubmittedValue());
         switch (operator.getNumberOfParameters()) {
@@ -164,17 +155,19 @@ public final class FilterComponent extends UIInput implements NamingContainer {
                 throw new IllegalArgumentException("Unknow operator: "
                         + operator);
         }
-        // setImmediate(true);
 
+        // "Immediate" to skip block code before foeach on childs
+        setImmediate(true);
         super.processValidators(context);
-
-        // setImmediate(false);
+        setImmediate(false);
+        // Execute the previous skipped bloc code
         callSkipped(context);
+
         value1InputText.setImmediate(false);
         value2InputText.setImmediate(false);
     }
 
-    public void setOperator(Operator<?> operator) {
+    public void setOperator(Operator<?, ?> operator) {
         getStateHelper().put("operator", operator);
     }
 
@@ -189,5 +182,13 @@ public final class FilterComponent extends UIInput implements NamingContainer {
     public void setValue2InputText(InputText value2InputText) {
         this.value2InputText = value2InputText;
     }
+
+    /**
+     * The value is a complex object, who doesn't require validation.
+     *
+     * @see UIInput#validateValue(FacesContext, Object)
+     */
+    @Override
+    protected void validateValue(FacesContext context, Object newValue) {}
 
 }
