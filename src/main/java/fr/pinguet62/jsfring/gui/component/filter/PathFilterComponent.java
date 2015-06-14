@@ -1,6 +1,7 @@
 package fr.pinguet62.jsfring.gui.component.filter;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.faces.application.Application;
 import javax.faces.component.FacesComponent;
@@ -9,9 +10,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.event.PostValidateEvent;
 import javax.faces.event.PreValidateEvent;
+import javax.faces.validator.Validator;
 
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
@@ -48,8 +51,8 @@ public final class PathFilterComponent extends UIInput implements
     /** Initialize input fields with initial value passed in parameter. */
     @Override
     public void encodeBegin(FacesContext context) throws IOException {
+        // Initialize values
         PathFilter<?, ?> filter = getValue();
-
         setOperator(filter.getOperator());
         value1InputText.setValue(filter.getValue1());
         value2InputText.setValue(filter.getValue2());
@@ -135,12 +138,32 @@ public final class PathFilterComponent extends UIInput implements
     }
 
     /**
+     * Set {@link Converter} and {@link Validator} of current component to
+     * {@link InputText} children.
+     */
+    private void initConverterAndValidators() {
+        for (InputText inputText : Arrays.asList(value1InputText,
+                value2InputText)) {
+            // Converter
+            inputText.setConverter(getConverter());
+            // Validator
+            for (Validator validator : getValidators())
+                if (!Arrays.asList(inputText.getValidators()).contains(
+                        validator))
+                    inputText.addValidator(validator);
+        }
+    }
+
+    /**
      * Validate the components instead of {@link Operator} value. The validation
-     * of no-requiered {@link InputText} are skipped.
+     * of no-required {@link InputText} are skipped.
      */
     // TODO change using of "immediate" attribute to another good method
     @Override
     public void processValidators(FacesContext context) {
+        initConverterAndValidators();
+
+        // Ignore validation instead of operator
         Operator<?, ?> operator = new OperatorConverter().getAsObject(
                 FacesContext.getCurrentInstance(), operatorSelectOneMenu,
                 (String) operatorSelectOneMenu.getSubmittedValue());

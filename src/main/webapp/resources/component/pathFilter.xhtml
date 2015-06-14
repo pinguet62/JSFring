@@ -14,8 +14,6 @@
 		shortDescription="The label title." />
 	<composite:attribute name="value"
 		type="fr.pinguet62.jsfring.gui.component.filter.NumberPathFilter" />
-	<composite:facet name="validate"
-		shortDescription="The attributes (converter or validator) to add to InputText." />
 </composite:interface>
 
 <composite:implementation>
@@ -39,14 +37,10 @@
 		<h:panelGroup id="values">
 			<p:inputText binding="#{cc.value1InputText}"
 				rendered="#{cc.operator.numberOfParameters >= 1}"
-				style="display: inline-block; vertical-align: middle;">
-				<composite:renderFacet name="validate" />
-			</p:inputText>
+				style="display: inline-block; vertical-align: middle;" />
 			<p:inputText binding="#{cc.value2InputText}"
 				rendered="#{cc.operator.numberOfParameters >= 2}"
-				style="display: inline-block; vertical-align: middle;">
-				<composite:insertChildren />
-			</p:inputText>
+				style="display: inline-block; vertical-align: middle;" />
 		</h:panelGroup>
 	</div>
 

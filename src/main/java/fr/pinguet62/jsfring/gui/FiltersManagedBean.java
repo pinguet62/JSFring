@@ -43,7 +43,7 @@ public final class FiltersManagedBean implements Serializable {
     /** Build {@link JPAQuery} from {@link PathFilter}s. */
     public void submit() {
         System.out.println(new JPAQuery().from(QUser.user)
-        /* .where(stringFilter.get()) */.where(numberFilter.get()));
+                /* .where(stringFilter.get()) */.where(numberFilter.get()));
     }
 
 }
