@@ -9,8 +9,8 @@ NumberOperator<T> {
     private static final long serialVersionUID = 1;
 
     @Override
-    public BooleanExpression apply(NumberExpression<T> path, T... args) {
-        return path.gt(args[0]);
+    public BooleanExpression apply(NumberExpression<T> path, T arg1, T arg2) {
+        return path.between(arg1, arg2);
     }
 
     @Override

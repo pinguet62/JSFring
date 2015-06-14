@@ -4,13 +4,13 @@ import com.mysema.query.types.expr.BooleanExpression;
 import com.mysema.query.types.expr.NumberExpression;
 
 public final class GreaterThanOperator<T extends Number & Comparable<?>>
-        implements NumberOperator<T> {
+implements NumberOperator<T> {
 
     private static final long serialVersionUID = 1;
 
     @Override
-    public BooleanExpression apply(NumberExpression<T> path, T... args) {
-        return path.gt(args[0]);
+    public BooleanExpression apply(NumberExpression<T> path, T arg1, T arg2) {
+        return path.gt(arg1);
     }
 
     @Override

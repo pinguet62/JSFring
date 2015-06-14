@@ -1,12 +1,10 @@
 package fr.pinguet62.jsfring.gui.component.filter.operator;
 
 import java.io.Serializable;
-import java.util.function.BiFunction;
 
 import org.primefaces.component.selectonemenu.SelectOneMenu;
 
 import com.mysema.query.types.expr.BooleanExpression;
-import com.mysema.query.types.expr.NumberExpression;
 import com.mysema.query.types.expr.SimpleExpression;
 
 import fr.pinguet62.jsfring.gui.component.filter.OperatorConverter;
@@ -26,15 +24,20 @@ import fr.pinguet62.jsfring.gui.component.filter.OperatorConverter;
  * @param <T> The type of parameters.
  */
 public interface Operator<Exp extends SimpleExpression<T>, T> extends
-        BiFunction<Exp, T[], BooleanExpression>, Serializable {
+        Serializable {
 
     /**
-     * Apply the operator on {@link NumberExpression path}, with parameters.
+     * Apply the {@link Operator} on {@link SimpleExpression path}, with
+     * parameters (if required), and generate the {@link BooleanExpression}.
      *
+     * @param path The {@link SimpleExpression} on which apply the operator.
+     * @param arg1 The first parameter of operator.<br>
+     *            Ignored if the operator doesn't take parameter.
+     * @param arg2 The second parameter of operator.<br>
+     *            Ignored if the operator take only 1 parameter.
      * @return The {@link BooleanExpression where cause} to apply for filtering.
      */
-    @Override
-    BooleanExpression apply(Exp path, T... args);
+    BooleanExpression apply(Exp path, T arg1, T arg2);
 
     default boolean equalsUtil(Object obj) {
         return getClass().equals(obj.getClass());

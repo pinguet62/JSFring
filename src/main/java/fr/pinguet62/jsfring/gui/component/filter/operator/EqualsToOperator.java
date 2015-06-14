@@ -8,13 +8,13 @@ import com.mysema.query.types.expr.SimpleExpression;
  * can be applied on several types.
  */
 public final class EqualsToOperator<Exp extends SimpleExpression<T>, T>
-        implements Operator<Exp, T> {
+implements Operator<Exp, T> {
 
     private static final long serialVersionUID = 1;
 
     @Override
-    public BooleanExpression apply(Exp path, T... args) {
-        return path.eq(args[0]);
+    public BooleanExpression apply(Exp path, T arg1, T arg2) {
+        return path.eq(arg1);
     }
 
     @Override

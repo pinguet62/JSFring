@@ -8,8 +8,9 @@ public final class ContainsOperator implements StringOperator {
     private static final long serialVersionUID = 1;
 
     @Override
-    public BooleanExpression apply(StringExpression path, String... args) {
-        return path.contains(args[0]);
+    public BooleanExpression apply(StringExpression path, String arg1,
+            String arg2) {
+        return path.contains(arg1);
     }
 
     @Override
