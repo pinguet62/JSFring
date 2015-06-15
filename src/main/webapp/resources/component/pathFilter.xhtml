@@ -36,10 +36,12 @@
 
 		<h:panelGroup id="values">
 			<p:inputText binding="#{cc.value1InputText}"
-				rendered="#{cc.operator.numberOfParameters >= 1}"
+				rendered="#{cc.operator.numberOfParameters ge 1}"
+				immediate="#{cc.operator.numberOfParameters lt 1}"
 				style="display: inline-block; vertical-align: middle;" />
 			<p:inputText binding="#{cc.value2InputText}"
-				rendered="#{cc.operator.numberOfParameters >= 2}"
+				rendered="#{cc.operator.numberOfParameters ge 2}"
+				immediate="#{cc.operator.numberOfParameters lt 2}"
 				style="display: inline-block; vertical-align: middle;" />
 		</h:panelGroup>
 	</div>

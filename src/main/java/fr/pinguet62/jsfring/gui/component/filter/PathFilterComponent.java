@@ -158,36 +158,15 @@ public final class PathFilterComponent extends UIInput implements
      * Validate the components instead of {@link Operator} value. The validation
      * of no-required {@link InputText} are skipped.
      */
-    // TODO change using of "immediate" attribute to another good method
     @Override
     public void processValidators(FacesContext context) {
         initConverterAndValidators();
-
-        // Ignore validation instead of operator
-        Operator<?, ?> operator = new OperatorConverter().getAsObject(
-                FacesContext.getCurrentInstance(), operatorSelectOneMenu,
-                (String) operatorSelectOneMenu.getSubmittedValue());
-        switch (operator.getNumberOfParameters()) {
-            case 0:
-                value1InputText.setImmediate(true);
-            case 1:
-                value2InputText.setImmediate(true);
-            case 2:
-                break;
-            default:
-                throw new IllegalArgumentException("Unknow operator: "
-                        + operator);
-        }
 
         // "Immediate" to skip block code before foeach on childs
         setImmediate(true);
         super.processValidators(context);
         setImmediate(false);
-        // Execute the previous skipped bloc code
         callSkipped(context);
-
-        value1InputText.setImmediate(false);
-        value2InputText.setImmediate(false);
     }
 
     public void setOperator(Operator<?, ?> operator) {
