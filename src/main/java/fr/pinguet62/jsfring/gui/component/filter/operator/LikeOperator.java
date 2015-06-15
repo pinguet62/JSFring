@@ -1,16 +1,16 @@
 package fr.pinguet62.jsfring.gui.component.filter.operator;
 
 import com.mysema.query.types.expr.BooleanExpression;
-import com.mysema.query.types.expr.NumberExpression;
+import com.mysema.query.types.expr.StringExpression;
 
-public final class BetweenOperator<T extends Number & Comparable<?>> implements
-        NumberOperator<T> {
+public final class LikeOperator implements StringOperator {
 
     private static final long serialVersionUID = 1;
 
     @Override
-    public BooleanExpression apply(NumberExpression<T> path, T arg1, T arg2) {
-        return path.between(arg1, arg2);
+    public BooleanExpression apply(StringExpression path, String arg1,
+            String arg2) {
+        return path.like(arg1);
     }
 
     @Override
@@ -20,12 +20,12 @@ public final class BetweenOperator<T extends Number & Comparable<?>> implements
 
     @Override
     public String getMessage() {
-        return "between";
+        return "like";
     }
 
     @Override
     public int getNumberOfParameters() {
-        return 2;
+        return 1;
     }
 
     @Override

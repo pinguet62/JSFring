@@ -4,7 +4,7 @@ import com.mysema.query.types.expr.BooleanExpression;
 import com.mysema.query.types.expr.NumberExpression;
 
 public final class GreaterThanOperator<T extends Number & Comparable<?>>
-implements NumberOperator<T> {
+        implements NumberOperator<T> {
 
     private static final long serialVersionUID = 1;
 
