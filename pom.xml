@@ -23,8 +23,8 @@
 		<!-- SMPT -->
 		<dependency>
 			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-			<version>1.5.0-b01</version>
+			<artifactId>javax.mail-api</artifactId>
+			<version>1.5.3</version>
 		</dependency>
 
 		<!-- ===== Test ===== -->
@@ -90,7 +90,7 @@
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
-			<version>5.1</version>
+			<version>5.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.primefaces.themes</groupId>
@@ -122,13 +122,6 @@
 		<!-- ===== JPA ===== -->
 		<!-- Driver -->
 		<dependency>
-			<!-- env: local -->
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.35</version>
-		</dependency>
-		<dependency>
-			<!-- env: Heroku -->
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>9.4-1201-jdbc41</version>
@@ -252,7 +245,7 @@
 		<jsf-version>2.2.10</jsf-version>
 		<hivernate.version>4.3.6.Final</hivernate.version><!-- 5.0.0.Beta1 java.lang.NoSuchMethodError: 
 			org.hibernate.internal.CoreMessageLogger.debug -->
-		<querydsl.version>3.6.3</querydsl.version>
+		<querydsl.version>3.6.4</querydsl.version>
 		<spring.version>4.0.6.RELEASE</spring.version><!-- 4.1.0.RELEASE -->
 		<spring-webflow.version>2.4.1.RELEASE</spring-webflow.version>
 		<spring-security.version>3.1.4.RELEASE</spring-security.version>
