@@ -21,7 +21,7 @@ import org.primefaces.component.selectonemenu.SelectOneMenu;
 
 import fr.pinguet62.jsfring.gui.component.filter.operator.Operator;
 
-/** Classe who manage the filter (operator & value) {@link UIComponent}. */
+/** {@link UIComponent} who manage the {@link PathFilter}. */
 @FacesComponent(value = "filter")
 public final class PathFilterComponent extends UIInput implements
         NamingContainer {
@@ -51,7 +51,6 @@ public final class PathFilterComponent extends UIInput implements
     /** Initialize input fields with initial value passed in parameter. */
     @Override
     public void encodeBegin(FacesContext context) throws IOException {
-        // Initialize values
         PathFilter<?, ?> filter = getValue();
         setOperator(filter.getOperator());
         value1InputText.setValue(filter.getValue1());
@@ -75,7 +74,7 @@ public final class PathFilterComponent extends UIInput implements
     }
 
     /**
-     * Update the initial value with new values.
+     * Update the {@link PathFilter} with new values.
      *
      * @return The new value.
      */
@@ -83,12 +82,9 @@ public final class PathFilterComponent extends UIInput implements
     protected PathFilter<?, ?> getConvertedValue(FacesContext context,
             Object newSubmittedValue) throws ConverterException {
         PathFilter<?, ?> filter = getValue();
-
-        // Update new values
         filter.setOperator((Operator<?, ?>) operatorSelectOneMenu.getValue());
         filter.setValue1(value1InputText.getValue());
         filter.setValue2(value2InputText.getValue());
-
         return filter;
     }
 
@@ -119,11 +115,7 @@ public final class PathFilterComponent extends UIInput implements
         return this;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @return The value casted to type {@link PathFilter}.
-     */
+    /** @return The value casted to type {@link PathFilter}. */
     @Override
     public PathFilter<?, ?> getValue() {
         return (PathFilter<?, ?>) super.getValue();
