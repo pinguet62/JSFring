@@ -10,6 +10,7 @@ import fr.pinguet62.jsfring.gui.component.filter.operator.ContainsOperator;
 import fr.pinguet62.jsfring.gui.component.filter.operator.EqualsToOperator;
 import fr.pinguet62.jsfring.gui.component.filter.operator.Operator;
 
+/** A {@link PathFilter} for {@link StringExpression} fields. */
 public final class StringPathFilter extends
         PathFilter<StringExpression, String> implements Serializable {
 

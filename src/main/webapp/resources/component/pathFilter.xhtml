@@ -29,6 +29,7 @@
 			value="#{cc.operator}"
 			converter="fr.pinguet62.jsfring.gui.component.filter.OperatorConverter"
 			style="display: inline-block; vertical-align: middle;">
+			<f:selectItem itemValue="#{null}" itemLabel="" />
 			<f:selectItems value="#{cc.value.operators}" var="op"
 				itemValue="#{op}" itemLabel="#{op.message}" />
 			<p:ajax event="change" update="values" />

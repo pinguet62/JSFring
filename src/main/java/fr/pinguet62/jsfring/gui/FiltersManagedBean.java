@@ -11,6 +11,7 @@ import fr.pinguet62.jsfring.gui.component.filter.NumberPathFilter;
 import fr.pinguet62.jsfring.gui.component.filter.PathFilter;
 import fr.pinguet62.jsfring.gui.component.filter.StringPathFilter;
 import fr.pinguet62.jsfring.model.QUser;
+import fr.pinguet62.jsfring.model.User;
 
 @ManagedBean
 @ViewScoped
@@ -18,9 +19,11 @@ public final class FiltersManagedBean implements Serializable {
 
     private static final long serialVersionUID = 1;
 
+    /** @see User#email */
     private NumberPathFilter<Integer> numberFilter = new NumberPathFilter<Integer>(
             QUser.user.email.length());
 
+    /** @see User#login */
     private StringPathFilter stringFilter = new StringPathFilter(
             QUser.user.login);
 
@@ -40,10 +43,10 @@ public final class FiltersManagedBean implements Serializable {
         this.stringFilter = stringFilter;
     }
 
-    /** Build {@link JPAQuery} from {@link PathFilter}s. */
+    /** Build {@link JPAQuery} from several {@link PathFilter}s. */
     public void submit() {
         System.out.println(new JPAQuery().from(QUser.user)
-                /* .where(stringFilter.get()) */.where(numberFilter.get()));
+                .where(stringFilter.get()).where(numberFilter.get()));
     }
 
 }

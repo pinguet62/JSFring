@@ -24,10 +24,16 @@ public final class OperatorConverter implements Converter {
         }
     }
 
-    /** @see Class#getName() */
+    /**
+     * @return The converted {@link Operator}.<br>
+     *         If {@code value == null}, then return {@code null}.
+     * @see Class#getName()
+     */
     @Override
     public String getAsString(FacesContext context, UIComponent component,
             Object value) {
+        if (value == null)
+            return null;
         Operator<?, ?> operator = (Operator<?, ?>) value;
         return operator.getClass().getName();
     }

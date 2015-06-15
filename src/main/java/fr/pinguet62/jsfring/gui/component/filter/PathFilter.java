@@ -5,33 +5,62 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 
+import com.mysema.query.types.ConstantImpl;
+import com.mysema.query.types.Ops;
 import com.mysema.query.types.expr.BooleanExpression;
+import com.mysema.query.types.expr.BooleanOperation;
 import com.mysema.query.types.expr.SimpleExpression;
 
 import fr.pinguet62.jsfring.gui.component.filter.operator.EqualsToOperator;
 import fr.pinguet62.jsfring.gui.component.filter.operator.Operator;
 
+/**
+ * Class used to store the {@link Operator} and arguments of a filter on
+ * {@link SimpleExpression}.
+ *
+ * @param <Exp> The type of {@link SimpleExpression} on which apply filter.
+ * @param <T> The type of parameter of the {@link Operator}.
+ */
 public abstract class PathFilter<Exp extends SimpleExpression<T>, T> implements
 Supplier<BooleanExpression>, Serializable {
+
+    /** The "always-true" expression: {@code 1=1} */
+    private static final BooleanExpression ALWAYS_TRUE = BooleanOperation
+            .create(Ops.EQ, ConstantImpl.create(1), ConstantImpl.create(1));
 
     private static final long serialVersionUID = 1;
 
     /**
-     * The {@link Operator} to apply on {@link #path}.
+     * The {@link Operator} of filter.
      *
      * @property.getter {@link #getOperator()}
      * @property.setter {@link #setOperator(Operator)}
      */
     private Operator<Exp, T> operator = new EqualsToOperator<Exp, T>();
 
+    /** The {@link SimpleExpression} on which apply filter. */
     private final Exp path;
 
+    /**
+     * The arguments of {@link Operator}.
+     * <p>
+     * The value can be initialized (not {@code null}) but used.
+     */
     private T value1, value2;
 
+    /** @param path The {@link #path}. */
     public PathFilter(Exp path) {
         this.path = path;
     }
 
+    /**
+     * Compare two {@link PathFilter} by comparing:
+     * <ul>
+     * <li>The {@link #path}</li>
+     * <li>The {@link #operator}</li>
+     * <li>And the parameters {@link #value1} and {@link #value2}</li>
+     * </ul>
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null)
@@ -39,13 +68,23 @@ Supplier<BooleanExpression>, Serializable {
         if (!(obj instanceof PathFilter))
             return false;
         PathFilter<Exp, T> other = (PathFilter<Exp, T>) obj;
-        return Objects.equals(operator, other.operator)
+        return Objects.equals(path, other.path)
+                && Objects.equals(operator, other.operator)
                 && Objects.equals(value1, other.value1)
                 && Objects.equals(value2, other.value2);
     }
 
+    /**
+     * Generate the {@link BooleanExpression} used to filter results.
+     *
+     * @return The {@link BooleanExpression}.<br>
+     *         If {@link #operator} is {@code null}, then return
+     *         {@link ALWAYS_TRUE}.
+     */
     @Override
     public BooleanExpression get() {
+        if (operator == null)
+            return ALWAYS_TRUE;
         return operator.apply(path, value1, value2);
     }
 
@@ -70,13 +109,21 @@ Supplier<BooleanExpression>, Serializable {
         return value2;
     }
 
+    /**
+     * Calculate the hash code from:
+     * <ul>
+     * <li>The {@link #path}</li>
+     * <li>The {@link #operator}</li>
+     * <li>And the parameters {@link #value1} and {@link #value2}</li>
+     * </ul>
+     */
     @Override
     public int hashCode() {
-        return Objects.hash(operator, value1, value2);
+        return Objects.hash(path, operator, value1, value2);
     }
 
     /**
-     * TODO Change visibility and argument type of this methos See
+     * TODO Change visibility and argument type of this method. See
      * {@link PathFilterComponent#getConvertedValue(javax.faces.context.FacesContext, Object)}
      */
     void setOperator(Operator<?, ?> operator2) {
@@ -84,7 +131,7 @@ Supplier<BooleanExpression>, Serializable {
     }
 
     /**
-     * TODO Change visibility and argument type of this methos See
+     * TODO Change visibility and argument type of this method. See
      * {@link PathFilterComponent#getConvertedValue(javax.faces.context.FacesContext, Object)}
      */
     void setValue1(Object object) {
@@ -92,7 +139,7 @@ Supplier<BooleanExpression>, Serializable {
     }
 
     /**
-     * TODO Change visibility and argument type of this methos See
+     * TODO Change visibility and argument type of this method. See
      * {@link PathFilterComponent#getConvertedValue(javax.faces.context.FacesContext, Object)}
      */
     void setValue2(Object value2) {
@@ -101,6 +148,9 @@ Supplier<BooleanExpression>, Serializable {
 
     @Override
     public String toString() {
+        if (operator == null)
+            return ALWAYS_TRUE.toString();
+
         switch (operator.getNumberOfParameters()) {
             case 0:
                 return operator.getMessage();

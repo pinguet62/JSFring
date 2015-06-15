@@ -11,6 +11,7 @@ import fr.pinguet62.jsfring.gui.component.filter.operator.EqualsToOperator;
 import fr.pinguet62.jsfring.gui.component.filter.operator.GreaterThanOperator;
 import fr.pinguet62.jsfring.gui.component.filter.operator.Operator;
 
+/** A {@link PathFilter} for {@link NumberExpression} fields. */
 public final class NumberPathFilter<T extends Number & Comparable<?>> extends
         PathFilter<NumberExpression<T>, T> implements Serializable {
 
@@ -20,13 +21,6 @@ public final class NumberPathFilter<T extends Number & Comparable<?>> extends
         super(path);
     }
 
-    /**
-     * Get the list of {@link Operator}s, applicable on {@link #path}.
-     * <p>
-     * Override this method to adapt available filters as required.
-     *
-     * @return The ordered list of {@link Operator}s.
-     */
     @Override
     public List<Operator<NumberExpression<T>, T>> getOperators() {
         return Arrays.asList(new EqualsToOperator<NumberExpression<T>, T>(),
