@@ -12,7 +12,7 @@ import fr.pinguet62.jsfring.gui.component.filter.operator.GreaterThanOperator;
 import fr.pinguet62.jsfring.gui.component.filter.operator.Operator;
 
 /** A {@link PathFilter} for {@link NumberExpression} fields. */
-public final class NumberPathFilter<T extends Number & Comparable<?>> extends
+public class NumberPathFilter<T extends Number & Comparable<?>> extends
         PathFilter<NumberExpression<T>, T> implements Serializable {
 
     private static final long serialVersionUID = 1;
