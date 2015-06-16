@@ -3,13 +3,13 @@ package fr.pinguet62.jsfring.gui.component.filter.operator;
 import com.mysema.query.types.expr.BooleanExpression;
 import com.mysema.query.types.expr.SimpleExpression;
 
-public final class IsNullOperator<T> implements
-        Operator<SimpleExpression<T>, T> {
+public final class IsNullOperator<Exp extends SimpleExpression<T>, T>
+        implements Operator<Exp, T> {
 
     private static final long serialVersionUID = 1;
 
     @Override
-    public BooleanExpression apply(SimpleExpression<T> path, T arg1, T arg2) {
+    public BooleanExpression apply(Exp path, T arg1, T arg2) {
         return path.isNull();
     }
 
