@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.gui;
+package fr.pinguet62.jsfring.gui.menu;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -13,8 +13,7 @@ import org.primefaces.model.menu.MenuElement;
 import org.primefaces.model.menu.MenuItem;
 import org.primefaces.model.menu.MenuModel;
 
-import fr.pinguet62.jsfring.gui.AbstractMenuManagedBean;
-import fr.pinguet62.jsfring.gui.MenuManagedBean;
+import fr.pinguet62.jsfring.gui.menu.AbstractMenuManagedBean;
 
 /** @see MenuManagedBean */
 public final class AbstractMenuManagedBeanTest {

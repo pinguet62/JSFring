@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.gui;
+package fr.pinguet62.jsfring.gui.menu;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
