@@ -14,7 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "right", catalog = "dictionary")
+@Table(name = "\"RIGHT\"")
 public class Right implements java.io.Serializable {
 
     /** Serial version UID. */
@@ -62,7 +62,7 @@ public class Right implements java.io.Serializable {
     }
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "profiles_rights", catalog = "dictionary", joinColumns = { @JoinColumn(name = "RIGHT_CODE", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "PROFILE", nullable = false, updatable = false) })
+    @JoinTable(name = "profiles_rights", joinColumns = { @JoinColumn(name = "RIGHT_CODE", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "PROFILE", nullable = false, updatable = false) })
     public Set<Profile> getProfiles() {
         return profiles;
     }
