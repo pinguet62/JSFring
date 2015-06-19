@@ -5,11 +5,11 @@
 <hibernate-configuration>
 	<session-factory>
 		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/dictionary</property>
-		<property name="hibernate.connection.username">root</property>
-		<property name="hibernate.connection.password">AZE123qsd</property>
-		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-		<!-- <property name="hibernate.default_schema">dictionary</property> -->
+		<property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/JSFring</property>
+		<property name="hibernate.connection.username">postgres</property>
+		<property name="hibernate.connection.password">admin</property>
+		<property name="hibernate.dialect">org.postgresql.Driver</property>
+		<!-- <property name="hibernate.default_schema">JSFring</property> -->
 		<property name="show_sql">true</property>
 	</session-factory>
 </hibernate-configuration>

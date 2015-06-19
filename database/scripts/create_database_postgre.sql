@@ -1,9 +1,8 @@
 /*==============================================================*/
 /* Nom de SGBD :  PostgreSQL 8                                  */
-/* Date de création :  09/05/2015 15:22:49                      */
+/* Date de création :  18/06/2015 20:43:36                      */
 /*==============================================================*/
 
-set schema 'dictionary';
 
 drop index KEYWORD_HAS_DESCRIPTIONS_FK;
 

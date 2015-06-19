@@ -1,4 +1,4 @@
-# SQL scripts
+﻿# SQL scripts
 
 ## Heroku
 
@@ -15,4 +15,4 @@ For current database:
 ### Schema
 
 To set default **schema** used to the current script, add this line at begining of script:
-`set schema 'dictionary';`
+`set schema 'public';`

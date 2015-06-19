@@ -8,18 +8,15 @@
 
 	<!-- Database -->
 	<!-- Environment variable: DATABASE_URL -->
-	<!-- Format: scheme://username:password@host:port/dbname -->
-	<!-- Example (default: env=heroku): postgres://lveshvmnnklrze:v0hrZTKbqmS4PvwRKAQd9Q_L5f@ec2-184-73-165-195.compute-1.amazonaws.com:5432/d54utom7qlqe15 -->
-	<!-- Example (env=local): mysql://root:AZE123qsd@localhost:3306/dictionary -->
+	<!-- Format: <scheme>://<username>:<password>@<host>:<port>/<dbname> -->
 	<bean class="java.net.URI" id="dbUrl">
 		<constructor-arg value="#{systemEnvironment['DATABASE_URL']}" />
 	</bean>
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName"
-			value="#{ @dbUrl.getScheme() == 'mysql' ? 'com.mysql.jdbc.Driver' : 'org.postgresql.Driver' }" />
+		<property name="driverClassName" value="org.postgresql.Driver" />
 		<property name="url"
-			value="#{ 'jdbc:' + (@dbUrl.getScheme() == 'mysql' ? 'mysql' : 'postgresql') + '://' + @dbUrl.getHost() + ':' + @dbUrl.getPort() + @dbUrl.getPath() }" />
+			value="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + ':' + @dbUrl.getPort() + @dbUrl.getPath() }" />
 		<property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] }" />
 		<property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] }" />
 	</bean>
@@ -32,7 +29,10 @@
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.default_schema">dictionary</prop>
+				<!-- Grave accents (ASCII-96) is not normalized for PostgreSQL -->
+				<prop key="hibernate.globally_quoted_identifiers">false</prop>
+				<!-- Required for table with reserved name -->
+				<prop key="hibernate.default_schema">public</prop>
 			</props>
 		</property>
 	</bean>
