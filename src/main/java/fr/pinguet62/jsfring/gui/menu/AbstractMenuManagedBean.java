@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.gui;
+package fr.pinguet62.jsfring.gui.menu;
 
 import java.util.Arrays;
 import java.util.Deque;
@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.ConfigurableNavigationHandler;
@@ -19,7 +20,6 @@ import org.primefaces.component.breadcrumb.BreadCrumb;
 import org.primefaces.component.menubar.Menubar;
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
-import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuElement;
 import org.primefaces.model.menu.MenuGroup;
 import org.primefaces.model.menu.MenuItem;
@@ -156,33 +156,17 @@ public abstract class AbstractMenuManagedBean {
             // Build breadcrumb
             MenuModel breadcrumb = new DefaultMenuModel();
             breadcrumb.addElement(home); // "home"
-            for (MenuElement element : thread) {
-                // Convert MenuElement to MenuItem
-                DefaultMenuItem breadcrumbItem;
-                if (element instanceof MenuItem)
-                    breadcrumbItem = (DefaultMenuItem) element;
-                else if (element instanceof MenuGroup) {
-                    DefaultSubMenu group = (DefaultSubMenu) element;
-                    breadcrumbItem = new DefaultMenuItem();
-                    // breadcrumbItem.setIcon(group.getIcon());
-                    breadcrumbItem.setId(group.getId());
-                    breadcrumbItem.setStyle(group.getStyle());
-                    breadcrumbItem.setStyleClass(group.getStyleClass());
-                    breadcrumbItem.setValue(group.getLabel());
-                } else
-                    throw new IllegalArgumentException("Type unknown: "
-                            + element);
-                breadcrumb.addElement(breadcrumbItem);
-            }
+            thread.stream().map(new MenuConverter()::apply)
+                    .forEach(breadcrumb::addElement);
             breadcrumbs.put(lastItem.getOutcome(), breadcrumb);
-            // LOGGER.info("Breadcrumb: "
-            // + breadcrumb
-            // .getElements()
-            // .stream()
-            // .map(element -> (DefaultMenuItem) element)
-            // .map(item -> String.format("(\"%s\"/%s)",
-            // item.getTitle(), item.getOutcome()))
-            // .collect(Collectors.joining(" > ")));
+            LOGGER.trace("Breadcrumb: "
+                    + breadcrumb
+                            .getElements()
+                            .stream()
+                            .map(element -> (DefaultMenuItem) element)
+                            .map(item -> String.format("(\"%s\"/%s)",
+                                    item.getTitle(), item.getOutcome()))
+                            .collect(Collectors.joining(" > ")));
         }
         // Recursive
         else if (last instanceof MenuGroup) {
