@@ -1,19 +1,15 @@
+set schema 'public';
+
+delete from SEE_ALSO;
+delete from DESCRIPTION;
+delete from KEYWORD;
+delete from LANGUAGE;
+
 delete from USERS_PROFILES;
 delete from PROFILES_RIGHTS;
-delete from USER;
+delete from "USER";
 delete from PROFILE;
 delete from "RIGHT";
-
-insert into LANGUAGE (CODE, NOM) values ('fr', 'Français');
-insert into LANGUAGE (CODE, NOM) values ('en', 'English');
-
-insert into KEYWORD (TITLE) values ('Programmation');
-insert into DESCRIPTION (KEYWORD, LANGUAGE, CONTENT) values (1, 1, 'C''est la vie.')
-
-insert into KEYWORD (TITLE) values ('Java');
-insert into DESCRIPTION (KEYWORD, LANGUAGE, CONTENT) values (2, 1, 'Le meilleur langage de programmation !')
-insert into DESCRIPTION (KEYWORD, LANGUAGE, CONTENT) values (2, 2, 'The best programmation language!')
-insert into SEE_ALSO (KEYWORD, ASSOCIATED_KEYWORD) values (2, 1);
 
 insert into "RIGHT" (CODE, TITLE) values ('RIGHT_RO', 'Affichage des droits');
 insert into "RIGHT" (CODE, TITLE) values ('PROFILE_RO', 'Affichage des profils');
@@ -40,3 +36,15 @@ insert into USERS_PROFILES (LOGIN, ID) values ('admin profile', 1);
 
 insert into "USER" (LOGIN, PASSWORD, EMAIL) values ('admin user', 'password', 'admin.user@email.org');
 insert into USERS_PROFILES (LOGIN, ID) values ('admin user', 2);
+
+
+insert into LANGUAGE (CODE, NOM) values ('fr', 'Français');
+insert into LANGUAGE (CODE, NOM) values ('en', 'English');
+
+insert into KEYWORD (TITLE) values ('Programmation');
+insert into DESCRIPTION (KEYWORD, LANGUAGE, CONTENT) values (1, 1, 'C''est la vie.')
+
+insert into KEYWORD (TITLE) values ('Java');
+insert into DESCRIPTION (KEYWORD, LANGUAGE, CONTENT) values (2, 1, 'Le meilleur langage de programmation !')
+insert into DESCRIPTION (KEYWORD, LANGUAGE, CONTENT) values (2, 2, 'The best programmation language!')
+insert into SEE_ALSO (KEYWORD, ASSOCIATED_KEYWORD) values (2, 1);
