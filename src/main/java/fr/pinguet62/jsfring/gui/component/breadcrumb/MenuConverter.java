@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.gui.menu;
+package fr.pinguet62.jsfring.gui.component.breadcrumb;
 
 import java.util.function.Function;
 

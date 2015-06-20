@@ -6,10 +6,12 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p62="http://java.sun.com/jsf/composite/component">
+
 	<h:form>
-		<!-- Static -->
-		<!-- <p:menubar>
+
+		<p:menubar id="menu">
 			<p:menuitem value="Home" outcome="index" icon="ui-icon-home" />
 			<p:submenu label="Administration" icon="ui-icon-gear">
 				<p:menuitem icon="ui-icon-person" value="Users" outcome="users" />
@@ -24,20 +26,10 @@
 					<p:menuitem value="Logout" icon="ui-icon-extlink" />
 				</p:menuButton>
 			</f:facet>
-		</p:menubar> -->
-
-		<!-- Dynamic -->
-		<p:menubar model="#{menuManagedBean.model}">
-			<f:facet name="options">
-				<p:menuButton value="TODO username">
-					<p:menuitem value="My account" outcome="my-profile"
-						icon="ui-icon-person" />
-					<p:menuitem value="Change password" outcome="change-password"
-						icon="ui-icon-locked" />
-					<p:menuitem value="Logout" icon="ui-icon-extlink" />
-				</p:menuButton>
-			</f:facet>
 		</p:menubar>
-		<p:breadCrumb model="#{menuManagedBean.breadcrumb}" />
+
+		<p62:breadCrumb index="index" menu="menu" />
+
 	</h:form>
+
 </ui:composition>
