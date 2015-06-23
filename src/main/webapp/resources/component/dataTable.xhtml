@@ -62,12 +62,13 @@
 		}
 	</script>
 
-	<p:dataTable id="datatable"
+	<p:dataTable id="datatable" var="var"
 		value="#{cc.attrs.lazy ? cc.attrs.managedBean.lazyDataModel : cc.attrs.managedBean.list}"
 		lazy="#{cc.attrs.lazy}" paginator="true"
 		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 		rows="2" rowsPerPageTemplate="2 5 10">
-		<c:set target="#{component}" property="var" value="#{cc.attrs.var}" />
+
+		<!-- <c:set target="#{component}" property="var" value="#{cc.attrs.var}" /> -->
 
 		<f:facet name="header">
 			<p:commandButton id="toggler" type="button"
@@ -109,8 +110,7 @@
 					title="#{msg['dataTable.action.show.title']}" update="showDialog"
 					oncomplete="showShowDialog()">
 					<f:setPropertyActionListener
-						target="#{cc.attrs.managedBean.selectedValue}"
-						value="#{cc.attrs.var}" />
+						target="#{cc.attrs.managedBean.selectedValue}" value="#{var}" />
 				</p:commandButton>
 				<p:dialog id="showDialog" widgetVar="showDialogWidget"
 					dynamic="true" header="#{msg['dataTable.action.show.title']}"
@@ -129,8 +129,7 @@
 					title="#{msg['dataTable.action.update.title']}"
 					update="updateDialog" oncomplete="showUpdateDialog()">
 					<f:setPropertyActionListener
-						target="#{cc.attrs.managedBean.selectedValue}"
-						value="#{cc.attrs.var}" />
+						target="#{cc.attrs.managedBean.selectedValue}" value="#{var}" />
 				</p:commandButton>
 				<p:dialog id="updateDialog" widgetVar="updateDialogWidget"
 					dynamic="true" header="#{msg['dataTable.action.update.title']}"
@@ -151,8 +150,7 @@
 				<p:commandButton icon="ui-icon-trash"
 					title="#{msg['dataTable.action.delete.title']}" update="datatable">
 					<f:setPropertyActionListener
-						target="#{cc.attrs.managedBean.selectedValue}"
-						value="#{cc.attrs.var}" />
+						target="#{cc.attrs.managedBean.selectedValue}" value="#{var}" />
 					<f:actionListener binding="#{cc.attrs.managedBean.delete()}" />
 					<p:confirm header="#{msg['dataTable.action.delete.title']}"
 						icon="ui-icon-alert"

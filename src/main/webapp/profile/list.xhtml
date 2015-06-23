@@ -13,13 +13,13 @@
 	<ui:define name="content">
 		<h:form id="form">
 			<p62:dataTable managedBean="#{profilesManagedBean}" title="Profiles"
-				var="value" createView="/profile/edit.xhtml"
+				var="var" createView="/profile/edit.xhtml"
 				showView="/profile/show.xhtml" updateView="/profile/edit.xhtml"
 				deletable="true">
 
 				<p:column headerText="#{msg['profile.title']}"
-					filterBy="#{value.title}" sortBy="#{value.title}">
-					<h:outputText value="#{value.title}" />
+					filterBy="#{var.title}" sortBy="#{var.title}">
+					<h:outputText value="#{var.title}" />
 				</p:column>
 
 			</p62:dataTable>

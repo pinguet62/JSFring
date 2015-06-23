@@ -13,17 +13,17 @@
 	<ui:define name="content">
 		<h:form id="form">
 			<p62:dataTable managedBean="#{usersManagedBean}" lazy="true"
-				title="Users" var="user" createView="/user/edit.xhtml"
+				title="Users" var="var" createView="/user/edit.xhtml"
 				showView="/user/show.xhtml" updateView="/user/edit.xhtml"
 				deletable="true">
 
-				<p:column headerText="#{msg['user.login']}" sortBy="#{user.login}"
-					filterBy="#{user.login}">
-					<h:outputText value="#{user.login}" />
+				<p:column headerText="#{msg['user.login']}" sortBy="#{var.login}"
+					filterBy="#{var.login}">
+					<h:outputText value="#{var.login}" />
 				</p:column>
-				<p:column headerText="#{msg['user.email']}" sortBy="#{user.email}"
-					filterBy="#{user.email}">
-					<h:outputText value="#{user.email}" />
+				<p:column headerText="#{msg['user.email']}" sortBy="#{var.email}"
+					filterBy="#{var.email}">
+					<h:outputText value="#{var.email}" />
 				</p:column>
 
 			</p62:dataTable>
