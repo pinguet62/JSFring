@@ -5,12 +5,5 @@
 	version="2.0">
 	<persistence-unit name="default" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<properties>
-			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
-			<property name="hibernate.format_sql" value="true" />
-
-			<property name="show_sql" value="true" />
-			<property name="use_sql_comments" value="true" />
-		</properties>
 	</persistence-unit>
 </persistence>

@@ -9,6 +9,7 @@
 	<!-- Database -->
 	<!-- Environment variable: DATABASE_URL -->
 	<!-- Format: <scheme>://<username>:<password>@<host>:<port>/<dbname> -->
+	<!-- Heroku: requiered -->
 	<bean class="java.net.URI" id="dbUrl">
 		<constructor-arg value="#{systemEnvironment['DATABASE_URL']}" />
 	</bean>
@@ -29,9 +30,11 @@
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
-				<!-- Grave accents (ASCII-96) is not normalized for PostgreSQL -->
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.use_sql_comments">true</prop>
+				<!-- PostgreSQL: not normalized grave accents (ASCII-96) not supported -->
 				<prop key="hibernate.globally_quoted_identifiers">false</prop>
-				<!-- Required for table with reserved name -->
+				<!-- Reserved keyword: Required for table or columns -->
 				<prop key="hibernate.default_schema">public</prop>
 			</props>
 		</property>

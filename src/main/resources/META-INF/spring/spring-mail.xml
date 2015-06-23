@@ -7,10 +7,14 @@
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="smtp.gmail.com" />
-		<property name="port" value="587" />
-		<property name="username" value="pinguet62test@gmail.com" />
-		<property name="password" value="AZER1234qsdf" />
+		<!-- Environment variable: SMTP_HOST -->
+		<property name="host" value="#{systemEnvironment['SMTP_HOST']}" />
+		<!-- Environment variable: SMTP_PORT -->
+		<property name="port" value="#{systemEnvironment['SMTP_PORT']}" />
+		<!-- Environment variable: SMTP_USERNAME -->
+		<property name="username" value="#{systemEnvironment['SMTP_USERNAME']}" />
+		<!-- Environment variable: SMTP_PASSWORD -->
+		<property name="password" value="#{systemEnvironment['SMTP_PASSWORD']}" />
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.smtp.auth">true</prop>
