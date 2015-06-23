@@ -1,8 +1,6 @@
-set schema 'public';
-
 /*==============================================================*/
 /* Nom de SGBD :  PostgreSQL 8                                  */
-/* Date de création :  18/06/2015 20:43:36                      */
+/* Date de création :  23/06/2015 23:25:44                      */
 /*==============================================================*/
 
 
@@ -142,31 +140,31 @@ ID
 /* Table : PROFILES_RIGHTS                                      */
 /*==============================================================*/
 create table PROFILES_RIGHTS (
-   ID                   INT4                 not null,
-   CODE                 VARCHAR(30)          not null,
-   constraint PK_PROFILES_RIGHTS primary key (ID, CODE)
+   PROFILE              INT4                 not null,
+   "RIGHT"              VARCHAR(30)          not null,
+   constraint PK_PROFILES_RIGHTS primary key (PROFILE, "RIGHT")
 );
 
 /*==============================================================*/
 /* Index : PROFILES_RIGHTS_PK                                   */
 /*==============================================================*/
 create unique index PROFILES_RIGHTS_PK on PROFILES_RIGHTS (
-ID,
-CODE
+PROFILE,
+"RIGHT"
 );
 
 /*==============================================================*/
 /* Index : PROFILES_RIGHTS_FK                                   */
 /*==============================================================*/
 create  index PROFILES_RIGHTS_FK on PROFILES_RIGHTS (
-ID
+PROFILE
 );
 
 /*==============================================================*/
 /* Index : PROFILES_RIGHTS2_FK                                  */
 /*==============================================================*/
 create  index PROFILES_RIGHTS2_FK on PROFILES_RIGHTS (
-CODE
+"RIGHT"
 );
 
 /*==============================================================*/
@@ -238,31 +236,31 @@ LOGIN
 /* Table : USERS_PROFILES                                       */
 /*==============================================================*/
 create table USERS_PROFILES (
-   LOGIN                VARCHAR(30)          not null,
-   ID                   INT4                 not null,
-   constraint PK_USERS_PROFILES primary key (LOGIN, ID)
+   "USER"               VARCHAR(30)          not null,
+   PROFILE              INT4                 not null,
+   constraint PK_USERS_PROFILES primary key ("USER", PROFILE)
 );
 
 /*==============================================================*/
 /* Index : USERS_PROFILES_PK                                    */
 /*==============================================================*/
 create unique index USERS_PROFILES_PK on USERS_PROFILES (
-LOGIN,
-ID
+"USER",
+PROFILE
 );
 
 /*==============================================================*/
 /* Index : USERS_PROFILES_FK                                    */
 /*==============================================================*/
 create  index USERS_PROFILES_FK on USERS_PROFILES (
-LOGIN
+"USER"
 );
 
 /*==============================================================*/
 /* Index : USERS_PROFILES2_FK                                   */
 /*==============================================================*/
 create  index USERS_PROFILES2_FK on USERS_PROFILES (
-ID
+PROFILE
 );
 
 alter table DESCRIPTION
@@ -276,12 +274,12 @@ alter table DESCRIPTION
       on delete restrict on update restrict;
 
 alter table PROFILES_RIGHTS
-   add constraint FK_PROFILES_PROFILES__PROFILE foreign key (ID)
+   add constraint FK_PROFILES_PROFILES__PROFILE foreign key (PROFILE)
       references PROFILE (ID)
       on delete restrict on update restrict;
 
 alter table PROFILES_RIGHTS
-   add constraint FK_PROFILES_PROFILES__RIGHT foreign key (CODE)
+   add constraint FK_PROFILES_PROFILES__RIGHT foreign key ("RIGHT")
       references "RIGHT" (CODE)
       on delete restrict on update restrict;
 
@@ -296,12 +294,12 @@ alter table SEE_ALSO
       on delete restrict on update restrict;
 
 alter table USERS_PROFILES
-   add constraint FK_USERS_PR_USERS_PRO_USER foreign key (LOGIN)
+   add constraint FK_USERS_PR_USERS_PRO_USER foreign key ("USER")
       references "USER" (LOGIN)
       on delete restrict on update restrict;
 
 alter table USERS_PROFILES
-   add constraint FK_USERS_PR_USERS_PRO_PROFILE foreign key (ID)
+   add constraint FK_USERS_PR_USERS_PRO_PROFILE foreign key (PROFILE)
       references PROFILE (ID)
       on delete restrict on update restrict;
 
