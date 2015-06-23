@@ -81,8 +81,7 @@ public final class UsersManagedBean extends AbstractCrudManagedBean<User> {
      * <li>Initialize the {@link Profile} association.</li>
      * </ul>
      *
-     * @param user
-     *            The selected {@link User}.
+     * @param user The selected {@link User}.
      */
     @Override
     public void setSelectedValue(User user) {

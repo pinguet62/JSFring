@@ -13,7 +13,7 @@
 	<import resource="database.xml" />
 	<import resource="spring-mail.xml" />
 
-	<!-- i18n: messages -->
+	<!-- i18n -->
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basename">
