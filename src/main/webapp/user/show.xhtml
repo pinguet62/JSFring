@@ -9,11 +9,11 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 	<h:panelGrid columns="2">
-		<p:outputLabel for="loginShow" value="Login" />
-		<h:outputText id="loginShow"
-			value="#{managedBean.selectedValue.login}" />
-		<p:outputLabel for="profilesShow" value="Profiles" />
-		<p:dataList id="profilesShow"
+		<p:outputLabel for="login" value="Login" />
+		<h:outputText id="login" value="#{managedBean.selectedValue.login}" />
+
+		<p:outputLabel for="profiles" value="Profiles" />
+		<p:dataList id="profiles"
 			value="#{managedBean.selectedValue.profiles}" var="profile">
 			<f:facet name="header">
 				<h:outputText value="Associated" />
