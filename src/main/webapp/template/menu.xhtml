@@ -16,7 +16,9 @@
 			<p:submenu label="Administration" icon="ui-icon-gear">
 				<p:menuitem icon="ui-icon-person" value="Users" outcome="users" />
 				<p:menuitem icon="ui-icon-flag" value="Profiles" outcome="profiles" />
+				<p:menuitem icon="ui-icon-script" value="Logs" url="/logs" />
 			</p:submenu>
+
 			<f:facet name="options">
 				<p:menuButton value="TODO username">
 					<p:menuitem value="My account" outcome="my-profile"
@@ -25,6 +27,20 @@
 						icon="ui-icon-locked" />
 					<p:menuitem value="Logout" icon="ui-icon-extlink" />
 				</p:menuButton>
+
+				<p:themeSwitcher converter="themeConverter"
+					value="#{themeSwitcherManagedBean.theme}" var="t">
+					<f:selectItems itemLabel="#{theme.name}" itemValue="#{theme}"
+						value="#{themeSwitcherManagedBean.themes}" var="theme" />
+					<p:ajax event="change" />
+					<p:column>
+						<p:graphicImage height="50px"
+							value="/resources/img/theme/#{t.image}" />
+					</p:column>
+					<p:column>
+						<p:outputLabel value="#{t.name}" />
+					</p:column>
+				</p:themeSwitcher>
 			</f:facet>
 		</p:menubar>
 
