@@ -76,8 +76,6 @@
 				style="float: left" />
 			<p:columnToggler datasource="datatable" trigger="toggler" />
 
-			<h:outputText value="#{cc.attrs.title}" />
-
 			<!-- Create -->
 			<c:if test="#{cc.attrs.createView != null}">
 				<p:commandButton icon="ui-icon-plus"
@@ -98,6 +96,11 @@
 						oncomplete="PF('createDialogWidget').hide();" update="datatable" />
 				</p:dialog>
 			</c:if>
+
+			<h:outputText value="#{cc.attrs.title}" />
+
+			<!-- to wrap content on header -->
+			<div style="clear: both;" />
 		</f:facet>
 
 		<composite:insertChildren />
