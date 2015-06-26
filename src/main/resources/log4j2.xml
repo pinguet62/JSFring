@@ -6,7 +6,7 @@
 		</Console>
 		<!-- The target folder is used by webapp page "/logs" -->
 		<WebappRollingFile name="WebappFile" fileName="logs/logs.log"
-			filePattern="logs/%d{dd-MMM-yyyy_HH-mm-ss}.log">
+			filePattern="logs/%d{dd-MMM-yyyy}.log">
 			<PatternLayout pattern="%d [%-5p] (%F:%M:%L) %m%n" />
 			<Policies>
 				<TimeBasedTriggeringPolicy />

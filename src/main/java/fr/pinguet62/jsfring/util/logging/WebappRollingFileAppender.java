@@ -79,7 +79,7 @@ public final class WebappRollingFileAppender extends
     }
 
     @Override
-    public void append(final LogEvent event) {
+    public void append(LogEvent event) {
         getManager().checkRollover(event);
         super.append(event);
     }
@@ -91,7 +91,7 @@ public final class WebappRollingFileAppender extends
             Advertiser advertiser) {
         super(name, layout, filter, ignoreExceptions, immediateFlush, manager);
         if (advertiser != null) {
-            final Map<String, String> configuration = new HashMap<String, String>(
+            Map<String, String> configuration = new HashMap<String, String>(
                     layout.getContentFormat());
             configuration.put("contentType", layout.getContentType());
             configuration.put("name", name);
