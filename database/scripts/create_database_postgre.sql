@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* Nom de SGBD :  PostgreSQL 8                                  */
-/* Date de création :  23/06/2015 23:25:44                      */
+/* Date de création :  27/06/2015 00:45:30                      */
 /*==============================================================*/
 
 
@@ -124,7 +124,7 @@ CODE
 /* Table : PROFILE                                              */
 /*==============================================================*/
 create table PROFILE (
-   ID                   INT4                 not null,
+   ID                   SERIAL               not null,
    TITLE                VARCHAR(30)          not null,
    constraint PK_PROFILE primary key (ID)
 );

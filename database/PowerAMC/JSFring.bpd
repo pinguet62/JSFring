@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?PowerDesigner AppLocale="UTF16" ID="{E3C5D111-34CA-4D4C-803D-4CC4FD59841D}" Label="" LastModificationDate="1434653010" Name="JSFring" Objects="102" Symbols="17" Target="PostgreSQL 8" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" signature="PDM_DATA_MODEL_XML" version="15.1.0.2850"?>
+<?PowerDesigner AppLocale="UTF16" ID="{E3C5D111-34CA-4D4C-803D-4CC4FD59841D}" Label="" LastModificationDate="1435094677" Name="JSFring" Objects="102" Symbols="17" Target="PostgreSQL 8" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" signature="PDM_DATA_MODEL_XML" version="15.1.0.2850"?>
 <!-- Veuillez ne pas modifier ce fichier -->
 
 <Model xmlns:a="attribute" xmlns:c="collection" xmlns:o="object">
@@ -90,7 +90,7 @@ GenScriptName6=
 GenScriptName7=
 GenScriptName8=
 GenScriptName9=
-GenPathName=C:\Development\workspace\JSFring\database\PowerAMC\../scripts\
+GenPathName=../scripts\
 GenSingleFile=Yes
 GenODBC=No
 GenCheckModel=Yes
@@ -3147,7 +3147,7 @@ DESTINATION 0 Arial,8,N</a:FontList>
 </o:ReferenceSymbol>
 <o:ReferenceSymbol Id="o16">
 <a:Rect>((-35887,9449), (-21412,11063))</a:Rect>
-<a:ListOfPoints>((-35887,11063),(-30808,11063),(-30808,10833),(-21412,10833),(-21412,9449))</a:ListOfPoints>
+<a:ListOfPoints>((-35887,11063),(-30808,11063),(-30808,9449),(-21412,9449))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>1</a:ArrowStyle>
 <a:LineColor>16744576</a:LineColor>
@@ -3408,7 +3408,7 @@ LABL 0 Arial,8,N</a:FontList>
 </o:TableSymbol>
 <o:TableSymbol Id="o19">
 <a:IconMode>-1</a:IconMode>
-<a:Rect>((-24143,27176), (-12379,31175))</a:Rect>
+<a:Rect>((-24298,27176), (-12224,31175))</a:Rect>
 <a:LineColor>16744576</a:LineColor>
 <a:FillColor>16765136</a:FillColor>
 <a:ShadowColor>12632256</a:ShadowColor>
@@ -3431,7 +3431,7 @@ LABL 0 Arial,8,N</a:FontList>
 </o:TableSymbol>
 <o:TableSymbol Id="o26">
 <a:IconMode>-1</a:IconMode>
-<a:Rect>((10101,26276), (21711,30275))</a:Rect>
+<a:Rect>((9869,26276), (21943,30275))</a:Rect>
 <a:LineColor>16744576</a:LineColor>
 <a:FillColor>16765136</a:FillColor>
 <a:ShadowColor>12632256</a:ShadowColor>
@@ -4286,14 +4286,16 @@ DAT 1434652866</a:History>
 <c:Columns>
 <o:Column Id="o90">
 <a:ObjectID>E95181BD-783E-48A9-B3BB-BC565369F008</a:ObjectID>
-<a:Name>Login</a:Name>
-<a:Code>LOGIN</a:Code>
+<a:Name>User</a:Name>
+<a:Code>USER</a:Code>
 <a:CreationDate>1434652865</a:CreationDate>
 <a:Creator>Pinguet62</a:Creator>
-<a:ModificationDate>1434652865</a:ModificationDate>
+<a:ModificationDate>1435094650</a:ModificationDate>
 <a:Modifier>Pinguet62</a:Modifier>
 <a:History>ORG {3D075B45-844E-4DA8-8EBA-3F45B8E0BE73},{CC9CCE03-786B-4867-B1F7-C4AD384CAA64}
-DAT 1434652866</a:History>
+DAT 1434652866
+ATT NAME
+ATT CODE</a:History>
 <a:CannotModify>1</a:CannotModify>
 <a:DataType>VARCHAR(30)</a:DataType>
 <a:Length>30</a:Length>
@@ -4301,14 +4303,16 @@ DAT 1434652866</a:History>
 </o:Column>
 <o:Column Id="o91">
 <a:ObjectID>40B7FC53-6912-451C-9C38-2952843E29A3</a:ObjectID>
-<a:Name>Id</a:Name>
-<a:Code>ID</a:Code>
+<a:Name>Profile</a:Name>
+<a:Code>PROFILE</a:Code>
 <a:CreationDate>1434652865</a:CreationDate>
 <a:Creator>Pinguet62</a:Creator>
-<a:ModificationDate>1434652865</a:ModificationDate>
+<a:ModificationDate>1435094650</a:ModificationDate>
 <a:Modifier>Pinguet62</a:Modifier>
 <a:History>ORG {334A1298-BFD3-4676-BA4D-3CC9497DF362},{4C21F475-1929-4870-A272-DFA5E7182644}
-DAT 1434652866</a:History>
+DAT 1434652866
+ATT NAME
+ATT CODE</a:History>
 <a:CannotModify>1</a:CannotModify>
 <a:DataType>INT4</a:DataType>
 <a:Length>4</a:Length>
@@ -4435,14 +4439,16 @@ DAT 1434652866</a:History>
 <c:Columns>
 <o:Column Id="o100">
 <a:ObjectID>7E0BDE25-2562-4350-A4E7-DD05E0842DA6</a:ObjectID>
-<a:Name>Id</a:Name>
-<a:Code>ID</a:Code>
+<a:Name>Profile</a:Name>
+<a:Code>PROFILE</a:Code>
 <a:CreationDate>1434652866</a:CreationDate>
 <a:Creator>Pinguet62</a:Creator>
-<a:ModificationDate>1434652866</a:ModificationDate>
+<a:ModificationDate>1435094672</a:ModificationDate>
 <a:Modifier>Pinguet62</a:Modifier>
 <a:History>ORG {334A1298-BFD3-4676-BA4D-3CC9497DF362},{4FBDB8A8-0B05-4194-98D9-BEFDD17665FC}
-DAT 1434652866</a:History>
+DAT 1434652866
+ATT NAME
+ATT CODE</a:History>
 <a:CannotModify>1</a:CannotModify>
 <a:DataType>INT4</a:DataType>
 <a:Length>4</a:Length>
@@ -4450,14 +4456,16 @@ DAT 1434652866</a:History>
 </o:Column>
 <o:Column Id="o101">
 <a:ObjectID>8D7E7339-D0F7-4A9F-B12B-4ECEF0B7E6DD</a:ObjectID>
-<a:Name>Code</a:Name>
-<a:Code>CODE</a:Code>
+<a:Name>Right</a:Name>
+<a:Code>RIGHT</a:Code>
 <a:CreationDate>1434652866</a:CreationDate>
 <a:Creator>Pinguet62</a:Creator>
-<a:ModificationDate>1434652866</a:ModificationDate>
+<a:ModificationDate>1435094677</a:ModificationDate>
 <a:Modifier>Pinguet62</a:Modifier>
 <a:History>ORG {6A76CC7C-1680-4454-A6D9-147B0FC90052},{236D73BB-E27C-41AC-8C35-6A05F12D10F6}
-DAT 1434652866</a:History>
+DAT 1434652866
+ATT NAME
+ATT CODE</a:History>
 <a:CannotModify>1</a:CannotModify>
 <a:DataType>VARCHAR(30)</a:DataType>
 <a:Length>30</a:Length>
