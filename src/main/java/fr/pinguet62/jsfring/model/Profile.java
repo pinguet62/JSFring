@@ -67,7 +67,7 @@ public class Profile implements java.io.Serializable {
     }
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "profiles_rights", joinColumns = { @JoinColumn(name = "profile", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "right", nullable = false, updatable = false) })
+    @JoinTable(name = "profiles_rights", joinColumns = { @JoinColumn(name = "profile", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "\"RIGHT\"", nullable = false, updatable = false) })
     public Set<Right> getRights() {
         return rights;
     }
@@ -78,7 +78,7 @@ public class Profile implements java.io.Serializable {
     }
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "users_profiles", joinColumns = { @JoinColumn(name = "PROFILE", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "USER", nullable = false, updatable = false) })
+    @JoinTable(name = "users_profiles", joinColumns = { @JoinColumn(name = "profile", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "\"USER\"", nullable = false, updatable = false) })
     public Set<User> getUsers() {
         return users;
     }

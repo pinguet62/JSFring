@@ -18,24 +18,24 @@ insert into "RIGHT" (CODE, TITLE) values ('USER_RO', 'Affichage des utilisateurs
 insert into "RIGHT" (CODE, TITLE) values ('USER_RW', 'Edition des utilisateurs');
 
 insert into PROFILE (ID, TITLE) values (1, 'Profile admin'); /* Administration de profils & Association Profil/Droit */
-insert into PROFILES_RIGHTS (ID, CODE) values (1, 'RIGHT_RO');
-insert into PROFILES_RIGHTS (ID, CODE) values (1, 'PROFILE_RO');
-insert into PROFILES_RIGHTS (ID, CODE) values (1, 'PROFILE_RW');
+insert into PROFILES_RIGHTS (PROFILE, "RIGHT") values (1, 'RIGHT_RO');
+insert into PROFILES_RIGHTS (PROFILE, "RIGHT") values (1, 'PROFILE_RO');
+insert into PROFILES_RIGHTS (PROFILE, "RIGHT") values (1, 'PROFILE_RW');
 
 insert into PROFILE (ID, TITLE) values (2, 'User admin'); /* Administration d'utilisateurs & Association Utilisateur/Profil */
-insert into PROFILES_RIGHTS (ID, CODE) values (2, 'PROFILE_RO');
-insert into PROFILES_RIGHTS (ID, CODE) values (2, 'USER_RO');
-insert into PROFILES_RIGHTS (ID, CODE) values (2, 'USER_RW');
+insert into PROFILES_RIGHTS (PROFILE, "RIGHT") values (2, 'PROFILE_RO');
+insert into PROFILES_RIGHTS (PROFILE, "RIGHT") values (2, 'USER_RO');
+insert into PROFILES_RIGHTS (PROFILE, "RIGHT") values (2, 'USER_RW');
 
 insert into "USER" (LOGIN, PASSWORD, EMAIL) values ('super admin', 'password', 'super.admin@email.org');
-insert into USERS_PROFILES (LOGIN, ID) values ('super admin', 1);
-insert into USERS_PROFILES (LOGIN, ID) values ('super admin', 2);
+insert into USERS_PROFILES ("USER", PROFILE) values ('super admin', 1);
+insert into USERS_PROFILES ("USER", PROFILE) values ('super admin', 2);
 
 insert into "USER" (LOGIN, PASSWORD, EMAIL) values ('admin profile', 'password', 'admin.profile@email.org');
-insert into USERS_PROFILES (LOGIN, ID) values ('admin profile', 1);
+insert into USERS_PROFILES ("USER", PROFILE) values ('admin profile', 1);
 
 insert into "USER" (LOGIN, PASSWORD, EMAIL) values ('admin user', 'password', 'admin.user@email.org');
-insert into USERS_PROFILES (LOGIN, ID) values ('admin user', 2);
+insert into USERS_PROFILES ("USER", PROFILE) values ('admin user', 2);
 
 
 insert into LANGUAGE (CODE, NOM) values ('fr', 'Français');

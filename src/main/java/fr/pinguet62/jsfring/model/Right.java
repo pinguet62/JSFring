@@ -62,7 +62,7 @@ public class Right implements java.io.Serializable {
     }
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "profiles_rights", joinColumns = { @JoinColumn(name = "right", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "profile", nullable = false, updatable = false) })
+    @JoinTable(name = "profiles_rights", joinColumns = { @JoinColumn(name = "\"RIGHT\"", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "profile", nullable = false, updatable = false) })
     public Set<Profile> getProfiles() {
         return profiles;
     }
