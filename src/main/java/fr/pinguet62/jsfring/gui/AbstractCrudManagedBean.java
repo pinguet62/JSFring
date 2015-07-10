@@ -3,11 +3,17 @@ package fr.pinguet62.jsfring.gui;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.pinguet62.jsfring.service.AbstractService;
 
 /** {@link AbstractSelectableManagedBean} with CRUD operations on selected value. */
 public abstract class AbstractCrudManagedBean<T> extends
-        AbstractSelectableManagedBean<T> {
+AbstractSelectableManagedBean<T> {
+
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(AbstractCrudManagedBean.class);
 
     private static final long serialVersionUID = 1;
 
@@ -17,6 +23,8 @@ public abstract class AbstractCrudManagedBean<T> extends
      * The {@link #getSelectedValue() selected value} is the new value
      * {@link #setSelectedValue(Object) set} by calling {@link #postCreate()}
      * before showing the creation view.
+     * <p>
+     * {@link #refresh() Refresh} list after creation.
      *
      * @see #postCreate()
      * @see AbstractService#create(Object)
@@ -28,7 +36,9 @@ public abstract class AbstractCrudManagedBean<T> extends
                     null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO,
                             "New element created with success", null));
+            refresh();
         } catch (RuntimeException e) {
+            LOGGER.warn("Error during creation", e);
             FacesContext.getCurrentInstance().addMessage(
                     null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -38,6 +48,8 @@ public abstract class AbstractCrudManagedBean<T> extends
 
     /**
      * Delete the selected value.
+     * <p>
+     * {@link #refresh() Refresh} list after deletion.
      *
      * @see #getSelectedValue()
      * @see AbstractService#delete(Object)
@@ -49,7 +61,9 @@ public abstract class AbstractCrudManagedBean<T> extends
                     null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO,
                             "Element deleted with success", null));
+            refresh();
         } catch (RuntimeException e) {
+            LOGGER.warn("Error during deletion", e);
             FacesContext.getCurrentInstance().addMessage(
                     null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -73,10 +87,13 @@ public abstract class AbstractCrudManagedBean<T> extends
      */
     public void postCreate() {
         setSelectedValue(getNewValue());
+        refresh();
     }
 
     /**
      * Update the selected value.
+     * <p>
+     * {@link #refresh() Refresh} list after update.
      *
      * @see #getSelectedValue()
      * @see AbstractService#update(Object)
@@ -88,7 +105,9 @@ public abstract class AbstractCrudManagedBean<T> extends
                     null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO,
                             "Element updated with success", null));
+            refresh();
         } catch (RuntimeException e) {
+            LOGGER.warn("Error during updating", e);
             FacesContext.getCurrentInstance().addMessage(
                     null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR,
