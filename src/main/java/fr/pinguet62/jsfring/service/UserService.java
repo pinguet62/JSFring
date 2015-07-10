@@ -24,6 +24,15 @@ public class UserService extends AbstractService<User, String> {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(UserService.class);
 
+    /**
+     * Generate random {@link User#password}.
+     *
+     * @return A {@link User#password}.
+     */
+    private static String randomPassword() {
+        return UUID.randomUUID().toString().substring(0, 15);
+    }
+
     private final UserDao dao;
 
     @Autowired
@@ -39,12 +48,23 @@ public class UserService extends AbstractService<User, String> {
     }
 
     /**
+     * {@inheritDoc}
+     * <p>
+     * Initialize the {@link User#password} before insert.
+     */
+    @Override
+    public User create(User object) {
+        // Generate password
+        object.setPassword(randomPassword());
+
+        return super.create(object);
+    }
+
+    /**
      * Reset the password of {@code User} and sent these informations to email.
      *
-     * @param email
-     *            The user's email.
-     * @throws IllegalArgumentException
-     *             Email unknown.
+     * @param email The user's email.
+     * @throws IllegalArgumentException Email unknown.
      */
     @Transactional
     public void forgottenPassword(String email) {
@@ -54,7 +74,7 @@ public class UserService extends AbstractService<User, String> {
             throw new IllegalArgumentException("Email unknown: " + email);
 
         // Reset password
-        user.setPassword(UUID.randomUUID().toString().substring(0, 15));
+        user.setPassword(randomPassword());
         dao.update(user);
 
         // Send email

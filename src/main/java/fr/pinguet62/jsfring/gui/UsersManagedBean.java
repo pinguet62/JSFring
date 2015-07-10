@@ -43,6 +43,21 @@ public final class UsersManagedBean extends AbstractCrudManagedBean<User> {
     @ManagedProperty("#{userService}")
     private transient UserService userService;
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Call when the user click on "Submit" button into "Create" dialog.
+     */
+    @Override
+    public void create() {
+        // Profile association
+        getSelectedValue().getProfiles().clear();
+        getSelectedValue().getProfiles()
+                .addAll(profilesAssociation.getTarget());
+
+        super.create();
+    }
+
     @Override
     protected User getNewValue() {
         return new User();
@@ -103,9 +118,9 @@ public final class UsersManagedBean extends AbstractCrudManagedBean<User> {
     }
 
     /**
-     * Call when the user click on "Submit" button into "Edit" dialog.
+     * {@inheritDoc}
      * <p>
-     * Save the modified {@link User}.
+     * Call when the user click on "Submit" button into "Edit" dialog.
      */
     @Override
     public void update() {

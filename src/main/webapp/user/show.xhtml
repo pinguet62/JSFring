@@ -12,6 +12,9 @@
 		<p:outputLabel for="login" value="Login" />
 		<h:outputText id="login" value="#{managedBean.selectedValue.login}" />
 
+		<p:outputLabel for="email" value="Email" />
+		<h:outputText id="email" value="#{managedBean.selectedValue.email}" />
+
 		<p:outputLabel for="profiles" value="Profiles" />
 		<p:dataList id="profiles"
 			value="#{managedBean.selectedValue.profiles}" var="profile">

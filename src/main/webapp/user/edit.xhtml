@@ -12,6 +12,9 @@
 		<p:outputLabel for="login" value="Login" />
 		<p:inputText id="login" value="#{managedBean.selectedValue.login}" />
 
+		<p:outputLabel for="email" value="Email" />
+		<p:inputText id="email" value="#{managedBean.selectedValue.email}" />
+
 		<p:outputLabel for="profiles" value="Profiles" />
 		<p:pickList id="profiles" value="#{managedBean.profilesAssociation}"
 			var="profile" itemValue="#{profile}" itemLabel="#{profile.title}"
