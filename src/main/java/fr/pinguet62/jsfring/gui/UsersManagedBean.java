@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.primefaces.model.DualListModel;
 
@@ -18,10 +17,11 @@ import fr.pinguet62.jsfring.model.User;
 import fr.pinguet62.jsfring.service.AbstractService;
 import fr.pinguet62.jsfring.service.ProfileService;
 import fr.pinguet62.jsfring.service.UserService;
+import fr.pinguet62.jsfring.util.cdi.SpringViewScoped;
 
 /** @see User */
-@ManagedBean
-@ViewScoped
+@Named
+@SpringViewScoped
 public final class UsersManagedBean extends AbstractCrudManagedBean<User> {
 
     private static final long serialVersionUID = 1;
@@ -35,12 +35,10 @@ public final class UsersManagedBean extends AbstractCrudManagedBean<User> {
      */
     private DualListModel<Profile> profilesAssociation;
 
-    /** @inject.setter {@link #setProfileService(ProfileService)} */
-    @ManagedProperty("#{profileService}")
+    @Inject
     private transient ProfileService profileService;
 
-    /** @inject.setter {@link #setUserService(UserService)} */
-    @ManagedProperty("#{userService}")
+    @Inject
     private transient UserService userService;
 
     /**
@@ -84,11 +82,6 @@ public final class UsersManagedBean extends AbstractCrudManagedBean<User> {
         this.profilesAssociation = profilesAssociation;
     }
 
-    /** @inject.attribute {@link #profileService} */
-    public void setProfileService(ProfileService profileService) {
-        this.profileService = profileService;
-    }
-
     /**
      * Call when the user click on "Show" or "Edit" button.
      * <ul>
@@ -110,11 +103,6 @@ public final class UsersManagedBean extends AbstractCrudManagedBean<User> {
                 .collect(Collectors.toList());
         profilesAssociation = new DualListModel<>(availableProfiles,
                 associatedProfiles);
-    }
-
-    /** @inject.attribute {@link #userService} */
-    public void setUserService(UserService userService) {
-        this.userService = userService;
     }
 
     /**

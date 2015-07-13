@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.primefaces.model.DualListModel;
 
@@ -18,16 +17,16 @@ import fr.pinguet62.jsfring.model.Right;
 import fr.pinguet62.jsfring.service.AbstractService;
 import fr.pinguet62.jsfring.service.ProfileService;
 import fr.pinguet62.jsfring.service.RightService;
+import fr.pinguet62.jsfring.util.cdi.SpringViewScoped;
 
 /** @see Profile */
-@ManagedBean
-@ViewScoped
+@Named
+@SpringViewScoped
 public final class ProfilesManagedBean extends AbstractCrudManagedBean<Profile> {
 
     private static final long serialVersionUID = 1;
 
-    /** @inject.setter {@link #setProfileService(ProfileService)} */
-    @ManagedProperty("#{profileService}")
+    @Inject
     private transient ProfileService profileService;
 
     /**
@@ -39,8 +38,7 @@ public final class ProfilesManagedBean extends AbstractCrudManagedBean<Profile> 
      */
     private DualListModel<Right> rightsAssociation = new DualListModel<Right>();
 
-    /** @inject.setter {@link #setRightService(RightService)} */
-    @ManagedProperty("#{rightService}")
+    @Inject
     private transient RightService rightService;
 
     @Override
@@ -63,19 +61,9 @@ public final class ProfilesManagedBean extends AbstractCrudManagedBean<Profile> 
         return profileService;
     }
 
-    /** @inject.attribute {@link #profileService} */
-    public void setProfileService(ProfileService profileService) {
-        this.profileService = profileService;
-    }
-
     /** @property.attribute {@link #rightsAssociation} */
     public void setRightsAssociation(DualListModel<Right> rightsAssociation) {
         this.rightsAssociation = rightsAssociation;
-    }
-
-    /** @inject.attribute {@link #rightService} */
-    public void setRightService(RightService rightService) {
-        this.rightService = rightService;
     }
 
     /**
@@ -85,8 +73,7 @@ public final class ProfilesManagedBean extends AbstractCrudManagedBean<Profile> 
      * <li>Initialize the {@link Right} association.</li>
      * </ul>
      *
-     * @param profile
-     *            The selected {@link Profile}.
+     * @param profile The selected {@link Profile}.
      */
     @Override
     public void setSelectedValue(Profile profile) {

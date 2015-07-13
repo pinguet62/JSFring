@@ -3,12 +3,13 @@ package fr.pinguet62.jsfring.gui.theme;
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+
+import fr.pinguet62.jsfring.util.cdi.SpringViewScoped;
 
 /** Used to switch of PrimeFaces {@link Theme}. */
-@ManagedBean(name = "themeSwitcherManagedBean")
-@SessionScoped
+@Named
+@SpringViewScoped
 public final class ThemeSwitcherManagedBean implements Serializable {
 
     private static final long serialVersionUID = 1;

@@ -4,8 +4,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.inject.Named;
 
 import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.types.expr.StringExpression;
@@ -19,9 +18,10 @@ import fr.pinguet62.jsfring.gui.component.filter.operator.Operator;
 import fr.pinguet62.jsfring.gui.component.filter.operator.StartsWithOperator;
 import fr.pinguet62.jsfring.model.QUser;
 import fr.pinguet62.jsfring.model.User;
+import fr.pinguet62.jsfring.util.cdi.SpringViewScoped;
 
-@ManagedBean
-@ViewScoped
+@Named
+@SpringViewScoped
 public final class FiltersManagedBean implements Serializable {
 
     private static final long serialVersionUID = 1;

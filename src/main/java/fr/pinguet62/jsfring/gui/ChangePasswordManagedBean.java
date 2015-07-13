@@ -1,10 +1,11 @@
 package fr.pinguet62.jsfring.gui;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.inject.Named;
 
-@ManagedBean
-@ViewScoped
+import fr.pinguet62.jsfring.util.cdi.SpringViewScoped;
+
+@Named
+@SpringViewScoped
 public final class ChangePasswordManagedBean {
 
     /**

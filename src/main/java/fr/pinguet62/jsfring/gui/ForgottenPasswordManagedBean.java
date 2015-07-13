@@ -4,18 +4,19 @@ import java.util.Locale;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.springframework.context.MessageSource;
 
 import fr.pinguet62.jsfring.model.User;
 import fr.pinguet62.jsfring.service.UserService;
+import fr.pinguet62.jsfring.util.cdi.SpringViewScoped;
 
 /** {@link ManagedBean} for reset the password of an {@link User}. */
-@ManagedBean
-@ViewScoped
+@Named
+@SpringViewScoped
 public final class ForgottenPasswordManagedBean {
 
     /**
@@ -26,12 +27,10 @@ public final class ForgottenPasswordManagedBean {
      */
     private String email;
 
-    /** @inject.setter {@link #setMessageSource(MessageSource)} */
-    @ManagedProperty("#{messageSource}")
+    @Inject
     private MessageSource messageSource;
 
-    /** @inject.setter {@link #setUserService(UserService)} */
-    @ManagedProperty("#{userService}")
+    @Inject
     private UserService userService;
 
     /** @property.attribute {@link #email} */
@@ -68,16 +67,6 @@ public final class ForgottenPasswordManagedBean {
     /** @property.attribute {@link #email} */
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    /** @inject.attribute {@link #messageSource} */
-    public void setMessageSource(MessageSource messageSource) {
-        this.messageSource = messageSource;
-    }
-
-    /** @inject.attribute {@link #userService} */
-    public void setUserService(UserService userService) {
-        this.userService = userService;
     }
 
 }

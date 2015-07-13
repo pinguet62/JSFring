@@ -4,9 +4,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import fr.pinguet62.jsfring.model.Right;
 import fr.pinguet62.jsfring.service.RightService;
@@ -15,16 +14,15 @@ import fr.pinguet62.jsfring.service.RightService;
  * Convert {@link Right} to {@link String} value, and conversely, from the
  * primary key.
  */
-@Component
+@Named
 @FacesConverter("rightConverter")
 public final class RightConverter implements Converter {
 
-    @Autowired
+    @Inject
     private RightService rightService;
 
     /**
-     * @param code
-     *            The {@link Right#code code}.
+     * @param code The {@link Right#code code}.
      * @return The {@link Right}.
      */
     @Override
@@ -34,8 +32,7 @@ public final class RightConverter implements Converter {
     }
 
     /**
-     * @param object
-     *            The {@link Right}.
+     * @param object The {@link Right}.
      * @return The {@link Right#code code}.
      */
     @Override

@@ -2,15 +2,15 @@ package fr.pinguet62.jsfring.gui;
 
 import java.io.Serializable;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import fr.pinguet62.jsfring.model.User;
 
-@ManagedBean
+@Named
 @SessionScoped
 public final class UserManagedBean implements Serializable {
 

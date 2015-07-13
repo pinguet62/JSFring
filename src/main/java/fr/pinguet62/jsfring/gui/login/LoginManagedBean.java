@@ -4,19 +4,19 @@ import java.io.IOException;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-/** {@link ManagedBean} for user login. */
-@ManagedBean
+/** Bean for user login. */
+@Named
 @RequestScoped
 public final class LoginManagedBean implements Serializable {
 
@@ -84,8 +84,7 @@ public final class LoginManagedBean implements Serializable {
     /**
      * Set the password.
      *
-     * @param password
-     *            The password.
+     * @param password The password.
      */
     public void setPassword(String password) {
         this.password = password;
@@ -94,8 +93,7 @@ public final class LoginManagedBean implements Serializable {
     /**
      * Set the username.
      *
-     * @param username
-     *            The username.
+     * @param username The username.
      */
     public void setUsername(String username) {
         this.username = username;
