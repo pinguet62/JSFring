@@ -10,6 +10,17 @@
 	<context:annotation-config />
 	<tx:annotation-driven />
 
+	<bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+		<property name="scopes">
+			<map>
+				<entry key="view">
+					<!-- CDI: ViewScoped -->
+					<bean class="fr.pinguet62.jsfring.util.cdi.SpringViewScope" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+
 	<import resource="database.xml" />
 	<import resource="spring-mail.xml" />
 
