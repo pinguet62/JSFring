@@ -92,8 +92,8 @@
 						</ui:include>
 					</f:subview>
 					<p:commandButton value="#{msg['dataTable.action.submit']}"
-						actionListener="#{cc.attrs.managedBean.create}"
-						oncomplete="PF('createDialogWidget').hide();" update="datatable" />
+						process="createDialog"
+						actionListener="#{cc.attrs.managedBean.create}" update="datatable" />
 				</p:dialog>
 			</c:if>
 
@@ -144,6 +144,7 @@
 					</f:subview>
 					<p:commandButton value="Submit"
 						actionListener="#{cc.attrs.managedBean.update}"
+						process="updateDialog"
 						oncomplete="PF('updateDialogWidget').hide();" update="datatable" />
 				</p:dialog>
 			</c:if>
