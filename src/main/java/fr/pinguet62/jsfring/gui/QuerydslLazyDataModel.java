@@ -29,9 +29,10 @@ import fr.pinguet62.jsfring.service.AbstractService;
  * {@code get} + the name of attribute. For example {@code getName()} for the
  * attribute {@code name}.
  *
- * @param <T>
- *            The base type.
+ * @param <T> The base type.
+ * @deprecated See {@link AbstractBean}.
  */
+@Deprecated
 public class QuerydslLazyDataModel<T> extends LazyDataModel<T> {
 
     private static final long serialVersionUID = 1;
@@ -56,8 +57,7 @@ public class QuerydslLazyDataModel<T> extends LazyDataModel<T> {
      * }
      * </pre>
      *
-     * @param service
-     *            The {@link AbstractService}.
+     * @param service The {@link AbstractService}.
      */
     @SuppressWarnings("unchecked")
     protected QuerydslLazyDataModel(AbstractService<T, ?> service) {
@@ -74,10 +74,8 @@ public class QuerydslLazyDataModel<T> extends LazyDataModel<T> {
      * Used when this class is directly used without extending. For example:<br>
      * {@code new QuerydslLazyDataModel(service, QUser.user)}
      *
-     * @param service
-     *            The {@link AbstractService}.
-     * @param defaultMetaObject
-     *            The default meta-object.
+     * @param service The {@link AbstractService}.
+     * @param defaultMetaObject The default meta-object.
      */
     public QuerydslLazyDataModel(AbstractService<T, ?> service,
             EntityPath<T> defaultMetaObject) {
@@ -88,19 +86,14 @@ public class QuerydslLazyDataModel<T> extends LazyDataModel<T> {
     /**
      * Load the lazy {@link DataTable}.
      *
-     * @param first
-     *            The index of first element of current page. The minimum is
+     * @param first The index of first element of current page. The minimum is
      *            {@code 0}.<br>
      *            For example, if {@code pageSize=5} and the current page is the
      *            3rd, the {@code first} will be 10.
-     * @param pageSize
-     *            The number of item per page.
-     * @param sortField
-     *            The property of sorted field (relative to base object).
-     * @param sortOrder
-     *            The {@link SortOrder}.
-     * @param filters
-     *            The association property/value. An empty {@link Map} if no
+     * @param pageSize The number of item per page.
+     * @param sortField The property of sorted field (relative to base object).
+     * @param sortOrder The {@link SortOrder}.
+     * @param filters The association property/value. An empty {@link Map} if no
      *            filter applied.
      */
     @Override
@@ -121,7 +114,7 @@ public class QuerydslLazyDataModel<T> extends LazyDataModel<T> {
         }
         // Filter
         BooleanExpression condition = new FilterConverter(QUser.user)
-                .apply(filters);
+        .apply(filters);
         if (condition != null)
             query.where(condition);
 

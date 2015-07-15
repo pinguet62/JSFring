@@ -1,6 +1,7 @@
 package fr.pinguet62.jsfring.gui.theme;
 
 public enum Theme {
+
     AFTERDARK("afterdark", "Afterdark", "afterdark.png"), AFTERNOON(
             "afternoon", "Afternoon", "afternoon.png"), AFTERWORK("afterwork",
             "Afterwork", "afterwork.png"), ARISTO("aristo", "Aristo",
@@ -76,4 +77,5 @@ public enum Theme {
     public String toString() {
         return key;
     }
+
 }
