@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.gui;
+package fr.pinguet62.jsfring.gui.sample;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -22,7 +22,7 @@ import fr.pinguet62.jsfring.util.cdi.SpringViewScoped;
 
 @Named
 @SpringViewScoped
-public final class FiltersManagedBean implements Serializable {
+public final class FiltersBean implements Serializable {
 
     private static final long serialVersionUID = 1;
 

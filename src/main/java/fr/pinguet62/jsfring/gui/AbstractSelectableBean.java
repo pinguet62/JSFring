@@ -1,8 +1,11 @@
 package fr.pinguet62.jsfring.gui;
 
-/** {@link AbstractManagedBean} with gestion of selected value. */
-public abstract class AbstractSelectableManagedBean<T> extends
-        AbstractManagedBean<T> {
+/**
+ * {@link AbstractBean} with selection management.
+ * <p>
+ * The multiple selection is not supported.
+ */
+public abstract class AbstractSelectableBean<T> extends AbstractBean<T> {
 
     private static final long serialVersionUID = 1;
 

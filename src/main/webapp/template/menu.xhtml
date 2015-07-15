@@ -29,9 +29,9 @@
 				</p:menuButton>
 
 				<p:themeSwitcher converter="themeConverter"
-					value="#{themeSwitcherManagedBean.theme}" var="t">
+					value="#{themeSwitcherBean.theme}" var="t">
 					<f:selectItems itemLabel="#{theme.name}" itemValue="#{theme}"
-						value="#{themeSwitcherManagedBean.themes}" var="theme" />
+						value="#{themeSwitcherBean.themes}" var="theme" />
 					<p:ajax event="change" />
 					<p:column>
 						<p:graphicImage height="50px"

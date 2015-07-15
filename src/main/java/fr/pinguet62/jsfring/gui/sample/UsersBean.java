@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.gui;
+package fr.pinguet62.jsfring.gui.sample;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +11,7 @@ import org.primefaces.model.DualListModel;
 
 import com.mysema.query.jpa.impl.JPAQuery;
 
+import fr.pinguet62.jsfring.gui.AbstractCrudBean;
 import fr.pinguet62.jsfring.model.Profile;
 import fr.pinguet62.jsfring.model.QUser;
 import fr.pinguet62.jsfring.model.User;
@@ -22,7 +23,7 @@ import fr.pinguet62.jsfring.util.cdi.SpringViewScoped;
 /** @see User */
 @Named
 @SpringViewScoped
-public final class UsersManagedBean extends AbstractCrudManagedBean<User> {
+public final class UsersBean extends AbstractCrudBean<User> {
 
     private static final long serialVersionUID = 1;
 

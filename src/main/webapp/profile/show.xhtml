@@ -10,10 +10,10 @@
 
 	<h:panelGrid columns="2">
 		<p:outputLabel for="title" value="Title" />
-		<h:outputText id="title" value="#{managedBean.selectedValue.title}" />
+		<h:outputText id="title" value="#{bean.selectedValue.title}" />
 
 		<p:outputLabel for="rights" value="Rights" />
-		<p:dataList id="rights" value="#{managedBean.selectedValue.rights}"
+		<p:dataList id="rights" value="#{bean.selectedValue.rights}"
 			var="right">
 			<f:facet name="header">
 				<h:outputText value="Associated" />

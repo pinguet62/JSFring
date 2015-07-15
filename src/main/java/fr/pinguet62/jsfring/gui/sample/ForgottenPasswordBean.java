@@ -1,9 +1,8 @@
-package fr.pinguet62.jsfring.gui;
+package fr.pinguet62.jsfring.gui.sample;
 
 import java.util.Locale;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -14,10 +13,10 @@ import fr.pinguet62.jsfring.model.User;
 import fr.pinguet62.jsfring.service.UserService;
 import fr.pinguet62.jsfring.util.cdi.SpringViewScoped;
 
-/** {@link ManagedBean} for reset the password of an {@link User}. */
+/** Page to reset its {@link User#password} after an oversight. */
 @Named
 @SpringViewScoped
-public final class ForgottenPasswordManagedBean {
+public final class ForgottenPasswordBean {
 
     /**
      * The email.
@@ -49,18 +48,18 @@ public final class ForgottenPasswordManagedBean {
                     .getMessage("forgottenPassword.messages.informationsSent",
                             null, locale);
             FacesContext.getCurrentInstance()
-                    .addMessage(
-                            null,
-                            new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                    message, null));
+            .addMessage(
+                    null,
+                    new FacesMessage(FacesMessage.SEVERITY_INFO,
+                            message, null));
         } catch (IllegalArgumentException exception) {
             String message = messageSource.getMessage(
                     "forgottenPassword.messages.emailUnknown", null, locale);
             FacesContext.getCurrentInstance()
-                    .addMessage(
-                            null,
-                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                    message, null));
+            .addMessage(
+                    null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                            message, null));
         }
     }
 

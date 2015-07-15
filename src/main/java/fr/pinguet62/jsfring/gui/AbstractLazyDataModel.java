@@ -19,55 +19,48 @@ import fr.pinguet62.jsfring.service.AbstractService;
 /**
  * Abstract {@link LazyDataModel} who implements default
  * {@link #load(int, int, String, SortOrder, Map) loading method} for
- * pagination.
+ * lazy-loading and pagination.
  *
- * @param <T>
- *            The type of objects to display.
+ * @param <T> The type of objects to display.
  */
 public class AbstractLazyDataModel<T> extends LazyDataModel<T> {
 
     private static final long serialVersionUID = 1;
 
     /**
-     * {@link AbstractManagedBean} with {@link AbstractManagedBean#getQuery()
-     * query} used to load results.
+     * {@link AbstractBean} with {@link AbstractBean#getQuery() query} used to
+     * load results.
      */
-    private final AbstractManagedBean<T> managedBean;
+    private final AbstractBean<T> bean;
 
     /**
-     * @param managedBean
-     *            {@link #managedBean}
+     * @param bean {@link #bean}
      */
-    public AbstractLazyDataModel(AbstractManagedBean<T> managedBean) {
-        this.managedBean = managedBean;
+    public AbstractLazyDataModel(AbstractBean<T> bean) {
+        this.bean = bean;
     }
 
     /**
      * Load a <b>paginated</b> list of elements.
      * <p>
-     * Get the current {@link AbstractManagedBean#getQuery() query} and add
-     * paginated request to limit, filter & order results.
+     * Get the current {@link AbstractBean#getQuery() query} and add paginated
+     * request to limit, filter & order results.
      * <p>
      * <u>Exemple:</u> for <code>pageSize=5</code>, the 3rd page will have
      * <code>first=10</code>.
      *
-     * @param first
-     *            Index of first element in current page to load.
-     * @param pageSize
-     *            The number of result per page.
-     * @param sortField
-     *            The field name on which filter.
-     * @param sortOrder
-     *            The order of sort.
-     * @param filters
-     *            Association of field names to value set by user to filter
+     * @param first Index of first element in current page to load.
+     * @param pageSize The number of result per page.
+     * @param sortField The field name on which filter.
+     * @param sortOrder The order of sort.
+     * @param filters Association of field names to value set by user to filter
      *            results.
      * @see AbstractService#findPanginated(JPAQuery)
      */
     @Override
     public List<T> load(int first, int pageSize, String sortField,
             SortOrder sortOrder, Map<String, Object> filters) {
-        JPAQuery query = managedBean.getQuery();
+        JPAQuery query = bean.getQuery();
 
         // Pagination
         query.offset(first);
@@ -85,8 +78,7 @@ public class AbstractLazyDataModel<T> extends LazyDataModel<T> {
         if (condition != null)
             query.where(condition);
 
-        SearchResults<T> results = managedBean.getService().findPanginated(
-                query);
+        SearchResults<T> results = bean.getService().findPanginated(query);
 
         setRowCount((int) results.getTotal());
         return results.getResults();

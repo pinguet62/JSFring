@@ -18,11 +18,12 @@ import javax.servlet.ServletResponse;
 /** Bean for user login. */
 @Named
 @RequestScoped
-public final class LoginManagedBean implements Serializable {
+public final class LoginBean implements Serializable {
 
     /** Serial version UID. */
     private static final long serialVersionUID = 1;
 
+    // TODO CDI
     @ManagedProperty("#{param.error}")
     private String error;
 

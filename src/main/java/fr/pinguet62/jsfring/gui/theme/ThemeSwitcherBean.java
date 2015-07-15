@@ -10,11 +10,14 @@ import fr.pinguet62.jsfring.util.cdi.SpringViewScoped;
 /** Used to switch of PrimeFaces {@link Theme}. */
 @Named
 @SpringViewScoped
-public final class ThemeSwitcherManagedBean implements Serializable {
+public final class ThemeSwitcherBean implements Serializable {
 
     private static final long serialVersionUID = 1;
 
-    /** The current {@link Theme}. */
+    /**
+     * The current {@link Theme}.<br/>
+     * Initialized with default value.
+     */
     private Theme theme = Theme.fromKey("dark-hive");
 
     /** Get the current {@link Theme}. */

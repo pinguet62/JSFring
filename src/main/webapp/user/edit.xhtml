@@ -10,13 +10,13 @@
 
 	<h:panelGrid columns="2">
 		<p:outputLabel for="login" value="Login" />
-		<p:inputText id="login" value="#{managedBean.selectedValue.login}" />
+		<p:inputText id="login" value="#{bean.selectedValue.login}" />
 
 		<p:outputLabel for="email" value="Email" />
-		<p:inputText id="email" value="#{managedBean.selectedValue.email}" />
+		<p:inputText id="email" value="#{bean.selectedValue.email}" />
 
 		<p:outputLabel for="profiles" value="Profiles" />
-		<p:pickList id="profiles" value="#{managedBean.profilesAssociation}"
+		<p:pickList id="profiles" value="#{bean.profilesAssociation}"
 			var="profile" itemValue="#{profile}" itemLabel="#{profile.title}"
 			converter="#{profileConverter}">
 			<f:facet name="sourceCaption">Available</f:facet>

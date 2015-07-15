@@ -3,8 +3,6 @@ package fr.pinguet62.jsfring.gui;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.model.LazyDataModel;
 import org.slf4j.Logger;
@@ -15,15 +13,19 @@ import com.mysema.query.jpa.impl.JPAQuery;
 import fr.pinguet62.jsfring.service.AbstractService;
 
 /**
- * Abstract {@link ManagedBean} with default method to display results in
- * {@link DataTable}.
+ * Abstract class used to display results in {@link DataTable}.
+ * <p>
+ * Eager and lazy loading can be used simple by calling the corresponding method
+ * into xHTML view.
  *
  * @param <T> The type of objects to display.
+ * @see AbstractService#getAll()
+ * @see AbstractService#findPanginated(JPAQuery)
  */
-public abstract class AbstractManagedBean<T> implements Serializable {
+public abstract class AbstractBean<T> implements Serializable {
 
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(AbstractManagedBean.class);
+            .getLogger(AbstractBean.class);
 
     private static final long serialVersionUID = 1;
 
@@ -36,7 +38,7 @@ public abstract class AbstractManagedBean<T> implements Serializable {
 
     /**
      * Used for lazy loading.<br/>
-     * <code>p:dataTable lazy="true" value="#{managedBean.lazyDataModel}" ...></code>
+     * <code>&lt;p:dataTable lazy="true" value="#{myBean.lazyDataModel}" ...&gt;</code>
      * <p>
      * The pagination is managed by the {@link AbstractLazyDataModel data model}.
      *
@@ -50,7 +52,7 @@ public abstract class AbstractManagedBean<T> implements Serializable {
 
     /**
      * Used for eager loading.<br/>
-     * <code>&lt;p:dataTable value="#{managedBean.list}" ...&gt;</code>
+     * <code>&lt;p:dataTable value="#{myBean.list}" ...&gt;</code>
      * <p>
      * Because the {@link DataTable} repeatedly calls this method, it's
      * necessary to avoid multiple call in database.<br/>

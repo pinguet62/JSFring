@@ -12,10 +12,9 @@
 
 	<ui:define name="content">
 		<h:form id="form">
-			<p62:dataTable managedBean="#{profilesManagedBean}" title="Profiles"
-				var="var" createView="/profile/edit.xhtml"
-				showView="/profile/show.xhtml" updateView="/profile/edit.xhtml"
-				deletable="true">
+			<p62:dataTable bean="#{profilesBean}" title="Profiles" var="var"
+				createView="/profile/edit.xhtml" showView="/profile/show.xhtml"
+				updateView="/profile/edit.xhtml" deletable="true">
 
 				<p:column headerText="#{msg['profile.title']}"
 					filterBy="#{var.title}" sortBy="#{var.title}">

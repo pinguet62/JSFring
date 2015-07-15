@@ -8,12 +8,22 @@ import org.slf4j.LoggerFactory;
 
 import fr.pinguet62.jsfring.service.AbstractService;
 
-/** {@link AbstractSelectableManagedBean} with CRUD operations on selected value. */
-public abstract class AbstractCrudManagedBean<T> extends
-AbstractSelectableManagedBean<T> {
+/**
+ * {@link AbstractSelectableBean} with CRUD operations on selected value.
+ * <p>
+ * Before each action, the {@link AbstractSelectableBean#selectedValue selected
+ * value} is initialized with chosen value, and action are performed on him.
+ *
+ * @see AbstractService#create(Object)
+ * @see AbstractService#get(java.io.Serializable)
+ * @see AbstractService#update(Object)
+ * @see AbstractService#delete(Object)
+ */
+public abstract class AbstractCrudBean<T> extends
+        AbstractSelectableBean<T> {
 
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(AbstractCrudManagedBean.class);
+            .getLogger(AbstractCrudBean.class);
 
     private static final long serialVersionUID = 1;
 

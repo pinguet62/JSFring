@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.gui;
+package fr.pinguet62.jsfring.gui.sample;
 
 import java.io.Serializable;
 
@@ -12,7 +12,7 @@ import fr.pinguet62.jsfring.model.User;
 
 @Named
 @SessionScoped
-public final class UserManagedBean implements Serializable {
+public final class UserBean implements Serializable {
 
     private static final long serialVersionUID = 1;
 
@@ -34,7 +34,7 @@ public final class UserManagedBean implements Serializable {
 
     /**  */
     public User getDao() {
-        return UserManagedBean.get();
+        return UserBean.get();
     }
 
     public String getEmail() {

@@ -20,10 +20,9 @@
 		shortDescription="Title who appears in header of datatable." />
 
 	<!-- CRUD operations -->
-	<composite:attribute name="managedBean"
-		type="fr.pinguet62.jsfring.gui.AbstractCrudManagedBean"
-		shortDescription="The ManagedBean used for CRUD operations."
-		required="true" />
+	<composite:attribute name="bean"
+		type="fr.pinguet62.jsfring.gui.AbstractCrudBean"
+		shortDescription="The Bean used for CRUD operations." required="true" />
 	<composite:attribute name="createView"
 		shortDescription="View for creation. Use 'selectedValue' as for current value." />
 	<composite:attribute name="showView"
@@ -63,7 +62,7 @@
 	</script>
 
 	<p:dataTable id="datatable" var="var"
-		value="#{cc.attrs.lazy ? cc.attrs.managedBean.lazyDataModel : cc.attrs.managedBean.list}"
+		value="#{cc.attrs.lazy ? cc.attrs.bean.lazyDataModel : cc.attrs.bean.list}"
 		lazy="#{cc.attrs.lazy}" paginator="true"
 		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 		rows="2" rowsPerPageTemplate="2 5 10">
@@ -80,7 +79,7 @@
 			<c:if test="#{cc.attrs.createView != null}">
 				<p:commandButton icon="ui-icon-plus"
 					value="#{msg['dataTable.action.create.title']}"
-					actionListener="#{cc.attrs.managedBean.postCreate}"
+					actionListener="#{cc.attrs.bean.postCreate}"
 					oncomplete="showCreateDialog()" update="createDialog"
 					style="float: right" />
 				<p:dialog id="createDialog" widgetVar="createDialogWidget"
@@ -88,12 +87,12 @@
 					showEffect="fade" hideEffect="fade" resizable="false">
 					<f:subview id="createSubview">
 						<ui:include src="#{cc.attrs.createView}">
-							<ui:param name="managedBean" value="#{cc.attrs.managedBean}" />
+							<ui:param name="bean" value="#{cc.attrs.bean}" />
 						</ui:include>
 					</f:subview>
 					<p:commandButton value="#{msg['dataTable.action.submit']}"
-						process="createDialog"
-						actionListener="#{cc.attrs.managedBean.create}" update="datatable" />
+						process="createDialog" actionListener="#{cc.attrs.bean.create}"
+						update="datatable" />
 				</p:dialog>
 			</c:if>
 
@@ -113,14 +112,14 @@
 					title="#{msg['dataTable.action.show.title']}" update="showDialog"
 					oncomplete="showShowDialog()">
 					<f:setPropertyActionListener
-						target="#{cc.attrs.managedBean.selectedValue}" value="#{var}" />
+						target="#{cc.attrs.bean.selectedValue}" value="#{var}" />
 				</p:commandButton>
 				<p:dialog id="showDialog" widgetVar="showDialogWidget"
 					dynamic="true" header="#{msg['dataTable.action.show.title']}"
 					showEffect="fade" hideEffect="fade" resizable="false">
 					<f:subview id="showSubview">
 						<ui:include src="#{cc.attrs.showView}">
-							<ui:param name="managedBean" value="#{cc.attrs.managedBean}" />
+							<ui:param name="bean" value="#{cc.attrs.bean}" />
 						</ui:include>
 					</f:subview>
 				</p:dialog>
@@ -132,19 +131,18 @@
 					title="#{msg['dataTable.action.update.title']}"
 					update="updateDialog" oncomplete="showUpdateDialog()">
 					<f:setPropertyActionListener
-						target="#{cc.attrs.managedBean.selectedValue}" value="#{var}" />
+						target="#{cc.attrs.bean.selectedValue}" value="#{var}" />
 				</p:commandButton>
 				<p:dialog id="updateDialog" widgetVar="updateDialogWidget"
 					dynamic="true" header="#{msg['dataTable.action.update.title']}"
 					showEffect="fade" hideEffect="fade" resizable="false">
 					<f:subview id="updateSubview">
 						<ui:include src="#{cc.attrs.updateView}">
-							<ui:param name="managedBean" value="#{cc.attrs.managedBean}" />
+							<ui:param name="bean" value="#{cc.attrs.bean}" />
 						</ui:include>
 					</f:subview>
 					<p:commandButton value="Submit"
-						actionListener="#{cc.attrs.managedBean.update}"
-						process="updateDialog"
+						actionListener="#{cc.attrs.bean.update}" process="updateDialog"
 						oncomplete="PF('updateDialogWidget').hide();" update="datatable" />
 				</p:dialog>
 			</c:if>
@@ -154,8 +152,8 @@
 				<p:commandButton icon="ui-icon-trash"
 					title="#{msg['dataTable.action.delete.title']}" update="datatable">
 					<f:setPropertyActionListener
-						target="#{cc.attrs.managedBean.selectedValue}" value="#{var}" />
-					<f:actionListener binding="#{cc.attrs.managedBean.delete()}" />
+						target="#{cc.attrs.bean.selectedValue}" value="#{var}" />
+					<f:actionListener binding="#{cc.attrs.bean.delete()}" />
 					<p:confirm header="#{msg['dataTable.action.delete.title']}"
 						icon="ui-icon-alert"
 						message="#{msg['dataTable.action.delete.message']}" />

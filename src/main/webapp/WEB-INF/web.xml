@@ -39,7 +39,7 @@
 	<!-- PrimeFaces -->
 	<context-param>
 		<param-name>primefaces.THEME</param-name>
-		<param-value>#{themeSwitcherManagedBean.theme.key}</param-value>
+		<param-value>#{themeSwitcherBean.theme.key}</param-value>
 	</context-param>
 
 	<!-- Spring -->
