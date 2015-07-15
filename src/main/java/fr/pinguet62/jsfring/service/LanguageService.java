@@ -1,16 +1,16 @@
 package fr.pinguet62.jsfring.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import fr.pinguet62.jsfring.dao.LanguageDao;
 import fr.pinguet62.jsfring.model.Language;
 
 /** The service for {@link Language}. */
-@Service
+@Named
 public class LanguageService extends AbstractService<Language, String> {
 
-    @Autowired
+    @Inject
     protected LanguageService(LanguageDao dao) {
         super(dao);
     }

@@ -40,7 +40,7 @@ public abstract class AbstractService<T, PK extends Serializable> {
      *
      * @return The number of objects.
      */
-    @Transactional
+    @Transactional(readOnly = true)
     public long count() {
         return dao.count();
     }

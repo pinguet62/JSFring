@@ -1,6 +1,6 @@
 package fr.pinguet62.jsfring.dao;
 
-import org.springframework.stereotype.Repository;
+import javax.inject.Named;
 
 import com.mysema.query.types.Expression;
 
@@ -8,7 +8,7 @@ import fr.pinguet62.jsfring.model.QRight;
 import fr.pinguet62.jsfring.model.Right;
 
 /** The DAO for {@link Right}. */
-@Repository
+@Named
 public final class RightDao extends AbstractDao<Right, String> {
 
     @Override

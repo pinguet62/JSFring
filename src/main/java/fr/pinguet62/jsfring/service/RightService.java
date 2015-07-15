@@ -1,16 +1,16 @@
 package fr.pinguet62.jsfring.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import fr.pinguet62.jsfring.dao.RightDao;
 import fr.pinguet62.jsfring.model.Right;
 
 /** The service for {@link Right}. */
-@Service
+@Named
 public class RightService extends AbstractService<Right, String> {
 
-    @Autowired
+    @Inject
     protected RightService(RightDao dao) {
         super(dao);
     }

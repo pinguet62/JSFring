@@ -3,12 +3,13 @@ package fr.pinguet62.jsfring.service;
 import java.util.List;
 import java.util.UUID;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mysema.query.jpa.impl.JPAQuery;
@@ -18,7 +19,7 @@ import fr.pinguet62.jsfring.model.QUser;
 import fr.pinguet62.jsfring.model.User;
 
 /** The service for {@link User}. */
-@Service
+@Named
 public class UserService extends AbstractService<User, String> {
 
     private static final Logger LOGGER = LoggerFactory
@@ -35,13 +36,13 @@ public class UserService extends AbstractService<User, String> {
 
     private final UserDao dao;
 
-    @Autowired
+    @Inject
     private SimpleMailMessage forgottenPasswordMessage;
 
-    @Autowired
+    @Inject
     private MailSender mailSender;
 
-    @Autowired
+    @Inject
     protected UserService(UserDao dao) {
         super(dao);
         this.dao = dao;

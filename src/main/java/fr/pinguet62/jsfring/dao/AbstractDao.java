@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+import javax.inject.Named;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,8 +15,6 @@ import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import org.springframework.stereotype.Repository;
-
 import com.mysema.query.SearchResults;
 import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.types.Expression;
@@ -23,12 +22,10 @@ import com.mysema.query.types.Expression;
 /**
  * The generic DAO for entities.
  *
- * @param <T>
- *            The {@link Entity} type.
- * @param <PK>
- *            The Primary key type.
+ * @param <T> The {@link Entity} type.
+ * @param <PK> The Primary key type.
  */
-@Repository
+@Named
 public abstract class AbstractDao<T, PK extends Serializable> {
 
     /** The {@link EntityManager}. */
@@ -58,8 +55,7 @@ public abstract class AbstractDao<T, PK extends Serializable> {
     /**
      * Create new object.
      *
-     * @param object
-     *            The object.
+     * @param object The object.
      * @return The created object.
      */
     public T create(T object) {
@@ -70,8 +66,7 @@ public abstract class AbstractDao<T, PK extends Serializable> {
     /**
      * Delete the object.
      *
-     * @param object
-     *            The object to delete.
+     * @param object The object to delete.
      */
     public void delete(T object) {
         Object id = em.getEntityManagerFactory().getPersistenceUnitUtil()
@@ -91,8 +86,7 @@ public abstract class AbstractDao<T, PK extends Serializable> {
     /**
      * Find all objects who match to the {@link JPAQuery}.
      *
-     * @param query
-     *            The {@link JPAQuery}.
+     * @param query The {@link JPAQuery}.
      * @return The objects found.
      */
     public List<T> find(JPAQuery query) {
@@ -109,8 +103,7 @@ public abstract class AbstractDao<T, PK extends Serializable> {
      * Get the object by id.<br>
      * Detach object of database.
      *
-     * @param id
-     *            The id.
+     * @param id The id.
      * @return The object, {@code null} if not found.
      */
     public T get(PK id) {
@@ -146,8 +139,7 @@ public abstract class AbstractDao<T, PK extends Serializable> {
     /**
      * Update an object.
      *
-     * @param object
-     *            The object to update.
+     * @param object The object to update.
      * @return The updated object.
      */
     public T update(T object) {
