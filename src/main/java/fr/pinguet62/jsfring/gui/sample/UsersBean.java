@@ -18,7 +18,7 @@ import fr.pinguet62.jsfring.model.User;
 import fr.pinguet62.jsfring.service.AbstractService;
 import fr.pinguet62.jsfring.service.ProfileService;
 import fr.pinguet62.jsfring.service.UserService;
-import fr.pinguet62.jsfring.util.cdi.SpringViewScoped;
+import fr.pinguet62.jsfring.util.cdi.scope.SpringViewScoped;
 
 /** @see User */
 @Named

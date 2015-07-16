@@ -18,7 +18,7 @@ import fr.pinguet62.jsfring.model.Right;
 import fr.pinguet62.jsfring.service.AbstractService;
 import fr.pinguet62.jsfring.service.ProfileService;
 import fr.pinguet62.jsfring.service.RightService;
-import fr.pinguet62.jsfring.util.cdi.SpringViewScoped;
+import fr.pinguet62.jsfring.util.cdi.scope.SpringViewScoped;
 
 /** @see Profile */
 @Named
