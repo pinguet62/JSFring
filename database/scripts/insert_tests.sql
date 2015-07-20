@@ -17,12 +17,12 @@ insert into "RIGHT" (CODE, TITLE) values ('PROFILE_RW', 'Edition des profils');
 insert into "RIGHT" (CODE, TITLE) values ('USER_RO', 'Affichage des utilisateurs');
 insert into "RIGHT" (CODE, TITLE) values ('USER_RW', 'Edition des utilisateurs');
 
-insert into PROFILE (ID, TITLE) values (1, 'Profile admin'); /* Administration de profils & Association Profil/Droit */
+insert into PROFILE (ID, TITLE) values (DEFAULT/*1*/, 'Profile admin'); /* Administration de profils & Association Profil/Droit */
 insert into PROFILES_RIGHTS (PROFILE, "RIGHT") values (1, 'RIGHT_RO');
 insert into PROFILES_RIGHTS (PROFILE, "RIGHT") values (1, 'PROFILE_RO');
 insert into PROFILES_RIGHTS (PROFILE, "RIGHT") values (1, 'PROFILE_RW');
 
-insert into PROFILE (ID, TITLE) values (2, 'User admin'); /* Administration d'utilisateurs & Association Utilisateur/Profil */
+insert into PROFILE (ID, TITLE) values (DEFAULT/*2*/, 'User admin'); /* Administration d'utilisateurs & Association Utilisateur/Profil */
 insert into PROFILES_RIGHTS (PROFILE, "RIGHT") values (2, 'PROFILE_RO');
 insert into PROFILES_RIGHTS (PROFILE, "RIGHT") values (2, 'USER_RO');
 insert into PROFILES_RIGHTS (PROFILE, "RIGHT") values (2, 'USER_RW');
