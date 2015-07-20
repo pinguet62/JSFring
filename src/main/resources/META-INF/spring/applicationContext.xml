@@ -15,7 +15,7 @@
 			<map>
 				<entry key="view">
 					<!-- CDI: ViewScoped -->
-					<bean class="fr.pinguet62.jsfring.util.cdi.SpringViewScope" />
+					<bean class="fr.pinguet62.jsfring.util.cdi.scope.SpringViewScope" />
 				</entry>
 			</map>
 		</property>
