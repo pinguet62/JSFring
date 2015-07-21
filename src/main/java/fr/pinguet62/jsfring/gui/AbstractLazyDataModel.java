@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.gui;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +24,8 @@ import fr.pinguet62.jsfring.service.AbstractService;
  *
  * @param <T> The type of objects to display.
  */
-public class AbstractLazyDataModel<T> extends LazyDataModel<T> {
+public class AbstractLazyDataModel<T extends Serializable> extends
+        LazyDataModel<T> {
 
     private static final long serialVersionUID = 1;
 
@@ -74,7 +76,7 @@ public class AbstractLazyDataModel<T> extends LazyDataModel<T> {
         }
         // Filter
         BooleanExpression condition = new FilterConverter(QUser.user)
-        .apply(filters);
+                .apply(filters);
         if (condition != null)
             query.where(condition);
 

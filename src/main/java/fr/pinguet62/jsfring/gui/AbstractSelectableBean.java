@@ -1,11 +1,14 @@
 package fr.pinguet62.jsfring.gui;
 
+import java.io.Serializable;
+
 /**
  * {@link AbstractBean} with selection management.
  * <p>
  * The multiple selection is not supported.
  */
-public abstract class AbstractSelectableBean<T> extends AbstractBean<T> {
+public abstract class AbstractSelectableBean<T extends Serializable> extends
+        AbstractBean<T> {
 
     private static final long serialVersionUID = 1;
 

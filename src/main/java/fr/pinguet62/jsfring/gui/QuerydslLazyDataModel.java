@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.gui;
 
+import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +34,8 @@ import fr.pinguet62.jsfring.service.AbstractService;
  * @deprecated See {@link AbstractBean}.
  */
 @Deprecated
-public class QuerydslLazyDataModel<T> extends LazyDataModel<T> {
+public class QuerydslLazyDataModel<T extends Serializable> extends
+        LazyDataModel<T> {
 
     private static final long serialVersionUID = 1;
 
@@ -114,7 +116,7 @@ public class QuerydslLazyDataModel<T> extends LazyDataModel<T> {
         }
         // Filter
         BooleanExpression condition = new FilterConverter(QUser.user)
-        .apply(filters);
+                .apply(filters);
         if (condition != null)
             query.where(condition);
 

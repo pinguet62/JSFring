@@ -22,7 +22,8 @@ import fr.pinguet62.jsfring.service.AbstractService;
  * @see AbstractService#getAll()
  * @see AbstractService#findPanginated(JPAQuery)
  */
-public abstract class AbstractBean<T> implements Serializable {
+public abstract class AbstractBean<T extends Serializable> implements
+        Serializable {
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(AbstractBean.class);
