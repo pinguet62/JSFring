@@ -24,6 +24,8 @@
 	<import resource="database.xml" />
 
 	<import resource="cache.xml" />
+	
+	<import resource="task.xml" />
 
 	<import resource="spring-mail.xml" />
 
