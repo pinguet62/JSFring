@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.util.cdi;
+package fr.pinguet62.jsfring.util.cdi.scope;
 
 import javax.faces.view.ViewScoped;
 

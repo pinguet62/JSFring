@@ -3,7 +3,7 @@ package fr.pinguet62.jsfring.gui.sample;
 import javax.inject.Named;
 
 import fr.pinguet62.jsfring.model.User;
-import fr.pinguet62.jsfring.util.cdi.SpringViewScoped;
+import fr.pinguet62.jsfring.util.cdi.scope.SpringViewScoped;
 
 /** Page to change its {@link User#password}. */
 @Named

@@ -18,7 +18,7 @@ import fr.pinguet62.jsfring.gui.component.filter.operator.Operator;
 import fr.pinguet62.jsfring.gui.component.filter.operator.StartsWithOperator;
 import fr.pinguet62.jsfring.model.QUser;
 import fr.pinguet62.jsfring.model.User;
-import fr.pinguet62.jsfring.util.cdi.SpringViewScoped;
+import fr.pinguet62.jsfring.util.cdi.scope.SpringViewScoped;
 
 @Named
 @SpringViewScoped
