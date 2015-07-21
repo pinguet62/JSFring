@@ -35,7 +35,8 @@ public class PropertyResolver {
      * Get the property value from its key.
      *
      * @param key The property key.
-     * @return The property value.
+     * @return The property value.<br>
+     *         {@code null} if the key doesn't exists.
      */
     public String getValue(String key) {
         return properties.get(key);

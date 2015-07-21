@@ -2,8 +2,6 @@ package fr.pinguet62.jsfring.util.cdi.config;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.ElementType.TYPE;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -13,22 +11,30 @@ import javax.enterprise.util.Nonbinding;
 import javax.inject.Qualifier;
 
 /**
- * Annotation used to define the property to inject.<br/>
+ * Annotation used to define the property to inject.<br>
  * The value is read from {@code .properties} files.
  */
 @Qualifier
-@Target({ TYPE, METHOD, FIELD, PARAMETER })
+@Target({ FIELD, METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Property {
 
-    /** The default value if not provided. */
+    /**
+     * The default value.<br>
+     * If the property is {@link #requiered() requiered} then this default value
+     * will not be used.
+     */
     @Nonbinding
     String defaultValue() default "";
 
-    /** The bundle key. */
+    /** The property key. */
     @Nonbinding
     String key() default "";
 
-    // TODO mandatory
+    /**
+     * If the property must exist.<br>
+     * If the key doesn't exist, a {@link IllegalStateException} will be thrown.
+     */
+    boolean requiered() default false;
 
 }

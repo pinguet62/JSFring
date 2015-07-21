@@ -37,7 +37,7 @@ public abstract class AbstractBean<T> implements Serializable {
     private List<T> list;
 
     /**
-     * Used for lazy loading.<br/>
+     * Used for lazy loading.<br>
      * <code>&lt;p:dataTable lazy="true" value="#{myBean.lazyDataModel}" ...&gt;</code>
      * <p>
      * The pagination is managed by the {@link AbstractLazyDataModel data model}.
@@ -51,11 +51,11 @@ public abstract class AbstractBean<T> implements Serializable {
     }
 
     /**
-     * Used for eager loading.<br/>
+     * Used for eager loading.<br>
      * <code>&lt;p:dataTable value="#{myBean.list}" ...&gt;</code>
      * <p>
      * Because the {@link DataTable} repeatedly calls this method, it's
-     * necessary to avoid multiple call in database.<br/>
+     * necessary to avoid multiple call in database.<br>
      * So the {@link #list} is initialized at the first call (when is
      * {@code null}) and used by next calls.
      *
