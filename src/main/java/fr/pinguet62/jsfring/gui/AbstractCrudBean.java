@@ -1,5 +1,7 @@
 package fr.pinguet62.jsfring.gui;
 
+import java.io.Serializable;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
@@ -19,7 +21,7 @@ import fr.pinguet62.jsfring.service.AbstractService;
  * @see AbstractService#update(Object)
  * @see AbstractService#delete(Object)
  */
-public abstract class AbstractCrudBean<T> extends
+public abstract class AbstractCrudBean<T extends Serializable> extends
         AbstractSelectableBean<T> {
 
     private static final Logger LOGGER = LoggerFactory
