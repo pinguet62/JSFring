@@ -1,10 +1,12 @@
 package fr.pinguet62.jsfring.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.constraints.NotNull;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,6 +59,7 @@ public class UserService extends AbstractService<User, String> {
     public User create(User object) {
         // Generate password
         object.setPassword(randomPassword());
+        object.setLastConnection(new Date());
 
         return super.create(object);
     }
@@ -68,7 +71,7 @@ public class UserService extends AbstractService<User, String> {
      * @throws IllegalArgumentException Email unknown.
      */
     @Transactional
-    public void forgottenPassword(String email) {
+    public void forgottenPassword(@NotNull String email) {
         // Get user
         User user = dao.getByEmail(email);
         if (user == null)
@@ -88,9 +91,9 @@ public class UserService extends AbstractService<User, String> {
         LOGGER.info("New password sent to " + user.getLogin() + "'s email");
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public User login(String username, String password) {
-        // Login
+        // Find by login
         List<User> users = findPanginated(
                 new JPAQuery().from(QUser.user).where(
                         QUser.user.login.eq(username))).getResults();
@@ -98,8 +101,14 @@ public class UserService extends AbstractService<User, String> {
             return null;
         User user = users.get(0);
 
-        // Password
-        return user.getPassword().equals(password) ? user : null;
+        // Check password
+        if (!user.getPassword().equals(password))
+            return null;
+
+        // Reset last connection date
+        dao.resetLastConnectionDate(user);
+
+        return user;
     }
 
 }

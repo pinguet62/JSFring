@@ -26,11 +26,11 @@ import fr.pinguet62.jsfring.dao.AbstractDao;
  */
 public abstract class AbstractService<T extends Serializable, PK extends Serializable> {
 
-    /** The {@link AbstractDao}. */
-    protected final AbstractDao<T, PK> dao;
-
     /** Key of the {@link Cache}. */
     private static final String CACHE = "cache";
+
+    /** The {@link AbstractDao}. */
+    protected final AbstractDao<T, PK> dao;
 
     /**
      * Constructor with {@link AbstractDao}.<br>
@@ -60,7 +60,7 @@ public abstract class AbstractService<T extends Serializable, PK extends Seriali
      * @param object The object.
      * @return The created object.
      */
-    @CacheEvict(CACHE)
+    @CacheEvict(value = CACHE, allEntries = true)
     @Transactional
     public T create(T object) {
         return dao.create(object);
@@ -71,7 +71,7 @@ public abstract class AbstractService<T extends Serializable, PK extends Seriali
      *
      * @param object The object to delete.
      */
-    @CacheEvict(CACHE)
+    @CacheEvict(value = CACHE, allEntries = true)
     @Transactional
     public void delete(T object) {
         dao.delete(object);
@@ -128,7 +128,7 @@ public abstract class AbstractService<T extends Serializable, PK extends Seriali
      * @param object The object to update.
      * @return The updated object.
      */
-    @CacheEvict(CACHE)
+    @CacheEvict(value = CACHE, allEntries = true)
     @Transactional
     public T update(T object) {
         return dao.update(object);

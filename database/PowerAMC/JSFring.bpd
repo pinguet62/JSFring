@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?PowerDesigner AppLocale="UTF16" ID="{E3C5D111-34CA-4D4C-803D-4CC4FD59841D}" Label="" LastModificationDate="1435094677" Name="JSFring" Objects="102" Symbols="17" Target="PostgreSQL 8" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" signature="PDM_DATA_MODEL_XML" version="15.1.0.2850"?>
+<?PowerDesigner AppLocale="UTF16" ID="{E3C5D111-34CA-4D4C-803D-4CC4FD59841D}" Label="" LastModificationDate="1435358701" Name="JSFring" Objects="102" Symbols="17" Target="PostgreSQL 8" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" signature="PDM_DATA_MODEL_XML" version="15.1.0.2850"?>
 <!-- Veuillez ne pas modifier ce fichier -->
 
 <Model xmlns:a="attribute" xmlns:c="collection" xmlns:o="object">
@@ -12,10 +12,10 @@
 <a:Code>JSFRING</a:Code>
 <a:CreationDate>1434652863</a:CreationDate>
 <a:Creator>Pinguet62</a:Creator>
-<a:ModificationDate>1434652996</a:ModificationDate>
+<a:ModificationDate>1435358701</a:ModificationDate>
 <a:Modifier>Pinguet62</a:Modifier>
 <a:History>ORG {59464F4A-DB35-4AA8-A425-7C8EC0B0F42D}
-DAT 1434652866
+DAT 1435358701
 ATT FOPT</a:History>
 <a:PackageOptionsText>[FolderOptions]
 
@@ -2452,9 +2452,9 @@ PhysOpts=</a:ModelOptionsText>
 <a:ObjectID>99A712C9-E11B-4CD8-BBA9-4A75FB0A3290</a:ObjectID>
 <a:Name>JSFring</a:Name>
 <a:Code>JSFRING</a:Code>
-<a:CreationDate>1434652866</a:CreationDate>
+<a:CreationDate>1435358701</a:CreationDate>
 <a:Creator>Pinguet62</a:Creator>
-<a:ModificationDate>1434652866</a:ModificationDate>
+<a:ModificationDate>1435358701</a:ModificationDate>
 <a:Modifier>Pinguet62</a:Modifier>
 <a:TargetStereotype/>
 <a:TargetID>59464F4A-DB35-4AA8-A425-7C8EC0B0F42D</a:TargetID>
@@ -3086,6 +3086,7 @@ Shadow=0
 <a:PaperSource>15</a:PaperSource>
 <c:Symbols>
 <o:ReferenceSymbol Id="o6">
+<a:ModificationDate>1435358701</a:ModificationDate>
 <a:Rect>((-5589,-6148), (13013,7274))</a:Rect>
 <a:ListOfPoints>((-5589,-6148),(-5589,7274),(13013,7274))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
@@ -3106,6 +3107,7 @@ DESTINATION 0 Arial,8,N</a:FontList>
 </c:Object>
 </o:ReferenceSymbol>
 <o:ReferenceSymbol Id="o10">
+<a:ModificationDate>1435358701</a:ModificationDate>
 <a:Rect>((-21562,-5998), (-5439,9299))</a:Rect>
 <a:ListOfPoints>((-5439,-5998),(-5439,9299),(-21562,9299))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
@@ -3126,6 +3128,7 @@ DESTINATION 0 Arial,8,N</a:FontList>
 </c:Object>
 </o:ReferenceSymbol>
 <o:ReferenceSymbol Id="o13">
+<a:ModificationDate>1435358701</a:ModificationDate>
 <a:Rect>((-37387,7965), (-21562,9299))</a:Rect>
 <a:ListOfPoints>((-37387,7965),(-28741,7965),(-28741,9299),(-21562,9299))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
@@ -3146,6 +3149,7 @@ DESTINATION 0 Arial,8,N</a:FontList>
 </c:Object>
 </o:ReferenceSymbol>
 <o:ReferenceSymbol Id="o16">
+<a:ModificationDate>1435358701</a:ModificationDate>
 <a:Rect>((-35887,9449), (-21412,11063))</a:Rect>
 <a:ListOfPoints>((-35887,11063),(-30808,11063),(-30808,9449),(-21412,9449))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
@@ -3166,6 +3170,7 @@ DESTINATION 0 Arial,8,N</a:FontList>
 </c:Object>
 </o:ReferenceSymbol>
 <o:ReferenceSymbol Id="o18">
+<a:ModificationDate>1435358701</a:ModificationDate>
 <a:Rect>((-37125,28927), (-18260,29377))</a:Rect>
 <a:ListOfPoints>((-18260,29152),(-37125,29152))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
@@ -3186,6 +3191,7 @@ DESTINATION 0 Arial,8,N</a:FontList>
 </c:Object>
 </o:ReferenceSymbol>
 <o:ReferenceSymbol Id="o22">
+<a:ModificationDate>1435358701</a:ModificationDate>
 <a:Rect>((-18260,28724), (-599,29174))</a:Rect>
 <a:ListOfPoints>((-18260,28949),(-599,28949))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
@@ -3206,6 +3212,7 @@ DESTINATION 0 Arial,8,N</a:FontList>
 </c:Object>
 </o:ReferenceSymbol>
 <o:ReferenceSymbol Id="o25">
+<a:ModificationDate>1435358701</a:ModificationDate>
 <a:Rect>((-599,28518), (15904,28968))</a:Rect>
 <a:ListOfPoints>((15904,28743),(-599,28743))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
@@ -3226,6 +3233,7 @@ DESTINATION 0 Arial,8,N</a:FontList>
 </c:Object>
 </o:ReferenceSymbol>
 <o:ReferenceSymbol Id="o28">
+<a:ModificationDate>1435358701</a:ModificationDate>
 <a:Rect>((15904,28350), (34125,28800))</a:Rect>
 <a:ListOfPoints>((15904,28575),(34125,28575))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
@@ -3246,6 +3254,7 @@ DESTINATION 0 Arial,8,N</a:FontList>
 </c:Object>
 </o:ReferenceSymbol>
 <o:TableSymbol Id="o11">
+<a:ModificationDate>1435358701</a:ModificationDate>
 <a:IconMode>-1</a:IconMode>
 <a:Rect>((-24471,7300), (-18653,11299))</a:Rect>
 <a:LineColor>11184640</a:LineColor>
@@ -3269,6 +3278,7 @@ LABL 0 Arial,8,N</a:FontList>
 </c:Object>
 </o:TableSymbol>
 <o:TableSymbol Id="o8">
+<a:ModificationDate>1435358701</a:ModificationDate>
 <a:IconMode>-1</a:IconMode>
 <a:Rect>((7709,5275), (18317,9274))</a:Rect>
 <a:LineColor>11184640</a:LineColor>
@@ -3292,6 +3302,7 @@ LABL 0 Arial,8,N</a:FontList>
 </c:Object>
 </o:TableSymbol>
 <o:TableSymbol Id="o7">
+<a:ModificationDate>1435358701</a:ModificationDate>
 <a:IconMode>-1</a:IconMode>
 <a:Rect>((-11588,-9369), (410,-2927))</a:Rect>
 <a:LineColor>11184640</a:LineColor>
@@ -3315,6 +3326,7 @@ LABL 0 Arial,8,N</a:FontList>
 </c:Object>
 </o:TableSymbol>
 <o:TableSymbol Id="o14">
+<a:ModificationDate>1435358701</a:ModificationDate>
 <a:IconMode>-1</a:IconMode>
 <a:Rect>((-41917,7563), (-33011,11562))</a:Rect>
 <a:LineColor>16744576</a:LineColor>
@@ -3338,6 +3350,7 @@ LABL 0 Arial,8,N</a:FontList>
 </c:Object>
 </o:TableSymbol>
 <o:TableSymbol Id="o29">
+<a:ModificationDate>1435358701</a:ModificationDate>
 <a:IconMode>-1</a:IconMode>
 <a:Rect>((28937,26649), (39313,30649))</a:Rect>
 <a:LineColor>11184640</a:LineColor>
@@ -3361,6 +3374,7 @@ LABL 0 Arial,8,N</a:FontList>
 </c:Object>
 </o:TableSymbol>
 <o:TableSymbol Id="o23">
+<a:ModificationDate>1435358701</a:ModificationDate>
 <a:IconMode>-1</a:IconMode>
 <a:Rect>((-5671,26950), (4473,30949))</a:Rect>
 <a:LineColor>11184640</a:LineColor>
@@ -3384,6 +3398,7 @@ LABL 0 Arial,8,N</a:FontList>
 </c:Object>
 </o:TableSymbol>
 <o:TableSymbol Id="o20">
+<a:ModificationDate>1435358701</a:ModificationDate>
 <a:IconMode>-1</a:IconMode>
 <a:Rect>((-43240,26927), (-31010,31421))</a:Rect>
 <a:LineColor>11184640</a:LineColor>
@@ -3407,6 +3422,7 @@ LABL 0 Arial,8,N</a:FontList>
 </c:Object>
 </o:TableSymbol>
 <o:TableSymbol Id="o19">
+<a:ModificationDate>1435358701</a:ModificationDate>
 <a:IconMode>-1</a:IconMode>
 <a:Rect>((-24298,27176), (-12224,31175))</a:Rect>
 <a:LineColor>16744576</a:LineColor>
@@ -3430,6 +3446,7 @@ LABL 0 Arial,8,N</a:FontList>
 </c:Object>
 </o:TableSymbol>
 <o:TableSymbol Id="o26">
+<a:ModificationDate>1435358701</a:ModificationDate>
 <a:IconMode>-1</a:IconMode>
 <a:Rect>((9869,26276), (21943,30275))</a:Rect>
 <a:LineColor>16744576</a:LineColor>
@@ -3910,13 +3927,12 @@ DAT 1434652866</a:History>
 <a:Code>ID</a:Code>
 <a:CreationDate>1434652865</a:CreationDate>
 <a:Creator>Pinguet62</a:Creator>
-<a:ModificationDate>1434652865</a:ModificationDate>
+<a:ModificationDate>1435358701</a:ModificationDate>
 <a:Modifier>Pinguet62</a:Modifier>
 <a:History>ORG {334A1298-BFD3-4676-BA4D-3CC9497DF362}
 DAT 1434652866</a:History>
 <a:CannotModify>1</a:CannotModify>
-<a:DataType>INT4</a:DataType>
-<a:Length>4</a:Length>
+<a:DataType>SERIAL</a:DataType>
 <a:Mandatory>1</a:Mandatory>
 </o:Column>
 <o:Column Id="o67">
@@ -4586,11 +4602,10 @@ DAT 1434652866</a:History>
 <a:Code>DESCRIPTION_IS_WRITTED_ON_A_LANGUAGE</a:Code>
 <a:CreationDate>1434652865</a:CreationDate>
 <a:Creator>Pinguet62</a:Creator>
-<a:ModificationDate>1434652865</a:ModificationDate>
+<a:ModificationDate>1435358701</a:ModificationDate>
 <a:Modifier>Pinguet62</a:Modifier>
 <a:History>ORG {589021E5-ED70-4AF8-9F1F-F631E795475F}
-DAT 1434652865
-ATT MAND</a:History>
+DAT 1434652865</a:History>
 <a:Cardinality>0..*</a:Cardinality>
 <a:UpdateConstraint>1</a:UpdateConstraint>
 <a:DeleteConstraint>1</a:DeleteConstraint>

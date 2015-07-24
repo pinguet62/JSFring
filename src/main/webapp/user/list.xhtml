@@ -24,6 +24,10 @@
 					filterBy="#{var.email}">
 					<h:outputText value="#{var.email}" />
 				</p:column>
+				<p:column headerText="#{msg['user.lastConnection']}"
+					sortBy="#{var.lastConnection}" filterBy="#{var.lastConnection}">
+					<h:outputText value="#{var.lastConnection}" />
+				</p:column>
 
 			</p62:dataTable>
 		</h:form>
