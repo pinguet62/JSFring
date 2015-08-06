@@ -27,7 +27,7 @@
 		<p:dataList id="profiles" value="#{bean.selectedValue.profiles}"
 			var="profile">
 			<f:facet name="header">
-				<h:outputText value="Associated" />
+				<h:outputText value="#{msg['pickList.target']}" />
 			</f:facet>
 			<h:outputText value="#{profile.title}" />
 		</p:dataList>

@@ -9,14 +9,14 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 	<h:panelGrid columns="2">
-		<p:outputLabel for="title" value="Title" />
+		<p:outputLabel for="title" value="#{msg['profile.title']}" />
 		<h:outputText id="title" value="#{bean.selectedValue.title}" />
 
-		<p:outputLabel for="rights" value="Rights" />
+		<p:outputLabel for="rights" value="#{msg['profile.rights']}" />
 		<p:dataList id="rights" value="#{bean.selectedValue.rights}"
 			var="right">
 			<f:facet name="header">
-				<h:outputText value="Associated" />
+				<h:outputText value="#{msg['pickList.target']}" />
 			</f:facet>
 			<h:outputText value="#{right.title}" />
 		</p:dataList>

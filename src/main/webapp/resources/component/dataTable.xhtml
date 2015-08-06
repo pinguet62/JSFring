@@ -49,18 +49,16 @@
 		rows="2" rowsPerPageTemplate="2 5 10">
 
 		<f:facet name="header">
-			<p:commandButton id="toggler" type="button"
-				value="#{msg['dataTable.columnToggler']}" icon="ui-icon-calculator"
-				style="float: left" />
+			<p:commandButton id="toggler" type="button" icon="ui-icon-calculator"
+				value="#{msg['dataTable.columnToggler']}" style="float: left" />
 			<p:columnToggler datasource="datatable" trigger="toggler" />
 
 			<!-- Create -->
 			<c:if test="#{cc.attrs.createView != null}">
-				<p:commandButton icon="ui-icon-plus"
-					value="#{msg['dataTable.action.create.title']}"
-					actionListener="#{cc.attrs.bean.postCreate}"
+				<p:commandButton actionListener="#{cc.attrs.bean.postCreate}"
 					update="#{p:component('createDialog')}"
-					oncomplete="PF('createDialogWidget').show();" style="float: right" />
+					oncomplete="PF('createDialogWidget').show();" icon="ui-icon-plus"
+					value="#{msg['dataTable.actions.create']}" style="float: right" />
 			</c:if>
 
 			<h:outputText value="#{cc.attrs.title}" />
@@ -71,14 +69,13 @@
 
 		<composite:insertChildren />
 
-		<p:column headerText="#{msg['datatable.actions.title']}"
+		<p:column headerText="#{msg['datatable.actions.headerText']}"
 			style="width: 150px; text-align: center" exportable="false">
 			<!-- Show -->
 			<c:if test="#{cc.attrs.showView != null}">
-				<p:commandButton icon="ui-icon-search"
-					title="#{msg['dataTable.action.show.title']}"
-					update="#{p:component('showDialog')}"
-					oncomplete="PF('showDialogWidget').show();">
+				<p:commandButton update="#{p:component('showDialog')}"
+					oncomplete="PF('showDialogWidget').show();" icon="ui-icon-search"
+					title="#{msg['dataTable.actions.show']}">
 					<f:setPropertyActionListener
 						target="#{cc.attrs.bean.selectedValue}" value="#{var}" />
 				</p:commandButton>
@@ -86,10 +83,9 @@
 
 			<!-- Update -->
 			<c:if test="#{cc.attrs.updateView != null}">
-				<p:commandButton icon="ui-icon-pencil"
-					title="#{msg['dataTable.action.update.title']}"
-					update="#{p:component('updateDialog')}"
-					oncomplete="PF('updateDialogWidget').show();">
+				<p:commandButton update="#{p:component('updateDialog')}"
+					oncomplete="PF('updateDialogWidget').show();" icon="ui-icon-pencil"
+					title="#{msg['dataTable.actions.update']}">
 					<f:setPropertyActionListener
 						target="#{cc.attrs.bean.selectedValue}" value="#{var}" />
 				</p:commandButton>
@@ -98,13 +94,13 @@
 			<!-- Delete -->
 			<c:if test="#{cc.attrs.deletable}">
 				<p:commandButton icon="ui-icon-trash"
-					title="#{msg['dataTable.action.delete.title']}" update="datatable">
+					title="#{msg['dataTable.actions.delete']}" update="datatable">
 					<f:setPropertyActionListener
 						target="#{cc.attrs.bean.selectedValue}" value="#{var}" />
 					<f:actionListener binding="#{cc.attrs.bean.delete()}" />
-					<p:confirm header="#{msg['dataTable.action.delete.title']}"
-						icon="ui-icon-alert"
-						message="#{msg['dataTable.action.delete.message']}" />
+					<p:confirm icon="ui-icon-alert"
+						header="#{msg['dataTable.actions.delete']}"
+						message="#{msg['dataTable.actions.delete.confirm']}" />
 				</p:commandButton>
 			</c:if>
 		</p:column>
@@ -132,9 +128,9 @@
 
 	<!-- CRUD dialogs -->
 	<p:dialog id="showDialog" widgetVar="showDialogWidget" dynamic="true"
-		header="#{msg['dataTable.action.show.title']}" modal="true"
-		appendTo="@(body)" showEffect="fade" hideEffect="fade"
-		resizable="false">
+		modal="true" appendTo="@(body)"
+		header="#{msg['dataTable.actions.show']}" showEffect="fade"
+		hideEffect="fade" resizable="false">
 		<f:subview id="showSubview">
 			<ui:include src="#{cc.attrs.showView}">
 				<ui:param name="bean" value="#{cc.attrs.bean}" />
@@ -142,42 +138,41 @@
 		</f:subview>
 	</p:dialog>
 	<p:dialog id="createDialog" widgetVar="createDialogWidget"
-		dynamic="true" header="#{msg['dataTable.action.create.title']}"
-		modal="true" appendTo="@(body)" showEffect="fade" hideEffect="fade"
-		resizable="false">
+		dynamic="true" modal="true" appendTo="@(body)"
+		header="#{msg['dataTable.actions.create']}" showEffect="fade"
+		hideEffect="fade" resizable="false">
 		<h:form>
 			<f:subview id="createSubview">
 				<ui:include src="#{cc.attrs.createView}">
 					<ui:param name="bean" value="#{cc.attrs.bean}" />
 				</ui:include>
 			</f:subview>
-			<p:commandButton value="#{msg['dataTable.action.submit']}"
-				process="#{p:component('createDialog')}"
+			<p:commandButton process="#{p:component('createDialog')}"
 				actionListener="#{cc.attrs.bean.create}"
-				update="#{p:component('datatable')}" />
+				oncomplete="PF('createDialogWidget').hide();"
+				update="#{p:component('datatable')}" value="#{msg['button.submit']}" />
 		</h:form>
 	</p:dialog>
 	<p:dialog id="updateDialog" widgetVar="updateDialogWidget"
-		dynamic="true" header="#{msg['dataTable.action.update.title']}"
-		appendTo="@(body)" modal="true" showEffect="fade" hideEffect="fade"
-		resizable="false">
+		dynamic="true" appendTo="@(body)" modal="true"
+		header="#{msg['dataTable.actions.update']}" showEffect="fade"
+		hideEffect="fade" resizable="false">
 		<h:form>
 			<f:subview id="updateSubview">
 				<ui:include src="#{cc.attrs.updateView}">
 					<ui:param name="bean" value="#{cc.attrs.bean}" />
 				</ui:include>
 			</f:subview>
-			<p:commandButton value="Submit"
-				actionListener="#{cc.attrs.bean.update}"
+			<p:commandButton actionListener="#{cc.attrs.bean.update}"
 				process="#{p:component('updateDialog')}"
 				oncomplete="PF('updateDialogWidget').hide();"
-				update="#{p:component('datatable')}" />
+				update="#{p:component('datatable')}" value="#{msg['button.submit']}" />
 		</h:form>
 	</p:dialog>
 	<p:confirmDialog global="true">
-		<p:commandButton icon="ui-icon-check" value="Yes"
+		<p:commandButton icon="ui-icon-check" value="#{msg['true']}"
 			styleClass="ui-confirmdialog-yes" />
-		<p:commandButton icon="ui-icon-close" value="No"
+		<p:commandButton icon="ui-icon-close" value="#{msg['false']}"
 			styleClass="ui-confirmdialog-no" />
 	</p:confirmDialog>
 

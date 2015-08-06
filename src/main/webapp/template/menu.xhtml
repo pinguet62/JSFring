@@ -12,20 +12,25 @@
 	<h:form>
 
 		<p:menubar id="menu">
-			<p:menuitem value="Home" outcome="index" icon="ui-icon-home" />
-			<p:submenu label="Administration" icon="ui-icon-gear">
-				<p:menuitem icon="ui-icon-person" value="Users" outcome="users" />
-				<p:menuitem icon="ui-icon-flag" value="Profiles" outcome="profiles" />
-				<p:menuitem icon="ui-icon-script" value="Logs" url="/logs" />
+			<p:menuitem outcome="index" icon="ui-icon-home"
+				value="#{msg['menubar.index']}" />
+			<p:submenu icon="ui-icon-gear"
+				label="#{msg['menubar.administration']}">
+				<p:menuitem outcome="users" icon="ui-icon-person"
+					value="#{msg['menubar.administration.users']}" />
+				<p:menuitem outcome="profiles" icon="ui-icon-flag"
+					value="#{msg['menubar.administration.profiles']}" />
+				<p:menuitem url="/logs" icon="ui-icon-script"
+					value="#{msg['menubar.administration.logs']}" />
 			</p:submenu>
 
 			<f:facet name="options">
 				<p:menuButton value="TODO username">
-					<p:menuitem value="My account" outcome="my-profile"
-						icon="ui-icon-person" />
-					<p:menuitem value="Change password" outcome="change-password"
-						icon="ui-icon-locked" />
-					<p:menuitem value="Logout" icon="ui-icon-extlink" />
+					<p:menuitem outcome="my-profile" icon="ui-icon-person"
+						value="#{msg['userMenu.myAccount']}" />
+					<p:menuitem outcome="change-password" icon="ui-icon-locked"
+						value="#{msg['userMenu.changePassword']}" />
+					<p:menuitem icon="ui-icon-extlink" value="Logout" />
 				</p:menuButton>
 
 				<p:themeSwitcher converter="themeConverter"

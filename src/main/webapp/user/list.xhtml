@@ -12,10 +12,10 @@
 
 	<ui:define name="content">
 		<h:form id="form">
-			<p62:dataTable bean="#{usersBean}" lazy="true" title="Users"
-				var="var" createView="/user/create.xhtml"
-				showView="/user/show.xhtml" updateView="/user/update.xhtml"
-				deletable="true">
+			<p62:dataTable bean="#{usersBean}" lazy="true"
+				title="#{msg['page.users.title']}" var="var"
+				createView="/user/create.xhtml" showView="/user/show.xhtml"
+				updateView="/user/update.xhtml" deletable="true">
 
 				<p:column headerText="#{msg['user.login']}" sortBy="#{var.login}"
 					filterBy="#{var.login}">

@@ -12,7 +12,8 @@
 
 	<ui:define name="content">
 		<h:form id="form">
-			<p62:dataTable bean="#{profilesBean}" title="Profiles" var="var"
+			<p62:dataTable bean="#{profilesBean}"
+				title="#{msg['page.profiles.title']}" var="var"
 				createView="/profile/create.xhtml" showView="/profile/show.xhtml"
 				updateView="/profile/update.xhtml" deletable="true">
 

@@ -12,18 +12,18 @@
 
 	<ui:define name="content">
 		<h:form>
-			<p62:pathFilter title="String filter"
-				value="#{filtersManagedBean.stringFilter}" />
+			<p62:pathFilter value="#{filtersManagedBean.stringFilter}"
+				title="String filter" />
 			<br />
-			<p62:pathFilter title="Number filter"
-				value="#{filtersManagedBean.numberFilter}">
+			<p62:pathFilter value="#{filtersManagedBean.numberFilter}"
+				title="Number filter">
 				<f:converter converterId="javax.faces.Integer" />
 				<f:validateRequired />
 				<f:validateDoubleRange minimum="5" maximum="8" />
 			</p62:pathFilter>
 			<br />
-			<p:commandButton value="Valider"
-				action="#{filtersManagedBean.submit}" update="@form" />
+			<p:commandButton action="#{filtersManagedBean.submit}" update="@form"
+				value="#{msg['button.submit']}" />
 		</h:form>
 	</ui:define>
 

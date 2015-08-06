@@ -16,8 +16,8 @@
 		<p:inputText id="email" value="#{bean.selectedValue.email}" />
 
 		<p:outputLabel for="active" value="#{msg['user.active']}" />
-		<!-- <p:selectBooleanCheckbox id="active" value="#{bean.selectedValue.active}" /> -->
-		<p:selectBooleanCheckbox id="active" value="#{bean.active}" />
+		<p:selectBooleanCheckbox id="active"
+			value="#{bean.selectedValue.active}" />
 
 		<p:outputLabel for="lastConnection"
 			value="#{msg['user.lastConnection']}" />
@@ -28,8 +28,12 @@
 		<p:pickList id="profiles" value="#{bean.profilesAssociation}"
 			var="profile" itemValue="#{profile}" itemLabel="#{profile.title}"
 			converter="#{profileConverter}">
-			<f:facet name="sourceCaption">Available</f:facet>
-			<f:facet name="targetCaption">Associated</f:facet>
+			<f:facet name="sourceCaption">
+				<p:outputLabel value="#{msg['pickList.source']}" />
+			</f:facet>
+			<f:facet name="targetCaption">
+				<p:outputLabel value="#{msg['pickList.target']}" />
+			</f:facet>
 		</p:pickList>
 	</h:panelGrid>
 

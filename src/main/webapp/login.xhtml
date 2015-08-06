@@ -9,12 +9,12 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<h:outputStylesheet library="css" name="main.css" />
-	<title><h:outputText value="#{msg['login.pageTitle']}" /></title>
+	<title><h:outputText value="#{msg['login.title']}" /></title>
 </h:head>
 <h:body>
-	<h:form prependId="false">
+	<h:form>
 		<div style="text-align: center;">
-			<p:panel header="#{msg['login.pageTitle']}"
+			<p:panel header="#{msg['login.title']}"
 				style="display: inline-block;">
 				<h:outputText rendered="#{not empty loginBean.error}" />
 				<p:messages autoUpdate="true" />
@@ -27,8 +27,8 @@
 				</h:panelGrid>
 
 				<f:facet name="footer">
-					<p:commandButton ajax="false" action="#{loginBean.login}"
-						type="submit" value="#{msg['login.submit']}" />
+					<p:commandButton type="submit" action="#{loginBean.login}"
+						ajax="false" value="#{msg['button.submit']}" />
 					<br />
 					<p:link outcome="forgottenPassword"
 						value="#{msg['login.forgottenPassword']}" />
