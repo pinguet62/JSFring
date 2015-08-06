@@ -26,6 +26,12 @@
 			<artifactId>javax.mail-api</artifactId>
 			<version>1.5.4</version>
 		</dependency>
+		<!-- Jasper Reports -->
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>6.1.0</version>
+		</dependency>
 
 		<!-- ===== Test ===== -->
 		<!-- JUnit -->
@@ -255,12 +261,12 @@
 		<java-version>1.8</java-version>
 		<log4j2.version>2.3</log4j2.version>
 		<jsf-version>2.2.11</jsf-version>
-		<hivernate.version>4.3.6.Final</hivernate.version><!-- 5.0.0.Beta1 java.lang.NoSuchMethodError: 
+		<hivernate.version>4.3.10.Final</hivernate.version><!-- 5.0.0.C3 java.lang.NoSuchMethodError: 
 			org.hibernate.internal.CoreMessageLogger.debug -->
-		<querydsl.version>3.6.5</querydsl.version>
-		<spring.version>4.0.6.RELEASE</spring.version><!-- 4.1.0.RELEASE -->
+		<querydsl.version>3.6.6</querydsl.version>
+		<spring.version>4.2.0.RELEASE</spring.version>
 		<spring-webflow.version>2.4.1.RELEASE</spring-webflow.version>
-		<spring-security.version>3.1.4.RELEASE</spring-security.version>
+		<spring-security.version>3.1.4.RELEASE</spring-security.version><!-- 4.0.2.RELEASE -->
 	</properties>
 
 	<build>
