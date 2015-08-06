@@ -10,13 +10,14 @@
 
 	<h:panelGrid columns="2">
 		<p:outputLabel for="login" value="#{msg['user.login']}" />
-		<h:outputText id="login" value="#{bean.selectedValue.login}" />
+		<p:inputText id="login" value="#{bean.selectedValue.login}" />
 
 		<p:outputLabel for="email" value="#{msg['user.email']}" />
-		<h:outputText id="email" value="#{bean.selectedValue.email}" />
+		<p:inputText id="email" value="#{bean.selectedValue.email}" />
 
 		<p:outputLabel for="active" value="#{msg['user.active']}" />
-		<h:outputText id="active" value="#{bean.selectedValue.active}" />
+		<!-- <p:selectBooleanCheckbox id="active" value="#{bean.selectedValue.active}" /> -->
+		<p:selectBooleanCheckbox id="active" value="#{bean.active}" />
 
 		<p:outputLabel for="lastConnection"
 			value="#{msg['user.lastConnection']}" />
@@ -24,13 +25,12 @@
 			value="#{bean.selectedValue.lastConnection}" />
 
 		<p:outputLabel for="profiles" value="#{msg['user.profiles']}" />
-		<p:dataList id="profiles" value="#{bean.selectedValue.profiles}"
-			var="profile">
-			<f:facet name="header">
-				<h:outputText value="Associated" />
-			</f:facet>
-			<h:outputText value="#{profile.title}" />
-		</p:dataList>
+		<p:pickList id="profiles" value="#{bean.profilesAssociation}"
+			var="profile" itemValue="#{profile}" itemLabel="#{profile.title}"
+			converter="#{profileConverter}">
+			<f:facet name="sourceCaption">Available</f:facet>
+			<f:facet name="targetCaption">Associated</f:facet>
+		</p:pickList>
 	</h:panelGrid>
 
 </ui:composition>

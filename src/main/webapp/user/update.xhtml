@@ -10,14 +10,19 @@
 
 	<h:panelGrid columns="2">
 		<p:outputLabel for="login" value="#{msg['user.login']}" />
-		<p:inputText id="login" value="#{bean.selectedValue.login}" />
+		<h:outputText id="login" value="#{bean.selectedValue.login}" />
 
 		<p:outputLabel for="email" value="#{msg['user.email']}" />
 		<p:inputText id="email" value="#{bean.selectedValue.email}" />
 
+		<p:outputLabel for="active" value="#{msg['user.active']}" />
+		<p:selectBooleanCheckbox id="active"
+			value="#{bean.selectedValue.active}" />
+
 		<p:outputLabel for="lastConnection"
 			value="#{msg['user.lastConnection']}" />
-		<h:outputText id="lastConnection" value="#{bean.selectedValue.email}" />
+		<h:outputText id="lastConnection"
+			value="#{bean.selectedValue.lastConnection}" />
 
 		<p:outputLabel for="profiles" value="#{msg['user.profiles']}" />
 		<p:pickList id="profiles" value="#{bean.profilesAssociation}"
