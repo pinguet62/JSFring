@@ -6,11 +6,11 @@
 
 	<!-- <cache:annotation-driven /> -->
 
-	<!-- Default implementation -->
 	<bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
 		<property name="caches">
 			<set>
-				<bean name="cache"
+				<!-- Cache for fr.pinguet62.jsfring.service.AbstractService -->
+				<bean name="abstract"
 					class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" />
 			</set>
 		</property>

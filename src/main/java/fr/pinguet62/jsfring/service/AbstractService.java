@@ -27,7 +27,7 @@ import fr.pinguet62.jsfring.dao.AbstractDao;
 public abstract class AbstractService<T extends Serializable, PK extends Serializable> {
 
     /** Key of the {@link Cache}. */
-    private static final String CACHE = "cache";
+    private static final String CACHE = "abstract";
 
     /** The {@link AbstractDao}. */
     protected final AbstractDao<T, PK> dao;
