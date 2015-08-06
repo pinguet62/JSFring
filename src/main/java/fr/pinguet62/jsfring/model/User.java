@@ -24,14 +24,14 @@ import javax.persistence.TemporalType;
 @Table(name = "\"USER\"")
 public class User implements java.io.Serializable {
 
+    private boolean active;
+    private String email;
     private Date lastConnection;
     private String login;
     private String password;
-    private String email;
     private Set<Profile> profiles = new HashSet<Profile>(0);
 
-    public User() {
-    }
+    public User() {}
 
     public User(String login, String password, String email) {
         this.login = login;
@@ -39,11 +39,17 @@ public class User implements java.io.Serializable {
         this.email = email;
     }
 
-    public User(String login, String password, String email, Set<Profile> profiles) {
+    public User(String login, String password, String email,
+            Set<Profile> profiles) {
         this.login = login;
         this.password = password;
         this.email = email;
         this.profiles = profiles;
+    }
+
+    @Column(name = "EMAIL", nullable = false)
+    public String getEmail() {
+        return this.email;
     }
 
     @Temporal(TemporalType.DATE)
@@ -63,19 +69,23 @@ public class User implements java.io.Serializable {
         return password;
     }
 
-    @Column(name = "EMAIL", nullable = false)
-    public String getEmail() {
-        return this.email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "users_profiles", joinColumns = { @JoinColumn(name = "\"USER\"", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "profile", nullable = false, updatable = false) })
     public Set<Profile> getProfiles() {
         return profiles;
+    }
+
+    @Column(name = "ACTIVE", nullable = false)
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setLastConnection(Date lastConnection) {

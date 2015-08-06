@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.dao;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.inject.Named;
@@ -14,6 +15,22 @@ import fr.pinguet62.jsfring.model.User;
 /** The DAO for {@link User}. */
 @Named
 public final class UserDao extends AbstractDao<User, String> {
+
+    /**
+     * Disable all users who have not connected since {@code numberOfDays} days.
+     *
+     * @param numberOfDays Number of days.
+     */
+    public void disableInactiveUsers(int numberOfDays) {
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.DAY_OF_YEAR, numberOfDays);
+        Date lastAccepted = c.getTime();
+
+        QUser u = QUser.user;
+        new JPAUpdateClause(em, u).where(
+                u.active.eq(true).and(u.lastConnection.before(lastAccepted)))
+                .set(u.active, false);
+    }
 
     @Override
     protected Expression<User> getBaseExpression() {

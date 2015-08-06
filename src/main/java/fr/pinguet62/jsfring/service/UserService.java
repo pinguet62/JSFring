@@ -6,12 +6,12 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.validation.constraints.NotNull;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mysema.query.jpa.impl.JPAQuery;
@@ -65,13 +65,27 @@ public class UserService extends AbstractService<User, String> {
     }
 
     /**
+     * Disable all users who have not connected since a delay.
+     * <p>
+     * Scheduled method as batch.
+     *
+     * @todo Config param for number of days.
+     */
+    @Scheduled(fixedRate = 1_000/* ms */* 60/* sec */* 60/* min */* 1/* h */)
+    @Transactional
+    public void disableInactiveUsers() {
+        LOGGER.info("Scheduling...");
+        dao.disableInactiveUsers(7);
+    }
+
+    /**
      * Reset the password of {@code User} and sent these informations to email.
      *
      * @param email The user's email.
      * @throws IllegalArgumentException Email unknown.
      */
     @Transactional
-    public void forgottenPassword(@NotNull String email) {
+    public void forgottenPassword(String email) {
         // Get user
         User user = dao.getByEmail(email);
         if (user == null)
