@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* Nom de SGBD :  PostgreSQL 8                                  */
-/* Date de création :  24/07/2015 22:55:43                      */
+/* Date de création :  25/07/2015 19:08:31                      */
 /*==============================================================*/
 
 
@@ -222,6 +222,7 @@ create table "USER" (
    PASSWORD             VARCHAR(30)          not null,
    EMAIL                VARCHAR(255)         not null,
    LAST_CONNECTION      DATE                 not null,
+   ACTIVE               BOOL                 not null default 1,
    constraint PK_USER primary key (LOGIN),
    constraint AK_EMAIL_USER unique (EMAIL)
 );

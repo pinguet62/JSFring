@@ -5,7 +5,7 @@
 <Workspace>
 	<Local Expanded="Yes">
 		<Model Expanded="Yes" ID="{E3C5D111-34CA-4D4C-803D-4CC4FD59841D}" Name="JSFring" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="JSFring.mpd"/>
-		<Model Expanded="Yes" ID="{59464F4A-DB35-4AA8-A425-7C8EC0B0F42D}" Name="JSFring" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="JSFring.mcd"/>
+		<Model Expanded="Yes" ID="{59464F4A-DB35-4AA8-A425-7C8EC0B0F42D}" Name="JSFring" Selected="Yes" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="JSFring.mcd"/>
 	</Local>
 	<BrowserModule Name="Référentiel"/>
 </Workspace>

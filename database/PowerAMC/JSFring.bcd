@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?PowerDesigner AppLocale="UTF16" ID="{59464F4A-DB35-4AA8-A425-7C8EC0B0F42D}" Label="" LastModificationDate="1437771176" Name="JSFring" Objects="65" Symbols="21" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" signature="CDM_DATA_MODEL_XML" version="15.1.0.2850"?>
+<?PowerDesigner AppLocale="UTF16" ID="{59464F4A-DB35-4AA8-A425-7C8EC0B0F42D}" Label="" LastModificationDate="1437844020" Name="JSFring" Objects="67" Symbols="21" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" signature="CDM_DATA_MODEL_XML" version="15.1.0.2850"?>
 <!-- Veuillez ne pas modifier ce fichier -->
 
 <Model xmlns:a="attribute" xmlns:c="collection" xmlns:o="object">
@@ -12,7 +12,7 @@
 <a:Code>JSFRING</a:Code>
 <a:CreationDate>1402742005</a:CreationDate>
 <a:Creator>Julien</a:Creator>
-<a:ModificationDate>1437771176</a:ModificationDate>
+<a:ModificationDate>1437843946</a:ModificationDate>
 <a:Modifier>Pinguet62</a:Modifier>
 <a:PackageOptionsText>[FolderOptions]
 
@@ -1336,8 +1336,8 @@ CARD 0 Arial,8,N</a:FontList>
 <o:AssociationLinkSymbol Id="o26">
 <a:CreationDate>1408189974</a:CreationDate>
 <a:ModificationDate>1408190100</a:ModificationDate>
-<a:Rect>((-28715,29127), (-18260,30301))</a:Rect>
-<a:ListOfPoints>((-28715,29127),(-18260,29127))</a:ListOfPoints>
+<a:Rect>((-28715,29124), (-18260,30298))</a:Rect>
+<a:ListOfPoints>((-28715,29124),(-18260,29124))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>0</a:ArrowStyle>
 <a:LineColor>16744576</a:LineColor>
@@ -1580,7 +1580,7 @@ Identifiers 0 Arial,8,N</a:FontList>
 <a:CreationDate>1408189750</a:CreationDate>
 <a:ModificationDate>1408201608</a:ModificationDate>
 <a:IconMode>-1</a:IconMode>
-<a:Rect>((-47063,25317), (-27187,33031))</a:Rect>
+<a:Rect>((-47063,24830), (-27187,33518))</a:Rect>
 <a:LineColor>11184640</a:LineColor>
 <a:FillColor>16777136</a:FillColor>
 <a:ShadowColor>12632256</a:ShadowColor>
@@ -1896,7 +1896,7 @@ LABL 0 Arial,8,N</a:FontList>
 <a:Code>USER</a:Code>
 <a:CreationDate>1408189750</a:CreationDate>
 <a:Creator>Julien</a:Creator>
-<a:ModificationDate>1437771176</a:ModificationDate>
+<a:ModificationDate>1437843946</a:ModificationDate>
 <a:Modifier>Pinguet62</a:Modifier>
 <c:Identifiers>
 <o:Identifier Id="o75">
@@ -1970,6 +1970,17 @@ LABL 0 Arial,8,N</a:FontList>
 <a:BaseAttribute.Mandatory>1</a:BaseAttribute.Mandatory>
 <c:DataItem>
 <o:DataItem Ref="o84"/>
+</c:DataItem>
+</o:EntityAttribute>
+<o:EntityAttribute Id="o85">
+<a:ObjectID>A6EE0CEA-8479-4E13-AFF3-D5283E6914D1</a:ObjectID>
+<a:CreationDate>1437843586</a:CreationDate>
+<a:Creator>Pinguet62</a:Creator>
+<a:ModificationDate>1437843946</a:ModificationDate>
+<a:Modifier>Pinguet62</a:Modifier>
+<a:BaseAttribute.Mandatory>1</a:BaseAttribute.Mandatory>
+<c:DataItem>
+<o:DataItem Ref="o86"/>
 </c:DataItem>
 </o:EntityAttribute>
 </c:Attributes>
@@ -2131,6 +2142,17 @@ LABL 0 Arial,8,N</a:FontList>
 <a:ModificationDate>1437771176</a:ModificationDate>
 <a:Modifier>Pinguet62</a:Modifier>
 <a:DataType>DT</a:DataType>
+</o:DataItem>
+<o:DataItem Id="o86">
+<a:ObjectID>DB7964CC-51C8-4070-92E4-3ACC1BD51F05</a:ObjectID>
+<a:Name>Active</a:Name>
+<a:Code>ACTIVE</a:Code>
+<a:CreationDate>1437843586</a:CreationDate>
+<a:Creator>Pinguet62</a:Creator>
+<a:ModificationDate>1437844020</a:ModificationDate>
+<a:Modifier>Pinguet62</a:Modifier>
+<a:DefaultValue>1</a:DefaultValue>
+<a:DataType>BL</a:DataType>
 </o:DataItem>
 </c:DataItems>
 <c:Associations>
@@ -2323,7 +2345,7 @@ LABL 0 Arial,8,N</a:FontList>
 </o:AssociationLink>
 </c:AssociationsLinks>
 <c:TargetModels>
-<o:TargetModel Id="o85">
+<o:TargetModel Id="o87">
 <a:ObjectID>7A19FC58-2624-447D-9D8A-5FD4ACD52469</a:ObjectID>
 <a:Name>ModelePhysiqueDonnees</a:Name>
 <a:Code>MODELEPHYSIQUEDONNEES</a:Code>
@@ -2339,7 +2361,7 @@ LABL 0 Arial,8,N</a:FontList>
 <o:Shortcut Ref="o4"/>
 </c:SessionShortcuts>
 </o:TargetModel>
-<o:TargetModel Id="o86">
+<o:TargetModel Id="o88">
 <a:ObjectID>1054FA8C-0673-445B-879A-1E467DA883CF</a:ObjectID>
 <a:Name>JSFring</a:Name>
 <a:Code>JSFRING</a:Code>
@@ -2354,7 +2376,7 @@ LABL 0 Arial,8,N</a:FontList>
 <o:Shortcut Ref="o5"/>
 </c:SessionShortcuts>
 </o:TargetModel>
-<o:TargetModel Id="o87">
+<o:TargetModel Id="o89">
 <a:ObjectID>7C74187D-2E6A-47D8-8624-BC80A1D9E506</a:ObjectID>
 <a:Name>JSFring</a:Name>
 <a:Code>JSFRING</a:Code>

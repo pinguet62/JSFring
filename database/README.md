@@ -28,3 +28,11 @@ Created objects (tables and columns) have name in lower-case, except name surrou
 
 So for reserved keyword, JPA annotations values need respect the case.
 For example : `@JoinColumn(name = "\"USER\"", nullable = false, updatable = false)` or `@Table(name = "\"right\"")`
+
+## PostgreSQL
+
+### Boolean type
+
+The SQGB stores `t` and `f` values.
+JPA doesn't work with this type.  
+So the column must be a `char`.
