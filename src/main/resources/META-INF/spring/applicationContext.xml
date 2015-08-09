@@ -13,7 +13,7 @@
 
 	<import resource="task.xml" />
 
-	<import resource="spring-mail.xml" />
+	<import resource="javaMail.xml" />
 
 	<bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
 		<property name="scopes">
