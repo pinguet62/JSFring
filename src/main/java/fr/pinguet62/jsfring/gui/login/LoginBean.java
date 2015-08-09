@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -15,42 +13,34 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
+import org.springframework.beans.factory.annotation.Value;
+
+import fr.pinguet62.jsfring.util.cdi.scope.SpringRequestScoped;
+
 /** Bean for user login. */
 @Named
-@RequestScoped
+@SpringRequestScoped
 public final class LoginBean implements Serializable {
 
-    /** Serial version UID. */
     private static final long serialVersionUID = 1;
 
+    /** Contains the error message returned by Spring Security in the URL. */
     // TODO CDI
-    @ManagedProperty("#{param.error}")
+    @Value("#{request.getParameter('error')}")
     private String error;
 
-    /** The password. */
     private String password;
 
-    /** The username. */
     private String username;
 
     public String getError() {
         return error;
     }
 
-    /**
-     * Get the password
-     *
-     * @return The password.
-     */
     public String getPassword() {
         return password;
     }
 
-    /**
-     * Get the username.
-     *
-     * @return The username
-     */
     public String getUsername() {
         return username;
     }
@@ -67,7 +57,11 @@ public final class LoginBean implements Serializable {
                             "Username or password invalid.", null));
     }
 
-    /** Redirect the request to the default Spring {@code login-processing-url}. */
+    /**
+     * Redirect the request to the default Spring-Security
+     * {@code login-processing-url}.<br>
+     * Spring-Security will manage the authentication.
+     */
     public void login() throws ServletException, IOException {
         ExternalContext context = FacesContext.getCurrentInstance()
                 .getExternalContext();
@@ -82,20 +76,10 @@ public final class LoginBean implements Serializable {
         error = value;
     }
 
-    /**
-     * Set the password.
-     *
-     * @param password The password.
-     */
     public void setPassword(String password) {
         this.password = password;
     }
 
-    /**
-     * Set the username.
-     *
-     * @param username The username.
-     */
     public void setUsername(String username) {
         this.username = username;
     }

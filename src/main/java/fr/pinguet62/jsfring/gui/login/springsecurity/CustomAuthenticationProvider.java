@@ -3,7 +3,8 @@ package fr.pinguet62.jsfring.gui.login.springsecurity;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
+
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,23 +19,41 @@ import fr.pinguet62.jsfring.model.Right;
 import fr.pinguet62.jsfring.model.User;
 import fr.pinguet62.jsfring.service.UserService;
 
+/**
+ * Custom {@link AuthenticationProvider} because the
+ * {@link UserService#login(String, String) login service} has custom
+ * functionalities.
+ */
 @Component
 public final class CustomAuthenticationProvider implements
 AuthenticationProvider {
 
-    @Autowired
+    @Inject
     private UserService userService;
 
+    /**
+     * Perform the authentication.<br>
+     * Initialize the user's roles.
+     *
+     * @param authentication The login informations:<br>
+     *            <ul>
+     *            <li>{@link Authentication#getName()} contains the username;</li>
+     *            <li>{@link Authentication#getCredentials()} contains the
+     *            password.</li>
+     *            </ul>
+     * @return UsernamePasswordDetailsAuthenticationToken The initialized
+     *         {@link Authentication}.
+     * @throws BadCredentialsException Username or password invalid.
+     */
     @Override
     public Authentication authenticate(Authentication authentication)
             throws AuthenticationException {
-        String username = authentication.getName();
+        String username = authentication.getPrincipal().toString();
         String password = authentication.getCredentials().toString();
 
         User user = userService.login(username, password);
         if (user == null)
-            throw new BadCredentialsException(
-                    "Username or password invalid");
+            throw new BadCredentialsException("Username or password invalid");
 
         Set<GrantedAuthority> grantedAuths = new HashSet<>();
         for (Profile profile : user.getProfiles())
