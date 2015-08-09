@@ -12,7 +12,8 @@
 	<title><h:outputText value="#{msg['login.title']}" /></title>
 </h:head>
 <h:body>
-	<h:form>
+	<!-- Spring-Security & JSF : prependId="false" required because JSF append id to parent component -->
+	<h:form prependId="false">
 		<div style="text-align: center;">
 			<p:panel header="#{msg['login.title']}"
 				style="display: inline-block;">
@@ -22,6 +23,7 @@
 				<h:panelGrid cellpadding="5" columns="2">
 					<h:outputLabel for="j_username" value="#{msg['login.username']}" />
 					<p:inputText id="j_username" value="#{loginBean.username}" />
+
 					<h:outputLabel for="j_password" value="#{msg['login.password']}" />
 					<p:inputText id="j_password" value="#{loginBean.password}" />
 				</h:panelGrid>
