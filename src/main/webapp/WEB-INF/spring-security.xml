@@ -11,8 +11,10 @@
 		<intercept-url pattern="/login.xhtml" access="permitAll" />
 		<intercept-url pattern="/profiles.xhtml" access="hasRole('PROFILE_RO')" />
 		<intercept-url pattern="/index.xhtml" access="permitAll" />
-		<form-login login-page="/login.xhtml"
+		<form-login login-page="/login.xhtml" username-parameter="j_username"
+			password-parameter="j_password" login-processing-url="/j_spring_security_check"
 			authentication-failure-url="/login.xhtml?error" />
+		<csrf disabled="true" />
 	</http>
 
 	<authentication-manager>

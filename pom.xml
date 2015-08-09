@@ -266,7 +266,7 @@
 		<querydsl.version>3.6.6</querydsl.version>
 		<spring.version>4.2.0.RELEASE</spring.version>
 		<spring-webflow.version>2.4.1.RELEASE</spring-webflow.version>
-		<spring-security.version>3.1.4.RELEASE</spring-security.version>
+		<spring-security.version>4.0.2.RELEASE</spring-security.version>
 	</properties>
 
 	<build>
