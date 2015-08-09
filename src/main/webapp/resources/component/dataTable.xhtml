@@ -42,7 +42,7 @@
 
 <composite:implementation>
 
-	<p:dataTable id="datatable" var="var"
+	<p:dataTable id="datatable" widgetVar="datatableWV" var="var"
 		value="#{cc.attrs.lazy ? cc.attrs.bean.lazyDataModel : cc.attrs.bean.list}"
 		lazy="#{cc.attrs.lazy}" paginator="true"
 		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
