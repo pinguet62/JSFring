@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?PowerDesigner AppLocale="UTF16" ID="{59464F4A-DB35-4AA8-A425-7C8EC0B0F42D}" Label="" LastModificationDate="1437844020" Name="JSFring" Objects="67" Symbols="21" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" signature="CDM_DATA_MODEL_XML" version="15.1.0.2850"?>
+<?PowerDesigner AppLocale="UTF16" ID="{59464F4A-DB35-4AA8-A425-7C8EC0B0F42D}" Label="" LastModificationDate="1438894638" Name="JSFring" Objects="67" Symbols="21" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" signature="CDM_DATA_MODEL_XML" version="15.1.0.2850"?>
 <!-- Veuillez ne pas modifier ce fichier -->
 
 <Model xmlns:a="attribute" xmlns:c="collection" xmlns:o="object">
@@ -1846,8 +1846,11 @@ LABL 0 Arial,8,N</a:FontList>
 <a:Code>PROFILE</a:Code>
 <a:CreationDate>1408189750</a:CreationDate>
 <a:Creator>Julien</a:Creator>
-<a:ModificationDate>1408189893</a:ModificationDate>
-<a:Modifier>Julien</a:Modifier>
+<a:ModificationDate>1438894309</a:ModificationDate>
+<a:Modifier>Pinguet62</a:Modifier>
+<a:Comment>A profile is a set of rights.
+It describes all authorizations of a functionality for a user.
+For example: a &quot;user admin&quot; will have all rights associated to users: show, update, profile association, ...</a:Comment>
 <c:Identifiers>
 <o:Identifier Id="o70">
 <a:ObjectID>17B27581-7116-4A64-9D63-CE57B0269863</a:ObjectID>
@@ -1896,8 +1899,9 @@ LABL 0 Arial,8,N</a:FontList>
 <a:Code>USER</a:Code>
 <a:CreationDate>1408189750</a:CreationDate>
 <a:Creator>Julien</a:Creator>
-<a:ModificationDate>1437843946</a:ModificationDate>
+<a:ModificationDate>1438893911</a:ModificationDate>
 <a:Modifier>Pinguet62</a:Modifier>
+<a:Comment>Informations about a user.</a:Comment>
 <c:Identifiers>
 <o:Identifier Id="o75">
 <a:ObjectID>60A2A220-C860-43F2-8953-DAD9D17BD0EB</a:ObjectID>
@@ -2060,8 +2064,9 @@ LABL 0 Arial,8,N</a:FontList>
 <a:Code>LOGIN</a:Code>
 <a:CreationDate>1408189765</a:CreationDate>
 <a:Creator>Julien</a:Creator>
-<a:ModificationDate>1408741310</a:ModificationDate>
-<a:Modifier>Julien</a:Modifier>
+<a:ModificationDate>1438893531</a:ModificationDate>
+<a:Modifier>Pinguet62</a:Modifier>
+<a:Comment>Used for webapp login.</a:Comment>
 <a:CannotModify>1</a:CannotModify>
 <a:DataType>VA30</a:DataType>
 <a:Length>30</a:Length>
@@ -2072,8 +2077,9 @@ LABL 0 Arial,8,N</a:FontList>
 <a:Code>PASSWORD</a:Code>
 <a:CreationDate>1408189765</a:CreationDate>
 <a:Creator>Julien</a:Creator>
-<a:ModificationDate>1408189839</a:ModificationDate>
-<a:Modifier>Julien</a:Modifier>
+<a:ModificationDate>1438893542</a:ModificationDate>
+<a:Modifier>Pinguet62</a:Modifier>
+<a:Comment>Used for webapp login.</a:Comment>
 <a:DataType>VA30</a:DataType>
 <a:Length>30</a:Length>
 </o:DataItem>
@@ -2094,8 +2100,9 @@ LABL 0 Arial,8,N</a:FontList>
 <a:Code>ID</a:Code>
 <a:CreationDate>1408189847</a:CreationDate>
 <a:Creator>Julien</a:Creator>
-<a:ModificationDate>1435358688</a:ModificationDate>
+<a:ModificationDate>1438894326</a:ModificationDate>
 <a:Modifier>Pinguet62</a:Modifier>
+<a:Comment>A technical ID.</a:Comment>
 <a:CannotModify>1</a:CannotModify>
 <a:DataType>NO</a:DataType>
 </o:DataItem>
@@ -2105,8 +2112,9 @@ LABL 0 Arial,8,N</a:FontList>
 <a:Code>CODE</a:Code>
 <a:CreationDate>1408189908</a:CreationDate>
 <a:Creator>Julien</a:Creator>
-<a:ModificationDate>1408741326</a:ModificationDate>
-<a:Modifier>Julien</a:Modifier>
+<a:ModificationDate>1438894393</a:ModificationDate>
+<a:Modifier>Pinguet62</a:Modifier>
+<a:Comment>The key used in application to identify a restricted functionality.</a:Comment>
 <a:CannotModify>1</a:CannotModify>
 <a:DataType>VA30</a:DataType>
 <a:Length>30</a:Length>
@@ -2117,8 +2125,9 @@ LABL 0 Arial,8,N</a:FontList>
 <a:Code>TITLE</a:Code>
 <a:CreationDate>1408189908</a:CreationDate>
 <a:Creator>Julien</a:Creator>
-<a:ModificationDate>1408201598</a:ModificationDate>
-<a:Modifier>Julien</a:Modifier>
+<a:ModificationDate>1438894406</a:ModificationDate>
+<a:Modifier>Pinguet62</a:Modifier>
+<a:Comment>Description of the right.</a:Comment>
 <a:DataType>VA50</a:DataType>
 <a:Length>50</a:Length>
 </o:DataItem>
@@ -2128,8 +2137,9 @@ LABL 0 Arial,8,N</a:FontList>
 <a:Code>EMAIL</a:Code>
 <a:CreationDate>1411842640</a:CreationDate>
 <a:Creator>Julien</a:Creator>
-<a:ModificationDate>1411844875</a:ModificationDate>
-<a:Modifier>Julien</a:Modifier>
+<a:ModificationDate>1438893792</a:ModificationDate>
+<a:Modifier>Pinguet62</a:Modifier>
+<a:Comment>Used to send the new password to used, when he forgot it.</a:Comment>
 <a:DataType>VA255</a:DataType>
 <a:Length>255</a:Length>
 </o:DataItem>
@@ -2139,8 +2149,10 @@ LABL 0 Arial,8,N</a:FontList>
 <a:Code>LAST_CONNECTION</a:Code>
 <a:CreationDate>1437771134</a:CreationDate>
 <a:Creator>Pinguet62</a:Creator>
-<a:ModificationDate>1437771176</a:ModificationDate>
+<a:ModificationDate>1438893872</a:ModificationDate>
 <a:Modifier>Pinguet62</a:Modifier>
+<a:Comment>Used to know if the account is yet used.
+Updated after each login.</a:Comment>
 <a:DataType>DT</a:DataType>
 </o:DataItem>
 <o:DataItem Id="o86">
@@ -2189,8 +2201,9 @@ LABL 0 Arial,8,N</a:FontList>
 <a:Code>USERS_PROFILES</a:Code>
 <a:CreationDate>1408189974</a:CreationDate>
 <a:Creator>Julien</a:Creator>
-<a:ModificationDate>1408201480</a:ModificationDate>
-<a:Modifier>Julien</a:Modifier>
+<a:ModificationDate>1438894638</a:ModificationDate>
+<a:Modifier>Pinguet62</a:Modifier>
+<a:Comment>Association of User/Profile.</a:Comment>
 </o:Association>
 <o:Association Id="o49">
 <a:ObjectID>12FD2A0F-1123-4117-87E9-E86AA89670CE</a:ObjectID>
@@ -2198,8 +2211,9 @@ LABL 0 Arial,8,N</a:FontList>
 <a:Code>PROFILES_RIGHTS</a:Code>
 <a:CreationDate>1408189976</a:CreationDate>
 <a:Creator>Julien</a:Creator>
-<a:ModificationDate>1408201534</a:ModificationDate>
-<a:Modifier>Julien</a:Modifier>
+<a:ModificationDate>1438894634</a:ModificationDate>
+<a:Modifier>Pinguet62</a:Modifier>
+<a:Comment>Association of Profile/Right.</a:Comment>
 </o:Association>
 </c:Associations>
 <c:AssociationsLinks>

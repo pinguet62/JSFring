@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* Nom de SGBD :  PostgreSQL 8                                  */
-/* Date de création :  25/07/2015 19:08:31                      */
+/* Date de création :  06/08/2015 23:04:44                      */
 /*==============================================================*/
 
 
@@ -129,6 +129,14 @@ create table PROFILE (
    constraint PK_PROFILE primary key (ID)
 );
 
+comment on table PROFILE is
+'A profile is a set of rights.
+It describes all authorizations of a functionality for a user.
+For example: a "user admin" will have all rights associated to users: show, update, profile association, ...';
+
+comment on column PROFILE.ID is
+'A technical ID.';
+
 /*==============================================================*/
 /* Index : PROFILE_PK                                           */
 /*==============================================================*/
@@ -144,6 +152,15 @@ create table PROFILES_RIGHTS (
    "RIGHT"              VARCHAR(30)          not null,
    constraint PK_PROFILES_RIGHTS primary key (PROFILE, "RIGHT")
 );
+
+comment on table PROFILES_RIGHTS is
+'Association of Profile/Right.';
+
+comment on column PROFILES_RIGHTS.PROFILE is
+'A technical ID.';
+
+comment on column PROFILES_RIGHTS."RIGHT" is
+'The key used in application to identify a restricted functionality.';
 
 /*==============================================================*/
 /* Index : PROFILES_RIGHTS_PK                                   */
@@ -175,6 +192,12 @@ create table "RIGHT" (
    TITLE                VARCHAR(50)          not null,
    constraint PK_RIGHT primary key (CODE)
 );
+
+comment on column "RIGHT".CODE is
+'The key used in application to identify a restricted functionality.';
+
+comment on column "RIGHT".TITLE is
+'Description of the right.';
 
 /*==============================================================*/
 /* Index : RIGHT_PK                                             */
@@ -227,6 +250,22 @@ create table "USER" (
    constraint AK_EMAIL_USER unique (EMAIL)
 );
 
+comment on table "USER" is
+'Informations about a user.';
+
+comment on column "USER".LOGIN is
+'Used for webapp login.';
+
+comment on column "USER".PASSWORD is
+'Used for webapp login.';
+
+comment on column "USER".EMAIL is
+'Used to send the new password to used, when he forgot it.';
+
+comment on column "USER".LAST_CONNECTION is
+'Used to know if the account is yet used.
+Updated after each login.';
+
 /*==============================================================*/
 /* Index : USER_PK                                              */
 /*==============================================================*/
@@ -242,6 +281,15 @@ create table USERS_PROFILES (
    PROFILE              INT4                 not null,
    constraint PK_USERS_PROFILES primary key ("USER", PROFILE)
 );
+
+comment on table USERS_PROFILES is
+'Association of User/Profile.';
+
+comment on column USERS_PROFILES."USER" is
+'Used for webapp login.';
+
+comment on column USERS_PROFILES.PROFILE is
+'A technical ID.';
 
 /*==============================================================*/
 /* Index : USERS_PROFILES_PK                                    */
