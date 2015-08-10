@@ -11,9 +11,9 @@
 	template="/template/layout.xhtml">
 
 	<ui:define name="content">
-		<h:form id="form">
-			<p62:dataTable bean="#{usersBean}" lazy="true"
-				title="#{msg['page.users.title']}" var="var"
+		<h:form>
+			<p62:dataTable widgetVar="datatableWV" bean="#{usersBean}" var="var"
+				lazy="true" title="#{msg['page.users.title']}"
 				createView="/user/create.xhtml" showView="/user/show.xhtml"
 				updateView="/user/update.xhtml" deletable="true">
 

@@ -42,21 +42,20 @@
 
 <composite:implementation>
 
-	<p:dataTable id="datatable" widgetVar="datatableWV" var="var"
+	<p:dataTable id="#{cc.attrs.id}" widgetVar="#{cc.attrs.widgetVar}"
 		value="#{cc.attrs.lazy ? cc.attrs.bean.lazyDataModel : cc.attrs.bean.list}"
-		lazy="#{cc.attrs.lazy}" paginator="true"
+		var="var" lazy="#{cc.attrs.lazy}" paginator="true"
 		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 		rows="2" rowsPerPageTemplate="2 5 10">
 
 		<f:facet name="header">
 			<p:commandButton id="toggler" type="button" icon="ui-icon-calculator"
 				value="#{msg['dataTable.columnToggler']}" style="float: left" />
-			<p:columnToggler datasource="datatable" trigger="toggler" />
+			<p:columnToggler datasource="#{cc.attrs.id}" trigger="toggler" />
 
 			<!-- Create -->
 			<c:if test="#{cc.attrs.createView != null}">
 				<p:commandButton actionListener="#{cc.attrs.bean.postCreate}"
-					update="#{p:component('createDialog')}"
 					oncomplete="PF('createDialogWidget').show();" icon="ui-icon-plus"
 					value="#{msg['dataTable.actions.create']}" style="float: right" />
 			</c:if>
@@ -94,7 +93,7 @@
 			<!-- Delete -->
 			<c:if test="#{cc.attrs.deletable}">
 				<p:commandButton icon="ui-icon-trash"
-					title="#{msg['dataTable.actions.delete']}" update="datatable">
+					title="#{msg['dataTable.actions.delete']}" update="#{cc.attrs.id}">
 					<f:setPropertyActionListener
 						target="#{cc.attrs.bean.selectedValue}" value="#{var}" />
 					<f:actionListener binding="#{cc.attrs.bean.delete()}" />
@@ -109,19 +108,19 @@
 			<!-- Extract -->
 			<h:commandLink>
 				<p:graphicImage name="/img/csv.png" width="24" alt="ERROR" />
-				<p:dataExporter type="csv" target="datatable" fileName="export" />
+				<p:dataExporter type="csv" target="#{cc.attrs.id}" fileName="export" />
 			</h:commandLink>
 			<h:commandLink>
 				<p:graphicImage name="/img/xls.png" width="24" alt="ERROR" />
-				<p:dataExporter type="xls" target="datatable" fileName="export" />
+				<p:dataExporter type="xls" target="#{cc.attrs.id}" fileName="export" />
 			</h:commandLink>
 			<h:commandLink>
 				<p:graphicImage name="/img/xml.png" width="24" alt="ERROR" />
-				<p:dataExporter type="xml" target="datatable" fileName="export" />
+				<p:dataExporter type="xml" target="#{cc.attrs.id}" fileName="export" />
 			</h:commandLink>
 			<h:commandLink>
 				<p:graphicImage name="/img/pdf.png" width="24" alt="ERROR" />
-				<p:dataExporter type="pdf" target="datatable" fileName="export" />
+				<p:dataExporter type="pdf" target="#{cc.attrs.id}" fileName="export" />
 			</h:commandLink>
 		</f:facet>
 	</p:dataTable>
@@ -150,7 +149,7 @@
 			<p:commandButton process="#{p:component('createDialog')}"
 				actionListener="#{cc.attrs.bean.create}"
 				oncomplete="PF('createDialogWidget').hide();"
-				update="#{p:component('datatable')}" value="#{msg['button.submit']}" />
+				update="#{p:component(cc.attrs.id)}" value="#{msg['button.submit']}" />
 		</h:form>
 	</p:dialog>
 	<p:dialog id="updateDialog" widgetVar="updateDialogWidget"
@@ -166,7 +165,7 @@
 			<p:commandButton actionListener="#{cc.attrs.bean.update}"
 				process="#{p:component('updateDialog')}"
 				oncomplete="PF('updateDialogWidget').hide();"
-				update="#{p:component('datatable')}" value="#{msg['button.submit']}" />
+				update="#{p:component(cc.attrs.id)}" value="#{msg['button.submit']}" />
 		</h:form>
 	</p:dialog>
 	<p:confirmDialog global="true">
@@ -176,7 +175,7 @@
 			styleClass="ui-confirmdialog-no" />
 	</p:confirmDialog>
 
-	<p:blockUI block="datatable" trigger="datatable">
+	<p:blockUI block="#{cc.attrs.id}" trigger="#{cc.attrs.id}">
 		<p:graphicImage name="/img/ajaxloadingbar.gif" />
 	</p:blockUI>
 </composite:implementation>
