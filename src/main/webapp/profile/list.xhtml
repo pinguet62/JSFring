@@ -12,14 +12,14 @@
 
 	<ui:define name="content">
 		<h:form id="form">
-			<p62:dataTable bean="#{profilesBean}" var="var"
+			<p62:dataTable bean="#{profilesBean}" var="profile"
 				title="#{msg['page.profiles.title']}"
 				createView="/profile/create.xhtml" showView="/profile/show.xhtml"
 				updateView="/profile/update.xhtml" deletable="true">
 
 				<p:column headerText="#{msg['profile.title']}"
-					filterBy="#{var.title}" sortBy="#{var.title}">
-					<h:outputText value="#{var.title}" />
+					filterBy="#{profile.title}" sortBy="#{profile.title}">
+					<h:outputText value="#{profile.title}" />
 				</p:column>
 
 			</p62:dataTable>

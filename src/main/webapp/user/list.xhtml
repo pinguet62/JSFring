@@ -12,23 +12,23 @@
 
 	<ui:define name="content">
 		<h:form>
-			<p62:dataTable widgetVar="datatableWV" bean="#{usersBean}" var="var"
+			<p62:dataTable widgetVar="datatableWV" bean="#{usersBean}" var="user"
 				lazy="true" title="#{msg['page.users.title']}"
 				createView="/user/create.xhtml" showView="/user/show.xhtml"
 				updateView="/user/update.xhtml" deletable="true">
 
-				<p:column headerText="#{msg['user.login']}" sortBy="#{var.login}"
-					filterBy="#{var.login}">
-					<h:outputText value="#{var.login}" />
+				<p:column headerText="#{msg['user.login']}" sortBy="#{user.login}"
+					filterBy="#{user.login}">
+					<h:outputText value="#{user.login}" />
 				</p:column>
 
-				<p:column headerText="#{msg['user.email']}" sortBy="#{var.email}"
-					filterBy="#{var.email}">
-					<h:outputText value="#{var.email}" />
+				<p:column headerText="#{msg['user.email']}" sortBy="#{user.email}"
+					filterBy="#{user.email}">
+					<h:outputText value="#{user.email}" />
 				</p:column>
 
-				<p:column headerText="#{msg['user.active']}" sortBy="#{var.active}"
-					filterBy="#{var.active}" filterMatchMode="equals">
+				<p:column headerText="#{msg['user.active']}" sortBy="#{user.active}"
+					filterBy="#{user.active}" filterMatchMode="equals">
 					<f:facet name="filter">
 						<p:selectOneButton onchange="PF('datatableWV').filter()">
 							<f:converter converterId="javax.faces.Boolean" />
@@ -37,12 +37,12 @@
 							<f:selectItem itemLabel="No" itemValue="false" />
 						</p:selectOneButton>
 					</f:facet>
-					<h:outputText value="#{var.active}" />
+					<h:outputText value="#{user.active}" />
 				</p:column>
 
 				<p:column headerText="#{msg['user.lastConnection']}"
-					sortBy="#{var.lastConnection}" filterBy="#{var.lastConnection}">
-					<h:outputText value="#{var.lastConnection}" />
+					sortBy="#{user.lastConnection}" filterBy="#{user.lastConnection}">
+					<h:outputText value="#{user.lastConnection}" />
 				</p:column>
 
 			</p62:dataTable>
