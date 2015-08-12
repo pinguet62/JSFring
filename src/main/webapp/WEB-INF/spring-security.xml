@@ -7,17 +7,26 @@
 	<beans:import resource="classpath:/META-INF/spring/applicationContext.xml" />
 
 	<http auto-config="true" use-expressions="true">
+		<!-- Filter URL instead of roles -->
 		<intercept-url pattern="/test.xhtml" access="permitAll" />
 		<intercept-url pattern="/login.xhtml" access="permitAll" />
 		<intercept-url pattern="/profiles.xhtml" access="hasRole('PROFILE_RO')" />
 		<intercept-url pattern="/index.xhtml" access="permitAll" />
+
 		<form-login login-page="/login.xhtml" username-parameter="j_username"
 			password-parameter="j_password" login-processing-url="/j_spring_security_check"
 			authentication-failure-url="/login.xhtml?error" />
+
 		<csrf disabled="true" />
+
+		<!-- "_input" prefix because the PrimeFaces (JSF?) component add suffix 
+			to ID -->
+		<remember-me remember-me-parameter="remember-me_input"
+			token-repository-ref="tokenRepository" token-validity-seconds="5555" />
 	</http>
 
-	<authentication-manager>
-		<authentication-provider ref="customAuthenticationProvider" />
-	</authentication-manager>
+	<!-- Remember me -->
+	<beans:bean id="tokenRepository"
+		class="org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl" />
+
 </beans:beans>
