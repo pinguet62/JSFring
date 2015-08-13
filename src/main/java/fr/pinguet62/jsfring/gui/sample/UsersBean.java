@@ -45,11 +45,10 @@ public final class UsersBean extends AbstractCrudBean<User> {
     /**
      * {@inheritDoc}
      * <p>
-     * Call when the user click on "Submit" button into "Create" dialog.
+     * Initialize the associated {@link Profile}s.
      */
     @Override
     public void create() {
-        // Profile association
         getSelectedValue().getProfiles().clear();
         getSelectedValue().getProfiles()
                 .addAll(profilesAssociation.getTarget());
@@ -85,13 +84,9 @@ public final class UsersBean extends AbstractCrudBean<User> {
     }
 
     /**
-     * Call when the user click on "Show" or "Edit" button.
-     * <ul>
-     * <li>Set the selected {@link User};</li>
-     * <li>Initialize the {@link Profile} association.</li>
-     * </ul>
-     *
-     * @param user The selected {@link User}.
+     * {@inheritDoc}
+     * <p>
+     * Initialize the associated {@link Profile}s.
      */
     @Override
     public void setSelectedValue(User user) {
@@ -110,7 +105,7 @@ public final class UsersBean extends AbstractCrudBean<User> {
     /**
      * {@inheritDoc}
      * <p>
-     * Call when the user click on "Submit" button into "Edit" dialog.
+     * Initialize the associated {@link Profile}s.
      */
     @Override
     public void update() {

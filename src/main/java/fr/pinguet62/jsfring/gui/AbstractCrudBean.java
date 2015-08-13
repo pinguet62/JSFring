@@ -32,11 +32,12 @@ public abstract class AbstractCrudBean<T extends Serializable> extends
     private static final long serialVersionUID = 1;
 
     /**
-     * Create new value.
+     * Create new value.<br>
+     * Call when the user click on <i>Submit</i> button into <i>Create view</i>.
      * <p>
-     * The {@link #getSelectedValue() selected value} is the new value
-     * {@link #setSelectedValue(Object) set} by calling {@link #preCreate()}
-     * before showing the creation view.
+     * The initial {@link #getSelectedValue() selected value} is the
+     * {@link #getNewValue() new value} {@link #setSelectedValue(Object) set} by
+     * calling {@link #preCreate()} before showing the <i>create view</i>.
      * <p>
      * {@link #refresh() Refresh} list after creation.
      *
@@ -117,7 +118,8 @@ public abstract class AbstractCrudBean<T extends Serializable> extends
     }
 
     /**
-     * Update the selected value.
+     * Update the selected value.<br>
+     * Call when the user click on <i>Submit</i> button into <i>Update view</i>.
      * <p>
      * {@link #refresh() Refresh} list after update.
      *
