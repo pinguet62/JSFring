@@ -9,7 +9,7 @@ import javax.inject.Named;
 
 import org.primefaces.model.DualListModel;
 
-import com.mysema.query.jpa.impl.JPAQuery;
+import com.mysema.query.types.path.EntityPathBase;
 
 import fr.pinguet62.jsfring.gui.AbstractCrudBean;
 import fr.pinguet62.jsfring.model.Profile;
@@ -42,14 +42,15 @@ public final class ProfilesBean extends AbstractCrudBean<Profile> {
     @Inject
     private transient RightService rightService;
 
+    /** @return {@link QProfile#profile} */
     @Override
-    protected Profile getNewValue() {
-        return new Profile();
+    protected EntityPathBase<Profile> getBaseExpression() {
+        return QProfile.profile;
     }
 
     @Override
-    protected JPAQuery getQuery() {
-        return new JPAQuery().from(QProfile.profile);
+    protected Profile getNewValue() {
+        return new Profile();
     }
 
     /** @property.attribute {@link #rightsAssociation} */

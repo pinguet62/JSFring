@@ -9,7 +9,7 @@ import javax.inject.Named;
 
 import org.primefaces.model.DualListModel;
 
-import com.mysema.query.jpa.impl.JPAQuery;
+import com.mysema.query.types.path.EntityPathBase;
 
 import fr.pinguet62.jsfring.gui.AbstractCrudBean;
 import fr.pinguet62.jsfring.model.Profile;
@@ -57,6 +57,12 @@ public final class UsersBean extends AbstractCrudBean<User> {
         super.create();
     }
 
+    /** @return {@link QUser#user} */
+    @Override
+    protected EntityPathBase<User> getBaseExpression() {
+        return QUser.user;
+    }
+
     @Override
     protected User getNewValue() {
         return new User();
@@ -65,11 +71,6 @@ public final class UsersBean extends AbstractCrudBean<User> {
     /** @property.attribute {@link #profilesAssociation} */
     public DualListModel<Profile> getProfilesAssociation() {
         return profilesAssociation;
-    }
-
-    @Override
-    protected JPAQuery getQuery() {
-        return new JPAQuery().from(QUser.user);
     }
 
     @Override
@@ -116,7 +117,7 @@ public final class UsersBean extends AbstractCrudBean<User> {
         // Profile association
         getSelectedValue().getProfiles().clear();
         getSelectedValue().getProfiles()
-        .addAll(profilesAssociation.getTarget());
+                .addAll(profilesAssociation.getTarget());
 
         super.update();
     }
