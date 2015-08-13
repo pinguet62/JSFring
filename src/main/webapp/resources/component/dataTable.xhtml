@@ -57,7 +57,7 @@
 
 			<!-- Create -->
 			<c:if test="#{cc.attrs.createView != null}">
-				<p:commandButton actionListener="#{cc.attrs.bean.postCreate}"
+				<p:commandButton actionListener="#{cc.attrs.bean.preCreate}"
 					update=":#{p:component('createDialog')}"
 					oncomplete="PF('createDialogWidget').show();" icon="ui-icon-plus"
 					value="#{msg['dataTable.actions.create']}" style="float: right" />

@@ -35,12 +35,12 @@ public abstract class AbstractCrudBean<T extends Serializable> extends
      * Create new value.
      * <p>
      * The {@link #getSelectedValue() selected value} is the new value
-     * {@link #setSelectedValue(Object) set} by calling {@link #postCreate()}
+     * {@link #setSelectedValue(Object) set} by calling {@link #preCreate()}
      * before showing the creation view.
      * <p>
      * {@link #refresh() Refresh} list after creation.
      *
-     * @see #postCreate()
+     * @see #preCreate()
      * @see AbstractService#create(Object)
      */
     public void create() {
@@ -94,17 +94,6 @@ public abstract class AbstractCrudBean<T extends Serializable> extends
     abstract protected T getNewValue();
 
     /**
-     * Initialise the processus of creation by {@link #setSelectedValue(Object)
-     * setting new selected value}.
-     *
-     * @see #getNewValue()
-     * @see #setSelectedValue(Object)
-     */
-    public void postCreate() {
-        setSelectedValue(getNewValue());
-    }
-
-    /**
      * <b>Fix {@link LazyDataModel} count after deletion.</b><br>
      * For lazy loading, after deletion of only row of last page, the page is
      * empty because {@link DataTable} thinks the current page is the same. So
@@ -114,6 +103,17 @@ public abstract class AbstractCrudBean<T extends Serializable> extends
     protected void postDelete() {
         LazyDataModel<T> lazyDataModel = getLazyDataModel();
         lazyDataModel.setRowCount(lazyDataModel.getRowCount() - 1);
+    }
+
+    /**
+     * Initialize the process of creation by {@link #setSelectedValue(Object)
+     * setting} new value.
+     *
+     * @see #getNewValue()
+     * @see #setSelectedValue(Object)
+     */
+    public void preCreate() {
+        setSelectedValue(getNewValue());
     }
 
     /**
