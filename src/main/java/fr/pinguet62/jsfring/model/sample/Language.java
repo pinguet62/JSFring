@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.model;
+package fr.pinguet62.jsfring.model.sample;
 
 // Generated 16 août 2014 18:49:09 by Hibernate Tools 4.0.0
 
