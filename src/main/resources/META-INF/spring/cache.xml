@@ -4,13 +4,14 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
 
-	<!-- <cache:annotation-driven /> -->
+	<cache:annotation-driven />
 
 	<bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
 		<property name="caches">
 			<set>
-				<!-- Cache for fr.pinguet62.jsfring.service.AbstractService -->
-				<bean name="abstract"
+				<bean name="right"
+					class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" />
+				<bean name="profile"
 					class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" />
 			</set>
 		</property>
