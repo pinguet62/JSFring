@@ -12,18 +12,22 @@
 
 	<ui:define name="content">
 		<h:form>
-			<p62:pathFilter value="#{filtersManagedBean.stringFilter}"
-				title="String filter" />
+			<h:panelGrid columns="2">
+				<p:outputLabel value="String filter" />
+				<p62:pathFilter value="#{filtersBean.stringFilter}" />
+
+				<p:outputLabel value="Number filter" />
+				<p62:pathFilter value="#{filtersBean.numberFilter}">
+					<f:converter converterId="javax.faces.Integer" />
+					<f:validateRequired />
+					<f:validateDoubleRange minimum="5" maximum="8" />
+				</p62:pathFilter>
+			</h:panelGrid>
 			<br />
-			<p62:pathFilter value="#{filtersManagedBean.numberFilter}"
-				title="Number filter">
-				<f:converter converterId="javax.faces.Integer" />
-				<f:validateRequired />
-				<f:validateDoubleRange minimum="5" maximum="8" />
-			</p62:pathFilter>
-			<br />
-			<p:commandButton action="#{filtersManagedBean.submit}" update="@form"
+			<p:commandButton action="#{filtersBean.updateSQL}" update="@form"
 				value="#{msg['button.submit']}" />
+			<br />
+			<h:outputText escape="false" value="#{filtersBean.SQL}" />
 		</h:form>
 	</ui:define>
 
