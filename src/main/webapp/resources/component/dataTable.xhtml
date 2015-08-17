@@ -133,6 +133,7 @@
 		dynamic="true" modal="true" appendTo="@(body)"
 		header="#{msg['dataTable.actions.create']}" showEffect="fade"
 		hideEffect="fade" resizable="false">
+		<p:hotkey bind="esc" handler="PF('createDialogWidget').hide();" />
 		<h:form>
 			<f:subview id="createSubview">
 				<ui:include src="#{cc.attrs.createView}">
@@ -150,6 +151,7 @@
 		modal="true" appendTo="@(body)"
 		header="#{msg['dataTable.actions.show']}" showEffect="fade"
 		hideEffect="fade" resizable="false">
+		<p:hotkey bind="esc" handler="PF('showDialogWidget').hide();" />
 		<f:subview id="showSubview">
 			<ui:include src="#{cc.attrs.showView}">
 				<ui:param name="bean" value="#{cc.attrs.bean}" />
@@ -160,6 +162,7 @@
 		dynamic="true" modal="true" appendTo="@(body)"
 		header="#{msg['dataTable.actions.update']}" showEffect="fade"
 		hideEffect="fade" resizable="false">
+		<p:hotkey bind="esc" handler="PF('updateDialogWidget').hide();" />
 		<h:form>
 			<f:subview id="updateSubview">
 				<ui:include src="#{cc.attrs.updateView}">
@@ -173,7 +176,8 @@
 				value="#{msg['button.submit']}" />
 		</h:form>
 	</p:dialog>
-	<p:confirmDialog global="true">
+	<p:confirmDialog widgetVar="deleteConfigDialogWidget" global="true">
+		<p:hotkey bind="esc" handler="PF('deleteConfigDialogWidget').hide();" />
 		<p:commandButton icon="ui-icon-check" value="#{msg['true']}"
 			styleClass="ui-confirmdialog-yes" />
 		<p:commandButton icon="ui-icon-close" value="#{msg['false']}"
