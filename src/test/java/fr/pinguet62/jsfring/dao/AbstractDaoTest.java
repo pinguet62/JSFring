@@ -21,10 +21,10 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import fr.pinguet62.Config;
 import fr.pinguet62.jsfring.dao.AbstractDao;
-import fr.pinguet62.jsfring.dao.LanguageDao;
 import fr.pinguet62.jsfring.dao.ProfileDao;
-import fr.pinguet62.jsfring.model.Language;
+import fr.pinguet62.jsfring.dao.sample.LanguageDao;
 import fr.pinguet62.jsfring.model.Profile;
+import fr.pinguet62.jsfring.model.sample.Language;
 
 /** Tests for {@link AbstractDao}. */
 @RunWith(SpringJUnit4ClassRunner.class)

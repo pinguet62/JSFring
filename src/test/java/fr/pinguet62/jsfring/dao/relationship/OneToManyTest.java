@@ -19,10 +19,10 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import fr.pinguet62.Config;
-import fr.pinguet62.jsfring.dao.KeywordDao;
-import fr.pinguet62.jsfring.dao.LanguageDao;
-import fr.pinguet62.jsfring.model.Description;
-import fr.pinguet62.jsfring.model.Keyword;
+import fr.pinguet62.jsfring.dao.sample.KeywordDao;
+import fr.pinguet62.jsfring.dao.sample.LanguageDao;
+import fr.pinguet62.jsfring.model.sample.Description;
+import fr.pinguet62.jsfring.model.sample.Keyword;
 
 /**
  * Tests for "one to many" associations of database tables.
