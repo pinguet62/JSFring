@@ -17,15 +17,20 @@ import javax.persistence.Table;
 @Table(name = "\"RIGHT\"")
 public class Right implements java.io.Serializable {
 
-    /** Serial version UID. */
     private static final long serialVersionUID = 1;
 
+    @Id
+    @Column(name = "CODE", unique = true, nullable = false, length = 30)
     private String code;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "profiles_rights", joinColumns = { @JoinColumn(name = "\"RIGHT\"", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "profile", nullable = false, updatable = false) })
     private Set<Profile> profiles = new HashSet<Profile>(0);
+
+    @Column(name = "TITLE", nullable = false, length = 50)
     private String title;
 
-    public Right() {
-    }
+    public Right() {}
 
     public Right(String code, String title) {
         this.code = code;
@@ -39,43 +44,35 @@ public class Right implements java.io.Serializable {
     }
 
     /**
-     * Compare two {@link Right}s by their {@link #code}.
+     * Test equality of object by comparing their {@link #code}.
      *
-     * @return {@code true} if the two {@link #code} are equals (and not
-     *         {@code null}), {@code false} otherwise.
      * @see Object#equals(Object)
      */
     @Override
     public boolean equals(Object obj) {
         if (obj == null)
             return false;
-        if (!(obj instanceof Right))
+        if (!obj.getClass().equals(Right.class))
             return false;
         Right other = (Right) obj;
         return Objects.equals(code, other.code);
     }
 
-    @Id
-    @Column(name = "CODE", unique = true, nullable = false, length = 30)
     public String getCode() {
         return code;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "profiles_rights", joinColumns = { @JoinColumn(name = "\"RIGHT\"", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "profile", nullable = false, updatable = false) })
     public Set<Profile> getProfiles() {
         return profiles;
     }
 
-    @Column(name = "TITLE", nullable = false, length = 50)
     public String getTitle() {
         return title;
     }
 
     /**
-     * Get the {@code hashCode} of the {@link #code}.
+     * Get the {@link Object#hashCode() hash} of {@link #code}.
      *
-     * @return The {@link String#hashCode()} of the {@link #code}.
      * @see Object#hashCode()
      */
     @Override
