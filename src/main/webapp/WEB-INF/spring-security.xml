@@ -14,6 +14,9 @@
 		<form-login login-page="/login.xhtml" username-parameter="j_username"
 			password-parameter="j_password" login-processing-url="/j_spring_security_check"
 			authentication-failure-url="/login.xhtml?error" />
+
+		<!-- Tablib not supported by JSF -->
+		<!-- Native in JSF -->
 		<csrf disabled="true" />
 	</http>
 

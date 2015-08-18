@@ -5,12 +5,6 @@
 	    http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
 	<display-name>Archetype Created Web Application</display-name>
 
-	<!-- Spring Security: JSF integration -->
-	<context-param>
-		<param-name>javax.faces.FACELETS_LIBRARIES</param-name>
-		<param-value>/WEB-INF/springsecurity.taglib.xml</param-value>
-	</context-param>
-
 	<context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
 		<param-value>Development</param-value>
@@ -51,10 +45,12 @@
 	</listener>
 
 	<!-- Spring Security -->
+	<!-- Spring config -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring-security.xml</param-value>
 	</context-param>
+	<!-- Filter -->
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -64,6 +60,11 @@
 		<url-pattern>/*</url-pattern>
 		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
+	<!-- JSF integration -->
+	<context-param>
+		<param-name>javax.faces.FACELETS_LIBRARIES</param-name>
+		<param-value>/WEB-INF/spring-faces.taglib.xml</param-value>
+	</context-param>
 
 	<!-- JSFUnit -->
 	<!-- <filter> <filter-name>JSFUnitFilter</filter-name> <filter-class>org.jboss.jsfunit.framework.JSFUnitFilter</filter-class> 
