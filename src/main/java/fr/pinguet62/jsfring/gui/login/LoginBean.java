@@ -31,6 +31,8 @@ public final class LoginBean implements Serializable {
 
     private String password;
 
+    private boolean rememberMe;
+
     private String username;
 
     public String getError() {
@@ -57,6 +59,10 @@ public final class LoginBean implements Serializable {
                             "Username or password invalid.", null));
     }
 
+    public boolean isRememberMe() {
+        return rememberMe;
+    }
+
     /**
      * Redirect the request to the default Spring-Security
      * {@code login-processing-url}.<br>
@@ -78,6 +84,10 @@ public final class LoginBean implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setRememberMe(boolean rememberMe) {
+        this.rememberMe = rememberMe;
     }
 
     public void setUsername(String username) {

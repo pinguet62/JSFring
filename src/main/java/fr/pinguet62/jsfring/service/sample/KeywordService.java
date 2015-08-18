@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.service;
+package fr.pinguet62.jsfring.service.sample;
 
 
 /** The service for {@link Keyword}. */

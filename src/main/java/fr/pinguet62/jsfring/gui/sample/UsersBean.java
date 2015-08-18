@@ -9,7 +9,7 @@ import javax.inject.Named;
 
 import org.primefaces.model.DualListModel;
 
-import com.mysema.query.jpa.impl.JPAQuery;
+import com.mysema.query.types.path.EntityPathBase;
 
 import fr.pinguet62.jsfring.gui.AbstractCrudBean;
 import fr.pinguet62.jsfring.model.Profile;
@@ -45,16 +45,21 @@ public final class UsersBean extends AbstractCrudBean<User> {
     /**
      * {@inheritDoc}
      * <p>
-     * Call when the user click on "Submit" button into "Create" dialog.
+     * Initialize the associated {@link Profile}s.
      */
     @Override
     public void create() {
-        // Profile association
         getSelectedValue().getProfiles().clear();
         getSelectedValue().getProfiles()
                 .addAll(profilesAssociation.getTarget());
 
         super.create();
+    }
+
+    /** @return {@link QUser#user} */
+    @Override
+    protected EntityPathBase<User> getBaseExpression() {
+        return QUser.user;
     }
 
     @Override
@@ -65,11 +70,6 @@ public final class UsersBean extends AbstractCrudBean<User> {
     /** @property.attribute {@link #profilesAssociation} */
     public DualListModel<Profile> getProfilesAssociation() {
         return profilesAssociation;
-    }
-
-    @Override
-    protected JPAQuery getQuery() {
-        return new JPAQuery().from(QUser.user);
     }
 
     @Override
@@ -84,13 +84,9 @@ public final class UsersBean extends AbstractCrudBean<User> {
     }
 
     /**
-     * Call when the user click on "Show" or "Edit" button.
-     * <ul>
-     * <li>Set the selected {@link User};</li>
-     * <li>Initialize the {@link Profile} association.</li>
-     * </ul>
-     *
-     * @param user The selected {@link User}.
+     * {@inheritDoc}
+     * <p>
+     * Initialize the associated {@link Profile}s.
      */
     @Override
     public void setSelectedValue(User user) {
@@ -109,14 +105,14 @@ public final class UsersBean extends AbstractCrudBean<User> {
     /**
      * {@inheritDoc}
      * <p>
-     * Call when the user click on "Submit" button into "Edit" dialog.
+     * Initialize the associated {@link Profile}s.
      */
     @Override
     public void update() {
         // Profile association
         getSelectedValue().getProfiles().clear();
         getSelectedValue().getProfiles()
-        .addAll(profilesAssociation.getTarget());
+                .addAll(profilesAssociation.getTarget());
 
         super.update();
     }

@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.component.datatable.DataTable;
+import org.primefaces.model.LazyDataModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,15 +32,16 @@ public abstract class AbstractCrudBean<T extends Serializable> extends
     private static final long serialVersionUID = 1;
 
     /**
-     * Create new value.
+     * Create new value.<br>
+     * Call when the user click on <i>Submit</i> button into <i>Create view</i>.
      * <p>
-     * The {@link #getSelectedValue() selected value} is the new value
-     * {@link #setSelectedValue(Object) set} by calling {@link #postCreate()}
-     * before showing the creation view.
+     * The initial {@link #getSelectedValue() selected value} is the
+     * {@link #getNewValue() new value} {@link #setSelectedValue(Object) set} by
+     * calling {@link #preCreate()} before showing the <i>create view</i>.
      * <p>
      * {@link #refresh() Refresh} list after creation.
      *
-     * @see #postCreate()
+     * @see #preCreate()
      * @see AbstractService#create(Object)
      */
     public void create() {
@@ -73,6 +76,7 @@ public abstract class AbstractCrudBean<T extends Serializable> extends
                     null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO,
                             "Element deleted with success", null));
+            postDelete();
             refresh();
         } catch (RuntimeException e) {
             LOGGER.warn("Error during deletion", e);
@@ -91,19 +95,31 @@ public abstract class AbstractCrudBean<T extends Serializable> extends
     abstract protected T getNewValue();
 
     /**
-     * Initialise the processus of creation by {@link #setSelectedValue(Object)
-     * setting new selected value}.
+     * <b>Fix {@link LazyDataModel} count after deletion.</b><br>
+     * For lazy loading, after deletion of only row of last page, the page is
+     * empty because {@link DataTable} thinks the current page is the same. So
+     * the {@link #getRowCount() row count} is decremented to permit the return
+     * to the previous pageF.
+     */
+    protected void postDelete() {
+        LazyDataModel<T> lazyDataModel = getLazyDataModel();
+        lazyDataModel.setRowCount(lazyDataModel.getRowCount() - 1);
+    }
+
+    /**
+     * Initialize the process of creation by {@link #setSelectedValue(Object)
+     * setting} new value.
      *
      * @see #getNewValue()
      * @see #setSelectedValue(Object)
      */
-    public void postCreate() {
+    public void preCreate() {
         setSelectedValue(getNewValue());
-        refresh();
     }
 
     /**
-     * Update the selected value.
+     * Update the selected value.<br>
+     * Call when the user click on <i>Submit</i> button into <i>Update view</i>.
      * <p>
      * {@link #refresh() Refresh} list after update.
      *

@@ -20,11 +20,11 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import fr.pinguet62.Config;
-import fr.pinguet62.jsfring.model.Language;
 import fr.pinguet62.jsfring.model.Profile;
+import fr.pinguet62.jsfring.model.sample.Language;
 import fr.pinguet62.jsfring.service.AbstractService;
-import fr.pinguet62.jsfring.service.LanguageService;
 import fr.pinguet62.jsfring.service.ProfileService;
+import fr.pinguet62.jsfring.service.sample.LanguageService;
 
 /** Tests for {@link AbstractService}. */
 @RunWith(SpringJUnit4ClassRunner.class)

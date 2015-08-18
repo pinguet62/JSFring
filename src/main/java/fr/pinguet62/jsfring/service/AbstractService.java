@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.cache.Cache;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mysema.query.SearchResults;
@@ -26,9 +24,6 @@ import fr.pinguet62.jsfring.dao.AbstractDao;
  */
 public abstract class AbstractService<T extends Serializable, PK extends Serializable> {
 
-    /** Key of the {@link Cache}. */
-    private static final String CACHE = "abstract";
-
     /** The {@link AbstractDao}. */
     protected final AbstractDao<T, PK> dao;
 
@@ -48,7 +43,6 @@ public abstract class AbstractService<T extends Serializable, PK extends Seriali
      *
      * @return The number of objects.
      */
-    @Cacheable(CACHE)
     @Transactional(readOnly = true)
     public long count() {
         return dao.count();
@@ -60,7 +54,6 @@ public abstract class AbstractService<T extends Serializable, PK extends Seriali
      * @param object The object.
      * @return The created object.
      */
-    @CacheEvict(value = CACHE, allEntries = true)
     @Transactional
     public T create(T object) {
         return dao.create(object);
@@ -71,7 +64,6 @@ public abstract class AbstractService<T extends Serializable, PK extends Seriali
      *
      * @param object The object to delete.
      */
-    @CacheEvict(value = CACHE, allEntries = true)
     @Transactional
     public void delete(T object) {
         dao.delete(object);
@@ -82,7 +74,6 @@ public abstract class AbstractService<T extends Serializable, PK extends Seriali
      *
      * @return The objects found.
      */
-    @Cacheable(CACHE)
     @Transactional(readOnly = true)
     public List<T> find(JPAQuery query) {
         return dao.find(query);
@@ -93,7 +84,6 @@ public abstract class AbstractService<T extends Serializable, PK extends Seriali
      *
      * @return The {@link SearchResults} who contains paginated objects.
      */
-    @Cacheable(CACHE)
     @Transactional(readOnly = true)
     public SearchResults<T> findPanginated(JPAQuery query) {
         return dao.findPanginated(query);
@@ -105,7 +95,6 @@ public abstract class AbstractService<T extends Serializable, PK extends Seriali
      * @param id The id.
      * @return The object, {@code null} if not found.
      */
-    @Cacheable(CACHE)
     @Transactional(readOnly = true)
     public T get(PK id) {
         return dao.get(id);
@@ -116,7 +105,6 @@ public abstract class AbstractService<T extends Serializable, PK extends Seriali
      *
      * @return All objects.
      */
-    @Cacheable(CACHE)
     @Transactional(readOnly = true)
     public List<T> getAll() {
         return dao.getAll();
@@ -128,7 +116,6 @@ public abstract class AbstractService<T extends Serializable, PK extends Seriali
      * @param object The object to update.
      * @return The updated object.
      */
-    @CacheEvict(value = CACHE, allEntries = true)
     @Transactional
     public T update(T object) {
         return dao.update(object);

@@ -16,7 +16,7 @@
 	<h:form prependId="false">
 		<div style="text-align: center;">
 			<p:panel header="#{msg['login.title']}"
-				style="display: inline-block;">
+				style="display: inline-block; text-align: left;">
 				<h:outputText rendered="#{not empty loginBean.error}" />
 				<p:messages autoUpdate="true" />
 
@@ -26,6 +26,10 @@
 
 					<h:outputLabel for="j_password" value="#{msg['login.password']}" />
 					<p:inputText id="j_password" value="#{loginBean.password}" />
+
+					<p:outputLabel for="remember-me" value="#{msg['login.rememberMe']}" />
+					<p:selectBooleanCheckbox id="remember-me"
+						value="#{loginBean.rememberMe}" />
 				</h:panelGrid>
 
 				<f:facet name="footer">

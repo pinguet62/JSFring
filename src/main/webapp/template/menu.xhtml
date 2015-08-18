@@ -23,6 +23,17 @@
 				<p:menuitem url="/logs" icon="ui-icon-script"
 					value="#{msg['menubar.administration.logs']}" />
 			</p:submenu>
+			<p:submenu label="Test">
+				<p:submenu label="Filter">
+					<p:menuitem outcome="/test/filters.xhtml" value="Filter" />
+				</p:submenu>
+				<p:submenu label="DataTable">
+					<p:menuitem outcome="profiles" value="Normal" />
+					<p:menuitem outcome="users" value="Lazy" />
+					<p:menuitem outcome="/test/dataTable_multiple.xhtml"
+						value="Multiple" />
+				</p:submenu>
+			</p:submenu>
 
 			<f:facet name="options">
 				<p:menuButton value="TODO username">

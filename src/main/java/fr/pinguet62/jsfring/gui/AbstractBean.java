@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.mysema.query.jpa.impl.JPAQuery;
+import com.mysema.query.types.path.EntityPathBase;
 
 import fr.pinguet62.jsfring.service.AbstractService;
 
@@ -36,6 +37,13 @@ public abstract class AbstractBean<T extends Serializable> implements
 
     /** Used for <b>eager loading</b> to store result of last call in database. */
     private List<T> list;
+
+    /**
+     * Get the default {@link EntityPathBase} of managed objects.
+     *
+     * @return The {@link EntityPathBase}.
+     */
+    protected abstract EntityPathBase<T> getBaseExpression();
 
     /**
      * Used for lazy loading.<br>
@@ -78,7 +86,9 @@ public abstract class AbstractBean<T extends Serializable> implements
      * {@link AbstractLazyDataModel#load(int, int, String, org.primefaces.model.SortOrder, java.util.Map)
      * loading}.
      */
-    abstract protected JPAQuery getQuery();
+    protected JPAQuery getQuery() {
+        return new JPAQuery().from(getBaseExpression());
+    }
 
     /** Get the {@link AbstractService service} used to load data. */
     abstract public AbstractService<T, ?> getService();

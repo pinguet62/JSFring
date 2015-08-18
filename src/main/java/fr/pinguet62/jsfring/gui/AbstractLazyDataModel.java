@@ -11,10 +11,10 @@ import com.mysema.query.SearchResults;
 import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.types.OrderSpecifier;
 import com.mysema.query.types.expr.BooleanExpression;
+import com.mysema.query.types.path.EntityPathBase;
 
 import fr.pinguet62.jsfring.gui.util.querydsl.converter.FilterConverter;
 import fr.pinguet62.jsfring.gui.util.querydsl.converter.OrderConverter;
-import fr.pinguet62.jsfring.model.QUser;
 import fr.pinguet62.jsfring.service.AbstractService;
 
 /**
@@ -43,11 +43,10 @@ public class AbstractLazyDataModel<T extends Serializable> extends
     }
 
     /**
-     * Load a <b>paginated</b> list of elements.
+     * Load a paginated list of elements.
      * <p>
      * Get the current {@link AbstractBean#getQuery() query} and add paginated
-     * request to limit, filter & order results.
-     * <p>
+     * request to limit, filter & order results. <br>
      * <u>Exemple:</u> for <code>pageSize=5</code>, the 3rd page will have
      * <code>first=10</code>.
      *
@@ -62,6 +61,7 @@ public class AbstractLazyDataModel<T extends Serializable> extends
     @Override
     public List<T> load(int first, int pageSize, String sortField,
             SortOrder sortOrder, Map<String, Object> filters) {
+        EntityPathBase<T> from = bean.getBaseExpression();
         JPAQuery query = bean.getQuery();
 
         // Pagination
@@ -69,14 +69,13 @@ public class AbstractLazyDataModel<T extends Serializable> extends
         query.limit(pageSize);
         // Order
         if (sortField != null) {
-            OrderSpecifier<?> order = new OrderConverter(QUser.user).apply(
-                    sortField, sortOrder);
+            OrderSpecifier<?> order = new OrderConverter(from).apply(sortField,
+                    sortOrder);
             if (order != null)
                 query.orderBy(order);
         }
         // Filter
-        BooleanExpression condition = new FilterConverter(QUser.user)
-                .apply(filters);
+        BooleanExpression condition = new FilterConverter(from).apply(filters);
         if (condition != null)
             query.where(condition);
 

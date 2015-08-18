@@ -22,6 +22,8 @@ public abstract class AbstractSelectableBean<T extends Serializable> extends
 
     /**
      * Get the selected value.
+     * <p>
+     * Used to access to row to managed.
      *
      * @property.attribute {@link #selectedValue}
      */
@@ -31,6 +33,8 @@ public abstract class AbstractSelectableBean<T extends Serializable> extends
 
     /**
      * Set the selected value.
+     * <p>
+     * Call before each action on row to manage.
      *
      * @property.attribute {@link #selectedValue}
      */

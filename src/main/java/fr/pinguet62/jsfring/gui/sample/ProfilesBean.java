@@ -9,7 +9,7 @@ import javax.inject.Named;
 
 import org.primefaces.model.DualListModel;
 
-import com.mysema.query.jpa.impl.JPAQuery;
+import com.mysema.query.types.path.EntityPathBase;
 
 import fr.pinguet62.jsfring.gui.AbstractCrudBean;
 import fr.pinguet62.jsfring.model.Profile;
@@ -42,14 +42,28 @@ public final class ProfilesBean extends AbstractCrudBean<Profile> {
     @Inject
     private transient RightService rightService;
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Initialize the associated {@link Right}s.
+     */
     @Override
-    protected Profile getNewValue() {
-        return new Profile();
+    public void create() {
+        getSelectedValue().getRights().clear();
+        getSelectedValue().getRights().addAll(rightsAssociation.getTarget());
+
+        super.create();
+    }
+
+    /** @return {@link QProfile#profile} */
+    @Override
+    protected EntityPathBase<Profile> getBaseExpression() {
+        return QProfile.profile;
     }
 
     @Override
-    protected JPAQuery getQuery() {
-        return new JPAQuery().from(QProfile.profile);
+    protected Profile getNewValue() {
+        return new Profile();
     }
 
     /** @property.attribute {@link #rightsAssociation} */
@@ -68,19 +82,14 @@ public final class ProfilesBean extends AbstractCrudBean<Profile> {
     }
 
     /**
-     * Call when the user click on "Show" or "Edit" button.
-     * <ul>
-     * <li>Set the selected {@link Profile};</li>
-     * <li>Initialize the {@link Right} association.</li>
-     * </ul>
-     *
-     * @param profile The selected {@link Profile}.
+     * {@inheritDoc}
+     * <p>
+     * Initialize the associated {@link Right}s.
      */
     @Override
     public void setSelectedValue(Profile profile) {
         super.setSelectedValue(profile);
 
-        // Custom
         List<Right> associatedRights = new ArrayList<>(getSelectedValue()
                 .getRights());
         List<Right> availableRights = rightService.getAll().stream()
@@ -91,9 +100,9 @@ public final class ProfilesBean extends AbstractCrudBean<Profile> {
     }
 
     /**
-     * Call when the user click on "Submit" button into "Edit" dialog.
+     * {@inheritDoc}
      * <p>
-     * Save the modified {@link Profile}.
+     * Initialize the associated {@link Right}s.
      */
     @Override
     public void update() {
