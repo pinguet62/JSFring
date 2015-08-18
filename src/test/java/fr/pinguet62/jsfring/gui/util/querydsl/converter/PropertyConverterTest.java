@@ -7,8 +7,7 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import fr.pinguet62.jsfring.gui.util.querydsl.converter.PropertyConverter;
-import fr.pinguet62.jsfring.model.QDescription;
+import fr.pinguet62.jsfring.model.sample.QDescription;
 
 /** @see PropertyConverter */
 public final class PropertyConverterTest {
