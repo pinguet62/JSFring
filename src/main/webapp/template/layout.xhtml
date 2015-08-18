@@ -30,9 +30,11 @@
 	<p:growl autoUpdate="true" />
 
 	<p:layout fullPage="true">
-		<p:layoutUnit position="north" size="100">
+		<p:layoutUnit position="north" size="125">
+			<ui:include src="ajaxProgressBar.xhtml" />
 			<ui:include src="menu.xhtml" />
 		</p:layoutUnit>
+
 		<p:layoutUnit position="west" size="300"
 			style="overflow:hide !important">
 			<p:accordionPanel value="Top 5">
@@ -42,6 +44,7 @@
                 fr<br />en
             </p:accordionPanel>
 		</p:layoutUnit>
+
 		<p:layoutUnit position="center">
 			<ui:insert name="content" />
 		</p:layoutUnit>
