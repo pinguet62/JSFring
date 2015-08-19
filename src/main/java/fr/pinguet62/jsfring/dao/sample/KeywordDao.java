@@ -5,8 +5,8 @@ import javax.inject.Named;
 import com.mysema.query.types.Expression;
 
 import fr.pinguet62.jsfring.dao.AbstractDao;
-import fr.pinguet62.jsfring.model.QKeyword;
 import fr.pinguet62.jsfring.model.sample.Keyword;
+import fr.pinguet62.jsfring.model.sample.QKeyword;
 
 /** The DAO for {@link Keyword}. */
 @Named

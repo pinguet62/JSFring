@@ -17,6 +17,8 @@
 			password-parameter="j_password" login-processing-url="/j_spring_security_check"
 			authentication-failure-url="/login.xhtml?error" />
 
+		<!-- Tablib not supported by JSF -->
+		<!-- Native in JSF -->
 		<csrf disabled="true" />
 
 		<!-- "_input" prefix because the PrimeFaces (JSF?) component add suffix 
