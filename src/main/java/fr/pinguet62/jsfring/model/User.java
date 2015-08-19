@@ -28,8 +28,8 @@ public class User implements Serializable {
      * <b>Password constraints:</b><br>
      * 6 characters, with at least: 1 letter & 1 special-character.
      */
-    public static final String PASSWORD_REGEX = "(?=.{8})" + "(?=.*[0-9].*)"
-            + "(?=.*[^a-zA-Z0-9].*)";
+    public static final String PASSWORD_REGEX = ".*" + "(?=.{6,})"
+            + "(?=.*[0-9].*)" + "(?=.*[^a-zA-Z0-9].*)" + ".*";
 
     private static final long serialVersionUID = 1;
 

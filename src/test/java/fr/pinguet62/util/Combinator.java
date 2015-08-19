@@ -1,11 +1,12 @@
 package fr.pinguet62.util;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
 
 /**
- * Generate all combinations of a {@link List} of objetcs.
+ * Generate all combinations of a {@link List} of objects.
  *
  * @param <T> The object type.
  */
@@ -31,12 +32,17 @@ public final class Combinator<T> implements Supplier<List<List<T>>> {
             return;
         }
 
-        List<T> newRest = rest.subList(1, size);
         for (int i = 0; i < size; i++) {
             List<T> newFil = new ArrayList<>(fil);
-            T elem = rest.get(i);
+
+            // Put the next element in the 1st position
+            Collections.swap(rest, 0, i);
+            // Move next element to "fil"
+            T elem = rest.get(0);
+            List<T> newRest = rest.subList(1, size);
             newFil.add(elem);
 
+            // Continue iteration of tree
             combine(newFil, newRest);
         }
     }
