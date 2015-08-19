@@ -24,6 +24,13 @@ import org.hibernate.validator.constraints.Length;
 @Table(name = "\"USER\"")
 public class User implements Serializable {
 
+    /**
+     * <b>Password constraints:</b><br>
+     * 6 characters, with at least: 1 letter & 1 special-character.
+     */
+    public static final String PASSWORD_REGEX = "(?=.{8})" + "(?=.*[0-9].*)"
+            + "(?=.*[^a-zA-Z0-9].*)";
+
     private static final long serialVersionUID = 1;
 
     @Column(name = "ACTIVE", nullable = false)
@@ -46,6 +53,9 @@ public class User implements Serializable {
     @Column(name = "LOGIN", unique = true, nullable = false, length = 30)
     private String login;
 
+    // Validation
+    @Pattern(regexp = PASSWORD_REGEX)
+    // JPA
     @Column(name = "PASSWORD", nullable = false, length = 30)
     private String password;
 
