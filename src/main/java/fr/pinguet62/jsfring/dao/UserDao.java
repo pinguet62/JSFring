@@ -49,7 +49,8 @@ public final class UserDao extends AbstractDao<User, String> {
     }
 
     /**
-     * Reset the {@link User#lastConnection} date with the current date.
+     * Reset the {@link User#lastConnection lastConnection} date to the current
+     * date.
      *
      * @param user The {@link User}.
      */
@@ -57,6 +58,18 @@ public final class UserDao extends AbstractDao<User, String> {
         QUser u = QUser.user;
         new JPAUpdateClause(em, u).where(u.login.eq(user.getLogin())).set(
                 u.lastConnection, new Date());
+    }
+
+    /**
+     * Update the {@link User#password password}.
+     *
+     * @param user The {@link User}.
+     * @param user The new {@link User#password user's password}.
+     */
+    public void updatePassword(User user, String password) {
+        QUser u = QUser.user;
+        new JPAUpdateClause(em, u).where(u.login.eq(user.getLogin())).set(
+                u.password, password);
     }
 
 }
