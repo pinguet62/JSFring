@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mysema.query.jpa.impl.JPAQuery;
@@ -21,7 +21,7 @@ import fr.pinguet62.jsfring.model.QUser;
 import fr.pinguet62.jsfring.model.User;
 
 /** The service for {@link User}. */
-@Named
+@Service
 public class UserService extends AbstractService<User, String> {
 
     private static final Logger LOGGER = LoggerFactory
@@ -123,6 +123,18 @@ public class UserService extends AbstractService<User, String> {
         dao.resetLastConnectionDate(user);
 
         return user;
+    }
+
+    /**
+     * Update the {@link User#password user's password}.
+     *
+     * @param login The {@link User#login user's login}.
+     * @param user The new {@link User#password user's password}.
+     */
+    @Transactional
+    public void updatePassword(String login, String password) {
+        User user = dao.get(login);
+        dao.updatePassword(user, password);
     }
 
 }
