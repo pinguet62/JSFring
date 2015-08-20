@@ -16,11 +16,12 @@
 	<h:form prependId="false">
 		<div style="text-align: center;">
 			<p:panel header="#{msg['login.title']}"
-				style="display: inline-block; text-align: left;">
+				style="display: inline-block;">
 				<h:outputText rendered="#{not empty loginBean.error}" />
 				<p:messages autoUpdate="true" />
 
-				<h:panelGrid cellpadding="5" columns="2">
+				<h:panelGrid cellpadding="5" columns="2"
+					style="margin:0 auto; text-align: left;">
 					<h:outputLabel for="username" value="#{msg['login.username']}" />
 					<p:inputText id="username" value="#{loginBean.username}" />
 
