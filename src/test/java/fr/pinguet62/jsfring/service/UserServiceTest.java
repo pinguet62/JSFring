@@ -1,6 +1,9 @@
 package fr.pinguet62.jsfring.service;
 
+import static fr.pinguet62.jsfring.model.User.PASSWORD_REGEX;
 import static org.junit.Assert.assertNotEquals;
+
+import java.util.stream.Stream;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +18,6 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import fr.pinguet62.Config;
 import fr.pinguet62.jsfring.model.User;
-import fr.pinguet62.jsfring.service.UserService;
 
 /** @see UserService */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -56,6 +58,19 @@ public class UserServiceTest {
     @Test(expected = IllegalArgumentException.class)
     public void test_forgottenPassword_unknown() {
         service.forgottenPassword("toto");
+    }
+
+    /**
+     * The generated {@link User#password password} must match to
+     * {@link User#PASSWORD_REGEX password regex}.
+     * 
+     * @see UserService#randomPassword()
+     * @see User#PASSWORD_REGEX
+     */
+    @Test
+    public void test_randomPassword() {
+        Stream.generate(UserService::randomPassword).limit(100)
+                .allMatch(pwd -> !pwd.matches(PASSWORD_REGEX));
     }
 
 }
