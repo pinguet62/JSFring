@@ -1,8 +1,9 @@
 package fr.pinguet62.jsfring.service;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -29,11 +30,16 @@ public class UserService extends AbstractService<User, String> {
 
     /**
      * Generate random {@link User#password}.
+     * <p>
+     * The password will match {@link User#PASSWORD_REGEX}.
      *
-     * @return A {@link User#password}.
+     * @return A new {@link User#password}.
      */
-    private static String randomPassword() {
-        return UUID.randomUUID().toString().substring(0, 15);
+    static String randomPassword() {
+        List<Character> chars = null;
+        Collections.shuffle(chars);
+        return chars.stream().map(String::valueOf)
+                .collect(Collectors.joining(""));
     }
 
     private final UserDao dao;

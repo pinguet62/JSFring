@@ -16,16 +16,17 @@
 	<h:form prependId="false">
 		<div style="text-align: center;">
 			<p:panel header="#{msg['login.title']}"
-				style="display: inline-block; text-align: left;">
+				style="display: inline-block;">
 				<h:outputText rendered="#{not empty loginBean.error}" />
 				<p:messages autoUpdate="true" />
 
-				<h:panelGrid cellpadding="5" columns="2">
-					<h:outputLabel for="j_username" value="#{msg['login.username']}" />
-					<p:inputText id="j_username" value="#{loginBean.username}" />
+				<h:panelGrid cellpadding="5" columns="2"
+					style="margin:0 auto; text-align: left;">
+					<h:outputLabel for="username" value="#{msg['login.username']}" />
+					<p:inputText id="username" value="#{loginBean.username}" />
 
-					<h:outputLabel for="j_password" value="#{msg['login.password']}" />
-					<p:inputText id="j_password" value="#{loginBean.password}" />
+					<h:outputLabel for="password" value="#{msg['login.password']}" />
+					<p:password id="password" value="#{loginBean.password}" />
 
 					<p:outputLabel for="remember-me" value="#{msg['login.rememberMe']}" />
 					<p:selectBooleanCheckbox id="remember-me"
