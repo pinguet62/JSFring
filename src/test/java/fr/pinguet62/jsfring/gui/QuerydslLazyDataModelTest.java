@@ -7,11 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.primefaces.model.SortOrder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -33,18 +34,18 @@ import fr.pinguet62.jsfring.service.ProfileService;
 @ContextConfiguration(locations = Config.SPRING)
 @DatabaseSetup(Config.DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-    TransactionalTestExecutionListener.class,
-    DbUnitTestExecutionListener.class })
+        TransactionalTestExecutionListener.class,
+        DbUnitTestExecutionListener.class })
 @Transactional
 public class QuerydslLazyDataModelTest {
 
     /** The number of objects for tests. */
     private static final int NB = 12;
 
-    @Autowired
+    @Inject
     private ProfileDao profileDao;
 
-    @Autowired
+    @Inject
     private ProfileService profileService;
 
     /**
@@ -71,7 +72,7 @@ public class QuerydslLazyDataModelTest {
     private List<Profile> getLoadResult(int first, int pageSize) {
         return new QuerydslLazyDataModel<Profile>(profileService,
                 QProfile.profile).load(first, pageSize, null, null,
-                        new HashMap<String, Object>());
+                new HashMap<String, Object>());
     }
 
     /**

@@ -7,10 +7,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.inject.Inject;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.primefaces.model.SortOrder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -25,7 +26,6 @@ import com.mysema.query.types.OrderSpecifier;
 
 import fr.pinguet62.Config;
 import fr.pinguet62.jsfring.dao.RightDao;
-import fr.pinguet62.jsfring.gui.util.querydsl.converter.OrderConverter;
 import fr.pinguet62.jsfring.model.QRight;
 import fr.pinguet62.jsfring.model.Right;
 
@@ -34,13 +34,13 @@ import fr.pinguet62.jsfring.model.Right;
 @ContextConfiguration(locations = Config.SPRING)
 @DatabaseSetup(Config.DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        TransactionalTestExecutionListener.class,
-        DbUnitTestExecutionListener.class })
+    TransactionalTestExecutionListener.class,
+    DbUnitTestExecutionListener.class })
 @Transactional
 public class OrderConverterTest {
 
-    @Autowired
-    RightDao rightDao;
+    @Inject
+    private RightDao rightDao;
 
     /** @see OrderConverter#apply(String, org.primefaces.model.SortOrder) */
     @Test
@@ -62,7 +62,7 @@ public class OrderConverterTest {
         assertEquals(
                 codes,
                 rightDao.find(queryDesc).stream().map(Right::getCode)
-                        .collect(Collectors.toList()));
+                .collect(Collectors.toList()));
     }
 
     /**

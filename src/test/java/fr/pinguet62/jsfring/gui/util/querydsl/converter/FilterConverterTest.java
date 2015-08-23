@@ -7,9 +7,10 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -26,7 +27,6 @@ import fr.pinguet62.Config;
 import fr.pinguet62.jsfring.dao.ProfileDao;
 import fr.pinguet62.jsfring.dao.RightDao;
 import fr.pinguet62.jsfring.dao.UserDao;
-import fr.pinguet62.jsfring.gui.util.querydsl.converter.FilterConverter;
 import fr.pinguet62.jsfring.model.Profile;
 import fr.pinguet62.jsfring.model.QProfile;
 import fr.pinguet62.jsfring.model.QRight;
@@ -38,18 +38,18 @@ import fr.pinguet62.jsfring.model.User;
 @ContextConfiguration(locations = Config.SPRING)
 @DatabaseSetup(Config.DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        TransactionalTestExecutionListener.class,
-        DbUnitTestExecutionListener.class })
+    TransactionalTestExecutionListener.class,
+    DbUnitTestExecutionListener.class })
 @Transactional
 public class FilterConverterTest {
 
-    @Autowired
+    @Inject
     private ProfileDao profileDao;
 
-    @Autowired
+    @Inject
     private RightDao rightDao;
 
-    @Autowired
+    @Inject
     private UserDao userDao;
 
     /** @see FilterConverter#apply(java.util.Map) */
@@ -95,13 +95,13 @@ public class FilterConverterTest {
                 QRight.right.code, "RIGHT_");
         assertEquals(1,
                 rightDao.find(new JPAQuery().from(QRight.right).where(begin))
-                        .size());
+                .size());
 
         BooleanExpression end = FilterConverter.applyCriteria(
                 QRight.right.code, "_RO");
         assertEquals(3,
                 rightDao.find(new JPAQuery().from(QRight.right).where(end))
-                        .size());
+                .size());
     }
 
     /**
