@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?PowerDesigner AppLocale="UTF16" ID="{E3C5D111-34CA-4D4C-803D-4CC4FD59841D}" Label="" LastModificationDate="1438895052" Name="JSFring" Objects="104" Symbols="17" Target="PostgreSQL 8" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" signature="PDM_DATA_MODEL_XML" version="15.1.0.2850"?>
+<?PowerDesigner AppLocale="UTF16" ID="{E3C5D111-34CA-4D4C-803D-4CC4FD59841D}" Label="" LastModificationDate="1440101440" Name="JSFring" Objects="104" Symbols="17" Target="PostgreSQL 8" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" signature="PDM_DATA_MODEL_XML" version="15.1.0.2850"?>
 <!-- Veuillez ne pas modifier ce fichier -->
 
 <Model xmlns:a="attribute" xmlns:c="collection" xmlns:o="object">
@@ -3108,8 +3108,8 @@ DESTINATION 0 Arial,8,N</a:FontList>
 </o:ReferenceSymbol>
 <o:ReferenceSymbol Id="o10">
 <a:ModificationDate>1438895052</a:ModificationDate>
-<a:Rect>((-21562,-5998), (-5439,9299))</a:Rect>
-<a:ListOfPoints>((-5439,-5998),(-5439,9299),(-21562,9299))</a:ListOfPoints>
+<a:Rect>((-21562,-5998), (-5436,9299))</a:Rect>
+<a:ListOfPoints>((-5436,-5998),(-5439,9299),(-21562,9299))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>1</a:ArrowStyle>
 <a:LineColor>16744576</a:LineColor>
@@ -3304,7 +3304,7 @@ LABL 0 Arial,8,N</a:FontList>
 <o:TableSymbol Id="o7">
 <a:ModificationDate>1438895052</a:ModificationDate>
 <a:IconMode>-1</a:IconMode>
-<a:Rect>((-11588,-9369), (410,-2927))</a:Rect>
+<a:Rect>((-11703,-9369), (525,-2927))</a:Rect>
 <a:LineColor>11184640</a:LineColor>
 <a:FillColor>16777136</a:FillColor>
 <a:ShadowColor>12632256</a:ShadowColor>
@@ -3669,14 +3669,16 @@ DAT 1434652866</a:History>
 </o:Column>
 <o:Column Id="o50">
 <a:ObjectID>527798E5-947A-44E7-8C30-26C49FE55155</a:ObjectID>
-<a:Name>Key_Id</a:Name>
-<a:Code>KEY_ID</a:Code>
+<a:Name>Keyword</a:Name>
+<a:Code>KEYWORD</a:Code>
 <a:CreationDate>1434652865</a:CreationDate>
 <a:Creator>Pinguet62</a:Creator>
-<a:ModificationDate>1434652865</a:ModificationDate>
+<a:ModificationDate>1440101440</a:ModificationDate>
 <a:Modifier>Pinguet62</a:Modifier>
 <a:History>ORG {848668DC-B448-42FE-92E2-38F450C02EB7},{BA88888D-DB65-46AA-9094-1E6DBA157AA7}
-DAT 1434652866</a:History>
+DAT 1434652866
+ATT NAME
+ATT CODE</a:History>
 <a:CannotModify>1</a:CannotModify>
 <a:DataType>INT4</a:DataType>
 <a:Length>4</a:Length>

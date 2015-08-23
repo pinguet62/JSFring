@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* Nom de SGBD :  PostgreSQL 8                                  */
-/* Date de création :  06/08/2015 23:04:44                      */
+/* Date de création :  20/08/2015 22:10:47                      */
 /*==============================================================*/
 
 
@@ -61,7 +61,7 @@ drop table USERS_PROFILES;
 /*==============================================================*/
 create table DESCRIPTION (
    ID                   INT4                 not null,
-   KEY_ID               INT4                 null,
+   KEYWORD              INT4                 null,
    CODE                 CHAR(2)              not null,
    TITLE                VARCHAR(50)          not null,
    CONTENT              VARCHAR(999)         not null,
@@ -86,7 +86,7 @@ CODE
 /* Index : KEYWORD_HAS_DESCRIPTIONS_FK                          */
 /*==============================================================*/
 create  index KEYWORD_HAS_DESCRIPTIONS_FK on DESCRIPTION (
-KEY_ID
+KEYWORD
 );
 
 /*==============================================================*/
@@ -319,7 +319,7 @@ alter table DESCRIPTION
       on delete restrict on update restrict;
 
 alter table DESCRIPTION
-   add constraint FK_DESCRIPT_KEYWORD_H_KEYWORD foreign key (KEY_ID)
+   add constraint FK_DESCRIPT_KEYWORD_H_KEYWORD foreign key (KEYWORD)
       references KEYWORD (ID)
       on delete restrict on update restrict;
 
