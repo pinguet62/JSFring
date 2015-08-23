@@ -8,13 +8,15 @@
 
 	<!-- Reserved keyword (as "Right") -->
 	<bean id="dbUnitDatabaseConfig" class="com.github.springtestdbunit.bean.DatabaseConfigBean">
-		<property name="escapePattern" value="`?`" />
+		<property name="caseSensitiveTableNames" value="true" />
+		<property name="escapePattern" value='"?"' />
 	</bean>
 
 	<!-- Connection -->
 	<bean id="dbUnitDatabaseConnection"
 		class="com.github.springtestdbunit.bean.DatabaseDataSourceConnectionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
+		<property name="schema" value="public" />
 		<property name="databaseConfig" ref="dbUnitDatabaseConfig" />
 	</bean>
 

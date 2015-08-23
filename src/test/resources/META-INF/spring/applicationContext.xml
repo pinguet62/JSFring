@@ -6,4 +6,7 @@
 	<import resource="file:*/main/resources/META-INF/spring/applicationContext.xml" />
 	<import resource="dbunit.xml" />
 
+	<!-- Cache: disable -->
+	<bean id="cacheManager" class="org.springframework.cache.support.NoOpCacheManager" />
+
 </beans>
