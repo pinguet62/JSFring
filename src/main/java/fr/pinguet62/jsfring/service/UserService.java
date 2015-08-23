@@ -1,9 +1,13 @@
 package fr.pinguet62.jsfring.service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javax.inject.Inject;
 
@@ -15,15 +19,44 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mysema.query.jpa.impl.JPAQuery;
-
 import fr.pinguet62.jsfring.dao.UserDao;
-import fr.pinguet62.jsfring.model.QUser;
 import fr.pinguet62.jsfring.model.User;
 
 /** The service for {@link User}. */
 @Service
 public class UserService extends AbstractService<User, String> {
+
+    public static class PasswordGenerator implements Supplier<String> {
+
+        @Override
+        public String get() {
+            List<String> characters = IntStream.rangeClosed('a', 'z')
+                    .mapToObj(c -> String.valueOf((char) c))
+                    .collect(Collectors.toList());
+            characters.addAll(IntStream.rangeClosed('A', 'Z')
+                    .mapToObj(c -> String.valueOf((char) c))
+                    .collect(Collectors.toList()));
+            List<String> letters = IntStream.rangeClosed('0', '9')
+                    .mapToObj(c -> String.valueOf((char) c))
+                    .collect(Collectors.toList());
+            List<String> specials = Arrays.asList("!", "#", "$", "%", "&", "*",
+                    "+", "-", "<", "=", ">", "?", "@", "_");
+
+            Collections.shuffle(characters);
+            Collections.shuffle(letters);
+            Collections.shuffle(specials);
+
+            List<String> choosen = new ArrayList<>();
+            choosen.addAll(characters.subList(0, 8));
+            choosen.add(letters.get(0));
+            choosen.add(specials.get(0));
+
+            Collections.shuffle(choosen);
+
+            return String.join("", choosen);
+        }
+
+    }
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(UserService.class);
@@ -36,10 +69,7 @@ public class UserService extends AbstractService<User, String> {
      * @return A new {@link User#password}.
      */
     static String randomPassword() {
-        List<Character> chars = null;
-        Collections.shuffle(chars);
-        return chars.stream().map(String::valueOf)
-                .collect(Collectors.joining(""));
+        return new PasswordGenerator().get();
     }
 
     private final UserDao dao;
@@ -108,19 +138,26 @@ public class UserService extends AbstractService<User, String> {
         message.setText(String.format(forgottenPasswordMessage.getText(),
                 user.getLogin(), user.getPassword()));
         mailSender.send(message);
-        LOGGER.info("New password sent to " + user.getLogin() + "'s email");
+        LOGGER.info("New password sent to " + user.getLogin() + " user's email");
     }
 
+    /**
+     * Login method.
+     * <p>
+     * Reset the {@link User#lastConnection last connection date} if success.
+     *
+     * @param login The {@link User#login user's login}.
+     * @param password The {@link User#password user's password}.
+     * @return The {@link User}.<br>
+     *         {@code null} if unknown {@link User#login} or invalid
+     *         {@link User#password}
+     */
     @Transactional
-    public User login(String username, String password) {
-        // Find by login
-        List<User> users = findPanginated(
-                new JPAQuery().from(QUser.user).where(
-                        QUser.user.login.eq(username))).getResults();
-        if (users.isEmpty())
+    public User login(String login, String password) {
+        User user = dao.get(login);
+        // Check login
+        if (user == null)
             return null;
-        User user = users.get(0);
-
         // Check password
         if (!user.getPassword().equals(password))
             return null;
@@ -135,11 +172,16 @@ public class UserService extends AbstractService<User, String> {
      * Update the {@link User#password user's password}.
      *
      * @param login The {@link User#login user's login}.
-     * @param user The new {@link User#password user's password}.
+     * @param password The new {@link User#password user's password}.
+     * @throws IllegalArgumentException User not found.
+     * @todo Password validation fail.
      */
     @Transactional
     public void updatePassword(String login, String password) {
         User user = dao.get(login);
+        if (user == null)
+            throw new IllegalArgumentException("User not found");
+
         dao.updatePassword(user, password);
     }
 

@@ -3,7 +3,7 @@ package fr.pinguet62.jsfring.dao;
 import java.util.Calendar;
 import java.util.Date;
 
-import javax.inject.Named;
+import org.springframework.stereotype.Repository;
 
 import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.jpa.impl.JPAUpdateClause;
@@ -13,15 +13,20 @@ import fr.pinguet62.jsfring.model.QUser;
 import fr.pinguet62.jsfring.model.User;
 
 /** The DAO for {@link User}. */
-@Named
+@Repository
 public final class UserDao extends AbstractDao<User, String> {
 
     /**
      * Disable all users who have not connected since {@code numberOfDays} days.
      *
      * @param numberOfDays Number of days.
+     * @throws IllegalArgumentException Zero or negative number of days.
      */
     public void disableInactiveUsers(int numberOfDays) {
+        if (numberOfDays <= 0)
+            throw new IllegalArgumentException(
+                    "The number of days must be a positive value.");
+
         Calendar c = Calendar.getInstance();
         c.add(Calendar.DAY_OF_YEAR, numberOfDays);
         Date lastAccepted = c.getTime();
@@ -49,15 +54,14 @@ public final class UserDao extends AbstractDao<User, String> {
     }
 
     /**
-     * Reset the {@link User#lastConnection lastConnection} date to the current
+     * Reset the {@link User#lastConnection last connection date} to the current
      * date.
      *
      * @param user The {@link User}.
      */
     public void resetLastConnectionDate(User user) {
         QUser u = QUser.user;
-        new JPAUpdateClause(em, u).where(u.login.eq(user.getLogin())).set(
-                u.lastConnection, new Date());
+        new JPAUpdateClause(em, u).set(u.lastConnection, new Date()).execute();
     }
 
     /**
@@ -68,8 +72,8 @@ public final class UserDao extends AbstractDao<User, String> {
      */
     public void updatePassword(User user, String password) {
         QUser u = QUser.user;
-        new JPAUpdateClause(em, u).where(u.login.eq(user.getLogin())).set(
-                u.password, password);
+        new JPAUpdateClause(em, u).where(u.login.eq(user.getLogin()))
+                .set(u.password, password).execute();
     }
 
 }

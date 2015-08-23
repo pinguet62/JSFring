@@ -5,11 +5,14 @@ import static org.junit.Assert.fail;
 
 import java.util.UUID;
 
+import javax.inject.Inject;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -22,6 +25,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import fr.pinguet62.Config;
 import fr.pinguet62.jsfring.dao.RightDao;
+import fr.pinguet62.jsfring.model.Profile;
 import fr.pinguet62.jsfring.model.Right;
 import fr.pinguet62.jsfring.service.BadService.RollbackMeIMFamousException;
 
@@ -31,7 +35,7 @@ class BadService {
         private static final long serialVersionUID = 1;
     }
 
-    @Autowired
+    @Inject
     RightDao rightDao;
 
     private Right randomRight() {
@@ -66,19 +70,21 @@ class BadService {
 @ContextConfiguration(locations = Config.SPRING)
 @DatabaseSetup(Config.DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        DbUnitTestExecutionListener.class })
+    DbUnitTestExecutionListener.class })
 public class ServiceControlsTest {
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ServiceControlsTest.class);
 
-    @Autowired
+    @Inject
     BadService badService;
 
-    @Autowired
+    private @Inject ProfileService profileService;
+
+    @Inject
     RightDao rightDao;
 
-    @Autowired
+    @Inject
     private ThreadTestService threadTestService;
 
     @Test
@@ -112,6 +118,16 @@ public class ServiceControlsTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * @see ManyToMany#fetch()
+     * @see FetchType#LAZY
+     */
+    @Test
+    public void test_manyToMany_lazy() {
+        Profile profile = profileService.get(1);
+        assertEquals(3, profile.getRights().size());
     }
 
     /**
@@ -153,22 +169,19 @@ class ThreadTestService {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ThreadTestService.class);
 
-    @Autowired
+    @Inject
     private RightService rightService;
 
     /**
      * First method called for the test.
-     *
      * <ul>
      * <li>Start;</li>
      * <li>Wait the authorization of {@link #method2()} to continue;</li>
      * <li>Call stop method to wait exit.</li>
      * </ul>
      *
-     * @param runSecondThread
-     *            Run the second {@link Thread}.
-     * @param waitEndSecondThread
-     *            Wait the end of the second {@link Thread}.
+     * @param runSecondThread Run the second {@link Thread}.
+     * @param waitEndSecondThread Wait the end of the second {@link Thread}.
      */
     @Transactional(readOnly = true)
     public void method1(Runnable runSecondThread, Runnable waitEndSecondThread) {

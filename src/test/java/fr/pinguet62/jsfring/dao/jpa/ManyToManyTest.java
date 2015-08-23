@@ -1,13 +1,15 @@
-package fr.pinguet62.jsfring.dao.relationship;
+package fr.pinguet62.jsfring.dao.jpa;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+
+import javax.inject.Inject;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -23,11 +25,7 @@ import fr.pinguet62.jsfring.dao.ProfileDao;
 import fr.pinguet62.jsfring.dao.RightDao;
 import fr.pinguet62.jsfring.model.Profile;
 
-/**
- * Tests for "many to many" associations of database tables.
- *
- * @see ManyToMany
- */
+/** @see ManyToMany */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = Config.SPRING)
 @DatabaseSetup(Config.DATASET)
@@ -37,32 +35,44 @@ import fr.pinguet62.jsfring.model.Profile;
 @Transactional
 public class ManyToManyTest {
 
-    @Autowired
+    @Inject
     private ProfileDao profileDao;
 
-    @Autowired
+    @Inject
     private RightDao rightDao;
 
-    /** @see ManyToMany */
+    /**
+     * When new element is {@link List#add(Object) added} to relationship, the
+     * {@link List} of objects must be updated.
+     */
     @Test
     public void test_add() {
-        Profile profile = profileDao.get(1);
+        final int id = 1;
+
+        Profile profile = profileDao.get(id);
         long initialCount = profile.getRights().size();
+
         // add
         profile.getRights().add(rightDao.get("USER_RO"));
         assertEquals(initialCount + 1, profile.getRights().size());
         profileDao.update(profile);
+
         // test
-        assertEquals(initialCount + 1, profileDao.get(1).getRights().size());
+        long newCount = profileDao.get(id).getRights().size();
+        assertEquals(initialCount + 1, newCount);
     }
 
     /**
+     * The access to relationship must fetch the {@link List} of associated
+     * objects.
+     *
      * @see ManyToMany#fetch()
      * @see FetchType#LAZY
      */
     @Test
     public void test_lazyLoad() {
         Profile profile = profileDao.get(1);
+
         assertEquals(3, profile.getRights().size());
     }
 

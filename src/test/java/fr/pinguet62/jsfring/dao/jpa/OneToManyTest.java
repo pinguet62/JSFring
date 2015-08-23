@@ -1,13 +1,16 @@
-package fr.pinguet62.jsfring.dao.relationship;
+package fr.pinguet62.jsfring.dao.jpa;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
+import java.util.List;
+
+import javax.inject.Inject;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -24,11 +27,7 @@ import fr.pinguet62.jsfring.dao.sample.LanguageDao;
 import fr.pinguet62.jsfring.model.sample.Description;
 import fr.pinguet62.jsfring.model.sample.Keyword;
 
-/**
- * Tests for "one to many" associations of database tables.
- *
- * @see OneToMany
- */
+/** @see OneToMany */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = Config.SPRING)
 @DatabaseSetup(Config.DATASET)
@@ -38,78 +37,88 @@ import fr.pinguet62.jsfring.model.sample.Keyword;
 @Transactional
 public class OneToManyTest {
 
-    @Autowired
+    @Inject
     private KeywordDao keywordDao;
 
-    @Autowired
+    @Inject
     private LanguageDao languageDao;
 
     /**
-     * Add new item to the collection.
-     * <p>
-     * When the base object is updated, the new item must be automatically
-     * inserted.
+     * When new element is {@link List#add(Object) added} to relationship, the
+     * {@link List} of objects must be updated.
      */
     @Test
     public void test_add() {
-        Keyword keyword = keywordDao.get(1);
+        final int id = 1;
+
+        Keyword keyword = keywordDao.get(id);
         long initialCount = keyword.getDescriptions().size();
+
         // add
         keyword.getDescriptions().add(
                 new Description(languageDao.get("fr"), "Title", "Content"));
         keywordDao.update(keyword);
+
         // test
-        assertEquals(initialCount + 1, keywordDao.get(1).getDescriptions()
-                .size());
+        long newCount = keywordDao.get(id).getDescriptions().size();
+        assertEquals(initialCount + 1, newCount);
     }
 
-    /** @see FetchType#LAZY */
+    /**
+     * The access to relationship must fetch the {@link List} of associated
+     * objects.
+     *
+     * @see FetchType#LAZY
+     */
     @Test
     public void test_lazyLoad() {
         Keyword keyword = keywordDao.get(1);
+
         assertEquals(2, keyword.getDescriptions().size());
     }
 
     /**
-     * Remove an item from the collection.
-     * <p>
-     * When the base object is updated, the old item must be automatically
-     * removed.
+     * When element is {@link List#remove(Object) removed} from relationship,
+     * the {@link List} of objects must be updated.
      */
     @Test
     public void test_remove() {
-        Keyword keyword = keywordDao.get(1);
+        final int id = 1;
+
+        Keyword keyword = keywordDao.get(id);
         long initialCount = keyword.getDescriptions().size();
+
         // remove
         keyword.getDescriptions().remove(
                 keyword.getDescriptions().iterator().next());
         keywordDao.update(keyword);
+
         // test
-        assertEquals(initialCount - 1, keywordDao.get(1).getDescriptions()
-                .size());
+        long newCount = keywordDao.get(1).getDescriptions().size();
+        assertEquals(initialCount - 1, newCount);
     }
 
-    /**
-     * Update an item of the collection.
-     * <p>
-     * When an item is modified, this item is updated.
-     */
+    /** When element of relationship is updated, the object must be updated. */
     @Test
     public void test_update() {
-        Keyword keyword = keywordDao.get(1);
+        final int id = 1;
+
+        Keyword keyword = keywordDao.get(id);
         Description description = keyword.getDescriptions().stream()
                 .filter(d -> d.getLanguage().getCode().equals("fr")).findAny()
                 .get();
-        assertEquals("Langage de programmation.", description.getContent());
+        String initialValue = description.getContent();
+
         // update
-        description.setContent("Le Java c'est la vie !");
+        String newValue = "Le Java c'est la vie !";
+        assertNotEquals(newValue, initialValue);
+        description.setContent(newValue);
         keywordDao.update(keyword);
+
         // test
-        assertEquals(
-                "Le Java c'est la vie !",
-                keywordDao.get(1).getDescriptions().stream()
-                        .filter(d -> d.getLanguage().getCode().equals("fr"))
-                        .findAny().get().getContent());
+        assertEquals(newValue, keywordDao.get(id).getDescriptions().stream()
+                .filter(d -> d.getLanguage().getCode().equals("fr")).findAny()
+                .get().getContent());
     }
 
 }

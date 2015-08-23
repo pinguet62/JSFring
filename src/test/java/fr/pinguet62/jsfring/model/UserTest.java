@@ -15,11 +15,15 @@ import fr.pinguet62.util.Combinator;
 /** @see User */
 public final class UserTest {
 
-    private static final Predicate<String> invalidPasswordChecker = password -> !password
-            .matches(PASSWORD_REGEX);
-    private static final Predicate<String> validPasswordChecker = invalidPasswordChecker
-            .negate();
-
+    /**
+     * Generate all combinator of character to generate the possible passwords.<br>
+     * Check that all password {@link String#matches(String) match} to the
+     * {@link Predicate}.
+     *
+     * @param passwordChecker The {@link Predicate} to check.
+     * @param characters The {@link Character}s of the password.
+     * @see Combinator
+     */
     private void checkPassword(Predicate<String> passwordChecker,
             List<String> characters) {
         assertTrue(new Combinator<String>(characters).get().stream()
@@ -30,6 +34,11 @@ public final class UserTest {
     /** @see User#PASSWORD_REGEX */
     @Test
     public void test_password_regex() {
+        Predicate<String> invalidPasswordChecker = password -> !password
+                .matches(PASSWORD_REGEX);
+        Predicate<String> validPasswordChecker = invalidPasswordChecker
+                .negate();
+
         // 6 character + 1 letter + 1 special
         checkPassword(validPasswordChecker,
                 Arrays.asList("5", "$", "a", "b", "c", "d", "e", "f"));
@@ -42,7 +51,6 @@ public final class UserTest {
         // 0 special
         checkPassword(invalidPasswordChecker,
                 Arrays.asList("1", "2", "3", "a", "b", "c", "d", "e", "f"));
-
     }
 
 }

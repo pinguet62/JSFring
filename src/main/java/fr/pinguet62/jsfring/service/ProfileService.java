@@ -2,7 +2,8 @@ package fr.pinguet62.jsfring.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
+
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class ProfileService extends AbstractService<Profile, Integer> {
 
     private static final String CACHE = "profile";
 
-    @Autowired
+    @Inject
     protected ProfileService(ProfileDao dao) {
         super(dao);
     }
