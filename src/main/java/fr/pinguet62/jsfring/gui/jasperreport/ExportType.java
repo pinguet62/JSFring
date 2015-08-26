@@ -21,58 +21,80 @@ import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 /** The available {@link JRAbstractExporter} type. */
 public enum ExportType {
 
-    /** CSV */
-    CSV("csv", JRCsvExporter::new),
+    /** Comma-separated values */
+    CSV(JRCsvExporter::new, "text/csv", "csv"),
+
     /**
      * Word processing<br>
      * <i>Office Open XML</i>
      */
-    DOCX("docx", JRDocxExporter::new),
+    DOCX(
+            JRDocxExporter::new,
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            "docx"),
+
     /** Graphics2D */
-    GRAPHICS_2D("???", () -> {
+    GRAPHICS_2D(() -> {
         try {
             return new JRGraphics2DExporter();
         } catch (JRException e) {
             throw new RuntimeException(e);
         }
-    }),
-    /** HTML/xHTML */
-    HTML("html", HtmlExporter::new),
+    }, "???", "???"),
+
+    /** Hypertext Markup Language */
+    HTML(HtmlExporter::new, "text/html", "html"),
+
     /**
      * Spreadsheets<br>
      * <i>OpenDocument</i>
      */
-    ODS("ods", JROdsExporter::new),
+    ODS(JROdsExporter::new, "application/vnd.oasis.opendocument.spreadsheet",
+            "ods"),
+
     /**
      * Word processing<br>
      * <i>OpenDocument</i>
      */
-    ODT("odt", JROdtExporter::new),
+    ODT(JROdtExporter::new, "application/vnd.oasis.opendocument.text", "odt"),
+
     /** PDF */
-    PDF("pdf", JRPdfExporter::new),
+    PDF(JRPdfExporter::new, "application/pdf", "pdf"),
+
     /**
      * Presentation<br>
      * <i>Office Open XML</i>
      */
-    PPTX("pptx", JRPptxExporter::new),
-    /** RTF */
-    RTF("rtf", JRRtfExporter::new),
-    /** Test */
-    TEXT("txt", JRTextExporter::new),
+    PPTX(
+            JRPptxExporter::new,
+            "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+            "pptx"),
+
+    /** Rich Text Format */
+    RTF(JRRtfExporter::new, "application/rtf", "rtf"),
+
+    /** Plain text */
+    TEXT(JRTextExporter::new, "text/plain", "txt"),
+
     /**
      * Spreadsheets<br>
      * <i>Microsoft Excel</i>
      *
      * @see #XLSX {@link #XLSX}: new version (since 2007)
      */
-    XLS("xls", JRXlsExporter::new),
+    XLS(JRXlsExporter::new, "application/vnd.ms-excel", "xls"),
+
     /**
      * Spreadsheets<br>
      * <i>Office Open XML</i>
      */
-    XLSX("xlsx", JRXlsxExporter::new),
-    /** XML */
-    XML("xml", JRXmlExporter::new);
+    XLSX(
+            JRXlsxExporter::new,
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "xlsx"),
+
+    /** Extensible Markup Language */
+    XML(JRXmlExporter::new, "application/xml", "xml");
 
     /** Factory used to get the {@link JRAbstractExporter} implementation. */
     private final Supplier<JRAbstractExporter<?, ?, ? super GeneralExporterOutput, ?>> exporterFactory;
@@ -80,14 +102,19 @@ public enum ExportType {
     /** Extension of file type. */
     private final String extension;
 
+    /** The mime content type. */
+    private final String mime;
+
     /**
-     * @param extension The {@link #extension}.
      * @param exporterFactory The {@link #exporterFactory}.
+     * @param mime The mime content type.
+     * @param extension The {@link #extension}.
      */
     private ExportType(
-            String extension,
-            Supplier<JRAbstractExporter<?, ?, ? super GeneralExporterOutput, ?>> exporterFactory) {
+            Supplier<JRAbstractExporter<?, ?, ? super GeneralExporterOutput, ?>> exporterFactory,
+            String mime, String extension) {
         this.extension = extension;
+        this.mime = mime;
         this.exporterFactory = exporterFactory;
     }
 
@@ -102,12 +129,22 @@ public enum ExportType {
     }
 
     /**
-     * Get the extension of file type.
+     * Get the extension of file type.<br>
+     * Doesn't contains the {@code .} character.
      *
      * @return The {@link #extension}.
      */
     public String getExtension() {
         return extension;
+    }
+
+    /**
+     * Get the mime content type.
+     *
+     * @return The {@link #mime}.
+     */
+    public String getMime() {
+        return mime;
     }
 
 }

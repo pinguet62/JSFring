@@ -1,11 +1,13 @@
 package fr.pinguet62.jsfring.gui.jasperreport;
 
 import java.awt.Graphics2D;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 
 import net.sf.jasperreports.engine.JRAbstractExporter;
+import net.sf.jasperreports.engine.JRRuntimeException;
 import net.sf.jasperreports.engine.export.HtmlResourceHandler;
 import net.sf.jasperreports.export.ExporterOutput;
 import net.sf.jasperreports.export.Graphics2DExporterOutput;
@@ -27,7 +29,7 @@ import net.sf.jasperreports.export.WriterExporterOutput;
  * @see HtmlExporterOutput
  */
 public class GeneralExporterOutput implements OutputStreamExporterOutput,
-WriterExporterOutput, HtmlExporterOutput, Graphics2DExporterOutput {
+        WriterExporterOutput, HtmlExporterOutput, Graphics2DExporterOutput {
 
     private final OutputStream outputStream;
 
@@ -36,10 +38,14 @@ WriterExporterOutput, HtmlExporterOutput, Graphics2DExporterOutput {
         this.outputStream = outputStream;
     }
 
-    /** @throws UnsupportedOperationException Not implemented */
+    /** @see OutputStream#close() */
     @Override
     public void close() {
-        throw new UnsupportedOperationException("Not implemented");
+        try {
+            outputStream.close();
+        } catch (IOException e) {
+            throw new JRRuntimeException(e);
+        }
     }
 
     /** @throws UnsupportedOperationException Not implemented */

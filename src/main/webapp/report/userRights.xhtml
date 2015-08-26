@@ -10,16 +10,18 @@
 	template="/template/layout.xhtml">
 	<ui:define name="content">
 		<h:form>
+			<p:commandButton action="#{userRightsJasperReportBean.exportToCsv}"
+				ajax="false" value="CSV" />
+			<p:commandButton action="#{userRightsJasperReportBean.exportToDocx}"
+				ajax="false" value="docx" />
+			<p:commandButton action="#{userRightsJasperReportBean.exportToOdt}"
+				ajax="false" value="odt" />
 			<p:commandButton action="#{userRightsJasperReportBean.exportToPdf}"
 				ajax="false" value="PDF" />
-			<p:commandButton action="#{userRightsJasperReportBean.exportToDocx}"
-				ajax="false" value="Docx" />
-			<p:commandButton action="#{userRightsJasperReportBean.exportToXlsx}"
-				ajax="false" value="Xlsx" />
-			<p:commandButton action="#{userRightsJasperReportBean.exportToOdt}"
-				ajax="false" value="Odt" />
 			<p:commandButton action="#{userRightsJasperReportBean.exportToPptx}"
-				ajax="false" value="Pptx" />
+				ajax="false" value="pptx" />
+			<p:commandButton action="#{userRightsJasperReportBean.exportToXlsx}"
+				ajax="false" value="xlsx" />
 		</h:form>
 	</ui:define>
 </ui:composition>
