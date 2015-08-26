@@ -69,7 +69,6 @@ public abstract class AbstractJasperReportBean implements Serializable {
         response.setContentType(targetType.getMime());
         response.setContentLength(bytes.length);
         response.getOutputStream().write(bytes);
-        response.getOutputStream().flush();
 
         FacesContext.getCurrentInstance().responseComplete();
     }
