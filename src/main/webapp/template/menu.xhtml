@@ -25,6 +25,9 @@
 				<p:menuitem url="/logs" icon="ui-icon-script"
 					value="#{msg['menubar.administration.logs']}" />
 			</p:submenu>
+			<p:submenu icon="ui-icon-document" label="#{msg['menubar.reports']}">
+				<p:menuitem outcome="/report/userRights.xhtml" value="userRights" />
+			</p:submenu>
 			<p:submenu label="Test">
 				<p:submenu label="Filter">
 					<p:menuitem outcome="/test/filters.xhtml" value="Filter" />
