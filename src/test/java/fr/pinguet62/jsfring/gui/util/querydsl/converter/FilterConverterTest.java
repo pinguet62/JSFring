@@ -51,7 +51,7 @@ public final class FilterConverterTest {
             Predicate expected = new FilterConverter(profile).apply(params);
 
             Predicate actual = profile.id.stringValue().contains(value.toString());
-            // toString() because equals() check class-type
+            // toString() because Predicate::equals() check class-type
             assertEquals(actual.toString(), expected.toString());
         }
     }
@@ -99,7 +99,8 @@ public final class FilterConverterTest {
             Predicate expected = new FilterConverter(right).apply(params);
 
             Predicate actual = right.code.stringValue().contains(value);
-            assertEquals(expected, actual);
+            // toString() because Predicate::equals() check class-type
+            assertEquals(expected.toString(), actual.toString());
         }
     }
 
