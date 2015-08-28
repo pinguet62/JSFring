@@ -51,15 +51,15 @@ public class OneToManyTest {
     public void test_add() {
         final int id = 1;
 
+        // Before
         Keyword keyword = keywordDao.get(id);
         long initialCount = keyword.getDescriptions().size();
 
-        // add
         keyword.getDescriptions().add(
                 new Description(languageDao.get("fr"), "Title", "Content"));
         keywordDao.update(keyword);
 
-        // test
+        // Test
         long newCount = keywordDao.get(id).getDescriptions().size();
         assertEquals(initialCount + 1, newCount);
     }
@@ -85,15 +85,15 @@ public class OneToManyTest {
     public void test_remove() {
         final int id = 1;
 
+        // Before
         Keyword keyword = keywordDao.get(id);
         long initialCount = keyword.getDescriptions().size();
 
-        // remove
         keyword.getDescriptions().remove(
                 keyword.getDescriptions().iterator().next());
         keywordDao.update(keyword);
 
-        // test
+        // Test
         long newCount = keywordDao.get(1).getDescriptions().size();
         assertEquals(initialCount - 1, newCount);
     }
@@ -103,19 +103,19 @@ public class OneToManyTest {
     public void test_update() {
         final int id = 1;
 
+        // Before
         Keyword keyword = keywordDao.get(id);
         Description description = keyword.getDescriptions().stream()
                 .filter(d -> d.getLanguage().getCode().equals("fr")).findAny()
                 .get();
         String initialValue = description.getContent();
 
-        // update
         String newValue = "Le Java c'est la vie !";
         assertNotEquals(newValue, initialValue);
         description.setContent(newValue);
         keywordDao.update(keyword);
 
-        // test
+        // Test
         assertEquals(newValue, keywordDao.get(id).getDescriptions().stream()
                 .filter(d -> d.getLanguage().getCode().equals("fr")).findAny()
                 .get().getContent());

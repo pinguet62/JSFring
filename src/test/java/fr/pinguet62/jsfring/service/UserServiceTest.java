@@ -7,11 +7,14 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.stream.Stream;
 
 import javax.inject.Inject;
+import javax.validation.constraints.Pattern;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -66,21 +69,24 @@ public class UserServiceTest {
 
     /**
      * Check that {@link User#lastConnection last connection date} was updated
-     * to current date, with precision of {@code 0.1sec}.
+     * to current day.
      *
      * @see UserService#login(String, String)
      */
     @Test
     public void test_login() {
+        Date today = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
         String login = "super admin";
+
+        // Before
+        assertTrue(service.get(login).getLastConnection().before(today));
 
         // login
         assertNotNull(service.login(login, "password"));
 
         // last connection
         Date lastConnection = service.get(login).getLastConnection();
-        long diff = new Date().getTime() - lastConnection.getTime(); // ms
-        assertTrue(Math.abs(diff) < 100/* 0.1sec */);
+        assertEquals(today, lastConnection);
     }
 
     /**
@@ -136,7 +142,8 @@ public class UserServiceTest {
     }
 
     /**
-     * When the new {@link User#password} is invalid, an error occurs.
+     * When the new {@link User#password} doesn't valid the {@link Pattern regex
+     * validation}, an error occurs.
      *
      * @see UserService#updatePassword(String, String)
      */

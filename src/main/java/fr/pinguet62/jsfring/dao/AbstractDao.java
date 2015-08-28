@@ -107,7 +107,10 @@ public abstract class AbstractDao<T, PK extends Serializable> {
      * @return The object, {@code null} if not found.
      */
     public T get(PK id) {
-        return em.find(type, id);
+        T obj = em.find(type, id);
+        if (obj != null)
+            em.detach(obj);
+        return obj;
     }
 
     /**

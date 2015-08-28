@@ -28,18 +28,14 @@ import fr.pinguet62.jsfring.model.QRight;
 import fr.pinguet62.jsfring.model.Right;
 import fr.pinguet62.jsfring.model.User;
 import fr.pinguet62.jsfring.service.UserService.PasswordGenerator;
-import fr.pinguet62.jsfring.service.sample.LanguageService;
 
 /** @see AbstractService */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = Config.SPRING)
 @DatabaseSetup(Config.DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-    DbUnitTestExecutionListener.class })
+        DbUnitTestExecutionListener.class })
 public class AbstractServiceTest {
-
-    @Inject
-    private LanguageService languageService;
 
     @Inject
     private ProfileService profileService;
@@ -69,7 +65,7 @@ public class AbstractServiceTest {
         {
             long count = userService.count();
             userService.create(new User("new login", new PasswordGenerator()
-            .get(), "foo@hostname.domain"));
+                    .get(), "foo@hostname.domain"));
             assertEquals(count + 1, userService.count());
         }
     }
@@ -149,11 +145,14 @@ public class AbstractServiceTest {
         int id = 1;
         String newTitle = "new title";
 
+        // Before
         Profile profile = profileService.get(id);
         assertNotEquals(newTitle, profile.getTitle());
 
         profile.setTitle(newTitle);
         profileService.update(profile);
+
+        // Test
         assertEquals("new title", profileService.get(id).getTitle());
     }
 

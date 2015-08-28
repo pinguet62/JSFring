@@ -1,11 +1,14 @@
 package fr.pinguet62.jsfring.dao;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.inject.Inject;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -36,19 +39,25 @@ public class UserDaoTest {
 
     /**
      * Check that {@link User#lastConnection last connection date} was updated
-     * to current date, with precision of {@code 0.1sec}.
+     * to current day.
      *
      * @see UserDao#resetLastConnectionDate(User)
      */
     @Test
     public void test_resetLastConnectionDate() {
+        Date today = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
         String login = "super admin";
+
+        // Before
         User user = userDao.get(login);
+        Date lastConnectionBefore = userDao.get(login).getLastConnection();
+        assertTrue(lastConnectionBefore.before(today));
 
         userDao.resetLastConnectionDate(user);
 
-        Date newValue = userDao.get(login).getLastConnection();
-        long diff = new Date().getTime() - newValue.getTime(); // ms
-        assertTrue(Math.abs(diff) < 100_000/* 0.1sec */);
+        // Test
+        Date lastConnectionAfter = userDao.get(login).getLastConnection();
+        assertEquals(today, lastConnectionAfter);
     }
+
 }

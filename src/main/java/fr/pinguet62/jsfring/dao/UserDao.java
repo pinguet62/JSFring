@@ -55,7 +55,7 @@ public final class UserDao extends AbstractDao<User, String> {
 
     /**
      * Reset the {@link User#lastConnection last connection date} to the current
-     * date.
+     * day.
      *
      * @param user The {@link User}.
      */

@@ -49,15 +49,15 @@ public class ManyToManyTest {
     public void test_add() {
         final int id = 1;
 
+        // Before
         Profile profile = profileDao.get(id);
         long initialCount = profile.getRights().size();
 
-        // add
         profile.getRights().add(rightDao.get("USER_RO"));
         assertEquals(initialCount + 1, profile.getRights().size());
         profileDao.update(profile);
 
-        // test
+        // Test
         long newCount = profileDao.get(id).getRights().size();
         assertEquals(initialCount + 1, newCount);
     }
