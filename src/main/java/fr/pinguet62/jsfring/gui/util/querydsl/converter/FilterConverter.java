@@ -4,41 +4,24 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Function;
 
-import com.mysema.query.Query;
+import com.mysema.query.BooleanBuilder;
+import com.mysema.query.support.QueryBase;
+import com.mysema.query.types.Predicate;
 import com.mysema.query.types.expr.BooleanExpression;
 import com.mysema.query.types.expr.ComparableExpressionBase;
-import com.mysema.query.types.expr.NumberExpression;
 import com.mysema.query.types.expr.SimpleExpression;
 import com.mysema.query.types.path.EntityPathBase;
 
 /**
  * Convert a {@link Map} who associate the property and the value, to the
- * {@link BooleanExpression} used to filter a {@link Query}.
+ * {@link Predicate} used to filter a {@link QueryBase query}.
  * <p>
- * Use the {@code like} criteria on field to test if it contains the
- * {@link String} value.
+ * Filtered field must be a {@link ComparableExpressionBase}.
+ * <p>
+ * Default criteria is {@code like}, to test if <i>filed-value</i> contains the
+ * {@link String} <i>filter-value</i>.
  */
-public final class FilterConverter implements
-Function<Map<String, Object>, BooleanExpression> {
-
-    // Default visibility for Unit-Testing
-    /**
-     * Apply the criteria on the field.
-     * <p>
-     * If the value is a number ({@link NumberExpression}), the criteria will be
-     * applied on its {@link String} value.
-     *
-     * @param attribute
-     *            The {@link ComparableExpressionBase}.
-     * @param value
-     *            The value. The {@link String#toString()} method is applied on
-     *            value.
-     * @return The {@link BooleanExpression}.
-     */
-    static BooleanExpression applyCriteria(
-            ComparableExpressionBase<?> attribute, Object value) {
-        return attribute.stringValue().contains(value.toString());
-    }
+public final class FilterConverter implements Function<Map<String, Object>, Predicate> {
 
     /** The meta-object. */
     private final EntityPathBase<?> meta;
@@ -46,8 +29,7 @@ Function<Map<String, Object>, BooleanExpression> {
     /**
      * Constructor.
      *
-     * @param meta
-     *            The meta-object.
+     * @param meta The meta-object.
      */
     public FilterConverter(EntityPathBase<?> meta) {
         this.meta = meta;
@@ -56,35 +38,30 @@ Function<Map<String, Object>, BooleanExpression> {
     /**
      * Apply the filter: get the {@link BooleanExpression}.
      *
-     * @param filters
-     *            The association property/value.
-     * @return The {@link BooleanExpression}. {@code null} if no filter is
-     *         applied.
-     * @throws UnsupportedOperationException
-     *             The target field doen't exist or doen't support filter.
+     * @param filters The association property/value.
+     * @return The {@link Predicate} built with different filters.
+     * @throws ClassCastException The target field is not a
+     *             {@link ComparableExpressionBase}, so doen't support filter.
+     * @see PropertyConverter Transform property name to
+     *      {@link SimpleExpression}.
      */
     @Override
-    public BooleanExpression apply(Map<String, Object> filters) {
-        BooleanExpression condition = null;
+    public Predicate apply(Map<String, Object> filters) {
+        BooleanBuilder builder = new BooleanBuilder();
         for (Entry<String, Object> filter : filters.entrySet()) {
             // Attribute
             String property = filter.getKey();
-            SimpleExpression<?> attribute = new PropertyConverter(meta)
-            .apply(property);
-            if (!(attribute instanceof ComparableExpressionBase))
-                throw new UnsupportedOperationException("The attribute "
-                        + attribute
-                        + " doesn't not support \"like\" condition.");
+            SimpleExpression<?> attribute = new PropertyConverter(meta).apply(property);
             ComparableExpressionBase<?> comparable = (ComparableExpressionBase<?>) attribute;
 
-            // Condition
-            Object value = filter.getValue();
-            BooleanExpression c = applyCriteria(comparable, value);
+            // Filter value
+            String value = filter.getValue().toString();
 
             // Apply
-            condition = condition == null ? c : condition.and(c);
+            BooleanExpression criteria = comparable.stringValue().contains(value);
+            builder.and(criteria);
         }
-        return condition;
+        return builder;
     }
 
 }

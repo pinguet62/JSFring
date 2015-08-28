@@ -10,7 +10,7 @@ import org.primefaces.model.SortOrder;
 import com.mysema.query.SearchResults;
 import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.types.OrderSpecifier;
-import com.mysema.query.types.expr.BooleanExpression;
+import com.mysema.query.types.Predicate;
 import com.mysema.query.types.path.EntityPathBase;
 
 import fr.pinguet62.jsfring.gui.util.querydsl.converter.FilterConverter;
@@ -25,7 +25,7 @@ import fr.pinguet62.jsfring.service.AbstractService;
  * @param <T> The type of objects to display.
  */
 public class AbstractLazyDataModel<T extends Serializable> extends
-        LazyDataModel<T> {
+LazyDataModel<T> {
 
     private static final long serialVersionUID = 1;
 
@@ -75,9 +75,8 @@ public class AbstractLazyDataModel<T extends Serializable> extends
                 query.orderBy(order);
         }
         // Filter
-        BooleanExpression condition = new FilterConverter(from).apply(filters);
-        if (condition != null)
-            query.where(condition);
+        Predicate predicate = new FilterConverter(from).apply(filters);
+        query.where(predicate);
 
         SearchResults<T> results = bean.getService().findPanginated(query);
 
