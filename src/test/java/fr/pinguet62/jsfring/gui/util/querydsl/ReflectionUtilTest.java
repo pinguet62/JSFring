@@ -25,7 +25,7 @@ public final class ReflectionUtilTest {
     @Test
     public void test_getDefaultMetaObject() {
         assertEquals(QUser.user, getDefaultMetaObject(User.class));
-        assertEquals(QRight.right, getDefaultMetaObject(Right.class));
+        assertEquals(QRight.right_, getDefaultMetaObject(Right.class));
         assertEquals(QProfile.profile, getDefaultMetaObject(Profile.class));
     }
 

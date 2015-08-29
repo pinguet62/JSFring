@@ -19,7 +19,7 @@ public final class ReflectionUtil {
     /**
      * Get the default meta-object of {@link Entity} class.<br>
      * For example the default meta-object of {@link Right} is
-     * {@link QRight#right}.
+     * {@link QRight#right_}.
      * <p>
      * The meta-classes must be generated with default options:
      * <ul>

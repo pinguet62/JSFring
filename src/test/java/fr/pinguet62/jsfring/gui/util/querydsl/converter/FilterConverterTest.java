@@ -92,7 +92,7 @@ public final class FilterConverterTest {
      */
     @Test
     public void test_apply_string() {
-        QRight right = QRight.right;
+        QRight right = QRight.right_;
         for (String value : Arrays.asList("RIGHT_", "ILE_", "_RO", "%", "^", "\\")) {
             Map<String, Object> params = new HashMap<>();
             params.put(right.code.toString(), value);
@@ -113,7 +113,7 @@ public final class FilterConverterTest {
     @Test
     public void test_apply_unsupportedField() {
         {
-            QRight right = QRight.right;
+            QRight right = QRight.right_;
             try {
                 Map<String, Object> params = new HashMap<>();
                 params.put(right.profiles.toString(), "foo");

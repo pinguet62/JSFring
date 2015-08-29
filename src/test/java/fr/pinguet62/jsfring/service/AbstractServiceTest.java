@@ -82,7 +82,7 @@ public class AbstractServiceTest {
     /** @see AbstractService#find(JPAQuery) */
     @Test
     public void test_find() {
-        QRight r = QRight.right;
+        QRight r = QRight.right_;
         JPAQuery query = new JPAQuery().from(r).where(
                 r.code.contains("PROFILE"));
 
@@ -101,7 +101,7 @@ public class AbstractServiceTest {
      */
     @Test
     public void test_findPanginated() {
-        JPAQuery query = new JPAQuery().from(QRight.right);
+        JPAQuery query = new JPAQuery().from(QRight.right_);
 
         SearchResults<Right> page2 = rightService.findPanginated(query.clone()
                 .limit(2).offset(2));

@@ -22,7 +22,7 @@ public class RightsBean extends AbstractSelectableBean<Right> {
 
     @Override
     protected EntityPathBase<Right> getBaseExpression() {
-        return QRight.right;
+        return QRight.right_;
     }
 
     @Override

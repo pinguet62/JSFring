@@ -24,7 +24,7 @@ public final class OrderConverterTest {
     @Test
     public void test_apply() {
         {
-            QRight right = QRight.right;
+            QRight right = QRight.right_;
             assertEquals(right.code.asc(), new OrderConverter(right).apply(right.code.toString(), ASCENDING));
             assertEquals(right.code.desc(), new OrderConverter(right).apply(right.code.toString(), DESCENDING));
         }
@@ -46,7 +46,7 @@ public final class OrderConverterTest {
      */
     @Test
     public void test_apply_invalidProperty() {
-        QRight right = QRight.right;
+        QRight right = QRight.right_;
         for (String property : Arrays.asList("", ".", "foo"))
             try {
                 new OrderConverter(right).apply(property, SortOrder.ASCENDING);
@@ -63,7 +63,7 @@ public final class OrderConverterTest {
     @Test
     public void test_apply_unsorded() {
         {
-            QRight right = QRight.right;
+            QRight right = QRight.right_;
             assertNull(new OrderConverter(right).apply(right.code.toString(), SortOrder.UNSORTED));
             assertNull(new OrderConverter(right).apply(right.title.toString(), SortOrder.UNSORTED));
         }
@@ -90,7 +90,7 @@ public final class OrderConverterTest {
     @Test
     public void test_apply_unsupportedField() {
         {
-            QRight right = QRight.right;
+            QRight right = QRight.right_;
             try {
                 new OrderConverter(right).apply(right.profiles.toString(), SortOrder.ASCENDING);
                 fail();

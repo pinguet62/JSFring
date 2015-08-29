@@ -13,7 +13,7 @@ public final class RightDao extends AbstractDao<Right, String> {
 
     @Override
     protected Expression<Right> getBaseExpression() {
-        return QRight.right;
+        return QRight.right_;
     }
 
 }

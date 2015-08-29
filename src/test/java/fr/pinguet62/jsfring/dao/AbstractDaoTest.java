@@ -113,7 +113,7 @@ public class AbstractDaoTest {
     /** @see AbstractDao#find(JPAQuery) */
     @Test
     public void test_find() {
-        QRight r = QRight.right;
+        QRight r = QRight.right_;
         JPAQuery query = new JPAQuery().from(r).where(
                 r.code.contains("PROFILE"));
 
@@ -128,7 +128,7 @@ public class AbstractDaoTest {
     /** @see AbstractDao#find(JPAQuery) */
     @Test
     public void test_find_notFound() {
-        QRight r = QRight.right;
+        QRight r = QRight.right_;
         JPAQuery query = new JPAQuery().from(r).where(r.code.contains("#$!@"));
 
         List<Right> rights = rightDao.find(query);
@@ -146,7 +146,7 @@ public class AbstractDaoTest {
         int pageSize = 2;
 
         final long totalCount = rightDao.count();
-        JPAQuery query = new JPAQuery().from(QRight.right);
+        JPAQuery query = new JPAQuery().from(QRight.right_);
         {
             SearchResults<Right> page1 = rightDao.findPanginated(query.clone()
                     .limit(2).offset(0 * pageSize));
@@ -180,7 +180,7 @@ public class AbstractDaoTest {
      */
     @Test
     public void test_findPanginated_notFound() {
-        QRight r = QRight.right;
+        QRight r = QRight.right_;
         JPAQuery query = new JPAQuery().from(r).where(r.code.contains("#$!@"));
 
         SearchResults<Right> page = rightDao.findPanginated(query.limit(2)

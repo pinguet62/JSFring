@@ -18,7 +18,7 @@ public final class PropertyConverterTest {
     /** @see PropertyConverter#apply(String) */
     @Test
     public void test_apply_propertyNotFound() {
-        QRight right = QRight.right;
+        QRight right = QRight.right_;
 
         assertNotNull(new PropertyConverter(right).apply("code"));
 
@@ -39,7 +39,7 @@ public final class PropertyConverterTest {
     @Test
     public void test_apply_targetAttributeBadType() {
         try {
-            assertEquals(QRight.right.profiles, new PropertyConverter(QRight.right).apply("profiles"));
+            assertEquals(QRight.right_.profiles, new PropertyConverter(QRight.right_).apply("profiles"));
             fail();
         } catch (ClassCastException e) {}
 
@@ -62,7 +62,7 @@ public final class PropertyConverterTest {
     @Test
     public void test_appy() {
         {
-            QRight right = QRight.right;
+            QRight right = QRight.right_;
             assertEquals(right.code, new PropertyConverter(right).apply("code"));
             assertEquals(right.title, new PropertyConverter(right).apply("title"));
         }
