@@ -12,11 +12,10 @@ import com.mysema.query.types.path.EntityPathBase;
 /**
  * Convert the property and the {@link SortOrder} of an {@link EntityPathBase}
  * to the {@link OrderSpecifier} to apply.
- *
- * @see SortOrder
+ * <p>
+ * Ordered field must be a {@link ComparableExpressionBase}.
  */
-public final class OrderConverter implements
-BiFunction<String, SortOrder, OrderSpecifier<?>> {
+public final class OrderConverter implements BiFunction<String, SortOrder, OrderSpecifier<?>> {
 
     /** The meta object. */
     private final EntityPathBase<?> meta;
@@ -24,38 +23,34 @@ BiFunction<String, SortOrder, OrderSpecifier<?>> {
     /**
      * Constructor.
      *
-     * @param meta
-     *            The meta-object.
+     * @param meta The meta-object.
      */
     public OrderConverter(EntityPathBase<?> meta) {
         this.meta = meta;
     }
 
     /**
-     * Apply the ordering: get the {@link OrderSpecifier}.
+     * Apply the order: get the {@link OrderSpecifier}.
      *
-     * @param property
-     *            The property.
-     * @param primeOrder
-     *            The {@link SortOrder} of PrimeFaces.
-     * @return The {@link OrderSpecifier}. {@code null} if the order is
-     *         {@link SortOrder#UNSORTED}.
-     *
-     * @throws UnsupportedOperationException
-     *             The field doen't support ordering.
+     * @param property The property to order.
+     * @param order The {@link SortOrder} (from PrimeFaces).
+     * @return The {@link OrderSpecifier}.<br>
+     *         {@code null} if the order is {@link SortOrder#UNSORTED}.
+     * @throws NullPointerException If {@code property} or {@code order} is
+     *             {@code null}.
+     * @throws ClassCastException The target field is not a
+     *             {@link ComparableExpressionBase}, so doen't support filter.
+     * @see PropertyConverter Transform property name to
+     *      {@link SimpleExpression}.
      */
     @Override
-    public OrderSpecifier<?> apply(String property, SortOrder primeOrder) {
+    public OrderSpecifier<?> apply(String property, SortOrder order) {
         // Attribute
-        SimpleExpression<?> attribute = new PropertyConverter(meta)
-        .apply(property);
-        if (!(attribute instanceof ComparableExpressionBase))
-            throw new UnsupportedOperationException("The field " + attribute
-                    + " doesn't support ordering.");
+        SimpleExpression<?> attribute = new PropertyConverter(meta).apply(property);
         ComparableExpressionBase<?> comparableAttribute = (ComparableExpressionBase<?>) attribute;
 
         // Apply
-        switch (primeOrder) {
+        switch (order) {
             case UNSORTED:
                 return null;
             case ASCENDING:
@@ -63,7 +58,7 @@ BiFunction<String, SortOrder, OrderSpecifier<?>> {
             case DESCENDING:
                 return comparableAttribute.desc();
             default:
-                throw new IllegalArgumentException("Unknow sort: " + primeOrder);
+                throw new UnsupportedOperationException("Unknow sort: " + order);
         }
     }
 

@@ -1,6 +1,7 @@
 package fr.pinguet62.jsfring.gui.util.querydsl.converter;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -101,6 +102,48 @@ public final class FilterConverterTest {
             Predicate actual = right.code.stringValue().contains(value);
             // toString() because Predicate::equals() check class-type
             assertEquals(expected.toString(), actual.toString());
+        }
+    }
+
+    /**
+     * Field cannot be filtered.
+     *
+     * @see FilterConverter#apply(Map)
+     */
+    @Test
+    public void test_apply_unsupportedField() {
+        {
+            QRight right = QRight.right;
+            try {
+                Map<String, Object> params = new HashMap<>();
+                params.put(right.profiles.toString(), "foo");
+                new FilterConverter(right).apply(params);
+                fail();
+            } catch (ClassCastException e) {}
+        }
+        {
+            QProfile profile = QProfile.profile;
+            try {
+                Map<String, Object> params = new HashMap<>();
+                params.put(profile.rights.toString(), "foo");
+                new FilterConverter(profile).apply(params);
+                fail();
+            } catch (ClassCastException e) {}
+            try {
+                Map<String, Object> params = new HashMap<>();
+                params.put(profile.users.toString(), "foo");
+                new FilterConverter(profile).apply(params);
+                fail();
+            } catch (ClassCastException e) {}
+        }
+        {
+            QUser user = QUser.user;
+            try {
+                Map<String, Object> params = new HashMap<>();
+                params.put(user.profiles.toString(), "foo");
+                new FilterConverter(user).apply(params);
+                fail();
+            } catch (ClassCastException e) {}
         }
     }
 

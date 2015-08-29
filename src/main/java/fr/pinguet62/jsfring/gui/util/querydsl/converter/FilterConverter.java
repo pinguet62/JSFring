@@ -36,10 +36,11 @@ public final class FilterConverter implements Function<Map<String, Object>, Pred
     }
 
     /**
-     * Apply the filter: get the {@link BooleanExpression}.
+     * Apply the filter: get the {@link Predicate}.
      *
-     * @param filters The association property/value.
+     * @param filters The association of property/value.
      * @return The {@link Predicate} built with different filters.
+     * @throws NullPointerException If {@code filters} is {@code null}.
      * @throws ClassCastException The target field is not a
      *             {@link ComparableExpressionBase}, so doen't support filter.
      * @see PropertyConverter Transform property name to

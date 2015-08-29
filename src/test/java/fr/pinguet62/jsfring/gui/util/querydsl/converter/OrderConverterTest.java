@@ -2,79 +2,118 @@ package fr.pinguet62.jsfring.gui.util.querydsl.converter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
+import static org.primefaces.model.SortOrder.ASCENDING;
+import static org.primefaces.model.SortOrder.DESCENDING;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.inject.Inject;
+import java.util.Arrays;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.primefaces.model.SortOrder;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.types.OrderSpecifier;
 
-import fr.pinguet62.Config;
-import fr.pinguet62.jsfring.dao.RightDao;
+import fr.pinguet62.jsfring.model.QProfile;
 import fr.pinguet62.jsfring.model.QRight;
-import fr.pinguet62.jsfring.model.Right;
+import fr.pinguet62.jsfring.model.QUser;
 
 /** @see OrderConverter */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = Config.SPRING)
-@DatabaseSetup(Config.DATASET)
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-    TransactionalTestExecutionListener.class,
-    DbUnitTestExecutionListener.class })
-@Transactional
-public class OrderConverterTest {
+public final class OrderConverterTest {
 
-    @Inject
-    private RightDao rightDao;
-
-    /** @see OrderConverter#apply(String, org.primefaces.model.SortOrder) */
+    /** @see OrderConverter#apply(String, SortOrder) */
     @Test
     public void test_apply() {
-        QRight meta = QRight.right;
+        {
+            QRight right = QRight.right;
+            assertEquals(right.code.asc(), new OrderConverter(right).apply(right.code.toString(), ASCENDING));
+            assertEquals(right.code.desc(), new OrderConverter(right).apply(right.code.toString(), DESCENDING));
+        }
+        {
+            QProfile profile = QProfile.profile;
+            assertEquals(profile.id.asc(), new OrderConverter(profile).apply(profile.id.toString(), ASCENDING));
+            assertEquals(profile.id.desc(), new OrderConverter(profile).apply(profile.id.toString(), DESCENDING));
+        }
+        {
+            QUser user = QUser.user;
+            assertEquals(user.login.asc(), new OrderConverter(user).apply(user.login.toString(), ASCENDING));
+            assertEquals(user.login.desc(), new OrderConverter(user).apply(user.login.toString(), DESCENDING));
+        }
+    }
 
-        // Ascending
-        List<String> codes = rightDao.getAll().stream().map(Right::getCode)
-                .sorted().collect(Collectors.toList());
-        JPAQuery queryAsc = new JPAQuery().from(meta).orderBy(
-                new OrderConverter(meta).apply("code", SortOrder.ASCENDING));
-        assertEquals(codes, rightDao.find(queryAsc).stream()
-                .map(Right::getCode).collect(Collectors.toList()));
-
-        // Descending
-        Collections.reverse(codes);
-        JPAQuery queryDesc = new JPAQuery().from(meta).orderBy(
-                new OrderConverter(meta).apply("code", SortOrder.DESCENDING));
-        assertEquals(
-                codes,
-                rightDao.find(queryDesc).stream().map(Right::getCode)
-                .collect(Collectors.toList()));
+    /**
+     * @see OrderConverter#apply(String, SortOrder)
+     * @see IllegalArgumentException
+     */
+    @Test
+    public void test_apply_invalidProperty() {
+        QRight right = QRight.right;
+        for (String property : Arrays.asList("", ".", "foo"))
+            try {
+                new OrderConverter(right).apply(property, SortOrder.ASCENDING);
+                fail();
+            } catch (IllegalArgumentException e) {}
     }
 
     /**
      * The {@link OrderSpecifier} must be null.
      *
-     * @see OrderConverter#apply(String, org.primefaces.model.SortOrder)
+     * @see OrderConverter#apply(String, SortOrder)
      * @see SortOrder#UNSORTED
      */
     @Test
     public void test_apply_unsorded() {
-        assertNull(new OrderConverter(QRight.right).apply("code",
-                SortOrder.UNSORTED));
+        {
+            QRight right = QRight.right;
+            assertNull(new OrderConverter(right).apply(right.code.toString(), SortOrder.UNSORTED));
+            assertNull(new OrderConverter(right).apply(right.title.toString(), SortOrder.UNSORTED));
+        }
+        {
+            QProfile profile = QProfile.profile;
+            assertNull(new OrderConverter(profile).apply(profile.id.toString(), SortOrder.UNSORTED));
+            assertNull(new OrderConverter(profile).apply(profile.title.toString(), SortOrder.UNSORTED));
+        }
+        {
+            QUser user = QUser.user;
+            assertNull(new OrderConverter(user).apply(user.active.toString(), SortOrder.UNSORTED));
+            assertNull(new OrderConverter(user).apply(user.email.toString(), SortOrder.UNSORTED));
+            assertNull(new OrderConverter(user).apply(user.lastConnection.toString(), SortOrder.UNSORTED));
+            assertNull(new OrderConverter(user).apply(user.login.toString(), SortOrder.UNSORTED));
+            assertNull(new OrderConverter(user).apply(user.password.toString(), SortOrder.UNSORTED));
+        }
+    }
+
+    /**
+     * Field cannot be sorted.
+     *
+     * @see OrderConverter#apply(String, SortOrder)
+     */
+    @Test
+    public void test_apply_unsupportedField() {
+        {
+            QRight right = QRight.right;
+            try {
+                new OrderConverter(right).apply(right.profiles.toString(), SortOrder.ASCENDING);
+                fail();
+            } catch (ClassCastException e) {}
+        }
+        {
+            QProfile profile = QProfile.profile;
+            try {
+                new OrderConverter(profile).apply(profile.rights.toString(), SortOrder.ASCENDING);
+                fail();
+            } catch (ClassCastException e) {}
+            try {
+                new OrderConverter(profile).apply(profile.users.toString(), SortOrder.ASCENDING);
+                fail();
+            } catch (ClassCastException e) {}
+        }
+        {
+            QUser user = QUser.user;
+            try {
+                new OrderConverter(user).apply(user.profiles.toString(), SortOrder.ASCENDING);
+                fail();
+            } catch (ClassCastException e) {}
+        }
     }
 
 }
