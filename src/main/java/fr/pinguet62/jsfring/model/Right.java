@@ -13,6 +13,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.mysema.query.annotations.Config;
+
+// Querydsl
+@Config(defaultVariableName = "right_")
+// JPA
 @Entity
 @Table(name = "\"RIGHT\"")
 public class Right implements java.io.Serializable {
