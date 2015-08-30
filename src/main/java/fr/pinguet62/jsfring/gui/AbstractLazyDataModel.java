@@ -46,6 +46,11 @@ public class AbstractLazyDataModel<T extends Serializable> extends LazyDataModel
      * request to limit, filter & order results. <br>
      * <u>Exemple:</u> for <code>pageSize=5</code>, the 3rd page will have
      * <code>first=10</code>.
+     * <p>
+     * For filtering, the field name doesn't contains the object name on with EL
+     * expression will be resolved. For example if the EL expression in xHTML is
+     * <code>"#&#123;right.code&#125;"</code>, so the field name will be
+     * {@code "code"}.
      *
      * @param first Index of first element in current page to load.
      * @param pageSize The number of result per page.
