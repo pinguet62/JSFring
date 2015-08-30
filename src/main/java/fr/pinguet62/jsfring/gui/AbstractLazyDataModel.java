@@ -13,9 +13,9 @@ import com.mysema.query.types.OrderSpecifier;
 import com.mysema.query.types.Predicate;
 import com.mysema.query.types.path.EntityPathBase;
 
-import fr.pinguet62.jsfring.gui.util.querydsl.converter.FilterConverter;
-import fr.pinguet62.jsfring.gui.util.querydsl.converter.OrderConverter;
 import fr.pinguet62.jsfring.service.AbstractService;
+import fr.pinguet62.jsfring.util.querydsl.FilterConverter;
+import fr.pinguet62.jsfring.util.querydsl.OrderConverter;
 
 /**
  * Abstract {@link LazyDataModel} who implements default

@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.gui.util.querydsl.converter;
+package fr.pinguet62.jsfring.util.querydsl;
 
 import java.util.Map;
 import java.util.Map.Entry;
