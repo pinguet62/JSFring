@@ -22,13 +22,11 @@
 					value="#{msg['menubar.administration.profiles']}" />
 				<p:menuitem outcome="rights" icon="ui-icon-flag"
 					value="#{msg['menubar.administration.rights']}" />
-				<p:menuitem url="/logs" icon="ui-icon-script"
-					value="#{msg['menubar.administration.logs']}" />
 			</p:submenu>
 			<p:submenu icon="ui-icon-document" label="#{msg['menubar.reports']}">
 				<p:menuitem outcome="/report/userRights.xhtml" value="userRights" />
 			</p:submenu>
-			<p:submenu label="Test">
+			<p:submenu label="Sample">
 				<p:submenu label="Filter">
 					<p:menuitem outcome="/test/filters.xhtml" value="Filter" />
 				</p:submenu>
@@ -38,6 +36,8 @@
 					<p:menuitem outcome="/test/dataTable_multiple.xhtml"
 						value="Multiple" />
 				</p:submenu>
+				<p:menuitem url="/logs/logs.log" icon="ui-icon-script"
+					value="#{msg['menubar.administration.logs']}" />
 			</p:submenu>
 
 			<f:facet name="options">
