@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.gui.sample;
+package fr.pinguet62.jsfring.gui;
 
 import java.util.Locale;
 

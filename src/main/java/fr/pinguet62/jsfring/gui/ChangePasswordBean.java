@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.gui.sample;
+package fr.pinguet62.jsfring.gui;
 
 import static fr.pinguet62.jsfring.model.User.PASSWORD_REGEX;
 
@@ -14,6 +14,7 @@ import javax.validation.constraints.Pattern;
 import org.springframework.context.MessageSource;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import fr.pinguet62.jsfring.gui.sample.UserBean;
 import fr.pinguet62.jsfring.model.User;
 import fr.pinguet62.jsfring.service.UserService;
 import fr.pinguet62.jsfring.util.cdi.scope.SpringViewScoped;

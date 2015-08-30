@@ -11,7 +11,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import fr.pinguet62.jsfring.gui.login.springsecurity.UserDetailsImpl;
+import fr.pinguet62.jsfring.util.springsecurity.UserDetailsImpl;
 
 @Named
 @SessionScoped
@@ -26,8 +26,7 @@ public final class UserBean implements Serializable {
      * @see UserDetailsImpl
      */
     public static UserDetails get() {
-        Authentication authentication = SecurityContextHolder.getContext()
-                .getAuthentication();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()
                 || authentication instanceof AnonymousAuthenticationToken)
             return null;

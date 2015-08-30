@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://www.springframework.org/schema/security" xmlns:beans="http://www.springframework.org/schema/beans"
+<beans:beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
@@ -13,24 +13,20 @@
 		<intercept-url pattern="/profiles.xhtml" access="hasRole('PROFILE_RO')" />
 		<intercept-url pattern="/index.xhtml" access="permitAll" />
 
-		<form-login login-page="/login.xhtml" login-processing-url="/j_spring_security_check"
-			authentication-failure-url="/login.xhtml?error" />
+		<form-login login-page="/login.xhtml" login-processing-url="/j_spring_security_check" authentication-failure-url="/login.xhtml?error" />
 
 		<!-- Tablib not supported by JSF -->
 		<!-- Native in JSF -->
 		<csrf disabled="true" />
 
-		<!-- "_input" prefix because the PrimeFaces (JSF?) component add suffix 
-			to ID -->
-		<remember-me remember-me-parameter="remember-me_input"
-			token-repository-ref="tokenRepository" token-validity-seconds="5555" />
+		<!-- "_input" prefix because the PrimeFaces (JSF?) component add suffix to ID -->
+		<remember-me remember-me-parameter="remember-me_input" token-repository-ref="tokenRepository"
+			token-validity-seconds="5555" />
 	</http>
 
-	<beans:bean id="userDetailsService"
-		class="fr.pinguet62.jsfring.gui.login.springsecurity.UserDetailsServiceImpl" />
+	<beans:bean id="userDetailsService" class="fr.pinguet62.jsfring.util.springsecurity.UserDetailsServiceImpl" />
 
 	<!-- Remember me -->
-	<beans:bean id="tokenRepository"
-		class="org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl" />
+	<beans:bean id="tokenRepository" class="org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl" />
 
 </beans:beans>

@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.gui.login.springsecurity;
+package fr.pinguet62.jsfring.util.springsecurity;
 
 import java.util.Set;
 

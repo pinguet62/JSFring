@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.gui.sample;
+package fr.pinguet62.jsfring.gui;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,7 +12,6 @@ import org.primefaces.model.DualListModel;
 
 import com.mysema.query.types.path.EntityPathBase;
 
-import fr.pinguet62.jsfring.gui.AbstractCrudBean;
 import fr.pinguet62.jsfring.model.Profile;
 import fr.pinguet62.jsfring.model.QUser;
 import fr.pinguet62.jsfring.model.User;
