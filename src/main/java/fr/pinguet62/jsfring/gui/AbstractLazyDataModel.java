@@ -24,8 +24,7 @@ import fr.pinguet62.jsfring.service.AbstractService;
  *
  * @param <T> The type of objects to display.
  */
-public class AbstractLazyDataModel<T extends Serializable> extends
-LazyDataModel<T> {
+public class AbstractLazyDataModel<T extends Serializable> extends LazyDataModel<T> {
 
     private static final long serialVersionUID = 1;
 
@@ -35,9 +34,7 @@ LazyDataModel<T> {
      */
     private final AbstractBean<T> bean;
 
-    /**
-     * @param bean {@link #bean}
-     */
+    /** @param bean {@link #bean} */
     public AbstractLazyDataModel(AbstractBean<T> bean) {
         this.bean = bean;
     }
@@ -59,8 +56,7 @@ LazyDataModel<T> {
      * @see AbstractService#findPanginated(JPAQuery)
      */
     @Override
-    public List<T> load(int first, int pageSize, String sortField,
-            SortOrder sortOrder, Map<String, Object> filters) {
+    public List<T> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
         EntityPathBase<T> from = bean.getBaseExpression();
         JPAQuery query = bean.getQuery();
 
@@ -69,8 +65,7 @@ LazyDataModel<T> {
         query.limit(pageSize);
         // Order
         if (sortField != null) {
-            OrderSpecifier<?> order = new OrderConverter(from).apply(sortField,
-                    sortOrder);
+            OrderSpecifier<?> order = new OrderConverter(from).apply(sortField, sortOrder);
             if (order != null)
                 query.orderBy(order);
         }

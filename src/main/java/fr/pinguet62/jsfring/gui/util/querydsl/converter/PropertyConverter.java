@@ -11,6 +11,12 @@ import com.mysema.query.types.path.EntityPathBase;
 /**
  * Get the {@link SimpleExpression} of {@link EntityPath} from the property
  * name.
+ * <p>
+ * Resolve the target value by calling the <b>attribute</b> calls (not by getter
+ * method)
+ * <p>
+ * Example: from {@code meta} object and {@code "attr.subAttr"} property, the
+ * method will return the result of {@code meta.attr.subAttr} call.
  */
 public final class PropertyConverter implements Function<String, SimpleExpression<?>> {
 
@@ -28,9 +34,6 @@ public final class PropertyConverter implements Function<String, SimpleExpressio
 
     /**
      * Apply the conversion: get the value corresponding to the attribute.
-     * <p>
-     * For example, from {@code meta} and {@code "attr.subAttr"}, the method
-     * will return the value of attribute {@code meta.attr.subAttr} value.
      *
      * @param property The {@link String} property.
      * @return The {@link SimpleExpression}.
