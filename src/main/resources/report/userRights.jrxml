@@ -1,58 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
-<!-- 2015-08-26T21:19:28 -->
+<!-- 2015-08-27T23:38:42 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BasicReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30" uuid="5be0a04b-d8e4-4449-9b79-502c5259256f">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PostgreSQL local"/>
-	<parameter name="Title" class="java.lang.String"/>
-	<queryString>
-		<![CDATA[select '1' as name, 2 as cost from public.profile]]>
-	</queryString>
-	<field name="NAME" class="java.lang.String"/>
-	<field name="COST" class="java.lang.Double"/>
+	<subDataset name="Rights" uuid="81abb769-c39b-4b7f-9041-ba92b6be65f7">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PostgreSQL local"/>
+		<queryString>
+			<![CDATA[select *
+from public."USER" "USER"
+left join public.users_profiles on users_profiles."USER" = "USER".login
+left join public.profile  profile on profile.id = users_profiles.profile
+left join public.profiles_rights on profiles_rights.profile = profile.id
+left join public."RIGHT" as "RIGHT" on "RIGHT".code = profiles_rights."RIGHT"
+order by "USER".login]]>
+		</queryString>
+		<field name="login" class="java.lang.String"/>
+		<field name="code" class="java.lang.String"/>
+		<group name="login">
+			<groupExpression><![CDATA[$F{login}]]></groupExpression>
+		</group>
+	</subDataset>
 	<title>
 		<band height="50" splitType="Stretch">
-			<textField>
-				<reportElement x="0" y="0" width="200" height="50" uuid="48c85805-39f4-4d50-bc5e-e177d19090ee"/>
-				<textFieldExpression><![CDATA[$P{Title}]]></textFieldExpression>
-			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="50" uuid="79858c51-3bba-4ba5-92c5-c39e58806282"/>
+				<text><![CDATA[User's rights]]></text>
+			</staticText>
 		</band>
 	</title>
-	<pageHeader>
-		<band splitType="Stretch"/>
-	</pageHeader>
-	<columnHeader>
-		<band height="20" splitType="Stretch">
-			<staticText>
-				<reportElement x="180" y="0" width="180" height="20" uuid="4a99d228-283d-43dd-b142-5de5540f065b"/>
-				<textElement>
-					<font isUnderline="true"/>
-				</textElement>
-				<text><![CDATA[NAME]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="360" y="0" width="180" height="20" uuid="4a9eaed5-24c3-4f23-99f5-2b1ddf3b4056"/>
-				<textElement>
-					<font isUnderline="true"/>
-				</textElement>
-				<text><![CDATA[COST]]></text>
-			</staticText>
-		</band>
-	</columnHeader>
 	<detail>
-		<band height="20" splitType="Stretch">
-			<textField>
-				<reportElement x="180" y="0" width="180" height="20" uuid="c3e27609-67f8-4e9d-9e85-a16b93ed0348"/>
-				<textFieldExpression><![CDATA[$F{NAME}]]></textFieldExpression>
-			</textField>
-			<textField pattern="0.00">
-				<reportElement x="360" y="0" width="180" height="20" uuid="6d19de24-eb46-45a9-8264-190b8c1cf79a"/>
-				<textFieldExpression><![CDATA[$F{COST}]]></textFieldExpression>
-			</textField>
-		</band>
+		<band height="50"/>
 	</detail>
-	<columnFooter>
-		<band splitType="Stretch"/>
-	</columnFooter>
 	<pageFooter>
 		<band height="15" splitType="Stretch">
 			<staticText>
@@ -66,6 +44,6 @@
 		</band>
 	</pageFooter>
 	<summary>
-		<band splitType="Stretch"/>
+		<band height="200"/>
 	</summary>
 </jasperReport>
