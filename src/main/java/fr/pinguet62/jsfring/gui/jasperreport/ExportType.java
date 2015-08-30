@@ -6,6 +6,7 @@ import net.sf.jasperreports.engine.JRAbstractExporter;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.export.HtmlExporter;
 import net.sf.jasperreports.engine.export.JRCsvExporter;
+import net.sf.jasperreports.engine.export.JRExporterContext;
 import net.sf.jasperreports.engine.export.JRGraphics2DExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRRtfExporter;
@@ -17,6 +18,8 @@ import net.sf.jasperreports.engine.export.oasis.JROdtExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRPptxExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
+import net.sf.jasperreports.export.ExporterConfiguration;
+import net.sf.jasperreports.export.ReportExportConfiguration;
 
 /** The available {@link JRAbstractExporter} type. */
 public enum ExportType {
@@ -28,10 +31,7 @@ public enum ExportType {
      * Word processing<br>
      * <i>Office Open XML</i>
      */
-    DOCX(
-            JRDocxExporter::new,
-            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            "docx"),
+    DOCX(JRDocxExporter::new, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "docx"),
 
     /** Graphics2D */
     GRAPHICS_2D(() -> {
@@ -49,8 +49,7 @@ public enum ExportType {
      * Spreadsheets<br>
      * <i>OpenDocument</i>
      */
-    ODS(JROdsExporter::new, "application/vnd.oasis.opendocument.spreadsheet",
-            "ods"),
+    ODS(JROdsExporter::new, "application/vnd.oasis.opendocument.spreadsheet", "ods"),
 
     /**
      * Word processing<br>
@@ -65,10 +64,7 @@ public enum ExportType {
      * Presentation<br>
      * <i>Office Open XML</i>
      */
-    PPTX(
-            JRPptxExporter::new,
-            "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-            "pptx"),
+    PPTX(JRPptxExporter::new, "application/vnd.openxmlformats-officedocument.presentationml.presentation", "pptx"),
 
     /** Rich Text Format */
     RTF(JRRtfExporter::new, "application/rtf", "rtf"),
@@ -88,16 +84,13 @@ public enum ExportType {
      * Spreadsheets<br>
      * <i>Office Open XML</i>
      */
-    XLSX(
-            JRXlsxExporter::new,
-            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            "xlsx"),
+    XLSX(JRXlsxExporter::new, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "xlsx"),
 
     /** Extensible Markup Language */
     XML(JRXmlExporter::new, "application/xml", "xml");
 
     /** Factory used to get the {@link JRAbstractExporter} implementation. */
-    private final Supplier<JRAbstractExporter<?, ?, ? super GeneralExporterOutput, ?>> exporterFactory;
+    private final Supplier<JRAbstractExporter<? extends ReportExportConfiguration, ? extends ExporterConfiguration, ? super GeneralExporterOutput, ? extends JRExporterContext>> exporterFactory;
 
     /** Extension of file type. */
     private final String extension;
@@ -111,7 +104,7 @@ public enum ExportType {
      * @param extension The {@link #extension}.
      */
     private ExportType(
-            Supplier<JRAbstractExporter<?, ?, ? super GeneralExporterOutput, ?>> exporterFactory,
+            Supplier<JRAbstractExporter<? extends ReportExportConfiguration, ? extends ExporterConfiguration, ? super GeneralExporterOutput, ? extends JRExporterContext>> exporterFactory,
             String mime, String extension) {
         this.extension = extension;
         this.mime = mime;
@@ -124,7 +117,7 @@ public enum ExportType {
      *
      * @return The {@link #exporterFactory}.
      */
-    public Supplier<JRAbstractExporter<?, ?, ? super GeneralExporterOutput, ?>> getExporterFactory() {
+    public Supplier<JRAbstractExporter<? extends ReportExportConfiguration, ? extends ExporterConfiguration, ? super GeneralExporterOutput, ? extends JRExporterContext>> getExporterFactory() {
         return exporterFactory;
     }
 

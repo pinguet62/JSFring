@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -20,7 +21,7 @@ import com.mysema.query.annotations.Config;
 // JPA
 @Entity
 @Table(name = "\"RIGHT\"")
-public class Right implements java.io.Serializable {
+public class Right implements Serializable {
 
     private static final long serialVersionUID = 1;
 

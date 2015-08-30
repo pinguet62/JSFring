@@ -28,7 +28,7 @@ public final class ChangePasswordBean implements Serializable {
     private String currentPassword;
 
     @Inject
-    private MessageSource messageSource;
+    private transient MessageSource messageSource;
 
     @Pattern(regexp = PASSWORD_REGEX)
     private String newPassword;
@@ -36,10 +36,10 @@ public final class ChangePasswordBean implements Serializable {
     private String newPasswordConfirmation;
 
     @Inject
-    private UserBean userBean;
+    private transient UserBean userBean;
 
     @Inject
-    UserService userService;
+    private transient UserService userService;
 
     public String getCurrentPassword() {
         return currentPassword;
@@ -77,12 +77,9 @@ public final class ChangePasswordBean implements Serializable {
         UserDetails userDetails = userBean.get();
 
         if (!newPassword.equals(userDetails.getPassword())) {
-            Locale locale = FacesContext.getCurrentInstance().getViewRoot()
-                    .getLocale();
-            String msg = messageSource.getMessage(
-                    "changePassword.invalidCurrentPassword", null, locale);
-            FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, null));
+            Locale locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
+            String msg = messageSource.getMessage("changePassword.invalidCurrentPassword", null, locale);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, null));
         }
 
         userService.updatePassword(userDetails.getUsername(), newPassword);

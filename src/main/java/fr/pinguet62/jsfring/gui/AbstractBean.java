@@ -23,17 +23,14 @@ import fr.pinguet62.jsfring.service.AbstractService;
  * @see AbstractService#getAll()
  * @see AbstractService#findPanginated(JPAQuery)
  */
-public abstract class AbstractBean<T extends Serializable> implements
-        Serializable {
+public abstract class AbstractBean<T extends Serializable> implements Serializable {
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(AbstractBean.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractBean.class);
 
     private static final long serialVersionUID = 1;
 
     /** @property.getter {@link #getLazyDataModel()} */
-    private final LazyDataModel<T> lazyDataModel = new AbstractLazyDataModel<T>(
-            this);
+    private final LazyDataModel<T> lazyDataModel = new AbstractLazyDataModel<T>(this);
 
     /** Used for <b>eager loading</b> to store result of last call in database. */
     private List<T> list;
@@ -91,7 +88,7 @@ public abstract class AbstractBean<T extends Serializable> implements
     }
 
     /** Get the {@link AbstractService service} used to load data. */
-    abstract public AbstractService<T, ?> getService();
+    abstract public AbstractService<T, ? extends Serializable> getService();
 
     /**
      * Refresh the database.

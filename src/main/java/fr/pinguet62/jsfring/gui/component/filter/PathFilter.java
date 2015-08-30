@@ -21,12 +21,12 @@ import fr.pinguet62.jsfring.gui.component.filter.operator.Operator;
  * @param <Exp> The type of {@link SimpleExpression} on which apply filter.
  * @param <T> The type of parameter of the {@link Operator}.
  */
-public abstract class PathFilter<Exp extends SimpleExpression<T>, T> implements
-Supplier<BooleanExpression>, Serializable {
+public abstract class PathFilter<Exp extends SimpleExpression<T>, T extends Serializable> implements
+        Supplier<BooleanExpression>, Serializable {
 
     /** The "always-true" expression: {@code 1=1} */
-    private static final BooleanExpression ALWAYS_TRUE = BooleanOperation
-            .create(Ops.EQ, ConstantImpl.create(1), ConstantImpl.create(1));
+    private static final BooleanExpression ALWAYS_TRUE = BooleanOperation.create(Ops.EQ, ConstantImpl.create(1),
+            ConstantImpl.create(1));
 
     private static final long serialVersionUID = 1;
 
@@ -68,10 +68,8 @@ Supplier<BooleanExpression>, Serializable {
         if (!(obj instanceof PathFilter))
             return false;
         PathFilter<Exp, T> other = (PathFilter<Exp, T>) obj;
-        return Objects.equals(path, other.path)
-                && Objects.equals(operator, other.operator)
-                && Objects.equals(value1, other.value1)
-                && Objects.equals(value2, other.value2);
+        return Objects.equals(path, other.path) && Objects.equals(operator, other.operator)
+                && Objects.equals(value1, other.value1) && Objects.equals(value2, other.value2);
     }
 
     /**
@@ -157,11 +155,9 @@ Supplier<BooleanExpression>, Serializable {
             case 1:
                 return String.format("%s(%s)", operator.getMessage(), value1);
             case 2:
-                return String.format("%s(%s, %s)", operator.getMessage(),
-                        value1, value2);
+                return String.format("%s(%s, %s)", operator.getMessage(), value1, value2);
             default:
-                throw new UnsupportedOperationException(
-                        "Invalid number of parameters for operator " + operator);
+                throw new UnsupportedOperationException("Invalid number of parameters for operator " + operator);
         }
     }
 

@@ -24,17 +24,14 @@ public final class UserDao extends AbstractDao<User, String> {
      */
     public void disableInactiveUsers(int numberOfDays) {
         if (numberOfDays <= 0)
-            throw new IllegalArgumentException(
-                    "The number of days must be a positive value.");
+            throw new IllegalArgumentException("The number of days must be a positive value.");
 
         Calendar c = Calendar.getInstance();
         c.add(Calendar.DAY_OF_YEAR, numberOfDays);
         Date lastAccepted = c.getTime();
 
         QUser u = QUser.user;
-        new JPAUpdateClause(em, u).where(
-                u.active.eq(true).and(u.lastConnection.before(lastAccepted)))
-                .set(u.active, false);
+        new JPAUpdateClause(em, u).where(u.active.eq(true).and(u.lastConnection.before(lastAccepted))).set(u.active, false);
     }
 
     @Override
@@ -49,8 +46,7 @@ public final class UserDao extends AbstractDao<User, String> {
      * @return The {@link User}, {@code null} if not found.
      */
     public User getByEmail(String email) {
-        return new JPAQuery(em).from(QUser.user)
-                .where(QUser.user.email.eq(email)).singleResult(QUser.user);
+        return new JPAQuery(em).from(QUser.user).where(QUser.user.email.eq(email)).singleResult(QUser.user);
     }
 
     /**
@@ -61,7 +57,7 @@ public final class UserDao extends AbstractDao<User, String> {
      */
     public void resetLastConnectionDate(User user) {
         QUser u = QUser.user;
-        new JPAUpdateClause(em, u).set(u.lastConnection, new Date()).execute();
+        new JPAUpdateClause(em, u).where(u.login.eq(user.getPassword())).set(u.lastConnection, new Date()).execute();
     }
 
     /**
@@ -72,8 +68,7 @@ public final class UserDao extends AbstractDao<User, String> {
      */
     public void updatePassword(User user, String password) {
         QUser u = QUser.user;
-        new JPAUpdateClause(em, u).where(u.login.eq(user.getLogin()))
-                .set(u.password, password).execute();
+        new JPAUpdateClause(em, u).where(u.login.eq(user.getLogin())).set(u.password, password).execute();
     }
 
 }

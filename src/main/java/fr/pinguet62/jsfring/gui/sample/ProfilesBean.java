@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.gui.sample;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -72,7 +73,7 @@ public final class ProfilesBean extends AbstractCrudBean<Profile> {
     }
 
     @Override
-    public AbstractService<Profile, ?> getService() {
+    public AbstractService<Profile, ? extends Serializable> getService() {
         return profileService;
     }
 
@@ -90,13 +91,10 @@ public final class ProfilesBean extends AbstractCrudBean<Profile> {
     public void setSelectedValue(Profile profile) {
         super.setSelectedValue(profile);
 
-        List<Right> associatedRights = new ArrayList<>(getSelectedValue()
-                .getRights());
-        List<Right> availableRights = rightService.getAll().stream()
-                .filter(right -> !associatedRights.contains(right))
+        List<Right> associatedRights = new ArrayList<>(getSelectedValue().getRights());
+        List<Right> availableRights = rightService.getAll().stream().filter(right -> !associatedRights.contains(right))
                 .collect(Collectors.toList());
-        rightsAssociation = new DualListModel<Right>(availableRights,
-                associatedRights);
+        rightsAssociation = new DualListModel<Right>(availableRights, associatedRights);
     }
 
     /**

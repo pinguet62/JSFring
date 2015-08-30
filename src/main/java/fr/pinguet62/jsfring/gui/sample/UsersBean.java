@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.gui.sample;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -50,8 +51,7 @@ public final class UsersBean extends AbstractCrudBean<User> {
     @Override
     public void create() {
         getSelectedValue().getProfiles().clear();
-        getSelectedValue().getProfiles()
-                .addAll(profilesAssociation.getTarget());
+        getSelectedValue().getProfiles().addAll(profilesAssociation.getTarget());
 
         super.create();
     }
@@ -73,13 +73,12 @@ public final class UsersBean extends AbstractCrudBean<User> {
     }
 
     @Override
-    public AbstractService<User, ?> getService() {
+    public AbstractService<User, ? extends Serializable> getService() {
         return userService;
     }
 
     /** @property.attribute {@link #profilesAssociation} */
-    public void setProfilesAssociation(
-            DualListModel<Profile> profilesAssociation) {
+    public void setProfilesAssociation(DualListModel<Profile> profilesAssociation) {
         this.profilesAssociation = profilesAssociation;
     }
 
@@ -93,13 +92,10 @@ public final class UsersBean extends AbstractCrudBean<User> {
         super.setSelectedValue(user);
 
         // Custom
-        List<Profile> associatedProfiles = new ArrayList<>(getSelectedValue()
-                .getProfiles());
+        List<Profile> associatedProfiles = new ArrayList<>(getSelectedValue().getProfiles());
         List<Profile> availableProfiles = profileService.getAll().stream()
-                .filter(profile -> !associatedProfiles.contains(profile))
-                .collect(Collectors.toList());
-        profilesAssociation = new DualListModel<>(availableProfiles,
-                associatedProfiles);
+                .filter(profile -> !associatedProfiles.contains(profile)).collect(Collectors.toList());
+        profilesAssociation = new DualListModel<>(availableProfiles, associatedProfiles);
     }
 
     /**
@@ -111,8 +107,7 @@ public final class UsersBean extends AbstractCrudBean<User> {
     public void update() {
         // Profile association
         getSelectedValue().getProfiles().clear();
-        getSelectedValue().getProfiles()
-                .addAll(profilesAssociation.getTarget());
+        getSelectedValue().getProfiles().addAll(profilesAssociation.getTarget());
 
         super.update();
     }

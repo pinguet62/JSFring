@@ -7,6 +7,7 @@
 	<artifactId>JSFring</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
+
 	<dependencies>
 		<!-- ===== Others ===== -->
 		<!-- Logging -->
@@ -48,8 +49,8 @@
 			<version>2.5.1</version>
 		</dependency>
 		<!-- JSFUnit -->
-		<!-- <dependency> <groupId>org.jboss.jsfunit</groupId> <artifactId>jboss-jsfunit-core</artifactId> 
-			<version>1.3.0.Final</version> </dependency> -->
+		<!-- <dependency> <groupId>org.jboss.jsfunit</groupId> <artifactId>jboss-jsfunit-core</artifactId> <version>1.3.0.Final</version> 
+			</dependency> -->
 
 		<!-- ===== Webapp ===== -->
 		<!-- CDI -->
@@ -260,6 +261,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
+		<!-- Project -->
 		<log4j2.version>2.3</log4j2.version>
 		<jsf.version>2.2.11</jsf.version>
 		<hivernate.version>5.0.0.CR4</hivernate.version>
@@ -267,6 +269,8 @@
 		<spring.version>4.2.0.RELEASE</spring.version>
 		<spring-webflow.version>2.4.1.RELEASE</spring-webflow.version>
 		<spring-security.version>4.0.2.RELEASE</spring-security.version>
+		<!-- Sonar -->
+		<sonar.host.url>http://localhost:9000/</sonar.host.url>
 	</properties>
 
 	<build>
@@ -290,9 +294,9 @@
 							<goal>process</goal>
 						</goals>
 						<configuration>
+							<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
 							<outputDirectory>target/generated-sources/java</outputDirectory>
-							<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor
-							</processor>
+							<validationAnnotations>true</validationAnnotations>
 						</configuration>
 					</execution>
 				</executions>
@@ -371,18 +375,11 @@
 	</build>
 
 	<name>JSFring</name>
-	<description>
-		Web application who integrated JSF, JPA (Hibernate) and
-		Spring
-	</description>
+	<description>Web application who integrated JSF, JPA (Hibernate) and Spring</description>
 	<url>https://pinguet62-jsfring.herokuapp.com</url>
 	<licenses>
 		<license>
-			<name>
-				Creative Commons Attribution-NonCommercial-ShareAlike 4.0
-				International
-				Public License
-			</name>
+			<name>Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License</name>
 			<url>http://creativecommons.org/licenses/by-nc-sa/4.0/</url>
 			<comments>CC BY-NC-SA 4.0</comments>
 		</license>
@@ -406,8 +403,7 @@
 		<repository>
 			<id>jboss</id>
 			<name>JBoss Repository</name>
-			<url>https://repository.jboss.org/nexus/content/groups/public-jboss
-			</url>
+			<url>https://repository.jboss.org/nexus/content/groups/public-jboss</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
@@ -423,8 +419,7 @@
 	<pluginRepositories>
 		<pluginRepository>
 			<id>maven-annotation</id>
-			<url>http://maven-annotation-plugin.googlecode.com/svn/trunk/mavenrepo
-			</url>
+			<url>http://maven-annotation-plugin.googlecode.com/svn/trunk/mavenrepo</url>
 		</pluginRepository>
 	</pluginRepositories>
 

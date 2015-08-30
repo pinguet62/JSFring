@@ -1,5 +1,7 @@
 package fr.pinguet62.jsfring.gui;
 
+import java.io.Serializable;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -18,7 +20,7 @@ public class RightsBean extends AbstractSelectableBean<Right> {
     private static final long serialVersionUID = 1;
 
     @Inject
-    private RightService rightService;
+    private transient RightService rightService;
 
     @Override
     protected EntityPathBase<Right> getBaseExpression() {
@@ -26,7 +28,7 @@ public class RightsBean extends AbstractSelectableBean<Right> {
     }
 
     @Override
-    public AbstractService<Right, ?> getService() {
+    public AbstractService<Right, ? extends Serializable> getService() {
         return rightService;
     }
 
