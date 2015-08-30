@@ -28,18 +28,15 @@ public final class FiltersBean implements Serializable {
     private static final long serialVersionUID = 1;
 
     /** @see User#email */
-    private NumberPathFilter<Integer> numberFilter = new NumberPathFilter<Integer>(
-            QUser.user.email.length());
+    private NumberPathFilter<Integer> numberFilter = new NumberPathFilter<Integer>(QUser.user.email.length());
 
     private String sql = "";
 
     /** @see User#login */
-    private StringPathFilter stringFilter = new StringPathFilter(
-            QUser.user.login) {
+    private StringPathFilter stringFilter = new StringPathFilter(QUser.user.login) {
         @Override
         public List<Operator<StringExpression, String>> getOperators() {
-            return Arrays.asList(new IsNullOperator<>(),
-                    new EqualsToOperator<StringExpression, String>(),
+            return Arrays.asList(new IsNullOperator<>(), new EqualsToOperator<StringExpression, String>(),
                     new StartsWithOperator(), new ContainsOperator());
         };
     };
@@ -70,4 +67,5 @@ public final class FiltersBean implements Serializable {
         query.where(stringFilter.get()).where(numberFilter.get());
         sql = query.toString();
     }
+
 }

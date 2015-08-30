@@ -5,10 +5,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-import com.mysema.query.types.ConstantImpl;
-import com.mysema.query.types.Ops;
-import com.mysema.query.types.expr.BooleanExpression;
-import com.mysema.query.types.expr.BooleanOperation;
+import com.mysema.query.BooleanBuilder;
+import com.mysema.query.types.Predicate;
 import com.mysema.query.types.expr.SimpleExpression;
 
 import fr.pinguet62.jsfring.gui.component.filter.operator.EqualsToOperator;
@@ -21,12 +19,11 @@ import fr.pinguet62.jsfring.gui.component.filter.operator.Operator;
  * @param <Exp> The type of {@link SimpleExpression} on which apply filter.
  * @param <T> The type of parameter of the {@link Operator}.
  */
-public abstract class PathFilter<Exp extends SimpleExpression<T>, T extends Serializable> implements
-        Supplier<BooleanExpression>, Serializable {
+public abstract class PathFilter<Exp extends SimpleExpression<T>, T extends Serializable> implements Supplier<Predicate>,
+        Serializable {
 
-    /** The "always-true" expression: {@code 1=1} */
-    private static final BooleanExpression ALWAYS_TRUE = BooleanOperation.create(Ops.EQ, ConstantImpl.create(1),
-            ConstantImpl.create(1));
+    /** Factory to generate an "always-true" {@link Predicate}. */
+    private static final Supplier<Predicate> ALWAYS_TRUE2 = () -> new BooleanBuilder();
 
     private static final long serialVersionUID = 1;
 
@@ -73,16 +70,16 @@ public abstract class PathFilter<Exp extends SimpleExpression<T>, T extends Seri
     }
 
     /**
-     * Generate the {@link BooleanExpression} used to filter results.
+     * Generate the {@link Predicate} used to filter results.
      *
-     * @return The {@link BooleanExpression}.<br>
+     * @return The {@link Predicate}.<br>
      *         If {@link #operator} is {@code null}, then return
      *         {@link ALWAYS_TRUE}.
      */
     @Override
-    public BooleanExpression get() {
+    public Predicate get() {
         if (operator == null)
-            return ALWAYS_TRUE;
+            return ALWAYS_TRUE2.get();
         return operator.apply(path, value1, value2);
     }
 
@@ -147,7 +144,7 @@ public abstract class PathFilter<Exp extends SimpleExpression<T>, T extends Seri
     @Override
     public String toString() {
         if (operator == null)
-            return ALWAYS_TRUE.toString();
+            return "";
 
         switch (operator.getNumberOfParameters()) {
             case 0:
