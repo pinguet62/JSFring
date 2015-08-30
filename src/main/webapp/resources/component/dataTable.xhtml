@@ -72,41 +72,47 @@
 
 		<composite:insertChildren />
 
-		<p:column headerText="#{msg['datatable.actions.headerText']}"
-			style="width: 150px; text-align: center" exportable="false">
-			<!-- Show -->
-			<c:if test="#{cc.attrs.showView != null}">
-				<p:commandButton update=":#{p:component('showDialog')}"
-					oncomplete="PF('showDialogWidget').show();" icon="ui-icon-search"
-					title="#{msg['dataTable.actions.show']}">
-					<f:setPropertyActionListener
-						target="#{cc.attrs.bean.selectedValue}" value="#{cc.evaluatedVar}" />
-				</p:commandButton>
-			</c:if>
+		<c:if
+			test="#{cc.attrs.showView != null or cc.attrs.updateView != null or cc.attrs.deletable}">
+			<p:column headerText="#{msg['datatable.actions.headerText']}"
+				style="width: 150px; text-align: center" exportable="false">
+				<!-- Show -->
+				<c:if test="#{cc.attrs.showView != null}">
+					<p:commandButton update=":#{p:component('showDialog')}"
+						oncomplete="PF('showDialogWidget').show();" icon="ui-icon-search"
+						title="#{msg['dataTable.actions.show']}">
+						<f:setPropertyActionListener
+							target="#{cc.attrs.bean.selectedValue}"
+							value="#{cc.getEvaluatedVar()}" />
+					</p:commandButton>
+				</c:if>
 
-			<!-- Update -->
-			<c:if test="#{cc.attrs.updateView != null}">
-				<p:commandButton update=":#{p:component('updateDialog')}"
-					oncomplete="PF('updateDialogWidget').show();" icon="ui-icon-pencil"
-					title="#{msg['dataTable.actions.update']}">
-					<f:setPropertyActionListener
-						target="#{cc.attrs.bean.selectedValue}" value="#{cc.evaluatedVar}" />
-				</p:commandButton>
-			</c:if>
+				<!-- Update -->
+				<c:if test="#{cc.attrs.updateView != null}">
+					<p:commandButton update=":#{p:component('updateDialog')}"
+						oncomplete="PF('updateDialogWidget').show();"
+						icon="ui-icon-pencil" title="#{msg['dataTable.actions.update']}">
+						<f:setPropertyActionListener
+							target="#{cc.attrs.bean.selectedValue}"
+							value="#{cc.getEvaluatedVar()}" />
+					</p:commandButton>
+				</c:if>
 
-			<!-- Delete -->
-			<c:if test="#{cc.attrs.deletable}">
-				<p:commandButton icon="ui-icon-trash"
-					title="#{msg['dataTable.actions.delete']}" update="dataTable">
-					<f:setPropertyActionListener
-						target="#{cc.attrs.bean.selectedValue}" value="#{cc.evaluatedVar}" />
-					<f:actionListener binding="#{cc.attrs.bean.delete()}" />
-					<p:confirm icon="ui-icon-alert"
-						header="#{msg['dataTable.actions.delete']}"
-						message="#{msg['dataTable.actions.delete.confirm']}" />
-				</p:commandButton>
-			</c:if>
-		</p:column>
+				<!-- Delete -->
+				<c:if test="#{cc.attrs.deletable}">
+					<p:commandButton icon="ui-icon-trash"
+						title="#{msg['dataTable.actions.delete']}" update="dataTable">
+						<f:setPropertyActionListener
+							target="#{cc.attrs.bean.selectedValue}"
+							value="#{cc.getEvaluatedVar()}" />
+						<f:actionListener binding="#{cc.attrs.bean.delete()}" />
+						<p:confirm icon="ui-icon-alert"
+							header="#{msg['dataTable.actions.delete']}"
+							message="#{msg['dataTable.actions.delete.confirm']}" />
+					</p:commandButton>
+				</c:if>
+			</p:column>
+		</c:if>
 
 		<f:facet name="footer">
 			<!-- Extract -->
