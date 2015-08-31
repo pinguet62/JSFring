@@ -1,7 +1,9 @@
 package fr.pinguet62.jsfring.model;
 
+import static fr.pinguet62.jsfring.model.User.EMAIL_REGEX;
 import static fr.pinguet62.jsfring.model.User.PASSWORD_REGEX;
 import static java.util.stream.Collectors.joining;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
@@ -29,6 +31,19 @@ public final class UserTest {
         assertTrue(new Combinator<String>(characters).get().stream()
                 .map(list -> list.stream().collect(joining("")))
                 .allMatch(passwordChecker));
+    }
+
+    /** @see User#EMAIL_REGEX */
+    @Test
+    public void test_email_regex() {
+        assertTrue("username@host.domain".matches(EMAIL_REGEX));
+
+        assertFalse("@host.domain".matches(EMAIL_REGEX));
+        assertFalse("usernamehost.domain".matches(EMAIL_REGEX));
+        assertFalse("username@.domain".matches(EMAIL_REGEX));
+        // assertFalse("username@hostdomain".matches(EMAIL_REGEX));
+        assertFalse("username@host.".matches(EMAIL_REGEX));
+        assertFalse("".matches(EMAIL_REGEX));
     }
 
     /** @see User#PASSWORD_REGEX */
