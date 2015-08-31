@@ -149,7 +149,7 @@
 			</f:subview>
 			<p:commandButton process=":#{p:component('createDialog')}"
 				actionListener="#{cc.attrs.bean.create}"
-				oncomplete="PF('createDialogWidget').hide();"
+				oncomplete="if (!args.validationFailed) PF('createDialogWidget').hide();"
 				update=":#{p:component(cc.attrs.id)}:dataTable"
 				value="#{msg['button.submit']}" />
 		</h:form>
@@ -178,7 +178,7 @@
 			</f:subview>
 			<p:commandButton actionListener="#{cc.attrs.bean.update}"
 				process=":#{p:component('updateDialog')}"
-				oncomplete="PF('updateDialogWidget').hide();"
+				oncomplete="if (!args.validationFailed) PF('updateDialogWidget').hide();"
 				update=":#{p:component(cc.attrs.id)}:dataTable"
 				value="#{msg['button.submit']}" />
 		</h:form>
