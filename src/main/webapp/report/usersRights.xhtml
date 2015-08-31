@@ -12,17 +12,13 @@
 	<ui:define name="content">
 		<h:form>
 			<div style="text-align: center;">
-				<p:panel id="report" header="Report" style="display: inline-block;">
+				<p:panel id="report" header="#{msg['report.usersRights.title']}"
+					style="display: inline-block;">
 					<p:messages autoUpdate="true" />
 
 					<h:panelGrid cellpadding="5" columns="2"
 						style="margin:0 auto; text-align: left;">
-						<h:outputLabel for="title" value="Title" />
-						<p:inputText id="title"
-							value="#{userRightsJasperReportBean.paramTitle}" />
-
-						<h:outputLabel for="other" value="Others" />
-						<p:inputText id="other" value="Others" />
+						<h:outputText value="#{msg['report.noParameter']}" />
 					</h:panelGrid>
 
 					<f:facet name="footer">
@@ -38,32 +34,32 @@
 						<p:commandButton ajax="false"
 							onclick="PrimeFaces.monitorDownload(startDownload, stopDownload);"
 							value="CSV">
-							<p:fileDownload value="#{userRightsJasperReportBean.csvFile}" />
+							<p:fileDownload value="#{usersRightsJasperReportBean.csvFile}" />
 						</p:commandButton>
 						<p:commandButton ajax="false"
 							onclick="PrimeFaces.monitorDownload(startDownload, stopDownload);"
 							value="docx">
-							<p:fileDownload value="#{userRightsJasperReportBean.docxFile}" />
+							<p:fileDownload value="#{usersRightsJasperReportBean.docxFile}" />
 						</p:commandButton>
 						<p:commandButton ajax="false"
 							onclick="PrimeFaces.monitorDownload(startDownload, stopDownload);"
 							value="odt">
-							<p:fileDownload value="#{userRightsJasperReportBean.odtFile}" />
+							<p:fileDownload value="#{usersRightsJasperReportBean.odtFile}" />
 						</p:commandButton>
 						<p:commandButton ajax="false"
 							onclick="PrimeFaces.monitorDownload(startDownload, stopDownload);"
 							value="PDF">
-							<p:fileDownload value="#{userRightsJasperReportBean.pdfFile}" />
+							<p:fileDownload value="#{usersRightsJasperReportBean.pdfFile}" />
 						</p:commandButton>
 						<p:commandButton ajax="false"
 							onclick="PrimeFaces.monitorDownload(startDownload, stopDownload);"
 							value="pptx">
-							<p:fileDownload value="#{userRightsJasperReportBean.pptxFile}" />
+							<p:fileDownload value="#{usersRightsJasperReportBean.pptxFile}" />
 						</p:commandButton>
 						<p:commandButton ajax="false"
 							onclick="PrimeFaces.monitorDownload(startDownload, stopDownload);"
 							value="xlsx">
-							<p:fileDownload value="#{userRightsJasperReportBean.xlsxFile}" />
+							<p:fileDownload value="#{usersRightsJasperReportBean.xlsxFile}" />
 						</p:commandButton>
 					</f:facet>
 				</p:panel>

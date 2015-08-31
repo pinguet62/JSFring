@@ -8,8 +8,6 @@ import static fr.pinguet62.jsfring.gui.jasperreport.ExportType.PPTX;
 import static fr.pinguet62.jsfring.gui.jasperreport.ExportType.XLSX;
 
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.inject.Named;
 
@@ -23,11 +21,9 @@ import fr.pinguet62.jsfring.util.cdi.scope.SpringViewScoped;
 
 @Named
 @SpringViewScoped
-public class UserRightsJasperReportBean extends AbstractJasperReportBean {
+public class UsersRightsJasperReportBean extends AbstractJasperReportBean {
 
     private static final long serialVersionUID = 1;
-
-    private String title;
 
     /**
      * @see #getStreamedContent(ExportType)
@@ -53,17 +49,6 @@ public class UserRightsJasperReportBean extends AbstractJasperReportBean {
         return getStreamedContent(ODT);
     }
 
-    @Override
-    protected Map<String, Object> getParameters() {
-        Map<String, Object> params = new HashMap<>();
-        params.put("Title", title);
-        return params;
-    }
-
-    public String getParamTitle() {
-        return title;
-    }
-
     /**
      * @see #getStreamedContent(ExportType)
      * @see ExportType#PDF
@@ -82,7 +67,7 @@ public class UserRightsJasperReportBean extends AbstractJasperReportBean {
 
     @Override
     protected String getReportPath() {
-        return "/report/userRights.jrxml";
+        return "/report/usersRights.jrxml";
     }
 
     /**
@@ -91,10 +76,6 @@ public class UserRightsJasperReportBean extends AbstractJasperReportBean {
      */
     public StreamedContent getXlsxFile() throws JRException, SQLException {
         return getStreamedContent(XLSX);
-    }
-
-    public void setParamTitle(String title) {
-        this.title = title;
     }
 
 }
