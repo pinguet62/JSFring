@@ -63,18 +63,14 @@ public abstract class AbstractJasperReportBean implements Serializable {
      *             {@link JasperReport}
      * @throws SQLException Error with {@link DataSource} injection.
      */
-    protected StreamedContent getStreamedContent(ExportType targetType)
-            throws JRException, SQLException {
+    protected StreamedContent getStreamedContent(ExportType targetType) throws JRException, SQLException {
         // Jasper: compile
-        JasperReport jasperReport = JasperCompileManager
-                .compileReport(getClass().getResourceAsStream(getReportPath()));
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,
-                getParameters(), dataSource.getConnection());
+        JasperReport jasperReport = JasperCompileManager.compileReport(getClass().getResourceAsStream(getReportPath()));
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, getParameters(), dataSource.getConnection());
 
         // Jasper: export
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        JRAbstractExporter<?, ?, ? super GeneralExporterOutput, ?> exporter = targetType
-                .getExporterFactory().get();
+        JRAbstractExporter<?, ?, ? super GeneralExporterOutput, ?> exporter = targetType.getExporterFactory().get();
         exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
         exporter.setExporterOutput(new GeneralExporterOutput(outputStream));
         exporter.exportReport();
@@ -82,8 +78,7 @@ public abstract class AbstractJasperReportBean implements Serializable {
 
         // PrimeFaces download
         ByteArrayInputStream inputStream = new ByteArrayInputStream(bytes);
-        return new DefaultStreamedContent(inputStream, targetType.getMime(),
-                "report.jpg");
+        return new DefaultStreamedContent(inputStream, targetType.getMime(), "report." + targetType.getExtension());
     }
 
 }
