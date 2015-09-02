@@ -37,8 +37,7 @@ public abstract class AbstractDao<T, PK extends Serializable> {
      * Used by {@code Criteria} to determinate the target table.
      */
     @SuppressWarnings("unchecked")
-    private final Class<T> type = (Class<T>) ((ParameterizedType) getClass()
-            .getGenericSuperclass()).getActualTypeArguments()[0];
+    private final Class<T> type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 
     /**
      * Get number of objects.
@@ -69,8 +68,7 @@ public abstract class AbstractDao<T, PK extends Serializable> {
      * @param object The object to delete.
      */
     public void delete(T object) {
-        Object id = em.getEntityManagerFactory().getPersistenceUnitUtil()
-                .getIdentifier(object);
+        Object id = em.getEntityManagerFactory().getPersistenceUnitUtil().getIdentifier(object);
         T obj = em.getReference(type, id);
         em.remove(obj);
     }
@@ -107,10 +105,7 @@ public abstract class AbstractDao<T, PK extends Serializable> {
      * @return The object, {@code null} if not found.
      */
     public T get(PK id) {
-        T obj = em.find(type, id);
-        if (obj != null)
-            em.detach(obj);
-        return obj;
+        return em.find(type, id);
     }
 
     /**
