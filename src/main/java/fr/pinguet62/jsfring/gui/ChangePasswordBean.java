@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.gui;
 
+import static fr.pinguet62.jsfring.model.User.EMAIL_VALIDATION_MESSAGE;
 import static fr.pinguet62.jsfring.model.User.PASSWORD_REGEX;
 
 import java.io.Serializable;
@@ -31,7 +32,7 @@ public final class ChangePasswordBean implements Serializable {
     @Inject
     private transient MessageSource messageSource;
 
-    @Pattern(regexp = PASSWORD_REGEX)
+    @Pattern(regexp = PASSWORD_REGEX, message = EMAIL_VALIDATION_MESSAGE)
     private String newPassword;
 
     private String newPasswordConfirmation;
@@ -78,9 +79,12 @@ public final class ChangePasswordBean implements Serializable {
         UserDetails userDetails = userBean.get();
 
         if (!newPassword.equals(userDetails.getPassword())) {
-            Locale locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
-            String msg = messageSource.getMessage("changePassword.invalidCurrentPassword", null, locale);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, null));
+            Locale locale = FacesContext.getCurrentInstance().getViewRoot()
+                    .getLocale();
+            String msg = messageSource.getMessage(
+                    "changePassword.invalidCurrentPassword", null, locale);
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, null));
         }
 
         userService.updatePassword(userDetails.getUsername(), newPassword);
