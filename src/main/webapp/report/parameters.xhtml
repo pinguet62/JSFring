@@ -25,6 +25,11 @@
 						<h:outputLabel for="integerParam" value="java.lang.Integer" />
 						<p:inputText id="integerParam"
 							value="#{parametersJasperReportBean.integerParam}" />
+
+						<h:outputLabel for="listParam" value="java.util.List" />
+						<p:autoComplete id="listParam" multiple="true"
+							completeMethod="#{parametersJasperReportBean.complete}"
+							value="#{parametersJasperReportBean.listParam}" />
 					</h:panelGrid>
 
 					<f:facet name="footer">
