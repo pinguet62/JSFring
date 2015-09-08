@@ -7,6 +7,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.pinguet62.jsfring.dao.UserDao;
@@ -28,6 +29,7 @@ import fr.pinguet62.jsfring.model.User;
  * @see AuthenticationProvider
  * @see UserDetailsServicee
  */
+@Service("userDetailsService")
 public final class UserDetailsServiceImpl implements UserDetailsService {
 
     @Inject

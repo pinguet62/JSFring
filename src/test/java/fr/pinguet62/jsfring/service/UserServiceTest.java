@@ -3,18 +3,13 @@ package fr.pinguet62.jsfring.service;
 import static fr.pinguet62.jsfring.model.User.PASSWORD_REGEX;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.stream.Stream;
 
 import javax.inject.Inject;
 import javax.validation.constraints.Pattern;
 
-import org.apache.commons.lang.time.DateUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -33,8 +28,7 @@ import fr.pinguet62.jsfring.service.UserService.PasswordGenerator;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = Config.SPRING)
 @DatabaseSetup(Config.DATASET)
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        DbUnitTestExecutionListener.class })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 public class UserServiceTest {
 
     @Inject
@@ -68,54 +62,6 @@ public class UserServiceTest {
     }
 
     /**
-     * Check that {@link User#lastConnection last connection date} was updated
-     * to current day.
-     *
-     * @see UserService#login(String, String)
-     */
-    @Test
-    public void test_login() {
-        Date today = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
-        String login = "super admin";
-
-        // Before
-        assertTrue(service.get(login).getLastConnection().before(today));
-
-        // login
-        assertNotNull(service.login(login, "password"));
-
-        // last connection
-        Date lastConnection = service.get(login).getLastConnection();
-        assertEquals(today, lastConnection);
-    }
-
-    /**
-     * When the {@link User#password} is invalid, the login fails.
-     *
-     * @see UserService#login(String, String)
-     */
-    @Test
-    public void test_login_badPassword() {
-        String login = "super admin";
-        assertNotNull(service.get(login));
-
-        assertNull(service.login(login, "bad password"));
-    }
-
-    /**
-     * When the {@link User#login} is unknown, the login fails.
-     *
-     * @see UserService#login(String, String)
-     */
-    @Test
-    public void test_login_unknownLogin() {
-        String login = "unknown login";
-        assertNull(service.get(login));
-
-        assertNull(service.login(login, new PasswordGenerator().get()));
-    }
-
-    /**
      * The generated {@link User#password password} must match to
      * {@link User#PASSWORD_REGEX password regex}.
      *
@@ -124,8 +70,7 @@ public class UserServiceTest {
      */
     @Test
     public void test_randomPassword() {
-        Stream.generate(UserService::randomPassword).limit(100)
-                .allMatch(pwd -> pwd.matches(PASSWORD_REGEX));
+        Stream.generate(UserService::randomPassword).limit(100).allMatch(pwd -> pwd.matches(PASSWORD_REGEX));
     }
 
     /** @see UserService#updatePassword(String, String) */
