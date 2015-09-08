@@ -1,4 +1,4 @@
-package fr.pinguet62.util;
+package fr.pinguet62.jsfring.util;
 
 import java.util.ArrayList;
 import java.util.Collections;
