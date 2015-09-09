@@ -1,4 +1,4 @@
-package fr.pinguet62.util.querydsl;
+package fr.pinguet62.jsfring.util.querydsl;
 
 import static fr.pinguet62.jsfring.util.querydsl.ReflectionUtil.getDefaultMetaObject;
 import static org.junit.Assert.assertEquals;

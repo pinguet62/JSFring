@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/layout.xhtml">
+
+	<ui:define name="content">
+		<h:form>
+			<div style="text-align: center;">
+				<p:panel id="report" header="#{msg['report.parameters.title']}"
+					style="display: inline-block;">
+					<p:messages autoUpdate="true" />
+
+					<h:panelGrid cellpadding="5" columns="2"
+						style="margin:0 auto; text-align: left;">
+						<h:outputLabel for="stringParam" value="java.lang.String" />
+						<p:inputText id="stringParam"
+							value="#{parametersJasperReportBean.stringParam}" />
+
+						<h:outputLabel for="integerParam" value="java.lang.Integer" />
+						<p:inputText id="integerParam"
+							value="#{parametersJasperReportBean.integerParam}" />
+
+						<h:outputLabel for="listParam" value="java.util.List" />
+						<p:autoComplete id="listParam" multiple="true"
+							completeMethod="#{parametersJasperReportBean.complete}"
+							value="#{parametersJasperReportBean.listParam}" />
+					</h:panelGrid>
+
+					<f:facet name="footer">
+						<script type="text/javascript">
+							function startDownload() {
+								PF('blockUi').show();
+							}
+							function stopDownload() {
+								PF('blockUi').hide();
+							}
+						</script>
+
+						<p:commandButton ajax="false"
+							onclick="PrimeFaces.monitorDownload(startDownload, stopDownload);"
+							value="PDF">
+							<p:fileDownload value="#{parametersJasperReportBean.pdfFile}" />
+						</p:commandButton>
+					</f:facet>
+				</p:panel>
+
+				<p:blockUI widgetVar="blockUi" block="report">
+					<p:graphicImage name="/img/ajaxloadingbar.gif" />
+				</p:blockUI>
+			</div>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

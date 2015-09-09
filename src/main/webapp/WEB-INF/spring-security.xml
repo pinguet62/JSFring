@@ -24,8 +24,6 @@
 			token-validity-seconds="5555" />
 	</http>
 
-	<beans:bean id="userDetailsService" class="fr.pinguet62.jsfring.util.springsecurity.UserDetailsServiceImpl" />
-
 	<!-- Remember me -->
 	<beans:bean id="tokenRepository" class="org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl" />
 

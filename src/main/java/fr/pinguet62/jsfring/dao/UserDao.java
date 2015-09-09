@@ -3,6 +3,8 @@ package fr.pinguet62.jsfring.dao;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.mysema.query.jpa.impl.JPAQuery;
@@ -15,6 +17,8 @@ import fr.pinguet62.jsfring.model.User;
 /** The DAO for {@link User}. */
 @Repository
 public final class UserDao extends AbstractDao<User, String> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserDao.class);
 
     /**
      * Disable all users who have not connected since {@code numberOfDays} days.
@@ -46,7 +50,8 @@ public final class UserDao extends AbstractDao<User, String> {
      * @return The {@link User}, {@code null} if not found.
      */
     public User getByEmail(String email) {
-        return new JPAQuery(em).from(QUser.user).where(QUser.user.email.eq(email)).singleResult(QUser.user);
+        QUser user = QUser.user;
+        return new JPAQuery(em).from(user).where(user.email.eq(email)).singleResult(user);
     }
 
     /**
@@ -56,8 +61,9 @@ public final class UserDao extends AbstractDao<User, String> {
      * @param user The {@link User}.
      */
     public void resetLastConnectionDate(User user) {
+        LOGGER.debug("Last connection date reset for user: " + user.getLogin());
         QUser u = QUser.user;
-        new JPAUpdateClause(em, u).where(u.login.eq(user.getPassword())).set(u.lastConnection, new Date()).execute();
+        new JPAUpdateClause(em, u).where(u.login.eq(user.getLogin())).set(u.lastConnection, new Date()).execute();
     }
 
     /**

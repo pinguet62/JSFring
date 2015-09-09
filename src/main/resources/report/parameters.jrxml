@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2015-09-03T00:07:43 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="parameters" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3404462d-3935-4d70-b7c3-b81be35bdd9c">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PostgreSQL local"/>
+	<subDataset name="listParamDataset" uuid="ab009f44-57de-4107-97ad-3c19d288ef11">
+		<field name="value1" class="java.lang.String">
+			<fieldDescription><![CDATA[_THIS]]></fieldDescription>
+		</field>
+	</subDataset>
+	<parameter name="stringParam" class="java.lang.String">
+		<parameterDescription><![CDATA[Parameter of type "java.lang.String"]]></parameterDescription>
+	</parameter>
+	<parameter name="integerParam" class="java.lang.Integer">
+		<parameterDescription><![CDATA[Parameter of type "java.lang.Integer"]]></parameterDescription>
+	</parameter>
+	<parameter name="listParam" class="java.util.List" nestedType="java.lang.String">
+		<parameterDescription><![CDATA[Parameter of type "java.util.List"]]></parameterDescription>
+	</parameter>
+	<queryString>
+		<![CDATA[select 1]]>
+	</queryString>
+	<title>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="20" uuid="048490cc-ec3f-4473-9c51-63a289653230"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Parameters]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="104" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="30" uuid="9dab5028-5fda-4402-8447-77a25baeff8b"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[java.lang.String]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="0" width="100" height="30" uuid="919932f4-c310-44dc-b783-158301030a6a"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{stringParam}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="30" width="100" height="30" uuid="d3e15353-13ad-42f9-a3ed-8206396f8ded"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[java.lang.Integer]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="30" width="100" height="30" uuid="73ba22ca-d22d-4d46-a908-55574fdbbc88"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{integerParam}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="60" width="100" height="20" uuid="5080201b-4227-410e-bea5-7456bd5bc284"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[java.util.List]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement x="100" y="60" width="100" height="20" uuid="2e4ec6ba-efb2-4591-bcba-d487e80bd7c8"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="listParamDataset" uuid="a5d3e8f7-16a1-4428-89aa-a2ded69488b1">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{listParam})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="20" width="100">
+						<textField>
+							<reportElement x="0" y="0" width="100" height="20" uuid="dc4bf266-856c-4f48-9bbe-9c17c5ce173f"/>
+							<textElement verticalAlignment="Middle"/>
+							<textFieldExpression><![CDATA[$F{value1}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+		</band>
+	</detail>
+</jasperReport>

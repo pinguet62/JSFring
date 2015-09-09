@@ -12,7 +12,7 @@ import java.util.function.Predicate;
 
 import org.junit.Test;
 
-import fr.pinguet62.util.Combinator;
+import fr.pinguet62.jsfring.util.Combinator;
 
 /** @see User */
 public final class UserTest {

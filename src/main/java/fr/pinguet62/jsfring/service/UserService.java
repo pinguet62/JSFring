@@ -30,17 +30,13 @@ public class UserService extends AbstractService<User, String> {
 
         @Override
         public String get() {
-            List<String> characters = IntStream.rangeClosed('a', 'z')
-                    .mapToObj(c -> String.valueOf((char) c))
+            List<String> characters = IntStream.rangeClosed('a', 'z').mapToObj(c -> String.valueOf((char) c))
                     .collect(Collectors.toList());
-            characters.addAll(IntStream.rangeClosed('A', 'Z')
-                    .mapToObj(c -> String.valueOf((char) c))
+            characters.addAll(IntStream.rangeClosed('A', 'Z').mapToObj(c -> String.valueOf((char) c))
                     .collect(Collectors.toList()));
-            List<String> letters = IntStream.rangeClosed('0', '9')
-                    .mapToObj(c -> String.valueOf((char) c))
+            List<String> letters = IntStream.rangeClosed('0', '9').mapToObj(c -> String.valueOf((char) c))
                     .collect(Collectors.toList());
-            List<String> specials = Arrays.asList("!", "#", "$", "%", "&", "*",
-                    "+", "-", "<", "=", ">", "?", "@", "_");
+            List<String> specials = Arrays.asList("!", "#", "$", "%", "&", "*", "+", "-", "<", "=", ">", "?", "@", "_");
 
             Collections.shuffle(characters);
             Collections.shuffle(letters);
@@ -58,8 +54,7 @@ public class UserService extends AbstractService<User, String> {
 
     }
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(UserService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
     /**
      * Generate random {@link User#password}.
@@ -132,40 +127,11 @@ public class UserService extends AbstractService<User, String> {
         dao.update(user);
 
         // Send email
-        SimpleMailMessage message = new SimpleMailMessage(
-                forgottenPasswordMessage);
+        SimpleMailMessage message = new SimpleMailMessage(forgottenPasswordMessage);
         message.setTo(user.getEmail());
-        message.setText(String.format(forgottenPasswordMessage.getText(),
-                user.getLogin(), user.getPassword()));
+        message.setText(String.format(forgottenPasswordMessage.getText(), user.getLogin(), user.getPassword()));
         mailSender.send(message);
         LOGGER.info("New password sent to " + user.getLogin() + " user's email");
-    }
-
-    /**
-     * Login method.
-     * <p>
-     * Reset the {@link User#lastConnection last connection date} if success.
-     *
-     * @param login The {@link User#login user's login}.
-     * @param password The {@link User#password user's password}.
-     * @return The {@link User}.<br>
-     *         {@code null} if unknown {@link User#login} or invalid
-     *         {@link User#password}
-     */
-    @Transactional
-    public User login(String login, String password) {
-        User user = dao.get(login);
-        // Check login
-        if (user == null)
-            return null;
-        // Check password
-        if (!user.getPassword().equals(password))
-            return null;
-
-        // Reset last connection date
-        dao.resetLastConnectionDate(user);
-
-        return user;
     }
 
     /**
