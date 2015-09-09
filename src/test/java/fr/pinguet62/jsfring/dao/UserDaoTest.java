@@ -28,8 +28,7 @@ import fr.pinguet62.jsfring.model.User;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = Config.SPRING)
 @DatabaseSetup(Config.DATASET)
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        TransactionalTestExecutionListener.class,
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class })
 @Transactional
 public class UserDaoTest {
@@ -57,7 +56,7 @@ public class UserDaoTest {
 
         // Test
         Date lastConnectionAfter = userDao.get(login).getLastConnection();
-        assertEquals(today, lastConnectionAfter);
+        assertEquals(today, DateUtils.truncate(lastConnectionAfter, Calendar.DAY_OF_MONTH));
     }
 
 }
