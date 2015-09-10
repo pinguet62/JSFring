@@ -59,11 +59,17 @@ public final class UserDao extends AbstractDao<User, String> {
      * day.
      *
      * @param user The {@link User}.
+     * @throws RuntimeException 0 or several users updated.
      */
     public void resetLastConnectionDate(User user) {
         LOGGER.debug("Last connection date reset for user: " + user.getLogin());
         QUser u = QUser.user;
-        new JPAUpdateClause(em, u).where(u.login.eq(user.getLogin())).set(u.lastConnection, new Date()).execute();
+        long affectedRows = new JPAUpdateClause(em, u).where(u.login.eq(user.getLogin())).set(u.lastConnection, new Date())
+                .execute();
+        if (affectedRows == 0)
+            throw new RuntimeException("Not user updated");
+        else if (affectedRows > 1)
+            throw new RuntimeException("More than 1 user updated");
     }
 
     /**

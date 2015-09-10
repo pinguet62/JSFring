@@ -21,7 +21,7 @@ import fr.pinguet62.jsfring.util.cdi.scope.SpringViewScoped;
 
 @Named
 @SpringViewScoped
-public class UsersRightsJasperReportBean extends AbstractJasperReportBean {
+public final class UsersRightsJasperReportBean extends AbstractJasperReportBean {
 
     private static final long serialVersionUID = 1;
 
