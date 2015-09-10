@@ -36,9 +36,8 @@ import fr.pinguet62.jsfring.service.UserService.PasswordGenerator;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = Config.SPRING)
 @DatabaseSetup(Config.DATASET)
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-    TransactionalTestExecutionListener.class,
-    DbUnitTestExecutionListener.class })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, TransactionalTestExecutionListener.class,
+        DbUnitTestExecutionListener.class })
 @Transactional
 public class AbstractDaoTest {
 
@@ -69,8 +68,7 @@ public class AbstractDaoTest {
         }
         {
             long count = userDao.count();
-            userDao.create(new User("new login", new PasswordGenerator().get(),
-                    "foo@hostname.domain"));
+            userDao.create(new User("new login", new PasswordGenerator().get(), "foo@hostname.domain"));
             assertEquals(count + 1, userDao.count());
         }
     }
@@ -114,15 +112,12 @@ public class AbstractDaoTest {
     @Test
     public void test_find() {
         QRight r = QRight.right_;
-        JPAQuery query = new JPAQuery().from(r).where(
-                r.code.contains("PROFILE"));
+        JPAQuery query = new JPAQuery().from(r).where(r.code.contains("PROFILE"));
 
         List<Right> rights = rightDao.find(query);
 
         assertEquals(2, rights.size());
-        rights.stream().allMatch(
-                right -> Arrays.asList("PROFILE_RO", "PROFILE_RW").contains(
-                        right.getTitle()));
+        rights.stream().allMatch(right -> Arrays.asList("PROFILE_RO", "PROFILE_RW").contains(right.getTitle()));
     }
 
     /** @see AbstractDao#find(JPAQuery) */
@@ -148,26 +143,22 @@ public class AbstractDaoTest {
         final long totalCount = rightDao.count();
         JPAQuery query = new JPAQuery().from(QRight.right_);
         {
-            SearchResults<Right> page1 = rightDao.findPanginated(query.clone()
-                    .limit(2).offset(0 * pageSize));
+            SearchResults<Right> page1 = rightDao.findPanginated(query.clone().limit(2).offset(0 * pageSize));
             assertEquals(2, page1.getResults().size());
             assertEquals(totalCount, page1.getTotal());
         }
         {
-            SearchResults<Right> page2 = rightDao.findPanginated(query.clone()
-                    .limit(2).offset(1 * pageSize));
+            SearchResults<Right> page2 = rightDao.findPanginated(query.clone().limit(2).offset(1 * pageSize));
             assertEquals(2, page2.getResults().size());
             assertEquals(totalCount, page2.getTotal());
         }
         {
-            SearchResults<Right> page3 = rightDao.findPanginated(query.clone()
-                    .limit(2).offset(2 * pageSize));
+            SearchResults<Right> page3 = rightDao.findPanginated(query.clone().limit(2).offset(2 * pageSize));
             assertEquals(1, page3.getResults().size());
             assertEquals(totalCount, page3.getTotal());
         }
         for (int n = 3; n <= 5; n++) {
-            SearchResults<Right> pageN = rightDao.findPanginated(query.clone()
-                    .limit(2).offset(n * pageSize));
+            SearchResults<Right> pageN = rightDao.findPanginated(query.clone().limit(2).offset(n * pageSize));
             assertTrue(pageN.getResults().isEmpty());
             assertEquals(totalCount, pageN.getTotal());
         }
@@ -183,8 +174,7 @@ public class AbstractDaoTest {
         QRight r = QRight.right_;
         JPAQuery query = new JPAQuery().from(r).where(r.code.contains("#$!@"));
 
-        SearchResults<Right> page = rightDao.findPanginated(query.limit(2)
-                .offset(0));
+        SearchResults<Right> page = rightDao.findPanginated(query.limit(2).offset(0));
 
         assertTrue(page.getResults().isEmpty());
         assertEquals(0, page.getTotal());
@@ -194,10 +184,8 @@ public class AbstractDaoTest {
     @Test
     public void test_get() {
         {
-            assertEquals("Affichage des profils", rightDao.get("RIGHT_RO")
-                    .getTitle());
-            assertEquals("Affichage des profils", rightDao.get("PROFILE_RO")
-                    .getTitle());
+            assertEquals("Affichage des droits", rightDao.get("RIGHT_RO").getTitle());
+            assertEquals("Affichage des profils", rightDao.get("PROFILE_RO").getTitle());
         }
         {
             assertEquals("Profile admin", profileDao.get(1).getTitle());
@@ -205,8 +193,7 @@ public class AbstractDaoTest {
         }
         {
             assertEquals("password", userDao.get("super admin").getPassword());
-            assertEquals("admin_profile@domain.fr", userDao
-                    .get("admin profile").getEmail());
+            assertEquals("admin_profile@domain.fr", userDao.get("admin profile").getEmail());
         }
     }
 
