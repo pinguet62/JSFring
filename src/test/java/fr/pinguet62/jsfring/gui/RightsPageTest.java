@@ -20,9 +20,9 @@ public final class RightsPageTest {
 
         assertFalse(rightsPage.isCreateButtonVisible());
         for (RightRow row : rightsPage.getRows()) {
-            assertFalse(row.isShowButtonVisible());
-            assertFalse(row.isUpdateButtonVisible());
-            assertFalse(row.isDeleteButtonVisible());
+            assertFalse(row.isActionButtonShowVisible());
+            assertFalse(row.isActionButtonUpdateVisible());
+            assertFalse(row.isActionButtonDeleteVisible());
         }
     }
 

@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.gui.htmlunit;
+package fr.pinguet62.jsfring.gui.htmlunit.datatable;
 
 import static java.util.stream.Collectors.toList;
 
@@ -13,6 +13,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
 
 import fr.pinguet62.jsfring.gui.component.DataTableComponent;
+import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
+import fr.pinguet62.jsfring.gui.htmlunit.NavigatorException;
 
 /**
  * @param <T> The {@link AbstractRow} type.
@@ -79,6 +81,7 @@ public abstract class AbstractDatatablePage<T extends AbstractRow> extends Abstr
         HtmlSpan next = current.next();
         try {
             page = next.click();
+            waitJS();
             debug();
         } catch (IOException e) {
             throw new NavigatorException(e);

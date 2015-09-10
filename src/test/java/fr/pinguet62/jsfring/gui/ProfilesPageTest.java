@@ -20,9 +20,9 @@ public final class ProfilesPageTest {
 
         assertTrue(profilesPage.isCreateButtonVisible());
         for (ProfileRow row : profilesPage.getRows()) {
-            assertTrue(row.isShowButtonVisible());
-            assertTrue(row.isUpdateButtonVisible());
-            assertTrue(row.isDeleteButtonVisible());
+            assertTrue(row.isActionButtonShowVisible());
+            assertTrue(row.isActionButtonUpdateVisible());
+            assertTrue(row.isActionButtonDeleteVisible());
         }
     }
 
