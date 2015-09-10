@@ -30,7 +30,7 @@ public class Profile implements Serializable {
     @Column(name = "ID", unique = true, nullable = false)
     private Integer id;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "profiles_rights", joinColumns = { @JoinColumn(name = "profile", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "\"RIGHT\"", nullable = false, updatable = false) })
     private Set<Right> rights = new HashSet<Right>(0);
 

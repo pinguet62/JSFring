@@ -27,7 +27,7 @@ public class User implements Serializable {
     // visibility for unit-test
     /**
      * The email regex.
-     * 
+     *
      * @see <a
      *      href="http://www.ex-parrot.com/pdw/Mail-RFC822-Address.html">RFC822
      *      </a>
@@ -41,8 +41,7 @@ public class User implements Serializable {
      * <b>Password constraints:</b><br>
      * 6 characters, with at least: 1 letter & 1 special-character.
      */
-    public static final String PASSWORD_REGEX = ".*" + "(?=.{6,})"
-            + "(?=.*[0-9].*)" + "(?=.*[^a-zA-Z0-9].*)" + ".*";
+    public static final String PASSWORD_REGEX = ".*" + "(?=.{6,})" + "(?=.*[0-9].*)" + "(?=.*[^a-zA-Z0-9].*)" + ".*";
 
     private static final long serialVersionUID = 1;
 
@@ -72,12 +71,11 @@ public class User implements Serializable {
     @Column(name = "PASSWORD", nullable = false, length = 30)
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_profiles", joinColumns = { @JoinColumn(name = "\"USER\"", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "profile", nullable = false, updatable = false) })
     private Set<Profile> profiles = new HashSet<Profile>(0);
 
-    public User() {
-    }
+    public User() {}
 
     public User(String login, String password, String email) {
         this.login = login;
@@ -85,8 +83,7 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public User(String login, String password, String email,
-            Set<Profile> profiles) {
+    public User(String login, String password, String email, Set<Profile> profiles) {
         this.login = login;
         this.password = password;
         this.email = email;
