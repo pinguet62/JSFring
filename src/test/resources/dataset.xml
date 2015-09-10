@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-	<RIGHT Code="RIGHT_RO" Title="Affichage des profils" />
+	<RIGHT Code="RIGHT_RO" Title="Affichage des droits" />
 	<RIGHT Code="PROFILE_RO" Title="Affichage des profils" />
 	<RIGHT Code="PROFILE_RW" Title="Edition des profils" />
 	<RIGHT Code="USER_RO" Title="Affichage des utilisateurs" />
