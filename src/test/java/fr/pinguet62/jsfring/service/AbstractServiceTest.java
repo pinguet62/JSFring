@@ -33,8 +33,7 @@ import fr.pinguet62.jsfring.service.UserService.PasswordGenerator;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = Config.SPRING)
 @DatabaseSetup(Config.DATASET)
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        DbUnitTestExecutionListener.class })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 public class AbstractServiceTest {
 
     @Inject
@@ -64,8 +63,7 @@ public class AbstractServiceTest {
         }
         {
             long count = userService.count();
-            userService.create(new User("new login", new PasswordGenerator()
-                    .get(), "foo@hostname.domain"));
+            userService.create(new User("new login", new PasswordGenerator().get(), "foo@hostname.domain"));
             assertEquals(count + 1, userService.count());
         }
     }
@@ -83,15 +81,12 @@ public class AbstractServiceTest {
     @Test
     public void test_find() {
         QRight r = QRight.right_;
-        JPAQuery query = new JPAQuery().from(r).where(
-                r.code.contains("PROFILE"));
+        JPAQuery query = new JPAQuery().from(r).where(r.code.contains("PROFILE"));
 
         List<Right> rights = rightService.find(query);
 
         assertEquals(2, rights.size());
-        rights.stream().allMatch(
-                right -> Arrays.asList("PROFILE_RO", "PROFILE_RW").contains(
-                        right.getTitle()));
+        rights.stream().allMatch(right -> Arrays.asList("PROFILE_RO", "PROFILE_RW").contains(right.getTitle()));
     }
 
     /**
@@ -103,8 +98,7 @@ public class AbstractServiceTest {
     public void test_findPanginated() {
         JPAQuery query = new JPAQuery().from(QRight.right_);
 
-        SearchResults<Right> page2 = rightService.findPanginated(query.clone()
-                .limit(2).offset(2));
+        SearchResults<Right> page2 = rightService.findPanginated(query.clone().limit(2).offset(2));
 
         assertEquals(2, page2.getResults().size());
         assertEquals(rightService.count(), page2.getTotal());
@@ -114,20 +108,16 @@ public class AbstractServiceTest {
     @Test
     public void test_get() {
         {
-            assertEquals("Affichage des profils", rightService.get("RIGHT_RO")
-                    .getTitle());
-            assertEquals("Affichage des profils", rightService
-                    .get("PROFILE_RO").getTitle());
+            assertEquals("Affichage des droits", rightService.get("RIGHT_RO").getTitle());
+            assertEquals("Affichage des profils", rightService.get("PROFILE_RO").getTitle());
         }
         {
             assertEquals("Profile admin", profileService.get(1).getTitle());
             assertEquals("User admin", profileService.get(2).getTitle());
         }
         {
-            assertEquals("password", userService.get("super admin")
-                    .getPassword());
-            assertEquals("admin_profile@domain.fr",
-                    userService.get("admin profile").getEmail());
+            assertEquals("password", userService.get("super admin").getPassword());
+            assertEquals("admin_profile@domain.fr", userService.get("admin profile").getEmail());
         }
     }
 

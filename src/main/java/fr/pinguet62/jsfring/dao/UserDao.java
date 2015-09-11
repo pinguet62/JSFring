@@ -69,12 +69,13 @@ public final class UserDao extends AbstractDao<User, String> {
     /**
      * Update the {@link User#password password}.
      *
-     * @param user The {@link User}.
+     * @param user The {@link User} to update.
      * @param user The new {@link User#password user's password}.
      */
     public void updatePassword(User user, String password) {
-        QUser u = QUser.user;
-        new JPAUpdateClause(em, u).where(u.login.eq(user.getLogin())).set(u.password, password).execute();
+        LOGGER.debug("Password updated for user: " + user.getLogin());
+        user.setPassword(password);
+        update(user);
     }
 
 }
