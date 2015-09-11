@@ -1,6 +1,7 @@
 package fr.pinguet62.jsfring.gui;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -131,16 +132,16 @@ public class UsersPageTest {
                 assertTrue(popup.getLogin().isReadonly());
 
                 assertEquals("admin@domain.fr", popup.getEmail().getValue());
-                assertTrue(popup.getEmail().isReadonly());
+                assertFalse(popup.getEmail().isReadonly());
 
                 assertEquals("true", popup.isActive().getValue());
-                assertTrue(popup.isActive().isReadonly());
+                assertFalse(popup.isActive().isReadonly());
 
                 assertEquals("2015-06-14", popup.getLastConnection().getValue());
                 assertTrue(popup.getLastConnection().isReadonly());
 
                 assertEquals(Arrays.asList("Profile admin", "User admin"), popup.getProfiles().getValue());
-                assertTrue(popup.getProfiles().isReadonly());
+                assertFalse(popup.getProfiles().isReadonly());
 
                 popup.close();
             }
@@ -151,16 +152,16 @@ public class UsersPageTest {
                 assertTrue(popup.getLogin().isReadonly());
 
                 assertEquals("admin_profile@domain.fr", popup.getEmail().getValue());
-                assertTrue(popup.getEmail().isReadonly());
+                assertFalse(popup.getEmail().isReadonly());
 
                 assertEquals("true", popup.isActive().getValue());
-                assertTrue(popup.isActive().isReadonly());
+                assertFalse(popup.isActive().isReadonly());
 
                 assertNull(popup.getLastConnection().getValue());
                 assertTrue(popup.getLastConnection().isReadonly());
 
                 assertEquals(Arrays.asList("Profile admin"), popup.getProfiles().getValue());
-                assertTrue(popup.getProfiles().isReadonly());
+                assertFalse(popup.getProfiles().isReadonly());
 
                 popup.close();
             }
@@ -176,15 +177,16 @@ public class UsersPageTest {
                 assertTrue(popup.getLogin().isReadonly());
 
                 assertEquals("admin_user@domain.fr", popup.getEmail().getValue());
-                assertTrue(popup.getEmail().isReadonly());
+                assertFalse(popup.getEmail().isReadonly());
 
                 assertEquals("true", popup.isActive().getValue());
-                assertTrue(popup.isActive().isReadonly());
+                assertFalse(popup.isActive().isReadonly());
 
                 assertNull(popup.getLastConnection().getValue());
                 assertTrue(popup.getLastConnection().isReadonly());
 
                 assertEquals(Arrays.asList("User admin"), popup.getProfiles().getValue());
+                assertFalse(popup.getProfiles().isReadonly());
 
                 popup.close();
             }
@@ -192,7 +194,7 @@ public class UsersPageTest {
     }
 
     @Test
-    public void test_dataTable_actions() {
+    public void test_dataTable_actions_rendered() {
         UsersPage usersPage = AbstractPage.get().gotoUsersPage();
 
         assertTrue(usersPage.isCreateButtonVisible());

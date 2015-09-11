@@ -16,6 +16,7 @@ public final class InputText extends ReadWriteField<String> {
     @Override
     public void setValue(String value) {
         htmlTableDataCell.setTextContent(value);
+        // TODO debug();
     }
 
 }
