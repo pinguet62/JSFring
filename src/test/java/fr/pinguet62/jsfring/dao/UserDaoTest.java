@@ -29,7 +29,7 @@ import fr.pinguet62.jsfring.model.User;
 @ContextConfiguration(locations = Config.SPRING)
 @DatabaseSetup(Config.DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, TransactionalTestExecutionListener.class,
-        DbUnitTestExecutionListener.class })
+    DbUnitTestExecutionListener.class })
 @Transactional
 public class UserDaoTest {
 
@@ -47,16 +47,16 @@ public class UserDaoTest {
         Date today = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
         String login = "super admin";
 
-        // Before
         User user = userDao.get(login);
-        Date lastConnectionBefore = userDao.get(login).getLastConnection();
+        // Before
+        Date lastConnectionBefore = user.getLastConnection();
         assertTrue(lastConnectionBefore.before(today));
 
         userDao.resetLastConnectionDate(user);
 
         // Test
-        Date lastConnectionAfter = userDao.get(login).getLastConnection();
-        assertEquals(today, DateUtils.truncate(lastConnectionAfter, Calendar.DAY_OF_MONTH));
+        Date lastConnectionAfter = DateUtils.truncate(userDao.get(login).getLastConnection(), Calendar.DAY_OF_MONTH);
+        assertEquals(today, lastConnectionAfter);
     }
 
 }
