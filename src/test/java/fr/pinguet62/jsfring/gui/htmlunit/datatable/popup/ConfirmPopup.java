@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.gui.htmlunit.datatable;
+package fr.pinguet62.jsfring.gui.htmlunit.datatable.popup;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 

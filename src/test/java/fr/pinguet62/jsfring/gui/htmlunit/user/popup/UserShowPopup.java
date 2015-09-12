@@ -2,7 +2,7 @@ package fr.pinguet62.jsfring.gui.htmlunit.user.popup;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
-import fr.pinguet62.jsfring.gui.htmlunit.datatable.ShowPopup;
+import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.ShowPopup;
 import fr.pinguet62.jsfring.gui.htmlunit.field.Field;
 import fr.pinguet62.jsfring.gui.htmlunit.field.ListField;
 import fr.pinguet62.jsfring.gui.htmlunit.field.OutputText;

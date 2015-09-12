@@ -20,6 +20,9 @@ import com.google.common.collect.Lists;
 import fr.pinguet62.jsfring.gui.component.DataTableComponent;
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.NavigatorException;
+import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.ConfirmPopup;
+import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.ShowPopup;
+import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.UpdatePopup;
 
 /**
  * Commons data for {@link DataTableComponent}.

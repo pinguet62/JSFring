@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.gui.htmlunit.datatable;
+package fr.pinguet62.jsfring.gui.htmlunit.datatable.popup;
 
 public interface Popup {
 
