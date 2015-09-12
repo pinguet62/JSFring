@@ -10,7 +10,9 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.gargoylesoftware.htmlunit.SgmlPage;
 import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 
@@ -26,10 +28,6 @@ public class AbstractPage {
      */
     public static final String BASE_URL = "http://localhost:8080/JSFring";
 
-    private static final String ERROR_XPATH = "//span[@class='ui-messages-error-summary']";
-
-    private static final String INFO_XPATH = "//span[@class='ui-messages-info-summary']";
-
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractPage.class);
 
     private static final OutputStream OUTPUT_STREAM;
@@ -38,8 +36,28 @@ public class AbstractPage {
     static {
         try {
             File tmpFile = File.createTempFile("navigator-", null);
+            tmpFile = new File("C:\\Users\\Pinguet62\\Downloads\\out.html");
             OUTPUT_STREAM = new FileOutputStream(tmpFile);
             LOGGER.debug("Temporary file: " + tmpFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void debug(HtmlInput html) {
+        debug(html.getHtmlPageOrNull().asXml());
+    }
+
+    public static void debug(SgmlPage page) {
+        debug(page.asXml());
+    }
+
+    public static void debug(String xml) {
+        if (!LOGGER.isDebugEnabled())
+            return;
+
+        try {
+            IOUtils.write(xml, OUTPUT_STREAM);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -71,14 +89,7 @@ public class AbstractPage {
      * @param page The {@link HtmlPage HTML page} to write.
      */
     protected void debug() {
-        if (!LOGGER.isDebugEnabled())
-            return;
-
-        try {
-            IOUtils.write(page.asXml(), OUTPUT_STREAM);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        debug(page);
     }
 
     /**
@@ -90,24 +101,34 @@ public class AbstractPage {
      */
     private String getMessage(String xpath) {
         @SuppressWarnings("unchecked")
-        List<HtmlSpan> spans = (List<HtmlSpan>) getPage().getByXPath(xpath);
+        List<HtmlSpan> spans = (List<HtmlSpan>) page.getByXPath(xpath);
         if (spans.isEmpty())
             return null;
         if (spans.size() > 1)
             throw new NavigatorException();
-        return spans.get(0).getTextContent();
+        return spans.get(0).asText();
     }
 
     public String getMessageError() {
-        return getMessage(ERROR_XPATH);
+        return getMessage("//span[@class='ui-messages-error-summary']");
     }
 
     public String getMessageInfo() {
-        return getMessage(INFO_XPATH);
+        return getMessage("//span[@class='ui-messages-info-summary']");
     }
 
     public HtmlPage getPage() {
         return page;
+    }
+
+    public IndexPage gotoIndex() {
+        try {
+            page = webClient.getPage(BASE_URL);
+            debug();
+            return new IndexPage(page);
+        } catch (IOException e) {
+            throw new NavigatorException(e);
+        }
     }
 
     public LoginPage gotoLoginPage() {
@@ -152,7 +173,7 @@ public class AbstractPage {
 
     protected void waitJS() {
         try {
-            Thread.sleep(500);
+            Thread.sleep(4_000);
         } catch (InterruptedException e) {
             throw new NavigatorException(e);
         }

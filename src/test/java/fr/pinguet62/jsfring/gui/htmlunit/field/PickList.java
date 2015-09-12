@@ -5,23 +5,25 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
+import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlListItem;
-import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.NavigatorException;
 
-public final class PickList extends ReadWriteField<List<String>> {
+public final class PickList extends ReadWriteField<HtmlDivision, List<String>> {
 
-    public PickList(HtmlTableDataCell htmlTableDataCell) {
-        super(htmlTableDataCell);
+    public PickList(HtmlDivision div) {
+        super(div);
     }
 
     private void clickAddSelected() {
         HtmlButton button = getActionButton("ui-picklist-button-add");
         try {
-            button.click();
-            // TODO debug();
+            HtmlPage page = button.click();
+            AbstractPage.debug(page);
         } catch (IOException e) {
             throw new NavigatorException(e);
         }
@@ -30,8 +32,8 @@ public final class PickList extends ReadWriteField<List<String>> {
     private void clickRemoveSelected() {
         HtmlButton button = getActionButton("ui-picklist-button-remove");
         try {
-            button.click();
-            // TODO debug();
+            HtmlPage page = button.click();
+            AbstractPage.debug(page);
         } catch (IOException e) {
             throw new NavigatorException(e);
         }
@@ -42,7 +44,7 @@ public final class PickList extends ReadWriteField<List<String>> {
      *            what type of action is.
      */
     private HtmlButton getActionButton(String classValue) {
-        return (HtmlButton) htmlTableDataCell
+        return (HtmlButton) html
                 .getByXPath("./div[contains(@class, 'ui-picklist')]/div[@class='ui-picklist-buttons']/div/button[contains(@class, 'ui-picklist-button-remove')][1]");
     }
 
@@ -52,8 +54,8 @@ public final class PickList extends ReadWriteField<List<String>> {
      */
     @SuppressWarnings("unchecked")
     private List<HtmlListItem> getList(String classValue) {
-        return (List<HtmlListItem>) htmlTableDataCell
-                .getByXPath("./div[contains(@class, 'ui-picklist')]/div/ul[contains(@class, '" + classValue + "')]/li");
+        return (List<HtmlListItem>) html.getByXPath("./div[contains(@class, 'ui-picklist')]/div/ul[contains(@class, '"
+                + classValue + "')]/li");
     }
 
     private List<HtmlListItem> getSource() {
@@ -77,8 +79,8 @@ public final class PickList extends ReadWriteField<List<String>> {
             continue_removes: while (true) {
                 for (HtmlListItem li : getTarget())
                     if (!values.contains(li.asText())) {
-                        li.click();
-                        // TODO debug();
+                        HtmlPage page = li.click();
+                        AbstractPage.debug(page);
                         clickRemoveSelected();
                         break continue_removes;
                     }
@@ -89,8 +91,8 @@ public final class PickList extends ReadWriteField<List<String>> {
             continue_adds: while (true) {
                 for (HtmlListItem li : getTarget())
                     if (values.contains(li.asText())) {
-                        li.click();
-                        // TODO debug();
+                        HtmlPage page = li.click();
+                        AbstractPage.debug(page);
                         clickAddSelected();
                         break continue_adds;
                     }

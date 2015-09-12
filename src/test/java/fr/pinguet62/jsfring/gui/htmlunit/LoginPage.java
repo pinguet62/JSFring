@@ -19,7 +19,7 @@ public final class LoginPage extends AbstractPage {
 
     /**
      * Process to login.
-     * 
+     *
      * @param login The {@link User#login}.
      * @param password The {@link User#password}.
      * @return The target page.
@@ -28,7 +28,7 @@ public final class LoginPage extends AbstractPage {
         HtmlForm form = (HtmlForm) page.getByXPath("//form").get(0);
         form.getInputByName("username").setValueAttribute(login);
         form.getInputByName("password").setValueAttribute(password);
-        HtmlButton submit = (HtmlButton) form.getByXPath("//form[1]//button[@type='submit']").get(0);
+        HtmlButton submit = (HtmlButton) form.getByXPath(".//button[@type='submit']").get(0);
 
         try {
             page = submit.click();

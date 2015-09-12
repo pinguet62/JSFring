@@ -19,16 +19,16 @@
 	<profiles_rights Profile="2" Right="USER_RW" />
 
 
-	<USER Login="super admin" Password="password" Email="admin@domain.fr"
+	<USER Login="super admin" Password="Azerty1!" Email="admin@domain.fr"
 		Active="true" last_connection="2015-06-14 13:45:41" />
 	<users_profiles User="super admin" Profile="1" />
 	<users_profiles User="super admin" Profile="2" />
 
-	<USER Login="admin profile" Password="password" Email="admin_profile@domain.fr"
+	<USER Login="admin profile" Password="Azerty1!" Email="admin_profile@domain.fr"
 		Active="true" />
 	<users_profiles User="admin profile" Profile="1" />
 
-	<USER Login="admin user" Password="password" Email="admin_user@domain.fr"
+	<USER Login="admin user" Password="Azerty1!" Email="admin_user@domain.fr"
 		Active="true" />
 	<users_profiles User="admin user" Profile="2" />
 

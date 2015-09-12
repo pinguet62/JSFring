@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.gui;
 
+import java.io.Serializable;
 import java.util.Locale;
 
 import javax.faces.application.FacesMessage;
@@ -16,7 +17,9 @@ import fr.pinguet62.jsfring.util.cdi.scope.SpringViewScoped;
 /** Page to reset its {@link User#password} after an oversight. */
 @Named
 @SpringViewScoped
-public final class ForgottenPasswordBean {
+public final class ForgottenPasswordBean implements Serializable {
+
+    private static final long serialVersionUID = 1;
 
     /** The {@link User#email user's email}. */
     private String email;

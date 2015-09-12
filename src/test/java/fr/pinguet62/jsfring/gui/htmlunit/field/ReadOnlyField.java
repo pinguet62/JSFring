@@ -1,11 +1,9 @@
 package fr.pinguet62.jsfring.gui.htmlunit.field;
 
-import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
+public abstract class ReadOnlyField<H, T> extends Field<H, T> {
 
-public abstract class ReadOnlyField<T> extends Field<T> {
-
-    protected ReadOnlyField(HtmlTableDataCell htmlTableDataCell) {
-        super(htmlTableDataCell);
+    protected ReadOnlyField(H html) {
+        super(html);
     }
 
     @Override

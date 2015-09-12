@@ -54,14 +54,14 @@ public abstract class AbstractDatatablePage<T extends AbstractRow> extends Abstr
 
     /**
      * Converter from {@link HtmlTableRow} to {@link AbstractRow}.
-     * 
+     *
      * @return The {@link Function}.
      */
     protected abstract Function<HtmlTableRow, T> getRowFactory();
 
     /**
      * Get {@link AbstractRow} of current page.
-     * 
+     *
      * @return The {@link AbstractRow}s.
      */
     public List<T> getRows() {

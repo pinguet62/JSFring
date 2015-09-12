@@ -1,22 +1,24 @@
 package fr.pinguet62.jsfring.gui.htmlunit.field;
 
-import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
+import com.gargoylesoftware.htmlunit.html.HtmlInput;
 
-public final class InputText extends ReadWriteField<String> {
+import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 
-    public InputText(HtmlTableDataCell htmlTableDataCell) {
-        super(htmlTableDataCell);
+public final class InputText extends ReadWriteField<HtmlInput, String> {
+
+    public InputText(HtmlInput input) {
+        super(input);
     }
 
     @Override
     public String getValue() {
-        return htmlTableDataCell.asText();
+        return html.asText();
     }
 
     @Override
     public void setValue(String value) {
-        htmlTableDataCell.setTextContent(value);
-        // TODO debug();
+        html.setValueAttribute(value);
+        AbstractPage.debug(html);
     }
 
 }

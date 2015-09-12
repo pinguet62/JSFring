@@ -39,7 +39,7 @@ public class UsersPageTest {
      * <li>Each row must be different</li>
      * <li>Each page must be different</li>
      * </ul>
-     * 
+     *
      * @see AbstractRow#actionShow()
      */
     @Test
@@ -81,7 +81,7 @@ public class UsersPageTest {
                 assertEquals("true", popup.isActive().getValue());
                 assertTrue(popup.isActive().isReadonly());
 
-                assertNull(popup.getLastConnection().getValue());
+                assertEquals("", popup.getLastConnection().getValue());
                 assertTrue(popup.getLastConnection().isReadonly());
 
                 assertEquals(Arrays.asList("Profile admin"), popup.getProfiles().getValue());
@@ -107,7 +107,7 @@ public class UsersPageTest {
                 assertEquals("true", popup.isActive().getValue());
                 assertTrue(popup.isActive().isReadonly());
 
-                assertNull(popup.getLastConnection().getValue());
+                assertEquals("", popup.getLastConnection().getValue());
                 assertTrue(popup.getLastConnection().isReadonly());
 
                 assertEquals(Arrays.asList("User admin"), popup.getProfiles().getValue());

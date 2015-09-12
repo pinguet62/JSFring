@@ -1,6 +1,7 @@
 package fr.pinguet62.jsfring.gui.htmlunit.user.popup;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
 
 import fr.pinguet62.jsfring.gui.htmlunit.field.Field;
@@ -16,7 +17,7 @@ public abstract class AbstractUserPopup {
 
     /**
      * Get the {@link HtmlTableDataCell}: from row index, in 2nd column.
-     * 
+     *
      * @param index The row index.<br>
      *            For 1st line: {@code index=0}
      * @return The {@link HtmlTableDataCell}.
@@ -29,12 +30,12 @@ public abstract class AbstractUserPopup {
                                 + (index + 1) + "]/td[2]").get(0);
     }
 
-    public Field<?> getLastConnection() {
-        return new OutputText(getFieldTableCell(3));
+    public Field<?, ?> getLastConnection() {
+        return new OutputText((HtmlSpan) getFieldTableCell(3).getByXPath("./span").get(0));
     }
 
-    public Field<?> getLogin() {
-        return new OutputText(getFieldTableCell(0));
+    public Field<?, ?> getLogin() {
+        return new OutputText((HtmlSpan) getFieldTableCell(0).getByXPath("./span").get(0));
     }
 
 }

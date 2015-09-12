@@ -78,11 +78,9 @@ public class UserServiceTest {
     public void test_updatePassword() {
         String login = "super admin";
         String newPassword = new PasswordGenerator().get();
-
         assertNotEquals(newPassword, service.get(login).getPassword());
 
         service.updatePassword(login, newPassword);
-
         assertEquals(newPassword, service.get(login).getPassword());
     }
 
@@ -96,7 +94,6 @@ public class UserServiceTest {
     public void test_updatePassword_invalidNewPassword() {
         String login = "super admin";
         String newPassword = "bad";
-
         assertNotEquals(newPassword, service.get(login).getPassword());
 
         service.updatePassword(login, newPassword);

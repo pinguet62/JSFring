@@ -39,7 +39,7 @@ public class ForgottenPasswordPageTest {
 
         ForgottenPasswordPage forgottenPasswordPage = AbstractPage.get().gotoLoginPage().gotoForgottenPasswordPage();
 
-        forgottenPasswordPage.setEmail(email);
+        forgottenPasswordPage.getEmail().setValue(email);
         forgottenPasswordPage.submit();
 
         assertNotNull(forgottenPasswordPage.getMessageInfo());
@@ -53,7 +53,7 @@ public class ForgottenPasswordPageTest {
 
         ForgottenPasswordPage forgottenPasswordPage = AbstractPage.get().gotoLoginPage().gotoForgottenPasswordPage();
 
-        forgottenPasswordPage.setEmail(email);
+        forgottenPasswordPage.getEmail().setValue(email);
         forgottenPasswordPage.submit();
 
         assertNotNull(forgottenPasswordPage.getMessageError());

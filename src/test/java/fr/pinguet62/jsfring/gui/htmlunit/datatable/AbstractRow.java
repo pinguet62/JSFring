@@ -26,7 +26,7 @@ import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.UpdatePopup;
 
 /**
  * Commons data for {@link DataTableComponent}.
- * 
+ *
  * @see DataTableComponent
  */
 public abstract class AbstractRow<SP extends ShowPopup, UP extends UpdatePopup> extends AbstractPage {
@@ -35,7 +35,7 @@ public abstract class AbstractRow<SP extends ShowPopup, UP extends UpdatePopup> 
 
     /**
      * Initialize the "actions" cell.
-     * 
+     *
      * @param row The {@link HtmlTableRow table row}.
      */
     protected AbstractRow(HtmlTableRow row) {
@@ -45,7 +45,7 @@ public abstract class AbstractRow<SP extends ShowPopup, UP extends UpdatePopup> 
 
     /**
      * Click on "delete" action button.
-     * 
+     *
      * @throws UnsupportedOperationException "Delete" action not available.
      */
     public ConfirmPopup actionDelete() {
@@ -66,7 +66,7 @@ public abstract class AbstractRow<SP extends ShowPopup, UP extends UpdatePopup> 
 
     /**
      * Click on "show" action button.
-     * 
+     *
      * @throws UnsupportedOperationException "Show" action not available.
      */
     public SP actionShow() {
@@ -88,7 +88,7 @@ public abstract class AbstractRow<SP extends ShowPopup, UP extends UpdatePopup> 
 
     /**
      * Click on "update" action button.
-     * 
+     *
      * @throws UnsupportedOperationException "Update" action not available.
      */
     public UP actionUpdate() {
@@ -99,7 +99,7 @@ public abstract class AbstractRow<SP extends ShowPopup, UP extends UpdatePopup> 
 
         try {
             HtmlPage page = button.click();
-            webClient.waitForBackgroundJavaScript(500);
+            waitJS();
             debug();
 
             return getPopupUpdateFactory().apply(page);
@@ -110,7 +110,7 @@ public abstract class AbstractRow<SP extends ShowPopup, UP extends UpdatePopup> 
 
     /**
      * Find action {@link HtmlButton button}, in action column, by XPath.
-     * 
+     *
      * @param xpath The XPath to find {@link HtmlButton}.
      * @return The {@link HtmlButton}.<br>
      *         {@code null} if not found.
@@ -142,7 +142,7 @@ public abstract class AbstractRow<SP extends ShowPopup, UP extends UpdatePopup> 
     // TODO i18n
     /**
      * Get the {@link Boolean}.
-     * 
+     *
      * @param column The column index.
      * @return The {@link Boolean}.<br>
      *         {@code null} if empty cell.
@@ -164,7 +164,7 @@ public abstract class AbstractRow<SP extends ShowPopup, UP extends UpdatePopup> 
     // TODO i18n
     /**
      * Get the {@link Date}.
-     * 
+     *
      * @param column The column index.
      * @return The {@link Date}.<br>
      *         {@code null} if empty cell.
@@ -192,21 +192,21 @@ public abstract class AbstractRow<SP extends ShowPopup, UP extends UpdatePopup> 
 
     /**
      * Converter from {@link HtmlPage} to {@link ShowPopup}.
-     * 
+     *
      * @return The {@link Function}.
      */
     protected abstract Function<HtmlPage, SP> getPopupShowFactory();
 
     /**
      * Converter from {@link HtmlPage} to {@link UpdatePopup}.
-     * 
+     *
      * @return The {@link Function}.
      */
     protected abstract Function<HtmlPage, UP> getPopupUpdateFactory();
 
     /**
      * Get the {@link String}.
-     * 
+     *
      * @param column The column index.
      * @return The {@link String}.<br>
      *         {@code null} if empty cell.
