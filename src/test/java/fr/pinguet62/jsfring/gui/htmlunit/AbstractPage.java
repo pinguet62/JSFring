@@ -1,10 +1,14 @@
 package fr.pinguet62.jsfring.gui.htmlunit;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -22,11 +26,24 @@ public class AbstractPage {
      */
     public static final String BASE_URL = "http://localhost:8080/JSFring";
 
-    public static final boolean DEBUG = true;
-
     private static final String ERROR_XPATH = "//span[@class='ui-messages-error-summary']";
 
     private static final String INFO_XPATH = "//span[@class='ui-messages-info-summary']";
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractPage.class);
+
+    private static final OutputStream OUTPUT_STREAM;
+
+    /** Initialize the {@link #OUTPUT_STREAM}. */
+    static {
+        try {
+            File tmpFile = File.createTempFile("navigator-", null);
+            OUTPUT_STREAM = new FileOutputStream(tmpFile);
+            LOGGER.debug("Temporary file: " + tmpFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public static AbstractPage get() {
         return new AbstractPage(null);
@@ -38,7 +55,7 @@ public class AbstractPage {
 
     /**
      * Constructor used by classes that inherit.
-     * 
+     *
      * @param page The {@link HtmlPage HTML page} once on the target page.
      */
     protected AbstractPage(HtmlPage page) {
@@ -47,25 +64,26 @@ public class AbstractPage {
 
     /**
      * To call after each page action.<br>
-     * In {@link #DEBUG} mode: the HTML page content is written to temporary
-     * file.
-     * 
+     * Executed in {@link Logger#isDebugEnabled() debug level} or less.<br>
+     * {@link OutputStream#write(byte[]) write} {@link HtmlPage#asXml() content
+     * of current page} into {@link #OUTPUT_STREAM target Stream}.
+     *
      * @param page The {@link HtmlPage HTML page} to write.
      */
     protected void debug() {
-        if (!DEBUG)
+        if (!LOGGER.isDebugEnabled())
             return;
 
         try {
-            IOUtils.write(page.asXml(), new FileOutputStream("D:/Profiles/jpinguet/Downloads/out.html"));
+            IOUtils.write(page.asXml(), OUTPUT_STREAM);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
     /**
      * Get the <code>&lt;p:messages/&gt;</code> content.
-     * 
+     *
      * @param xpath The XPath to find the tag.<br>
      *            Depends on message level.
      * @return The tag content.
