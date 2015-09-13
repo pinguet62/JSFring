@@ -15,6 +15,7 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
+import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager;
 
 import fr.pinguet62.jsfring.gui.htmlunit.profile.ProfilesPage;
 import fr.pinguet62.jsfring.gui.htmlunit.right.RightsPage;
@@ -34,12 +35,8 @@ public class AbstractPage {
 
     /** Initialize the {@link #OUTPUT_STREAM}. */
     static {
-        try {
-            TMP_FILE = File.createTempFile("navigator-", null);
-            LOGGER.debug("Temporary file: " + TMP_FILE);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        TMP_FILE = File.createTempFile("navigator-", null);
+        LOGGER.debug("Temporary file: " + TMP_FILE);
     }
 
     public static void debug(HtmlInput html) {
@@ -170,10 +167,13 @@ public class AbstractPage {
     }
 
     protected void waitJS() {
-        try {
-            Thread.sleep(4_000);
-        } catch (InterruptedException e) {
-            throw new NavigatorException(e);
+        JavaScriptJobManager manager = page.getEnclosingWindow().getJobManager();
+        while (manager.getJobCount() > 0) {
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
