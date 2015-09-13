@@ -116,7 +116,7 @@ public class AbstractServiceTest {
             assertEquals("User admin", profileService.get(2).getTitle());
         }
         {
-            assertEquals("password", userService.get("super admin").getPassword());
+            assertEquals("Azerty1!", userService.get("super admin").getPassword());
             assertEquals("admin_profile@domain.fr", userService.get("admin profile").getEmail());
         }
     }

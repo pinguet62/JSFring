@@ -37,7 +37,7 @@ import fr.pinguet62.jsfring.service.UserService.PasswordGenerator;
 @ContextConfiguration(locations = Config.SPRING)
 @DatabaseSetup(Config.DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, TransactionalTestExecutionListener.class,
-        DbUnitTestExecutionListener.class })
+    DbUnitTestExecutionListener.class })
 @Transactional
 public class AbstractDaoTest {
 
@@ -192,7 +192,7 @@ public class AbstractDaoTest {
             assertEquals("User admin", profileDao.get(2).getTitle());
         }
         {
-            assertEquals("password", userDao.get("super admin").getPassword());
+            assertEquals("Azerty1!", userDao.get("super admin").getPassword());
             assertEquals("admin_profile@domain.fr", userDao.get("admin profile").getEmail());
         }
     }
