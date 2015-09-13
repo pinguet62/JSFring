@@ -30,15 +30,13 @@ public class AbstractPage {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractPage.class);
 
-    private static final OutputStream OUTPUT_STREAM;
+    private static final File TMP_FILE;
 
     /** Initialize the {@link #OUTPUT_STREAM}. */
     static {
         try {
-            File tmpFile = File.createTempFile("navigator-", null);
-            tmpFile = new File("C:\\Users\\Pinguet62\\Downloads\\out.html");
-            OUTPUT_STREAM = new FileOutputStream(tmpFile);
-            LOGGER.debug("Temporary file: " + tmpFile);
+            TMP_FILE = File.createTempFile("navigator-", null);
+            LOGGER.debug("Temporary file: " + TMP_FILE);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -57,7 +55,7 @@ public class AbstractPage {
             return;
 
         try {
-            IOUtils.write(xml, OUTPUT_STREAM);
+            IOUtils.write(xml, new FileOutputStream(TMP_FILE));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
