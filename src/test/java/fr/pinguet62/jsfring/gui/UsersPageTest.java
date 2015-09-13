@@ -6,8 +6,9 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,23 +17,24 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
-
 import fr.pinguet62.Config;
+import fr.pinguet62.jsfring.dao.UserDao;
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.AbstractRow;
 import fr.pinguet62.jsfring.gui.htmlunit.user.UserRow;
 import fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage;
 import fr.pinguet62.jsfring.gui.htmlunit.user.popup.UserShowPopup;
 import fr.pinguet62.jsfring.gui.htmlunit.user.popup.UserUpdatePopup;
+import fr.pinguet62.jsfring.model.User;
 
 /** @see UsersPage */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = Config.SPRING)
-@DatabaseSetup(Config.DATASET)
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class })
 public class UsersPageTest {
+
+    @Inject
+    private UserDao userDao;
 
     /**
      * <ul>
@@ -207,21 +209,17 @@ public class UsersPageTest {
 
     @Test
     public void test_dataTable_content() {
+        List<User> users = userDao.getAll();
         List<UserRow> rows = AbstractPage.get().gotoUsersPage().getRows();
 
-        {
-            UserRow row0 = rows.get(0);
-            assertEquals("super admin", row0.getLogin());
-            assertEquals("admin@domain.fr", row0.getEmail());
-            assertTrue(row0.getActive());
-            assertEquals(new Date(2015 - 1900, 6 - 1, 14), row0.getLastConnection());
-        }
-        {
-            UserRow row1 = rows.get(1);
-            assertEquals("admin profile", row1.getLogin());
-            assertEquals("admin_profile@domain.fr", row1.getEmail());
-            assertTrue(row1.getActive());
-            assertNull(row1.getLastConnection());
+        for (int i = 0; i <= 1; i++) {
+            User user = users.get(i);
+            UserRow row0 = rows.get(i);
+
+            assertEquals(user.getLogin(), row0.getLogin());
+            assertEquals(user.getEmail(), row0.getEmail());
+            assertEquals(user.isActive(), row0.getActive());
+            assertEquals(user.getLastConnection(), row0.getLastConnection());
         }
     }
 
