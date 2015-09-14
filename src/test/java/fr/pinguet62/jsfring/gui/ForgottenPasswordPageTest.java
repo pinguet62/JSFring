@@ -12,6 +12,8 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.mysema.query.jpa.impl.JPAQuery;
 
 import fr.pinguet62.Config;
@@ -23,7 +25,8 @@ import fr.pinguet62.jsfring.model.QUser;
 /** @see ForgottenPasswordPage */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = Config.SPRING)
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class })
+@DatabaseSetup(Config.DATASET)
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 public class ForgottenPasswordPageTest {
 
     @Inject
