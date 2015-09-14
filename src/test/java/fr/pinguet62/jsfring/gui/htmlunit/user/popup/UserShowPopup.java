@@ -5,9 +5,10 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.ShowPopup;
+import fr.pinguet62.jsfring.gui.htmlunit.field.BooleanOutputText;
 import fr.pinguet62.jsfring.gui.htmlunit.field.Field;
 import fr.pinguet62.jsfring.gui.htmlunit.field.ListField;
-import fr.pinguet62.jsfring.gui.htmlunit.field.OutputText;
+import fr.pinguet62.jsfring.gui.htmlunit.field.StringOutputText;
 
 public final class UserShowPopup extends AbstractUserPopup implements ShowPopup {
 
@@ -15,8 +16,13 @@ public final class UserShowPopup extends AbstractUserPopup implements ShowPopup 
         super(page);
     }
 
+    @Override
+    protected String getDialogId() {
+        return "showDialog";
+    }
+
     public Field<?, ?> getEmail() {
-        return new OutputText((HtmlSpan) getFieldTableCell(1).getByXPath("./span").get(0));
+        return new StringOutputText((HtmlSpan) getFieldTableCell(1).getByXPath("./span").get(0));
     }
 
     public Field<?, ?> getProfiles() {
@@ -24,7 +30,7 @@ public final class UserShowPopup extends AbstractUserPopup implements ShowPopup 
     }
 
     public Field<?, ?> isActive() {
-        return new OutputText((HtmlSpan) getFieldTableCell(2).getByXPath("./span").get(0));
+        return new BooleanOutputText((HtmlSpan) getFieldTableCell(2).getByXPath("./span").get(0));
     }
 
 }

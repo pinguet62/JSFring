@@ -17,7 +17,8 @@ public final class CheckBox extends ReadWriteField<HtmlDivision, Boolean> {
     /** The {@link HtmlDivision} contains the {@code "ui-state-active"} class. */
     @Override
     public Boolean getValue() {
-        return html.getAttribute("class").contains("ui-state-active");
+        HtmlDivision div = (HtmlDivision) html.getByXPath("./div[contains(@class, 'ui-chkbox-box')]").get(0);
+        return div.getAttribute("class").contains("ui-state-active");
     }
 
     @Override

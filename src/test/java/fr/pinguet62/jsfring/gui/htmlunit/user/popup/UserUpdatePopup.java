@@ -16,8 +16,13 @@ public final class UserUpdatePopup extends AbstractUserPopup implements UpdatePo
         super(page);
     }
 
+    @Override
+    protected String getDialogId() {
+        return "updateDialog";
+    }
+
     public Field<?, ?> getEmail() {
-        return new InputText((HtmlInput) getFieldTableCell(1).getByXPath("./span[contains(@class, 'ui-inputtext')]").get(0));
+        return new InputText((HtmlInput) getFieldTableCell(1).getByXPath("./input[contains(@class, 'ui-inputtext')]").get(0));
     }
 
     public Field<?, ?> getProfiles() {

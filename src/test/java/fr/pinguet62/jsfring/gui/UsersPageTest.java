@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.gui;
 
+import static fr.pinguet62.jsfring.gui.htmlunit.DateUtils.getDatetime;
 import static java.util.stream.Collectors.toList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -77,10 +78,10 @@ public class UsersPageTest {
                 assertEquals("admin@domain.fr", popup.getEmail().getValue());
                 assertTrue(popup.getEmail().isReadonly());
 
-                assertEquals("true", popup.isActive().getValue());
+                assertEquals(true, popup.isActive().getValue());
                 assertTrue(popup.isActive().isReadonly());
 
-                assertEquals("2015-06-14", popup.getLastConnection().getValue());
+                assertEquals(getDatetime(2015, 6, 14, 13, 45, 41), popup.getLastConnection().getValue());
                 assertTrue(popup.getLastConnection().isReadonly());
 
                 assertEquals(Arrays.asList("Profile admin", "User admin"), popup.getProfiles().getValue());
@@ -98,10 +99,10 @@ public class UsersPageTest {
                 assertEquals("admin_profile@domain.fr", popup.getEmail().getValue());
                 assertTrue(popup.getEmail().isReadonly());
 
-                assertEquals("true", popup.isActive().getValue());
+                assertEquals(true, popup.isActive().getValue());
                 assertTrue(popup.isActive().isReadonly());
 
-                assertEquals("", popup.getLastConnection().getValue());
+                assertNull(popup.getLastConnection().getValue());
                 assertTrue(popup.getLastConnection().isReadonly());
 
                 assertEquals(Arrays.asList("Profile admin"), popup.getProfiles().getValue());
@@ -124,10 +125,10 @@ public class UsersPageTest {
                 assertEquals("admin_user@domain.fr", popup.getEmail().getValue());
                 assertTrue(popup.getEmail().isReadonly());
 
-                assertEquals("true", popup.isActive().getValue());
+                assertEquals(true, popup.isActive().getValue());
                 assertTrue(popup.isActive().isReadonly());
 
-                assertEquals("", popup.getLastConnection().getValue());
+                assertNull(popup.getLastConnection().getValue());
                 assertTrue(popup.getLastConnection().isReadonly());
 
                 assertEquals(Arrays.asList("User admin"), popup.getProfiles().getValue());
@@ -154,10 +155,10 @@ public class UsersPageTest {
                 assertEquals("admin@domain.fr", popup.getEmail().getValue());
                 assertFalse(popup.getEmail().isReadonly());
 
-                assertEquals("true", popup.isActive().getValue());
+                assertEquals(true, popup.isActive().getValue());
                 assertFalse(popup.isActive().isReadonly());
 
-                assertEquals("2015-06-14", popup.getLastConnection().getValue());
+                assertEquals(getDatetime(2015, 6, 14, 13, 45, 41), popup.getLastConnection().getValue());
                 assertTrue(popup.getLastConnection().isReadonly());
 
                 assertEquals(Arrays.asList("Profile admin", "User admin"), popup.getProfiles().getValue());
@@ -174,7 +175,7 @@ public class UsersPageTest {
                 assertEquals("admin_profile@domain.fr", popup.getEmail().getValue());
                 assertFalse(popup.getEmail().isReadonly());
 
-                assertEquals("true", popup.isActive().getValue());
+                assertEquals(true, popup.isActive().getValue());
                 assertFalse(popup.isActive().isReadonly());
 
                 assertNull(popup.getLastConnection().getValue());
@@ -199,7 +200,7 @@ public class UsersPageTest {
                 assertEquals("admin_user@domain.fr", popup.getEmail().getValue());
                 assertFalse(popup.getEmail().isReadonly());
 
-                assertEquals("true", popup.isActive().getValue());
+                assertEquals(true, popup.isActive().getValue());
                 assertFalse(popup.isActive().isReadonly());
 
                 assertNull(popup.getLastConnection().getValue());
@@ -221,12 +222,12 @@ public class UsersPageTest {
 
         for (int i = 0; i < 2; i++) {
             User user = users.get(i);
-            UserRow row0 = rows.get(i);
+            UserRow row = rows.get(i);
 
-            assertEquals(user.getLogin(), row0.getLogin());
-            assertEquals(user.getEmail(), row0.getEmail());
-            assertEquals(user.isActive(), row0.getActive());
-            assertEquals(user.getLastConnection(), row0.getLastConnection());
+            assertEquals(user.getLogin(), row.getLogin());
+            assertEquals(user.getEmail(), row.getEmail());
+            assertEquals(user.isActive(), row.getActive());
+            assertEquals(user.getLastConnection(), row.getLastConnection());
         }
     }
 

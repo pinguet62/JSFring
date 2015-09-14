@@ -1,8 +1,6 @@
 package fr.pinguet62.jsfring.gui.htmlunit.datatable;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -19,6 +17,7 @@ import com.google.common.collect.Lists;
 
 import fr.pinguet62.jsfring.gui.component.DataTableComponent;
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
+import fr.pinguet62.jsfring.gui.htmlunit.DateUtils;
 import fr.pinguet62.jsfring.gui.htmlunit.NavigatorException;
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.ConfirmPopup;
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.ShowPopup;
@@ -161,31 +160,15 @@ public abstract class AbstractRow<SP extends ShowPopup, UP extends UpdatePopup> 
         throw new RuntimeException("Invalid boolean format: " + content);
     }
 
-    // TODO i18n
     /**
      * Get the {@link Date}.
      *
      * @param column The column index.
-     * @return The {@link Date}.<br>
-     *         {@code null} if empty cell.
-     * @throws RuntimeException Invalid/Unknown date format.
+     * @return The {@link Date}.
+     * @see DateUtils#parseDateOrDateTime(String)
      */
     protected Date getDate(int column) {
-        String content = getString(column);
-        if (content == null)
-            return null;
-
-        // Parse
-        try {
-            if (content.length() == 10) // Date
-                return new SimpleDateFormat("dd/MM/yyyy").parse(content);
-            else if (content.length() == 19) // Datetime
-                return new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").parse(content);
-
-            throw new RuntimeException("Unknown date format: " + content);
-        } catch (ParseException exception) {
-            throw new RuntimeException("Invalid date format: " + content, exception);
-        }
+        return DateUtils.parseDateOrDateTime(getString(column));
     }
 
     /**
