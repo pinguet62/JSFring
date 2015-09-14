@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.gui;
 
+import static java.util.stream.Collectors.toList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
@@ -17,9 +18,13 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+
 import fr.pinguet62.Config;
 import fr.pinguet62.jsfring.dao.UserDao;
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
+import fr.pinguet62.jsfring.gui.htmlunit.datatable.AbstractDatatablePage;
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.AbstractRow;
 import fr.pinguet62.jsfring.gui.htmlunit.user.UserRow;
 import fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage;
@@ -30,11 +35,24 @@ import fr.pinguet62.jsfring.model.User;
 /** @see UsersPage */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = Config.SPRING)
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class })
+@DatabaseSetup(Config.DATASET)
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 public class UsersPageTest {
 
     @Inject
     private UserDao userDao;
+
+    @Test
+    public void test_dataTable_action_rendered() {
+        UsersPage usersPage = AbstractPage.get().gotoUsersPage();
+
+        assertTrue(usersPage.isCreateButtonVisible());
+        for (UserRow row : usersPage.getRows()) {
+            assertTrue(row.isActionButtonShowVisible());
+            assertTrue(row.isActionButtonUpdateVisible());
+            assertTrue(row.isActionButtonDeleteVisible());
+        }
+    }
 
     /**
      * <ul>
@@ -45,7 +63,7 @@ public class UsersPageTest {
      * @see AbstractRow#actionShow()
      */
     @Test
-    public void test_action_show() {
+    public void test_dataTable_action_show() {
         UsersPage page = AbstractPage.get().gotoUsersPage();
         {
             // Page 1
@@ -122,7 +140,7 @@ public class UsersPageTest {
 
     /** @see AbstractRow#actionUpdate() */
     @Test
-    public void test_action_update() {
+    public void test_dataTable_action_update() {
         UsersPage page = AbstractPage.get().gotoUsersPage();
         {
             // Page 1
@@ -195,24 +213,13 @@ public class UsersPageTest {
         }
     }
 
+    /** @see AbstractDatatablePage#getRows() */
     @Test
-    public void test_dataTable_actions_rendered() {
-        UsersPage usersPage = AbstractPage.get().gotoUsersPage();
-
-        assertTrue(usersPage.isCreateButtonVisible());
-        for (UserRow row : usersPage.getRows()) {
-            assertTrue(row.isActionButtonShowVisible());
-            assertTrue(row.isActionButtonUpdateVisible());
-            assertTrue(row.isActionButtonDeleteVisible());
-        }
-    }
-
-    @Test
-    public void test_dataTable_content() {
+    public void test_dataTable_getRows() {
         List<User> users = userDao.getAll();
         List<UserRow> rows = AbstractPage.get().gotoUsersPage().getRows();
 
-        for (int i = 0; i <= 1; i++) {
+        for (int i = 0; i < 2; i++) {
             User user = users.get(i);
             UserRow row0 = rows.get(i);
 
@@ -220,6 +227,34 @@ public class UsersPageTest {
             assertEquals(user.getEmail(), row0.getEmail());
             assertEquals(user.isActive(), row0.getActive());
             assertEquals(user.getLastConnection(), row0.getLastConnection());
+        }
+    }
+
+    /** @see UsersPage#sortByEmail() */
+    @Test
+    public void test_dataTable_sort_email() {
+        List<String> emails = userDao.getAll().stream().map(User::getEmail).sorted().collect(toList());
+
+        UsersPage usersPage = AbstractPage.get().gotoUsersPage();
+        usersPage.sortByEmail();
+        List<UserRow> rows = usersPage.getRows();
+
+        for (int i = 0; i < 2; i++) {
+            assertEquals(emails.get(i), rows.get(i).getEmail());
+        }
+    }
+
+    /** @see UsersPage#sortByLogin() */
+    @Test
+    public void test_dataTable_sort_login() {
+        List<String> logins = userDao.getAll().stream().map(User::getLogin).sorted().collect(toList());
+
+        UsersPage usersPage = AbstractPage.get().gotoUsersPage();
+        usersPage.sortByLogin();
+        List<UserRow> rows = usersPage.getRows();
+
+        for (int i = 0; i < 2; i++) {
+            assertEquals(logins.get(i), rows.get(i).getLogin());
         }
     }
 
