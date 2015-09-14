@@ -21,7 +21,9 @@
 		<p:outputLabel for="lastConnection"
 			value="#{msg['user.lastConnection']}" />
 		<h:outputText id="lastConnection"
-			value="#{bean.selectedValue.lastConnection}" />
+			value="#{bean.selectedValue.lastConnection}">
+			<f:convertDateTime pattern="#{msg['converter.datetime']}" />
+		</h:outputText>
 
 		<p:outputLabel for="profiles" value="#{msg['user.profiles']}" />
 		<p:dataList id="profiles" value="#{bean.selectedValue.profiles}"

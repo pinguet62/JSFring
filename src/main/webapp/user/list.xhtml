@@ -42,7 +42,9 @@
 
 				<p:column headerText="#{msg['user.lastConnection']}"
 					sortBy="#{user.lastConnection}" filterBy="#{user.lastConnection}">
-					<h:outputText value="#{user.lastConnection}" />
+					<h:outputText value="#{user.lastConnection}">
+						<f:convertDateTime pattern="#{msg['converter.datetime']}" />
+					</h:outputText>
 				</p:column>
 
 			</p62:dataTable>

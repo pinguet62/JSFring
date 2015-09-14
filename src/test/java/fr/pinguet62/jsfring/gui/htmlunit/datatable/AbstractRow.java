@@ -177,12 +177,10 @@ public abstract class AbstractRow<SP extends ShowPopup, UP extends UpdatePopup> 
 
         // Parse
         try {
-            // Date
-            if (content.length() == 10)
-                return new SimpleDateFormat("yyyy-MM-dd").parse(content);
-
-            // Datetime
-            // TODO datetime
+            if (content.length() == 10) // Date
+                return new SimpleDateFormat("dd/MM/yyyy").parse(content);
+            else if (content.length() == 19) // Datetime
+                return new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").parse(content);
 
             throw new RuntimeException("Unknown date format: " + content);
         } catch (ParseException exception) {

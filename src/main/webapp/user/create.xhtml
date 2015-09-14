@@ -19,11 +19,6 @@
 		<p:selectBooleanCheckbox id="active"
 			value="#{bean.selectedValue.active}" />
 
-		<p:outputLabel for="lastConnection"
-			value="#{msg['user.lastConnection']}" />
-		<h:outputText id="lastConnection"
-			value="#{bean.selectedValue.lastConnection}" />
-
 		<p:outputLabel for="profiles" value="#{msg['user.profiles']}" />
 		<p:pickList id="profiles" value="#{bean.profilesAssociation}"
 			var="profile" itemValue="#{profile}" itemLabel="#{profile.title}"
