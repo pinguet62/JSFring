@@ -9,6 +9,7 @@ import fr.pinguet62.jsfring.gui.htmlunit.field.CheckBox;
 import fr.pinguet62.jsfring.gui.htmlunit.field.Field;
 import fr.pinguet62.jsfring.gui.htmlunit.field.InputText;
 import fr.pinguet62.jsfring.gui.htmlunit.field.PickList;
+import fr.pinguet62.jsfring.gui.htmlunit.field.ReadWriteField;
 
 public final class UserUpdatePopup extends AbstractUserPopup implements UpdatePopup {
 
@@ -16,12 +17,7 @@ public final class UserUpdatePopup extends AbstractUserPopup implements UpdatePo
         super(page);
     }
 
-    @Override
-    protected String getDialogId() {
-        return "updateDialog";
-    }
-
-    public Field<?, ?> getEmail() {
+    public ReadWriteField<?, String> getEmail() {
         return new InputText((HtmlInput) getFieldTableCell(1).getByXPath("./input[contains(@class, 'ui-inputtext')]").get(0));
     }
 

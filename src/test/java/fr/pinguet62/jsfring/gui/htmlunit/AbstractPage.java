@@ -35,11 +35,12 @@ public class AbstractPage {
 
     /** Initialize the {@link #OUTPUT_STREAM}. */
     static {
-        try {
-            TMP_FILE = File.createTempFile("navigator-", null);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        // try {
+        // TMP_FILE = File.createTempFile("navigator-", null);
+        // } catch (IOException e) {
+        // throw new RuntimeException(e);
+        // }
+        TMP_FILE = new File("C:\\Users\\Pinguet62\\Downloads\\out.html");
         LOGGER.debug("Temporary file: " + TMP_FILE);
     }
 
@@ -171,14 +172,14 @@ public class AbstractPage {
     }
 
     protected void waitJS() {
+        final int period = 200 /* ms */;
         JavaScriptJobManager manager = page.getEnclosingWindow().getJobManager();
-        while (manager.getJobCount() > 0) {
+        for (int t = 0; manager.getJobCount() > 0 && t < 5_000 /* ms max */; t += period)
             try {
-                Thread.sleep(200);
+                LOGGER.warn("Wait " + t);
+                Thread.sleep(period);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-        }
     }
-
 }

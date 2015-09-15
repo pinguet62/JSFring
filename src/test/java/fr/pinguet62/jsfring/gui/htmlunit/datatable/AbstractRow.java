@@ -20,15 +20,13 @@ import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.DateUtils;
 import fr.pinguet62.jsfring.gui.htmlunit.NavigatorException;
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.ConfirmPopup;
-import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.ShowPopup;
-import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.UpdatePopup;
 
 /**
  * Commons data for {@link DataTableComponent}.
  *
  * @see DataTableComponent
  */
-public abstract class AbstractRow<SP extends ShowPopup, UP extends UpdatePopup> extends AbstractPage {
+public abstract class AbstractRow<SP, UP> extends AbstractPage {
 
     private final HtmlTableRow row;
 

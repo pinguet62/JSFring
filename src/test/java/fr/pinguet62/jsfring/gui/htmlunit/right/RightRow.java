@@ -7,7 +7,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
 
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.AbstractRow;
 
-public final class RightRow extends AbstractRow<RightPopup, RightPopup> {
+public final class RightRow extends AbstractRow<Void, Void> {
 
     public RightRow(HtmlTableRow row) {
         super(row);
@@ -18,13 +18,13 @@ public final class RightRow extends AbstractRow<RightPopup, RightPopup> {
     }
 
     @Override
-    protected Function<HtmlPage, RightPopup> getPopupShowFactory() {
-        return (arg) -> new RightPopup();
+    protected Function<HtmlPage, Void> getPopupShowFactory() {
+        throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Function<HtmlPage, RightPopup> getPopupUpdateFactory() {
-        return getPopupShowFactory();
+    protected Function<HtmlPage, Void> getPopupUpdateFactory() {
+        throw new UnsupportedOperationException();
     }
 
     public String getTitle() {

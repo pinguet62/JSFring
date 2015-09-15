@@ -1,8 +1,13 @@
 package fr.pinguet62.jsfring.gui.htmlunit.datatable.popup;
 
-public interface UpdatePopup extends Popup {
+import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 
-    default void submit() {
+public interface UpdatePopup extends ShowPopup {
+
+    @Override
+    default HtmlDivision getDialog() {
+        return (HtmlDivision) getPage().getByXPath("//div[contains(@class, 'ui-dialog') and contains(@id, 'updateDialog')]")
+                .get(0);
     }
 
 }

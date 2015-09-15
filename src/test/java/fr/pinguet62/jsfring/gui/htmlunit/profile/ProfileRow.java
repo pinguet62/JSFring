@@ -7,20 +7,20 @@ import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
 
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.AbstractRow;
 
-public final class ProfileRow extends AbstractRow<ProfilePopup, ProfilePopup> {
+public final class ProfileRow extends AbstractRow<ProfileShowPopup, ProfileUpdatePopup> {
 
     public ProfileRow(HtmlTableRow row) {
         super(row);
     }
 
     @Override
-    protected Function<HtmlPage, ProfilePopup> getPopupShowFactory() {
-        return (arg) -> new ProfilePopup();
+    protected Function<HtmlPage, ProfileShowPopup> getPopupShowFactory() {
+        return ProfileShowPopup::new;
     }
 
     @Override
-    protected Function<HtmlPage, ProfilePopup> getPopupUpdateFactory() {
-        return getPopupShowFactory();
+    protected Function<HtmlPage, ProfileUpdatePopup> getPopupUpdateFactory() {
+        return ProfileUpdatePopup::new;
     }
 
     public String getTitle() {
