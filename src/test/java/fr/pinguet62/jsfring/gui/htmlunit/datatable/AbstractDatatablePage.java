@@ -3,6 +3,7 @@ package fr.pinguet62.jsfring.gui.htmlunit.datatable;
 import static java.util.stream.Collectors.toList;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Function;
@@ -93,11 +94,14 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends
     /**
      * <code>&lt;tbody&gt;&lt;tr&gt;</code>
      *
-     * @return The {@link AbstractRow}s.
+     * @return The {@link AbstractRow}s.<br>
+     *         An empty {@link List} if empty datatable.
      */
     public List<T> getRows() {
         @SuppressWarnings("unchecked")
         List<HtmlTableRow> rows = (List<HtmlTableRow>) getDatatableTable().getByXPath("./tbody/tr");
+        if (rows.size() == 1 && rows.get(0).getAttribute("class").contains("ui-datatable-empty-message"))
+            return new ArrayList<>();
         return rows.stream().map(getRowFactory()).collect(toList());
     }
 
