@@ -17,23 +17,20 @@ public final class UsersPage extends AbstractDatatablePage<UserRow> {
         super(page);
     }
 
-    public void sortByEmail() {
-        filterByTitle("Email");
-    }
-
-    public void sortByLogin() {
-        filterByTitle("Identifiant");
+    @Override
+    protected Function<HtmlTableRow, UserRow> getRowFactory() {
+        return UserRow::new;
     }
 
     /**
-     * Find the {@link HtmlTableHeaderCell} from title, and clik to sort
+     * Find the {@link HtmlTableHeaderCell} from column title, and click to sort
      * results.
      * <p>
      * <code>&lt;span class="...ui-column-title..."&gt;</code>
      *
      * @param title The column title.
      */
-    protected void filterByTitle(String title) {
+    protected void sortBy(String title) {
         HtmlTableHeaderCell header = getDatatableTableHeader()
                 .stream()
                 .filter(th -> ((HtmlSpan) th.getByXPath("./span[contains(@class, 'ui-column-title')]").get(0)).asText().equals(
@@ -47,9 +44,12 @@ public final class UsersPage extends AbstractDatatablePage<UserRow> {
         }
     }
 
-    @Override
-    protected Function<HtmlTableRow, UserRow> getRowFactory() {
-        return UserRow::new;
+    public void sortByEmail() {
+        sortBy("Email");
+    }
+
+    public void sortByLogin() {
+        sortBy("Identifiant");
     }
 
 }
