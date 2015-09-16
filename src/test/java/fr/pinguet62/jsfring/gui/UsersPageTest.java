@@ -32,6 +32,7 @@ import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.ConfirmPopup;
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.UpdatePopup;
 import fr.pinguet62.jsfring.gui.htmlunit.user.UserRow;
 import fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage;
+import fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.ActiveFilter;
 import fr.pinguet62.jsfring.gui.htmlunit.user.popup.UserShowPopup;
 import fr.pinguet62.jsfring.gui.htmlunit.user.popup.UserUpdatePopup;
 import fr.pinguet62.jsfring.model.User;
@@ -279,6 +280,23 @@ public class UsersPageTest {
                 popup.close();
             }
         }
+    }
+
+    /** @see UsersPage#filterByActive(ActiveFilter) */
+    @Test
+    public void test_dataTable_filter_email() {
+        UsersPage usersPage = AbstractPage.get().gotoUsersPage();
+
+        assertEquals(2, usersPage.getRows().size());
+
+        usersPage.filterByActive(ActiveFilter.Yes);
+        assertEquals(2, usersPage.getRows().size());
+
+        usersPage.filterByActive(ActiveFilter.No);
+        assertEquals(0, usersPage.getRows().size());
+
+        usersPage.filterByActive(ActiveFilter.All);
+        assertEquals(2, usersPage.getRows().size());
     }
 
     /** @see AbstractDatatablePage#getRows() */
