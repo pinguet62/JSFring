@@ -5,13 +5,19 @@ import static java.util.stream.Collectors.toList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,8 +26,11 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
+import au.com.bytecode.opencsv.CSVReader;
+
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.lowagie.text.pdf.PdfReader;
 
 import fr.pinguet62.Config;
 import fr.pinguet62.jsfring.dao.UserDao;
@@ -289,6 +298,46 @@ public class UsersPageTest {
         UsersPage usersPage = AbstractPage.get().gotoUsersPage();
         for (Column column : UsersPage.Column.values())
             usersPage.hideOrShowColumn(column);
+    }
+
+    /** @see AbstractDatatablePage#exportCSV() */
+    @Test
+    public void test_dataTable_export_csv() throws IOException {
+        UsersPage usersPage = AbstractPage.get().gotoUsersPage();
+        InputStream is = usersPage.exportCSV();
+        // Try read
+        try (CSVReader reader = new CSVReader(new InputStreamReader(is))) {
+            reader.readAll();
+        }
+    }
+
+    /** @see AbstractDatatablePage#exportPDF() */
+    @Test
+    public void test_dataTable_export_pdf() throws IOException {
+        UsersPage usersPage = AbstractPage.get().gotoUsersPage();
+        InputStream is = usersPage.exportPDF();
+        // Try read
+        new PdfReader(is);
+    }
+
+    /** @see AbstractDatatablePage#exportXLS() */
+    @Test
+    public void test_dataTable_export_xls() throws IOException {
+        UsersPage usersPage = AbstractPage.get().gotoUsersPage();
+        InputStream is = usersPage.exportXLS();
+        // TODO Try read
+        assertNotNull(is);
+    }
+
+    /** @see AbstractDatatablePage#exportXML() */
+    @Test
+    public void test_dataTable_export_xml() throws Exception {
+        UsersPage usersPage = AbstractPage.get().gotoUsersPage();
+        InputStream is = usersPage.exportXML();
+        // Try read
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        builder.parse(is);
     }
 
     /** @see UsersPage#filterByActive(ActiveFilter) */

@@ -3,6 +3,7 @@ package fr.pinguet62.jsfring.gui.htmlunit.datatable;
 import static java.util.stream.Collectors.toList;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -10,8 +11,10 @@ import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
+import com.gargoylesoftware.htmlunit.html.HtmlImage;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.html.HtmlTable;
@@ -30,6 +33,41 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends
 
     protected AbstractDatatablePage(HtmlPage page) {
         super(page);
+    }
+
+    /**
+     * @param imageName The icon file path.<br>
+     *            Example: {@code "/img/foo.png"}.
+     * @return The download {@link InputStream}.
+     */
+    protected InputStream export(String iconPath) {
+        HtmlImage icon = (HtmlImage) getDatatableFooter().getByXPath("./a/img[contains(@src, '" + iconPath + "')]").get(0);
+        HtmlAnchor link = (HtmlAnchor) icon.getParentNode();
+        try {
+            return link.click().getWebResponse().getContentAsStream();
+        } catch (IOException e) {
+            throw new NavigatorException(e);
+        }
+    }
+
+    /** @return The download {@link InputStream}. */
+    public InputStream exportCSV() {
+        return export("/img/csv.png");
+    }
+
+    /** @return The download {@link InputStream}. */
+    public InputStream exportPDF() {
+        return export("/img/csv.png");
+    }
+
+    /** @return The download {@link InputStream}. */
+    public InputStream exportXLS() {
+        return export("/img/xls.png");
+    }
+
+    /** @return The download {@link InputStream}. */
+    public InputStream exportXML() {
+        return export("/img/xml.png");
     }
 
     /**
@@ -65,6 +103,10 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends
      */
     protected HtmlDivision getDatatable() {
         return (HtmlDivision) page.getByXPath("//div[contains(@class, 'ui-datatable')]").get(0);
+    }
+
+    protected HtmlDivision getDatatableFooter() {
+        return (HtmlDivision) getDatatable().getByXPath("./div[contains(@class, 'ui-datatable-footer')]").get(0);
     }
 
     protected HtmlDivision getDatatableHeader() {
