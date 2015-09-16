@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Function;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
@@ -47,8 +49,8 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends
      */
     protected Iterator<HtmlSpan> getCurrentPage() {
         @SuppressWarnings("unchecked")
-        List<HtmlSpan> paginator = (List<HtmlSpan>) getDatatable().getByXPath(
-                "./div[contains(@class, 'ui-paginator')][2]/span[@class='ui-paginator-pages']/span");
+        List<HtmlSpan> paginator = (List<HtmlSpan>) getDatatablePaginator().getByXPath(
+                "./span[@class='ui-paginator-pages']/span");
         Iterator<HtmlSpan> it;
         for (it = paginator.iterator(); it.hasNext(); it.next())
             if (it.next().getAttribute("class").contains("ui-state-active"))
@@ -67,6 +69,11 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends
 
     protected HtmlDivision getDatatableHeader() {
         return (HtmlDivision) getDatatable().getByXPath("./div[contains(@class, 'ui-datatable-header')]").get(0);
+    }
+
+    /** Get 2nd paginator, in footer. */
+    protected HtmlDivision getDatatablePaginator() {
+        return (HtmlDivision) getDatatable().getByXPath("./div[contains(@class, 'ui-paginator')][2]").get(0);
     }
 
     /**
@@ -107,6 +114,18 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends
         if (rows.size() == 1 && rows.get(0).getAttribute("class").contains("ui-datatable-empty-message"))
             return new ArrayList<>();
         return rows.stream().map(getRowFactory()).collect(toList());
+    }
+
+    /** Parse the {@code currentPageReportTemplate} attribute value. */
+    public int getTotalCount() {
+        HtmlSpan currentPageReportTemplate = (HtmlSpan) getDatatablePaginator().getByXPath(
+                "./span[contains(@class, 'ui-paginator-current')]").get(0);
+        // Parse "x-y of z"
+        Pattern pattern = Pattern.compile(" [0-9]+$");
+        Matcher matcher = pattern.matcher(currentPageReportTemplate.asText());
+        matcher.find();
+        String total = matcher.group().substring(1);
+        return Integer.parseInt(total);
     }
 
     /** @throws NavigatorException No next page. See {@link #hasNextPage()}. */

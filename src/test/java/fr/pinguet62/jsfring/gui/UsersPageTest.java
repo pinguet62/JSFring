@@ -296,16 +296,16 @@ public class UsersPageTest {
     public void test_dataTable_filter_email() {
         UsersPage usersPage = AbstractPage.get().gotoUsersPage();
 
-        assertEquals(2, usersPage.getRows().size());
+        assertEquals(3, usersPage.getTotalCount());
 
         usersPage.filterByActive(ActiveFilter.Yes);
-        assertEquals(2, usersPage.getRows().size());
+        assertEquals(3, usersPage.getTotalCount());
 
         usersPage.filterByActive(ActiveFilter.No);
-        assertEquals(0, usersPage.getRows().size());
+        assertEquals(0, usersPage.getTotalCount());
 
         usersPage.filterByActive(ActiveFilter.All);
-        assertEquals(2, usersPage.getRows().size());
+        assertEquals(3, usersPage.getTotalCount());
     }
 
     /** @see AbstractDatatablePage#getRows() */
@@ -323,6 +323,15 @@ public class UsersPageTest {
             assertEquals(user.isActive(), row.getActive());
             assertEquals(user.getLastConnection(), row.getLastConnection());
         }
+    }
+
+    /** @see AbstractDatatablePage#getTotalCount() */
+    @Test
+    public void test_datatable_getTotalCount() {
+        AbstractPage nav = AbstractPage.get();
+        assertEquals(3, nav.gotoUsersPage().getTotalCount());
+        assertEquals(3, nav.gotoProfilesPage().getTotalCount());
+        assertEquals(5, nav.gotoRightsPage().getTotalCount());
     }
 
     /** @see UsersPage#sortByEmail() */
