@@ -65,6 +65,10 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends
         return (HtmlDivision) page.getByXPath("//div[contains(@class, 'ui-datatable')]").get(0);
     }
 
+    protected HtmlDivision getDatatableHeader() {
+        return (HtmlDivision) getDatatable().getByXPath("./div[contains(@class, 'ui-datatable-header')]").get(0);
+    }
+
     /**
      * <code>&lt;div class="...ui-datatable-tablewrapper..."&gt;&lt;table&gt;</code>
      *
@@ -128,9 +132,9 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends
     }
 
     public boolean isCreateButtonVisible() {
-        final String xpath = "./div[contains(@class, 'ui-datatable-header')]/button[contains(@onclick, 'createDialog')]";
+        final String xpath = "./button[contains(@onclick, 'createDialog')]";
         @SuppressWarnings("unchecked")
-        List<HtmlButton> buttons = (List<HtmlButton>) getDatatable().getByXPath(xpath);
+        List<HtmlButton> buttons = (List<HtmlButton>) getDatatableHeader().getByXPath(xpath);
         if (buttons.size() >= 2)
             throw new IllegalArgumentException("More than 1 tag found with XPath: " + xpath);
         return !buttons.isEmpty();

@@ -33,6 +33,7 @@ import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.UpdatePopup;
 import fr.pinguet62.jsfring.gui.htmlunit.user.UserRow;
 import fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage;
 import fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.ActiveFilter;
+import fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column;
 import fr.pinguet62.jsfring.gui.htmlunit.user.popup.UserShowPopup;
 import fr.pinguet62.jsfring.gui.htmlunit.user.popup.UserUpdatePopup;
 import fr.pinguet62.jsfring.model.User;
@@ -280,6 +281,14 @@ public class UsersPageTest {
                 popup.close();
             }
         }
+    }
+
+    /** @see UsersPage#hideOrShowColumn(Column) */
+    @Test
+    public void test_dataTable_columnToggler() {
+        UsersPage usersPage = AbstractPage.get().gotoUsersPage();
+        for (Column column : UsersPage.Column.values())
+            usersPage.hideOrShowColumn(column);
     }
 
     /** @see UsersPage#filterByActive(ActiveFilter) */
