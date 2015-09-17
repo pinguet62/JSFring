@@ -1,8 +1,9 @@
 package fr.pinguet62.jsfring.gui.htmlunit.field;
 
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
 
-public abstract class ReadWriteField<H, T> extends Field<H, T> {
+public abstract class ReadWriteField<H extends HtmlElement, T> extends Field<H, T> {
 
     protected ReadWriteField(H html) {
         super(html);

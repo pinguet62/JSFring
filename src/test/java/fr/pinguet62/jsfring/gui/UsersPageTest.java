@@ -1,17 +1,25 @@
 package fr.pinguet62.jsfring.gui;
 
 import static fr.pinguet62.jsfring.gui.htmlunit.DateUtils.getDatetime;
+import static fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column.EMAIL;
+import static fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column.LOGIN;
 import static java.util.stream.Collectors.toList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,8 +28,11 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
+import au.com.bytecode.opencsv.CSVReader;
+
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.lowagie.text.pdf.PdfReader;
 
 import fr.pinguet62.Config;
 import fr.pinguet62.jsfring.dao.UserDao;
@@ -32,6 +43,8 @@ import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.ConfirmPopup;
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.UpdatePopup;
 import fr.pinguet62.jsfring.gui.htmlunit.user.UserRow;
 import fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage;
+import fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.ActiveFilter;
+import fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column;
 import fr.pinguet62.jsfring.gui.htmlunit.user.popup.UserShowPopup;
 import fr.pinguet62.jsfring.gui.htmlunit.user.popup.UserUpdatePopup;
 import fr.pinguet62.jsfring.model.User;
@@ -194,7 +207,6 @@ public class UsersPageTest {
 
         // Before
         UserRow row = page.getRows().get(0);
-        String login = row.getLogin();
         assertEquals("admin@domain.fr", row.getEmail());
 
         // Update
@@ -203,10 +215,8 @@ public class UsersPageTest {
         updatePopup.getEmail().setValue(newEmail);
         updatePopup.submit();
 
-        // After
-        UserRow rowAf = page.getRows().get(0);
-        assertEquals(login, rowAf.getLogin());
-        assertEquals(newEmail, rowAf.getEmail());
+        // Before
+        assertEquals(newEmail, page.getRows().get(0).getEmail());
     }
 
     /** @see AbstractRow#actionUpdate() */
@@ -284,6 +294,71 @@ public class UsersPageTest {
         }
     }
 
+    /** @see UsersPage#hideOrShowColumn(Column) */
+    @Test
+    public void test_dataTable_columnToggler() {
+        UsersPage usersPage = AbstractPage.get().gotoUsersPage();
+        for (Column column : UsersPage.Column.values())
+            usersPage.hideOrShowColumn(column);
+    }
+
+    /** @see AbstractDatatablePage#exportCSV() */
+    @Test
+    public void test_dataTable_export_csv() throws IOException {
+        UsersPage usersPage = AbstractPage.get().gotoUsersPage();
+        InputStream is = usersPage.exportCSV();
+        // Try read
+        try (CSVReader reader = new CSVReader(new InputStreamReader(is))) {
+            reader.readAll();
+        }
+    }
+
+    /** @see AbstractDatatablePage#exportPDF() */
+    @Test
+    public void test_dataTable_export_pdf() throws IOException {
+        UsersPage usersPage = AbstractPage.get().gotoUsersPage();
+        InputStream is = usersPage.exportPDF();
+        // Try read
+        new PdfReader(is);
+    }
+
+    /** @see AbstractDatatablePage#exportXLS() */
+    @Test
+    public void test_dataTable_export_xls() throws IOException {
+        UsersPage usersPage = AbstractPage.get().gotoUsersPage();
+        InputStream is = usersPage.exportXLS();
+        // TODO Try read
+        assertNotNull(is);
+    }
+
+    /** @see AbstractDatatablePage#exportXML() */
+    @Test
+    public void test_dataTable_export_xml() throws Exception {
+        UsersPage usersPage = AbstractPage.get().gotoUsersPage();
+        InputStream is = usersPage.exportXML();
+        // Try read
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        builder.parse(is);
+    }
+
+    /** @see UsersPage#filterByActive(ActiveFilter) */
+    @Test
+    public void test_dataTable_filter_email() {
+        UsersPage usersPage = AbstractPage.get().gotoUsersPage();
+
+        assertEquals(3, usersPage.getTotalCount());
+
+        usersPage.filterByActive(ActiveFilter.Yes);
+        assertEquals(3, usersPage.getTotalCount());
+
+        usersPage.filterByActive(ActiveFilter.No);
+        assertEquals(0, usersPage.getTotalCount());
+
+        usersPage.filterByActive(ActiveFilter.All);
+        assertEquals(3, usersPage.getTotalCount());
+    }
+
     @Test
     public void test_datatable_filter_login() {
         List<String> logins = userDao.getAll().stream().map(User::getLogin).sorted().collect(toList());
@@ -314,13 +389,22 @@ public class UsersPageTest {
         }
     }
 
+    /** @see AbstractDatatablePage#getTotalCount() */
+    @Test
+    public void test_datatable_getTotalCount() {
+        AbstractPage nav = AbstractPage.get();
+        assertEquals(3, nav.gotoUsersPage().getTotalCount());
+        assertEquals(3, nav.gotoProfilesPage().getTotalCount());
+        assertEquals(5, nav.gotoRightsPage().getTotalCount());
+    }
+
     /** @see UsersPage#sortByEmail() */
     @Test
     public void test_dataTable_sort_email() {
         List<String> emails = userDao.getAll().stream().map(User::getEmail).sorted().collect(toList());
 
         UsersPage usersPage = AbstractPage.get().gotoUsersPage();
-        usersPage.sortByEmail();
+        usersPage.sortBy(EMAIL);
         List<UserRow> rows = usersPage.getRows();
 
         for (int i = 0; i < 2; i++) {
@@ -334,7 +418,7 @@ public class UsersPageTest {
         List<String> logins = userDao.getAll().stream().map(User::getLogin).sorted().collect(toList());
 
         UsersPage usersPage = AbstractPage.get().gotoUsersPage();
-        usersPage.sortByLogin();
+        usersPage.sortBy(LOGIN);
         List<UserRow> rows = usersPage.getRows();
 
         for (int i = 0; i < 2; i++) {

@@ -45,6 +45,7 @@
 	<p:dataTable id="dataTable" widgetVar="#{cc.attrs.widgetVar}"
 		value="#{cc.attrs.lazy ? cc.attrs.bean.lazyDataModel : cc.attrs.bean.list}"
 		lazy="#{cc.attrs.lazy}" paginator="true"
+		currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords}"
 		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 		rows="2" rowsPerPageTemplate="2 5 10"
 		emptyMessage="#{msg['dataTable.noRecord']}">

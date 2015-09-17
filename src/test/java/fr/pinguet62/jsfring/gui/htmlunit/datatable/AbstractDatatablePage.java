@@ -3,13 +3,19 @@ package fr.pinguet62.jsfring.gui.htmlunit.datatable;
 import static java.util.stream.Collectors.toList;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
+import com.gargoylesoftware.htmlunit.html.HtmlImage;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.html.HtmlTable;
@@ -31,6 +37,41 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends
     }
 
     /**
+     * @param imageName The icon file path.<br>
+     *            Example: {@code "/img/foo.png"}.
+     * @return The download {@link InputStream}.
+     */
+    protected InputStream export(String iconPath) {
+        HtmlImage icon = (HtmlImage) getDatatableFooter().getByXPath("./a/img[contains(@src, '" + iconPath + "')]").get(0);
+        HtmlAnchor link = (HtmlAnchor) icon.getParentNode();
+        try {
+            return link.click().getWebResponse().getContentAsStream();
+        } catch (IOException e) {
+            throw new NavigatorException(e);
+        }
+    }
+
+    /** @return The download {@link InputStream}. */
+    public InputStream exportCSV() {
+        return export("/img/csv.png");
+    }
+
+    /** @return The download {@link InputStream}. */
+    public InputStream exportPDF() {
+        return export("/img/csv.png");
+    }
+
+    /** @return The download {@link InputStream}. */
+    public InputStream exportXLS() {
+        return export("/img/xls.png");
+    }
+
+    /** @return The download {@link InputStream}. */
+    public InputStream exportXML() {
+        return export("/img/xml.png");
+    }
+
+    /**
      * Iterate on each {@link HtmlSpan} and stop when
      * {@code class="ui-state-active"}.
      * <p>
@@ -47,8 +88,8 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends
      */
     protected Iterator<HtmlSpan> getCurrentPage() {
         @SuppressWarnings("unchecked")
-        List<HtmlSpan> paginator = (List<HtmlSpan>) getDatatable().getByXPath(
-                "./div[contains(@class, 'ui-paginator')][2]/span[@class='ui-paginator-pages']/span");
+        List<HtmlSpan> paginator = (List<HtmlSpan>) getDatatablePaginator().getByXPath(
+                "./span[@class='ui-paginator-pages']/span");
         Iterator<HtmlSpan> it;
         for (it = paginator.iterator(); it.hasNext(); it.next())
             if (it.next().getAttribute("class").contains("ui-state-active"))
@@ -63,6 +104,19 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends
      */
     protected HtmlDivision getDatatable() {
         return (HtmlDivision) page.getByXPath("//div[contains(@class, 'ui-datatable')]").get(0);
+    }
+
+    protected HtmlDivision getDatatableFooter() {
+        return (HtmlDivision) getDatatable().getByXPath("./div[contains(@class, 'ui-datatable-footer')]").get(0);
+    }
+
+    protected HtmlDivision getDatatableHeader() {
+        return (HtmlDivision) getDatatable().getByXPath("./div[contains(@class, 'ui-datatable-header')]").get(0);
+    }
+
+    /** Get 2nd paginator, in footer. */
+    protected HtmlDivision getDatatablePaginator() {
+        return (HtmlDivision) getDatatable().getByXPath("./div[contains(@class, 'ui-paginator')][2]").get(0);
     }
 
     /**
@@ -106,12 +160,27 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends
     /**
      * <code>&lt;tbody&gt;&lt;tr&gt;</code>
      *
-     * @return The {@link AbstractRow}s.
+     * @return The {@link AbstractRow}s.<br>
+     *         An empty {@link List} if empty datatable.
      */
     public List<T> getRows() {
         @SuppressWarnings("unchecked")
         List<HtmlTableRow> rows = (List<HtmlTableRow>) getDatatableTable().getByXPath("./tbody/tr");
+        if (rows.size() == 1 && rows.get(0).getAttribute("class").contains("ui-datatable-empty-message"))
+            return new ArrayList<>();
         return rows.stream().map(getRowFactory()).collect(toList());
+    }
+
+    /** Parse the {@code currentPageReportTemplate} attribute value. */
+    public int getTotalCount() {
+        HtmlSpan currentPageReportTemplate = (HtmlSpan) getDatatablePaginator().getByXPath(
+                "./span[contains(@class, 'ui-paginator-current')]").get(0);
+        // Parse "x-y of z"
+        Pattern pattern = Pattern.compile(" [0-9]+$");
+        Matcher matcher = pattern.matcher(currentPageReportTemplate.asText());
+        matcher.find();
+        String total = matcher.group().substring(1);
+        return Integer.parseInt(total);
     }
 
     /** @throws NavigatorException No next page. See {@link #hasNextPage()}. */
@@ -137,9 +206,9 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends
     }
 
     public boolean isCreateButtonVisible() {
-        final String xpath = "./div[contains(@class, 'ui-datatable-header')]/button[contains(@onclick, 'createDialog')]";
+        final String xpath = "./button[contains(@onclick, 'createDialog')]";
         @SuppressWarnings("unchecked")
-        List<HtmlButton> buttons = (List<HtmlButton>) getDatatable().getByXPath(xpath);
+        List<HtmlButton> buttons = (List<HtmlButton>) getDatatableHeader().getByXPath(xpath);
         if (buttons.size() >= 2)
             throw new IllegalArgumentException("More than 1 tag found with XPath: " + xpath);
         return !buttons.isEmpty();
