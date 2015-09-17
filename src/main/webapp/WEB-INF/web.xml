@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
 	    http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
 	<display-name>Archetype Created Web Application</display-name>
@@ -12,6 +11,12 @@
 
 	<context-param>
 		<param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
+	<context-param>
+		<!-- TimeZone: getDefault() instead of "GMT" -->
+		<param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
 		<param-value>true</param-value>
 	</context-param>
 
@@ -68,7 +73,6 @@
 	</context-param>
 
 	<!-- JSFUnit -->
-	<!-- <filter> <filter-name>JSFUnitFilter</filter-name> <filter-class>org.jboss.jsfunit.framework.JSFUnitFilter</filter-class> 
-		</filter> <filter-mapping> <filter-name>JSFUnitFilter</filter-name> <servlet-name>ServletTestRunner</servlet-name> 
-		</filter-mapping> -->
+	<!-- <filter> <filter-name>JSFUnitFilter</filter-name> <filter-class>org.jboss.jsfunit.framework.JSFUnitFilter</filter-class> </filter> 
+		<filter-mapping> <filter-name>JSFUnitFilter</filter-name> <servlet-name>ServletTestRunner</servlet-name> </filter-mapping> -->
 </web-app>
