@@ -2,7 +2,8 @@ package fr.pinguet62.jsfring.gui.htmlunit.datatable.popup;
 
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 
-public interface UpdatePopup extends ShowPopup {
+/** {@link Popup} for "Update" action. */
+public interface UpdatePopup extends SubmitPopup {
 
     @Override
     default HtmlDivision getDialog() {

@@ -3,23 +3,19 @@ package fr.pinguet62.jsfring.gui.htmlunit.datatable.popup;
 import java.io.IOException;
 
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import fr.pinguet62.jsfring.gui.htmlunit.NavigatorException;
 
-public abstract class AbstractSubmitPopup extends AbstractPopup implements UpdatePopup {
+/** {@link Popup} with "Submit" button. */
+public interface SubmitPopup extends Popup {
 
-    protected AbstractSubmitPopup(HtmlPage page) {
-        super(page);
-    }
-
-    public void submit() {
+    default void submit() {
         HtmlButton button = (HtmlButton) getDialog().getByXPath("./div[contains(@class, 'ui-dialog-content')]/form/button")
                 .get(0);
         try {
             button.click();
-            waitJS();
-            debug();
+            // TODO waitJS();
+            // TODO debug();
         } catch (IOException e) {
             throw new NavigatorException(e);
         }

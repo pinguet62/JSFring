@@ -35,11 +35,7 @@ public class AbstractPage {
 
     /** Initialize the {@link #OUTPUT_STREAM}. */
     static {
-        try {
-            TMP_FILE = File.createTempFile("navigator-", null);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        TMP_FILE = new File("C:\\Users\\Pinguet62\\Downloads\\out.html");
         LOGGER.debug("Temporary file: " + TMP_FILE);
     }
 

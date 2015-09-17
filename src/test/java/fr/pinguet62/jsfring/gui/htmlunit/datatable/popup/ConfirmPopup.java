@@ -9,7 +9,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.NavigatorException;
 
-public final class ConfirmPopup extends AbstractPopup {
+/** {@link Popup} for "Delete" action. */
+public final class ConfirmPopup extends AbstractPage implements Popup {
 
     public ConfirmPopup(HtmlPage page) {
         super(page);
@@ -30,7 +31,7 @@ public final class ConfirmPopup extends AbstractPopup {
                 "./div[contains(@class, 'ui-dialog-buttonpane')]/button[contains(@class, '" + classe + "')]").get(0);
         try {
             HtmlPage page = button.click();
-            waitJS();
+            // TODO waitJS();
             AbstractPage.debug(page);
         } catch (IOException e) {
             throw new NavigatorException(e);
@@ -43,7 +44,7 @@ public final class ConfirmPopup extends AbstractPopup {
 
     @Override
     public HtmlDivision getDialog() {
-        return (HtmlDivision) page.getByXPath("//div[contains(@class, 'ui-confirm-dialog')]").get(0);
+        return (HtmlDivision) getPage().getByXPath("//div[contains(@class, 'ui-confirm-dialog')]").get(0);
     }
 
 }

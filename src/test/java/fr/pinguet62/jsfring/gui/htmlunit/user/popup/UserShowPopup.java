@@ -4,12 +4,13 @@ import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 
+import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.ShowPopup;
 import fr.pinguet62.jsfring.gui.htmlunit.field.BooleanOutputText;
 import fr.pinguet62.jsfring.gui.htmlunit.field.Field;
 import fr.pinguet62.jsfring.gui.htmlunit.field.ListField;
 import fr.pinguet62.jsfring.gui.htmlunit.field.StringOutputText;
 
-public final class UserShowPopup extends AbstractUserPopup {
+public final class UserShowPopup extends AbstractUserPopup implements ShowPopup {
 
     public UserShowPopup(HtmlPage page) {
         super(page);
