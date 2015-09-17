@@ -87,10 +87,10 @@ public final class UsersPage extends AbstractDatatablePage<UserRow> {
 
             @SuppressWarnings("unchecked")
             List<HtmlListItem> choices = (List<HtmlListItem>) page
-                    .getByXPath("//div[contains(@class, 'ui-columntoggler')]/ul[contains(@class, 'ui-columntoggler-items')]/li[contains(@class, 'ui-columntoggler-item')]");
+            .getByXPath("//div[contains(@class, 'ui-columntoggler')]/ul[contains(@class, 'ui-columntoggler-items')]/li[contains(@class, 'ui-columntoggler-item')]");
             HtmlListItem choice = choices.stream()
-                    .filter(li -> converter.apply(((HtmlLabel) li.getByXPath("./label")).asText()).equals(column)).findAny()
-                    .get();
+                    .filter(li -> converter.apply(((HtmlLabel) li.getByXPath("./label").get(0)).asText()).equals(column))
+                    .findAny().get();
             choice.click();
             debug();
 

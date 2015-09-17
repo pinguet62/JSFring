@@ -58,7 +58,7 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends
 
     /** @return The download {@link InputStream}. */
     public InputStream exportPDF() {
-        return export("/img/csv.png");
+        return export("/img/pdf.png");
     }
 
     /** @return The download {@link InputStream}. */
