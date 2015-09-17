@@ -54,7 +54,7 @@ public class User implements Serializable {
     @Column(name = "EMAIL", nullable = false, length = 255)
     private String email;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "last_connection", nullable = false)
     private Date lastConnection;
 
