@@ -5,6 +5,7 @@ import static java.util.stream.Collectors.toList;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
@@ -74,12 +75,24 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends
     }
 
     /**
+     * @param title The column title.
+     * @return The {@link HtmlTableHeaderCell}.
+     */
+    protected HtmlTableHeaderCell getDatatableTableHeader(String title) {
+        Optional<HtmlTableHeaderCell> find = getDatatableTableHeaders()
+                .stream()
+                .filter(th -> ((HtmlSpan) th.getByXPath("./span[contains(@class, 'ui-column-title')]").get(0)).asText().equals(
+                        title)).findAny();
+        return find.isPresent() ? find.get() : null;
+    }
+
+    /**
      * <code>&lt;thead&gt;&lt;tr&gt;&lt;th&gt;</code>
      *
      * @return The {@link HtmlTableHeaderCell}s.
      */
     @SuppressWarnings("unchecked")
-    protected List<HtmlTableHeaderCell> getDatatableTableHeader() {
+    protected List<HtmlTableHeaderCell> getDatatableTableHeaders() {
         return (List<HtmlTableHeaderCell>) getDatatableTable().getByXPath("./thead/tr/th");
     }
 
@@ -130,6 +143,25 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends
         if (buttons.size() >= 2)
             throw new IllegalArgumentException("More than 1 tag found with XPath: " + xpath);
         return !buttons.isEmpty();
+    }
+
+    /**
+     * Find the {@link HtmlTableHeaderCell} from column title, and click to sort
+     * results.
+     * <p>
+     * <code>&lt;span class="...ui-column-title..."&gt;</code>
+     *
+     * @param title The column title.
+     */
+    protected void sortBy(String title) {
+        HtmlTableHeaderCell header = getDatatableTableHeader(title);
+        try {
+            page = header.click();
+            waitJS();
+            debug();
+        } catch (IOException e) {
+            throw new NavigatorException(e);
+        }
     }
 
 }

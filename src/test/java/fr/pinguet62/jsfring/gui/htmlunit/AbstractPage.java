@@ -40,7 +40,6 @@ public class AbstractPage {
         // } catch (IOException e) {
         // throw new RuntimeException(e);
         // }
-        TMP_FILE = new File("C:\\Users\\Pinguet62\\Downloads\\out.html");
         LOGGER.debug("Temporary file: " + TMP_FILE);
     }
 
@@ -172,11 +171,12 @@ public class AbstractPage {
     }
 
     protected void waitJS() {
+        LOGGER.debug("Wait JavaScript");
         final int period = 200 /* ms */;
         JavaScriptJobManager manager = page.getEnclosingWindow().getJobManager();
         for (int t = 0; manager.getJobCount() > 0 && t < 5_000 /* ms max */; t += period)
             try {
-                LOGGER.warn("Wait " + t);
+                LOGGER.trace("Wait " + t + "ms");
                 Thread.sleep(period);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);

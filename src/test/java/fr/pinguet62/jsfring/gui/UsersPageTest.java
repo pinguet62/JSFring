@@ -194,6 +194,7 @@ public class UsersPageTest {
 
         // Before
         UserRow row = page.getRows().get(0);
+        String login = row.getLogin();
         assertEquals("admin@domain.fr", row.getEmail());
 
         // Update
@@ -202,8 +203,10 @@ public class UsersPageTest {
         updatePopup.getEmail().setValue(newEmail);
         updatePopup.submit();
 
-        // Before
-        assertEquals(newEmail, page.getRows().get(0).getEmail());
+        // After
+        UserRow rowAf = page.getRows().get(0);
+        assertEquals(login, rowAf.getLogin());
+        assertEquals(newEmail, rowAf.getEmail());
     }
 
     /** @see AbstractRow#actionUpdate() */
@@ -278,6 +281,19 @@ public class UsersPageTest {
 
                 popup.close();
             }
+        }
+    }
+
+    @Test
+    public void test_datatable_filter_login() {
+        List<String> logins = userDao.getAll().stream().map(User::getLogin).sorted().collect(toList());
+
+        UsersPage usersPage = AbstractPage.get().gotoUsersPage();
+        usersPage.filterLogin("super");
+        List<UserRow> rows = usersPage.getRows();
+
+        for (int i = 0; i < 2; i++) {
+            assertEquals(logins.get(i), rows.get(0).getLogin());
         }
     }
 
