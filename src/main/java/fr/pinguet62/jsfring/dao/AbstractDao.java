@@ -8,7 +8,6 @@ import javax.inject.Named;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
@@ -29,7 +28,7 @@ import com.mysema.query.types.Expression;
 public abstract class AbstractDao<T, PK extends Serializable> {
 
     /** The {@link EntityManager}. */
-    @PersistenceContext(type = PersistenceContextType.EXTENDED)
+    @PersistenceContext
     protected EntityManager em;
 
     /**
