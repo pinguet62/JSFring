@@ -1,5 +1,7 @@
 package fr.pinguet62.jsfring.gui.htmlunit.user.popup;
 
+import java.util.Date;
+
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 
@@ -15,7 +17,7 @@ public abstract class AbstractUserPopup extends AbstractPage implements DetailsP
         super(page);
     }
 
-    public Field<?, ?> getLastConnection() {
+    public Field<?, Date> getLastConnection() {
         return new DateOutputText((HtmlSpan) getFieldTableCell(3).getByXPath("./span").get(0));
     }
 

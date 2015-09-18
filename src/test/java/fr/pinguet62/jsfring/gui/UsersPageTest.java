@@ -1,6 +1,6 @@
 package fr.pinguet62.jsfring.gui;
 
-import static fr.pinguet62.jsfring.gui.htmlunit.DateUtils.getDatetime;
+import static fr.pinguet62.jsfring.gui.htmlunit.DateUtils.equalsSecond;
 import static fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column.EMAIL;
 import static fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column.LOGIN;
 import static java.util.stream.Collectors.toList;
@@ -8,14 +8,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.xml.parsers.DocumentBuilder;
@@ -40,13 +40,18 @@ import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.AbstractDatatablePage;
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.AbstractRow;
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.ConfirmPopup;
+import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.DetailsPopup;
+import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.Popup;
+import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.ShowPopup;
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.UpdatePopup;
+import fr.pinguet62.jsfring.gui.htmlunit.field.Field;
 import fr.pinguet62.jsfring.gui.htmlunit.user.UserRow;
 import fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage;
 import fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.ActiveFilter;
 import fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column;
 import fr.pinguet62.jsfring.gui.htmlunit.user.popup.UserShowPopup;
 import fr.pinguet62.jsfring.gui.htmlunit.user.popup.UserUpdatePopup;
+import fr.pinguet62.jsfring.model.Profile;
 import fr.pinguet62.jsfring.model.User;
 
 /** @see UsersPage */
@@ -68,17 +73,11 @@ public class UsersPageTest {
     public void test_dataTable_action_delete_cancel() {
         UsersPage usersPage = AbstractPage.get().gotoUsersPage();
 
-        // Before
-        List<UserRow> rows = usersPage.getRows();
-        UserRow row0 = rows.get(0);
-        String row0Value = row0.getLogin();
-        String row1Value = rows.get(1).getLogin();
-        assertNotEquals(row0Value, row1Value);
+        final int initialCount = usersPage.getTotalCount();
 
-        row0.actionDelete().cancel();
+        usersPage.getRows().get(0).actionDelete().cancel();
 
-        // After: the 1st row is yet present
-        assertEquals(row0Value, usersPage.getRows().get(0).getLogin());
+        assertEquals(initialCount, usersPage.getTotalCount());
     }
 
     /**
@@ -90,18 +89,14 @@ public class UsersPageTest {
     public void test_dataTable_action_delete_confirm() {
         UsersPage usersPage = AbstractPage.get().gotoUsersPage();
 
-        // Before: 1st and 2nd rows are different
-        List<UserRow> rows = usersPage.getRows();
-        UserRow row0 = rows.get(0);
-        String row1Value = rows.get(1).getLogin();
-        assertNotEquals(row0.getLogin(), row1Value);
+        final int initialCount = usersPage.getTotalCount();
 
-        row0.actionDelete().confirm();
+        usersPage.getRows().get(0).actionDelete().confirm();
 
-        // After: the 2nd row is now the 1st
-        assertEquals(row1Value, usersPage.getRows().get(0).getLogin());
+        assertEquals(initialCount - 1, usersPage.getTotalCount());
     }
 
+    /** Visibility of action buttons. */
     @Test
     public void test_dataTable_action_rendered() {
         UsersPage usersPage = AbstractPage.get().gotoUsersPage();
@@ -115,182 +110,145 @@ public class UsersPageTest {
     }
 
     /**
-     * <ul>
-     * <li>Each row must be different</li>
-     * <li>Each page must be different</li>
-     * </ul>
+     * {@link DetailsPopup Details} of {@link ShowPopup show popup} must be the
+     * same than Database content.
+     * <p>
+     * Check if {@link Field}s are not updatable.
      *
      * @see AbstractRow#actionShow()
+     * @see Popup#close()
      */
     @Test
     public void test_dataTable_action_show() {
+        List<User> users = userDao.getAll();
+
         UsersPage page = AbstractPage.get().gotoUsersPage();
-        {
-            // Page 1
+
+        int i = 0;
+        int p = 0;
+
+        while (true) {
             List<UserRow> rows = page.getRows();
-            {
-                UserShowPopup popup = rows.get(0).actionShow();
 
-                assertEquals("super admin", popup.getLogin().getValue());
+            for (int r = 0; r < 2/* page size */&& i < users.size(); r++, i++) {
+                User user = users.get(i);
+                UserShowPopup popup = rows.get(r).actionShow();
+
                 assertTrue(popup.getLogin().isReadonly());
+                assertEquals(user.getLogin(), popup.getLogin().getValue());
 
-                assertEquals("admin@domain.fr", popup.getEmail().getValue());
                 assertTrue(popup.getEmail().isReadonly());
+                assertEquals(user.getEmail(), popup.getEmail().getValue());
 
-                assertEquals(true, popup.isActive().getValue());
                 assertTrue(popup.isActive().isReadonly());
+                assertEquals(user.isActive(), popup.isActive().getValue());
 
-                assertEquals(getDatetime(2015, 6, 14, 13, 45, 41), popup.getLastConnection().getValue());
                 assertTrue(popup.getLastConnection().isReadonly());
+                assertTrue(equalsSecond(user.getLastConnection(), popup.getLastConnection().getValue()));
 
-                assertEquals(Arrays.asList("Profile admin", "User admin"), popup.getProfiles().getValue());
                 assertTrue(popup.getProfiles().isReadonly());
+                assertEquals(user.getProfiles().stream().map(Profile::getTitle).collect(Collectors.toList()), popup
+                        .getProfiles().getValue());
 
                 popup.close();
             }
-            {
-                UserShowPopup popup = rows.get(1).actionShow();
 
-                assertEquals("admin profile", popup.getLogin().getValue());
-                assertTrue(popup.getLogin().isReadonly());
-
-                assertEquals("admin_profile@domain.fr", popup.getEmail().getValue());
-                assertTrue(popup.getEmail().isReadonly());
-
-                assertEquals(true, popup.isActive().getValue());
-                assertTrue(popup.isActive().isReadonly());
-
-                assertNull(popup.getLastConnection().getValue());
-                assertTrue(popup.getLastConnection().isReadonly());
-
-                assertEquals(Arrays.asList("Profile admin"), popup.getProfiles().getValue());
-                assertTrue(popup.getProfiles().isReadonly());
-
-                popup.close();
-            }
-        }
-
-        page.gotoNextPage();
-        {
-            // Page 2
-            List<UserRow> rows = page.getRows();
-            {
-                UserShowPopup popup = rows.get(0).actionShow();
-
-                assertEquals("admin user", popup.getLogin().getValue());
-                assertTrue(popup.getLogin().isReadonly());
-
-                assertEquals("admin_user@domain.fr", popup.getEmail().getValue());
-                assertTrue(popup.getEmail().isReadonly());
-
-                assertEquals(true, popup.isActive().getValue());
-                assertTrue(popup.isActive().isReadonly());
-
-                assertNull(popup.getLastConnection().getValue());
-                assertTrue(popup.getLastConnection().isReadonly());
-
-                assertEquals(Arrays.asList("User admin"), popup.getProfiles().getValue());
-                assertTrue(popup.getProfiles().isReadonly());
-
-                popup.close();
-            }
+            p++;
+            if (p == 2 /* limit on 2 first pages */)
+                break;
+            else
+                page.gotoNextPage();
         }
     }
 
     /**
+     * Modification on a {@link UpdatePopup}.
+     * 
      * @see AbstractRow#actionUpdate()
      * @see UpdatePopup#submit()
      */
     @Test
     public void test_dataTable_action_update_submit() {
+        final int idx = 0;
+        final String newEmail = "new@value.ap";
+
         UsersPage page = AbstractPage.get().gotoUsersPage();
 
-        // Before
-        UserRow row = page.getRows().get(0);
-        assertEquals("admin@domain.fr", row.getEmail());
+        // Before: same row informations
+        UserRow row = page.getRows().get(idx);
+        final String login = row.getLogin(); // must be unique
+        assertNotEquals(newEmail, row.getEmail());
 
         // Update
-        final String newEmail = "new@value.ap";
         UserUpdatePopup updatePopup = row.actionUpdate();
         updatePopup.getEmail().setValue(newEmail);
         updatePopup.submit();
 
-        // Before
-        assertEquals(newEmail, page.getRows().get(0).getEmail());
+        // Before: find updated row (placed at the end)
+        while (true) {
+            // find updated row
+            for (UserRow r : page.getRows())
+                if (r.getLogin().equals(login)) {
+                    assertEquals(newEmail, r.getEmail());
+                    return; // find: stop
+                }
+
+            if (!page.hasNextPage())
+                break;
+            page.gotoNextPage();
+        }
+        fail("Updated row not found");
     }
 
-    /** @see AbstractRow#actionUpdate() */
+    /**
+     * {@link DetailsPopup Initial details} of {@link UpdatePopup update popup}
+     * must be the same than Database content.
+     * <p>
+     * Check if {@link Field}s are updatable.
+     * 
+     * @see AbstractRow#actionUpdate()
+     * @see Popup#close()
+     */
     @Test
     public void test_dataTable_action_update_values() {
+        List<User> users = userDao.getAll();
+
         UsersPage page = AbstractPage.get().gotoUsersPage();
-        {
-            // Page 1
+
+        int i = 0;
+        int p = 0;
+
+        while (true) {
             List<UserRow> rows = page.getRows();
-            {
-                UserUpdatePopup popup = rows.get(0).actionUpdate();
 
-                assertEquals("super admin", popup.getLogin().getValue());
+            for (int r = 0; r < 2/* page size */&& i < users.size(); r++, i++) {
+                User user = users.get(i);
+                UserUpdatePopup popup = rows.get(r).actionUpdate();
+
                 assertTrue(popup.getLogin().isReadonly());
+                assertEquals(user.getLogin(), popup.getLogin().getValue());
 
-                assertEquals("admin@domain.fr", popup.getEmail().getValue());
                 assertFalse(popup.getEmail().isReadonly());
+                assertEquals(user.getEmail(), popup.getEmail().getValue());
 
-                assertEquals(true, popup.isActive().getValue());
-                assertFalse(popup.isActive().isReadonly());
+                assertTrue(popup.isActive().isReadonly());
+                assertEquals(user.isActive(), popup.isActive().getValue());
 
-                assertEquals(getDatetime(2015, 6, 14, 13, 45, 41), popup.getLastConnection().getValue());
                 assertTrue(popup.getLastConnection().isReadonly());
+                assertTrue(equalsSecond(user.getLastConnection(), popup.getLastConnection().getValue()));
 
-                assertEquals(Arrays.asList("Profile admin", "User admin"), popup.getProfiles().getValue());
                 assertFalse(popup.getProfiles().isReadonly());
+                assertEquals(user.getProfiles().stream().map(Profile::getTitle).collect(Collectors.toList()), popup
+                        .getProfiles().getValue());
 
                 popup.close();
             }
-            {
-                UserUpdatePopup popup = rows.get(1).actionUpdate();
 
-                assertEquals("admin profile", popup.getLogin().getValue());
-                assertTrue(popup.getLogin().isReadonly());
-
-                assertEquals("admin_profile@domain.fr", popup.getEmail().getValue());
-                assertFalse(popup.getEmail().isReadonly());
-
-                assertEquals(true, popup.isActive().getValue());
-                assertFalse(popup.isActive().isReadonly());
-
-                assertNull(popup.getLastConnection().getValue());
-                assertTrue(popup.getLastConnection().isReadonly());
-
-                assertEquals(Arrays.asList("Profile admin"), popup.getProfiles().getValue());
-                assertFalse(popup.getProfiles().isReadonly());
-
-                popup.close();
-            }
-        }
-        page.gotoNextPage();
-        {
-            // Page 2
-            List<UserRow> rows = page.getRows();
-            {
-                UserUpdatePopup popup = rows.get(0).actionUpdate();
-
-                assertEquals("admin user", popup.getLogin().getValue());
-                assertTrue(popup.getLogin().isReadonly());
-
-                assertEquals("admin_user@domain.fr", popup.getEmail().getValue());
-                assertFalse(popup.getEmail().isReadonly());
-
-                assertEquals(true, popup.isActive().getValue());
-                assertFalse(popup.isActive().isReadonly());
-
-                assertNull(popup.getLastConnection().getValue());
-                assertTrue(popup.getLastConnection().isReadonly());
-
-                assertEquals(Arrays.asList("User admin"), popup.getProfiles().getValue());
-                assertFalse(popup.getProfiles().isReadonly());
-
-                popup.close();
-            }
+            p++;
+            if (p == 2 /* limit on 2 first pages */)
+                break;
+            else
+                page.gotoNextPage();
         }
     }
 

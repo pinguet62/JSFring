@@ -14,7 +14,7 @@ public interface SubmitPopup extends Popup {
                 .get(0);
         try {
             button.click();
-            // TODO waitJS();
+            waitJS();
             // TODO debug();
         } catch (IOException e) {
             throw new NavigatorException(e);

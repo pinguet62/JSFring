@@ -75,6 +75,7 @@ public final class UsersPage extends AbstractDatatablePage<UserRow> {
         return UserRow::new;
     }
 
+    // TODO test
     public void hideOrShowColumn(Column column) {
         Function<String, Column> converter = Column::fromTitle;
 
@@ -83,19 +84,22 @@ public final class UsersPage extends AbstractDatatablePage<UserRow> {
 
             // Show
             page = toggler.click();
+            // waitJS();
             debug();
 
             @SuppressWarnings("unchecked")
             List<HtmlListItem> choices = (List<HtmlListItem>) page
-            .getByXPath("//div[contains(@class, 'ui-columntoggler')]/ul[contains(@class, 'ui-columntoggler-items')]/li[contains(@class, 'ui-columntoggler-item')]");
+                    .getByXPath("//div[contains(@class, 'ui-columntoggler')]/ul[contains(@class, 'ui-columntoggler-items')]/li[contains(@class, 'ui-columntoggler-item')]");
             HtmlListItem choice = choices.stream()
                     .filter(li -> converter.apply(((HtmlLabel) li.getByXPath("./label").get(0)).asText()).equals(column))
                     .findAny().get();
-            choice.click();
+            page = ((HtmlDivision) choice.getByXPath("./div[contains(@class, 'ui-chkbox')]").get(0)).click();
+            waitJS();
             debug();
 
             // Hide Toogler
             page = toggler.click();
+            // waitJS();
             debug();
         } catch (IOException e) {
             throw new NavigatorException(e);

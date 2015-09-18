@@ -25,4 +25,6 @@ public interface Popup {
 
     HtmlPage getPage();
 
+    void waitJS();
+
 }

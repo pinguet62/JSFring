@@ -10,6 +10,25 @@ import org.apache.commons.lang3.StringUtils;
 public final class DateUtils {
 
     /**
+     * Test if the 2 {@link Date} have the same second.
+     * 
+     * @return The result.<br>
+     *         {@code true} if the 2 parameters are {@code null}.<br>
+     *         {@code false} if 1 of the 2 parameters is {@code null}.
+     */
+    public static boolean equalsSecond(Date d1, Date d2) {
+        if (d1 == null && d2 == null)
+            return true;
+        if (d1 == null || d2 == null)
+            return false;
+
+        int field = Calendar.SECOND;
+        Date s1 = org.apache.commons.lang3.time.DateUtils.truncate(d1, field);
+        Date s2 = org.apache.commons.lang3.time.DateUtils.truncate(d2, field);
+        return s1.equals(s2);
+    }
+
+    /**
      * @param year The year (without offset).
      * @param month The month: from {@code 1} to {@code 12}.
      * @param day The day of month: from {@code 1} to {@code 28} or {@code 31}.
@@ -63,6 +82,7 @@ public final class DateUtils {
     }
 
     // Util class
-    private DateUtils() {}
+    private DateUtils() {
+    }
 
 }

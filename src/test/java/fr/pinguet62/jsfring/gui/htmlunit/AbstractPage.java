@@ -166,7 +166,7 @@ public class AbstractPage {
         }
     }
 
-    protected void waitJS() {
+    public void waitJS() {
         LOGGER.debug("Wait JavaScript");
         final int period = 200 /* ms */;
         JavaScriptJobManager manager = page.getEnclosingWindow().getJobManager();
@@ -178,4 +178,5 @@ public class AbstractPage {
                 throw new RuntimeException(e);
             }
     }
+
 }
