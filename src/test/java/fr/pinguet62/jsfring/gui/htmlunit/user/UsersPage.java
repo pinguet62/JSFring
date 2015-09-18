@@ -25,7 +25,8 @@ public final class UsersPage extends AbstractDatatablePage<UserRow> {
 
     public static enum Column {
 
-        ACTIONS("Actions"), ACTIVE("Actif"), EMAIL("Email"), LAST_CONNECTION("Dernière connexion"), LOGIN("Identifiant");
+        ACTIONS(5, "Actions"), ACTIVE(3, "Actif"), EMAIL(2, "Email"), LAST_CONNECTION(4, "Dernière connexion"), LOGIN(1,
+                "Identifiant");
 
         static Column fromTitle(String title) {
             for (Column column : values())
@@ -34,10 +35,17 @@ public final class UsersPage extends AbstractDatatablePage<UserRow> {
             throw new IllegalArgumentException("Unknown title: " + title);
         }
 
+        private final int index;
+
         private final String title;
 
-        private Column(String title) {
+        private Column(int index, String title) {
+            this.index = index;
             this.title = title;
+        }
+
+        public int getIndex() {
+            return index;
         }
 
         public String getTitle() {

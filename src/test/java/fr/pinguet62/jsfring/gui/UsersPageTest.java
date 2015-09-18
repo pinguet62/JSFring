@@ -4,6 +4,7 @@ import static fr.pinguet62.jsfring.gui.htmlunit.DateUtils.equalsSecond;
 import static fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column.EMAIL;
 import static fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column.LOGIN;
 import static java.util.stream.Collectors.toList;
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
@@ -16,6 +17,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.inject.Inject;
 import javax.xml.parsers.DocumentBuilder;
@@ -283,7 +285,10 @@ public class UsersPageTest {
         InputStream is = usersPage.exportCSV();
         // Try read
         try (CSVReader reader = new CSVReader(new InputStreamReader(is))) {
-            reader.readAll();
+            String[] header = Stream.of(Column.values()).sorted((a, b) -> Integer.compare(a.getIndex(), b.getIndex()))
+                    .map(Column::getTitle).limit(Column.values().length - 1).toArray(String[]::new);
+            assertArrayEquals(header, reader.readNext()); // header
+            assertEquals(userDao.count(), reader.readAll().size()); // content
         }
     }
 
