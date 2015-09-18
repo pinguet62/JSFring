@@ -33,8 +33,11 @@ import au.com.bytecode.opencsv.CSVReader;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.lowagie.text.pdf.PdfReader;
+import com.mysema.query.jpa.impl.JPAQuery;
 
 import fr.pinguet62.Config;
+import fr.pinguet62.jsfring.dao.ProfileDao;
+import fr.pinguet62.jsfring.dao.RightDao;
 import fr.pinguet62.jsfring.dao.UserDao;
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.AbstractDatatablePage;
@@ -52,6 +55,7 @@ import fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column;
 import fr.pinguet62.jsfring.gui.htmlunit.user.popup.UserShowPopup;
 import fr.pinguet62.jsfring.gui.htmlunit.user.popup.UserUpdatePopup;
 import fr.pinguet62.jsfring.model.Profile;
+import fr.pinguet62.jsfring.model.QUser;
 import fr.pinguet62.jsfring.model.User;
 
 /** @see UsersPage */
@@ -60,6 +64,12 @@ import fr.pinguet62.jsfring.model.User;
 @DatabaseSetup(Config.DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 public class UsersPageTest {
+
+    @Inject
+    private ProfileDao profileDao;
+
+    @Inject
+    private RightDao rightDao;
 
     @Inject
     private UserDao userDao;
@@ -96,7 +106,13 @@ public class UsersPageTest {
         assertEquals(initialCount - 1, usersPage.getTotalCount());
     }
 
-    /** Visibility of action buttons. */
+    /**
+     * Visibility of action buttons.
+     *
+     * @see AbstractRow#isActionButtonShowVisible()
+     * @see AbstractRow#isActionButtonUpdateVisible()
+     * @see AbstractRow#isActionButtonDeleteVisible()
+     */
     @Test
     public void test_dataTable_action_rendered() {
         UsersPage usersPage = AbstractPage.get().gotoUsersPage();
@@ -163,7 +179,7 @@ public class UsersPageTest {
 
     /**
      * Modification on a {@link UpdatePopup}.
-     * 
+     *
      * @see AbstractRow#actionUpdate()
      * @see UpdatePopup#submit()
      */
@@ -205,7 +221,7 @@ public class UsersPageTest {
      * must be the same than Database content.
      * <p>
      * Check if {@link Field}s are updatable.
-     * 
+     *
      * @see AbstractRow#actionUpdate()
      * @see Popup#close()
      */
@@ -231,7 +247,7 @@ public class UsersPageTest {
                 assertFalse(popup.getEmail().isReadonly());
                 assertEquals(user.getEmail(), popup.getEmail().getValue());
 
-                assertTrue(popup.isActive().isReadonly());
+                assertFalse(popup.isActive().isReadonly());
                 assertEquals(user.isActive(), popup.isActive().getValue());
 
                 assertTrue(popup.getLastConnection().isReadonly());
@@ -319,15 +335,17 @@ public class UsersPageTest {
 
     @Test
     public void test_datatable_filter_login() {
-        List<String> logins = userDao.getAll().stream().map(User::getLogin).sorted().collect(toList());
+        final String value = "super";
+        QUser u = QUser.user;
+        List<String> logins = userDao.find(new JPAQuery().from(u).where(u.login.contains(value))).stream().map(User::getLogin)
+                .sorted().collect(toList());
 
         UsersPage usersPage = AbstractPage.get().gotoUsersPage();
-        usersPage.filterLogin("super");
+        usersPage.filterLogin(value);
         List<UserRow> rows = usersPage.getRows();
 
-        for (int i = 0; i < 2; i++) {
-            assertEquals(logins.get(i), rows.get(0).getLogin());
-        }
+        for (int i = 0; i < 2 /* page size */&& i < logins.size(); i++)
+            assertEquals(logins.get(i), rows.get(i).getLogin());
     }
 
     /** @see AbstractDatatablePage#getRows() */
@@ -343,7 +361,7 @@ public class UsersPageTest {
             assertEquals(user.getLogin(), row.getLogin());
             assertEquals(user.getEmail(), row.getEmail());
             assertEquals(user.isActive(), row.getActive());
-            assertEquals(user.getLastConnection(), row.getLastConnection());
+            assertTrue(equalsSecond(user.getLastConnection(), row.getLastConnection()));
         }
     }
 
@@ -351,9 +369,9 @@ public class UsersPageTest {
     @Test
     public void test_datatable_getTotalCount() {
         AbstractPage nav = AbstractPage.get();
-        assertEquals(3, nav.gotoUsersPage().getTotalCount());
-        assertEquals(3, nav.gotoProfilesPage().getTotalCount());
-        assertEquals(5, nav.gotoRightsPage().getTotalCount());
+        assertEquals(userDao.count(), nav.gotoUsersPage().getTotalCount());
+        assertEquals(profileDao.count(), nav.gotoProfilesPage().getTotalCount());
+        assertEquals(rightDao.count(), nav.gotoRightsPage().getTotalCount());
     }
 
     /** @see UsersPage#sortByEmail() */

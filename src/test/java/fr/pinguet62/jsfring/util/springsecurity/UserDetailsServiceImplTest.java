@@ -1,16 +1,13 @@
 package fr.pinguet62.jsfring.util.springsecurity;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.inject.Inject;
 
-import org.apache.commons.lang.time.DateUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -42,24 +39,20 @@ public class UserDetailsServiceImplTest {
 
     /**
      * Check that {@link User#lastConnection last connection date} was updated
-     * to current day.
+     * to current time.
      *
      * @see UserDetailsServiceImpl#loadUserByUsername(String)
      */
     @Test
     public void test_login() {
-        Date today = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
-        String login = "super admin";
-
-        // before
-        assertTrue(service.get(login).getLastConnection().before(today));
+        final String login = "super admin";
 
         // login
         assertNotNull(userDetailsService.loadUserByUsername(login));
 
-        // last connection
+        // Test: < 2sec
         Date lastConnection = service.get(login).getLastConnection();
-        assertEquals(today, lastConnection);
+        assertTrue((lastConnection.getTime() - new Date().getTime()) < 2_000);
     }
 
     /**

@@ -30,7 +30,7 @@ import fr.pinguet62.jsfring.gui.htmlunit.NavigatorException;
  * @param <T> The {@link AbstractRow} type.
  * @see DataTableComponent
  */
-public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends AbstractPage {
+public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends AbstractPage implements Iterable<T> {
 
     protected AbstractDatatablePage(HtmlPage page) {
         super(page);
@@ -212,6 +212,11 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends
         if (buttons.size() >= 2)
             throw new IllegalArgumentException("More than 1 tag found with XPath: " + xpath);
         return !buttons.isEmpty();
+    }
+
+    @Override
+    public RowIterator<T> iterator() {
+        return new RowIterator<>(this);
     }
 
     /**

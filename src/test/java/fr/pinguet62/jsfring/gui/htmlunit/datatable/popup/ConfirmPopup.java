@@ -30,9 +30,9 @@ public final class ConfirmPopup extends AbstractPage implements Popup {
         HtmlButton button = (HtmlButton) getDialog().getByXPath(
                 "./div[contains(@class, 'ui-dialog-buttonpane')]/button[contains(@class, '" + classe + "')]").get(0);
         try {
-            HtmlPage page = button.click();
-            // TODO waitJS();
-            AbstractPage.debug(page);
+            page = button.click();
+            waitJS();
+            debug();
         } catch (IOException e) {
             throw new NavigatorException(e);
         }

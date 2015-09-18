@@ -54,13 +54,12 @@ public final class PickList extends ReadWriteField<HtmlDivision, List<String>> {
      */
     @SuppressWarnings("unchecked")
     private List<HtmlListItem> getList(String classValue) {
-        return (List<HtmlListItem>) html.getByXPath("./div[contains(@class, 'ui-picklist')]/div/ul[contains(@class, '"
-                + classValue + "')]/li");
+        return (List<HtmlListItem>) html.getByXPath("./div/ul[contains(@class, '" + classValue + "')]/li");
     }
 
-    private List<HtmlListItem> getSource() {
-        return getList("ui-picklist-source");
-    }
+    // private List<HtmlListItem> getSource() {
+    // return getList("ui-picklist-source");
+    // }
 
     private List<HtmlListItem> getTarget() {
         return getList("ui-picklist-target");
@@ -68,7 +67,7 @@ public final class PickList extends ReadWriteField<HtmlDivision, List<String>> {
 
     @Override
     public List<String> getValue() {
-        return getSource().stream().map(HtmlElement::asText).collect(Collectors.toList());
+        return getTarget().stream().map(HtmlElement::asText).collect(Collectors.toList());
     }
 
     /** Warning: the item values must be unique. */
