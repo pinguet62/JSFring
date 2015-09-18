@@ -11,7 +11,6 @@ import org.junit.Test;
 import fr.pinguet62.jsfring.model.QProfile;
 import fr.pinguet62.jsfring.model.QRight;
 import fr.pinguet62.jsfring.model.QUser;
-import fr.pinguet62.jsfring.util.querydsl.PropertyConverter;
 
 /** @see PropertyConverter */
 public final class PropertyConverterTest {
@@ -79,16 +78,6 @@ public final class PropertyConverterTest {
             assertEquals(user.email, new PropertyConverter(user).apply("email"));
             assertEquals(user.lastConnection, new PropertyConverter(user).apply("lastConnection"));
         }
-    }
-
-    /**
-     * Navigate to other relations by calling different properties.
-     *
-     * @see PropertyConverter#apply(String)
-     */
-    @Test
-    public void test_appy_manyCall() {
-        throw new UnsupportedOperationException("Not implemented");
     }
 
 }

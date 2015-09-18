@@ -84,12 +84,12 @@ public final class UsersPage extends AbstractDatatablePage<UserRow> {
 
             // Show
             page = toggler.click();
-            // waitJS();
+            waitJS();
             debug();
 
             @SuppressWarnings("unchecked")
             List<HtmlListItem> choices = (List<HtmlListItem>) page
-                    .getByXPath("//div[contains(@class, 'ui-columntoggler')]/ul[contains(@class, 'ui-columntoggler-items')]/li[contains(@class, 'ui-columntoggler-item')]");
+            .getByXPath("//div[contains(@class, 'ui-columntoggler')]/ul[contains(@class, 'ui-columntoggler-items')]/li[contains(@class, 'ui-columntoggler-item')]");
             HtmlListItem choice = choices.stream()
                     .filter(li -> converter.apply(((HtmlLabel) li.getByXPath("./label").get(0)).asText()).equals(column))
                     .findAny().get();
@@ -99,7 +99,7 @@ public final class UsersPage extends AbstractDatatablePage<UserRow> {
 
             // Hide Toogler
             page = toggler.click();
-            // waitJS();
+            waitJS();
             debug();
         } catch (IOException e) {
             throw new NavigatorException(e);

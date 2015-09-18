@@ -87,6 +87,7 @@ public class UserService extends AbstractService<User, String> {
      * Initialize the {@link User#password} before insert.
      */
     @Override
+    @Transactional
     public User create(User object) {
         // Generate password
         object.setPassword(randomPassword());
