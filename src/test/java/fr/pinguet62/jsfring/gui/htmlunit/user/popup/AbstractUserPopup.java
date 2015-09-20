@@ -21,7 +21,7 @@ public abstract class AbstractUserPopup extends AbstractPage implements DetailsP
         return new DateOutputText((HtmlSpan) getFieldTableCell(3).getByXPath("./span").get(0));
     }
 
-    public Field<?, ?> getLogin() {
+    public Field<?, String> getLogin() {
         return new StringOutputText((HtmlSpan) getFieldTableCell(0).getByXPath("./span").get(0));
     }
 

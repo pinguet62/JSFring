@@ -67,6 +67,11 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends
     }
 
     /** @return The download {@link InputStream}. */
+    public InputStream exportXLSX() {
+        return export("/img/xlsx.png");
+    }
+
+    /** @return The download {@link InputStream}. */
     public InputStream exportXML() {
         return export("/img/xml.png");
     }

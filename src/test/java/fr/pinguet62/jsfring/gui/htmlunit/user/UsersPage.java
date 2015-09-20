@@ -58,6 +58,15 @@ public final class UsersPage extends AbstractDatatablePage<UserRow> {
         super(page);
     }
 
+    /**
+     * Check that {@link HtmlTableHeaderCell table header} {@code style}
+     * contains {@code "display: none"} value;
+     */
+    public boolean columnVisibile(Column column) {
+        HtmlTableHeaderCell th = getDatatableTableHeader(column.getTitle());
+        return !th.getAttribute("style").matches(".*display *: *none.*");
+    }
+
     public void filterByActive(ActiveFilter value) {
         // TODO common abstract parent method
         HtmlDivision div = (HtmlDivision) getDatatableTableHeader(Column.ACTIVE.getTitle()).getByXPath(
