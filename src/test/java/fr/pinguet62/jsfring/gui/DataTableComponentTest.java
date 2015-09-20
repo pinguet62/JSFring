@@ -427,7 +427,7 @@ public class DataTableComponentTest {
 
     /** @see UsersPage#filterByActive(ActiveFilter) */
     @Test
-    public void test_filter_email() {
+    public void test_filter_custom() {
         UsersPage usersPage = AbstractPage.get().gotoUsersPage();
 
         assertEquals(3, usersPage.getTotalCount());
@@ -442,19 +442,27 @@ public class DataTableComponentTest {
         assertEquals(3, usersPage.getTotalCount());
     }
 
+    /** @see UsersPage#filterLogin(String) */
     @Test
-    public void test_filter_login() {
+    public void test_filter_default() {
         final String value = "super";
         QUser u = QUser.user;
         List<String> logins = userDao.find(new JPAQuery().from(u).where(u.login.contains(value))).stream().map(User::getLogin)
                 .sorted().collect(toList());
 
-        UsersPage usersPage = AbstractPage.get().gotoUsersPage();
-        usersPage.filterLogin(value);
-        List<UserRow> rows = usersPage.getRows();
+        // Action
+        UsersPage page = AbstractPage.get().gotoUsersPage();
+        page.filterLogin(value);
 
-        for (int i = 0; i < 2 /* page size */&& i < logins.size(); i++)
-            assertEquals(logins.get(i), rows.get(i).getLogin());
+        // Test
+        // - number of results
+        assertEquals(logins.size(), page.getTotalCount());
+        // - check order
+        int i = 0;
+        for (UserRow row : page) {
+            assertEquals(logins.get(i), row.getLogin());
+            i++;
+        }
     }
 
     /**
