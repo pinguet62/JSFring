@@ -21,7 +21,8 @@ public final class UserDao extends AbstractDao<User, String> {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserDao.class);
 
     /**
-     * Disable all users who have not connected since {@code numberOfDays} days.
+     * Disable all users who have not connected since {@code numberOfDays} days. <br>
+     * Ignore {@link User}s who never be connected.
      *
      * @param numberOfDays Number of days.
      * @throws IllegalArgumentException Zero or negative number of days.
@@ -35,7 +36,9 @@ public final class UserDao extends AbstractDao<User, String> {
         Date lastAccepted = c.getTime();
 
         QUser u = QUser.user;
-        new JPAUpdateClause(em, u).where(u.active.eq(true).and(u.lastConnection.before(lastAccepted))).set(u.active, false);
+        long nb = new JPAUpdateClause(em, u).where(u.active.eq(true).and(u.lastConnection.before(lastAccepted)))
+                .set(u.active, false).execute();
+        LOGGER.info("Number of users disabled: " + nb);
     }
 
     @Override

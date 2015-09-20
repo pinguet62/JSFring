@@ -82,9 +82,13 @@ public final class UsersPage extends AbstractDatatablePage<UserRow> {
     public void filterLogin(String value) {
         HtmlInput input = (HtmlInput) getDatatableTableHeader(Column.LOGIN.getTitle()).getByXPath(
                 "./input[contains(@class, 'ui-column-filter')]").get(0);
-        input.setValueAttribute(value);
-        waitJS();
-        debug();
+        try {
+            input.type(value);
+            waitJS();
+            debug();
+        } catch (IOException e) {
+            throw new NavigatorException(e);
+        }
     }
 
     @Override
