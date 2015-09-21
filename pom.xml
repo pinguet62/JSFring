@@ -299,8 +299,49 @@
 			</testResource>
 		</testResources>
 
-		<!-- Plugins -->
 		<plugins>
+			<!-- Javadoc -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<additionalparam>-Xdoclint:none</additionalparam>
+					<!-- Customer tags -->
+					<tags>
+						<!-- Tags for properties -->
+						<tag>
+							<name>property.attribute</name>
+							<head>Property for attribute: </head>
+						</tag>
+						<tag>
+							<name>property.getter</name>
+							<head>Property get: </head>
+						</tag>
+						<tag>
+							<name>property.setter</name>
+							<head>Property set: </head>
+						</tag>
+						<!-- Tag for JSF injection -->
+						<tag>
+							<name>inject.attribute</name>
+							<head>Attribute injected: </head>
+						</tag>
+						<tag>
+							<name>inject.setter</name>
+							<head>Setter for injection: </head>
+						</tag>
+					</tags>
+					<executions>
+						<execution>
+							<phase>site</phase>
+							<goals>
+								<goal>javadoc</goal>
+								<goal>test-javadoc</goal>
+							</goals>
+						</execution>
+					</executions>
+				</configuration>
+			</plugin>
 			<!-- Meta-model -->
 			<plugin>
 				<groupId>com.mysema.maven</groupId>
@@ -356,38 +397,70 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- Javadoc -->
+			<!-- Code Coverage: JaCoCo -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.7.5.201505241946</version>
+				<executions>
+					<execution>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Portable server -->
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.3.4.RC0</version>
+				<executions>
+					<execution>
+						<id>start-jetty</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<!-- <goal>run</goal> -->
+						</goals>
+					</execution>
+					<execution>
+						<id>stop-jetty</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<!-- <goal>stop</goal> -->
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Tests unitaires -->
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-surefire-plugin</artifactId> <version>2.18.1</version> 
+				<configuration> <argLine> -javaagent:"C:/Development/jacocoagent.jar"=destfile=target/jacoco.exec </argLine> </configuration> </plugin> -->
+			<!-- Tests d'intégration -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>2.18.1</version>
 				<configuration>
-					<additionalparam>-Xdoclint:none</additionalparam>
-					<!-- Customer tags -->
-					<tags>
-						<!-- Tags for properties -->
-						<tag>
-							<name>property.attribute</name>
-							<head>Property for attribute: </head>
-						</tag>
-						<tag>
-							<name>property.getter</name>
-							<head>Property get: </head>
-						</tag>
-						<tag>
-							<name>property.setter</name>
-							<head>Property set: </head>
-						</tag>
-						<!-- Tag for JSF injection -->
-						<tag>
-							<name>inject.attribute</name>
-							<head>Attribute injected: </head>
-						</tag>
-						<tag>
-							<name>inject.setter</name>
-							<head>Setter for injection: </head>
-						</tag>
-					</tags>
+					<includes>
+						<include>fr/pinguet62/jsfring/gui/**/*.java</include>
+					</includes>
+					<argLine>-javaagent:"C:/Development/jacocoagent.jar"=destfile=target/jacoco.exec</argLine>
 				</configuration>
+				<executions>
+					<execution>
+						<id>integration-test</id>
+						<goals>
+							<goal>integration-test</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>verify</id>
+						<goals>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
@@ -425,7 +498,8 @@
 		<repository>
 			<id>jboss</id>
 			<name>JBoss Repository</name>
-			<url>https://repository.jboss.org/nexus/content/groups/public-jboss</url>
+			<url>https://repository.jboss.org/nexus/content/groups/public-jboss
+			</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
@@ -441,7 +515,8 @@
 	<pluginRepositories>
 		<pluginRepository>
 			<id>maven-annotation</id>
-			<url>http://maven-annotation-plugin.googlecode.com/svn/trunk/mavenrepo</url>
+			<url>http://maven-annotation-plugin.googlecode.com/svn/trunk/mavenrepo
+			</url>
 		</pluginRepository>
 	</pluginRepositories>
 
