@@ -289,6 +289,7 @@
 		<spring-webflow.version>2.4.2.RELEASE</spring-webflow.version>
 		<spring-security.version>4.0.2.RELEASE</spring-security.version>
 		<!-- Utils -->
+		<surefire.version>2.18.1</surefire.version>
 		<sonar.host.url>http://localhost:9000/</sonar.host.url>
 	</properties>
 
@@ -450,12 +451,25 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.18.1</version>
+				<version>${surefire.version}</version>
 				<configuration>
 					<excludes>
 						<exclude>fr/pinguet62/jsfring/gui/**/*.java</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<version>${surefire.version}</version>
+				<executions>
+					<execution>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>report-only</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<!-- Tests d'intégration -->
 			<plugin>
@@ -466,7 +480,6 @@
 					<includes>
 						<include>fr/pinguet62/jsfring/gui/**/*.java</include>
 					</includes>
-					<argLine>-javaagent:"C:/Development/jacocoagent.jar"=destfile=target/jacoco.exec</argLine>
 				</configuration>
 				<executions>
 					<execution>
