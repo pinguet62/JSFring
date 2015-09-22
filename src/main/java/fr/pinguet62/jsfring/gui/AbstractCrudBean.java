@@ -15,19 +15,18 @@ import fr.pinguet62.jsfring.service.AbstractService;
 /**
  * {@link AbstractSelectableBean} with CRUD operations on selected value.
  * <p>
- * Before each action, the {@link AbstractSelectableBean#selectedValue selected
- * value} is initialized with chosen value, and action are performed on him.
+ * Before each action, the
+ * {@link AbstractSelectableBean#setSelectedValue(Serializable) selected value}
+ * is initialized with chosen value, and action are performed on him.
  *
- * @see AbstractService#create(Object)
- * @see AbstractService#get(java.io.Serializable)
- * @see AbstractService#update(Object)
- * @see AbstractService#delete(Object)
+ * @see AbstractService#create(Serializable)
+ * @see AbstractService#get(Serializable)
+ * @see AbstractService#update(Serializable)
+ * @see AbstractService#delete(Serializable)
  */
-public abstract class AbstractCrudBean<T extends Serializable> extends
-        AbstractSelectableBean<T> {
+public abstract class AbstractCrudBean<T extends Serializable> extends AbstractSelectableBean<T> {
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(AbstractCrudBean.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractCrudBean.class);
 
     private static final long serialVersionUID = 1;
 
@@ -36,28 +35,25 @@ public abstract class AbstractCrudBean<T extends Serializable> extends
      * Call when the user click on <i>Submit</i> button into <i>Create view</i>.
      * <p>
      * The initial {@link #getSelectedValue() selected value} is the
-     * {@link #getNewValue() new value} {@link #setSelectedValue(Object) set} by
-     * calling {@link #preCreate()} before showing the <i>create view</i>.
+     * {@link #getNewValue() new value} {@link #setSelectedValue(Serializable)
+     * set} by calling {@link #preCreate()} before showing the <i>create
+     * view</i>.
      * <p>
      * {@link #refresh() Refresh} list after creation.
      *
      * @see #preCreate()
-     * @see AbstractService#create(Object)
+     * @see AbstractService#create(Serializable)
      */
     public void create() {
         try {
             getService().create(getSelectedValue());
-            FacesContext.getCurrentInstance().addMessage(
-                    null,
-                    new FacesMessage(FacesMessage.SEVERITY_INFO,
-                            "New element created with success", null));
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "New element created with success", null));
             refresh();
         } catch (RuntimeException e) {
             LOGGER.warn("Error during creation", e);
-            FacesContext.getCurrentInstance().addMessage(
-                    null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                            "Error during creation", null));
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error during creation", null));
         }
     }
 
@@ -67,23 +63,19 @@ public abstract class AbstractCrudBean<T extends Serializable> extends
      * {@link #refresh() Refresh} list after deletion.
      *
      * @see #getSelectedValue()
-     * @see AbstractService#delete(Object)
+     * @see AbstractService#delete(Serializable)
      */
     public void delete() {
         try {
             getService().delete(getSelectedValue());
-            FacesContext.getCurrentInstance().addMessage(
-                    null,
-                    new FacesMessage(FacesMessage.SEVERITY_INFO,
-                            "Element deleted with success", null));
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Element deleted with success", null));
             postDelete();
             refresh();
         } catch (RuntimeException e) {
             LOGGER.warn("Error during deletion", e);
-            FacesContext.getCurrentInstance().addMessage(
-                    null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                            "Error during deletion", null));
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error during deletion", null));
         }
     }
 
@@ -95,11 +87,13 @@ public abstract class AbstractCrudBean<T extends Serializable> extends
     abstract protected T getNewValue();
 
     /**
-     * <b>Fix {@link LazyDataModel} count after deletion.</b><br>
+     * <b>Fix {@link LazyDataModel} count after deletion:</b><br>
      * For lazy loading, after deletion of only row of last page, the page is
      * empty because {@link DataTable} thinks the current page is the same. So
-     * the {@link #getRowCount() row count} is decremented to permit the return
-     * to the previous pageF.
+     * the {@link LazyDataModel#getRowCount() row count} is decremented to
+     * permit the return to the previous page.
+     *
+     * @see LazyDataModel#setRowCount(int)
      */
     protected void postDelete() {
         LazyDataModel<T> lazyDataModel = getLazyDataModel();
@@ -107,11 +101,11 @@ public abstract class AbstractCrudBean<T extends Serializable> extends
     }
 
     /**
-     * Initialize the process of creation by {@link #setSelectedValue(Object)
-     * setting} new value.
+     * Initialize the process of creation by
+     * {@link #setSelectedValue(Serializable) setting} new value.
      *
      * @see #getNewValue()
-     * @see #setSelectedValue(Object)
+     * @see #setSelectedValue(Serializable)
      */
     public void preCreate() {
         setSelectedValue(getNewValue());
@@ -124,22 +118,18 @@ public abstract class AbstractCrudBean<T extends Serializable> extends
      * {@link #refresh() Refresh} list after update.
      *
      * @see #getSelectedValue()
-     * @see AbstractService#update(Object)
+     * @see AbstractService#update(Serializable)
      */
     public void update() {
         try {
             getService().update(getSelectedValue());
-            FacesContext.getCurrentInstance().addMessage(
-                    null,
-                    new FacesMessage(FacesMessage.SEVERITY_INFO,
-                            "Element updated with success", null));
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Element updated with success", null));
             refresh();
         } catch (RuntimeException e) {
             LOGGER.warn("Error during updating", e);
-            FacesContext.getCurrentInstance().addMessage(
-                    null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                            "Error during updating", null));
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error during updating", null));
         }
     }
 

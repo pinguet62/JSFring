@@ -27,7 +27,7 @@ import fr.pinguet62.jsfring.model.User;
  * </ol>
  *
  * @see AuthenticationProvider
- * @see UserDetailsServicee
+ * @see UserDetailsService
  */
 @Service("userDetailsService")
 public final class UserDetailsServiceImpl implements UserDetailsService {
@@ -37,9 +37,9 @@ public final class UserDetailsServiceImpl implements UserDetailsService {
 
     /**
      * The login process.<br>
-     * Reset {@link User#lastConnectionDate} after connection.
+     * Reset {@link User#lastConnection} after connection.
      *
-     * @param username The {@link User#login user's login}.
+     * @param login The {@link User#login user's login}.
      * @return The {@link UserDetails}.
      * @throws UsernameNotFoundException If {@link User#getLogin()} is not
      *             found.

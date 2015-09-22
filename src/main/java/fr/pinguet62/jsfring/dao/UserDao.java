@@ -73,7 +73,7 @@ public final class UserDao extends AbstractDao<User, String> {
      * Update the {@link User#password password}.
      *
      * @param user The {@link User} to update.
-     * @param user The new {@link User#password user's password}.
+     * @param password The new {@link User#password user's password}.
      */
     public void updatePassword(User user, String password) {
         LOGGER.debug("Password updated for user: " + user.getLogin());

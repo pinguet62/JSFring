@@ -5,10 +5,9 @@ import java.io.Serializable;
 /**
  * {@link AbstractBean} with selection management.
  * <p>
- * The multiple selection is not supported.
+ * <b>Multiple selection:</b> not supported.
  */
-public abstract class AbstractSelectableBean<T extends Serializable> extends
-        AbstractBean<T> {
+public abstract class AbstractSelectableBean<T extends Serializable> extends AbstractBean<T> {
 
     private static final long serialVersionUID = 1;
 
@@ -16,7 +15,7 @@ public abstract class AbstractSelectableBean<T extends Serializable> extends
      * The selected value.
      *
      * @property.getter {@link #getSelectedValue()}
-     * @property.setter {@link #setSelectedValue(Object)}
+     * @property.setter {@link #setSelectedValue(Serializable)}
      */
     private T selectedValue;
 

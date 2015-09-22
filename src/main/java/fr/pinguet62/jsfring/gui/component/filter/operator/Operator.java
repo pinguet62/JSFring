@@ -1,6 +1,7 @@
 package fr.pinguet62.jsfring.gui.component.filter.operator;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.primefaces.component.selectonemenu.SelectOneMenu;
 
@@ -14,17 +15,16 @@ import fr.pinguet62.jsfring.gui.component.filter.OperatorConverter;
  * <ul>
  * <li>have a <b>default constructor</b>: the {@link OperatorConverter} use
  * reflection to create new {@link Operator}s;</li>
- * <li><b>{@link Override} {@link #equals(Object)}</b> method: JSF component
- * like {@link SelectOneMenu} use this method to check if the value is in the
- * {@link List}).</li>
+ * <li><b>{@link Override} {@link Object#equals(Object)}</b> method: JSF
+ * component like {@link SelectOneMenu} use this method to check if the value is
+ * in the {@link List}).</li>
  * </ul>
  *
  * @param <Exp> The type of {@link SimpleExpression} on which operator will be
  *            applied.
  * @param <T> The type of parameters.
  */
-public interface Operator<Exp extends SimpleExpression<T>, T> extends
-        Serializable {
+public interface Operator<Exp extends SimpleExpression<T>, T> extends Serializable {
 
     /**
      * Apply the {@link Operator} on {@link SimpleExpression path}, with

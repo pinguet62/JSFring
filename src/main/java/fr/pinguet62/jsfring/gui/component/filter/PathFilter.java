@@ -22,9 +22,6 @@ import fr.pinguet62.jsfring.gui.component.filter.operator.Operator;
 public abstract class PathFilter<Exp extends SimpleExpression<T>, T extends Serializable> implements Supplier<Predicate>,
         Serializable {
 
-    /** Factory to generate an "always-true" {@link Predicate}. */
-    private static final Supplier<Predicate> ALWAYS_TRUE2 = () -> new BooleanBuilder();
-
     private static final long serialVersionUID = 1;
 
     /**
@@ -73,13 +70,13 @@ public abstract class PathFilter<Exp extends SimpleExpression<T>, T extends Seri
      * Generate the {@link Predicate} used to filter results.
      *
      * @return The {@link Predicate}.<br>
-     *         If {@link #operator} is {@code null}, then return
-     *         {@link ALWAYS_TRUE}.
+     *         If {@link #operator} is {@code null}, then return an emptry
+     *         {@link Predicate}.
      */
     @Override
     public Predicate get() {
         if (operator == null)
-            return ALWAYS_TRUE2.get();
+            return new BooleanBuilder();
         return operator.apply(path, value1, value2);
     }
 

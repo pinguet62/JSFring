@@ -96,12 +96,11 @@ public class UserService extends AbstractService<User, String> {
         return super.create(object);
     }
 
+    // TODO Config param for number of days.
     /**
      * Disable all users who have not connected since a delay.
      * <p>
      * Scheduled method as batch.
-     *
-     * @todo Config param for number of days.
      */
     @Scheduled(fixedRate = 1_000/* ms */* 60/* sec */* 60/* min */* 1/* h */)
     @Transactional
@@ -141,7 +140,6 @@ public class UserService extends AbstractService<User, String> {
      * @param login The {@link User#login user's login}.
      * @param password The new {@link User#password user's password}.
      * @throws IllegalArgumentException User not found.
-     * @todo Password validation fail.
      */
     @Transactional
     public void updatePassword(String login, String password) {

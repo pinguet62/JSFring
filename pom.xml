@@ -337,7 +337,6 @@
 							<phase>site</phase>
 							<goals>
 								<goal>javadoc</goal>
-								<goal>test-javadoc</goal>
 							</goals>
 						</execution>
 					</executions>
