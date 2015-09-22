@@ -143,7 +143,7 @@
 		<dependency>
 			<groupId>org.atmosphere</groupId>
 			<artifactId>atmosphere-runtime</artifactId>
-			<version>2.1.3</version><!-- 2.3.0-RC6 -->
+			<version>2.1.3</version>
 		</dependency>
 		<!-- PrimeFaces: export -->
 		<dependency>
@@ -279,15 +279,16 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
-		<!-- Project -->
+		<!-- Commons -->
 		<log4j2.version>2.3</log4j2.version>
+		<!-- Project -->
 		<jsf.version>2.2.11</jsf.version>
 		<hivernate.version>5.0.1.Final</hivernate.version>
 		<querydsl.version>3.6.7</querydsl.version>
 		<spring.version>4.2.1.RELEASE</spring.version>
 		<spring-webflow.version>2.4.2.RELEASE</spring-webflow.version>
 		<spring-security.version>4.0.2.RELEASE</spring-security.version>
-		<!-- Sonar -->
+		<!-- Utils -->
 		<sonar.host.url>http://localhost:9000/</sonar.host.url>
 	</properties>
 
@@ -299,8 +300,49 @@
 			</testResource>
 		</testResources>
 
-		<!-- Plugins -->
 		<plugins>
+			<!-- Javadoc -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<additionalparam>-Xdoclint:none</additionalparam>
+					<!-- Customer tags -->
+					<tags>
+						<!-- Tags for properties -->
+						<tag>
+							<name>property.attribute</name>
+							<head>Property for attribute: </head>
+						</tag>
+						<tag>
+							<name>property.getter</name>
+							<head>Property get: </head>
+						</tag>
+						<tag>
+							<name>property.setter</name>
+							<head>Property set: </head>
+						</tag>
+						<!-- Tag for JSF injection -->
+						<tag>
+							<name>inject.attribute</name>
+							<head>Attribute injected: </head>
+						</tag>
+						<tag>
+							<name>inject.setter</name>
+							<head>Setter for injection: </head>
+						</tag>
+					</tags>
+					<executions>
+						<execution>
+							<phase>site</phase>
+							<goals>
+								<goal>javadoc</goal>
+								<goal>test-javadoc</goal>
+							</goals>
+						</execution>
+					</executions>
+				</configuration>
+			</plugin>
 			<!-- Meta-model -->
 			<plugin>
 				<groupId>com.mysema.maven</groupId>
@@ -356,52 +398,101 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- Javadoc -->
+			<!-- Code Coverage: JaCoCo -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.7.5.201505241946</version>
+				<executions>
+					<execution>
+						<id>init-agent</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>generate-report</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Portable server -->
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.3.4.RC0</version>
+				<configuration>
+					<waitForChild>false</waitForChild>
+					<stopKey>foo</stopKey>
+					<stopPort>9999</stopPort>
+				</configuration>
+				<executions>
+					<execution>
+						<id>start-jetty</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>run-forked</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>stop-jetty</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>stop</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Tests unitaires -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.18.1</version>
 				<configuration>
-					<additionalparam>-Xdoclint:none</additionalparam>
-					<!-- Customer tags -->
-					<tags>
-						<!-- Tags for properties -->
-						<tag>
-							<name>property.attribute</name>
-							<head>Property for attribute: </head>
-						</tag>
-						<tag>
-							<name>property.getter</name>
-							<head>Property get: </head>
-						</tag>
-						<tag>
-							<name>property.setter</name>
-							<head>Property set: </head>
-						</tag>
-						<!-- Tag for JSF injection -->
-						<tag>
-							<name>inject.attribute</name>
-							<head>Attribute injected: </head>
-						</tag>
-						<tag>
-							<name>inject.setter</name>
-							<head>Setter for injection: </head>
-						</tag>
-					</tags>
+					<excludes>
+						<exclude>fr/pinguet62/jsfring/gui/**/*.java</exclude>
+					</excludes>
 				</configuration>
+			</plugin>
+			<!-- Tests d'intégration -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>2.18.1</version>
+				<configuration>
+					<includes>
+						<include>fr/pinguet62/jsfring/gui/**/*.java</include>
+					</includes>
+					<argLine>-javaagent:"C:/Development/jacocoagent.jar"=destfile=target/jacoco.exec</argLine>
+				</configuration>
+				<executions>
+					<execution>
+						<id>integration-test</id>
+						<goals>
+							<goal>integration-test</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>verify</id>
+						<goals>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
 
 	<name>JSFring</name>
-	<description>Web application who integrated JSF, JPA (Hibernate) and
-		Spring
-	</description>
+	<description>Web application who integrated JSF, JPA (Hibernate) and Spring</description>
 	<url>https://pinguet62-jsfring.herokuapp.com</url>
 	<licenses>
 		<license>
-			<name>Creative Commons Attribution-NonCommercial-ShareAlike 4.0
-				International Public License
-			</name>
+			<name>Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License</name>
 			<url>http://creativecommons.org/licenses/by-nc-sa/4.0/</url>
 			<comments>CC BY-NC-SA 4.0</comments>
 		</license>
