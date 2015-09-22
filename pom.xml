@@ -31,7 +31,7 @@
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
-			<version>6.1.0</version>
+			<version>6.1.1</version>
 		</dependency>
 		<!-- CSV -->
 		<dependency>
@@ -162,7 +162,7 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>9.4-1201-jdbc41</version>
+			<version>9.4-1201-jdbc42</version>
 		</dependency>
 		<!-- ORM -->
 		<dependency>
@@ -282,7 +282,7 @@
 		<!-- Commons -->
 		<log4j2.version>2.3</log4j2.version>
 		<!-- Project -->
-		<jsf.version>2.2.11</jsf.version>
+		<jsf.version>2.2.12</jsf.version>
 		<hivernate.version>5.0.1.Final</hivernate.version>
 		<querydsl.version>3.6.7</querydsl.version>
 		<spring.version>4.2.1.RELEASE</spring.version>
@@ -347,7 +347,7 @@
 			<plugin>
 				<groupId>com.mysema.maven</groupId>
 				<artifactId>apt-maven-plugin</artifactId>
-				<version>1.0.9</version>
+				<version>1.1.3</version>
 				<executions>
 					<execution>
 						<goals>
@@ -365,7 +365,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
+				<version>3.3</version>
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
@@ -390,7 +390,7 @@
 									<!-- $ java -jar target/dependency/webapp-runner.jar target/*.war -->
 									<groupId>com.github.jsimone</groupId>
 									<artifactId>webapp-runner</artifactId>
-									<version>7.0.57.2</version>
+									<version>8.0.24.1</version>
 									<destFileName>webapp-runner.jar</destFileName>
 								</artifactItem>
 							</artifactItems>
