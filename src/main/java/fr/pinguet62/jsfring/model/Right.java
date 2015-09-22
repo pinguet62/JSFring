@@ -38,6 +38,10 @@ public class Right implements Serializable {
 
     public Right() {}
 
+    public Right(String code) {
+        this.code = code;
+    }
+
     public Right(String code, String title) {
         this.code = code;
         this.title = title;

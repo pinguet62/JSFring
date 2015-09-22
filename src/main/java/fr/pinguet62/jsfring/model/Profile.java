@@ -46,6 +46,15 @@ public class Profile implements Serializable {
 
     public Profile() {}
 
+    public Profile(Integer id) {
+        this.id = id;
+    }
+
+    public Profile(Integer id, String title) {
+        this.id = id;
+        this.title = title;
+    }
+
     public Profile(String title) {
         this.title = title;
     }
