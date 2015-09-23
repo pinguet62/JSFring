@@ -12,8 +12,8 @@ import fr.pinguet62.jsfring.gui.component.filter.operator.GreaterThanOperator;
 import fr.pinguet62.jsfring.gui.component.filter.operator.Operator;
 
 /** A {@link PathFilter} for {@link NumberExpression} fields. */
-public class NumberPathFilter<T extends Number & Comparable<?>> extends
-        PathFilter<NumberExpression<T>, T> implements Serializable {
+public class NumberPathFilter<T extends Number & Comparable<?>> extends PathFilter<NumberExpression<T>, T> implements
+        Serializable {
 
     private static final long serialVersionUID = 1;
 
@@ -23,8 +23,8 @@ public class NumberPathFilter<T extends Number & Comparable<?>> extends
 
     @Override
     public List<Operator<NumberExpression<T>, T>> getOperators() {
-        return Arrays.asList(new EqualsToOperator<NumberExpression<T>, T>(),
-                new GreaterThanOperator<T>(), new BetweenOperator<T>());
+        return Arrays.asList(new EqualsToOperator<NumberExpression<T>, T>(), new GreaterThanOperator<T>(),
+                new BetweenOperator<T>());
     }
 
 }

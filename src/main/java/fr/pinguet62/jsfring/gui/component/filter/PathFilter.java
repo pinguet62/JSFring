@@ -9,7 +9,6 @@ import com.mysema.query.BooleanBuilder;
 import com.mysema.query.types.Predicate;
 import com.mysema.query.types.expr.SimpleExpression;
 
-import fr.pinguet62.jsfring.gui.component.filter.operator.EqualsToOperator;
 import fr.pinguet62.jsfring.gui.component.filter.operator.Operator;
 
 /**
@@ -30,7 +29,7 @@ public abstract class PathFilter<Exp extends SimpleExpression<T>, T extends Seri
      * @property.getter {@link #getOperator()}
      * @property.setter {@link #setOperator(Operator)}
      */
-    private Operator<Exp, T> operator = new EqualsToOperator<Exp, T>();
+    private Operator<Exp, T> operator;
 
     /** The {@link SimpleExpression} on which apply filter. */
     private final Exp path;
@@ -87,7 +86,8 @@ public abstract class PathFilter<Exp extends SimpleExpression<T>, T extends Seri
     /**
      * Get the list of {@link Operator}s, applicable on {@link #path}.
      * <p>
-     * Override this method to adapt available filters as required.
+     * <b>By default:</b> Initialized with all available {@link Operator}.<br>
+     * Override this method to list available {@link Operator}.
      *
      * @return The ordered list of {@link Operator}s.
      */

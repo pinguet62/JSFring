@@ -17,6 +17,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager;
 
+import fr.pinguet62.jsfring.gui.htmlunit.filter.FiltersPage;
 import fr.pinguet62.jsfring.gui.htmlunit.profile.ProfilesPage;
 import fr.pinguet62.jsfring.gui.htmlunit.right.RightsPage;
 import fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage;
@@ -155,6 +156,16 @@ public class AbstractPage {
             page = webClient.getPage(BASE_URL + "/right/list.xhtml");
             debug();
             return new RightsPage(page);
+        } catch (IOException e) {
+            throw new NavigatorException(e);
+        }
+    }
+
+    public FiltersPage gotoTestFilters() {
+        try {
+            page = webClient.getPage(BASE_URL + "/test/filters.xhtml");
+            debug();
+            return new FiltersPage(page);
         } catch (IOException e) {
             throw new NavigatorException(e);
         }
