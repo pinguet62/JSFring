@@ -13,6 +13,10 @@ public final class InputText extends ReadWriteField<HtmlInput, String> {
         return html.asText();
     }
 
+    public boolean isError() {
+        return html.getAttribute("class").contains("ui-state-error");
+    }
+
     @Override
     public void setValue(String value) {
         html.setValueAttribute(value);

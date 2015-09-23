@@ -45,12 +45,20 @@ public final class FiltersBean implements Serializable {
         return numberFilter;
     }
 
+    public String getNumberFilterPredicate() {
+        return numberFilter.isValid() ? numberFilter.get().toString() : "";
+    }
+
     public String getSQL() {
         return sql;
     }
 
     public StringPathFilter getStringFilter() {
         return stringFilter;
+    }
+
+    public String getStringFilterPredicate() {
+        return stringFilter.isValid() ? stringFilter.get().toString() : "";
     }
 
     public void setNumberFilter(NumberPathFilter<Integer> numberFilter) {

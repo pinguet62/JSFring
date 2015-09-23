@@ -115,6 +115,20 @@ public abstract class PathFilter<Exp extends SimpleExpression<T>, T extends Seri
     }
 
     /**
+     * Check that argument values are correct, according to
+     * {@link Operator#getNumberOfParameters() number of arguments} of
+     * {@link #operator}.
+     */
+    public boolean isValid() {
+        if (operator == null)
+            return true;
+        for (int i = 0; i < operator.getNumberOfParameters(); i++)
+            if (new Object[] { value1, value2 }[i] == null)
+                return false;
+        return true;
+    }
+
+    /**
      * TODO Change visibility and argument type of this method. See
      * {@link PathFilterComponent#getConvertedValue(javax.faces.context.FacesContext, Object)}
      */
