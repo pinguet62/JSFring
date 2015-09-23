@@ -212,17 +212,22 @@ public class DataTableComponentTest {
      */
     @Test
     public void test_action_update_submit_modification() {
-        final int idx = 0;
-        final String newEmail = "new@value.ap";
         final UsersPage page = AbstractPage.get().gotoUsersPage();
 
+        final String newEmail = "new@value.ap";
+
+        UserRow row = page.getRows().get(0);
+        final String login = row.getLogin();
+        assertNotEquals(newEmail, row.getEmail());
+
         // Action
-        UserUpdatePopup updatePopup = page.getRows().get(idx).actionUpdate();
-        final String login = updatePopup.getLogin().getValue();
+        UserUpdatePopup updatePopup = row.actionUpdate();
         updatePopup.getEmail().setValue(newEmail);
         updatePopup.submit();
 
         // Before
+        page.filterLogin(login); // because updated value is placed at the end
+        assertEquals(1, page.getTotalCount());
         assertEquals(newEmail, page.getRows().get(0).getEmail());
         assertEquals(newEmail, userDao.get(login).getEmail());
     }

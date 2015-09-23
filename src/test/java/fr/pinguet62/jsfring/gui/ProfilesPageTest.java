@@ -1,11 +1,6 @@
 package fr.pinguet62.jsfring.gui;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
-import java.util.List;
-
-import javax.inject.Inject;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,11 +13,10 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import fr.pinguet62.Config;
-import fr.pinguet62.jsfring.dao.ProfileDao;
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
+import fr.pinguet62.jsfring.gui.htmlunit.datatable.AbstractRow;
 import fr.pinguet62.jsfring.gui.htmlunit.profile.ProfileRow;
 import fr.pinguet62.jsfring.gui.htmlunit.profile.ProfilesPage;
-import fr.pinguet62.jsfring.model.Profile;
 
 /** @see ProfilesPage */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -31,11 +25,17 @@ import fr.pinguet62.jsfring.model.Profile;
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 public final class ProfilesPageTest {
 
-    @Inject
-    private ProfileDao profileDao;
-
+    /**
+     * Visibility of action buttons.
+     * <p>
+     * Depends on connected user's rights.
+     *
+     * @see AbstractRow#isActionButtonShowVisible()
+     * @see AbstractRow#isActionButtonUpdateVisible()
+     * @see AbstractRow#isActionButtonDeleteVisible()
+     */
     @Test
-    public void test_dataTable_actions() {
+    public void test_dataTable_action_rendered() {
         ProfilesPage profilesPage = AbstractPage.get().gotoProfilesPage();
 
         assertTrue(profilesPage.isCreateButtonVisible());
@@ -44,15 +44,6 @@ public final class ProfilesPageTest {
             assertTrue(row.isActionButtonUpdateVisible());
             assertTrue(row.isActionButtonDeleteVisible());
         }
-    }
-
-    @Test
-    public void test_dataTable_content() {
-        List<Profile> profiles = profileDao.getAll();
-        List<ProfileRow> rows = AbstractPage.get().gotoProfilesPage().getRows();
-
-        assertEquals(profiles.get(0).getTitle(), rows.get(0).getTitle());
-        assertEquals(profiles.get(1).getTitle(), rows.get(1).getTitle());
     }
 
 }
