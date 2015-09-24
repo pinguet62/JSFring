@@ -14,22 +14,21 @@
 		<h:form>
 			<h:panelGrid columns="3">
 				<p:outputLabel value="String filter" />
-				<p62:pathFilter value="#{filtersBean.stringFilter}" />
-				<h:outputText value="#{filtersBean.stringFilterPredicate}" />
+				<p62:pathFilter value="#{filterPathSimpleBean.stringFilter}" />
+				<h:outputText
+					value="#{filterPathSimpleBean.stringFilter.valid ? filterPathSimpleBean.stringFilter.get() : ''}" />
 
 				<p:outputLabel value="Number filter" />
-				<p62:pathFilter value="#{filtersBean.numberFilter}">
+				<p62:pathFilter value="#{filterPathSimpleBean.numberFilter}">
 					<f:converter converterId="javax.faces.Integer" />
-					<f:validateRequired />
-					<f:validateDoubleRange minimum="5" maximum="8" />
 				</p62:pathFilter>
-				<h:outputText value="#{filtersBean.numberFilterPredicate}" />
+				<h:outputText
+					value="#{filterPathSimpleBean.numberFilter.valid ? filterPathSimpleBean.numberFilter.get() : ''}" />
 			</h:panelGrid>
 			<br />
-			<p:commandButton action="#{filtersBean.updateSQL}" update="@form"
-				value="#{msg['button.submit']}" />
+			<p:commandButton update="@form" value="#{msg['button.submit']}" />
 			<br />
-			<h:outputText escape="false" value="#{filtersBean.SQL}" />
+			<h:outputText value="#{filterPathSimpleBean.SQL}" />
 		</h:form>
 	</ui:define>
 

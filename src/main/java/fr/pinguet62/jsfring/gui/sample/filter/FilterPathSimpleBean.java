@@ -2,12 +2,13 @@ package fr.pinguet62.jsfring.gui.sample.filter;
 
 import java.io.Serializable;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import com.mysema.query.jpa.impl.JPAQuery;
 
 import fr.pinguet62.jsfring.gui.component.filter.NumberPathFilter;
-import fr.pinguet62.jsfring.gui.component.filter.PathFilter;
 import fr.pinguet62.jsfring.gui.component.filter.StringPathFilter;
 import fr.pinguet62.jsfring.model.QUser;
 import fr.pinguet62.jsfring.model.User;
@@ -31,20 +32,24 @@ public final class FilterPathSimpleBean implements Serializable {
         return numberFilter;
     }
 
-    public String getNumberFilterPredicate() {
-        return numberFilter.isValid() ? numberFilter.get().toString() : "";
-    }
-
     public String getSQL() {
-        return sql;
+        JPAQuery query = new JPAQuery().from(QUser.user);
+
+        if (!stringFilter.isValid())
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", null));
+        else
+            query.where(stringFilter.get());
+
+        if (!numberFilter.isValid())
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", null));
+        else
+            query.where(numberFilter.get());
+
+        return query.toString();
     }
 
     public StringPathFilter getStringFilter() {
         return stringFilter;
-    }
-
-    public String getStringFilterPredicate() {
-        return stringFilter.isValid() ? stringFilter.get().toString() : "";
     }
 
     public void setNumberFilter(NumberPathFilter<Integer> numberFilter) {
@@ -53,13 +58,6 @@ public final class FilterPathSimpleBean implements Serializable {
 
     public void setStringFilter(StringPathFilter stringFilter) {
         this.stringFilter = stringFilter;
-    }
-
-    /** Build {@link JPAQuery} from several {@link PathFilter}s. */
-    public void updateSQL() {
-        JPAQuery query = new JPAQuery().from(QUser.user);
-        query.where(stringFilter.get()).where(numberFilter.get());
-        sql = query.toString();
     }
 
 }
