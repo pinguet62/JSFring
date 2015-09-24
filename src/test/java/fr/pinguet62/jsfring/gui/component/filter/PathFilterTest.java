@@ -21,7 +21,7 @@ import fr.pinguet62.jsfring.gui.htmlunit.filter.FiltersPage;
 import fr.pinguet62.jsfring.model.QUser;
 
 /** @see PathFilter */
-public class PathFilterTest {
+public final class PathFilterTest {
 
     private static final StringPath root = QUser.user.login;
 
@@ -30,7 +30,7 @@ public class PathFilterTest {
     /** Refresh page. */
     @Before
     public void before() {
-        page = AbstractPage.get().gotoTestFilters();
+        page = AbstractPage.get().gotoSampleFilterSimple();
     }
 
     /**
@@ -43,6 +43,7 @@ public class PathFilterTest {
         filter.setOperator(ContainsOperator.class.getName());
         filter.setValue(0, "foo");
         page.submit();
+
         assertFalse(filter.isError());
         assertEquals(root.contains("foo").toString(), filter.getQuery());
     }

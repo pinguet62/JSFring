@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.gui.sample;
+package fr.pinguet62.jsfring.gui.sample.filter;
 
 import java.io.Serializable;
 
@@ -15,7 +15,7 @@ import fr.pinguet62.jsfring.util.cdi.scope.SpringViewScoped;
 
 @Named
 @SpringViewScoped
-public final class FiltersBean implements Serializable {
+public final class FilterPathSimpleBean implements Serializable {
 
     private static final long serialVersionUID = 1;
 

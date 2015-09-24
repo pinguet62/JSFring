@@ -71,6 +71,10 @@ public class AbstractPage {
 
     protected final WebClient webClient = new WebClient();
 
+    {
+        java.util.logging.Logger.getLogger("com.gargoylesoftware").setLevel(java.util.logging.Level.OFF);
+    }
+
     /**
      * Constructor used by classes that inherit.
      *
@@ -161,9 +165,9 @@ public class AbstractPage {
         }
     }
 
-    public FiltersPage gotoTestFilters() {
+    public FiltersPage gotoSampleFilterSimple() {
         try {
-            page = webClient.getPage(BASE_URL + "/test/filters.xhtml");
+            page = webClient.getPage(BASE_URL + "/sample/filter/simple.xhtml");
             debug();
             return new FiltersPage(page);
         } catch (IOException e) {

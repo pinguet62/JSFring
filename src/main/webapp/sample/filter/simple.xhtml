@@ -12,9 +12,10 @@
 
 	<ui:define name="content">
 		<h:form>
-			<h:panelGrid columns="2">
+			<h:panelGrid columns="3">
 				<p:outputLabel value="String filter" />
 				<p62:pathFilter value="#{filtersBean.stringFilter}" />
+				<h:outputText value="#{filtersBean.stringFilterPredicate}" />
 
 				<p:outputLabel value="Number filter" />
 				<p62:pathFilter value="#{filtersBean.numberFilter}">
@@ -22,6 +23,7 @@
 					<f:validateRequired />
 					<f:validateDoubleRange minimum="5" maximum="8" />
 				</p62:pathFilter>
+				<h:outputText value="#{filtersBean.numberFilterPredicate}" />
 			</h:panelGrid>
 			<br />
 			<p:commandButton action="#{filtersBean.updateSQL}" update="@form"
