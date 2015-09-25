@@ -45,10 +45,10 @@ public final class FilterPathPageTest {
      */
     @Test
     public void test_StringPathFilter_Contains() {
-        FilterField filter = page.getFilterString();
+        FilterField filter = page.getStringFilterDefault();
         filter.setOperator(ContainsOperator.class.getName());
         filter.setValue(0, "foo");
-        page.submit();
+        filter.submit();
 
         assertFalse(filter.isError());
         assertEquals(root.contains("foo").toString(), filter.getQuery());
@@ -60,10 +60,10 @@ public final class FilterPathPageTest {
      */
     @Test
     public void test_StringPathFilter_EndsWith() {
-        FilterField filter = page.getFilterString();
+        FilterField filter = page.getStringFilterDefault();
         filter.setOperator(EndsWithOperator.class.getName());
         filter.setValue(0, "foo");
-        page.submit();
+        filter.submit();
 
         assertFalse(filter.isError());
         assertEquals(root.endsWith("foo").toString(), filter.getQuery());
@@ -75,10 +75,10 @@ public final class FilterPathPageTest {
      */
     @Test
     public void test_StringPathFilter_EqualsTo() {
-        FilterField filter = page.getFilterString();
+        FilterField filter = page.getStringFilterDefault();
         filter.setOperator(EqualsToOperator.class.getName());
         filter.setValue(0, "foo");
-        page.submit();
+        filter.submit();
 
         assertFalse(filter.isError());
         assertEquals(root.eq("foo").toString(), filter.getQuery());
@@ -90,9 +90,9 @@ public final class FilterPathPageTest {
      */
     @Test
     public void test_StringPathFilter_IsNull() {
-        FilterField filter = page.getFilterString();
+        FilterField filter = page.getStringFilterDefault();
         filter.setOperator(IsNullOperator.class.getName());
-        page.submit();
+        filter.submit();
 
         assertFalse(filter.isError());
         assertEquals(root.isNull().toString(), filter.getQuery());
@@ -104,10 +104,10 @@ public final class FilterPathPageTest {
      */
     @Test
     public void test_StringPathFilter_Like() {
-        FilterField filter = page.getFilterString();
+        FilterField filter = page.getStringFilterDefault();
         filter.setOperator(LikeOperator.class.getName());
         filter.setValue(0, "foo");
-        page.submit();
+        filter.submit();
 
         assertFalse(filter.isError());
         assertEquals(root.like("foo").toString(), filter.getQuery());
@@ -116,9 +116,9 @@ public final class FilterPathPageTest {
     /** @see StringPathFilter */
     @Test
     public void test_StringPathFilter_none() {
-        FilterField filter = page.getFilterString();
+        FilterField filter = page.getStringFilterDefault();
         filter.setOperator(StringPathFilter.class.getName());
-        page.submit();
+        filter.submit();
 
         assertFalse(filter.isError());
         assertEquals(new BooleanBuilder().toString(), filter.getQuery());
@@ -130,10 +130,10 @@ public final class FilterPathPageTest {
      */
     @Test
     public void test_StringPathFilter_StartsWith() {
-        FilterField filter = page.getFilterString();
+        FilterField filter = page.getStringFilterDefault();
         filter.setOperator(StartsWithOperator.class.getName());
         filter.setValue(0, "foo");
-        page.submit();
+        filter.submit();
 
         assertFalse(filter.isError());
         assertEquals(root.startsWith("foo").toString(), filter.getQuery());

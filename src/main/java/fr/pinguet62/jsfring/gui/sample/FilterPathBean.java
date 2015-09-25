@@ -22,7 +22,7 @@ public final class FilterPathBean implements Serializable {
     private static final long serialVersionUID = 1;
 
     /** @see User#email */
-    private NumberPathFilter<Integer> numberFilter = new NumberPathFilter<Integer>(QUser.user.email.length());
+    private NumberPathFilter<Integer> numberFilterDefault = new NumberPathFilter<Integer>(QUser.user.email.length());
 
     /**
      * @see User#email
@@ -37,7 +37,7 @@ public final class FilterPathBean implements Serializable {
     private NumberPathFilter<Integer> numberFilterLongRange = new NumberPathFilter<Integer>(QUser.user.email.length());
 
     /** @see User#login */
-    private StringPathFilter stringFilter = new StringPathFilter(QUser.user.login);
+    private StringPathFilter stringFilterDefault = new StringPathFilter(QUser.user.login);
 
     /**
      * @see User#login
@@ -51,8 +51,8 @@ public final class FilterPathBean implements Serializable {
      */
     private StringPathFilter stringFilterRegex = new StringPathFilter(QUser.user.login);
 
-    public NumberPathFilter<Integer> getNumberFilter() {
-        return numberFilter;
+    public NumberPathFilter<Integer> getNumberFilterDefault() {
+        return numberFilterDefault;
     }
 
     public NumberPathFilter<Integer> getNumberFilterDoubleRange() {
@@ -63,8 +63,8 @@ public final class FilterPathBean implements Serializable {
         return numberFilterLongRange;
     }
 
-    public StringPathFilter getStringFilter() {
-        return stringFilter;
+    public StringPathFilter getStringFilterDefault() {
+        return stringFilterDefault;
     }
 
     public StringPathFilter getStringFilterLength() {
@@ -75,8 +75,8 @@ public final class FilterPathBean implements Serializable {
         return stringFilterRegex;
     }
 
-    public void setNumberFilter(NumberPathFilter<Integer> numberFilter) {
-        this.numberFilter = numberFilter;
+    public void setNumberFilterDefault(NumberPathFilter<Integer> numberFilterDefault) {
+        this.numberFilterDefault = numberFilterDefault;
     }
 
     public void setNumberFilterDoubleRange(NumberPathFilter<Integer> numberFilterDoubleRange) {
@@ -87,8 +87,8 @@ public final class FilterPathBean implements Serializable {
         this.numberFilterLongRange = numberFilterLongRange;
     }
 
-    public void setStringFilter(StringPathFilter stringFilter) {
-        this.stringFilter = stringFilter;
+    public void setStringFilterDefault(StringPathFilter stringFilterDefault) {
+        this.stringFilterDefault = stringFilterDefault;
     }
 
     public void setStringFilterLength(StringPathFilter stringFilterLength) {

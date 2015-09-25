@@ -1,12 +1,9 @@
 package fr.pinguet62.jsfring.gui.htmlunit.filter;
 
-import java.io.IOException;
-
-import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
-import fr.pinguet62.jsfring.gui.htmlunit.NavigatorException;
+import fr.pinguet62.jsfring.gui.sample.FilterPathBean;
 
 public final class FilterPathPage extends AbstractPage {
 
@@ -14,23 +11,39 @@ public final class FilterPathPage extends AbstractPage {
         super(page);
     }
 
-    public FilterField getFilterNumber() {
-        return new FilterField(page, 1);
+    /** @param i The line index. */
+    public FilterField getFilterField(int i) {
+        return new FilterField(page, i);
     }
 
-    public FilterField getFilterString() {
-        return new FilterField(page, 0);
+    /** @see FilterPathBean#getNumberFilterDefault() */
+    public FilterField getNumberFilterDefault() {
+        return getFilterField(3);
     }
 
-    public void submit() {
-        HtmlButton button = (HtmlButton) page.getByXPath("//form/button").get(0);
-        try {
-            page = button.click();
-            waitJS();
-            debug();
-        } catch (IOException e) {
-            throw new NavigatorException(e);
-        }
+    /** @see FilterPathBean#getNumberFilterDoubleRange() */
+    public FilterField getNumberFilterDoubleRange() {
+        return getFilterField(5);
+    }
+
+    /** @see FilterPathBean#getNumberFilterLongRange() */
+    public FilterField getNumberFilterLongRange() {
+        return getFilterField(4);
+    }
+
+    /** @see FilterPathBean#getStringFilterDefault() */
+    public FilterField getStringFilterDefault() {
+        return getFilterField(0);
+    }
+
+    /** @see FilterPathBean#getStringFilterLength() */
+    public FilterField getStringFilterLength() {
+        return getFilterField(1);
+    }
+
+    /** @see FilterPathBean#getStringFilterRegex() */
+    public FilterField getStringFilterRegex() {
+        return getFilterField(2);
     }
 
 }

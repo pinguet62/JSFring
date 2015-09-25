@@ -18,12 +18,13 @@
 
 				<p:outputLabel value="String filter" />
 				<p:outputLabel value="" />
-				<p62:pathFilter id="stringFilter"
-					value="#{filterPathBean.stringFilter}" />
-				<p:commandButton process="stringFilter"
-					update="stringFilterPredicate" value="#{msg['button.submit']}" />
-				<h:outputText id="stringFilterPredicate"
-					value="#{filterPathBean.stringFilter.valid ? filterPathBean.stringFilter.get() : ''}" />
+				<p62:pathFilter id="stringFilterDefault"
+					value="#{filterPathBean.stringFilterDefault}" />
+				<p:commandButton process="stringFilterDefault"
+					update="stringFilterDefaultPredicate"
+					value="#{msg['button.submit']}" />
+				<h:outputText id="stringFilterDefaultPredicate"
+					value="#{filterPathBean.stringFilterDefault.valid ? filterPathBean.stringFilterDefault.get() : ''}" />
 
 				<p:outputLabel value="String filter" />
 				<p:outputLabel value="Length: 2-5" />
@@ -52,14 +53,15 @@
 
 				<p:outputLabel value="Number filter" />
 				<p:outputLabel value="" />
-				<p62:pathFilter id="numberFilter"
-					value="#{filterPathBean.numberFilter}">
+				<p62:pathFilter id="numberFilterDefault"
+					value="#{filterPathBean.numberFilterDefault}">
 					<f:converter converterId="javax.faces.Integer" />
 				</p62:pathFilter>
-				<p:commandButton process="numberFilter"
-					update="numberFilterPredicate" value="#{msg['button.submit']}" />
-				<h:outputText id="numberFilterPredicate"
-					value="#{filterPathBean.numberFilter.valid ? filterPathBean.numberFilter.get() : ''}" />
+				<p:commandButton process="numberFilterDefault"
+					update="numberFilterDefaultPredicate"
+					value="#{msg['button.submit']}" />
+				<h:outputText id="numberFilterDefaultPredicate"
+					value="#{filterPathBean.numberFilterDefault.valid ? filterPathBean.numberFilterDefault.get() : ''}" />
 
 				<p:outputLabel value="Number filter" />
 				<p:outputLabel value="Long range: 5-9" />
