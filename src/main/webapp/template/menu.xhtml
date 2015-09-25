@@ -30,11 +30,7 @@
 					value="#{msg['menubar.reports.parameters']}" />
 			</p:submenu>
 			<p:submenu label="Sample">
-				<p:submenu label="Filter">
-					<p:menuitem outcome="/sample/filter/simple.xhtml" value="Simple" />
-					<p:menuitem outcome="/sample/filter/validator.xhtml"
-						value="Validator" />
-				</p:submenu>
+				<p:menuitem outcome="/sample/filterPath.xhtml" value="Filter" />
 				<p:submenu label="DataTable">
 					<p:menuitem outcome="profiles" value="Normal" />
 					<p:menuitem outcome="users" value="Lazy" />

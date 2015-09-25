@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.gui.sample.filter;
+package fr.pinguet62.jsfring.gui.sample;
 
 import java.io.Serializable;
 
@@ -17,9 +17,12 @@ import fr.pinguet62.jsfring.util.cdi.scope.SpringViewScoped;
 
 @Named
 @SpringViewScoped
-public final class FilterPathValidatorBean implements Serializable {
+public final class FilterPathBean implements Serializable {
 
     private static final long serialVersionUID = 1;
+
+    /** @see User#email */
+    private NumberPathFilter<Integer> numberFilter = new NumberPathFilter<Integer>(QUser.user.email.length());
 
     /**
      * @see User#email
@@ -33,6 +36,9 @@ public final class FilterPathValidatorBean implements Serializable {
      */
     private NumberPathFilter<Integer> numberFilterLongRange = new NumberPathFilter<Integer>(QUser.user.email.length());
 
+    /** @see User#login */
+    private StringPathFilter stringFilter = new StringPathFilter(QUser.user.login);
+
     /**
      * @see User#login
      * @see LengthValidator
@@ -45,12 +51,20 @@ public final class FilterPathValidatorBean implements Serializable {
      */
     private StringPathFilter stringFilterRegex = new StringPathFilter(QUser.user.login);
 
+    public NumberPathFilter<Integer> getNumberFilter() {
+        return numberFilter;
+    }
+
     public NumberPathFilter<Integer> getNumberFilterDoubleRange() {
         return numberFilterDoubleRange;
     }
 
     public NumberPathFilter<Integer> getNumberFilterLongRange() {
         return numberFilterLongRange;
+    }
+
+    public StringPathFilter getStringFilter() {
+        return stringFilter;
     }
 
     public StringPathFilter getStringFilterLength() {
@@ -61,12 +75,20 @@ public final class FilterPathValidatorBean implements Serializable {
         return stringFilterRegex;
     }
 
+    public void setNumberFilter(NumberPathFilter<Integer> numberFilter) {
+        this.numberFilter = numberFilter;
+    }
+
     public void setNumberFilterDoubleRange(NumberPathFilter<Integer> numberFilterDoubleRange) {
         this.numberFilterDoubleRange = numberFilterDoubleRange;
     }
 
     public void setNumberFilterLongRange(NumberPathFilter<Integer> numberFilterLongRange) {
         this.numberFilterLongRange = numberFilterLongRange;
+    }
+
+    public void setStringFilter(StringPathFilter stringFilter) {
+        this.stringFilter = stringFilter;
     }
 
     public void setStringFilterLength(StringPathFilter stringFilterLength) {

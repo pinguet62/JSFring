@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p62="http://java.sun.com/jsf/composite/component"
+	template="/template/layout.xhtml">
+
+	<ui:define name="content">
+
+		<h:form>
+			<h:panelGrid columns="5">
+				<!-- String -->
+
+				<p:outputLabel value="String filter" />
+				<p:outputLabel value="" />
+				<p62:pathFilter id="stringFilter"
+					value="#{filterPathBean.stringFilter}" />
+				<p:commandButton process="stringFilter"
+					update="stringFilterPredicate" value="#{msg['button.submit']}" />
+				<h:outputText id="stringFilterPredicate"
+					value="#{filterPathBean.stringFilter.valid ? filterPathBean.stringFilter.get() : ''}" />
+
+				<p:outputLabel value="String filter" />
+				<p:outputLabel value="Length: 2-5" />
+				<p62:pathFilter id="stringFilterLength"
+					value="#{filterPathBean.stringFilterLength}">
+					<f:validateLength minimum="2" maximum="5" />
+				</p62:pathFilter>
+				<p:commandButton process="stringFilterLength"
+					update="stringFilterLengthPredicate"
+					value="#{msg['button.submit']}" />
+				<h:outputText id="stringFilterLengthPredicate"
+					value="#{filterPathBean.stringFilterLength.valid ? filterPathBean.stringFilterLength.get() : ''}" />
+
+				<p:outputLabel value="String filter" />
+				<p:outputLabel value="Regex: [0-9]{4}" />
+				<p62:pathFilter id="stringFilterRegex"
+					value="#{filterPathBean.stringFilterRegex}">
+					<f:validateRegex pattern="[0-9]{4}" />
+				</p62:pathFilter>
+				<p:commandButton process="stringFilterRegex"
+					update="stringFilterRegexPredicate" value="#{msg['button.submit']}" />
+				<h:outputText id="stringFilterRegexPredicate"
+					value="#{filterPathBean.stringFilterRegex.valid ? filterPathBean.stringFilterRegex.get() : ''}" />
+
+				<!-- Number -->
+
+				<p:outputLabel value="Number filter" />
+				<p:outputLabel value="" />
+				<p62:pathFilter id="numberFilter"
+					value="#{filterPathBean.numberFilter}">
+					<f:converter converterId="javax.faces.Integer" />
+				</p62:pathFilter>
+				<p:commandButton process="numberFilter"
+					update="numberFilterPredicate" value="#{msg['button.submit']}" />
+				<h:outputText id="numberFilterPredicate"
+					value="#{filterPathBean.numberFilter.valid ? filterPathBean.numberFilter.get() : ''}" />
+
+				<p:outputLabel value="Number filter" />
+				<p:outputLabel value="Long range: 5-9" />
+				<p62:pathFilter id="numberFilterLongRange"
+					value="#{filterPathBean.numberFilterLongRange}">
+					<f:converter converterId="javax.faces.Long" />
+					<f:validateRequired />
+					<f:validateLongRange minimum="5" maximum="9" />
+				</p62:pathFilter>
+				<p:commandButton process="numberFilterLongRange"
+					update="numberFilterLongRangePredicate"
+					value="#{msg['button.submit']}" />
+				<h:outputText id="numberFilterLongRangePredicate"
+					value="#{filterPathBean.numberFilterLongRange.valid ? filterPathBean.numberFilterLongRange.get() : ''}" />
+
+				<p:outputLabel value="Number filter" />
+				<p:outputLabel value="Double range: 4.2-13.4" />
+				<p62:pathFilter id="numberFilterDoubleRange"
+					value="#{filterPathBean.numberFilterDoubleRange}">
+					<f:converter converterId="javax.faces.Double" />
+					<f:validateRequired />
+					<f:validateDoubleRange minimum="4.2" maximum="13.4" />
+				</p62:pathFilter>
+				<p:commandButton process="numberFilterDoubleRange"
+					update="numberFilterDoubleRangePredicate"
+					value="#{msg['button.submit']}" />
+				<h:outputText id="numberFilterDoubleRangePredicate"
+					value="#{filterPathBean.numberFilterDoubleRange.valid ? filterPathBean.numberFilterDoubleRange.get() : ''}" />
+			</h:panelGrid>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

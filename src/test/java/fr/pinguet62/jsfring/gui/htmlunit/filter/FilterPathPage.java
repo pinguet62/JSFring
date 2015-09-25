@@ -8,9 +8,9 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.NavigatorException;
 
-public final class FiltersPage extends AbstractPage {
+public final class FilterPathPage extends AbstractPage {
 
-    public FiltersPage(HtmlPage page) {
+    public FilterPathPage(HtmlPage page) {
         super(page);
     }
 

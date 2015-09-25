@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.primefaces.component.selectonemenu.SelectOneMenu;
 
+import com.mysema.query.types.Predicate;
 import com.mysema.query.types.expr.BooleanExpression;
 import com.mysema.query.types.expr.SimpleExpression;
 
@@ -37,7 +38,7 @@ public interface Operator<Exp extends SimpleExpression<T>, T> extends Serializab
      *            Ignored if the operator take only 1 parameter.
      * @return The {@link BooleanExpression where cause} to apply for filtering.
      */
-    BooleanExpression apply(Exp path, T arg1, T arg2);
+    Predicate apply(Exp path, T arg1, T arg2);
 
     default boolean equalsUtil(Object obj) {
         return getClass().equals(obj.getClass());

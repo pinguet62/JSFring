@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import com.mysema.query.BooleanBuilder;
 import com.mysema.query.types.Predicate;
@@ -69,7 +70,7 @@ public abstract class PathFilter<Exp extends SimpleExpression<T>, T extends Seri
      * Generate the {@link Predicate} used to filter results.
      *
      * @return The {@link Predicate}.<br>
-     *         If {@link #operator} is {@code null}, then return an emptry
+     *         If {@link #operator} is {@code null}, then return an empty
      *         {@link Predicate}.
      */
     @Override
@@ -122,10 +123,7 @@ public abstract class PathFilter<Exp extends SimpleExpression<T>, T extends Seri
     public boolean isValid() {
         if (operator == null)
             return true;
-        for (int i = 0; i < operator.getNumberOfParameters(); i++)
-            if (new Object[] { value1, value2 }[i] == null)
-                return false;
-        return true;
+        return values().allMatch(Objects::isNull) || values().anyMatch(v -> !Objects.isNull(v));
     }
 
     /**
@@ -167,6 +165,15 @@ public abstract class PathFilter<Exp extends SimpleExpression<T>, T extends Seri
             default:
                 throw new UnsupportedOperationException("Invalid number of parameters for operator " + operator);
         }
+    }
+
+    /**
+     * {@link Stream} of used argument values.<br>
+     * The number of values depends of {@link Operator#getNumberOfParameters()
+     * number of arguments}.
+     */
+    private Stream<T> values() {
+        return Stream.of(value1, value2).limit(operator.getNumberOfParameters());
     }
 
 }

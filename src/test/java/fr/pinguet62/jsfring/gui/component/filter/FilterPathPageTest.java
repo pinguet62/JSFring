@@ -17,15 +17,21 @@ import fr.pinguet62.jsfring.gui.component.filter.operator.LikeOperator;
 import fr.pinguet62.jsfring.gui.component.filter.operator.StartsWithOperator;
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.filter.FilterField;
-import fr.pinguet62.jsfring.gui.htmlunit.filter.FiltersPage;
+import fr.pinguet62.jsfring.gui.htmlunit.filter.FilterPathPage;
+import fr.pinguet62.jsfring.gui.sample.FilterPathBean;
 import fr.pinguet62.jsfring.model.QUser;
 
-/** @see PathFilter */
-public final class PathFilterTest {
+/**
+ * @see PathFilter
+ * @see StringPathFilter
+ * @see NumberPathFilter
+ * @see FilterPathBean
+ */
+public final class FilterPathPageTest {
 
     private static final StringPath root = QUser.user.login;
 
-    private FiltersPage page;
+    private FilterPathPage page;
 
     /** Refresh page. */
     @Before
