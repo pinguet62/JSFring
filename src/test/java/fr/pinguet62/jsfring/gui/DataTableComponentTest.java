@@ -71,6 +71,7 @@ import fr.pinguet62.jsfring.model.User;
  * @see AbstractSelectableBean
  * @see AbstractCrudBean
  * @see DataTableComponent
+ * @see AbstractDatatablePage
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = Config.SPRING)
