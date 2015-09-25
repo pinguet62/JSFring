@@ -9,6 +9,8 @@ import com.mysema.query.types.expr.NumberExpression;
 import fr.pinguet62.jsfring.gui.component.filter.operator.BetweenOperator;
 import fr.pinguet62.jsfring.gui.component.filter.operator.EqualsToOperator;
 import fr.pinguet62.jsfring.gui.component.filter.operator.GreaterThanOperator;
+import fr.pinguet62.jsfring.gui.component.filter.operator.IsNullOperator;
+import fr.pinguet62.jsfring.gui.component.filter.operator.LessThanOperator;
 import fr.pinguet62.jsfring.gui.component.filter.operator.Operator;
 
 /** A {@link PathFilter} for {@link NumberExpression} fields. */
@@ -23,8 +25,8 @@ public class NumberPathFilter<T extends Number & Comparable<?>> extends PathFilt
 
     @Override
     public List<Operator<NumberExpression<T>, T>> getOperators() {
-        return Arrays.asList(new EqualsToOperator<NumberExpression<T>, T>(), new GreaterThanOperator<T>(),
-                new BetweenOperator<T>());
+        return Arrays.asList(new IsNullOperator<>(), new EqualsToOperator<NumberExpression<T>, T>(),
+                new GreaterThanOperator<T>(), new LessThanOperator<T>(), new BetweenOperator<T>());
     }
 
 }

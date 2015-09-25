@@ -1,7 +1,9 @@
 package fr.pinguet62.jsfring.gui.htmlunit.filter;
 
+import java.io.IOException;
 import java.util.List;
 
+import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
@@ -11,24 +13,30 @@ import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
 import fr.pinguet62.jsfring.gui.component.filter.OperatorConverter;
 import fr.pinguet62.jsfring.gui.component.filter.operator.Operator;
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
+import fr.pinguet62.jsfring.gui.htmlunit.NavigatorException;
 
 public class FilterField extends AbstractPage {
 
     private final int index;
 
-    public FilterField(HtmlPage page, int index) {
+    FilterField(HtmlPage page, int index) {
         super(page);
         this.index = index;
     }
 
+    /** @param i The column index. */
+    private HtmlTableDataCell getColumn(int i) {
+        return (HtmlTableDataCell) getFilter().getByXPath("./td").get(i);
+    }
+
     private HtmlTableRow getFilter() {
-        return (HtmlTableRow) page.getByXPath("//form/table/tbody/tr[" + (index + 1) + "]").get(0);
+        return (HtmlTableRow) page.getByXPath("//form/table/tbody/tr").get(index);
     }
 
     // FIXME "div/label/span" instead of "div/span" after submit
     @SuppressWarnings("unchecked")
     private List<HtmlInput> getInputValues() {
-        return (List<HtmlInput>) getFilter().getByXPath("./td[2]/div//span/input[contains(@class, 'ui-inputtext')]");
+        return (List<HtmlInput>) getColumn(2).getByXPath("./div//span/input[contains(@class, 'ui-inputtext')]");
     }
 
     public int getNumberOfArguments() {
@@ -36,7 +44,7 @@ public class FilterField extends AbstractPage {
     }
 
     public String getQuery() {
-        return ((HtmlTableDataCell) getFilter().getByXPath("./td[3]").get(0)).getTextContent();
+        return getColumn(4).getTextContent();
     }
 
     /** Check the red border, with checking the {@code class} attribute. */
@@ -49,9 +57,8 @@ public class FilterField extends AbstractPage {
      * @see OperatorConverter
      */
     public void setOperator(String className) {
-        HtmlSelect select = (HtmlSelect) getFilter().getByXPath(
-                "./td[2]/div/div[contains(@class, 'ui-selectonemenu')]/div[@class='ui-helper-hidden-accessible']/select")
-                .get(0);
+        HtmlSelect select = (HtmlSelect) getColumn(2).getByXPath(
+                "./div/div[contains(@class, 'ui-selectonemenu')]/div[@class='ui-helper-hidden-accessible']/select").get(0);
         page = select.setSelectedAttribute(className, true);
         waitJS();
         debug();
@@ -66,6 +73,17 @@ public class FilterField extends AbstractPage {
     public void setValue(int index, String value) {
         page = (HtmlPage) getInputValues().get(index).setValueAttribute(value);
         debug();
+    }
+
+    public void submit() {
+        HtmlButton button = (HtmlButton) getColumn(3).getByXPath("./button").get(0);
+        try {
+            page = button.click();
+            waitJS();
+            debug();
+        } catch (IOException e) {
+            throw new NavigatorException(e);
+        }
     }
 
 }

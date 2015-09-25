@@ -17,7 +17,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager;
 
-import fr.pinguet62.jsfring.gui.htmlunit.filter.FiltersPage;
+import fr.pinguet62.jsfring.gui.htmlunit.filter.FilterPathPage;
 import fr.pinguet62.jsfring.gui.htmlunit.profile.ProfilesPage;
 import fr.pinguet62.jsfring.gui.htmlunit.right.RightsPage;
 import fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage;
@@ -28,7 +28,7 @@ public class AbstractPage {
      * Doesn't end with {@code "/"} character. So the sub-link must start with
      * {@code "/"}.
      */
-    public static final String BASE_URL = "http://localhost:8080";
+    public static final String BASE_URL = "http://localhost:8080/JSFring";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractPage.class);
 
@@ -36,11 +36,7 @@ public class AbstractPage {
 
     /** Initialize the {@link #OUTPUT_STREAM}. */
     static {
-        try {
-            TMP_FILE = File.createTempFile("navigator-", null);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        TMP_FILE = new File("D:\\Profiles\\jpinguet\\Downloads\\out.html");
         LOGGER.debug("Temporary file: " + TMP_FILE);
     }
 
@@ -70,6 +66,10 @@ public class AbstractPage {
     protected HtmlPage page;
 
     protected final WebClient webClient = new WebClient();
+
+    {
+        java.util.logging.Logger.getLogger("com.gargoylesoftware").setLevel(java.util.logging.Level.OFF);
+    }
 
     /**
      * Constructor used by classes that inherit.
@@ -161,11 +161,11 @@ public class AbstractPage {
         }
     }
 
-    public FiltersPage gotoTestFilters() {
+    public FilterPathPage gotoSampleFilterSimple() {
         try {
-            page = webClient.getPage(BASE_URL + "/test/filters.xhtml");
+            page = webClient.getPage(BASE_URL + "/sample/filter/simple.xhtml");
             debug();
-            return new FiltersPage(page);
+            return new FilterPathPage(page);
         } catch (IOException e) {
             throw new NavigatorException(e);
         }
