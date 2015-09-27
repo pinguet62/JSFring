@@ -36,7 +36,7 @@ public class AbstractPage {
 
     /** Initialize the {@link #OUTPUT_STREAM}. */
     static {
-        TMP_FILE = new File("D:\\Profiles\\jpinguet\\Downloads\\out.html");
+        TMP_FILE = new File("C:\\Users\\Pinguet62\\Downloads\\out.html");
         LOGGER.debug("Temporary file: " + TMP_FILE);
     }
 
@@ -163,7 +163,7 @@ public class AbstractPage {
 
     public FilterPathPage gotoSampleFilterSimple() {
         try {
-            page = webClient.getPage(BASE_URL + "/sample/filter/simple.xhtml");
+            page = webClient.getPage(BASE_URL + "/sample/filterPath.xhtml");
             debug();
             return new FilterPathPage(page);
         } catch (IOException e) {

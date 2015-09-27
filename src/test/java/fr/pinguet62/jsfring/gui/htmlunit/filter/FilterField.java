@@ -53,13 +53,14 @@ public class FilterField extends AbstractPage {
     }
 
     /**
-     * @param className The {@link Class#getName() class name}.
+     * @param operator The {@link Class class} of {@link Operator}.
      * @see OperatorConverter
      */
-    public void setOperator(String className) {
+    public void setOperator(Class<?> operator) {
+        String value = operator == null ? "" : operator.getName();
         HtmlSelect select = (HtmlSelect) getColumn(2).getByXPath(
                 "./div/div[contains(@class, 'ui-selectonemenu')]/div[@class='ui-helper-hidden-accessible']/select").get(0);
-        page = select.setSelectedAttribute(className, true);
+        page = select.setSelectedAttribute(value, true);
         waitJS();
         debug();
     }

@@ -16,80 +16,50 @@
 			<h:panelGrid columns="5">
 				<!-- String -->
 
-				<p:outputLabel value="String filter" />
-				<p:outputLabel value="" />
+				<p:outputLabel for="stringFilterDefault" value="String filter" />
+				<h:outputText value="" />
 				<p62:pathFilter id="stringFilterDefault"
 					value="#{filterPathBean.stringFilterDefault}" />
-				<p:commandButton process="stringFilterDefault"
-					update="stringFilterDefaultPredicate"
+				<p:commandButton process="stringFilterDefault" update="@form"
 					value="#{msg['button.submit']}" />
 				<h:outputText id="stringFilterDefaultPredicate"
 					value="#{filterPathBean.stringFilterDefault.valid ? filterPathBean.stringFilterDefault.get() : ''}" />
 
-				<p:outputLabel value="String filter" />
-				<p:outputLabel value="Length: 2-5" />
-				<p62:pathFilter id="stringFilterLength"
-					value="#{filterPathBean.stringFilterLength}">
-					<f:validateLength minimum="2" maximum="5" />
-				</p62:pathFilter>
-				<p:commandButton process="stringFilterLength"
-					update="stringFilterLengthPredicate"
-					value="#{msg['button.submit']}" />
-				<h:outputText id="stringFilterLengthPredicate"
-					value="#{filterPathBean.stringFilterLength.valid ? filterPathBean.stringFilterLength.get() : ''}" />
-
-				<p:outputLabel value="String filter" />
-				<p:outputLabel value="Regex: [0-9]{4}" />
+				<p:outputLabel for="stringFilterRegex" value="String filter" />
+				<h:outputText value="Regex: [0-9]{4}" />
 				<p62:pathFilter id="stringFilterRegex"
 					value="#{filterPathBean.stringFilterRegex}">
 					<f:validateRegex pattern="[0-9]{4}" />
 				</p62:pathFilter>
-				<p:commandButton process="stringFilterRegex"
-					update="stringFilterRegexPredicate" value="#{msg['button.submit']}" />
+				<p:commandButton process="stringFilterRegex" update="@form"
+					value="#{msg['button.submit']}" />
 				<h:outputText id="stringFilterRegexPredicate"
 					value="#{filterPathBean.stringFilterRegex.valid ? filterPathBean.stringFilterRegex.get() : ''}" />
 
 				<!-- Number -->
 
-				<p:outputLabel value="Number filter" />
-				<p:outputLabel value="" />
+				<p:outputLabel for="numberFilterDefault" value="Number filter" />
+				<h:outputText value="" />
 				<p62:pathFilter id="numberFilterDefault"
 					value="#{filterPathBean.numberFilterDefault}">
 					<f:converter converterId="javax.faces.Integer" />
 				</p62:pathFilter>
-				<p:commandButton process="numberFilterDefault"
-					update="numberFilterDefaultPredicate"
+				<p:commandButton process="numberFilterDefault" update="@form"
 					value="#{msg['button.submit']}" />
 				<h:outputText id="numberFilterDefaultPredicate"
 					value="#{filterPathBean.numberFilterDefault.valid ? filterPathBean.numberFilterDefault.get() : ''}" />
 
-				<p:outputLabel value="Number filter" />
-				<p:outputLabel value="Long range: 5-9" />
+				<p:outputLabel for="numberFilterLongRange" value="Number filter" />
+				<h:outputText value="Long range: 9-49" />
 				<p62:pathFilter id="numberFilterLongRange"
 					value="#{filterPathBean.numberFilterLongRange}">
 					<f:converter converterId="javax.faces.Long" />
-					<f:validateRequired />
-					<f:validateLongRange minimum="5" maximum="9" />
+					<f:validateLongRange minimum="9" maximum="49" />
 				</p62:pathFilter>
-				<p:commandButton process="numberFilterLongRange"
-					update="numberFilterLongRangePredicate"
+				<p:commandButton process="numberFilterLongRange" update="@form"
 					value="#{msg['button.submit']}" />
 				<h:outputText id="numberFilterLongRangePredicate"
 					value="#{filterPathBean.numberFilterLongRange.valid ? filterPathBean.numberFilterLongRange.get() : ''}" />
-
-				<p:outputLabel value="Number filter" />
-				<p:outputLabel value="Double range: 4.2-13.4" />
-				<p62:pathFilter id="numberFilterDoubleRange"
-					value="#{filterPathBean.numberFilterDoubleRange}">
-					<f:converter converterId="javax.faces.Double" />
-					<f:validateRequired />
-					<f:validateDoubleRange minimum="4.2" maximum="13.4" />
-				</p62:pathFilter>
-				<p:commandButton process="numberFilterDoubleRange"
-					update="numberFilterDoubleRangePredicate"
-					value="#{msg['button.submit']}" />
-				<h:outputText id="numberFilterDoubleRangePredicate"
-					value="#{filterPathBean.numberFilterDoubleRange.valid ? filterPathBean.numberFilterDoubleRange.get() : ''}" />
 			</h:panelGrid>
 		</h:form>
 

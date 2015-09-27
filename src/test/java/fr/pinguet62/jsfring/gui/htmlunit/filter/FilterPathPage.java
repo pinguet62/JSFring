@@ -18,17 +18,12 @@ public final class FilterPathPage extends AbstractPage {
 
     /** @see FilterPathBean#getNumberFilterDefault() */
     public FilterField getNumberFilterDefault() {
-        return getFilterField(3);
-    }
-
-    /** @see FilterPathBean#getNumberFilterDoubleRange() */
-    public FilterField getNumberFilterDoubleRange() {
-        return getFilterField(5);
+        return getFilterField(2);
     }
 
     /** @see FilterPathBean#getNumberFilterLongRange() */
     public FilterField getNumberFilterLongRange() {
-        return getFilterField(4);
+        return getFilterField(3);
     }
 
     /** @see FilterPathBean#getStringFilterDefault() */
@@ -36,14 +31,9 @@ public final class FilterPathPage extends AbstractPage {
         return getFilterField(0);
     }
 
-    /** @see FilterPathBean#getStringFilterLength() */
-    public FilterField getStringFilterLength() {
-        return getFilterField(1);
-    }
-
     /** @see FilterPathBean#getStringFilterRegex() */
     public FilterField getStringFilterRegex() {
-        return getFilterField(2);
+        return getFilterField(1);
     }
 
 }
