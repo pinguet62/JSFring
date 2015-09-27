@@ -1,19 +1,21 @@
 package fr.pinguet62.jsfring.gui.component.filter.operator;
 
-import com.mysema.query.types.expr.BooleanExpression;
+import com.mysema.query.BooleanBuilder;
+import com.mysema.query.types.Predicate;
 import com.mysema.query.types.expr.SimpleExpression;
 
 /**
  * This implementation requires {@link SimpleExpression path} type, because it
  * can be applied on several types.
  */
-public final class EqualsToOperator<Exp extends SimpleExpression<T>, T>
-        implements Operator<Exp, T> {
+public final class EqualsToOperator<Exp extends SimpleExpression<T>, T> implements Operator<Exp, T> {
 
     private static final long serialVersionUID = 1;
 
     @Override
-    public BooleanExpression apply(Exp path, T arg1, T arg2) {
+    public Predicate apply(Exp path, T arg1, T arg2) {
+        if (arg1 == null)
+            return new BooleanBuilder();
         return path.eq(arg1);
     }
 
