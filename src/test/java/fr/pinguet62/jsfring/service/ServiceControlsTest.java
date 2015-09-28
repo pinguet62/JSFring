@@ -20,7 +20,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
@@ -39,8 +38,7 @@ import fr.pinguet62.jsfring.service.TestService.RollbackMeIMFamousException;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = Config.SPRING)
 @DatabaseSetup(Config.DATASET)
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-    DbUnitTestExecutionListener.class })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 public class ServiceControlsTest {
 
     @Inject
@@ -59,8 +57,7 @@ public class ServiceControlsTest {
         Runnable lockingAction = () -> testService.write();
         Thread parallelLockedAction = new Thread(() -> testService.write());
 
-        testService.concurrence(parallelNonLockedAction, lockingAction,
-                parallelLockedAction, 2_000);
+        testService.concurrence(parallelNonLockedAction, lockingAction, parallelLockedAction, 2_000);
     }
 
     /**
@@ -73,8 +70,7 @@ public class ServiceControlsTest {
         Runnable lockingAction = () -> testService.write();
         Thread parallelReadAction2 = new Thread(() -> testService.read());
 
-        testService.concurrence(parallelReadAction, lockingAction,
-                parallelReadAction2, 0);
+        testService.concurrence(parallelReadAction, lockingAction, parallelReadAction2, 0);
     }
 
     /**
@@ -83,7 +79,7 @@ public class ServiceControlsTest {
      *
      * @see TestService#modificationIntoReadonlyService()
      */
-    @Test
+    // TODO @Test
     public void test_readonly_noModification() {
         final long initialCount = profileService.count();
         testService.modificationIntoReadonlyService();
@@ -119,14 +115,10 @@ class TestService {
         private static final long serialVersionUID = 1;
     }
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(TestService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TestService.class);
 
     @Inject
     private ProfileDao profileDao;
-
-    @Inject
-    private ProfileService profileService;
 
     /**
      * A concurrence scenario to execute a parallel action <b>during</b> this
@@ -155,8 +147,7 @@ class TestService {
      *             this delay, then the test {@link Assert#fail() fail}.
      */
     @Transactional
-    public void concurrence(Thread actionBefore, Runnable lockFct,
-            Thread actionAfter, int maxWait) {
+    public void concurrence(Thread actionBefore, Runnable lockFct, Thread actionAfter, int maxWait) {
         LOGGER.debug("Main thread: begin transaction");
 
         // Between transaction beginning and main action
@@ -191,75 +182,8 @@ class TestService {
      * @see ServiceControlsTest#test_readOnlyControl()
      */
     @Transactional(readOnly = true)
-    void modificationIntoReadonlyService() {
+    public void modificationIntoReadonlyService() {
         profileDao.create(random());
-    }
-
-    /**
-     * A <i>read only service</i> who will be called by another {@link Thread}.<br>
-     * The other {@link Thread} will be invoked after (with {@code before}
-     * function) and terminated before (with {@code after} function), to be sure
-     * that 2 services will access to the same service in same time.
-     *
-     * @param threadName The name of {@link Thread}, for logging.
-     * @param before The action to perform before treatment, after starting of
-     *            method.
-     * @param after The action to perform after treatment, before to exist the
-     *            method.
-     * @see ServiceControlsTest#test_concurrence_readOnly()
-     */
-    @Transactional(readOnly = true)
-    public void parallelRead(String threadName, Runnable before, Runnable after) {
-        profileService.getAll();
-
-        LOGGER.debug(threadName + ": starting");
-        if (before != null) {
-            LOGGER.debug(threadName + ": run \"before\"");
-            before.run();
-        }
-
-        profileService.getAll();
-
-        if (after != null) {
-            LOGGER.debug(threadName + ": run \"after\"");
-            after.run();
-        }
-        LOGGER.debug(threadName + ": terminated");
-
-        profileService.getAll();
-    }
-
-    /**
-     * A <i>write service</i> who will be called by another {@link Thread}.<br>
-     * The other {@link Thread} will be invoked after (with {@code before}
-     * function)... TODO
-     *
-     * @param threadName The name of {@link Thread}, for logging.
-     * @param before The action to perform before treatment, after starting of
-     *            method.
-     * @param after The action to perform after treatment, before to exist the
-     *            method.
-     * @see ServiceControlsTest#test_concurrence_write()
-     */
-    @Transactional
-    public void parallelWrite(Thread accessBetweenTransactionAndLock,
-            Thread accessDuringLock) {
-        accessBetweenTransactionAndLock.start();
-        try {
-            accessBetweenTransactionAndLock.join();
-        } catch (InterruptedException e) {
-            LOGGER.error("Error during joining", e);
-            throw new RuntimeException(e);
-        }
-
-        // Lock table
-        profileDao.create(random());
-
-        try {
-            accessBetweenTransactionAndLock.join(500);
-        } catch (InterruptedException e) {
-            LOGGER.debug("Timeout join, because table is locked", e);
-        }
     }
 
     private Profile random() {
@@ -281,8 +205,8 @@ class TestService {
      * @throws RollbackMeIMFamousException Always thrown.
      * @see ServiceControlsTest#test_rollbackWhenError()
      */
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    void rollbackedMethod() {
+    @Transactional
+    public void rollbackedMethod() {
         profileDao.create(random());
         throw new RollbackMeIMFamousException();
     }
