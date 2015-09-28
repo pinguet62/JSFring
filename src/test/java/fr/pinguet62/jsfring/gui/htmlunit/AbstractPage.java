@@ -28,7 +28,7 @@ public class AbstractPage {
      * Doesn't end with {@code "/"} character. So the sub-link must start with
      * {@code "/"}.
      */
-    public static final String BASE_URL = "http://localhost:8080/JSFring";
+    public static final String BASE_URL = "http://localhost:8080";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractPage.class);
 
@@ -36,7 +36,11 @@ public class AbstractPage {
 
     /** Initialize the {@link #OUTPUT_STREAM}. */
     static {
-        TMP_FILE = new File("C:\\Users\\Pinguet62\\Downloads\\out.html");
+        try {
+            TMP_FILE = File.createTempFile("navigator-", null);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         LOGGER.debug("Temporary file: " + TMP_FILE);
     }
 
@@ -185,7 +189,7 @@ public class AbstractPage {
         LOGGER.debug("Wait JavaScript");
         final int period = 200 /* ms */;
         JavaScriptJobManager manager = page.getEnclosingWindow().getJobManager();
-        for (int t = 0; manager.getJobCount() > 0 && t < 5_000 /* ms max */; t += period)
+        for (int t = 0; manager.getJobCount() > 0 && t < 4_000 /* ms max */; t += period)
             try {
                 LOGGER.trace("Wait " + t + "ms");
                 Thread.sleep(period);
