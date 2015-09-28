@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.gui.component.filter.operator;
 
+import com.mysema.query.BooleanBuilder;
 import com.mysema.query.types.Predicate;
 import com.mysema.query.types.expr.StringExpression;
 
@@ -9,6 +10,8 @@ public final class LikeOperator implements StringOperator {
 
     @Override
     public Predicate apply(StringExpression path, String arg1, String arg2) {
+        if (arg1 == null || arg1.isEmpty())
+            return new BooleanBuilder();
         return path.like(arg1);
     }
 

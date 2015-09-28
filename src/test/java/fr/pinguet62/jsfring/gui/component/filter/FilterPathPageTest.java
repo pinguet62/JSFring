@@ -84,7 +84,7 @@ public final class FilterPathPageTest {
 
         Case.forField(numberDefault).theOperator(IsNullOperator.class).andValues().mustGenerate(number.isNull());
 
-        Case.forField(numberDefault).theOperator(EqualsToOperator.class).andValues("").mustGenerate(new BooleanBuilder());
+        Case.forField(numberDefault).theOperator(EqualsToOperator.class).andValues("").mustFail();
         Case.forField(numberDefault).theOperator(EqualsToOperator.class).andValues("foo").mustFail();
         Case.forField(numberDefault).theOperator(EqualsToOperator.class).andValues("1234").mustGenerate(number.eq(1234));
 
@@ -117,7 +117,7 @@ public final class FilterPathPageTest {
 
         Case.forField(numberDefault).theOperator(IsNullOperator.class).andValues().mustGenerate(number.isNull());
 
-        Case.forField(numberDefault).theOperator(EqualsToOperator.class).andValues("").mustGenerate(new BooleanBuilder());
+        Case.forField(numberDefault).theOperator(EqualsToOperator.class).andValues("").mustFail();
         Case.forField(numberDefault).theOperator(EqualsToOperator.class).andValues("foo").mustFail();
         Case.forField(numberDefault).theOperator(EqualsToOperator.class).andValues("0").mustFail(); // validator
         Case.forField(numberDefault).theOperator(EqualsToOperator.class).andValues("999").mustFail(); // validator

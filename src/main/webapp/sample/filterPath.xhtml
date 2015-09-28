@@ -42,6 +42,7 @@
 				<h:outputText value="" />
 				<p62:pathFilter id="numberFilterDefault"
 					value="#{filterPathBean.numberFilterDefault}">
+					<f:validateRequired />
 					<f:converter converterId="javax.faces.Integer" />
 				</p62:pathFilter>
 				<p:commandButton process="numberFilterDefault" update="@form"
@@ -53,6 +54,7 @@
 				<h:outputText value="Long range: 9-49" />
 				<p62:pathFilter id="numberFilterLongRange"
 					value="#{filterPathBean.numberFilterLongRange}">
+					<f:validateRequired />
 					<f:converter converterId="javax.faces.Long" />
 					<f:validateLongRange minimum="9" maximum="49" />
 				</p62:pathFilter>
