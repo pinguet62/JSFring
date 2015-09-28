@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration packages="fr.pinguet62.jsfring" debug="true">
+<Configuration packages="fr.pinguet62.jsfring">
 	<Appenders>
 		<Console name="Console" target="SYSTEM_OUT">
 			<PatternLayout pattern="%d [%-5p] (%F:%M:%L) %m%n" />
@@ -17,7 +17,7 @@
 	<Loggers>
 		<Root level="info">
 			<AppenderRef ref="Console" />
-			<AppenderRef ref="WebappFile" />
+			<!-- <AppenderRef ref="WebappFile" /> -->
 		</Root>
 	</Loggers>
 </Configuration>
