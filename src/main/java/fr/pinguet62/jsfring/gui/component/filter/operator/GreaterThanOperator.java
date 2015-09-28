@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.gui.component.filter.operator;
 
+import com.mysema.query.BooleanBuilder;
 import com.mysema.query.types.Predicate;
 import com.mysema.query.types.expr.NumberExpression;
 
@@ -9,6 +10,8 @@ public final class GreaterThanOperator<T extends Number & Comparable<?>> impleme
 
     @Override
     public Predicate apply(NumberExpression<T> path, T arg1, T arg2) {
+        if (arg1 == null)
+            return new BooleanBuilder();
         return path.gt(arg1);
     }
 

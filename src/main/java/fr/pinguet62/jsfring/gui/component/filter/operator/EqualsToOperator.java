@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.gui.component.filter.operator;
 
+import com.mysema.query.BooleanBuilder;
 import com.mysema.query.types.Predicate;
 import com.mysema.query.types.expr.SimpleExpression;
 
@@ -13,6 +14,8 @@ public final class EqualsToOperator<Exp extends SimpleExpression<T>, T> implemen
 
     @Override
     public Predicate apply(Exp path, T arg1, T arg2) {
+        if (arg1 == null)
+            return new BooleanBuilder();
         return path.eq(arg1);
     }
 

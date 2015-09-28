@@ -84,30 +84,40 @@ public final class FilterPathPageTest {
 
         Case.forField(numberDefault).theOperator(IsNullOperator.class).andValues().mustGenerate(number.isNull());
 
+        // validateRequired
         Case.forField(numberDefault).theOperator(EqualsToOperator.class).andValues("").mustFail();
+        // converter
         Case.forField(numberDefault).theOperator(EqualsToOperator.class).andValues("foo").mustFail();
         Case.forField(numberDefault).theOperator(EqualsToOperator.class).andValues("1234").mustGenerate(number.eq(1234));
 
-        Case.forField(numberDefault).theOperator(GreaterThanOperator.class).andValues("").mustGenerate(new BooleanBuilder());
+        // validateRequired
+        Case.forField(numberDefault).theOperator(GreaterThanOperator.class).andValues("").mustFail();
+        // converter
         Case.forField(numberDefault).theOperator(GreaterThanOperator.class).andValues("foo").mustFail();
         Case.forField(numberDefault).theOperator(GreaterThanOperator.class).andValues("1234").mustGenerate(number.gt(1234));
 
-        Case.forField(numberDefault).theOperator(LessThanOperator.class).andValues("").mustGenerate(new BooleanBuilder());
+        // validateRequired
+        Case.forField(numberDefault).theOperator(LessThanOperator.class).andValues("").mustFail();
+        // converter
         Case.forField(numberDefault).theOperator(LessThanOperator.class).andValues("foo").mustFail();
         Case.forField(numberDefault).theOperator(LessThanOperator.class).andValues("1234").mustGenerate(number.lt(1234));
 
-        Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("", "").mustGenerate(new BooleanBuilder());
+        // validateRequired
+        Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("", "").mustFail();
+        // validateRequired + converter
         Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("", "bar").mustFail();
+        // validateRequired
         Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("", "12").mustFail();
+        // converter + validateRequired
         Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("foo", "").mustFail();
+        // validateRequired
         Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("12", "").mustFail();
+        // converter
         Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("foo", "bar").mustFail();
         Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("12", "34")
-                .mustGenerate(number.between(12, 32));
+        .mustGenerate(number.between(12, 34));
     }
 
-    // 9
-    // 49
     /** @see NumberPathFilter */
     @Test
     public void test_NumberPathFilter_LongRange() {
@@ -117,35 +127,55 @@ public final class FilterPathPageTest {
 
         Case.forField(numberDefault).theOperator(IsNullOperator.class).andValues().mustGenerate(number.isNull());
 
+        // validateRequired
         Case.forField(numberDefault).theOperator(EqualsToOperator.class).andValues("").mustFail();
+        // converter
         Case.forField(numberDefault).theOperator(EqualsToOperator.class).andValues("foo").mustFail();
-        Case.forField(numberDefault).theOperator(EqualsToOperator.class).andValues("0").mustFail(); // validator
-        Case.forField(numberDefault).theOperator(EqualsToOperator.class).andValues("999").mustFail(); // validator
+        // validateLongRange
+        Case.forField(numberDefault).theOperator(EqualsToOperator.class).andValues("0").mustFail();
+        // validateLongRange
+        Case.forField(numberDefault).theOperator(EqualsToOperator.class).andValues("999").mustFail();
         Case.forField(numberDefault).theOperator(EqualsToOperator.class).andValues("12").mustGenerate(number.eq(12));
 
-        Case.forField(numberDefault).theOperator(GreaterThanOperator.class).andValues("").mustGenerate(new BooleanBuilder());
+        // validateRequired
+        Case.forField(numberDefault).theOperator(GreaterThanOperator.class).andValues("").mustFail();
+        // converter
         Case.forField(numberDefault).theOperator(GreaterThanOperator.class).andValues("foo").mustFail();
-        Case.forField(numberDefault).theOperator(GreaterThanOperator.class).andValues("0").mustFail(); // validator
-        Case.forField(numberDefault).theOperator(GreaterThanOperator.class).andValues("999").mustFail(); // validator
+        // validateLongRange
+        Case.forField(numberDefault).theOperator(GreaterThanOperator.class).andValues("0").mustFail();
+        // validateLongRange
+        Case.forField(numberDefault).theOperator(GreaterThanOperator.class).andValues("999").mustFail();
         Case.forField(numberDefault).theOperator(GreaterThanOperator.class).andValues("12").mustGenerate(number.gt(12));
 
-        Case.forField(numberDefault).theOperator(LessThanOperator.class).andValues("").mustGenerate(new BooleanBuilder());
+        // validateRequired
+        Case.forField(numberDefault).theOperator(LessThanOperator.class).andValues("").mustFail();
+        // converter
         Case.forField(numberDefault).theOperator(LessThanOperator.class).andValues("foo").mustFail();
-        Case.forField(numberDefault).theOperator(LessThanOperator.class).andValues("0").mustFail(); // validator
-        Case.forField(numberDefault).theOperator(LessThanOperator.class).andValues("999").mustFail(); // validator
+        // validateLongRange
+        Case.forField(numberDefault).theOperator(LessThanOperator.class).andValues("0").mustFail();
+        // validateLongRange
+        Case.forField(numberDefault).theOperator(LessThanOperator.class).andValues("999").mustFail();
         Case.forField(numberDefault).theOperator(LessThanOperator.class).andValues("12").mustGenerate(number.lt(12));
 
-        Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("", "").mustGenerate(new BooleanBuilder());
+        // validateRequired
+        Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("", "").mustFail();
+        // validateRequired + converter
         Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("", "bar").mustFail();
+        // validateRequired
         Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("", "12").mustFail();
+        // converter + validateRequired
         Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("foo", "").mustFail();
+        // validateRequired
         Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("12", "").mustFail();
         Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("foo", "bar").mustFail();
-        Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("0", "999").mustFail(); // validator
-        Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("12", "999").mustFail(); // validator
-        Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("0", "34").mustFail(); // validator
+        // validateRequired
+        Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("0", "999").mustFail();
+        // validateRequired
+        Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("12", "999").mustFail();
+        // validateRequired
+        Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("0", "34").mustFail();
         Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("12", "34")
-                .mustGenerate(number.between(12, 32));
+        .mustGenerate(number.between(12, 34));
     }
 
     /** @see StringPathFilter */
@@ -162,7 +192,7 @@ public final class FilterPathPageTest {
 
         Case.forField(stringDefault).theOperator(StartsWithOperator.class).andValues("").mustGenerate(new BooleanBuilder());
         Case.forField(stringDefault).theOperator(StartsWithOperator.class).andValues("foo")
-                .mustGenerate(string.startsWith("foo"));
+        .mustGenerate(string.startsWith("foo"));
 
         Case.forField(stringDefault).theOperator(ContainsOperator.class).andValues("").mustGenerate(new BooleanBuilder());
         Case.forField(stringDefault).theOperator(ContainsOperator.class).andValues("foo").mustGenerate(string.contains("foo"));
@@ -186,25 +216,35 @@ public final class FilterPathPageTest {
 
         Case.forField(stringRegex).theOperator(IsNullOperator.class).andValues().mustGenerate(string.isNull());
 
-        Case.forField(stringRegex).theOperator(EqualsToOperator.class).andValues("").mustFail(); // validator
-        Case.forField(stringRegex).theOperator(EqualsToOperator.class).andValues("foo").mustFail(); // validator
+        // validateRegex
+        Case.forField(stringRegex).theOperator(EqualsToOperator.class).andValues("").mustFail();
+        // validateRegex
+        Case.forField(stringRegex).theOperator(EqualsToOperator.class).andValues("foo").mustFail();
         Case.forField(stringRegex).theOperator(EqualsToOperator.class).andValues("1234").mustGenerate(string.eq("1234"));
 
-        Case.forField(stringRegex).theOperator(StartsWithOperator.class).andValues("").mustFail(); // validator
-        Case.forField(stringRegex).theOperator(StartsWithOperator.class).andValues("foo").mustFail(); // validator
+        // validateRegex
+        Case.forField(stringRegex).theOperator(StartsWithOperator.class).andValues("").mustFail();
+        // validateRegex
+        Case.forField(stringRegex).theOperator(StartsWithOperator.class).andValues("foo").mustFail();
         Case.forField(stringRegex).theOperator(StartsWithOperator.class).andValues("1234")
-                .mustGenerate(string.startsWith("1234"));
+        .mustGenerate(string.startsWith("1234"));
 
-        Case.forField(stringRegex).theOperator(ContainsOperator.class).andValues("").mustFail(); // validator
-        Case.forField(stringRegex).theOperator(ContainsOperator.class).andValues("foo").mustFail(); // validator
+        // validateRegex
+        Case.forField(stringRegex).theOperator(ContainsOperator.class).andValues("").mustFail();
+        // validateRegex
+        Case.forField(stringRegex).theOperator(ContainsOperator.class).andValues("foo").mustFail();
         Case.forField(stringRegex).theOperator(ContainsOperator.class).andValues("1234").mustGenerate(string.contains("1234"));
 
-        Case.forField(stringRegex).theOperator(EndsWithOperator.class).andValues("").mustFail(); // validator
-        Case.forField(stringRegex).theOperator(EndsWithOperator.class).andValues("foo").mustFail(); // validator
+        // validateRegex
+        Case.forField(stringRegex).theOperator(EndsWithOperator.class).andValues("").mustFail();
+        // validateRegex
+        Case.forField(stringRegex).theOperator(EndsWithOperator.class).andValues("foo").mustFail();
         Case.forField(stringRegex).theOperator(EndsWithOperator.class).andValues("1234").mustGenerate(string.endsWith("1234"));
 
-        Case.forField(stringRegex).theOperator(LikeOperator.class).andValues("").mustFail(); // validator
-        Case.forField(stringRegex).theOperator(LikeOperator.class).andValues("foo").mustFail(); // validator
+        // validateRegex
+        Case.forField(stringRegex).theOperator(LikeOperator.class).andValues("").mustFail();
+        // validateRegex
+        Case.forField(stringRegex).theOperator(LikeOperator.class).andValues("foo").mustFail();
         Case.forField(stringRegex).theOperator(LikeOperator.class).andValues("1234").mustGenerate(string.like("1234"));
     }
 
