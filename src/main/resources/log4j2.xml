@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration packages="fr.pinguet62.jsfring">
+<Configuration packages="fr.pinguet62.jsfring" debug="true">
 	<Appenders>
 		<Console name="Console" target="SYSTEM_OUT">
 			<PatternLayout pattern="%d [%-5p] (%F:%M:%L) %m%n" />
 		</Console>
 		<!-- The target folder is used by webapp page "/logs" -->
-		<WebappRollingFile name="WebappFile" fileName="logs/logs.log"
+		<!-- <WebappRollingFile name="WebappFile" fileName="logs/logs.log"
 			filePattern="logs/%d{dd-MMM-yyyy}.log">
 			<PatternLayout pattern="%d [%-5p] (%F:%M:%L) %m%n" />
 			<Policies>
 				<TimeBasedTriggeringPolicy />
 			</Policies>
-		</WebappRollingFile>
+		</WebappRollingFile> -->
 	</Appenders>
 
 	<Loggers>
-		<Root level="debug">
+		<Root level="info">
 			<AppenderRef ref="Console" />
 			<AppenderRef ref="WebappFile" />
 		</Root>
