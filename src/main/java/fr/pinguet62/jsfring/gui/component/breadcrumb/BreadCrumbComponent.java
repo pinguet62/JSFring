@@ -34,8 +34,7 @@ public final class BreadCrumbComponent extends BreadCrumb {
         index, menu;
     }
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(BreadCrumbComponent.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BreadCrumbComponent.class);
 
     /** The association of <b>outcome</b> to its {@link BreadCrumb}. */
     protected final Map<String, MenuModel> breadcrumbs = new HashMap<>();
@@ -61,8 +60,8 @@ public final class BreadCrumbComponent extends BreadCrumb {
     private String getCurrentOutcome() {
         FacesContext context = FacesContext.getCurrentInstance();
         String viewId = context.getViewRoot().getViewId();
-        Map<String, Set<NavigationCase>> navigationRules = ((ConfigurableNavigationHandler) context
-                .getApplication().getNavigationHandler()).getNavigationCases();
+        Map<String, Set<NavigationCase>> navigationRules = ((ConfigurableNavigationHandler) context.getApplication()
+                .getNavigationHandler()).getNavigationCases();
         for (Set<NavigationCase> navigationCases : navigationRules.values())
             for (NavigationCase navigationCase : navigationCases)
                 if (navigationCase.getToViewId(context).equals(viewId))
@@ -95,7 +94,9 @@ public final class BreadCrumbComponent extends BreadCrumb {
     @Override
     public MenuModel getModel() {
         String menuId = getMenu();
+        LOGGER.info("Menu id: " + menuId);
         Menubar menu = (Menubar) findComponent(menuId);
+        LOGGER.info("Menu: " + menu);
         initBreadcrumbs(menu);
         String outcome = getCurrentOutcome();
         return breadcrumbs.get(outcome);
@@ -134,17 +135,12 @@ public final class BreadCrumbComponent extends BreadCrumb {
             if (!indexMenuItem.getOutcome().equals(outcome))
                 breadcrumb.addElement(indexMenuItem);
             // - convert
-            thread.stream().map(new MenuConverter()::apply)
-                    .forEach(breadcrumb::addElement);
+            thread.stream().map(new MenuConverter()::apply).forEach(breadcrumb::addElement);
             // - save
             breadcrumbs.put(outcome, breadcrumb);
             LOGGER.trace("Breadcrumb: "
-                    + breadcrumb
-                            .getElements()
-                            .stream()
-                            .map(element -> (DefaultMenuItem) element)
-                            .map(item -> String.format("(\"%s\"/%s)",
-                                    item.getTitle(), item.getOutcome()))
+                    + breadcrumb.getElements().stream().map(element -> (DefaultMenuItem) element)
+                            .map(item -> String.format("(\"%s\"/%s)", item.getTitle(), item.getOutcome()))
                             .collect(Collectors.joining(" > ")));
         }
         // Recursive
