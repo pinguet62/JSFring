@@ -26,7 +26,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.apache.poi.POIXMLDocument;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -365,6 +364,7 @@ public class DataTableComponentTest {
      * The generated file is a CSV file, correctly formatted.
      *
      * @see AbstractDatatablePage#exportCSV()
+     * @see CSVReader
      */
     @Test
     public void test_export_csv() throws IOException {
@@ -383,6 +383,7 @@ public class DataTableComponentTest {
      * The generated file is a PDF file.
      *
      * @see AbstractDatatablePage#exportPDF()
+     * @see PdfReader
      */
     @Test
     public void test_export_pdf() throws IOException {
@@ -403,24 +404,27 @@ public class DataTableComponentTest {
         UsersPage usersPage = AbstractPage.get().gotoUsersPage();
         InputStream is = usersPage.exportXLS();
         // Check format
-        POIFSFileSystem.hasPOIFSHeader(is);
+        assertTrue(POIFSFileSystem.hasPOIFSHeader(is));
     }
 
     /**
      * The generated file is a XLSX file.
      *
      * @see AbstractDatatablePage#exportXLSX()
-     * @see XSSFWorkbook
+     * @see POIXMLDocument
      */
     @Test
     public void test_export_xlsx() throws IOException {
         UsersPage usersPage = AbstractPage.get().gotoUsersPage();
         InputStream is = usersPage.exportXLSX();
         // Check format
-        POIXMLDocument.hasOOXMLHeader(is);
+        assertTrue(POIXMLDocument.hasOOXMLHeader(is));
     }
 
-    /** @see AbstractDatatablePage#exportXML() */
+    /**
+     * @see AbstractDatatablePage#exportXML()
+     * @see DocumentBuilder#parse(InputStream)
+     */
     @Test
     public void test_export_xml() throws Exception {
         UsersPage usersPage = AbstractPage.get().gotoUsersPage();
