@@ -12,7 +12,12 @@ import java.util.stream.Collectors;
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.application.NavigationCase;
 import javax.faces.component.FacesComponent;
+import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
+import javax.faces.component.UIViewRoot;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.component.breadcrumb.BreadCrumb;
@@ -26,6 +31,8 @@ import org.primefaces.model.menu.MenuItem;
 import org.primefaces.model.menu.MenuModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.sun.faces.component.visit.FullVisitContext;
 
 @FacesComponent(value = "breadCrumb")
 public final class BreadCrumbComponent extends BreadCrumb {
@@ -50,6 +57,26 @@ public final class BreadCrumbComponent extends BreadCrumb {
         DefaultMenuItem indexMenuItem = new DefaultMenuItem();
         indexMenuItem.setOutcome(getIndex());
         return indexMenuItem;
+    }
+
+    @Override
+    public UIComponent findComponent(String expr) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        UIViewRoot root = context.getViewRoot();
+        final UIComponent[] found = new UIComponent[1];
+
+        root.visitTree(new FullVisitContext(context), new VisitCallback() {
+            @Override
+            public VisitResult visit(VisitContext context, UIComponent component) {
+                if (expr.equals(component.getId())) {
+                    found[0] = component;
+                    return VisitResult.COMPLETE;
+                }
+                return VisitResult.ACCEPT;
+            }
+        });
+
+        return found[0];
     }
 
     /**
@@ -94,9 +121,7 @@ public final class BreadCrumbComponent extends BreadCrumb {
     @Override
     public MenuModel getModel() {
         String menuId = getMenu();
-        LOGGER.info("Menu id: " + menuId);
         Menubar menu = (Menubar) findComponent(menuId);
-        LOGGER.info("Menu: " + menu);
         initBreadcrumbs(menu);
         String outcome = getCurrentOutcome();
         return breadcrumbs.get(outcome);
