@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 
 import net.sf.jasperreports.engine.JRAbstractExporter;
 import net.sf.jasperreports.engine.JRRuntimeException;
@@ -28,8 +29,8 @@ import net.sf.jasperreports.export.WriterExporterOutput;
  * @see WriterExporterOutput
  * @see HtmlExporterOutput
  */
-public class GeneralExporterOutput implements OutputStreamExporterOutput,
-        WriterExporterOutput, HtmlExporterOutput, Graphics2DExporterOutput {
+public class GeneralExporterOutput implements OutputStreamExporterOutput, WriterExporterOutput, HtmlExporterOutput,
+Graphics2DExporterOutput {
 
     private final OutputStream outputStream;
 
@@ -48,10 +49,10 @@ public class GeneralExporterOutput implements OutputStreamExporterOutput,
         }
     }
 
-    /** @throws UnsupportedOperationException Not implemented */
+    /** @return {@link StandardCharsets#UTF_8} */
     @Override
     public String getEncoding() {
-        throw new UnsupportedOperationException("Not implemented");
+        return StandardCharsets.UTF_8.toString();
     }
 
     /** @throws UnsupportedOperationException Not implemented */
