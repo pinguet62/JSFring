@@ -40,6 +40,13 @@
 			<version>2.3</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- OpenDocument -->
+		<dependency>
+			<groupId>org.odftoolkit</groupId>
+			<artifactId>odfdom-java</artifactId>
+			<version>0.8.7</version>
+			<scope>test</scope>
+		</dependency>
 
 		<!-- ===== Test ===== -->
 		<!-- JUnit -->
@@ -391,7 +398,7 @@
 									<!-- $ java -jar target/dependency/webapp-runner.jar target/*.war -->
 									<groupId>com.github.jsimone</groupId>
 									<artifactId>webapp-runner</artifactId>
-									<version>7.0.40.0</version>
+									<version>8.0.24.0</version>
 									<destFileName>webapp-runner.jar</destFileName>
 								</artifactItem>
 							</artifactItems>

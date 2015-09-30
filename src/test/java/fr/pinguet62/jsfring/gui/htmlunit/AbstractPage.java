@@ -18,6 +18,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager;
 
 import fr.pinguet62.jsfring.gui.htmlunit.filter.FilterPathPage;
+import fr.pinguet62.jsfring.gui.htmlunit.jasperreport.UsersRightsJasperReportPage;
 import fr.pinguet62.jsfring.gui.htmlunit.profile.ProfilesPage;
 import fr.pinguet62.jsfring.gui.htmlunit.right.RightsPage;
 import fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage;
@@ -150,6 +151,16 @@ public class AbstractPage {
             page = webClient.getPage(BASE_URL + "/profile/list.xhtml");
             debug();
             return new ProfilesPage(page);
+        } catch (IOException e) {
+            throw new NavigatorException(e);
+        }
+    }
+
+    public UsersRightsJasperReportPage gotoReportsUsersRightsPage() {
+        try {
+            page = webClient.getPage(BASE_URL + "/report/usersRights.xhtml");
+            debug();
+            return new UsersRightsJasperReportPage(page);
         } catch (IOException e) {
             throw new NavigatorException(e);
         }
