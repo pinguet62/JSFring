@@ -33,6 +33,7 @@ public enum ExportType {
      */
     DOCX(JRDocxExporter::new, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "docx"),
 
+    // TODO JasperReport: Graphics2D export
     /** Graphics2D */
     GRAPHICS_2D(() -> {
         try {

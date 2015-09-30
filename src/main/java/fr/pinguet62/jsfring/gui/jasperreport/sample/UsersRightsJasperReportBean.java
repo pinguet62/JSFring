@@ -2,10 +2,17 @@ package fr.pinguet62.jsfring.gui.jasperreport.sample;
 
 import static fr.pinguet62.jsfring.gui.jasperreport.ExportType.CSV;
 import static fr.pinguet62.jsfring.gui.jasperreport.ExportType.DOCX;
+import static fr.pinguet62.jsfring.gui.jasperreport.ExportType.GRAPHICS_2D;
+import static fr.pinguet62.jsfring.gui.jasperreport.ExportType.HTML;
+import static fr.pinguet62.jsfring.gui.jasperreport.ExportType.ODS;
 import static fr.pinguet62.jsfring.gui.jasperreport.ExportType.ODT;
 import static fr.pinguet62.jsfring.gui.jasperreport.ExportType.PDF;
 import static fr.pinguet62.jsfring.gui.jasperreport.ExportType.PPTX;
+import static fr.pinguet62.jsfring.gui.jasperreport.ExportType.RTF;
+import static fr.pinguet62.jsfring.gui.jasperreport.ExportType.TEXT;
+import static fr.pinguet62.jsfring.gui.jasperreport.ExportType.XLS;
 import static fr.pinguet62.jsfring.gui.jasperreport.ExportType.XLSX;
+import static fr.pinguet62.jsfring.gui.jasperreport.ExportType.XML;
 
 import java.sql.SQLException;
 
@@ -43,6 +50,30 @@ public final class UsersRightsJasperReportBean extends AbstractJasperReportBean 
 
     /**
      * @see #getStreamedContent(ExportType)
+     * @see ExportType#GRAPHICS_2D
+     */
+    public StreamedContent getGraphics2dFile() throws JRException, SQLException {
+        return getStreamedContent(GRAPHICS_2D);
+    }
+
+    /**
+     * @see #getStreamedContent(ExportType)
+     * @see ExportType#HTML
+     */
+    public StreamedContent getHtmlFile() throws JRException, SQLException {
+        return getStreamedContent(HTML);
+    }
+
+    /**
+     * @see #getStreamedContent(ExportType)
+     * @see ExportType#ODS
+     */
+    public StreamedContent getOdsFile() throws JRException, SQLException {
+        return getStreamedContent(ODS);
+    }
+
+    /**
+     * @see #getStreamedContent(ExportType)
      * @see ExportType#ODT
      */
     public StreamedContent getOdtFile() throws JRException, SQLException {
@@ -72,10 +103,42 @@ public final class UsersRightsJasperReportBean extends AbstractJasperReportBean 
 
     /**
      * @see #getStreamedContent(ExportType)
+     * @see ExportType#RTF
+     */
+    public StreamedContent getRtfFile() throws JRException, SQLException {
+        return getStreamedContent(RTF);
+    }
+
+    /**
+     * @see #getStreamedContent(ExportType)
+     * @see ExportType#TEXT
+     */
+    public StreamedContent getTextFile() throws JRException, SQLException {
+        return getStreamedContent(TEXT);
+    }
+
+    /**
+     * @see #getStreamedContent(ExportType)
+     * @see ExportType#XLSX
+     */
+    public StreamedContent getXlsFile() throws JRException, SQLException {
+        return getStreamedContent(XLS);
+    }
+
+    /**
+     * @see #getStreamedContent(ExportType)
      * @see ExportType#XLSX
      */
     public StreamedContent getXlsxFile() throws JRException, SQLException {
         return getStreamedContent(XLSX);
+    }
+
+    /**
+     * @see #getStreamedContent(ExportType)
+     * @see ExportType#XML
+     */
+    public StreamedContent getXmlFile() throws JRException, SQLException {
+        return getStreamedContent(XML);
     }
 
 }

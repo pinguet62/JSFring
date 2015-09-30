@@ -20,12 +20,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.inject.Inject;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.poi.POIXMLDocument;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -37,10 +32,10 @@ import au.com.bytecode.opencsv.CSVReader;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.lowagie.text.pdf.PdfReader;
 import com.mysema.query.jpa.impl.JPAQuery;
 
 import fr.pinguet62.Config;
+import fr.pinguet62.FileChecker;
 import fr.pinguet62.jsfring.dao.ProfileDao;
 import fr.pinguet62.jsfring.dao.RightDao;
 import fr.pinguet62.jsfring.dao.UserDao;
@@ -361,16 +356,17 @@ public class DataTableComponentTest {
     }
 
     /**
-     * The generated file is a CSV file, correctly formatted.
+     * Check the file content: header & rows.
      *
      * @see AbstractDatatablePage#exportCSV()
-     * @see CSVReader
      */
     @Test
     public void test_export_csv() throws IOException {
         UsersPage usersPage = AbstractPage.get().gotoUsersPage();
         InputStream is = usersPage.exportCSV();
-        // Try read
+        assertTrue(FileChecker.isCSV(is));
+
+        // Content
         try (CSVReader reader = new CSVReader(new InputStreamReader(is))) {
             String[] header = Stream.of(Column.values()).sorted((a, b) -> Integer.compare(a.getIndex(), b.getIndex()))
                     .map(Column::getTitle).limit(Column.values().length - 1).toArray(String[]::new);
@@ -379,60 +375,36 @@ public class DataTableComponentTest {
         }
     }
 
-    /**
-     * The generated file is a PDF file.
-     *
-     * @see AbstractDatatablePage#exportPDF()
-     * @see PdfReader
-     */
+    /** @see AbstractDatatablePage#exportPDF() */
     @Test
     public void test_export_pdf() throws IOException {
         UsersPage usersPage = AbstractPage.get().gotoUsersPage();
         InputStream is = usersPage.exportPDF();
-        // Try read
-        new PdfReader(is);
+        assertTrue(FileChecker.isPDF(is));
     }
 
-    /**
-     * The generated file is a XLS file.
-     *
-     * @see AbstractDatatablePage#exportXLS()
-     * @see HSSFWorkbook
-     */
+    /** @see AbstractDatatablePage#exportXLS() */
     @Test
     public void test_export_xls() throws IOException {
         UsersPage usersPage = AbstractPage.get().gotoUsersPage();
         InputStream is = usersPage.exportXLS();
-        // Check format
-        assertTrue(POIFSFileSystem.hasPOIFSHeader(is));
+        assertTrue(FileChecker.isXLS(is));
     }
 
-    /**
-     * The generated file is a XLSX file.
-     *
-     * @see AbstractDatatablePage#exportXLSX()
-     * @see POIXMLDocument
-     */
+    /** @see AbstractDatatablePage#exportXLSX() */
     @Test
     public void test_export_xlsx() throws IOException {
         UsersPage usersPage = AbstractPage.get().gotoUsersPage();
         InputStream is = usersPage.exportXLSX();
-        // Check format
-        assertTrue(POIXMLDocument.hasOOXMLHeader(is));
+        assertTrue(FileChecker.isXLSX(is));
     }
 
-    /**
-     * @see AbstractDatatablePage#exportXML()
-     * @see DocumentBuilder#parse(InputStream)
-     */
+    /** @see AbstractDatatablePage#exportXML() */
     @Test
     public void test_export_xml() throws Exception {
         UsersPage usersPage = AbstractPage.get().gotoUsersPage();
         InputStream is = usersPage.exportXML();
-        // Try read
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        builder.parse(is);
+        assertTrue(FileChecker.isXML(is));
     }
 
     /** @see UsersPage#filterByActive(ActiveFilter) */
