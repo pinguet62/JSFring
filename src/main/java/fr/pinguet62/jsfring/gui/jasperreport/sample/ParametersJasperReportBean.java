@@ -5,6 +5,7 @@ import static java.util.stream.Collectors.toList;
 
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,8 @@ public final class ParametersJasperReportBean extends AbstractJasperReportBean {
 
     private static final long serialVersionUID = 1;
 
+    private Date dateParam;
+
     private Integer integerParam;
 
     private List<String> listParam;
@@ -36,6 +39,10 @@ public final class ParametersJasperReportBean extends AbstractJasperReportBean {
                 "Ile", "Jouet", "Kangourou", "Lune", "Maman", "Nuage", "Orange", "Papa", "Quille", "Roue", "Soleil", "Tortue",
                 "Uniforme", "Vélo", "Wagon", "Xylophono", "Yoyo", "Zèbre");
         return values.stream().map(String::toLowerCase).filter(it -> it.contains(query.toLowerCase())).collect(toList());
+    }
+
+    public Date getDateParam() {
+        return dateParam;
     }
 
     public Integer getIntegerParam() {
@@ -51,6 +58,7 @@ public final class ParametersJasperReportBean extends AbstractJasperReportBean {
         Map<String, Object> params = new HashMap<>();
         params.put("stringParam", stringParam);
         params.put("integerParam", integerParam);
+        params.put("dateParam", dateParam);
         params.put("listParam", listParam);
         return params;
     }
@@ -70,6 +78,10 @@ public final class ParametersJasperReportBean extends AbstractJasperReportBean {
 
     public String getStringParam() {
         return stringParam;
+    }
+
+    public void setDateParam(Date dateParam) {
+        this.dateParam = dateParam;
     }
 
     public void setIntegerParam(Integer integerParam) {

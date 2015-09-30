@@ -26,6 +26,11 @@
 						<p:inputText id="integerParam"
 							value="#{parametersJasperReportBean.integerParam}" />
 
+						<h:outputLabel for="dateParam" value="java.util.Date" />
+						<p:calendar id="dateParam"
+							value="#{parametersJasperReportBean.dateParam}" mask="true"
+							pattern="#{msg['converter.datetime']}" />
+
 						<h:outputLabel for="listParam" value="java.util.List" />
 						<p:autoComplete id="listParam" multiple="true"
 							completeMethod="#{parametersJasperReportBean.complete}"
