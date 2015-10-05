@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.1.1  -->
-<!-- 2015-09-30T22:57:48 -->
+<!-- 2015-10-05T22:02:50 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="parameters" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3404462d-3935-4d70-b7c3-b81be35bdd9c">
+	<property name="net.sf.jasperreports.export.text.character.height" value="20"/>
+	<property name="net.sf.jasperreports.export.text.character.width" value="1"/>
 	<subDataset name="listParamDataset" uuid="ab009f44-57de-4107-97ad-3c19d288ef11">
 		<field name="value1" class="java.lang.String">
 			<fieldDescription><![CDATA[_THIS]]></fieldDescription>

@@ -6,16 +6,7 @@ import java.io.InputStream;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
-
-import fr.pinguet62.Config;
 import fr.pinguet62.FileChecker;
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.jasperreport.AbstractJasperReportPage;
@@ -27,11 +18,7 @@ import fr.pinguet62.jsfring.gui.jasperreport.sample.UsersRightsJasperReportBean;
  * @see ExportType
  * @see AbstractJasperReportPage
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = Config.SPRING)
-@DatabaseSetup(Config.DATASET)
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
-public class ExportJasperReportTest {
+public final class ExportJasperReportTest {
 
     private UsersRightsJasperReportPage page;
 

@@ -52,6 +52,16 @@
 							value="PDF">
 							<p:fileDownload value="#{parametersJasperReportBean.pdfFile}" />
 						</p:commandButton>
+						<p:commandButton ajax="false"
+							onclick="PrimeFaces.monitorDownload(startDownload, stopDownload);"
+							value="TEXT">
+							<p:fileDownload value="#{parametersJasperReportBean.textFile}" />
+						</p:commandButton>
+						<p:commandButton ajax="false"
+							onclick="PrimeFaces.monitorDownload(startDownload, stopDownload);"
+							value="CSV">
+							<p:fileDownload value="#{parametersJasperReportBean.csvFile}" />
+						</p:commandButton>
 					</f:facet>
 				</p:panel>
 

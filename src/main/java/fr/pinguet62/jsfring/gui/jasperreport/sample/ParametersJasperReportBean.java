@@ -1,9 +1,7 @@
 package fr.pinguet62.jsfring.gui.jasperreport.sample;
 
-import static fr.pinguet62.jsfring.gui.jasperreport.ExportType.PDF;
 import static java.util.stream.Collectors.toList;
 
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -12,12 +10,7 @@ import java.util.Map;
 
 import javax.inject.Named;
 
-import net.sf.jasperreports.engine.JRException;
-
-import org.primefaces.model.StreamedContent;
-
 import fr.pinguet62.jsfring.gui.jasperreport.AbstractJasperReportBean;
-import fr.pinguet62.jsfring.gui.jasperreport.ExportType;
 import fr.pinguet62.jsfring.util.cdi.scope.SpringViewScoped;
 
 @Named
@@ -61,14 +54,6 @@ public final class ParametersJasperReportBean extends AbstractJasperReportBean {
         params.put("dateParam", dateParam);
         params.put("listParam", listParam);
         return params;
-    }
-
-    /**
-     * @see #getStreamedContent(ExportType)
-     * @see ExportType#PDF
-     */
-    public StreamedContent getPdfFile() throws JRException, SQLException {
-        return getStreamedContent(PDF);
     }
 
     @Override

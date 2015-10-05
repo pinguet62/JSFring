@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.gui.htmlunit;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -9,9 +10,11 @@ import org.apache.commons.lang3.StringUtils;
 
 public final class DateUtils {
 
+    public static final DateFormat DATETIME_FORMATTER = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+
     /**
      * Test if the 2 {@link Date} have the same second.
-     * 
+     *
      * @return The result.<br>
      *         {@code true} if the 2 parameters are {@code null}.<br>
      *         {@code false} if 1 of the 2 parameters is {@code null}.
@@ -73,7 +76,7 @@ public final class DateUtils {
             if (value.length() == 10) // Date
                 return new SimpleDateFormat("dd/MM/yyyy").parse(value);
             else if (value.length() == 19) // Datetime
-                return new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").parse(value);
+                return DATETIME_FORMATTER.parse(value);
 
             throw new RuntimeException("Unknown date format: " + value);
         } catch (ParseException exception) {
@@ -82,7 +85,6 @@ public final class DateUtils {
     }
 
     // Util class
-    private DateUtils() {
-    }
+    private DateUtils() {}
 
 }
