@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.gui;
+package fr.pinguet62.jsfring.gui.component;
 
 import static fr.pinguet62.jsfring.gui.htmlunit.DateUtils.equalsSecond;
 import static fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column.EMAIL;
@@ -28,18 +28,19 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
-import au.com.bytecode.opencsv.CSVReader;
-
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.mysema.query.jpa.impl.JPAQuery;
 
+import au.com.bytecode.opencsv.CSVReader;
 import fr.pinguet62.Config;
 import fr.pinguet62.FileChecker;
 import fr.pinguet62.jsfring.dao.ProfileDao;
 import fr.pinguet62.jsfring.dao.RightDao;
 import fr.pinguet62.jsfring.dao.UserDao;
-import fr.pinguet62.jsfring.gui.component.DataTableComponent;
+import fr.pinguet62.jsfring.gui.AbstractBean;
+import fr.pinguet62.jsfring.gui.AbstractCrudBean;
+import fr.pinguet62.jsfring.gui.AbstractSelectableBean;
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.DateUtils;
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.AbstractDatatablePage;
@@ -71,7 +72,7 @@ import fr.pinguet62.jsfring.model.User;
 @ContextConfiguration(locations = Config.SPRING)
 @DatabaseSetup(Config.DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
-public class DataTableComponentTest {
+public final class DataTableComponentTest {
 
     @Inject
     private ProfileDao profileDao;
@@ -186,8 +187,8 @@ public class DataTableComponentTest {
             assertTrue(equalsSecond(user.getLastConnection(), popup.getLastConnection().getValue()));
 
             assertTrue(popup.getProfiles().isReadonly());
-            assertEquals(user.getProfiles().stream().map(Profile::getTitle).collect(Collectors.toList()), popup.getProfiles()
-                    .getValue());
+            assertEquals(user.getProfiles().stream().map(Profile::getTitle).collect(Collectors.toList()),
+                    popup.getProfiles().getValue());
 
             popup.close();
 
@@ -296,8 +297,8 @@ public class DataTableComponentTest {
             assertTrue(equalsSecond(user.getLastConnection(), popup.getLastConnection().getValue()));
 
             assertFalse(popup.getProfiles().isReadonly());
-            assertEquals(user.getProfiles().stream().map(Profile::getTitle).collect(Collectors.toList()), popup.getProfiles()
-                    .getValue());
+            assertEquals(user.getProfiles().stream().map(Profile::getTitle).collect(Collectors.toList()),
+                    popup.getProfiles().getValue());
 
             popup.close();
 

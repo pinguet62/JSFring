@@ -1,10 +1,10 @@
-package fr.pinguet62.jsfring.gui;
+package fr.pinguet62.jsfring.gui.jasperreport;
 
 import static org.junit.Assert.assertTrue;
 
-import java.io.IOException;
 import java.io.InputStream;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -20,8 +20,6 @@ import fr.pinguet62.FileChecker;
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.jasperreport.AbstractJasperReportPage;
 import fr.pinguet62.jsfring.gui.htmlunit.jasperreport.UsersRightsJasperReportPage;
-import fr.pinguet62.jsfring.gui.jasperreport.AbstractJasperReportBean;
-import fr.pinguet62.jsfring.gui.jasperreport.ExportType;
 import fr.pinguet62.jsfring.gui.jasperreport.sample.UsersRightsJasperReportBean;
 
 /**
@@ -33,16 +31,22 @@ import fr.pinguet62.jsfring.gui.jasperreport.sample.UsersRightsJasperReportBean;
 @ContextConfiguration(locations = Config.SPRING)
 @DatabaseSetup(Config.DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
-public class AbstractJasperReportPageTest {
+public class ExportJasperReportTest {
+
+    private UsersRightsJasperReportPage page;
+
+    @Before
+    public void before() {
+        page = AbstractPage.get().gotoReportsUsersRightsPage();
+    }
 
     /**
      * @see ExportType#CSV
      * @see UsersRightsJasperReportBean#getCsvFile()
      */
     @Test
-    public void test_export_csv() throws IOException {
-        UsersRightsJasperReportPage reportPage = AbstractPage.get().gotoReportsUsersRightsPage();
-        InputStream is = reportPage.exportCSV();
+    public void test_csv() {
+        InputStream is = page.exportCSV();
         assertTrue(FileChecker.isCSV(is));
     }
 
@@ -51,9 +55,8 @@ public class AbstractJasperReportPageTest {
      * @see UsersRightsJasperReportBean#getDocxFile()
      */
     @Test
-    public void test_export_docx() throws IOException {
-        UsersRightsJasperReportPage reportPage = AbstractPage.get().gotoReportsUsersRightsPage();
-        InputStream is = reportPage.exportDOCX();
+    public void test_docx() {
+        InputStream is = page.exportDOCX();
         assertTrue(FileChecker.isDOCX(is));
     }
 
@@ -62,9 +65,8 @@ public class AbstractJasperReportPageTest {
      * @see UsersRightsJasperReportBean#getGraphics2dFile()
      */
     @Test
-    public void test_export_graphics2d() throws IOException {
-        UsersRightsJasperReportPage reportPage = AbstractPage.get().gotoReportsUsersRightsPage();
-        InputStream is = reportPage.exportGraphics2D();
+    public void test_graphics2d() {
+        InputStream is = page.exportGraphics2D();
         assertTrue(FileChecker.isImage(is));
     }
 
@@ -73,9 +75,8 @@ public class AbstractJasperReportPageTest {
      * @see UsersRightsJasperReportBean#getHtmlFile()
      */
     @Test
-    public void test_export_html() throws Exception {
-        UsersRightsJasperReportPage reportPage = AbstractPage.get().gotoReportsUsersRightsPage();
-        InputStream is = reportPage.exportHTML();
+    public void test_html() {
+        InputStream is = page.exportHTML();
         assertTrue(FileChecker.isHTML(is));
     }
 
@@ -84,9 +85,8 @@ public class AbstractJasperReportPageTest {
      * @see UsersRightsJasperReportBean#getOdsFile()
      */
     @Test
-    public void test_export_ods() throws Exception {
-        UsersRightsJasperReportPage reportPage = AbstractPage.get().gotoReportsUsersRightsPage();
-        InputStream is = reportPage.exportODS();
+    public void test_ods() {
+        InputStream is = page.exportODS();
         assertTrue(FileChecker.isODS(is));
     }
 
@@ -95,9 +95,8 @@ public class AbstractJasperReportPageTest {
      * @see UsersRightsJasperReportBean#getOdtFile()
      */
     @Test
-    public void test_export_odt() throws Exception {
-        UsersRightsJasperReportPage reportPage = AbstractPage.get().gotoReportsUsersRightsPage();
-        InputStream is = reportPage.exportODT();
+    public void test_odt() throws Exception {
+        InputStream is = page.exportODT();
         assertTrue(FileChecker.isODT(is));
     }
 
@@ -106,9 +105,8 @@ public class AbstractJasperReportPageTest {
      * @see UsersRightsJasperReportBean#getPdfFile()
      */
     @Test
-    public void test_export_pdf() {
-        UsersRightsJasperReportPage reportPage = AbstractPage.get().gotoReportsUsersRightsPage();
-        InputStream is = reportPage.exportPDF();
+    public void test_pdf() {
+        InputStream is = page.exportPDF();
         assertTrue(FileChecker.isPDF(is));
     }
 
@@ -117,9 +115,8 @@ public class AbstractJasperReportPageTest {
      * @see UsersRightsJasperReportBean#getPptxFile()
      */
     @Test
-    public void test_export_pptx() throws IOException {
-        UsersRightsJasperReportPage reportPage = AbstractPage.get().gotoReportsUsersRightsPage();
-        InputStream is = reportPage.exportPPTX();
+    public void test_pptx() {
+        InputStream is = page.exportPPTX();
         assertTrue(FileChecker.isPPTX(is));
     }
 
@@ -128,9 +125,8 @@ public class AbstractJasperReportPageTest {
      * @see UsersRightsJasperReportBean#getRtfFile()
      */
     @Test
-    public void test_export_rtf() {
-        UsersRightsJasperReportPage reportPage = AbstractPage.get().gotoReportsUsersRightsPage();
-        InputStream is = reportPage.exportRTF();
+    public void test_rtf() {
+        InputStream is = page.exportRTF();
         assertTrue(FileChecker.isRTF(is));
     }
 
@@ -139,9 +135,8 @@ public class AbstractJasperReportPageTest {
      * @see UsersRightsJasperReportBean#getTextFile()
      */
     @Test
-    public void test_export_text() {
-        UsersRightsJasperReportPage reportPage = AbstractPage.get().gotoReportsUsersRightsPage();
-        InputStream is = reportPage.exportTEXT();
+    public void test_text() {
+        InputStream is = page.exportTEXT();
         assertTrue(FileChecker.isTXT(is));
     }
 
@@ -150,9 +145,8 @@ public class AbstractJasperReportPageTest {
      * @see UsersRightsJasperReportBean#getXlsFile()
      */
     @Test
-    public void test_export_xls() throws IOException {
-        UsersRightsJasperReportPage reportPage = AbstractPage.get().gotoReportsUsersRightsPage();
-        InputStream is = reportPage.exportXLS();
+    public void test_xls() {
+        InputStream is = page.exportXLS();
         assertTrue(FileChecker.isXLS(is));
     }
 
@@ -161,9 +155,8 @@ public class AbstractJasperReportPageTest {
      * @see UsersRightsJasperReportBean#getXlsxFile()
      */
     @Test
-    public void test_export_xlsx() throws IOException {
-        UsersRightsJasperReportPage reportPage = AbstractPage.get().gotoReportsUsersRightsPage();
-        InputStream is = reportPage.exportXLSX();
+    public void test_xlsx() {
+        InputStream is = page.exportXLSX();
         assertTrue(FileChecker.isXLSX(is));
     }
 
@@ -172,9 +165,8 @@ public class AbstractJasperReportPageTest {
      * @see UsersRightsJasperReportBean#getXmlFile()
      */
     @Test
-    public void test_export_xml() throws IOException {
-        UsersRightsJasperReportPage reportPage = AbstractPage.get().gotoReportsUsersRightsPage();
-        InputStream is = reportPage.exportXML();
+    public void test_xml() {
+        InputStream is = page.exportXML();
         assertTrue(FileChecker.isXML(is));
     }
 
