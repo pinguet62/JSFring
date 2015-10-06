@@ -39,7 +39,7 @@ public final class ParametersJasperReportPage extends AbstractJasperReportPage {
     }
 
     public void setList(List<String> value) {
-        HtmlDivision div = (HtmlDivision) getParam(3).getByXPath("./input").get(0);
+        HtmlDivision div = (HtmlDivision) getParam(3).getByXPath("./div").get(0);
         new AutocompleteInputText(div).setValue(value);
     }
 

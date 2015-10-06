@@ -17,12 +17,19 @@ public final class AutocompleteInputText extends ReadWriteField<HtmlDivision, Li
         super(html);
     }
 
+    /** Get the {@link HtmlListItem} containing values. */
+    @SuppressWarnings("unchecked")
+    private List<HtmlListItem> getTokens() {
+        return (List<HtmlListItem>) html.getByXPath(
+                "./ul[contains(@class, 'ui-autocomplete-multiple-container')]/li[contains(@class, 'ui-autocomplete-token')]");
+    }
+
     @Override
     public List<String> getValue() {
-        @SuppressWarnings("unchecked")
-        List<HtmlSpan> tokens = (List<HtmlSpan>) html.getByXPath(
-                "./ul[contains(@class, 'ui-autocomplete-multiple-container')]/li[contains(@class, 'ui-autocomplete-token')]/span[contains(@class, 'ui-autocomplete-token-label')]");
-        return tokens.stream().map(span -> span.getTextContent()).collect(Collectors.toList());
+        return getTokens().stream()
+                .map(li -> ((HtmlSpan) li.getByXPath("./span[contains(@class, 'ui-autocomplete-token-label')]").get(0))
+                        .getTextContent())
+                .collect(Collectors.toList());
     }
 
     // TODO reset initial values
@@ -34,10 +41,18 @@ public final class AutocompleteInputText extends ReadWriteField<HtmlDivision, Li
     @Override
     public void setValue(List<String> values) {
         try {
+            // Reset value
+            for (HtmlListItem li : getTokens()) {
+                HtmlSpan span = (HtmlSpan) li.getByXPath("./span[contains(@class, 'ui-autocomplete-token-icon')]");
+                page = span.click();
+                debug();
+            }
+
+            // New values
             for (String value : values) {
                 HtmlInput input = (HtmlInput) html
                         .getByXPath(
-                                "./ul[contains(@class, 'ui-autocomplete-multiple-container')]/li[contains(@class, 'ui-autocomplete-token')]/span[contains(@class, 'ui-autocomplete-token-label')]")
+                                "./ul[contains(@class, 'ui-autocomplete-multiple-container')]/li[contains(@class, 'ui-autocomplete-input-token')]/input")
                         .get(0);
                 input.type(value);
                 waitJS();
@@ -45,7 +60,7 @@ public final class AutocompleteInputText extends ReadWriteField<HtmlDivision, Li
 
                 // Autocomplete
                 @SuppressWarnings("unchecked")
-                List<HtmlListItem> lis = (List<HtmlListItem>) html.getByXPath(
+                List<HtmlListItem> lis = (List<HtmlListItem>) page.getByXPath(
                         "//div[contains(@class, 'ui-autocomplete-panel')]/ul[contains(@class, 'ui-autocomplete-list')]/li");
                 if (lis.size() > 1)
                     throw new IllegalArgumentException("More than 1 result found into auto-complemente results");
