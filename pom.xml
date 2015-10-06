@@ -80,9 +80,6 @@
 			<artifactId>xml-apis</artifactId>
 			<version>1.4.01</version>
 		</dependency>
-		<!-- JSFUnit -->
-		<!-- <dependency> <groupId>org.jboss.jsfunit</groupId> <artifactId>jboss-jsfunit-core</artifactId> <version>1.3.0.Final</version> 
-			</dependency> -->
 
 		<!-- ===== Webapp ===== -->
 		<!-- CDI -->
@@ -150,25 +147,28 @@
 			<version>5.2</version>
 		</dependency>
 		<dependency>
+			<!-- Themes -->
 			<groupId>org.primefaces.themes</groupId>
 			<artifactId>all-themes</artifactId>
 			<version>1.0.10</version>
 		</dependency>
 		<dependency>
+			<!-- Push -->
 			<groupId>org.atmosphere</groupId>
 			<artifactId>atmosphere-runtime</artifactId>
 			<version>2.1.3</version>
 		</dependency>
-		<!-- PrimeFaces: export -->
 		<dependency>
+			<!-- DataExporter (PDF) -->
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
 			<version>3.12</version>
 		</dependency>
 		<dependency>
+			<!-- DataExporter (Excel) -->
 			<groupId>com.lowagie</groupId>
 			<artifactId>itext</artifactId>
-			<version>4.2.1</version>
+			<version>2.1.7</version>
 		</dependency>
 
 		<!-- ===== JPA ===== -->
