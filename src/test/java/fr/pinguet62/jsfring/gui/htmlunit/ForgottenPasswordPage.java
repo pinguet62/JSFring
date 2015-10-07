@@ -30,6 +30,7 @@ public final class ForgottenPasswordPage extends AbstractPage {
         try {
             page = submit.click();
             waitJS();
+            waitJS(); // Service treatment in addition of Ajax
             debug();
         } catch (IOException e) {
             throw new NavigatorException(e);

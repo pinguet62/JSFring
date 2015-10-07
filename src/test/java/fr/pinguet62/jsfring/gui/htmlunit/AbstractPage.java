@@ -18,6 +18,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager;
 
 import fr.pinguet62.jsfring.gui.htmlunit.filter.FilterPathPage;
+import fr.pinguet62.jsfring.gui.htmlunit.jasperreport.ParametersJasperReportPage;
 import fr.pinguet62.jsfring.gui.htmlunit.jasperreport.UsersRightsJasperReportPage;
 import fr.pinguet62.jsfring.gui.htmlunit.profile.ProfilesPage;
 import fr.pinguet62.jsfring.gui.htmlunit.right.RightsPage;
@@ -110,8 +111,8 @@ public class AbstractPage {
         if (spans.isEmpty())
             return null;
         if (spans.size() > 1)
-            throw new NavigatorException();
-        return spans.get(0).asText();
+            throw new NavigatorException("More than 1 <p:message> tag found into page.");
+        return spans.get(0).getTextContent();
     }
 
     public String getMessageError() {
@@ -141,6 +142,16 @@ public class AbstractPage {
             page = webClient.getPage(BASE_URL + "/login.xhtml");
             debug();
             return new LoginPage(page);
+        } catch (IOException e) {
+            throw new NavigatorException(e);
+        }
+    }
+
+    public ParametersJasperReportPage gotoParametersJasperReportPage() {
+        try {
+            page = webClient.getPage(BASE_URL + "/report/parameters.xhtml");
+            debug();
+            return new ParametersJasperReportPage(page);
         } catch (IOException e) {
             throw new NavigatorException(e);
         }
