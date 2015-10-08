@@ -20,7 +20,7 @@
 	</bean>
 
 	<!-- JPA: Hibernate -->
-	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="hibernateProperties">
 			<props>
