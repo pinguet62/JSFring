@@ -1,3 +1,5 @@
+# https://travis-ci.org/
+
 language: java
 jdk:
   - oraclejdk8
@@ -5,9 +7,10 @@ jdk:
 # addons:
   # postgresql: "9.3"
 
-before_install:
+# before_script:
   # Coverage
-  - pip install --user codecov
+  # - pip install --user codecov
 after_success:
   # Coverage
-  - codecov
+  #Not working: - codecov
+  - mvn clean test jacoco:report coveralls:report
