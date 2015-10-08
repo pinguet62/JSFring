@@ -4,6 +4,9 @@ language: java
 jdk:
   - oraclejdk8
 
+install:
+  - pip install coveralls
+  
 # addons:
   # postgresql: "9.3"
 
@@ -13,4 +16,5 @@ jdk:
 after_success:
   # Coverage
   #Not working: - codecov
-  - mvn clean test jacoco:report coveralls:report
+  #- mvn clean test jacoco:report coveralls:report
+  - coveralls
