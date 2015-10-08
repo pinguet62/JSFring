@@ -11,6 +11,7 @@ import java.util.UUID;
 import javax.inject.Inject;
 
 import org.junit.Assert;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,6 +71,12 @@ public class ServiceControlsTest {
         Thread parallelReadAction2 = new Thread(() -> testService.read());
 
         testService.concurrence(parallelReadAction, lockingAction, parallelReadAction2, 0);
+    }
+
+    // TODO delete this
+    @Test
+    public void test_inutile() {
+        assertEquals(1, 1);
     }
 
     /**
