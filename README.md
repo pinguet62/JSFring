@@ -67,13 +67,20 @@ Result:
 
 **HtmlUnit** is used to navigate into website.
 
+#### Continue Integration
+
+Build and run unit/integration tests, in continue!
+
+[![Build Status](https://travis-ci.org/pinguet62/JSFring.svg?branch=master)](https://travis-ci.org/pinguet62/JSFring)
+
 #### Code coverage
 
 Measure the degree to which the source code of a program is *tested*.
 
-Util: [eCobertura](http://ecobertura.johoop.de/) (Eclipse addon)  
-Remarque: requires `-noverify` JVM option.
+[![Coverage Status](https://coveralls.io/repos/pinguet62/JSFring/badge.svg?branch=master&service=github)](https://coveralls.io/github/pinguet62/JSFring?branch=master)
 
-Result: 48.99%
+## SAS & Continue Integration
 
+Deploy web-application on the cloud, in continue!
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
