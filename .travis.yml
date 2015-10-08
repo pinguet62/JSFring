@@ -4,7 +4,7 @@ language: java
 jdk:
   - oraclejdk8
 
-install:
+before_script:
   - pip install coveralls
   
 # addons:
