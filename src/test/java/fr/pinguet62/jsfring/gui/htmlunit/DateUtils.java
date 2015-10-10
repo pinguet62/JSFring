@@ -66,7 +66,7 @@ public final class DateUtils {
      * @param value
      * @return The {@link Date}.<br>
      *         {@code null} if empty value.
-     * @throws RuntimeException Invalid/Unknown date format.
+     * @throws IllegalArgumentException Invalid/Unknown date format.
      */
     public static Date parseDateOrDateTime(String value) {
         if (StringUtils.isBlank(value))
@@ -78,9 +78,9 @@ public final class DateUtils {
             else if (value.length() == 19) // Datetime
                 return DATETIME_FORMATTER.parse(value);
 
-            throw new RuntimeException("Unknown date format: " + value);
-        } catch (ParseException exception) {
-            throw new RuntimeException("Invalid date format: " + value, exception);
+            throw new IllegalArgumentException("Unknown date format: " + value);
+        } catch (ParseException e) {
+            throw new IllegalArgumentException("Invalid date format: " + value, e);
         }
     }
 

@@ -4,6 +4,7 @@ import static fr.pinguet62.jsfring.model.User.PASSWORD_REGEX;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.stream.Stream;
 
@@ -70,7 +71,7 @@ public class UserServiceTest {
      */
     @Test
     public void test_randomPassword() {
-        Stream.generate(UserService::randomPassword).limit(100).allMatch(pwd -> pwd.matches(PASSWORD_REGEX));
+        assertTrue(Stream.generate(UserService::randomPassword).limit(100).allMatch(pwd -> pwd.matches(PASSWORD_REGEX)));
     }
 
     /** @see UserService#updatePassword(String, String) */

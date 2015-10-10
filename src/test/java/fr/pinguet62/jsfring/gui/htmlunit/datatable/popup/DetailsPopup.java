@@ -14,9 +14,9 @@ public interface DetailsPopup extends Popup {
      * @return The {@link HtmlTableDataCell}.
      */
     default HtmlTableDataCell getFieldTableCell(int index) {
-        index++; // "index+1" because XPath first index start is 1
-        return (HtmlTableDataCell) getDialog().getByXPath(
-                "./div[contains(@class, 'ui-dialog-content')]//table/tbody/tr[" + index + "]/td[2]").get(0);
+        // "index+1" because XPath first index start is 1
+        return (HtmlTableDataCell) getDialog()
+                .getByXPath("./div[contains(@class, 'ui-dialog-content')]//table/tbody/tr[" + (index + 1) + "]/td[2]").get(0);
     }
 
 }

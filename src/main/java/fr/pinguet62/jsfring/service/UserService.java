@@ -32,8 +32,8 @@ public class UserService extends AbstractService<User, String> {
         public String get() {
             List<String> characters = IntStream.rangeClosed('a', 'z').mapToObj(c -> String.valueOf((char) c))
                     .collect(Collectors.toList());
-            characters.addAll(IntStream.rangeClosed('A', 'Z').mapToObj(c -> String.valueOf((char) c))
-                    .collect(Collectors.toList()));
+            characters.addAll(
+                    IntStream.rangeClosed('A', 'Z').mapToObj(c -> String.valueOf((char) c)).collect(Collectors.toList()));
             List<String> letters = IntStream.rangeClosed('0', '9').mapToObj(c -> String.valueOf((char) c))
                     .collect(Collectors.toList());
             List<String> specials = Arrays.asList("!", "#", "$", "%", "&", "*", "+", "-", "<", "=", ">", "?", "@", "_");
@@ -63,7 +63,7 @@ public class UserService extends AbstractService<User, String> {
      *
      * @return A new {@link User#password}.
      */
-    static String randomPassword() {
+    public static String randomPassword() {
         return new PasswordGenerator().get();
     }
 
@@ -102,7 +102,7 @@ public class UserService extends AbstractService<User, String> {
      * <p>
      * Scheduled method as batch.
      */
-    @Scheduled(fixedRate = 1_000/* ms */* 60/* sec */* 60/* min */* 1/* h */)
+    @Scheduled(fixedRate = 1_000/* ms */ * 60/* sec */ * 60/* min */ * 1/* h */)
     @Transactional
     public void disableInactiveUsers() {
         LOGGER.info("Scheduling...");

@@ -20,6 +20,8 @@ import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.DateUtils;
 import fr.pinguet62.jsfring.gui.htmlunit.NavigatorException;
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.ConfirmPopup;
+import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.ShowPopup;
+import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.UpdatePopup;
 
 /**
  * Commons data for {@link DataTableComponent}.
@@ -143,7 +145,7 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
      * @param column The column index.
      * @return The {@link Boolean}.<br>
      *         {@code null} if empty cell.
-     * @throws RuntimeException Unknown boolean format.
+     * @throws NavigatorException Unknown boolean format.
      */
     protected Boolean getBoolean(int column) {
         String content = getString(column);
@@ -155,7 +157,7 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
             return Boolean.TRUE;
         if (Arrays.asList("false").contains(content))
             return Boolean.FALSE;
-        throw new RuntimeException("Invalid boolean format: " + content);
+        throw new NavigatorException("Invalid boolean format: " + content);
     }
 
     /**

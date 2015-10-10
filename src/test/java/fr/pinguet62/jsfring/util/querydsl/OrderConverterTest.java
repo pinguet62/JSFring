@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 import static org.primefaces.model.SortOrder.ASCENDING;
 import static org.primefaces.model.SortOrder.DESCENDING;
+import static org.primefaces.model.SortOrder.UNSORTED;
 
 import java.util.Arrays;
 
@@ -16,7 +17,6 @@ import com.mysema.query.types.OrderSpecifier;
 import fr.pinguet62.jsfring.model.QProfile;
 import fr.pinguet62.jsfring.model.QRight;
 import fr.pinguet62.jsfring.model.QUser;
-import fr.pinguet62.jsfring.util.querydsl.OrderConverter;
 
 /** @see OrderConverter */
 public final class OrderConverterTest {
@@ -50,7 +50,7 @@ public final class OrderConverterTest {
         QRight right = QRight.right_;
         for (String property : Arrays.asList("", ".", "foo"))
             try {
-                new OrderConverter(right).apply(property, SortOrder.ASCENDING);
+                new OrderConverter(right).apply(property, ASCENDING);
                 fail();
             } catch (IllegalArgumentException e) {}
     }
@@ -65,21 +65,21 @@ public final class OrderConverterTest {
     public void test_apply_unsorded() {
         {
             QRight right = QRight.right_;
-            assertNull(new OrderConverter(right).apply(right.code.toString(), SortOrder.UNSORTED));
-            assertNull(new OrderConverter(right).apply(right.title.toString(), SortOrder.UNSORTED));
+            assertNull(new OrderConverter(right).apply(right.code.toString(), UNSORTED));
+            assertNull(new OrderConverter(right).apply(right.title.toString(), UNSORTED));
         }
         {
             QProfile profile = QProfile.profile;
-            assertNull(new OrderConverter(profile).apply(profile.id.toString(), SortOrder.UNSORTED));
-            assertNull(new OrderConverter(profile).apply(profile.title.toString(), SortOrder.UNSORTED));
+            assertNull(new OrderConverter(profile).apply(profile.id.toString(), UNSORTED));
+            assertNull(new OrderConverter(profile).apply(profile.title.toString(), UNSORTED));
         }
         {
             QUser user = QUser.user;
-            assertNull(new OrderConverter(user).apply(user.active.toString(), SortOrder.UNSORTED));
-            assertNull(new OrderConverter(user).apply(user.email.toString(), SortOrder.UNSORTED));
-            assertNull(new OrderConverter(user).apply(user.lastConnection.toString(), SortOrder.UNSORTED));
-            assertNull(new OrderConverter(user).apply(user.login.toString(), SortOrder.UNSORTED));
-            assertNull(new OrderConverter(user).apply(user.password.toString(), SortOrder.UNSORTED));
+            assertNull(new OrderConverter(user).apply(user.active.toString(), UNSORTED));
+            assertNull(new OrderConverter(user).apply(user.email.toString(), UNSORTED));
+            assertNull(new OrderConverter(user).apply(user.lastConnection.toString(), UNSORTED));
+            assertNull(new OrderConverter(user).apply(user.login.toString(), UNSORTED));
+            assertNull(new OrderConverter(user).apply(user.password.toString(), UNSORTED));
         }
     }
 
@@ -93,25 +93,25 @@ public final class OrderConverterTest {
         {
             QRight right = QRight.right_;
             try {
-                new OrderConverter(right).apply(right.profiles.toString(), SortOrder.ASCENDING);
+                new OrderConverter(right).apply(right.profiles.toString(), ASCENDING);
                 fail();
             } catch (ClassCastException e) {}
         }
         {
             QProfile profile = QProfile.profile;
             try {
-                new OrderConverter(profile).apply(profile.rights.toString(), SortOrder.ASCENDING);
+                new OrderConverter(profile).apply(profile.rights.toString(), ASCENDING);
                 fail();
             } catch (ClassCastException e) {}
             try {
-                new OrderConverter(profile).apply(profile.users.toString(), SortOrder.ASCENDING);
+                new OrderConverter(profile).apply(profile.users.toString(), ASCENDING);
                 fail();
             } catch (ClassCastException e) {}
         }
         {
             QUser user = QUser.user;
             try {
-                new OrderConverter(user).apply(user.profiles.toString(), SortOrder.ASCENDING);
+                new OrderConverter(user).apply(user.profiles.toString(), ASCENDING);
                 fail();
             } catch (ClassCastException e) {}
         }

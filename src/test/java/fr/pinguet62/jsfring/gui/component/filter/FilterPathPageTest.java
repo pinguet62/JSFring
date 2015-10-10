@@ -28,46 +28,47 @@ import fr.pinguet62.jsfring.gui.htmlunit.filter.FilterPathPage;
 import fr.pinguet62.jsfring.gui.sample.FilterPathBean;
 import fr.pinguet62.jsfring.model.QUser;
 
-class Case {
-
-    static Case forField(FilterField field) {
-        return new Case(field);
-    }
-
-    private final FilterField field;
-
-    private Case(FilterField field) {
-        this.field = field;
-    }
-
-    Case andValues(String... values) {
-        for (int i = 0; i < values.length; i++)
-            field.setValue(i, values[i]);
-        return this;
-    }
-
-    void mustFail() {
-        field.submit();
-        assertTrue(field.isError());
-    }
-
-    void mustGenerate(Predicate result) {
-        field.submit();
-        assertFalse(field.isError());
-        assertEquals(result.toString(), field.getQuery());
-    }
-
-    Case theOperator(Class<?> operator) {
-        field.setOperator(operator);
-        return this;
-    }
-}
-
 /**
  * @see PathFilter
  * @see FilterPathBean
  */
 public final class FilterPathPageTest {
+
+    private static class Case {
+
+        public static Case forField(FilterField field) {
+            return new Case(field);
+        }
+
+        private final FilterField field;
+
+        private Case(FilterField field) {
+            this.field = field;
+        }
+
+        public Case andValues(String... values) {
+            for (int i = 0; i < values.length; i++)
+                field.setValue(i, values[i]);
+            return this;
+        }
+
+        public void mustFail() {
+            field.submit();
+            assertTrue(field.isError());
+        }
+
+        public void mustGenerate(Predicate result) {
+            field.submit();
+            assertFalse(field.isError());
+            assertEquals(result.toString(), field.getQuery());
+        }
+
+        public Case theOperator(Class<?> operator) {
+            field.setOperator(operator);
+            return this;
+        }
+
+    }
 
     private static final NumberExpression<Integer> number = QUser.user.email.length();
 
@@ -115,7 +116,7 @@ public final class FilterPathPageTest {
         // converter
         Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("foo", "bar").mustFail();
         Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("12", "34")
-        .mustGenerate(number.between(12, 34));
+                .mustGenerate(number.between(12, 34));
     }
 
     /** @see NumberPathFilter */
@@ -175,7 +176,7 @@ public final class FilterPathPageTest {
         // validateRequired
         Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("0", "34").mustFail();
         Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("12", "34")
-        .mustGenerate(number.between(12, 34));
+                .mustGenerate(number.between(12, 34));
     }
 
     /** @see StringPathFilter */
@@ -192,7 +193,7 @@ public final class FilterPathPageTest {
 
         Case.forField(stringDefault).theOperator(StartsWithOperator.class).andValues("").mustGenerate(new BooleanBuilder());
         Case.forField(stringDefault).theOperator(StartsWithOperator.class).andValues("foo")
-        .mustGenerate(string.startsWith("foo"));
+                .mustGenerate(string.startsWith("foo"));
 
         Case.forField(stringDefault).theOperator(ContainsOperator.class).andValues("").mustGenerate(new BooleanBuilder());
         Case.forField(stringDefault).theOperator(ContainsOperator.class).andValues("foo").mustGenerate(string.contains("foo"));
@@ -227,7 +228,7 @@ public final class FilterPathPageTest {
         // validateRegex
         Case.forField(stringRegex).theOperator(StartsWithOperator.class).andValues("foo").mustFail();
         Case.forField(stringRegex).theOperator(StartsWithOperator.class).andValues("1234")
-        .mustGenerate(string.startsWith("1234"));
+                .mustGenerate(string.startsWith("1234"));
 
         // validateRegex
         Case.forField(stringRegex).theOperator(ContainsOperator.class).andValues("").mustFail();

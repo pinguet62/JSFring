@@ -53,7 +53,7 @@ All dependencies use the latest version.
 
 [![Dependency Status](https://www.versioneye.com/user/projects/56193e49a193340f2f000309/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56193e49a193340f2f000309)
 	
-## Code quality
+## Code style/quality, Continue Integration, Deployment
 
 ### Code quality
 

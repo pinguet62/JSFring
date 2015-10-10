@@ -33,6 +33,10 @@ public final class ReflectionUtil {
      * @param <T> The {@link Entity} type.
      * @param entityType The {@link Entity} type.
      * @return The {@link EntityPathBase} corresponding.
+     * @throws UnsupportedOperationException Meta-class not found from
+     *             {@link Entity}.
+     * @throws UnsupportedOperationException Error during getting default
+     *             meta-instance.
      */
     @SuppressWarnings("unchecked")
     public static <T> EntityPath<T> getDefaultMetaObject(Class<T> entityType) {
@@ -44,7 +48,7 @@ public final class ReflectionUtil {
         try {
             metaObjectType = (Class<? extends EntityPathBase<T>>) Class.forName(metaObjectTypeName);
         } catch (ClassNotFoundException exception) {
-            throw new RuntimeException("Metaclass not found", exception);
+            throw new UnsupportedOperationException("Metaclass not found", exception);
         }
 
         // Field
@@ -60,7 +64,7 @@ public final class ReflectionUtil {
         try {
             return (EntityPathBase<T>) metaField.get(null);
         } catch (IllegalArgumentException | IllegalAccessException exception) {
-            throw new RuntimeException("Error during getting the meta-object.", exception);
+            throw new UnsupportedOperationException("Error during getting default meta-instance", exception);
         }
     }
 

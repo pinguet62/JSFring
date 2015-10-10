@@ -16,7 +16,6 @@ import java.io.InputStreamReader;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.inject.Inject;
@@ -42,7 +41,6 @@ import fr.pinguet62.jsfring.gui.AbstractBean;
 import fr.pinguet62.jsfring.gui.AbstractCrudBean;
 import fr.pinguet62.jsfring.gui.AbstractSelectableBean;
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
-import fr.pinguet62.jsfring.gui.htmlunit.DateUtils;
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.AbstractDatatablePage;
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.AbstractRow;
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.ConfirmPopup;
@@ -187,8 +185,7 @@ public final class DataTableComponentTest {
             assertTrue(equalsSecond(user.getLastConnection(), popup.getLastConnection().getValue()));
 
             assertTrue(popup.getProfiles().isReadonly());
-            assertEquals(user.getProfiles().stream().map(Profile::getTitle).collect(Collectors.toList()),
-                    popup.getProfiles().getValue());
+            assertEquals(user.getProfiles().stream().map(Profile::getTitle).collect(toList()), popup.getProfiles().getValue());
 
             popup.close();
 
@@ -254,7 +251,7 @@ public final class DataTableComponentTest {
         assertEquals(login, rowAfter.getLogin());
         assertEquals(email, rowAfter.getEmail());
         assertEquals(active, rowAfter.getActive());
-        assertTrue(DateUtils.equalsSecond(lastConnection, rowAfter.getLastConnection()));
+        assertTrue(equalsSecond(lastConnection, rowAfter.getLastConnection()));
         // - check database value
         User userAfter = userDao.getAll().get(idx);
         assertEquals(login, userAfter.getLogin());
@@ -297,8 +294,7 @@ public final class DataTableComponentTest {
             assertTrue(equalsSecond(user.getLastConnection(), popup.getLastConnection().getValue()));
 
             assertFalse(popup.getProfiles().isReadonly());
-            assertEquals(user.getProfiles().stream().map(Profile::getTitle).collect(Collectors.toList()),
-                    popup.getProfiles().getValue());
+            assertEquals(user.getProfiles().stream().map(Profile::getTitle).collect(toList()), popup.getProfiles().getValue());
 
             popup.close();
 

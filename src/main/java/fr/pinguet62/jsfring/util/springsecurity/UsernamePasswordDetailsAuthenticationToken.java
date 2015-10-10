@@ -13,13 +13,12 @@ import fr.pinguet62.jsfring.model.User;
  * {@link User} object.<br>
  * So {@link #getDetails()} will return this object.
  */
-public class UsernamePasswordDetailsAuthenticationToken extends
-        UsernamePasswordAuthenticationToken {
+public class UsernamePasswordDetailsAuthenticationToken extends UsernamePasswordAuthenticationToken {
 
     private static final long serialVersionUID = 1;
 
-    public UsernamePasswordDetailsAuthenticationToken(String username,
-            String password, User user, Set<GrantedAuthority> grantedAuths) {
+    public UsernamePasswordDetailsAuthenticationToken(String username, String password, User user,
+            Set<GrantedAuthority> grantedAuths) {
         super(username, password, grantedAuths);
         setDetails(user);
     }

@@ -44,8 +44,8 @@ public final class PickList extends ReadWriteField<HtmlDivision, List<String>> {
      *            what type of action is.
      */
     private HtmlButton getActionButton(String classValue) {
-        return (HtmlButton) html
-                .getByXPath("./div[contains(@class, 'ui-picklist')]/div[@class='ui-picklist-buttons']/div/button[contains(@class, 'ui-picklist-button-remove')][1]");
+        return (HtmlButton) html.getByXPath(
+                "./div[contains(@class, 'ui-picklist')]/div[@class='ui-picklist-buttons']/div/button[contains(@class, 'ui-picklist-button-remove')][1]");
     }
 
     /**
@@ -56,10 +56,6 @@ public final class PickList extends ReadWriteField<HtmlDivision, List<String>> {
     private List<HtmlListItem> getList(String classValue) {
         return (List<HtmlListItem>) html.getByXPath("./div/ul[contains(@class, '" + classValue + "')]/li");
     }
-
-    // private List<HtmlListItem> getSource() {
-    // return getList("ui-picklist-source");
-    // }
 
     private List<HtmlListItem> getTarget() {
         return getList("ui-picklist-target");
@@ -81,7 +77,7 @@ public final class PickList extends ReadWriteField<HtmlDivision, List<String>> {
                         HtmlPage page = li.click();
                         AbstractPage.debug(page);
                         clickRemoveSelected();
-                        break continue_removes;
+                        continue continue_removes;
                     }
                 break; // no remove: stop
             }
@@ -93,7 +89,7 @@ public final class PickList extends ReadWriteField<HtmlDivision, List<String>> {
                         HtmlPage page = li.click();
                         AbstractPage.debug(page);
                         clickAddSelected();
-                        break continue_adds;
+                        continue continue_adds;
                     }
                 break; // no add: stop
             }

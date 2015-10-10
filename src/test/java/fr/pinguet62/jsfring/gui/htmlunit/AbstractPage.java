@@ -41,7 +41,7 @@ public class AbstractPage {
         try {
             TMP_FILE = File.createTempFile("navigator-", null);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new NavigatorException(e);
         }
         LOGGER.debug("Temporary file: " + TMP_FILE);
     }
