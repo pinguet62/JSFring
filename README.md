@@ -47,15 +47,25 @@ Integration of Spring into JSF project.
 * Test
 	* [**JMeter**](http://jmeter.apache.org/)
 
+### Version
+
+All dependencies use the latest version.
+
+[![Dependency Status](https://www.versioneye.com/user/projects/56193e49a193340f2f000309/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56193e49a193340f2f000309)
+	
 ## Code quality
 
 ### Code quality
 
-Check that **code quality** respect *best practices*.
+Check that *source code* respect *best practices*:
+* project metrics
+* code patterns
+* code coverage
+* code complexity
+* code duplication
+* ...
 
-Util: [SonarQube](http://www.sonarsource.com/)
-
-Result: 
+[![Codacy Badge](https://api.codacy.com/project/badge/9ea574afb85b496294af3b6057e278aa)](https://www.codacy.com/app/pinguet62/JSFring)
 
 ### Tests
 
@@ -84,3 +94,7 @@ Measure the degree to which the source code of a program is *tested*.
 Deploy web-application on the cloud, in continue!
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](http://pinguet62-jsfring.herokuapp.com/)
+
+## Licence
+
+[![][license img]][license]
