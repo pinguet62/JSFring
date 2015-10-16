@@ -306,7 +306,6 @@
 		<spring-webflow.version>2.4.2.RELEASE</spring-webflow.version>
 		<spring-security.version>4.0.2.RELEASE</spring-security.version>
 		<!-- Utils -->
-		<surefire.version>2.17</surefire.version>
 		<sonar.host.url>http://localhost:9000/</sonar.host.url>
 		<!-- Tests -->
 		<jacoco.ut.execution.data.file>${project.build.directory}/coverage-reports/jacoco-ut.exec</jacoco.ut.execution.data.file>
@@ -455,6 +454,9 @@
 				<groupId>org.eluder.coveralls</groupId>
 				<artifactId>coveralls-maven-plugin</artifactId>
 				<version>4.0.0</version>
+				<configuration>
+					<repoToken>WdZObBYr50JrWlxxtR1l6CydHvpViHPvh</repoToken>
+				</configuration>
 			</plugin>
 			<!-- Portable server -->
 			<plugin>
