@@ -409,7 +409,7 @@
 							<goal>prepare-agent</goal>
 						</goals>
 						<configuration>
-							<destFile>${jacoco.ut.execution.data.file}</destFile>
+							<!-- <destFile>${jacoco.ut.execution.data.file}</destFile> -->
 							<propertyName>surefireArgLine</propertyName>
 						</configuration>
 					</execution>
@@ -419,10 +419,10 @@
 						<goals>
 							<goal>report</goal>
 						</goals>
-						<configuration>
+						<!-- <configuration>
 							<dataFile>${jacoco.ut.execution.data.file}</dataFile>
 							<outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
-						</configuration>
+						</configuration> -->
 					</execution>
 					<!-- Integration-test -->
 					<execution>
@@ -431,10 +431,10 @@
 						<goals>
 							<goal>prepare-agent</goal>
 						</goals>
-						<configuration>
+						<!-- <configuration>
 							<destFile>${jacoco.it.execution.data.file}</destFile>
 							<propertyName>failsafeArgLine</propertyName>
-						</configuration>
+						</configuration> -->
 					</execution>
 					<execution>
 						<id>post-integration-test</id>
@@ -442,10 +442,10 @@
 						<goals>
 							<goal>report</goal>
 						</goals>
-						<configuration>
+						<!-- <configuration>
 							<dataFile>${jacoco.it.execution.data.file}</dataFile>
 							<outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory>
-						</configuration>
+						</configuration> -->
 					</execution>
 				</executions>
 			</plugin>
@@ -454,9 +454,6 @@
 				<groupId>org.eluder.coveralls</groupId>
 				<artifactId>coveralls-maven-plugin</artifactId>
 				<version>4.0.0</version>
-				<configuration>
-					<repoToken>WdZObBYr50JrWlxxtR1l6CydHvpViHPvh</repoToken>
-				</configuration>
 			</plugin>
 			<!-- Portable server -->
 			<plugin>
