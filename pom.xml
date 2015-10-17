@@ -419,10 +419,8 @@
 						<goals>
 							<goal>report</goal>
 						</goals>
-						<!-- <configuration>
-							<dataFile>${jacoco.ut.execution.data.file}</dataFile>
-							<outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
-						</configuration> -->
+						<!-- <configuration> <dataFile>${jacoco.ut.execution.data.file}</dataFile> <outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory> 
+							</configuration> -->
 					</execution>
 					<!-- Integration-test -->
 					<execution>
@@ -431,10 +429,10 @@
 						<goals>
 							<goal>prepare-agent</goal>
 						</goals>
-						<!-- <configuration>
-							<destFile>${jacoco.it.execution.data.file}</destFile>
+						<configuration>
+							<!-- <destFile>${jacoco.it.execution.data.file}</destFile> -->
 							<propertyName>failsafeArgLine</propertyName>
-						</configuration> -->
+						</configuration>
 					</execution>
 					<execution>
 						<id>post-integration-test</id>
@@ -442,10 +440,8 @@
 						<goals>
 							<goal>report</goal>
 						</goals>
-						<!-- <configuration>
-							<dataFile>${jacoco.it.execution.data.file}</dataFile>
-							<outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory>
-						</configuration> -->
+						<!-- <configuration> <dataFile>${jacoco.it.execution.data.file}</dataFile> <outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory> 
+							</configuration> -->
 					</execution>
 				</executions>
 			</plugin>
