@@ -5,4 +5,4 @@ jdk:
   - oraclejdk8
 
 after_success:
-  - mvn test jacoco:report coveralls:report
+  - mvn verify jacoco:report coveralls:report
