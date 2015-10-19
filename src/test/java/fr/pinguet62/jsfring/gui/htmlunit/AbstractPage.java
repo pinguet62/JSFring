@@ -26,12 +26,6 @@ import fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage;
 
 public class AbstractPage {
 
-    /**
-     * Doesn't end with {@code "/"} character. So the sub-link must start with
-     * {@code "/"}.
-     */
-    public static final String BASE_URL = "http://localhost:8080";
-
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractPage.class);
 
     private static final File TMP_FILE;
@@ -67,6 +61,12 @@ public class AbstractPage {
 
     public static AbstractPage get() {
         return new AbstractPage(null);
+    }
+
+    private static String getUrl(String subUrl) {
+        if (subUrl == null)
+            subUrl = "";
+        return "http://localhost:8080/JSFring/" + subUrl + "?lang=fr";
     }
 
     protected HtmlPage page;
@@ -129,7 +129,7 @@ public class AbstractPage {
 
     public IndexPage gotoIndex() {
         try {
-            page = webClient.getPage(BASE_URL);
+            page = webClient.getPage(getUrl(null));
             debug();
             return new IndexPage(page);
         } catch (IOException e) {
@@ -139,7 +139,7 @@ public class AbstractPage {
 
     public LoginPage gotoLoginPage() {
         try {
-            page = webClient.getPage(BASE_URL + "/login.xhtml");
+            page = webClient.getPage(getUrl("/login.xhtml"));
             debug();
             return new LoginPage(page);
         } catch (IOException e) {
@@ -149,7 +149,7 @@ public class AbstractPage {
 
     public ParametersJasperReportPage gotoParametersJasperReportPage() {
         try {
-            page = webClient.getPage(BASE_URL + "/report/parameters.xhtml");
+            page = webClient.getPage(getUrl("/report/parameters.xhtml"));
             debug();
             return new ParametersJasperReportPage(page);
         } catch (IOException e) {
@@ -159,7 +159,7 @@ public class AbstractPage {
 
     public ProfilesPage gotoProfilesPage() {
         try {
-            page = webClient.getPage(BASE_URL + "/profile/list.xhtml");
+            page = webClient.getPage(getUrl("/profile/list.xhtml"));
             debug();
             return new ProfilesPage(page);
         } catch (IOException e) {
@@ -169,7 +169,7 @@ public class AbstractPage {
 
     public UsersRightsJasperReportPage gotoReportsUsersRightsPage() {
         try {
-            page = webClient.getPage(BASE_URL + "/report/usersRights.xhtml");
+            page = webClient.getPage(getUrl("/report/usersRights.xhtml"));
             debug();
             return new UsersRightsJasperReportPage(page);
         } catch (IOException e) {
@@ -179,7 +179,7 @@ public class AbstractPage {
 
     public RightsPage gotoRightsPage() {
         try {
-            page = webClient.getPage(BASE_URL + "/right/list.xhtml");
+            page = webClient.getPage(getUrl("/right/list.xhtml"));
             debug();
             return new RightsPage(page);
         } catch (IOException e) {
@@ -189,7 +189,7 @@ public class AbstractPage {
 
     public FilterPathPage gotoSampleFilterSimple() {
         try {
-            page = webClient.getPage(BASE_URL + "/sample/filterPath.xhtml");
+            page = webClient.getPage(getUrl("/sample/filterPath.xhtml"));
             debug();
             return new FilterPathPage(page);
         } catch (IOException e) {
@@ -199,7 +199,7 @@ public class AbstractPage {
 
     public UsersPage gotoUsersPage() {
         try {
-            page = webClient.getPage(BASE_URL + "/user/list.xhtml");
+            page = webClient.getPage(getUrl("/user/list.xhtml"));
             debug();
             return new UsersPage(page);
         } catch (IOException e) {

@@ -5,15 +5,15 @@
 	version="2.0">
 	<application>
 		<!-- i18n -->
+		<resource-bundle>
+			<base-name>fr.pinguet62.jsfring.messages</base-name>
+			<var>msg</var>
+		</resource-bundle>
 		<locale-config>
 			<default-locale>en</default-locale>
 			<supported-locale>en</supported-locale>
 			<supported-locale>fr</supported-locale>
 		</locale-config>
-		<resource-bundle>
-			<base-name>fr.pinguet62.jsfring.messages</base-name>
-			<var>msg</var>
-		</resource-bundle>
 
 		<!-- Spring Security: JSF integration -->
 		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
