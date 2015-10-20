@@ -66,7 +66,7 @@ public class AbstractPage {
     private static String getUrl(String subUrl) {
         if (subUrl == null)
             subUrl = "";
-        return "http://localhost:8080/JSFring/" + subUrl + "?lang=en";
+        return "http://localhost:8080/" + subUrl + "?lang=en";
     }
 
     protected HtmlPage page;
