@@ -399,6 +399,7 @@
 				<configuration>
 					<excludes>
 						<exclude>**com.steadystate*</exclude>
+						<!-- Generated sources -->
 						<exclude>fr/pinguet62/jsfring/model/Q*</exclude>
 						<exclude>fr/pinguet62/jsfring/model/sample/Q*</exclude>
 					</excludes>
