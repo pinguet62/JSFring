@@ -399,6 +399,8 @@
 				<configuration>
 					<excludes>
 						<exclude>**com.steadystate*</exclude>
+						<exclude>fr.pinguet62.jsfring.model.Q*</exclude>
+						<exclude>fr.pinguet62.jsfring.model.sample.Q*</exclude>
 					</excludes>
 				</configuration>
 				<executions>
@@ -409,7 +411,7 @@
 							<goal>prepare-agent</goal>
 						</goals>
 						<configuration>
-							<!-- <destFile>${jacoco.ut.execution.data.file}</destFile> -->
+							<destFile>${jacoco.ut.execution.data.file}</destFile>
 							<propertyName>surefireArgLine</propertyName>
 						</configuration>
 					</execution>
@@ -421,7 +423,7 @@
 						</goals>
 						<configuration>
 							<dataFile>${jacoco.ut.execution.data.file}</dataFile>
-							<!-- <outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory> -->
+							<outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
 						</configuration>
 					</execution>
 					<!-- Integration-test -->
@@ -444,24 +446,7 @@
 						</goals>
 						<configuration>
 							<dataFile>${jacoco.it.execution.data.file}</dataFile>
-							<!-- <outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory> -->
-						</configuration>
-					</execution>
-					<execution>
-						<id>merge-exec-data</id>
-						<phase>post-integration-test</phase>
-						<goals>
-							<goal>merge</goal>
-						</goals>
-						<configuration>
-							<fileSets>
-								<fileSet>
-									<directory>${project.build.directory}</directory>
-									<includes>
-										<include>*.exec</include>
-									</includes>
-								</fileSet>
-							</fileSets>
+							<outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>
@@ -524,6 +509,7 @@
 					<includes>
 						<include>fr/pinguet62/jsfring/gui/**/*.java</include>
 					</includes>
+					<argLine>${failsafeArgLine}</argLine>
 				</configuration>
 				<executions>
 					<execution>
