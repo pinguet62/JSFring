@@ -25,8 +25,7 @@ public final class UsersPage extends AbstractDatatablePage<UserRow> {
 
     public static enum Column {
 
-        ACTIONS(5, "Actions"), ACTIVE(3, "Actif"), EMAIL(2, "Email"), LAST_CONNECTION(4, "Dernière connexion"), LOGIN(1,
-                "Identifiant");
+        ACTIONS(5, "Actions"), ACTIVE(3, "Active"), EMAIL(2, "Email"), LAST_CONNECTION(4, "Last connection"), LOGIN(1, "Login");
 
         static Column fromTitle(String title) {
             for (Column column : values())
@@ -110,7 +109,7 @@ public final class UsersPage extends AbstractDatatablePage<UserRow> {
 
             @SuppressWarnings("unchecked")
             List<HtmlListItem> choices = (List<HtmlListItem>) page
-            .getByXPath("//div[contains(@class, 'ui-columntoggler')]/ul[contains(@class, 'ui-columntoggler-items')]/li[contains(@class, 'ui-columntoggler-item')]");
+                    .getByXPath("//div[contains(@class, 'ui-columntoggler')]/ul[contains(@class, 'ui-columntoggler-items')]/li[contains(@class, 'ui-columntoggler-item')]");
             HtmlListItem choice = choices.stream()
                     .filter(li -> converter.apply(((HtmlLabel) li.getByXPath("./label").get(0)).asText()).equals(column))
                     .findAny().get();

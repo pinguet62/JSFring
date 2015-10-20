@@ -10,7 +10,9 @@ import org.apache.commons.lang3.StringUtils;
 
 public final class DateUtils {
 
-    public static final DateFormat DATETIME_FORMATTER = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+    public static final DateFormat DATE_FORMATTER = new SimpleDateFormat("MM/dd/yyyy");
+
+    public static final DateFormat DATETIME_FORMATTER = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
 
     /**
      * Test if the 2 {@link Date} have the same second.
@@ -74,7 +76,7 @@ public final class DateUtils {
 
         try {
             if (value.length() == 10) // Date
-                return new SimpleDateFormat("dd/MM/yyyy").parse(value);
+                return DATE_FORMATTER.parse(value);
             else if (value.length() == 19) // Datetime
                 return DATETIME_FORMATTER.parse(value);
 
@@ -85,6 +87,7 @@ public final class DateUtils {
     }
 
     // Util class
-    private DateUtils() {}
+    private DateUtils() {
+    }
 
 }
