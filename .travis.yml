@@ -2,5 +2,6 @@
 
 language: java
 jdk: oraclejdk8
+# instead of 'mvn test -B'
 script: 'mvn verify -B'
-after_success: mvn jacoco:report coveralls:report
+after_success: mvn clean jacoco:report coveralls:report
