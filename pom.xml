@@ -432,11 +432,11 @@
 							<goal>prepare-agent</goal>
 						</goals>
 						<configuration>
-							<!-- <destFile>${jacoco.it.execution.data.file}</destFile> -->
+							<destFile>${jacoco.it.execution.data.file}</destFile>
 							<propertyName>failsafeArgLine</propertyName>
 						</configuration>
 					</execution>
-					<!-- <execution>
+					<execution>
 						<id>post-integration-test</id>
 						<phase>post-integration-test</phase>
 						<goals>
@@ -444,9 +444,9 @@
 						</goals>
 						<configuration>
 							<dataFile>${jacoco.it.execution.data.file}</dataFile>
-							<outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory>
+							<!-- <outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory> -->
 						</configuration>
-					</execution> -->
+					</execution>
 					<execution>
 						<id>merge-exec-data</id>
 						<phase>post-integration-test</phase>
