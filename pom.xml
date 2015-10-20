@@ -419,8 +419,10 @@
 						<goals>
 							<goal>report</goal>
 						</goals>
-						<!-- <configuration> <dataFile>${jacoco.ut.execution.data.file}</dataFile> <outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory> 
-							</configuration> -->
+						<configuration>
+							<dataFile>${jacoco.ut.execution.data.file}</dataFile>
+							<!-- <outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory> -->
+						</configuration>
 					</execution>
 					<!-- Integration-test -->
 					<execution>
@@ -440,8 +442,10 @@
 						<goals>
 							<goal>report</goal>
 						</goals>
-						<!-- <configuration> <dataFile>${jacoco.it.execution.data.file}</dataFile> <outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory> 
-							</configuration> -->
+						<configuration>
+							<dataFile>${jacoco.it.execution.data.file}</dataFile>
+							<!-- <outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory> -->
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
