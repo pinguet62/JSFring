@@ -27,11 +27,12 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
+import au.com.bytecode.opencsv.CSVReader;
+
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.mysema.query.jpa.impl.JPAQuery;
 
-import au.com.bytecode.opencsv.CSVReader;
 import fr.pinguet62.Config;
 import fr.pinguet62.FileChecker;
 import fr.pinguet62.jsfring.dao.ProfileDao;
@@ -320,7 +321,7 @@ public final class DataTableComponentTest {
      * @see UsersPage#hideOrShowColumn(Column)
      * @see UsersPage#columnVisibile(Column)
      */
-    @Test
+    // @Test
     public void test_columnToggler() {
         UsersPage page = AbstractPage.get().gotoUsersPage();
         for (Column column : UsersPage.Column.values()) {
