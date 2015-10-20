@@ -399,8 +399,8 @@
 				<configuration>
 					<excludes>
 						<exclude>**com.steadystate*</exclude>
-						<exclude>fr.pinguet62.jsfring.model.Q*</exclude>
-						<exclude>fr.pinguet62.jsfring.model.sample.Q*</exclude>
+						<exclude>fr/pinguet62/jsfring/model/Q*</exclude>
+						<exclude>fr/pinguet62/jsfring/model/sample/Q*</exclude>
 					</excludes>
 				</configuration>
 				<executions>
