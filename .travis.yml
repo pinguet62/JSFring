@@ -4,10 +4,8 @@ language: java
 jdk: oraclejdk8
 
 # Override default: 'mvn test -B'
-# Need to by executed twice
 script:
-  - mvn verify -B
   - mvn verify -B
 
 after_success:
-  - mvn jacoco:report coveralls:report
+  - mvn jacoco:report@post-integration-test coveralls:report
