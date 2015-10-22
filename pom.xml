@@ -400,7 +400,7 @@
 					<excludes>
 						<exclude>**com.steadystate*</exclude>
 						<!-- Generated sources -->
-						<exclude>fr/pinguet62/jsfring/model/**/Q*.java</exclude>
+						<exclude>fr/pinguet62/jsfring/model/**/Q*.class</exclude>
 					</excludes>
 				</configuration>
 				<executions>
