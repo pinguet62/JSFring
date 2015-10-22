@@ -63,8 +63,9 @@ public final class PropertyConverter implements Function<String, SimpleExpressio
             try {
                 targetAttribute = (SimpleExpression<?>) field.get(targetAttribute);
             } catch (IllegalArgumentException | IllegalAccessException exception) {
-                throw new RuntimeException("Error during getting the attribute value: " + targetAttribute.getClass() + "#"
-                        + attributeName, exception);
+                throw new ReflectionException(
+                        "Error during getting the attribute value: " + targetAttribute.getClass() + "#" + attributeName,
+                        exception);
             }
         }
         return targetAttribute;

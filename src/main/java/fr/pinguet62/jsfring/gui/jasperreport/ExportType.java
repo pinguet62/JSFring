@@ -4,6 +4,7 @@ import java.util.function.Supplier;
 
 import net.sf.jasperreports.engine.JRAbstractExporter;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRRuntimeException;
 import net.sf.jasperreports.engine.export.HtmlExporter;
 import net.sf.jasperreports.engine.export.JRCsvExporter;
 import net.sf.jasperreports.engine.export.JRExporterContext;
@@ -39,9 +40,9 @@ public enum ExportType {
         try {
             return new JRGraphics2DExporter();
         } catch (JRException e) {
-            throw new RuntimeException(e);
+            throw new JRRuntimeException(e);
         }
-    }, "???", "???"),
+    } , "???", "???"),
 
     /** Hypertext Markup Language */
     HTML(HtmlExporter::new, "text/html", "html"),

@@ -55,7 +55,7 @@ public class AbstractPage {
         try {
             IOUtils.write(xml, new FileOutputStream(TMP_FILE));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new NavigatorException(e);
         }
     }
 
@@ -216,7 +216,7 @@ public class AbstractPage {
                 LOGGER.trace("Wait " + t + "ms");
                 Thread.sleep(period);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                throw new NavigatorException(e);
             }
     }
 
