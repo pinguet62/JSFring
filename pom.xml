@@ -147,7 +147,7 @@
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
-			<version>5.2</version>
+			<version>5.3</version>
 		</dependency>
 		<dependency>
 			<!-- Themes -->
@@ -405,9 +405,10 @@
 					</excludes>
 				</configuration>
 				<executions>
-					<!-- Unit-test -->
+					<!-- Unit test -->
 					<execution>
 						<id>pre-unit-test</id>
+						<!-- Default: <phase>initialize</phase> -->
 						<goals>
 							<goal>prepare-agent</goal>
 						</goals>
@@ -427,7 +428,7 @@
 							<outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
 						</configuration>
 					</execution>
-					<!-- Integration-test -->
+					<!-- Integration test -->
 					<execution>
 						<id>pre-integration-test</id>
 						<phase>pre-integration-test</phase>
@@ -439,6 +440,8 @@
 							<propertyName>failsafeArgLine</propertyName>
 						</configuration>
 					</execution>
+					<!-- TODO: not call -->
+					<!-- Workaround: mvn jacoco:report@post-integration-test -->
 					<execution>
 						<id>post-integration-test</id>
 						<phase>post-integration-test</phase>
@@ -462,7 +465,7 @@
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
-				<version>9.3.4.v20151007</version>
+				<version>9.3.5.v20151012</version>
 				<configuration>
 					<scanIntervalSeconds>3</scanIntervalSeconds>
 					<stopPort>8079</stopPort>
@@ -489,35 +492,36 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- Report: Unit-test -->
+			<!-- Unit test -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.18.1</version>
+				<version>2.19</version>
 				<configuration>
+					<argLine>${surefireArgLine}</argLine>
 					<excludes>
 						<exclude>fr/pinguet62/jsfring/gui/**/*.java</exclude>
 					</excludes>
-					<argLine>${surefireArgLine}</argLine>
 				</configuration>
 			</plugin>
-			<!-- Report: Integration-test -->
+			<!-- Integration test -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>2.18.1</version>
-				<configuration>
-					<includes>
-						<include>fr/pinguet62/jsfring/gui/**/*.java</include>
-					</includes>
-					<argLine>${failsafeArgLine}</argLine>
-				</configuration>
+				<version>2.19</version>
 				<executions>
 					<execution>
+						<id>integration-test</id>
 						<goals>
 							<goal>integration-test</goal>
 							<goal>verify</goal>
 						</goals>
+						<configuration>
+							<argLine>${failsafeArgLine}</argLine>
+							<includes>
+								<include>fr/pinguet62/jsfring/gui/**/*.java</include>
+							</includes>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
