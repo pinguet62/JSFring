@@ -400,8 +400,7 @@
 					<excludes>
 						<exclude>**com.steadystate*</exclude>
 						<!-- Generated sources -->
-						<exclude>fr/pinguet62/jsfring/model/Q*</exclude>
-						<exclude>fr/pinguet62/jsfring/model/sample/Q*</exclude>
+						<exclude>fr/pinguet62/jsfring/model/**/Q*.java</exclude>
 					</excludes>
 				</configuration>
 				<executions>
@@ -440,8 +439,6 @@
 							<propertyName>failsafeArgLine</propertyName>
 						</configuration>
 					</execution>
-					<!-- TODO: not call -->
-					<!-- Workaround: mvn jacoco:report@post-integration-test -->
 					<execution>
 						<id>post-integration-test</id>
 						<phase>post-integration-test</phase>
