@@ -6,7 +6,9 @@ import javax.faces.validator.LongRangeValidator;
 import javax.faces.validator.RegexValidator;
 import javax.inject.Named;
 
+import com.mysema.query.types.expr.NumberExpression;
 import com.mysema.query.types.expr.StringExpression;
+import com.mysema.query.types.path.StringPath;
 
 import fr.pinguet62.jsfring.gui.component.filter.NumberPathFilter;
 import fr.pinguet62.jsfring.gui.component.filter.StringPathFilter;
@@ -18,29 +20,32 @@ import fr.pinguet62.jsfring.util.cdi.scope.SpringViewScoped;
 @SpringViewScoped
 public final class FilterPathBean implements Serializable {
 
+    public static final NumberExpression<Integer> EXPRESSION_NUMBER = QUser.user.email.length();
+    public static final StringPath EXPRESSION_STRING = QUser.user.login;
+
     private static final long serialVersionUID = 1;
 
     /**
      * @see User#email
      * @see StringExpression#length()
      */
-    private NumberPathFilter<Integer> numberFilterDefault = new NumberPathFilter<Integer>(QUser.user.email.length());
+    private NumberPathFilter<Integer> numberFilterDefault = new NumberPathFilter<Integer>(EXPRESSION_NUMBER);
 
     /**
      * @see User#email
      * @see StringExpression#length()
      * @see LongRangeValidator
      */
-    private NumberPathFilter<Integer> numberFilterLongRange = new NumberPathFilter<Integer>(QUser.user.email.length());
+    private NumberPathFilter<Integer> numberFilterLongRange = new NumberPathFilter<Integer>(EXPRESSION_NUMBER);
 
     /** @see User#login */
-    private StringPathFilter stringFilterDefault = new StringPathFilter(QUser.user.login);
+    private StringPathFilter stringFilterDefault = new StringPathFilter(EXPRESSION_STRING);
 
     /**
      * @see User#login
      * @see RegexValidator
      */
-    private StringPathFilter stringFilterRegex = new StringPathFilter(QUser.user.login);
+    private StringPathFilter stringFilterRegex = new StringPathFilter(EXPRESSION_STRING);
 
     public NumberPathFilter<Integer> getNumberFilterDefault() {
         return numberFilterDefault;

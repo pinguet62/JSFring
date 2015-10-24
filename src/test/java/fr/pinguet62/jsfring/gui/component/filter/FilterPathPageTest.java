@@ -1,17 +1,24 @@
 package fr.pinguet62.jsfring.gui.component.filter;
 
+import static fr.pinguet62.jsfring.gui.sample.FilterPathBean.EXPRESSION_NUMBER;
+import static fr.pinguet62.jsfring.gui.sample.FilterPathBean.EXPRESSION_STRING;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
+import java.util.function.Function;
+
+import javax.faces.validator.LongRangeValidator;
 import javax.faces.validator.RegexValidator;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 import com.mysema.query.BooleanBuilder;
 import com.mysema.query.types.Predicate;
-import com.mysema.query.types.expr.NumberExpression;
-import com.mysema.query.types.path.StringPath;
 
 import fr.pinguet62.jsfring.gui.component.filter.operator.BetweenOperator;
 import fr.pinguet62.jsfring.gui.component.filter.operator.ContainsOperator;
@@ -21,232 +28,226 @@ import fr.pinguet62.jsfring.gui.component.filter.operator.GreaterThanOperator;
 import fr.pinguet62.jsfring.gui.component.filter.operator.IsNullOperator;
 import fr.pinguet62.jsfring.gui.component.filter.operator.LessThanOperator;
 import fr.pinguet62.jsfring.gui.component.filter.operator.LikeOperator;
+import fr.pinguet62.jsfring.gui.component.filter.operator.Operator;
 import fr.pinguet62.jsfring.gui.component.filter.operator.StartsWithOperator;
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.filter.FilterField;
 import fr.pinguet62.jsfring.gui.htmlunit.filter.FilterPathPage;
 import fr.pinguet62.jsfring.gui.sample.FilterPathBean;
-import fr.pinguet62.jsfring.model.QUser;
 
 /**
  * @see PathFilter
  * @see FilterPathBean
+ * @see StringPathFilter
+ * @see RegexValidator
+ * @see NumberPathFilter
+ * @see LongRangeValidator
  */
+@RunWith(Parameterized.class)
 public final class FilterPathPageTest {
 
-    private static class Case {
-
-        public static Case forField(FilterField field) {
-            return new Case(field);
-        }
-
-        private final FilterField field;
-
-        private Case(FilterField field) {
-            this.field = field;
-        }
-
-        public Case andValues(String... values) {
-            for (int i = 0; i < values.length; i++)
-                field.setValue(i, values[i]);
-            return this;
-        }
-
-        public void mustFail() {
-            field.submit();
-            assertTrue(field.isError());
-        }
-
-        public void mustGenerate(Predicate result) {
-            field.submit();
-            assertFalse(field.isError());
-            assertEquals(result.toString(), field.getQuery());
-        }
-
-        public Case theOperator(Class<?> operator) {
-            field.setOperator(operator);
-            return this;
-        }
-
-    }
-
-    private static final NumberExpression<Integer> number = QUser.user.email.length();
+    // Because lambda cannot be used into inline array
+    private static final Function<FilterPathPage, FilterField> fieldNumber = FilterPathPage::getNumberFilterDefault;
+    private static final Function<FilterPathPage, FilterField> fieldNumberLongRange = FilterPathPage::getNumberFilterLongRange;
+    private static final Function<FilterPathPage, FilterField> fieldString = FilterPathPage::getStringFilterDefault;
+    private static final Function<FilterPathPage, FilterField> fieldStringRegex = FilterPathPage::getStringFilterRegex;
 
     private static final FilterPathPage page = AbstractPage.get().gotoSampleFilterSimple();
 
-    private static final StringPath string = QUser.user.login;
+    @Parameters
+    public static Iterable<Object[]> params() {
+        return Arrays.asList(new Object[][] { //
+                // ===== String
 
-    /** @see NumberPathFilter */
-    //@Test
-    public void test_NumberPathFilter() {
-        FilterField numberDefault = page.getNumberFilterDefault();
+                { fieldString, null, new String[] {}, new BooleanBuilder() },
 
-        Case.forField(numberDefault).theOperator(null).andValues().mustGenerate(new BooleanBuilder());
+                { fieldString, IsNullOperator.class, new String[] {}, EXPRESSION_STRING.isNull() },
 
-        Case.forField(numberDefault).theOperator(IsNullOperator.class).andValues().mustGenerate(number.isNull());
+                { fieldString, EqualsToOperator.class, new String[] { "" }, EXPRESSION_STRING.eq("") },
+                { fieldString, EqualsToOperator.class, new String[] { "foo" }, EXPRESSION_STRING.eq("foo") },
 
-        // validateRequired
-        Case.forField(numberDefault).theOperator(EqualsToOperator.class).andValues("").mustFail();
-        // converter
-        Case.forField(numberDefault).theOperator(EqualsToOperator.class).andValues("foo").mustFail();
-        Case.forField(numberDefault).theOperator(EqualsToOperator.class).andValues("1234").mustGenerate(number.eq(1234));
+                { fieldString, StartsWithOperator.class, new String[] { "" }, new BooleanBuilder() },
+                { fieldString, StartsWithOperator.class, new String[] { "foo" }, EXPRESSION_STRING.startsWith("foo") },
 
-        // validateRequired
-        Case.forField(numberDefault).theOperator(GreaterThanOperator.class).andValues("").mustFail();
-        // converter
-        Case.forField(numberDefault).theOperator(GreaterThanOperator.class).andValues("foo").mustFail();
-        Case.forField(numberDefault).theOperator(GreaterThanOperator.class).andValues("1234").mustGenerate(number.gt(1234));
+                { fieldString, ContainsOperator.class, new String[] { "" }, new BooleanBuilder() },
+                { fieldString, ContainsOperator.class, new String[] { "foo" }, EXPRESSION_STRING.contains("foo") },
 
-        // validateRequired
-        Case.forField(numberDefault).theOperator(LessThanOperator.class).andValues("").mustFail();
-        // converter
-        Case.forField(numberDefault).theOperator(LessThanOperator.class).andValues("foo").mustFail();
-        Case.forField(numberDefault).theOperator(LessThanOperator.class).andValues("1234").mustGenerate(number.lt(1234));
+                { fieldString, EndsWithOperator.class, new String[] { "" }, new BooleanBuilder() },
+                { fieldString, EndsWithOperator.class, new String[] { "foo" }, EXPRESSION_STRING.endsWith("foo") },
 
-        // validateRequired
-        Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("", "").mustFail();
-        // validateRequired + converter
-        Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("", "bar").mustFail();
-        // validateRequired
-        Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("", "12").mustFail();
-        // converter + validateRequired
-        Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("foo", "").mustFail();
-        // validateRequired
-        Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("12", "").mustFail();
-        // converter
-        Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("foo", "bar").mustFail();
-        Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("12", "34")
-                .mustGenerate(number.between(12, 34));
+                { fieldString, LikeOperator.class, new String[] { "" }, new BooleanBuilder() },
+                { fieldString, LikeOperator.class, new String[] { "foo" }, EXPRESSION_STRING.like("foo") },
+
+                // ===== String: RegexValidator
+
+                { fieldStringRegex, null, new String[] {}, new BooleanBuilder() },
+
+                { fieldStringRegex, IsNullOperator.class, new String[] {}, EXPRESSION_STRING.isNull() },
+
+                // validateRegex
+                { fieldStringRegex, EqualsToOperator.class, new String[] { "" }, null },
+                // validateRegex
+                { fieldStringRegex, EqualsToOperator.class, new String[] { "foo" }, null },
+                { fieldStringRegex, EqualsToOperator.class, new String[] { "1234" }, EXPRESSION_STRING.eq("1234") },
+
+                // validateRegex
+                { fieldStringRegex, StartsWithOperator.class, new String[] { "" }, null },
+                // validateRegex
+                { fieldStringRegex, StartsWithOperator.class, new String[] { "foo" }, null },
+                { fieldStringRegex, StartsWithOperator.class, new String[] { "1234" }, EXPRESSION_STRING.startsWith("1234") },
+
+                // validateRegex
+                { fieldStringRegex, ContainsOperator.class, new String[] { "" }, null },
+                // validateRegex
+                { fieldStringRegex, ContainsOperator.class, new String[] { "foo" }, null },
+                { fieldStringRegex, ContainsOperator.class, new String[] { "1234" }, EXPRESSION_STRING.contains("1234") },
+
+                // validateRegex
+                { fieldStringRegex, EndsWithOperator.class, new String[] { "" }, null },
+                // validateRegex
+                { fieldStringRegex, EndsWithOperator.class, new String[] { "foo" }, null },
+                { fieldStringRegex, EndsWithOperator.class, new String[] { "1234" }, EXPRESSION_STRING.endsWith("1234") },
+
+                // validateRegex
+                { fieldStringRegex, LikeOperator.class, new String[] { "" }, null },
+                // validateRegex
+                { fieldStringRegex, LikeOperator.class, new String[] { "foo" }, null },
+                { fieldStringRegex, LikeOperator.class, new String[] { "1234" }, EXPRESSION_STRING.like("1234") },
+
+                // ===== Number: Converter
+
+                { fieldNumber, null, new String[] {}, new BooleanBuilder() },
+
+                { fieldNumber, IsNullOperator.class, new String[] {}, EXPRESSION_NUMBER.isNull() },
+
+                // validateRequired
+                { fieldNumber, EqualsToOperator.class, new String[] { "" }, null },
+                // converter
+                { fieldNumber, EqualsToOperator.class, new String[] { "foo" }, null },
+                { fieldNumber, EqualsToOperator.class, new String[] { "1234" }, EXPRESSION_NUMBER.eq(1234) },
+
+                // validateRequired
+                { fieldNumber, GreaterThanOperator.class, new String[] { "" }, null },
+                // converter
+                { fieldNumber, GreaterThanOperator.class, new String[] { "foo" }, null },
+                { fieldNumber, GreaterThanOperator.class, new String[] { "1234" }, EXPRESSION_NUMBER.gt(1234) },
+
+                // validateRequired
+                { fieldNumber, LessThanOperator.class, new String[] { "" }, null },
+                // converter
+                { fieldNumber, LessThanOperator.class, new String[] { "foo" }, null },
+                { fieldNumber, LessThanOperator.class, new String[] { "1234" }, EXPRESSION_NUMBER.lt(1234) },
+
+                // validateRequired
+                { fieldNumber, BetweenOperator.class, new String[] { "", "" }, null },
+                // validateRequired + converter
+                { fieldNumber, BetweenOperator.class, new String[] { "", "bar" }, null },
+                // validateRequired
+                { fieldNumber, BetweenOperator.class, new String[] { "", "12" }, null },
+                // converter + validateRequired
+                { fieldNumber, BetweenOperator.class, new String[] { "foo", "" }, null },
+                // validateRequired
+                { fieldNumber, BetweenOperator.class, new String[] { "12", "" }, null },
+                // converter
+                { fieldNumber, BetweenOperator.class, new String[] { "foo", "bar" }, null },
+                { fieldNumber, BetweenOperator.class, new String[] { "12", "34" }, EXPRESSION_NUMBER.between(12, 34) },
+
+                // ===== Number: Converter + LongRangeValidator
+
+                { fieldNumberLongRange, null, new String[] {}, new BooleanBuilder() },
+
+                { fieldNumberLongRange, IsNullOperator.class, new String[] {}, EXPRESSION_NUMBER.isNull() },
+
+                // validateRequired
+                { fieldNumberLongRange, EqualsToOperator.class, new String[] { "" }, null },
+                // converter
+                { fieldNumberLongRange, EqualsToOperator.class, new String[] { "foo" }, null },
+                // validateLongRange
+                { fieldNumberLongRange, EqualsToOperator.class, new String[] { "0" }, null },
+                // validateLongRange
+                { fieldNumberLongRange, EqualsToOperator.class, new String[] { "999" }, null },
+                { fieldNumberLongRange, EqualsToOperator.class, new String[] { "12" }, EXPRESSION_NUMBER.eq(12) },
+
+                // validateRequired
+                { fieldNumberLongRange, GreaterThanOperator.class, new String[] { "" }, null },
+                // converter
+                { fieldNumberLongRange, GreaterThanOperator.class, new String[] { "foo" }, null },
+                // validateLongRange
+                { fieldNumberLongRange, GreaterThanOperator.class, new String[] { "0" }, null },
+                // validateLongRange
+                { fieldNumberLongRange, GreaterThanOperator.class, new String[] { "999" }, null },
+                { fieldNumberLongRange, GreaterThanOperator.class, new String[] { "12" }, EXPRESSION_NUMBER.gt(12) },
+
+                // validateRequired
+                { fieldNumberLongRange, LessThanOperator.class, new String[] { "" }, null },
+                // converter
+                { fieldNumberLongRange, LessThanOperator.class, new String[] { "foo" }, null },
+                // validateLongRange
+                { fieldNumberLongRange, LessThanOperator.class, new String[] { "0" }, null },
+                // validateLongRange
+                { fieldNumberLongRange, LessThanOperator.class, new String[] { "999" }, null },
+                { fieldNumberLongRange, LessThanOperator.class, new String[] { "12" }, EXPRESSION_NUMBER.lt(12) },
+
+                // validateRequired
+                { fieldNumberLongRange, BetweenOperator.class, new String[] { "", "" }, null },
+                // validateRequired + converter
+                { fieldNumberLongRange, BetweenOperator.class, new String[] { "", "bar" }, null },
+                // validateRequired
+                { fieldNumberLongRange, BetweenOperator.class, new String[] { "", "12" }, null },
+                // converter + validateRequired
+                { fieldNumberLongRange, BetweenOperator.class, new String[] { "foo", "" }, null },
+                // validateRequired
+                { fieldNumberLongRange, BetweenOperator.class, new String[] { "12", "" }, null },
+                { fieldNumberLongRange, BetweenOperator.class, new String[] { "foo", "bar" }, null },
+                // validateRequired
+                { fieldNumberLongRange, BetweenOperator.class, new String[] { "0", "999" }, null },
+                // validateRequired
+                { fieldNumberLongRange, BetweenOperator.class, new String[] { "12", "999" }, null },
+                // validateRequired
+                { fieldNumberLongRange, BetweenOperator.class, new String[] { "0", "34" }, null },
+                { fieldNumberLongRange, BetweenOperator.class, new String[] { "12", "34" }, EXPRESSION_NUMBER.between(12, 34) }
+
+                // =====
+        });
     }
 
-    /** @see NumberPathFilter */
-    //@Test
-    public void test_NumberPathFilter_LongRange() {
-        FilterField numberDefault = page.getNumberFilterLongRange();
-
-        Case.forField(numberDefault).theOperator(null).andValues().mustGenerate(new BooleanBuilder());
-
-        Case.forField(numberDefault).theOperator(IsNullOperator.class).andValues().mustGenerate(number.isNull());
-
-        // validateRequired
-        Case.forField(numberDefault).theOperator(EqualsToOperator.class).andValues("").mustFail();
-        // converter
-        Case.forField(numberDefault).theOperator(EqualsToOperator.class).andValues("foo").mustFail();
-        // validateLongRange
-        Case.forField(numberDefault).theOperator(EqualsToOperator.class).andValues("0").mustFail();
-        // validateLongRange
-        Case.forField(numberDefault).theOperator(EqualsToOperator.class).andValues("999").mustFail();
-        Case.forField(numberDefault).theOperator(EqualsToOperator.class).andValues("12").mustGenerate(number.eq(12));
-
-        // validateRequired
-        Case.forField(numberDefault).theOperator(GreaterThanOperator.class).andValues("").mustFail();
-        // converter
-        Case.forField(numberDefault).theOperator(GreaterThanOperator.class).andValues("foo").mustFail();
-        // validateLongRange
-        Case.forField(numberDefault).theOperator(GreaterThanOperator.class).andValues("0").mustFail();
-        // validateLongRange
-        Case.forField(numberDefault).theOperator(GreaterThanOperator.class).andValues("999").mustFail();
-        Case.forField(numberDefault).theOperator(GreaterThanOperator.class).andValues("12").mustGenerate(number.gt(12));
-
-        // validateRequired
-        Case.forField(numberDefault).theOperator(LessThanOperator.class).andValues("").mustFail();
-        // converter
-        Case.forField(numberDefault).theOperator(LessThanOperator.class).andValues("foo").mustFail();
-        // validateLongRange
-        Case.forField(numberDefault).theOperator(LessThanOperator.class).andValues("0").mustFail();
-        // validateLongRange
-        Case.forField(numberDefault).theOperator(LessThanOperator.class).andValues("999").mustFail();
-        Case.forField(numberDefault).theOperator(LessThanOperator.class).andValues("12").mustGenerate(number.lt(12));
-
-        // validateRequired
-        Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("", "").mustFail();
-        // validateRequired + converter
-        Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("", "bar").mustFail();
-        // validateRequired
-        Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("", "12").mustFail();
-        // converter + validateRequired
-        Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("foo", "").mustFail();
-        // validateRequired
-        Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("12", "").mustFail();
-        Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("foo", "bar").mustFail();
-        // validateRequired
-        Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("0", "999").mustFail();
-        // validateRequired
-        Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("12", "999").mustFail();
-        // validateRequired
-        Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("0", "34").mustFail();
-        Case.forField(numberDefault).theOperator(BetweenOperator.class).andValues("12", "34")
-                .mustGenerate(number.between(12, 34));
-    }
-
-    /** @see StringPathFilter */
-    //@Test
-    public void test_StringPathFilter() {
-        FilterField stringDefault = page.getStringFilterDefault();
-
-        Case.forField(stringDefault).theOperator(null).andValues().mustGenerate(new BooleanBuilder());
-
-        Case.forField(stringDefault).theOperator(IsNullOperator.class).andValues().mustGenerate(string.isNull());
-
-        Case.forField(stringDefault).theOperator(EqualsToOperator.class).andValues("").mustGenerate(string.eq(""));
-        Case.forField(stringDefault).theOperator(EqualsToOperator.class).andValues("foo").mustGenerate(string.eq("foo"));
-
-        Case.forField(stringDefault).theOperator(StartsWithOperator.class).andValues("").mustGenerate(new BooleanBuilder());
-        Case.forField(stringDefault).theOperator(StartsWithOperator.class).andValues("foo")
-                .mustGenerate(string.startsWith("foo"));
-
-        Case.forField(stringDefault).theOperator(ContainsOperator.class).andValues("").mustGenerate(new BooleanBuilder());
-        Case.forField(stringDefault).theOperator(ContainsOperator.class).andValues("foo").mustGenerate(string.contains("foo"));
-
-        Case.forField(stringDefault).theOperator(EndsWithOperator.class).andValues("").mustGenerate(new BooleanBuilder());
-        Case.forField(stringDefault).theOperator(EndsWithOperator.class).andValues("foo").mustGenerate(string.endsWith("foo"));
-
-        Case.forField(stringDefault).theOperator(LikeOperator.class).andValues("").mustGenerate(new BooleanBuilder());
-        Case.forField(stringDefault).theOperator(LikeOperator.class).andValues("foo").mustGenerate(string.like("foo"));
-    }
+    // Test parameters
+    private final Function<FilterPathPage, FilterField> fieldFactory;
+    private final Class<?> operator;
+    private final Predicate result;
+    private final String[] values;
 
     /**
-     * @see StringPathFilter
-     * @see RegexValidator
+     * @param fieldFactory The function to get {@link FilterField} to test from
+     *            {@link FilterPathPage}.
+     * @param operator The {@link Operator} implementation to choose.
+     * @param values The values.<br>
+     *            All values that the operator has parameters<br>
+     *            An empty array if no parameter.
+     * @param result The {@link Predicate} result.<br>
+     *            {@code null} for fail.
      */
+    public FilterPathPageTest(Function<FilterPathPage, FilterField> fieldFactory, Class<?> operator, String[] values,
+            Predicate result) {
+        this.fieldFactory = fieldFactory;
+        this.operator = operator;
+        this.values = values;
+        this.result = result;
+    }
+
     @Test
-    public void test_StringPathFilter_RegexValidator() {
-        FilterField stringRegex = page.getStringFilterRegex();
-
-        Case.forField(stringRegex).theOperator(null).andValues().mustGenerate(new BooleanBuilder());
-
-        Case.forField(stringRegex).theOperator(IsNullOperator.class).andValues().mustGenerate(string.isNull());
-
-        // // validateRegex
-        // Case.forField(stringRegex).theOperator(EqualsToOperator.class).andValues("").mustFail();
-        // // validateRegex
-        // Case.forField(stringRegex).theOperator(EqualsToOperator.class).andValues("foo").mustFail();
-        // Case.forField(stringRegex).theOperator(EqualsToOperator.class).andValues("1234").mustGenerate(string.eq("1234"));
-        // 
-        // // validateRegex
-        // Case.forField(stringRegex).theOperator(StartsWithOperator.class).andValues("").mustFail();
-        // // validateRegex
-        // Case.forField(stringRegex).theOperator(StartsWithOperator.class).andValues("foo").mustFail();
-        // Case.forField(stringRegex).theOperator(StartsWithOperator.class).andValues("1234")
-        //         .mustGenerate(string.startsWith("1234"));
-        // 
-        // // validateRegex
-        // Case.forField(stringRegex).theOperator(ContainsOperator.class).andValues("").mustFail();
-        // // validateRegex
-        // Case.forField(stringRegex).theOperator(ContainsOperator.class).andValues("foo").mustFail();
-        // Case.forField(stringRegex).theOperator(ContainsOperator.class).andValues("1234").mustGenerate(string.contains("1234"));
-        // 
-        // // validateRegex
-        // Case.forField(stringRegex).theOperator(EndsWithOperator.class).andValues("").mustFail();
-        // // validateRegex
-        // Case.forField(stringRegex).theOperator(EndsWithOperator.class).andValues("foo").mustFail();
-        // Case.forField(stringRegex).theOperator(EndsWithOperator.class).andValues("1234").mustGenerate(string.endsWith("1234"));
-        // 
-        // // validateRegex
-        // Case.forField(stringRegex).theOperator(LikeOperator.class).andValues("").mustFail();
-        // // validateRegex
-        // Case.forField(stringRegex).theOperator(LikeOperator.class).andValues("foo").mustFail();
-        // Case.forField(stringRegex).theOperator(LikeOperator.class).andValues("1234").mustGenerate(string.like("1234"));
+    public void test() {
+        FilterField field = fieldFactory.apply(page);
+        field.setOperator(operator);
+        for (int i = 0; i < values.length; i++)
+            field.setValue(i, values[i]);
+        field.submit();
+        if (result == null)
+            assertTrue(field.isError());
+        else {
+            assertFalse(field.isError());
+            assertEquals(result.toString(), field.getQuery());
+        }
     }
 
 }
