@@ -48,11 +48,12 @@ public final class FilterConverter implements Function<Map<String, Object>, Pred
      */
     @Override
     public Predicate apply(Map<String, Object> filters) {
+        PropertyConverter propertyConverter = new PropertyConverter(meta);
         BooleanBuilder builder = new BooleanBuilder();
         for (Entry<String, Object> filter : filters.entrySet()) {
             // Attribute
             String property = filter.getKey();
-            SimpleExpression<?> attribute = new PropertyConverter(meta).apply(property);
+            SimpleExpression<?> attribute = propertyConverter.apply(property);
             ComparableExpressionBase<?> comparable = (ComparableExpressionBase<?>) attribute;
 
             // Filter value

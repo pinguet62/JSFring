@@ -15,7 +15,7 @@
 	</Appenders>
 
 	<Loggers>
-		<Root level="OFF">
+		<Root level="INFO">
 			<AppenderRef ref="Console" />
 			<!-- <AppenderRef ref="WebappFile" /> -->
 		</Root>

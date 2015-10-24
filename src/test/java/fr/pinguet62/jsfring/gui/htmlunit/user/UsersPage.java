@@ -58,18 +58,19 @@ public final class UsersPage extends AbstractDatatablePage<UserRow> {
     }
 
     /**
-     * Check that {@link HtmlTableHeaderCell table header} {@code style}
-     * contains {@code "display: none"} value;
+     * Check that {@link HtmlTableHeaderCell table header} {@code class}
+     * contains {@code "ui-helper-hidden"} value.
      */
     public boolean columnVisibile(Column column) {
         HtmlTableHeaderCell th = getDatatableTableHeader(column.getTitle());
-        return !th.getAttribute("style").matches(".*display *: *none.*");
+        return !th.getAttribute("class").contains("ui-helper-hidden");
     }
 
     public void filterByActive(ActiveFilter value) {
         // TODO common abstract parent method
-        HtmlDivision div = (HtmlDivision) getDatatableTableHeader(Column.ACTIVE.getTitle()).getByXPath(
-                "./div[contains(@class, 'ui-column-customfilter')]/div[contains(@class, 'ui-selectonebutton')]").get(0);
+        HtmlDivision div = (HtmlDivision) getDatatableTableHeader(Column.ACTIVE.getTitle())
+                .getByXPath("./div[contains(@class, 'ui-column-customfilter')]/div[contains(@class, 'ui-selectonebutton')]")
+                .get(0);
         SelectOneButton<ActiveFilter> selectOneButton = new SelectOneButton<ActiveFilter>(div, ActiveFilter::valueOf);
         selectOneButton.setValue(value);
     }
@@ -79,8 +80,8 @@ public final class UsersPage extends AbstractDatatablePage<UserRow> {
      *            {@code null} to reset filter.
      */
     public void filterLogin(String value) {
-        HtmlInput input = (HtmlInput) getDatatableTableHeader(Column.LOGIN.getTitle()).getByXPath(
-                "./input[contains(@class, 'ui-column-filter')]").get(0);
+        HtmlInput input = (HtmlInput) getDatatableTableHeader(Column.LOGIN.getTitle())
+                .getByXPath("./input[contains(@class, 'ui-column-filter')]").get(0);
         try {
             input.type(value);
             waitJS();
@@ -97,22 +98,21 @@ public final class UsersPage extends AbstractDatatablePage<UserRow> {
 
     // TODO test
     public void hideOrShowColumn(Column column) {
-        Function<String, Column> converter = Column::fromTitle;
-
         try {
             HtmlButton toggler = (HtmlButton) getDatatableHeader().getByXPath("./button[contains(@id, 'toggler')]").get(0);
 
-            // Show
+            // Show Toogler
             page = toggler.click();
             waitJS();
             debug();
 
             @SuppressWarnings("unchecked")
-            List<HtmlListItem> choices = (List<HtmlListItem>) page
-                    .getByXPath("//div[contains(@class, 'ui-columntoggler')]/ul[contains(@class, 'ui-columntoggler-items')]/li[contains(@class, 'ui-columntoggler-item')]");
+            List<HtmlListItem> choices = (List<HtmlListItem>) page.getByXPath(
+                    "//div[contains(@class, 'ui-columntoggler')]/ul[contains(@class, 'ui-columntoggler-items')]/li[contains(@class, 'ui-columntoggler-item')]");
             HtmlListItem choice = choices.stream()
-                    .filter(li -> converter.apply(((HtmlLabel) li.getByXPath("./label").get(0)).asText()).equals(column))
+                    .filter(li -> Column.fromTitle(((HtmlLabel) li.getByXPath("./label").get(0)).asText()).equals(column))
                     .findAny().get();
+            choice.click();
             page = ((HtmlDivision) choice.getByXPath("./div[contains(@class, 'ui-chkbox')]").get(0)).click();
             waitJS();
             debug();
