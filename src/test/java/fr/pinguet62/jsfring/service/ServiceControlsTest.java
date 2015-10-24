@@ -29,6 +29,7 @@ import fr.pinguet62.Config;
 import fr.pinguet62.jsfring.dao.ProfileDao;
 import fr.pinguet62.jsfring.model.Profile;
 import fr.pinguet62.jsfring.service.TestService.RollbackMeIMFamousException;
+import fr.pinguet62.jsfring.util.TestRuntimeException;
 
 /**
  * Tests that the controls of {@link AbstractService} are correct.
@@ -117,7 +118,7 @@ public class ServiceControlsTest {
 class TestService {
 
     /** @see #rollbackedMethod() */
-    class RollbackMeIMFamousException extends RuntimeException {
+    static class RollbackMeIMFamousException extends TestRuntimeException {
         private static final long serialVersionUID = 1;
     }
 
@@ -164,7 +165,7 @@ class TestService {
             actionBefore.join();
             assertFalse(actionBefore.isAlive());
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new TestRuntimeException(e);
         }
 
         // Main action
@@ -181,7 +182,7 @@ class TestService {
             Date endJoin = new Date();
             assertTrue(endJoin.getTime() - startJoin.getTime() > maxWait);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new TestRuntimeException(e);
         }
 
         LOGGER.debug("Main thread: end transaction");
@@ -210,7 +211,7 @@ class TestService {
     /**
      * <ul>
      * <li>Insert an object</li>
-     * <li>Throw an {@link RuntimeException}</li>
+     * <li>Throw an {@link TestRuntimeException}</li>
      * </ul>
      *
      * @throws RollbackMeIMFamousException Always thrown.
@@ -229,7 +230,7 @@ class TestService {
             LOGGER.trace("Write: " + new Date().getTime());
             Thread.sleep(2_000);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new TestRuntimeException(e);
         }
 
         profileDao.deleteAll();
@@ -238,7 +239,7 @@ class TestService {
         try {
             Thread.sleep(2_000);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new TestRuntimeException(e);
         }
     }
 

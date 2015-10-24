@@ -16,9 +16,10 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
- * Filter who intercepts GET parameters used to change user's {@link Locale}.<br>
+ * Filter who intercepts GET parameters used to change user's {@link Locale}.
+ * <br>
  * {@link LangBean#setLocale(Locale) Set the locale} when the value is present.
- * 
+ *
  * @see LangBean
  * @see #PARAMETER
  */
@@ -31,12 +32,17 @@ public final class LangFilter implements Filter {
     private BeanFactory factory;
 
     @Override
-    public void destroy() {
-    }
+    public void destroy() {}
 
+    /**
+     * Get the {@link #PARAMETER}.<br>
+     * If it's present: update the {@link LangBean}.
+     *
+     * @see LangBean#setLocale(Locale)
+     */
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
-            ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
         String locale = ((HttpServletRequest) request).getParameter(PARAMETER);
         if (locale != null) {
             LangBean langBean = factory.getBean(LangBean.class);
@@ -46,7 +52,12 @@ public final class LangFilter implements Filter {
         chain.doFilter(request, response);
     }
 
-    /** Initialize the {@link #factory}. */
+    /**
+     * Initialize the {@link #factory}.<br>
+     * Filter cannot be injected.
+     *
+     * @see WebApplicationContextUtils#getRequiredWebApplicationContext(javax.servlet.ServletContext)
+     */
     @Override
     public void init(FilterConfig config) throws ServletException {
         factory = WebApplicationContextUtils.getRequiredWebApplicationContext(config.getServletContext());
