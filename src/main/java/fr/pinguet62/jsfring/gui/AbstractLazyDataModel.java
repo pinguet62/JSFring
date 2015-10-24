@@ -44,7 +44,7 @@ public class AbstractLazyDataModel<T extends Serializable> extends LazyDataModel
      * <p>
      * Get the current {@link AbstractBean#getQuery() query} and add paginated
      * request to limit, filter & order results. <br>
-     * <u>Exemple:</u> for <code>pageSize=5</code>, the 3rd page will have
+     * <u>Example:</u> for <code>pageSize=5</code>, the 3rd page will have
      * <code>first=10</code>.
      * <p>
      * For filtering, the field name doesn't contains the object name on with EL
@@ -52,12 +52,17 @@ public class AbstractLazyDataModel<T extends Serializable> extends LazyDataModel
      * <code>"#&#123;right.code&#125;"</code>, so the field name will be
      * {@code "code"}.
      *
-     * @param first Index of first element in current page to load.
+     * @param first Index of first element in current page to load.<br>
+     *            Filter element (first page, first row) has an index of
+     *            {@code 0}.
      * @param pageSize The number of result per page.
-     * @param sortField The field name on which filter.
-     * @param sortOrder The order of sort.
+     * @param sortField The field name on which filter.<br>
+     *            Default: {@code null}.
+     * @param sortOrder The order of sort.<br>
+     *            Default: {@link SortOrder#ASCENDING}.
      * @param filters Association of field names to value set by user to filter
-     *            results.
+     *            results.<br>
+     *            Default: an empty {@link Map}.
      * @see AbstractService#findPanginated(JPAQuery)
      */
     @Override
