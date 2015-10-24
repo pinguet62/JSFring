@@ -49,19 +49,6 @@
 						value="#{msg['userMenu.changePassword']}" />
 					<p:menuitem icon="ui-icon-extlink" value="Logout" />
 				</p:menuButton>
-
-				<p:themeSwitcher converter="themeConverter"
-					value="#{themeSwitcherBean.theme}" var="t">
-					<f:selectItems itemLabel="#{theme.name}" itemValue="#{theme}"
-						value="#{themeSwitcherBean.themes}" var="theme" />
-					<p:ajax event="change" />
-					<p:column>
-						<p:graphicImage name="/img/theme/#{t.image}" height="30px" />
-					</p:column>
-					<p:column>
-						<p:outputLabel value="#{t.name}" />
-					</p:column>
-				</p:themeSwitcher>
 			</f:facet>
 		</p:menubar>
 

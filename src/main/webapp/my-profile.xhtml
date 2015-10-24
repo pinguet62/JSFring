@@ -10,12 +10,32 @@
 	template="/template/layout.xhtml">
 
 	<ui:define name="content">
-		<p:panelGrid columns="2">
-			<!-- <h:outputLabel for="login" value="#{msg['user.login']}" />
-			<h:inputText id="login" value="#{userBean.dao.login}" />
-			<h:outputLabel for="email" value="#{msg['user.email']}" />
-			<h:inputText id="email" value="#{userBean.dao.email}" /> -->
-		</p:panelGrid>
+		<h:form>
+			<p:panelGrid columns="2">
+				<!-- Theme -->
+				<h:outputLabel for="theme" value="Theme" />
+				<p:themeSwitcher id="theme" converter="themeConverter"
+					value="#{themeSwitcherBean.theme}" var="t">
+					<p:ajax event="change" />
+					<f:selectItems value="#{themeSwitcherBean.themes}" var="theme"
+						itemValue="#{theme}" itemLabel="#{theme.name}" />
+					<p:column>
+						<p:graphicImage name="/img/theme/#{t.image}" height="30px" />
+					</p:column>
+					<p:column>
+						<p:outputLabel value="#{t.name}" />
+					</p:column>
+				</p:themeSwitcher>
+
+				<!-- Language -->
+				<h:outputLabel for="lang" value="Language" />
+				<p:selectOneMenu id="lang" value="#{langBean.locale}"
+					converter="localeConverter">
+					<p:ajax event="change" />
+					<f:selectItems value="#{langBean.supportedLocales}" />
+				</p:selectOneMenu>
+			</p:panelGrid>
+		</h:form>
 	</ui:define>
 
 </ui:composition>
