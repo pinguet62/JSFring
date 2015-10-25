@@ -3,13 +3,19 @@
 language: java
 jdk: oraclejdk8
 
+before_install:
+  # Codecov.io: install
+  - pip install codecov
+
 # Default: 'mvn test -B'
-# Override: integration-test
+# Override: add integration-test Maven phase
 script:
   - mvn verify -B
 
 after_success:
-  # Workaround because goal 'jacoco:report@post-integration-test' not working
+  # JaCoCo: workaround because goal 'jacoco:report@post-integration-test' not working
   - mvn verify -DskipTests -B
-  # Publish to Coveralls.io
+  # Coveralls.io: publish
   - mvn coveralls:report
+  # Codecov.io: install
+  - codecov
