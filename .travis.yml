@@ -5,7 +5,7 @@ jdk: oraclejdk8
 
 before_install:
   # Codecov.io: install
-  - pip install codecov
+  - pip install --user codecov
 
 # Default: 'mvn test -B'
 # Override: add integration-test Maven phase
