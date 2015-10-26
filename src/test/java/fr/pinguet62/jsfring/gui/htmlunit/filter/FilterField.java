@@ -1,5 +1,8 @@
 package fr.pinguet62.jsfring.gui.htmlunit.filter;
 
+import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.Delay.MEDIUM;
+import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.Delay.SHORT;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -58,10 +61,11 @@ public class FilterField extends AbstractPage {
      */
     public void setOperator(Class<?> operator) {
         String value = operator == null ? "" : operator.getName();
-        HtmlSelect select = (HtmlSelect) getColumn(2).getByXPath(
-                "./div/div[contains(@class, 'ui-selectonemenu')]/div[@class='ui-helper-hidden-accessible']/select").get(0);
+        HtmlSelect select = (HtmlSelect) getColumn(2)
+                .getByXPath("./div/div[contains(@class, 'ui-selectonemenu')]/div[@class='ui-helper-hidden-accessible']/select")
+                .get(0);
         page = select.setSelectedAttribute(value, true);
-        waitJS();
+        waitJS(SHORT);
         debug();
     }
 
@@ -80,7 +84,7 @@ public class FilterField extends AbstractPage {
         HtmlButton button = (HtmlButton) getColumn(3).getByXPath("./button").get(0);
         try {
             page = button.click();
-            waitJS();
+            waitJS(MEDIUM);
             debug();
         } catch (IOException e) {
             throw new NavigatorException(e);

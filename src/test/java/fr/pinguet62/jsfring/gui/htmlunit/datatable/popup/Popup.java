@@ -7,13 +7,15 @@ import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
+import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.Delay;
 import fr.pinguet62.jsfring.gui.htmlunit.NavigatorException;
 
 public interface Popup {
 
     default void close() {
-        HtmlAnchor x = (HtmlAnchor) getDialog().getByXPath(
-                "./div[contains(@class, 'ui-dialog-titlebar')]/a[contains(@class, 'ui-dialog-titlebar-close')]").get(0);
+        HtmlAnchor x = (HtmlAnchor) getDialog()
+                .getByXPath("./div[contains(@class, 'ui-dialog-titlebar')]/a[contains(@class, 'ui-dialog-titlebar-close')]")
+                .get(0);
         try {
             HtmlPage page = x.click();
             AbstractPage.debug(page); // TODO debug();
@@ -26,6 +28,6 @@ public interface Popup {
 
     HtmlPage getPage();
 
-    void waitJS();
+    void waitJS(Delay delay);
 
 }

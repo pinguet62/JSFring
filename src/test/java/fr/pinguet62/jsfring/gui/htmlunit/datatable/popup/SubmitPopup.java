@@ -1,5 +1,7 @@
 package fr.pinguet62.jsfring.gui.htmlunit.datatable.popup;
 
+import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.Delay.LONG;
+
 import java.io.IOException;
 
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
@@ -16,7 +18,7 @@ public interface SubmitPopup extends Popup {
                 .get(0);
         try {
             HtmlPage page = submit.click();
-            waitJS();
+            waitJS(LONG);
             AbstractPage.debug(page); // TODO debug();
         } catch (IOException e) {
             throw new NavigatorException(e);

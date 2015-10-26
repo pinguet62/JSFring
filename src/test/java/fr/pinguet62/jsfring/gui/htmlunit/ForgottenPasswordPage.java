@@ -1,5 +1,7 @@
 package fr.pinguet62.jsfring.gui.htmlunit;
 
+import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.Delay.LONG;
+
 import java.io.IOException;
 
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
@@ -29,8 +31,7 @@ public final class ForgottenPasswordPage extends AbstractPage {
         HtmlButton submit = (HtmlButton) getForm().getByXPath(".//button[@type='submit']").get(0);
         try {
             page = submit.click();
-            waitJS();
-            waitJS(); // Service treatment in addition of Ajax
+            waitJS(LONG);
             debug();
         } catch (IOException e) {
             throw new NavigatorException(e);

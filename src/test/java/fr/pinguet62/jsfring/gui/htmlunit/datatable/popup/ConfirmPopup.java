@@ -1,5 +1,7 @@
 package fr.pinguet62.jsfring.gui.htmlunit.datatable.popup;
 
+import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.Delay.LONG;
+
 import java.io.IOException;
 
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
@@ -27,11 +29,12 @@ public final class ConfirmPopup extends AbstractPage implements Popup {
      * @param classe The {@code class} attribute on which filter.
      */
     private void clickOnButton(String classe) {
-        HtmlButton button = (HtmlButton) getDialog().getByXPath(
-                "./div[contains(@class, 'ui-dialog-buttonpane')]/button[contains(@class, '" + classe + "')]").get(0);
+        HtmlButton button = (HtmlButton) getDialog()
+                .getByXPath("./div[contains(@class, 'ui-dialog-buttonpane')]/button[contains(@class, '" + classe + "')]")
+                .get(0);
         try {
             page = button.click();
-            waitJS();
+            waitJS(LONG);
             debug();
         } catch (IOException e) {
             throw new NavigatorException(e);

@@ -26,6 +26,26 @@ import fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage;
 
 public class AbstractPage {
 
+    public static enum Delay {
+
+        /** To use for long actions, when there are server treatments. */
+        LONG(5_000),
+        /** To use for short server treatment. Example: database reading. */
+        MEDIUM(2_000),
+        /** To use for simple actions, without server treatments. */
+        SHORT(1_000);
+
+        private final long ms;
+
+        private Delay(long ms) {
+            this.ms = ms;
+        }
+
+        public long getMs() {
+            return ms;
+        }
+    }
+
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractPage.class);
 
     private static final File TMP_FILE;
@@ -207,11 +227,17 @@ public class AbstractPage {
         }
     }
 
-    public void waitJS() {
+    /**
+     * Wait end of JavaScript (and Ajax) actions.<br>
+     * Continue after the delay.
+     *
+     * @param ms The max time in millisecond.
+     */
+    public void waitJS(Delay delay) {
         LOGGER.debug("Wait JavaScript");
         final int period = 200 /* ms */;
         JavaScriptJobManager manager = page.getEnclosingWindow().getJobManager();
-        for (int t = 0; manager.getJobCount() > 0 && t < 4_000 /* ms max */; t += period)
+        for (int t = 0; manager.getJobCount() > 0 && t < delay.getMs(); t += period)
             try {
                 LOGGER.trace("Wait " + t + "ms");
                 Thread.sleep(period);

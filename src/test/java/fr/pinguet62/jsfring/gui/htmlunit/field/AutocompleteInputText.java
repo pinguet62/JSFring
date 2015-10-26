@@ -1,5 +1,7 @@
 package fr.pinguet62.jsfring.gui.htmlunit.field;
 
+import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.Delay.MEDIUM;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -55,7 +57,7 @@ public final class AutocompleteInputText extends ReadWriteField<HtmlDivision, Li
                                 "./ul[contains(@class, 'ui-autocomplete-multiple-container')]/li[contains(@class, 'ui-autocomplete-input-token')]/input")
                         .get(0);
                 input.type(value);
-                waitJS();
+                waitJS(MEDIUM);
                 debug();
 
                 // Autocomplete
@@ -65,7 +67,7 @@ public final class AutocompleteInputText extends ReadWriteField<HtmlDivision, Li
                 if (lis.size() > 1)
                     throw new IllegalArgumentException("More than 1 result found into auto-complemente results");
                 page = lis.get(0).click();
-                waitJS();
+                waitJS(MEDIUM);
                 debug();
             }
         } catch (IOException e) {

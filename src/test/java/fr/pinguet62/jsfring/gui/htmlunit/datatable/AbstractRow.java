@@ -1,5 +1,7 @@
 package fr.pinguet62.jsfring.gui.htmlunit.datatable;
 
+import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.Delay.SHORT;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -76,7 +78,7 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
 
         try {
             HtmlPage page = button.click();
-            waitJS();
+            waitJS(SHORT);
             debug();
 
             return getPopupShowFactory().apply(page);
@@ -98,7 +100,7 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
 
         try {
             HtmlPage page = button.click();
-            waitJS();
+            waitJS(SHORT);
             debug();
 
             return getPopupUpdateFactory().apply(page);

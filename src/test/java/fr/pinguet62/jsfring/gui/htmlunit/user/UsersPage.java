@@ -1,5 +1,8 @@
 package fr.pinguet62.jsfring.gui.htmlunit.user;
 
+import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.Delay.MEDIUM;
+import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.Delay.SHORT;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.function.Function;
@@ -84,7 +87,7 @@ public final class UsersPage extends AbstractDatatablePage<UserRow> {
                 .getByXPath("./input[contains(@class, 'ui-column-filter')]").get(0);
         try {
             input.type(value);
-            waitJS();
+            waitJS(MEDIUM);
             debug();
         } catch (IOException e) {
             throw new NavigatorException(e);
@@ -103,7 +106,7 @@ public final class UsersPage extends AbstractDatatablePage<UserRow> {
 
             // Show Toogler
             page = toggler.click();
-            waitJS();
+            waitJS(SHORT);
             debug();
 
             @SuppressWarnings("unchecked")
@@ -114,12 +117,12 @@ public final class UsersPage extends AbstractDatatablePage<UserRow> {
                     .findAny().get();
             choice.click();
             page = ((HtmlDivision) choice.getByXPath("./div[contains(@class, 'ui-chkbox')]").get(0)).click();
-            waitJS();
+            waitJS(SHORT);
             debug();
 
             // Hide Toogler
             page = toggler.click();
-            waitJS();
+            waitJS(SHORT);
             debug();
         } catch (IOException e) {
             throw new NavigatorException(e);

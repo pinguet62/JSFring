@@ -1,5 +1,7 @@
 package fr.pinguet62.jsfring.gui.htmlunit.field;
 
+import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.Delay.SHORT;
+
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 
 public final class InputText extends ReadWriteField<HtmlInput, String> {
@@ -20,7 +22,7 @@ public final class InputText extends ReadWriteField<HtmlInput, String> {
     @Override
     public void setValue(String value) {
         html.setValueAttribute(value);
-        waitJS();
+        waitJS(SHORT);
         debug();
     }
 

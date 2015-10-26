@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.gui.htmlunit.datatable;
 
+import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.Delay.SHORT;
 import static java.util.stream.Collectors.toList;
 
 import java.io.IOException;
@@ -93,8 +94,8 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends
      */
     protected Iterator<HtmlSpan> getCurrentPage() {
         @SuppressWarnings("unchecked")
-        List<HtmlSpan> paginator = (List<HtmlSpan>) getDatatablePaginator().getByXPath(
-                "./span[@class='ui-paginator-pages']/span");
+        List<HtmlSpan> paginator = (List<HtmlSpan>) getDatatablePaginator()
+                .getByXPath("./span[@class='ui-paginator-pages']/span");
         Iterator<HtmlSpan> it;
         for (it = paginator.iterator(); it.hasNext(); it.next())
             if (it.next().getAttribute("class").contains("ui-state-active"))
@@ -138,10 +139,9 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends
      * @return The {@link HtmlTableHeaderCell}.
      */
     protected HtmlTableHeaderCell getDatatableTableHeader(String title) {
-        Optional<HtmlTableHeaderCell> find = getDatatableTableHeaders()
-                .stream()
-                .filter(th -> ((HtmlSpan) th.getByXPath("./span[contains(@class, 'ui-column-title')]").get(0)).asText().equals(
-                        title)).findAny();
+        Optional<HtmlTableHeaderCell> find = getDatatableTableHeaders().stream().filter(
+                th -> ((HtmlSpan) th.getByXPath("./span[contains(@class, 'ui-column-title')]").get(0)).asText().equals(title))
+                .findAny();
         return find.isPresent() ? find.get() : null;
     }
 
@@ -178,8 +178,8 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends
 
     /** Parse the {@code currentPageReportTemplate} attribute value. */
     public int getTotalCount() {
-        HtmlSpan currentPageReportTemplate = (HtmlSpan) getDatatablePaginator().getByXPath(
-                "./span[contains(@class, 'ui-paginator-current')]").get(0);
+        HtmlSpan currentPageReportTemplate = (HtmlSpan) getDatatablePaginator()
+                .getByXPath("./span[contains(@class, 'ui-paginator-current')]").get(0);
         // Parse "x-y of z"
         Pattern pattern = Pattern.compile(" [0-9]+$");
         Matcher matcher = pattern.matcher(currentPageReportTemplate.asText());
@@ -198,7 +198,7 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends
         HtmlSpan next = current.next();
         try {
             page = next.click();
-            waitJS();
+            waitJS(SHORT);
             debug();
         } catch (IOException e) {
             throw new NavigatorException(e);
@@ -236,7 +236,7 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends
         HtmlTableHeaderCell header = getDatatableTableHeader(title);
         try {
             page = header.click();
-            waitJS();
+            waitJS(SHORT);
             debug();
         } catch (IOException e) {
             throw new NavigatorException(e);
