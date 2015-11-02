@@ -29,9 +29,9 @@ public class AbstractPage {
     public static enum Delay {
 
         /** To use for long actions, when there are server treatments. */
-        LONG(5_000),
+        LONG(6_000),
         /** To use for short server treatment. Example: database reading. */
-        MEDIUM(2_500),
+        MEDIUM(3_000),
         /** To use for simple actions, without server treatments. */
         SHORT(1_500);
 
