@@ -306,11 +306,11 @@
 		<log4j2.version>2.4.1</log4j2.version>
 		<!-- Project -->
 		<jsf.version>2.2.12</jsf.version>
-		<hivernate.version>5.0.2.Final</hivernate.version>
-		<querydsl.version>3.6.8</querydsl.version>
+		<hivernate.version>5.0.3.Final</hivernate.version>
+		<querydsl.version>3.6.9</querydsl.version>
 		<spring.version>4.2.2.RELEASE</spring.version>
 		<spring-webflow.version>2.4.2.RELEASE</spring-webflow.version>
-		<spring-security.version>4.0.2.RELEASE</spring-security.version>
+		<spring-security.version>4.0.3.RELEASE</spring-security.version>
 		<!-- Utils -->
 		<sonar.host.url>http://localhost:9000/</sonar.host.url>
 		<!-- Tests -->
