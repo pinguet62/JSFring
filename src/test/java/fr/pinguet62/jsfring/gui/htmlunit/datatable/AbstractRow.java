@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.gui.htmlunit.datatable;
 
+import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.Delay.MEDIUM;
 import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.Delay.SHORT;
 
 import java.io.IOException;
@@ -100,7 +101,7 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
 
         try {
             HtmlPage page = button.click();
-            waitJS(SHORT);
+            waitJS(MEDIUM);
             debug();
 
             return getPopupUpdateFactory().apply(page);
