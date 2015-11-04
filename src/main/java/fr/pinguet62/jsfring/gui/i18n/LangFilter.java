@@ -26,11 +26,13 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 @WebFilter("/*")
 public final class LangFilter implements Filter {
 
+    /** The parameter name. */
     public static final String PARAMETER = "lang";
 
     /** @see #init(FilterConfig) */
     private BeanFactory factory;
 
+    /** No action. */
     @Override
     public void destroy() {}
 

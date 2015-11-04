@@ -30,7 +30,7 @@ public final class UsersPage extends AbstractDatatablePage<UserRow> {
 
         ACTIONS(5, "Actions"), ACTIVE(3, "Active"), EMAIL(2, "Email"), LAST_CONNECTION(4, "Last connection"), LOGIN(1, "Login");
 
-        static Column fromTitle(String title) {
+        public static Column fromTitle(String title) {
             for (Column column : values())
                 if (title.equals(column.title))
                     return column;

@@ -35,83 +35,18 @@ import org.apache.logging.log4j.core.util.Integers;
  * It's a copy/paste of {@link RollingFileAppender}.
  */
 @Plugin(name = "WebappRollingFile", category = "Core", elementType = "appender", printObject = true)
-public final class WebappRollingFileAppender extends
-        AbstractOutputStreamAppender<RollingFileManager> {
+public final class WebappRollingFileAppender extends AbstractOutputStreamAppender<RollingFileManager> {
 
     private static final int DEFAULT_BUFFER_SIZE = 8192;
 
     private static final long serialVersionUID = 1;
-
-    private final String fileName;
-    private final String filePattern;
-    private Object advertisement;
-    private final Advertiser advertiser;
-
-    /**
-     * Calculate the absolute path of target file.<br>
-     * The absolute path of webapp is calculated from the {@link URL} of a
-     * resource into the application.
-     * 
-     * @param filename The filename.
-     * @return The absolute file path.
-     * @see Class#getResource(String)
-     */
-    private static String getFilePath(String filename) {
-        File classesFolder;
-        try {
-            classesFolder = new File(WebappRollingFileAppender.class
-                    .getResource("/").toURI());
-        } catch (URISyntaxException e) {
-            LOGGER.error(e);
-            return null;
-        }
-        File webinfFolder = classesFolder.getParentFile();
-        File webappFolder = webinfFolder.getParentFile();
-        return new File(webappFolder, filename).toString();
-    }
-
-    @Override
-    public void stop() {
-        super.stop();
-        if (advertiser != null) {
-            advertiser.unadvertise(advertisement);
-        }
-    }
-
-    @Override
-    public void append(LogEvent event) {
-        getManager().checkRollover(event);
-        super.append(event);
-    }
-
-    private WebappRollingFileAppender(String name,
-            Layout<? extends Serializable> layout, Filter filter,
-            RollingFileManager manager, String fileName, String filePattern,
-            boolean ignoreExceptions, boolean immediateFlush,
-            Advertiser advertiser) {
-        super(name, layout, filter, ignoreExceptions, immediateFlush, manager);
-        if (advertiser != null) {
-            Map<String, String> configuration = new HashMap<String, String>(
-                    layout.getContentFormat());
-            configuration.put("contentType", layout.getContentType());
-            configuration.put("name", name);
-            advertisement = advertiser.advertise(configuration);
-        }
-        this.fileName = fileName;
-        this.filePattern = filePattern;
-        this.advertiser = advertiser;
-    }
-
-    public String getFilePattern() {
-        return filePattern;
-    }
 
     /**
      * Create the {@link WebappRollingFileAppender}.
      * <p>
      * It's a copy/paste of {@link RollingFileAppender}, but with override of
      * filenames.
-     * 
+     *
      * @param fileName The filename of the file that is actively written to.
      *            (required).<br>
      *            It must be an relative path, relatively to base folder of the
@@ -123,49 +58,32 @@ public final class WebappRollingFileAppender extends
      * @see #getFilePath(String)
      */
     @PluginFactory
-    public static WebappRollingFileAppender createAppender(
-            @PluginAttribute("fileName") String fileName,
-            @PluginAttribute("filePattern") String filePattern,
-            @PluginAttribute("append") String append,
-            @PluginAttribute("name") String name,
-            @PluginAttribute("bufferedIO") String bufferedIO,
-            @PluginAttribute("bufferSize") String bufferSizeStr,
-            @PluginAttribute("immediateFlush") String immediateFlush,
-            @PluginElement("Policy") TriggeringPolicy policy,
-            @PluginElement("Strategy") RolloverStrategy strategy,
-            @PluginElement("Layout") Layout<? extends Serializable> layout,
-            @PluginElement("Filter") Filter filter,
-            @PluginAttribute("ignoreExceptions") String ignore,
-            @PluginAttribute("advertise") String advertise,
-            @PluginAttribute("advertiseURI") String advertiseURI,
-            @PluginConfiguration Configuration config) {
-        boolean isAppend = Booleans.parseBoolean(append, true);
-        boolean ignoreExceptions = Booleans.parseBoolean(ignore, true);
+    public static WebappRollingFileAppender createAppender(@PluginAttribute("fileName") String fileName,
+            @PluginAttribute("filePattern") String filePattern, @PluginAttribute("append") String append,
+            @PluginAttribute("name") String name, @PluginAttribute("bufferedIO") String bufferedIO,
+            @PluginAttribute("bufferSize") String bufferSizeStr, @PluginAttribute("immediateFlush") String immediateFlush,
+            @PluginElement("Policy") TriggeringPolicy policy, @PluginElement("Strategy") RolloverStrategy strategy,
+            @PluginElement("Layout") Layout<? extends Serializable> layout, @PluginElement("Filter") Filter filter,
+            @PluginAttribute("ignoreExceptions") String ignore, @PluginAttribute("advertise") String advertise,
+            @PluginAttribute("advertiseURI") String advertiseURI, @PluginConfiguration Configuration config) {
         boolean isBuffered = Booleans.parseBoolean(bufferedIO, true);
-        boolean isFlush = Booleans.parseBoolean(immediateFlush, true);
-        boolean isAdvertise = Boolean.parseBoolean(advertise);
         int bufferSize = Integers.parseInt(bufferSizeStr, DEFAULT_BUFFER_SIZE);
+        if (!isBuffered && bufferSize > 0)
+            LOGGER.warn("The bufferSize is set to {} but bufferedIO is not true: {}", bufferSize, bufferedIO);
 
-        if (!isBuffered && bufferSize > 0) {
-            LOGGER.warn(
-                    "The bufferSize is set to {} but bufferedIO is not true: {}",
-                    bufferSize, bufferedIO);
-        }
         if (name == null) {
             LOGGER.error("No name provided for FileAppender");
             return null;
         }
 
         if (fileName == null) {
-            LOGGER.error("No filename was provided for FileAppender with name "
-                    + name);
+            LOGGER.error("No filename was provided for FileAppender with name {}", name);
             return null;
         }
         fileName = getFilePath(fileName);
 
         if (filePattern == null) {
-            LOGGER.error("No filename pattern provided for FileAppender with name "
-                    + name);
+            LOGGER.error("No filename pattern provided for FileAppender with name {}", name);
             return null;
         }
         filePattern = getFilePath(filePattern);
@@ -175,29 +93,91 @@ public final class WebappRollingFileAppender extends
             return null;
         }
 
-        if (strategy == null) {
-            strategy = DefaultRolloverStrategy.createStrategy(null, null, null,
-                    String.valueOf(Deflater.DEFAULT_COMPRESSION), config);
-        }
+        if (strategy == null)
+            strategy = DefaultRolloverStrategy.createStrategy(null, null, null, String.valueOf(Deflater.DEFAULT_COMPRESSION),
+                    config);
 
-        if (layout == null) {
+        if (layout == null)
             layout = PatternLayout.createDefaultLayout();
-        }
 
-        RollingFileManager manager = RollingFileManager.getFileManager(
-                fileName, filePattern, isAppend, isBuffered, policy, strategy,
-                advertiseURI, layout, bufferSize);
-        if (manager == null) {
+        boolean isAppend = Booleans.parseBoolean(append, true);
+        RollingFileManager manager = RollingFileManager.getFileManager(fileName, filePattern, isAppend, isBuffered, policy,
+                strategy, advertiseURI, layout, bufferSize);
+        if (manager == null)
+            return null;
+
+        boolean ignoreExceptions = Booleans.parseBoolean(ignore, true);
+        boolean isFlush = Booleans.parseBoolean(immediateFlush, true);
+        boolean isAdvertise = Boolean.parseBoolean(advertise);
+
+        return new WebappRollingFileAppender(name, layout, filter, manager, fileName, filePattern, ignoreExceptions, isFlush,
+                isAdvertise ? config.getAdvertiser() : null);
+    }
+
+    /**
+     * Calculate the absolute path of target file.<br>
+     * The absolute path of webapp is calculated from the {@link URL} of a
+     * resource into the application.
+     *
+     * @param filename The filename.
+     * @return The absolute file path.
+     * @see Class#getResource(String)
+     */
+    private static String getFilePath(String filename) {
+        File classesFolder;
+        try {
+            classesFolder = new File(WebappRollingFileAppender.class.getResource("/").toURI());
+        } catch (URISyntaxException e) {
+            LOGGER.error(e);
             return null;
         }
+        File webinfFolder = classesFolder.getParentFile();
+        File webappFolder = webinfFolder.getParentFile();
+        return new File(webappFolder, filename).toString();
+    }
 
-        return new WebappRollingFileAppender(name, layout, filter, manager,
-                fileName, filePattern, ignoreExceptions, isFlush,
-                isAdvertise ? config.getAdvertiser() : null);
+    private Object advertisement;
+
+    private final Advertiser advertiser;
+
+    private final String fileName;
+
+    private final String filePattern;
+
+    private WebappRollingFileAppender(String name, Layout<? extends Serializable> layout, Filter filter,
+            RollingFileManager manager, String fileName, String filePattern, boolean ignoreExceptions, boolean immediateFlush,
+            Advertiser advertiser) {
+        super(name, layout, filter, ignoreExceptions, immediateFlush, manager);
+        if (advertiser != null) {
+            Map<String, String> configuration = new HashMap<String, String>(layout.getContentFormat());
+            configuration.put("contentType", layout.getContentType());
+            configuration.put("name", name);
+            advertisement = advertiser.advertise(configuration);
+        }
+        this.fileName = fileName;
+        this.filePattern = filePattern;
+        this.advertiser = advertiser;
+    }
+
+    @Override
+    public void append(LogEvent event) {
+        getManager().checkRollover(event);
+        super.append(event);
     }
 
     public String getFilename() {
         return fileName;
+    }
+
+    public String getFilePattern() {
+        return filePattern;
+    }
+
+    @Override
+    public void stop() {
+        super.stop();
+        if (advertiser != null)
+            advertiser.unadvertise(advertisement);
     }
 
 }

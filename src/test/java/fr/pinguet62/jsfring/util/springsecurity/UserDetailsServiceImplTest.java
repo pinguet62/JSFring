@@ -45,7 +45,7 @@ public class UserDetailsServiceImplTest {
      */
     @Test
     public void test_login() {
-        final String login = "super admin";
+        String login = "super admin";
 
         // login
         assertNotNull(userDetailsService.loadUserByUsername(login));

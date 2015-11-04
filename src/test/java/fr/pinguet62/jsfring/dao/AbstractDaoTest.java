@@ -37,7 +37,7 @@ import fr.pinguet62.jsfring.service.UserService.PasswordGenerator;
 @ContextConfiguration(locations = Config.SPRING)
 @DatabaseSetup(Config.DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, TransactionalTestExecutionListener.class,
-    DbUnitTestExecutionListener.class })
+        DbUnitTestExecutionListener.class })
 @Transactional
 public class AbstractDaoTest {
 
@@ -111,20 +111,20 @@ public class AbstractDaoTest {
     /** @see AbstractDao#find(JPAQuery) */
     @Test
     public void test_find() {
-        QRight r = QRight.right_;
-        JPAQuery query = new JPAQuery().from(r).where(r.code.contains("PROFILE"));
+        QRight right = QRight.right_;
+        JPAQuery query = new JPAQuery().from(right).where(right.code.contains("PROFILE"));
 
         List<Right> rights = rightDao.find(query);
 
         assertEquals(2, rights.size());
-        rights.stream().allMatch(right -> Arrays.asList("PROFILE_RO", "PROFILE_RW").contains(right.getTitle()));
+        rights.stream().allMatch(r -> Arrays.asList("PROFILE_RO", "PROFILE_RW").contains(r.getTitle()));
     }
 
     /** @see AbstractDao#find(JPAQuery) */
     @Test
     public void test_find_notFound() {
-        QRight r = QRight.right_;
-        JPAQuery query = new JPAQuery().from(r).where(r.code.contains("#$!@"));
+        QRight right = QRight.right_;
+        JPAQuery query = new JPAQuery().from(right).where(right.code.contains("#$!@"));
 
         List<Right> rights = rightDao.find(query);
 
@@ -171,8 +171,8 @@ public class AbstractDaoTest {
      */
     @Test
     public void test_findPanginated_notFound() {
-        QRight r = QRight.right_;
-        JPAQuery query = new JPAQuery().from(r).where(r.code.contains("#$!@"));
+        QRight right = QRight.right_;
+        JPAQuery query = new JPAQuery().from(right).where(right.code.contains("#$!@"));
 
         SearchResults<Right> page = rightDao.findPanginated(query.limit(2).offset(0));
 

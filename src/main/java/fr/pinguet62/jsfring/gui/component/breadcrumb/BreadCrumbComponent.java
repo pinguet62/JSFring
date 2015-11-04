@@ -136,8 +136,7 @@ public final class BreadCrumbComponent extends BreadCrumb {
             thread.stream().map(new MenuConverter()::apply).forEach(breadcrumb::addElement);
             // - save
             breadcrumbs.put(outcome, breadcrumb);
-            LOGGER.trace("Breadcrumb: "
-                    + breadcrumb.getElements().stream().map(element -> (DefaultMenuItem) element)
+            LOGGER.trace("Breadcrumb: " + breadcrumb.getElements().stream().map(element -> (DefaultMenuItem) element)
                     .map(item -> String.format("(\"%s\"/%s)", item.getTitle(), item.getOutcome()))
                     .collect(Collectors.joining(" > ")));
         }

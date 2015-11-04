@@ -21,7 +21,8 @@ public final class UserDao extends AbstractDao<User, String> {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserDao.class);
 
     /**
-     * Disable all users who have not connected since {@code numberOfDays} days. <br>
+     * Disable all users who have not connected since {@code numberOfDays} days.
+     * <br>
      * Ignore {@link User}s who never be connected.
      *
      * @param numberOfDays Number of days.
@@ -38,7 +39,7 @@ public final class UserDao extends AbstractDao<User, String> {
         QUser u = QUser.user;
         long nb = new JPAUpdateClause(em, u).where(u.active.eq(true).and(u.lastConnection.before(lastAccepted)))
                 .set(u.active, false).execute();
-        LOGGER.info("Number of users disabled: " + nb);
+        LOGGER.info("Number of users disabled: {}", nb);
     }
 
     @Override
@@ -64,7 +65,7 @@ public final class UserDao extends AbstractDao<User, String> {
      * @param user The {@link User} to update.
      */
     public void resetLastConnectionDate(User user) {
-        LOGGER.debug("Last connection date reset for user: " + user.getLogin());
+        LOGGER.debug("Last connection date reset for user: {}", user.getLogin());
         user.setLastConnection(new Date());
         update(user);
     }
@@ -76,7 +77,7 @@ public final class UserDao extends AbstractDao<User, String> {
      * @param password The new {@link User#password user's password}.
      */
     public void updatePassword(User user, String password) {
-        LOGGER.debug("Password updated for user: " + user.getLogin());
+        LOGGER.debug("Password updated for user: {}", user.getLogin());
         user.setPassword(password);
         update(user);
     }

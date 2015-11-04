@@ -25,8 +25,7 @@ import org.springframework.core.io.support.ResourcePatternResolver;
 @Singleton
 public class PropertyResolver {
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(PropertyResolver.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PropertyResolver.class);
 
     /** All {@link Properties} of classpath. */
     private final Map<String, String> properties = new HashMap<>();
@@ -49,7 +48,8 @@ public class PropertyResolver {
      * <li>Scan the classpath and search all {@link Resource} matching
      * {@code classpath*:**.properties}.</li>
      * <li>Read the {@link Resource}s to get all {@link Properties}.</li>
-     * <li>Save 1 by 1 key/value and check if the key already exists or not.</li>
+     * <li>Save 1 by 1 key/value and check if the key already exists or not.
+     * </li>
      * </ul>
      *
      * @see PathMatchingResourcePatternResolver
@@ -60,10 +60,9 @@ public class PropertyResolver {
 
         // Scan classpath
         ResourcePatternResolver patternResolver = new PathMatchingResourcePatternResolver();
-        Resource[] ressources = patternResolver
-                .getResources("classpath*:**.properties");
+        Resource[] ressources = patternResolver.getResources("classpath*:**.properties");
         for (Resource resource : ressources) {
-            LOGGER.debug("Reading property file: " + resource);
+            LOGGER.debug("Reading property file: {}", resource);
 
             // Read properties
             Properties props = PropertiesLoaderUtils.loadProperties(resource);
@@ -76,11 +75,9 @@ public class PropertyResolver {
                 // Check if check already exists in another property file
                 if (properties.containsKey(key)) {
                     if (properties.get(key).equals(value))
-                        LOGGER.warn("Duplicate key \"" + key
-                                + "\" with different value");
+                        LOGGER.warn("Duplicate key with different value: {}", key);
                     else
-                        LOGGER.info("Duplicate key \"" + key
-                                + "\" with same value");
+                        LOGGER.info("Duplicate key with same value: {}", key);
                 }
 
                 properties.put(key, value);

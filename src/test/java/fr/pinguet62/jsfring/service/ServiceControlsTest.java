@@ -177,7 +177,7 @@ class TestService {
         actionAfter.start();
         try {
             Date startJoin = new Date();
-            LOGGER.debug("After action: joining... " + "(" + maxWait + "ms max)");
+            LOGGER.debug("After action: joining... ({}ms max)", maxWait);
             actionAfter.join(maxWait);
             Date endJoin = new Date();
             assertTrue(endJoin.getTime() - startJoin.getTime() > maxWait);
@@ -205,7 +205,7 @@ class TestService {
     @Transactional
     public void read() {
         profileDao.getAll();
-        LOGGER.trace("Read: " + new Date().getTime());
+        LOGGER.trace("Read: {}", new Date().getTime());
     }
 
     /**
@@ -227,14 +227,14 @@ class TestService {
     @Transactional
     public void write() {
         try {
-            LOGGER.trace("Write: " + new Date().getTime());
+            LOGGER.trace("Write: {}", new Date().getTime());
             Thread.sleep(2_000);
         } catch (InterruptedException e) {
             throw new TestRuntimeException(e);
         }
 
         profileDao.deleteAll();
-        LOGGER.trace("Write: " + new Date().getTime());
+        LOGGER.trace("Write: {}", new Date().getTime());
 
         try {
             Thread.sleep(2_000);
