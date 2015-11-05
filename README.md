@@ -100,4 +100,4 @@ Deploy web-application on the cloud, in continue!
 
 ## Licence
 
-[![Creative Commons BY-NC-SA](https://img.shields.io/badge/style-plastic-brightgreen.svg)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
+[![Creative Commons BY-NC-SA](https://img.shields.io/badge/Licence-Creative%20Commons-brightgreen.svg)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
