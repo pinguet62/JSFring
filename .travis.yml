@@ -6,6 +6,15 @@ jdk: oraclejdk8
 before_install:
   # Codecov.io: install
   - pip install --user codecov
+  # shutdown servies on Travis, which may have a memory impact
+  # show memory usage before and after shutdown of services
+  - sudo service --status-all
+  - sudo free -m -t
+  - sudo /etc/init.d/mysql stop
+  - sudo /etc/init.d/postgresql stop
+  - sudo /etc/init.d/couchdb stop
+  - sudo /etc/init.d/redis-server stop
+  - sudo free -m -t
 
 # Default: 'mvn test -B'
 # Override: add integration-test Maven phase
@@ -19,3 +28,9 @@ after_success:
   - mvn coveralls:report
   # Codecov.io: install
   - codecov
+
+after_failure:
+  # show memory usage again
+  - sudo free -m -t
+  # show actions of the OOM killer
+  - sudo dmesg
