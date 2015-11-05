@@ -8,12 +8,13 @@ Integration of Spring into JSF project.
 
 * [**Maven**](https://maven.apache.org/)
 * Webapp:
+	* **Java EE**
+		* [**CDI**](https://docs.oracle.com/javaee/6/tutorial/doc/gjbnr.html)
 	* **JSF**
 	* [**PrimeFaces**](http://primefaces.org/)
 * **JPA** (Java Persistence API)
 	* [Hibernate](http://hibernate.org/)
 	* [Querydsl](http://www.querydsl.com/)
-* JavaEE 7 injection: [**CDI**](https://docs.oracle.com/javaee/6/tutorial/doc/gjbnr.html)
 * [**Spring**](http://projects.spring.io/spring-framework/)
 	* *Context & Context support*
 		* Cache
@@ -21,15 +22,15 @@ Integration of Spring into JSF project.
 		* Mail ([JavaMail](http://www.oracle.com/technetwork/java/javamail/index.html))
 	* *Database*
 		* JDBC
-		* *ORM:* Hibernate 5
+		* *ORM:* Hibernate
 		* JPA
 	* Test: [DBUnit](http://springtestdbunit.github.io/spring-test-dbunit/)
 * [**Spring security**](http://projects.spring.io/spring-security/)
 	* Taglib (JSF integration)
 * Tests:
-	* [**Junit**](http://junit.org/)
+	* [**JUnit**](http://junit.org/)
 	* [**DBUnit**](http://dbunit.sourceforge.net/)
-* Loggin
+* Logging:
 	* [SLF4J](http://www.slf4j.org/)
 	* [**Log4j**](http://logging.apache.org/log4j/2.x/)
 * Reporting:
@@ -46,6 +47,8 @@ Integration of Spring into JSF project.
 	* [**Jenkins**](https://jenkins-ci.org/)
 * Test
 	* [**JMeter**](http://jmeter.apache.org/)
+* Logging
+	* [Logstash](https://www.elastic.co/products/logstash)
 
 ### Version
 
@@ -67,7 +70,7 @@ Check that *source code* respect *best practices*:
 
 [![Codacy Badge](https://api.codacy.com/project/badge/9ea574afb85b496294af3b6057e278aa)](https://www.codacy.com/app/pinguet62/JSFring)
 
-### Tests
+### Testing
 
 #### Unit test
 
@@ -97,4 +100,4 @@ Deploy web-application on the cloud, in continue!
 
 ## Licence
 
-[![][license img]][license]
+[![Creative Commons BY-NC-SA](https://img.shields.io/badge/style-plastic-brightgreen.svg)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
