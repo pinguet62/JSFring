@@ -3,8 +3,10 @@
 language: java
 jdk: oraclejdk8
 
-before_script:
-  - export JAVA_OPTS=-Xmx1g
+env:
+  global:
+    # Memory limit: 2Go
+    - export JAVA_OPTS=-Xmx1g
 
 before_install:
   # Codecov.io: install
