@@ -57,7 +57,7 @@ public final class ReflectionUtil {
                 .filter(/* Same type */attr -> attr.getType().equals(metaObjectType)).collect(Collectors.toList());
         if (fields.isEmpty())
             throw new IllegalArgumentException("Field not found.");
-        else if (fields.size() >= 2)
+        else if (fields.size() > 1)
             throw new IllegalArgumentException("More than 1 field found.");
         Field metaField = fields.get(0);
 

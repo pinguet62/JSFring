@@ -1,6 +1,6 @@
 package fr.pinguet62;
 
-public interface Config {
+public final class Config {
 
     public static final String DATASET = "/dataset.xml";
 

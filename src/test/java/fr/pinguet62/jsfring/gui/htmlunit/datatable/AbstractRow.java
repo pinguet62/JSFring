@@ -124,7 +124,7 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
         HtmlTableDataCell actionsCell = (HtmlTableDataCell) cells.get(cells.size() - 1);
         @SuppressWarnings("unchecked")
         List<HtmlButton> elements = (List<HtmlButton>) actionsCell.getByXPath(xpath);
-        if (elements.size() >= 2)
+        if (elements.size() > 1)
             throw new NavigatorException("More than 1 tag found with XPath: " + xpath);
         return elements.isEmpty() ? null : elements.get(0);
     }

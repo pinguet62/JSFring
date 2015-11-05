@@ -250,7 +250,7 @@ public final class DataTableComponentTest {
         UserRow rowAfter = page.getRows().get(idx);
         assertEquals(login, rowAfter.getLogin());
         assertEquals(email, rowAfter.getEmail());
-        assertEquals(active, rowAfter.getActive());
+        assertEquals(active, rowAfter.isActive());
         assertTrue(equalsSecond(lastConnection, rowAfter.getLastConnection()));
         // - check database value
         User userAfter = userDao.getAll().get(idx);
@@ -345,7 +345,7 @@ public final class DataTableComponentTest {
 
             assertEquals(user.getLogin(), row.getLogin());
             assertEquals(user.getEmail(), row.getEmail());
-            assertEquals(user.isActive(), row.getActive());
+            assertEquals(user.isActive(), row.isActive());
             assertTrue(equalsSecond(user.getLastConnection(), row.getLastConnection()));
 
             i++;

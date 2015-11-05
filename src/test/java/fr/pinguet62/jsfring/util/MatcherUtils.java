@@ -8,7 +8,7 @@ import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
 /** Utility class with simple {@link Matcher}s. */
-public class MatcherUtils {
+public final class MatcherUtils {
 
     /**
      * Check that {@link List} is sorted.

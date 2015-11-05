@@ -16,7 +16,7 @@ public final class UserRow extends AbstractRow<UserShowPopup, UserUpdatePopup> {
         super(row);
     }
 
-    public boolean getActive() {
+    public boolean isActive() {
         return getBoolean(2);
     }
 
