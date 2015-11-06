@@ -57,7 +57,7 @@ public class AbstractPage {
         } catch (IOException e) {
             throw new NavigatorException(e);
         }
-        LOGGER.debug("Temporary file: " + TMP_FILE);
+        LOGGER.debug("Temporary file: {}", TMP_FILE);
     }
 
     public static void debug(HtmlInput html) {
