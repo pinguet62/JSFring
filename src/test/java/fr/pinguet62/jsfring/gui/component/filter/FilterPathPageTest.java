@@ -12,6 +12,7 @@ import java.util.function.Function;
 import javax.faces.validator.LongRangeValidator;
 import javax.faces.validator.RegexValidator;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -44,7 +45,7 @@ import fr.pinguet62.jsfring.gui.sample.FilterPathBean;
  * @see LongRangeValidator
  */
 @RunWith(Parameterized.class)
-public final class FilterPathPageTest {
+public class FilterPathPageTest {
 
     // Because lambda cannot be used into inline array
     private static final Function<FilterPathPage, FilterField> fieldNumber = FilterPathPage::getNumberFilterDefault;
@@ -52,8 +53,23 @@ public final class FilterPathPageTest {
     private static final Function<FilterPathPage, FilterField> fieldString = FilterPathPage::getStringFilterDefault;
     private static final Function<FilterPathPage, FilterField> fieldStringRegex = FilterPathPage::getStringFilterRegex;
 
-    private static final FilterPathPage page = AbstractPage.get().gotoSampleFilterSimple();
+    private static FilterPathPage page;
 
+    /**
+     * Go to the page to test.<br>
+     * Doesn't need to reload the page between each test case.
+     */
+    @BeforeClass
+    public static void beforeClass() {
+        page = AbstractPage.get().gotoSampleFilterSimple();
+    }
+
+    /**
+     * The test cases.<br>
+     * Values correspond to arguments of
+     * {@link #FilterPathPageTest(Function, Class, String[], Predicate)
+     * constructor}.
+     */
     @Parameters
     public static Iterable<Object[]> params() {
         return Arrays.asList(new Object[][] { //
@@ -76,7 +92,7 @@ public final class FilterPathPageTest {
                 { fieldString, EndsWithOperator.class, new String[] { "foo" }, EXPRESSION_STRING.endsWith("foo") },
 
                 { fieldString, LikeOperator.class, new String[] { "" }, new BooleanBuilder() },
-                { fieldString, LikeOperator.class, new String[] { "foo" }, EXPRESSION_STRING.like("foo") }/*,
+                { fieldString, LikeOperator.class, new String[] { "foo" }, EXPRESSION_STRING.like("foo") },
 
                 // ===== String: RegexValidator
 
@@ -205,7 +221,7 @@ public final class FilterPathPageTest {
                 { fieldNumberLongRange, BetweenOperator.class, new String[] { "12", "999" }, null },
                 // validateRequired
                 { fieldNumberLongRange, BetweenOperator.class, new String[] { "0", "34" }, null },
-                { fieldNumberLongRange, BetweenOperator.class, new String[] { "12", "34" }, EXPRESSION_NUMBER.between(12, 34) }*/
+                { fieldNumberLongRange, BetweenOperator.class, new String[] { "12", "34" }, EXPRESSION_NUMBER.between(12, 34) }
 
                 // =====
         });
