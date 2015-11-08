@@ -3,6 +3,7 @@ package fr.pinguet62.jsfring.gui.component;
 import static fr.pinguet62.jsfring.gui.htmlunit.DateUtils.equalsSecond;
 import static fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column.EMAIL;
 import static fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column.LOGIN;
+import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.toList;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -164,8 +165,10 @@ public final class DataTableComponentTest {
      */
     @Test
     public void test_action_show() {
-        List<User> users = userDao.getAll(); // default order
+        List<User> users = userDao.getAll().stream().sorted(comparing(User::getLogin)).collect(toList());
+
         UsersPage page = AbstractPage.get().gotoUsersPage();
+        page.sortBy(LOGIN);
 
         int i = 0;
         for (UserRow row : page) {
@@ -272,9 +275,10 @@ public final class DataTableComponentTest {
      */
     @Test
     public void test_action_update_values() {
-        List<User> users = userDao.getAll();
+        List<User> users = userDao.getAll().stream().sorted(comparing(User::getLogin)).collect(toList());
 
         UsersPage page = AbstractPage.get().gotoUsersPage();
+        page.sortBy(LOGIN);
 
         int i = 0;
         for (UserRow row : page) {
@@ -336,8 +340,10 @@ public final class DataTableComponentTest {
      */
     @Test
     public void test_content() {
-        List<User> users = userDao.getAll();
+        List<User> users = userDao.getAll().stream().sorted(comparing(User::getLogin)).collect(toList());
+
         UsersPage page = AbstractPage.get().gotoUsersPage();
+        page.sortBy(LOGIN);
 
         int i = 0;
         for (UserRow row : page) {
@@ -452,6 +458,7 @@ public final class DataTableComponentTest {
     @Test
     public void test_getTotalCount() {
         AbstractPage nav = AbstractPage.get();
+
         assertEquals(userDao.count(), nav.gotoUsersPage().getTotalCount());
         assertEquals(profileDao.count(), nav.gotoProfilesPage().getTotalCount());
         assertEquals(rightDao.count(), nav.gotoRightsPage().getTotalCount());
