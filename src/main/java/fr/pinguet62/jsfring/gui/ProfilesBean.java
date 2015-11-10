@@ -49,6 +49,7 @@ public final class ProfilesBean extends AbstractCrudBean<Profile> {
      */
     @Override
     public void create() {
+        // Right association
         getSelectedValue().getRights().clear();
         getSelectedValue().getRights().addAll(rightsAssociation.getTarget());
 
@@ -90,6 +91,7 @@ public final class ProfilesBean extends AbstractCrudBean<Profile> {
     public void setSelectedValue(Profile profile) {
         super.setSelectedValue(profile);
 
+        // Right association
         List<Right> associatedRights = new ArrayList<>(getSelectedValue().getRights());
         List<Right> availableRights = rightService.getAll().stream().filter(right -> !associatedRights.contains(right))
                 .collect(Collectors.toList());
