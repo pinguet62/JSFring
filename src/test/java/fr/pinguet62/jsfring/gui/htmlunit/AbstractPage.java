@@ -31,7 +31,7 @@ public class AbstractPage {
         /** To use for long actions, when there are server treatments. */
         LONG(6_000),
         /** To use for short server treatment. Example: database reading. */
-        MEDIUM(3_000),
+        MEDIUM(3_500),
         /** To use for simple actions, without server treatments. */
         SHORT(1_500);
 
