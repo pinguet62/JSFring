@@ -36,7 +36,9 @@ public class Right implements Serializable {
     @Column(name = "TITLE", nullable = false, length = 50)
     private String title;
 
-    public Right() {}
+    public Right() {
+        // No action
+    }
 
     public Right(String code) {
         this.code = code;

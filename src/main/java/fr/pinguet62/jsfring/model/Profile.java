@@ -44,7 +44,9 @@ public class Profile implements Serializable {
     @JoinTable(name = "users_profiles", joinColumns = { @JoinColumn(name = "profile", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "\"USER\"", nullable = false, updatable = false) })
     private Set<User> users = new HashSet<User>(0);
 
-    public Profile() {}
+    public Profile() {
+        // No action
+    }
 
     public Profile(Integer id) {
         this.id = id;

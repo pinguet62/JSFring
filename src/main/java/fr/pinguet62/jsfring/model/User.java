@@ -76,7 +76,9 @@ public class User implements Serializable {
                     @JoinColumn(name = "profile", nullable = false, updatable = false) })
     private Set<Profile> profiles = new HashSet<Profile>(0);
 
-    public User() {}
+    public User() {
+        // No action
+    }
 
     public User(String login) {
         this.login = login;

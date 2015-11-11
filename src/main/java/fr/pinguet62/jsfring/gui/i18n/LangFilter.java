@@ -34,7 +34,9 @@ public final class LangFilter implements Filter {
 
     /** No action. */
     @Override
-    public void destroy() {}
+    public void destroy() {
+        // No action
+    }
 
     /**
      * Get the {@link #PARAMETER}.<br>

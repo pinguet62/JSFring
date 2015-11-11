@@ -42,7 +42,7 @@ public final class ReflectionUtil {
     public static <T> EntityPath<T> getDefaultMetaObject(Class<T> entityType) {
         // Target class
         String metaObjectTypeName = entityType.getName();
-        metaObjectTypeName = new StringBuffer(metaObjectTypeName).insert(metaObjectTypeName.lastIndexOf(".") + 1, "Q")
+        metaObjectTypeName = new StringBuffer(metaObjectTypeName).insert(metaObjectTypeName.lastIndexOf('.') + 1, 'Q')
                 .toString();
         Class<? extends EntityPathBase<T>> metaObjectType;
         try {
