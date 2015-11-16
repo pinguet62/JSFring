@@ -3,10 +3,19 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>fr.pinguet62</groupId>
+	<groupId>fr.pinguet62.jsfring</groupId>
 	<artifactId>JSFring</artifactId>
 	<version>1.0-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>jsfring-model</module>
+		<module>jsfring-dao</module>
+		<module>jsfring-service</module>
+		<module>jsfring-webapp</module>
+		<module>jsfring-webapp-test</module>
+		<module>jsfring-webservice</module>
+	</modules>
 
 	<dependencies>
 		<!-- ===== Others ===== -->
@@ -21,17 +30,11 @@
 			<artifactId>log4j-core</artifactId>
 			<version>${log4j2.version}</version>
 		</dependency>
-		<!-- SMPT -->
+		<!-- Apache -->
 		<dependency>
-			<groupId>com.sun.mail</groupId>
-			<artifactId>javax.mail</artifactId>
-			<version>1.5.4</version>
-		</dependency>
-		<!-- Jasper Reports -->
-		<dependency>
-			<groupId>net.sf.jasperreports</groupId>
-			<artifactId>jasperreports</artifactId>
-			<version>6.2.0</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.4</version>
 		</dependency>
 
 		<!-- ===== File parsing ===== -->
@@ -57,86 +60,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- ===== Test ===== -->
-		<!-- JUnit -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.hamcrest</groupId>
-			<artifactId>hamcrest-all</artifactId>
-			<version>1.3</version>
-			<scope>test</scope>
-		</dependency>
-		<!-- BdUnit -->
-		<dependency>
-			<groupId>org.dbunit</groupId>
-			<artifactId>dbunit</artifactId>
-			<version>2.5.1</version>
-		</dependency>
-		<!-- HtmlUnit -->
-		<dependency>
-			<groupId>net.sourceforge.htmlunit</groupId>
-			<artifactId>htmlunit</artifactId>
-			<version>2.18</version>
-		</dependency>
-		<dependency>
-			<groupId>xml-apis</groupId>
-			<artifactId>xml-apis</artifactId>
-			<version>1.4.01</version>
-		</dependency>
-
-		<!-- ===== Webapp ===== -->
-		<!-- CDI -->
-		<dependency>
-			<groupId>javax.inject</groupId>
-			<artifactId>javax.inject</artifactId>
-			<version>1</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.enterprise</groupId>
-			<artifactId>cdi-api</artifactId>
-			<version>2.0-EDR1</version>
-		</dependency>
-		<!-- JSP -->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>jsp-api</artifactId>
-			<version>2.2.1-b03</version>
-			<scope>provided</scope>
-		</dependency>
-		<!-- JSF -->
-		<dependency>
-			<groupId>com.sun.faces</groupId>
-			<artifactId>jsf-api</artifactId>
-			<version>${jsf.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.faces</groupId>
-			<artifactId>jsf-impl</artifactId>
-			<version>${jsf.version}</version>
-		</dependency>
-		<!-- EL -->
-		<dependency>
-			<groupId>javax.el</groupId>
-			<artifactId>el-api</artifactId>
-			<version>2.2.1-b04</version>
-			<scope>provided</scope>
-		</dependency>
 		<!-- Bean validation -->
 		<dependency>
 			<groupId>javax.validation</groupId>
@@ -149,67 +72,16 @@
 			<version>5.2.2.Final</version>
 		</dependency>
 
-		<!-- PrimeFaces -->
+		<!-- CDI -->
 		<dependency>
-			<groupId>org.primefaces</groupId>
-			<artifactId>primefaces</artifactId>
-			<version>5.3</version>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
 		</dependency>
 		<dependency>
-			<!-- Themes -->
-			<groupId>org.primefaces.themes</groupId>
-			<artifactId>all-themes</artifactId>
-			<version>1.0.10</version>
-		</dependency>
-		<dependency>
-			<!-- Push -->
-			<groupId>org.atmosphere</groupId>
-			<artifactId>atmosphere-runtime</artifactId>
-			<version>2.1.3</version>
-		</dependency>
-		<dependency>
-			<!-- DataExporter (PDF) -->
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi</artifactId>
-			<version>3.12</version>
-		</dependency>
-		<dependency>
-			<!-- DataExporter (Excel) -->
-			<groupId>com.lowagie</groupId>
-			<artifactId>itext</artifactId>
-			<version>2.1.7</version>
-		</dependency>
-
-		<!-- ===== JPA ===== -->
-		<!-- Driver -->
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>9.4-1205-jdbc42</version>
-		</dependency>
-		<!-- ORM -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>${hivernate.version}</version>
-		</dependency>
-		<!-- Provider -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>${hivernate.version}</version>
-		</dependency>
-
-		<!-- Search query -->
-		<dependency>
-			<groupId>com.mysema.querydsl</groupId>
-			<artifactId>querydsl-apt</artifactId>
-			<version>${querydsl.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.mysema.querydsl</groupId>
-			<artifactId>querydsl-jpa</artifactId>
-			<version>${querydsl.version}</version>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<version>2.0-EDR1</version>
 		</dependency>
 
 		<!-- ===== Spring ===== -->
@@ -254,38 +126,6 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		<!-- Security -->
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-core</artifactId>
-			<version>${spring-security.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-web</artifactId>
-			<version>${spring-security.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-config</artifactId>
-			<version>${spring-security.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-taglibs</artifactId>
-			<version>${spring-security.version}</version>
-		</dependency>
-		<!-- Webflow -->
-		<dependency>
-			<groupId>org.springframework.webflow</groupId>
-			<artifactId>spring-faces</artifactId>
-			<version>${spring-webflow.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.webflow</groupId>
-			<artifactId>spring-webflow</artifactId>
-			<version>${spring-webflow.version}</version>
-		</dependency>
 		<!-- Test -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -297,60 +137,46 @@
 			<groupId>com.github.springtestdbunit</groupId>
 			<artifactId>spring-test-dbunit</artifactId>
 			<version>1.2.1</version>
+			<scope>test</scope>
 		</dependency>
 
-		<!-- ===== JAX-RS ===== -->
+		<!-- ===== Test ===== -->
+		<!-- JUnit -->
 		<dependency>
-			<!-- Core + webapp config -->
-			<groupId>org.glassfish.jersey.containers</groupId>
-			<artifactId>jersey-container-servlet</artifactId>
-			<version>${jersey.version}</version>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<!-- Spring DI -->
-			<groupId>org.glassfish.jersey.ext</groupId>
-			<artifactId>jersey-spring3</artifactId>
-			<version>${jersey.version}</version>
-			<exclusions>
-				<exclusion>
-					<!-- Runtime error -->
-					<artifactId>jersey-bean-validation</artifactId>
-					<groupId>org.glassfish.jersey.ext</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>bean-validator</artifactId>
-					<groupId>org.glassfish.hk2.external</groupId>
-				</exclusion>
-			</exclusions>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-all</artifactId>
+			<version>1.3</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- BdUnit -->
+		<dependency>
+			<groupId>org.dbunit</groupId>
+			<artifactId>dbunit</artifactId>
+			<version>2.5.1</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 		<!-- Commons -->
 		<log4j2.version>2.4.1</log4j2.version>
-		<!-- Project -->
-		<jsf.version>2.2.12</jsf.version>
-		<hivernate.version>5.0.3.Final</hivernate.version>
-		<querydsl.version>3.6.9</querydsl.version>
-		<spring.version>4.2.2.RELEASE</spring.version>
-		<spring-webflow.version>2.4.2.RELEASE</spring-webflow.version>
-		<spring-security.version>4.0.3.RELEASE</spring-security.version>
-		<jersey.version>2.22.1</jersey.version>
+		<spring.version>4.2.3.RELEASE</spring.version>
 		<!-- Utils -->
 		<sonar.host.url>http://localhost:9000/</sonar.host.url>
-		<!-- Tests -->
 		<jacoco.ut.execution.data.file>${project.build.directory}/coverage-reports/jacoco-ut.exec</jacoco.ut.execution.data.file>
 		<jacoco.it.execution.data.file>${project.build.directory}/coverage-reports/jacoco-it.exec</jacoco.it.execution.data.file>
 	</properties>
 
 	<build>
 		<finalName>JSFring</finalName>
-		<testResources>
-			<testResource>
-				<directory>${project.basedir}/src/test/resources</directory>
-			</testResource>
-		</testResources>
 
 		<plugins>
 			<!-- Javadoc -->
@@ -394,24 +220,6 @@
 						</execution>
 					</executions>
 				</configuration>
-			</plugin>
-			<!-- Meta-model -->
-			<plugin>
-				<groupId>com.mysema.maven</groupId>
-				<artifactId>apt-maven-plugin</artifactId>
-				<version>1.1.3</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>process</goal>
-						</goals>
-						<configuration>
-							<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
-							<outputDirectory>target/generated-sources/java</outputDirectory>
-							<validationAnnotations>true</validationAnnotations>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 			<!-- Build -->
 			<plugin>
@@ -490,37 +298,7 @@
 				<artifactId>coveralls-maven-plugin</artifactId>
 				<version>4.0.0</version>
 			</plugin>
-			<!-- Portable server -->
-			<plugin>
-				<groupId>org.eclipse.jetty</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
-				<version>9.3.5.v20151012</version>
-				<configuration>
-					<scanIntervalSeconds>3</scanIntervalSeconds>
-					<stopPort>8079</stopPort>
-					<stopKey>stop</stopKey>
-				</configuration>
-				<executions>
-					<execution>
-						<id>start-jetty</id>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>run-forked</goal>
-						</goals>
-						<configuration>
-							<waitForChild>false</waitForChild>
-							<jvmArgs>${failsafeArgLine}</jvmArgs>
-						</configuration>
-					</execution>
-					<execution>
-						<id>stop-jetty</id>
-						<phase>post-integration-test</phase>
-						<goals>
-							<goal>stop</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+
 			<!-- Unit test -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -554,6 +332,7 @@
 					</execution>
 				</executions>
 			</plugin>
+
 			<!-- Heroku deploy -->
 			<!-- $ java -jar target/dependency/webapp-runner.jar target/*.war -->
 			<plugin>
@@ -605,35 +384,5 @@
 			<timezone>+1</timezone>
 		</developer>
 	</developers>
-
-	<repositories>
-		<!-- jersey-server -->
-		<repository>
-			<id>maven-central</id>
-			<url>http://repo1.maven.org/maven2</url>
-		</repository>
-		<!-- JBoss -->
-		<repository>
-			<id>jboss</id>
-			<name>JBoss Repository</name>
-			<url>https://repository.jboss.org/nexus/content/groups/public-jboss</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<!-- PrimeFaces -->
-		<repository>
-			<id>prime-repo</id>
-			<name>PrimeFaces Maven Repository</name>
-			<url>http://repository.primefaces.org</url>
-			<layout>default</layout>
-		</repository>
-	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>maven-annotation</id>
-			<url>http://maven-annotation-plugin.googlecode.com/svn/trunk/mavenrepo</url>
-		</pluginRepository>
-	</pluginRepositories>
 
 </project>

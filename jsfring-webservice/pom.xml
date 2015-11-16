@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<name>Web Service</name>
+
+	<parent>
+		<groupId>fr.pinguet62.jsfring</groupId>
+		<artifactId>JSFring</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>webservice</artifactId>
+	<packaging>war</packaging>
+
+	<dependencies>
+		<!-- ===== Project ===== -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>service</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<!-- ===== Spring ===== -->
+
+		<!-- ===== JAX-RS ===== -->
+		<dependency>
+			<!-- Core + webapp config -->
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<artifactId>jersey-container-servlet</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+		<dependency>
+			<!-- Spring DI -->
+			<groupId>org.glassfish.jersey.ext</groupId>
+			<artifactId>jersey-spring3</artifactId>
+			<version>${jersey.version}</version>
+			<exclusions>
+				<!-- Runtime error -->
+				<exclusion>
+					<artifactId>jersey-bean-validation</artifactId>
+					<groupId>org.glassfish.jersey.ext</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>bean-validator</artifactId>
+					<groupId>org.glassfish.hk2.external</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+		<!-- Dependencies -->
+		<jersey.version>2.22.1</jersey.version>
+	</properties>
+
+	<build>
+		<testResources>
+			<testResource>
+				<directory>${project.basedir}/src/test/resources</directory>
+			</testResource>
+		</testResources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-remote-resources-plugin</artifactId> <version>1.5</version> 
+				<configuration> <resourceBundles> <resourceBundle>${project.groupId}:config:${project.version}</resourceBundle> </resourceBundles> 
+				</configuration> <executions> <execution> <goals> <goal>process</goal> </goals> </execution> </executions> </plugin> -->
+		</plugins>
+	</build>
+
+	<repositories>
+		<!-- jersey-server -->
+		<repository>
+			<id>maven-central</id>
+			<url>http://repo1.maven.org/maven2</url>
+		</repository>
+	</repositories>
+
+</project>

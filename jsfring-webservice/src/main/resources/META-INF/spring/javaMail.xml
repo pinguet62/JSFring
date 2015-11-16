@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- SMTP -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<!-- Environment variable: SMTP_HOST -->
+		<property name="host" value="#{systemEnvironment['SMTP_HOST']}" />
+		<!-- Environment variable: SMTP_PORT -->
+		<property name="port" value="#{systemEnvironment['SMTP_PORT']}" />
+		<!-- Environment variable: SMTP_USERNAME -->
+		<property name="username" value="#{systemEnvironment['SMTP_USERNAME']}" />
+		<!-- Environment variable: SMTP_PASSWORD -->
+		<property name="password" value="#{systemEnvironment['SMTP_PASSWORD']}" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="forgottenPasswordMessage" class="org.springframework.mail.SimpleMailMessage">
+		<property name="from" value="sender@gmail.com" />
+		<property name="subject" value="[JSFring] Reset password" />
+		<property name="text">
+			<value>
+				<![CDATA[
+				Hello
+				
+				Login: %s
+				New password: %s
+				]]>
+			</value>
+		</property>
+	</bean>
+
+</beans>
