@@ -15,7 +15,7 @@ before_install:
 # Default: 'mvn test -B'
 # Override: add integration-test Maven phase
 script:
-  - mvn verify -B -X
+  - mvn verify -B
 
 after_success:
   # JaCoCo: workaround because goal 'jacoco:report@post-integration-test' not working
