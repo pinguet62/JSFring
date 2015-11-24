@@ -49,7 +49,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jsf.version>2.2.12</jsf.version>
 		<!-- Dependencies -->
-		<module.webapp>JSFring-webapp</module.webapp>
+		<target.webapp>${project.build.directory}/webapp-tmp</target.webapp>
 	</properties>
 
 	<build>
@@ -70,6 +70,33 @@
 				</configuration>
 			</plugin>
 
+			<!-- Copy webapp content to "/target" to be used into this module -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.10</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>fr.pinguet62.jsfring</groupId>
+									<artifactId>webapp</artifactId>
+									<version>${project.version}</version>
+									<type>war</type>
+									<excludes>WEB-INF/lib/**</excludes>
+								</artifactItem>
+							</artifactItems>
+							<outputDirectory>${target.webapp}</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 			<!-- Portable server -->
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
@@ -79,11 +106,7 @@
 					<scanIntervalSeconds>3</scanIntervalSeconds>
 					<stopPort>8079</stopPort>
 					<stopKey>stop</stopKey>
-					<!-- <contextPath>/JSFring</contextPath> -->
-					<!-- Other module -->
-					<webAppSourceDirectory>${project.parent.basedir}/${module.webapp}/src/main/webapp</webAppSourceDirectory>
-					<webXml>${project.parent.basedir}/${module.webapp}/src/main/webapp/WEB-INF/web.xml</webXml>
-					<classesDirectory>${project.parent.basedir}/${module.webapp}/target/classes</classesDirectory>
+					<webAppSourceDirectory>${target.webapp}</webAppSourceDirectory>
 				</configuration>
 				<executions>
 					<execution>
@@ -106,10 +129,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
-			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-remote-resources-plugin</artifactId> <version>1.5</version> 
-				<configuration> <resourceBundles> <resourceBundle>${project.groupId}:config:${project.version}</resourceBundle> </resourceBundles> 
-				</configuration> <executions> <execution> <goals> <goal>process</goal> </goals> </execution> </executions> </plugin> -->
 		</plugins>
 	</build>
 
