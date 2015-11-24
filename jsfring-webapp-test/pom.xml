@@ -47,6 +47,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<jsf.version>2.2.12</jsf.version>
 		<!-- Dependencies -->
 		<module.webapp>JSFring-webapp</module.webapp>
