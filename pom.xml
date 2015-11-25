@@ -172,8 +172,6 @@
 		<spring.version>4.2.3.RELEASE</spring.version>
 		<!-- Utils -->
 		<sonar.host.url>http://localhost:9000/</sonar.host.url>
-		<jacoco.ut.execution.data.file>${project.build.directory}/coverage-reports/jacoco-ut.exec</jacoco.ut.execution.data.file>
-		<jacoco.it.execution.data.file>${project.build.directory}/coverage-reports/jacoco-it.exec</jacoco.it.execution.data.file>
 	</properties>
 
 	<build>
@@ -220,6 +218,7 @@
 					</executions>
 				</configuration>
 			</plugin>
+
 			<!-- Build -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -230,6 +229,42 @@
 					<target>${java.version}</target>
 				</configuration>
 			</plugin>
+
+			<!-- Unit test -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.19</version>
+				<configuration>
+					<argLine>${surefireArgLine}</argLine>
+					<excludes>
+						<exclude>fr/pinguet62/jsfring/gui/**/*.java</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+
+			<!-- Integration test -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>2.19</version>
+				<executions>
+					<execution>
+						<id>integration-test</id>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+						<configuration>
+							<argLine>${failsafeArgLine}</argLine>
+							<includes>
+								<include>fr/pinguet62/jsfring/gui/**/*.java</include>
+							</includes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 			<!-- Code Coverage: Agent -->
 			<plugin>
 				<groupId>org.jacoco</groupId>
@@ -251,7 +286,7 @@
 							<goal>prepare-agent</goal>
 						</goals>
 						<configuration>
-							<destFile>${jacoco.ut.execution.data.file}</destFile>
+							<destFile>${session.executionRootDirectory}/target/jacoco.exec</destFile>
 							<propertyName>surefireArgLine</propertyName>
 						</configuration>
 					</execution>
@@ -262,8 +297,8 @@
 							<goal>report</goal>
 						</goals>
 						<configuration>
-							<dataFile>${jacoco.ut.execution.data.file}</dataFile>
-							<outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
+							<dataFile>${session.executionRootDirectory}/target/jacoco.exec</dataFile>
+							<outputDirectory>${project.reporting.outputDirectory}/jacoco</outputDirectory>
 						</configuration>
 					</execution>
 					<!-- Integration test -->
@@ -274,7 +309,7 @@
 							<goal>prepare-agent</goal>
 						</goals>
 						<configuration>
-							<destFile>${jacoco.it.execution.data.file}</destFile>
+							<destFile>${session.executionRootDirectory}/target/jacoco-it.exec</destFile>
 							<propertyName>failsafeArgLine</propertyName>
 						</configuration>
 					</execution>
@@ -285,51 +320,18 @@
 							<goal>report</goal>
 						</goals>
 						<configuration>
-							<dataFile>${jacoco.it.execution.data.file}</dataFile>
+							<dataFile>${session.executionRootDirectory}/target/jacoco-it.exec</dataFile>
 							<outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
+
 			<!-- Code Coverage: Coveralls -->
 			<plugin>
 				<groupId>org.eluder.coveralls</groupId>
 				<artifactId>coveralls-maven-plugin</artifactId>
 				<version>4.0.0</version>
-			</plugin>
-
-			<!-- Unit test -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.19</version>
-				<configuration>
-					<argLine>${surefireArgLine}</argLine>
-					<excludes>
-						<exclude>fr/pinguet62/jsfring/gui/**/*.java</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-			<!-- Integration test -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>2.19</version>
-				<executions>
-					<execution>
-						<id>integration-test</id>
-						<goals>
-							<goal>integration-test</goal>
-							<goal>verify</goal>
-						</goals>
-						<configuration>
-							<argLine>${failsafeArgLine}</argLine>
-							<includes>
-								<include>fr/pinguet62/jsfring/gui/**/*.java</include>
-							</includes>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 
 			<!-- Heroku deploy -->
