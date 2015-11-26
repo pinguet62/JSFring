@@ -1,0 +1,16 @@
+<table ng-controller="profileController" class = "table">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Title</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr nb-repeat="profile in profiles">
+			<th>{{profile.id}}</th>
+			<th>{{profile.title}}</th>
+			<th>Actions</th>
+		</tr>
+	</tbody>
+</table>
