@@ -92,6 +92,8 @@ Measure the degree to which the source code of a program is *tested*.
 
 [![Coverage Status](https://coveralls.io/repos/pinguet62/JSFring/badge.svg?branch=master&service=github)](https://coveralls.io/github/pinguet62/JSFring?branch=master)
 
+[![codecov.io](https://codecov.io/github/pinguet62/JSFring/coverage.svg?branch=master)](https://codecov.io/github/pinguet62/JSFring?branch=master)
+
 ## SAS & Continue Integration
 
 Deploy web-application on the cloud, in continue!
