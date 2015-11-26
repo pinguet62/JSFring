@@ -8,8 +8,8 @@
 	 * # MainCtrl
 	 * Controller of the jsangleApp
 	 */
-	angular.module('jsangleApp', [])
-		.controller('MainCtrl', function () {
+	angular.module('jsangleApp', ['ui.bootstrap'])
+		.controller('MainCtrl', function() {
 			this.awesomeThings = [
 				'HTML5 Boilerplate',
 				'AngularJS',

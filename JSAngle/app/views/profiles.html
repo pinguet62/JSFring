@@ -1,4 +1,4 @@
-<table ng-controller="profileController" class = "table">
+<table class="table">
 	<thead>
 		<tr>
 			<th>Id</th>
@@ -7,10 +7,11 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr nb-repeat="profile in profiles">
+		<tr ng-repeat="profile in profiles">
 			<th>{{profile.id}}</th>
 			<th>{{profile.title}}</th>
-			<th>Actions</th>
+			<th></th>
 		</tr>
 	</tbody>
 </table>
+<uib-pagination ng-model="currentPage" items-per-page="pageSize" ng-change="pageChanged()" total-items="totalCount" max-size="5" boundary-links="true" class="pagination-sm"></uib-pagination>

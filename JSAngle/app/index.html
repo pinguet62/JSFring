@@ -13,10 +13,18 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.css">
 		<!-- AngularJS -->
 		<script src="bower_components/angular/angular.js"></script>
+		<script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+		<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 		<!-- Application -->
 		<script src="scripts/app.js"></script>
 		<script src="scripts/controllers/main.js"></script>
-		<link rel="stylesheet" href="styles/main.css">
+		<!--<script src="scripts/controllers/userController.js"></script>-->
+		<script src="scripts/controllers/profileController.js"></script>
+		<!--<script src="scripts/controllers/rightController.js"></script>
+		<script src="scripts/services/userService.js"></script>-->
+		<script src="scripts/services/profileService.js"></script>
+		<!--<script src="scripts/services/rightService.js"></script>
+		<link rel="stylesheet" href="styles/main.css">-->
 	</head>
 	<body ng-app="jsangleApp">
 		<div class="header">
@@ -50,7 +58,7 @@
 		</div>
 
 		<div class="container">
-			<div ng-include="'views/main.html'" ng-controller="MainCtrl"></div>
+			<div ng-include="'views/profiles.html'" ng-controller="profileController"></div>
 		</div>
 	</body>
 </html>
