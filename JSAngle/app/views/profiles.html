@@ -1,17 +1,6 @@
-<table class="table">
-	<thead>
-		<tr>
-			<th>Id</th>
-			<th>Title</th>
-			<th>Actions</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr ng-repeat="profile in profiles">
-			<th>{{profile.id}}</th>
-			<th>{{profile.title}}</th>
-			<th></th>
-		</tr>
-	</tbody>
-</table>
-<uib-pagination ng-model="currentPage" items-per-page="pageSize" ng-change="pageChanged()" total-items="totalCount" max-size="5" boundary-links="true" class="pagination-sm"></uib-pagination>
+<style>
+	.gridStyle {
+		border: 1px solid rgb(212,212,212);
+	}
+</style>
+<div class="gridStyle" ui-grid="gridOptions" ui-grid-pagination></div>

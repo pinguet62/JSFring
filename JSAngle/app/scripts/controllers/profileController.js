@@ -10,29 +10,52 @@
 	 */
 	angular.module('jsangleApp')
 		.controller('profileController', ['$scope', 'profileService', function($scope, profileService) {
-			// Page state
-			$scope.currentPage = 0;
-			$scope.pageSize = 3;
 			
-			$scope.buildFilter = function() {
-				return {
-					'currentPage': $scope.currentPage,
-					'pageSize': $scope.pageSize
-				};
+			var paginationOptions = {
+				pageNumber: 1,
+				pageSize: 2,
+				sort: null,
+				filter: null
+			};
+			
+			/**
+			 * Executed after: pagination, sorting or filtering
+			 * Call the corresponding service.
+			 */
+			var getPage = function() {
+				var results = profileService.find(paginationOptions);
+				$scope.gridOptions.data = results.values;
+				$scope.gridOptions.totalItems = results.totalCount;
 			}
 			
-			$scope.refresh = function() {
-				// Eager loading
-				//$scope.profiles = profileService.list();
-				//$scope.totalCount = $scope.profiles.size();
-				// Lazy loading
-				var results = profileService.find($scope.buildFilter());
-				$scope.profiles = results.values;
-				$scope.totalCount = results.totalCount;
-			}
-			$scope.refresh(); // first load
-
-			// Events
-			$scope.pageChanged = $scope.refresh;
+			$scope.gridOptions = {
+				// Pagination
+				paginationPageSizes: [2, 5, 10],
+				paginationPageSize: paginationOptions.pageSize,
+				// Lazy-loading
+				useExternalPagination: true,
+				onRegisterApi: function(gridApi) {
+					// Pagination
+					gridApi.pagination.on.paginationChanged($scope, function(newPage, pageSize) {
+						paginationOptions.pageNumber = newPage;
+						paginationOptions.pageSize = pageSize;
+						getPage();
+					});
+					// Sorting
+					gridApi.core.on.sortChanged($scope, function(grid, sortColumns) {
+						if (sortColumns.length === 0)
+							paginationOptions.sort = null;
+						else
+							paginationOptions.sort = {
+								name: sortColumns[0].name,
+								order: sortColumns[0].sort.direction
+							};
+						getPage();
+					});
+					// TODO Filtering
+				}
+			};
+			
+			getPage(); // initial load
 		}]);
 })();

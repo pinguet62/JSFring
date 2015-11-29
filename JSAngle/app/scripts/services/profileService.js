@@ -27,12 +27,32 @@
 				];
 			};
 			
-			ms.find = function(query) {
-				var first = query.pageSize * query.currentPage
-				var last = query.pageSize * (query.currentPage + 1)
+			ms.find = function(paginationOptions) {
+				var totalResults = ms.list();
+				// Filter
+				var filteredResults = totalResults;
+				// Sort
+				var sortedResults = filteredResults;
+				if (paginationOptions.sort != null) {
+					// Order
+					var order = paginationOptions.sort.order === 'asc' ? 1 : -1;
+					// Field
+					var comparator;
+					if (paginationOptions.sort.name == 'id')
+						comparator = function(a, b) { return order * (a.id < b.id ? -1 : +1); };
+					else if (paginationOptions.sort.name == 'title')
+						comparator = function(a, b) { return order * a.title.localeCompare(b.title); };
+					// Apply
+					sortedResults = sortedResults.sort(comparator);
+				}
+				// Pagination
+				var first = paginationOptions.pageSize * (paginationOptions.pageNumber - 1);
+				var last = paginationOptions.pageSize * paginationOptions.pageNumber;
+				var results = sortedResults.slice(first, last);
+				// Result
 				return {
-					'values': ms.list().slice(first, last),
-					'totalCount': ms.list().length
+					'values': results,
+					'totalCount': filteredResults.length
 				};
 			}
 		});
