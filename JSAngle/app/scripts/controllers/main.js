@@ -8,7 +8,7 @@
 	 * # MainCtrl
 	 * Controller of the jsangleApp
 	 */
-	angular.module('jsangleApp', ['ui.bootstrap'])
+	angular.module('jsangleApp', ['ui.bootstrap', 'ui.grid', 'ui.grid.pagination'])
 		.controller('MainCtrl', function() {
 			this.awesomeThings = [
 				'HTML5 Boilerplate',

@@ -32,6 +32,12 @@
 			<version>${jersey.version}</version>
 		</dependency>
 		<dependency>
+			<!-- JSON mapping -->
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-json-jackson</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+		<dependency>
 			<!-- Spring DI -->
 			<groupId>org.glassfish.jersey.ext</groupId>
 			<artifactId>jersey-spring3</artifactId>
