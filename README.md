@@ -7,11 +7,6 @@ Integration of Spring into JSF project.
 ### Used
 
 * [**Maven**](https://maven.apache.org/)
-* Webapp:
-	* **Java EE**
-		* [**CDI**](https://docs.oracle.com/javaee/6/tutorial/doc/gjbnr.html)
-	* **JSF**
-	* [**PrimeFaces**](http://primefaces.org/)
 * **JPA** (Java Persistence API)
 	* [Hibernate](http://hibernate.org/)
 	* [Querydsl](http://www.querydsl.com/)
@@ -19,14 +14,22 @@ Integration of Spring into JSF project.
 	* *Context & Context support*
 		* Cache
 		* Scheduling
-		* Mail ([JavaMail](http://www.oracle.com/technetwork/java/javamail/index.html))
+		* Mail: [JavaMail](http://www.oracle.com/technetwork/java/javamail/index.html)
 	* *Database*
 		* JDBC
 		* *ORM:* Hibernate
 		* JPA
 	* Test: [DBUnit](http://springtestdbunit.github.io/spring-test-dbunit/)
-* [**Spring security**](http://projects.spring.io/spring-security/)
-	* Taglib (JSF integration)
+* Webservice
+	* [**JAX-RS**](https://jax-rs-spec.java.net/) (Java API for RESTful Services)
+		* [Jersey](https://jersey.java.net/)
+* Webapp:
+	* **Java EE**
+		* [**CDI**](https://docs.oracle.com/javaee/7/tutorial/cdi-basic.htm) (Contexts and Dependency Injection)
+	* **JSF** (JavaServer Faces)
+		* [**PrimeFaces**](http://primefaces.org/)
+	* [**Spring security**](http://projects.spring.io/spring-security/)
+		* Taglib (JSF integration)
 * Tests:
 	* [**JUnit**](http://junit.org/)
 	* [**DBUnit**](http://dbunit.sourceforge.net/)
