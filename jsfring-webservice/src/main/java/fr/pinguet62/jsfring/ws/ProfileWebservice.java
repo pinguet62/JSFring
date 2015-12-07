@@ -13,7 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import org.springframework.core.convert.converter.Converter;
+import org.springframework.core.convert.ConversionService;
 
 import com.mysema.query.SearchResults;
 import com.mysema.query.jpa.impl.JPAQuery;
@@ -25,13 +25,12 @@ import fr.pinguet62.jsfring.model.QProfile;
 import fr.pinguet62.jsfring.service.ProfileService;
 import fr.pinguet62.jsfring.ws.dto.ProfileDto;
 import fr.pinguet62.jsfring.ws.dto.SearchResultsDto;
-import fr.pinguet62.jsfring.ws.dto.converter.profile.ProfileSearchResultsConverter;
 
 @Path("/profile")
 public final class ProfileWebservice {
 
-    // TODO Spring Converter @Inject
-    private Converter<SearchResults<Profile>, SearchResultsDto<ProfileDto>> conv = new ProfileSearchResultsConverter();
+    @Inject
+    private ConversionService conversionService;
 
     @Inject
     private ProfileService profileService;
@@ -89,7 +88,7 @@ public final class ProfileWebservice {
 
         // Filtering
         SearchResults<Profile> searchResults = profileService.findPanginated(query);
-        return conv.convert(searchResults);
+        return conversionService.convert(searchResults, (Class<SearchResultsDto<ProfileDto>>) (Class<?>) SearchResults.class);
     }
 
     @GET
@@ -99,14 +98,14 @@ public final class ProfileWebservice {
         Profile profile = profileService.get(id);
         if (profile == null)
             return null;
-        return new ProfileDto(profile);
+        return conversionService.convert(profile, ProfileDto.class);
     }
 
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public List<ProfileDto> list() {
-        return profileService.getAll().stream().map(ProfileDto::new).collect(toList());
+        return profileService.getAll().stream().map(x -> conversionService.convert(x, ProfileDto.class)).collect(toList());
     }
 
 }
