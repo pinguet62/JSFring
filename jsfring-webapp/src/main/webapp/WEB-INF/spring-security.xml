@@ -4,8 +4,6 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
-	<beans:import resource="classpath:/META-INF/spring/applicationContext.xml" />
-
 	<http auto-config="true" use-expressions="true">
 		<!-- Filter URL instead of roles -->
 		<intercept-url pattern="/test.xhtml" access="permitAll" />
