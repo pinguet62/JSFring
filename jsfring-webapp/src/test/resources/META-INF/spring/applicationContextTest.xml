@@ -5,7 +5,6 @@
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 	<import resource="classpath:META-INF/spring/applicationContext.xml" />
-	<import resource="dbunit.xml" />
 
 	<!-- Cache: disable -->
 	<bean id="cacheManager" class="org.springframework.cache.support.NoOpCacheManager" />
