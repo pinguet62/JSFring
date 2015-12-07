@@ -25,7 +25,4 @@
 		</property>
 	</bean>
 
-	<!-- Spring-security -->
-	<import resource="spring-security.xml" />
-
 </beans>
