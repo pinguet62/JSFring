@@ -12,12 +12,14 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    public static final String LOGIN_PROCESSING_URL = "/j_spring_security_check";
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 // intercept-url
                 .authorizeRequests()//
-                .antMatchers("/test.xhtml").permitAll()//
+                .antMatchers("/test.xhtml").permitAll()// TODO test
                 .antMatchers("/login.xhtml").permitAll()//
                 .antMatchers("/right.xhtml").hasRole("RIGHT_RO")//
                 .antMatchers("/profiles.xhtml").hasRole("PROFILE_RO")//
@@ -26,7 +28,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 // form-login
                 .and().formLogin()//
                 .loginPage("/login.xhtml")//
-                .loginProcessingUrl("/j_spring_security_check")//
+                .loginProcessingUrl(LOGIN_PROCESSING_URL)//
                 .failureUrl("/login.xhtml?error")//
                 // remember-me
                 .and().rememberMe()//
