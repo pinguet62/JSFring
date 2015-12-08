@@ -2,10 +2,13 @@ package fr.pinguet62.jsfring.ws.dto;
 
 import java.util.List;
 
+import com.mysema.query.SearchResults;
+
 /**
  * DTO for search results.
  * 
  * @param <T> The result type.
+ * @see SearchResults
  */
 public final class SearchResultsDto<T> {
 

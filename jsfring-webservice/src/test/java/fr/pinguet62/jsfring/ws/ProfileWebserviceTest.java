@@ -2,8 +2,11 @@ package fr.pinguet62.jsfring.ws;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.GenericType;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,6 +52,17 @@ public class ProfileWebserviceTest {
 
         assertEquals(expected.getId(), actual.getId());
         assertEquals(expected.getTitle(), actual.getTitle());
+    }
+
+    /** @see ProfileWebservice#list() */
+    @Test
+    public void test_list() {
+        List<ProfileDto> actual = ClientBuilder.newClient().target(BASE_URL).path(PATH + "/").request()
+                .get(new GenericType<List<ProfileDto>>() {});
+
+        List<Profile> expected = profileDao.getAll();
+
+        assertEquals(expected.size(), actual.size());
     }
 
 }

@@ -64,9 +64,7 @@ public final class ProfileWebservice {
         if (sortField != null) {
             // Field
             ComparableExpressionBase<?> field;
-            if (sortField == null)
-                field = null;
-            else if (sortField.equals("id"))
+            if (sortField.equals("id"))
                 field = QProfile.profile.id;
             else if (sortField.equals("title"))
                 field = QProfile.profile.title;
