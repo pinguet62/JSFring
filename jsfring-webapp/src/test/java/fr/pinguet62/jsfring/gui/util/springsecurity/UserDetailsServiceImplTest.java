@@ -32,10 +32,10 @@ import fr.pinguet62.jsfring.service.UserService;
 public class UserDetailsServiceImplTest {
 
     @Inject
-    private UserService service;
+    private UserDetailsService userDetailsService;
 
     @Inject
-    private UserDetailsService userDetailsService;
+    private UserService userService;
 
     /**
      * Check that {@link User#lastConnection last connection date} was updated
@@ -51,7 +51,7 @@ public class UserDetailsServiceImplTest {
         assertNotNull(userDetailsService.loadUserByUsername(login));
 
         // Test: < 2sec
-        Date lastConnection = service.get(login).getLastConnection();
+        Date lastConnection = userService.get(login).getLastConnection();
         assertTrue((lastConnection.getTime() - new Date().getTime()) < 2_000);
     }
 
@@ -63,7 +63,7 @@ public class UserDetailsServiceImplTest {
     @Test(expected = UsernameNotFoundException.class)
     public void test_login_unknownLogin() {
         String login = "unknown login";
-        assertNull(service.get(login));
+        assertNull(userService.get(login));
 
         userDetailsService.loadUserByUsername(login);
     }

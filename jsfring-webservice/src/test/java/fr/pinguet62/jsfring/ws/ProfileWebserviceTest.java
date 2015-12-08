@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.webservice;
+package fr.pinguet62.jsfring.ws;
 
 import static org.junit.Assert.assertEquals;
 
@@ -16,9 +16,8 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import fr.pinguet62.jsfring.Config;
+import fr.pinguet62.jsfring.dao.ProfileDao;
 import fr.pinguet62.jsfring.model.Profile;
-import fr.pinguet62.jsfring.service.ProfileService;
-import fr.pinguet62.jsfring.ws.ProfileWebservice;
 import fr.pinguet62.jsfring.ws.dto.ProfileDto;
 
 /** @see ProfileWebservice */
@@ -26,25 +25,30 @@ import fr.pinguet62.jsfring.ws.dto.ProfileDto;
 @ContextConfiguration(locations = Config.SPRING)
 @DatabaseSetup(Config.DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
-public final class ProfileWebserviceTest {
+public class ProfileWebserviceTest {
 
     private static final String BASE_URL = "http://localhost:8080/webservice/rest";
 
+    private static final String PATH = "/profile";
+
     @Inject
-    private ProfileService profileService;
+    private ProfileDao profileDao;
 
     /** @see ProfileWebservice#get(int) */
     @Test
     public void test_get() {
-        int id = profileService.getAll().get(0).getId();
+        int id = profileDao.getAll().get(0).getId();
 
-        ProfileDto dto = ClientBuilder.newClient().target(BASE_URL).path("/{id}").resolveTemplate("id", id).request()
+        ProfileDto actual = ClientBuilder.newClient().target(BASE_URL).path(PATH + "/{id}").resolveTemplate("id", id).request()
                 .get(ProfileDto.class);
 
-        Profile pojo = profileService.get(id);
+        Profile pojo = profileDao.get(id);
         ProfileDto expected = new ProfileDto();
+        expected.setId(pojo.getId());
         expected.setTitle(pojo.getTitle());
 
-        assertEquals(expected, dto);
+        assertEquals(expected.getId(), actual.getId());
+        assertEquals(expected.getTitle(), actual.getTitle());
     }
+
 }
