@@ -15,6 +15,7 @@ import javax.servlet.ServletResponse;
 
 import org.springframework.beans.factory.annotation.Value;
 
+import fr.pinguet62.jsfring.gui.config.SpringSecurityConfig;
 import fr.pinguet62.jsfring.gui.util.scope.SpringRequestScoped;
 
 /** Bean for user login. */
@@ -53,10 +54,8 @@ public final class LoginBean implements Serializable {
     @PostConstruct
     public void init() {
         if (error != null)
-            FacesContext.getCurrentInstance().addMessage(
-                    null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                            "Username or password invalid.", null));
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Username or password invalid.", null));
     }
 
     public boolean isRememberMe() {
@@ -69,17 +68,15 @@ public final class LoginBean implements Serializable {
      * Spring-Security will manage the authentication.
      */
     public void login() throws ServletException, IOException {
-        ExternalContext context = FacesContext.getCurrentInstance()
-                .getExternalContext();
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         RequestDispatcher dispatcher = ((ServletRequest) context.getRequest())
-                .getRequestDispatcher("/j_spring_security_check");
-        dispatcher.forward((ServletRequest) context.getRequest(),
-                (ServletResponse) context.getResponse());
+                .getRequestDispatcher(SpringSecurityConfig.LOGIN_PROCESSING_URL);
+        dispatcher.forward((ServletRequest) context.getRequest(), (ServletResponse) context.getResponse());
         FacesContext.getCurrentInstance().responseComplete();
     }
 
-    public void setError(String value) {
-        error = value;
+    public void setError(String error) {
+        this.error = error;
     }
 
     public void setPassword(String password) {
