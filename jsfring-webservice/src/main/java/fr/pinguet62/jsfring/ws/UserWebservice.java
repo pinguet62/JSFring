@@ -11,11 +11,16 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.springframework.core.convert.ConversionService;
+
 import fr.pinguet62.jsfring.model.User;
 import fr.pinguet62.jsfring.service.UserService;
 import fr.pinguet62.jsfring.ws.dto.UserDto;
 
 public final class UserWebservice {
+
+    @Inject
+    private ConversionService conversionService;
 
     @Inject
     private UserService userService;
@@ -27,14 +32,14 @@ public final class UserWebservice {
         User user = userService.get(login);
         if (user == null)
             return null;
-        return new UserDto(user);
+        return conversionService.convert(user, UserDto.class);
     }
 
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public List<UserDto> list() {
-        return userService.getAll().stream().map(UserDto::new).collect(toList());
+        return userService.getAll().stream().map(user -> conversionService.convert(user, UserDto.class)).collect(toList());
     }
 
 }

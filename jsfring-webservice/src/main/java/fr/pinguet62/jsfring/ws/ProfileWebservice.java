@@ -103,7 +103,8 @@ public final class ProfileWebservice {
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public List<ProfileDto> list() {
-        return profileService.getAll().stream().map(x -> conversionService.convert(x, ProfileDto.class)).collect(toList());
+        return profileService.getAll().stream().map(profile -> conversionService.convert(profile, ProfileDto.class))
+                .collect(toList());
     }
 
 }
