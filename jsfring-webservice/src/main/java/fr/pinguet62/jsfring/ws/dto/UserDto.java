@@ -4,6 +4,7 @@ import java.util.Date;
 
 import fr.pinguet62.jsfring.model.User;
 
+/** @see User */
 public final class UserDto {
 
     private String email;
@@ -11,14 +12,6 @@ public final class UserDto {
     private Date lastConnection;
 
     private String login;
-
-    public UserDto() {}
-
-    public UserDto(User user) {
-        login = user.getLogin();
-        email = user.getEmail();
-        lastConnection = user.getLastConnection();
-    }
 
     public String getEmail() {
         return email;

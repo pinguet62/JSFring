@@ -2,18 +2,12 @@ package fr.pinguet62.jsfring.ws.dto;
 
 import fr.pinguet62.jsfring.model.Right;
 
+/** @see Right */
 public final class RightDto {
 
     private String code;
 
     private String title;
-
-    public RightDto() {}
-
-    public RightDto(Right right) {
-        code = right.getCode();
-        title = right.getTitle();
-    }
 
     public String getCode() {
         return code;
