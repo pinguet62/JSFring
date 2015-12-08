@@ -5,11 +5,6 @@
 
 	<display-name>Webservice Application</display-name>
 
-	<!-- Spring -->
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
-
 	<!-- JAX-RS -->
 	<servlet>
 		<servlet-name>jersey-serlvet</servlet-name>
