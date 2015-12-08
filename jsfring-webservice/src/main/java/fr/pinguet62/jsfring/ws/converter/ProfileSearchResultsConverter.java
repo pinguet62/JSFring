@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.ws.dto.converter.profile;
+package fr.pinguet62.jsfring.ws.converter;
 
 import javax.inject.Inject;
 
@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import fr.pinguet62.jsfring.model.Profile;
 import fr.pinguet62.jsfring.ws.dto.ProfileDto;
-import fr.pinguet62.jsfring.ws.dto.converter.SearchResultsConverter;
 
 @Component
 public final class ProfileSearchResultsConverter extends SearchResultsConverter<Profile, ProfileDto> {

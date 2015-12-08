@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.ws.dto.converter;
+package fr.pinguet62.jsfring.ws.converter;
 
 import java.util.List;
 import java.util.stream.Collectors;

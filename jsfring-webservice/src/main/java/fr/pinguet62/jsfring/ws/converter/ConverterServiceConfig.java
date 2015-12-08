@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.ws.dto.converter;
+package fr.pinguet62.jsfring.ws.converter;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
