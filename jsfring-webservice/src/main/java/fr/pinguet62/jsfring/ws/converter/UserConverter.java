@@ -18,4 +18,9 @@ public final class UserConverter implements Converter<User, UserDto> {
         return dto;
     }
 
+    @Override
+    public String toString() {
+        return User.class.getName() + " -> " + UserDto.class.getName() + " : " + super.toString();
+    }
+
 }

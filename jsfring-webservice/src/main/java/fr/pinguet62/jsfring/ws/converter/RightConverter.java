@@ -17,4 +17,9 @@ public final class RightConverter implements Converter<Right, RightDto> {
         return dto;
     }
 
+    @Override
+    public String toString() {
+        return Right.class.getName() + " -> " + RightDto.class.getName() + " : " + super.toString();
+    }
+
 }
