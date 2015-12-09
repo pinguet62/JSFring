@@ -1,7 +1,5 @@
 package fr.pinguet62.jsfring.ws;
 
-import static java.util.stream.Collectors.toList;
-
 import java.util.List;
 
 import javax.inject.Inject;
@@ -17,6 +15,7 @@ import fr.pinguet62.jsfring.model.User;
 import fr.pinguet62.jsfring.service.UserService;
 import fr.pinguet62.jsfring.ws.dto.UserDto;
 
+@Path("/user")
 public final class UserWebservice {
 
     @Inject
@@ -39,7 +38,9 @@ public final class UserWebservice {
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public List<UserDto> list() {
-        return userService.getAll().stream().map(user -> conversionService.convert(user, UserDto.class)).collect(toList());
+        List<User> pojos = userService.getAll();
+        List<UserDto> dtos = conversionService.convert(pojos, (Class<List<UserDto>>) (Class<?>) List.class);
+        return dtos;
     }
 
 }

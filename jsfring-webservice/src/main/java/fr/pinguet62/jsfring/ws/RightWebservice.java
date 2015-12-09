@@ -1,7 +1,5 @@
 package fr.pinguet62.jsfring.ws;
 
-import static java.util.stream.Collectors.toList;
-
 import java.util.List;
 
 import javax.inject.Inject;
@@ -40,7 +38,9 @@ public final class RightWebservice {
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public List<RightDto> list() {
-        return rightService.getAll().stream().map(right -> conversionService.convert(right, RightDto.class)).collect(toList());
+        List<Right> pojos = rightService.getAll();
+        List<RightDto> dtos = conversionService.convert(pojos, (Class<List<RightDto>>) (Class<?>) List.class);
+        return dtos;
     }
 
 }
