@@ -10,26 +10,29 @@ Integration of Spring into JSF project.
 * **JPA** (Java Persistence API)
 	* [Hibernate](http://hibernate.org/)
 	* [Querydsl](http://www.querydsl.com/)
-* [**Spring**](http://projects.spring.io/spring-framework/)
-	* *Context & Context support*
-		* Cache
-		* Scheduling
-		* Mail: [JavaMail](http://www.oracle.com/technetwork/java/javamail/index.html)
-	* *Database*
-		* JDBC
-		* *ORM:* Hibernate
-		* JPA
-	* Test: [DBUnit](http://springtestdbunit.github.io/spring-test-dbunit/)
+* *Transverse*
+	* **Java EE**
+		* [**CDI**](https://docs.oracle.com/javaee/7/tutorial/cdi-basic.htm) (Contexts and Dependency Injection)
+	* [**Spring**](http://projects.spring.io/spring-framework/)
+		* *Context & Context support*
+			* Cache
+			* Scheduling
+			* Mail: [JavaMail](http://www.oracle.com/technetwork/java/javamail/index.html)
+		* *Database*
+			* JDBC
+			* *ORM:* Hibernate
+			* JPA
+		* Test: [DBUnit](http://springtestdbunit.github.io/spring-test-dbunit/)
 * Webservice
 	* [**JAX-RS**](https://jax-rs-spec.java.net/) (Java API for RESTful Services)
 		* [Jersey](https://jersey.java.net/)
 * Webapp:
-	* **Java EE**
-		* [**CDI**](https://docs.oracle.com/javaee/7/tutorial/cdi-basic.htm) (Contexts and Dependency Injection)
-	* **JSF** (JavaServer Faces)
-		* [**PrimeFaces**](http://primefaces.org/)
-	* [**Spring security**](http://projects.spring.io/spring-security/)
-		* Taglib (JSF integration)
+	* Java
+		* **JSF** (JavaServer Faces)
+			* [**PrimeFaces**](http://primefaces.org/)
+		* [**Spring security**](http://projects.spring.io/spring-security/)
+			* Taglib (JSF integration)
+	* [AngularJS](https://angularjs.org/)
 * Tests:
 	* [**JUnit**](http://junit.org/)
 	* [**DBUnit**](http://dbunit.sourceforge.net/)
