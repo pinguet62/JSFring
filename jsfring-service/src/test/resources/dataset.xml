@@ -20,7 +20,7 @@
 
 
 	<USER Login="super admin" Password="Azerty1!" Email="admin@domain.fr"
-		Active="true" last_connection="2015-06-14 13:45:41" />
+		Active="true" last_connection="2015-11-14 13:45:41" />
 	<users_profiles User="super admin" Profile="1" />
 	<users_profiles User="super admin" Profile="2" />
 
