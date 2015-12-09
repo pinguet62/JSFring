@@ -9,11 +9,18 @@
 	 * Service in the jsangleApp.
 	 */
 	angular.module('jsangleApp')
-		.service('profileService', function() {
+		.service('profileService', function($http) {
 			var ms = this;
 			
-			ms.list = function() {
-				// Mock: webservice
+			ms.list = function(callback) {
+				$http
+					.get("http://localhost:8080/webservice/rest/profile/")
+					.success(function(response) {
+						callback && callback(response);
+					});
+			};
+			
+			ms.listMocked = function() {
 				return [
 					{id: 1, title: "Users admin"},
 					{id: 2, title: "Profiles admin"},
@@ -27,7 +34,7 @@
 				];
 			};
 			
-			ms.find = function(paginationOptions) {
+			ms.findMocked = function(paginationOptions) {
 				var totalResults = ms.list();
 				// Filter
 				var filteredResults = totalResults;

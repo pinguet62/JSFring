@@ -11,6 +11,8 @@
 	angular.module('jsangleApp')
 		.controller('profileController', ['$scope', 'profileService', function($scope, profileService) {
 			
+			var lazy = false;
+			
 			var paginationOptions = {
 				pageNumber: 1,
 				pageSize: 2,
@@ -23,9 +25,16 @@
 			 * Call the corresponding service.
 			 */
 			var getPage = function() {
-				var results = profileService.find(paginationOptions);
-				$scope.gridOptions.data = results.values;
-				$scope.gridOptions.totalItems = results.totalCount;
+				if (lazy) {
+					var results = profileService.find(paginationOptions);
+					$scope.gridOptions.data = results.values;
+					$scope.gridOptions.totalItems = results.totalCount;
+				} else {
+					profileService.list(function(results) {
+							$scope.gridOptions.data = results;
+							$scope.gridOptions.totalItems = results.length;
+						});
+				}
 			}
 			
 			$scope.gridOptions = {
