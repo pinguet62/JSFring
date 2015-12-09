@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.gui.util.springsecurity;
+package fr.pinguet62.jsfring.gui.config;
 
 import javax.inject.Inject;
 

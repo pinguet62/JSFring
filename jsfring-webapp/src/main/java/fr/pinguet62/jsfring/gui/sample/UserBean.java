@@ -11,7 +11,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import fr.pinguet62.jsfring.gui.util.springsecurity.UserDetailsImpl;
+import fr.pinguet62.jsfring.gui.config.UserDetailsImpl;
 
 @Named
 @SessionScoped
