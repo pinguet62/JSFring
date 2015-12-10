@@ -176,6 +176,15 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>com.versioneye</groupId>
+				<artifactId>versioneye-maven-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+					<apiKey>46d9490ff8220b44cdd1</apiKey>
+				</configuration>
+			</plugin>
+
 			<!-- Javadoc -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

@@ -55,18 +55,18 @@
 		</dependency>
 
 		<!-- Client -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-client</artifactId>
 			<version>${resteasy.version}</version>
-			<!-- TODO <scope>test</scope> -->
+			TODO <scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-jackson-provider</artifactId>
 			<version>${resteasy.version}</version>
-			<!-- TODO <scope>test</scope> -->
-		</dependency>
+			TODO <scope>test</scope>
+		</dependency> -->
 	</dependencies>
 
 	<properties>
