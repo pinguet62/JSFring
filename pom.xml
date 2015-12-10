@@ -176,6 +176,8 @@
 
 	<build>
 		<plugins>
+			<!-- VersionEye -->
+			<!-- Usage: mvn versioneye:create -->
 			<plugin>
 				<groupId>com.versioneye</groupId>
 				<artifactId>versioneye-maven-plugin</artifactId>
