@@ -42,7 +42,7 @@
 				paginationPageSizes: [2, 5, 10],
 				paginationPageSize: paginationOptions.pageSize,
 				// Lazy-loading
-				useExternalPagination: true,
+				useExternalPagination: $scope.lazy,
 				onRegisterApi: function(gridApi) {
 					// Pagination
 					gridApi.pagination.on.paginationChanged($scope, function(newPage, pageSize) {
