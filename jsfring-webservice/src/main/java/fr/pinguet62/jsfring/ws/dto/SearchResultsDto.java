@@ -6,11 +6,15 @@ import com.mysema.query.SearchResults;
 
 /**
  * DTO for search results.
- * 
+ *
  * @param <T> The result type.
  * @see SearchResults
  */
 public final class SearchResultsDto<T> {
+
+    public static <U> SearchResultsDto<U> New() {
+        return new SearchResultsDto<U>(null, null, null, 0);
+    }
 
     private final Long limit;
 

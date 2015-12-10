@@ -9,7 +9,7 @@ import fr.pinguet62.jsfring.model.Profile;
 import fr.pinguet62.jsfring.ws.dto.ProfileDto;
 
 @Component
-public final class ProfileSearchResultsConverter extends SearchResultsConverter<Profile, ProfileDto> {
+public final class ProfileSearchResultsConverter extends AbstractSearchResultsConverter<Profile, ProfileDto> {
 
     @Inject
     private ConversionService conversionService;
