@@ -1,6 +1,7 @@
 package fr.pinguet62.jsfring.ws;
 
-import static java.util.stream.Collectors.toList;
+import static org.springframework.core.convert.TypeDescriptor.collection;
+import static org.springframework.core.convert.TypeDescriptor.valueOf;
 
 import java.util.List;
 
@@ -103,8 +104,8 @@ public final class ProfileWebservice {
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public List<ProfileDto> list() {
-        return profileService.getAll().stream().map(profile -> conversionService.convert(profile, ProfileDto.class))
-                .collect(toList());
+        List<Profile> pojos = profileService.getAll();
+        return (List<ProfileDto>) conversionService.convert(pojos, collection(List.class, valueOf(Profile.class)),
+                collection(List.class, valueOf(ProfileDto.class)));
     }
-
 }

@@ -1,6 +1,7 @@
 package fr.pinguet62.jsfring.ws;
 
-import static java.util.stream.Collectors.toList;
+import static org.springframework.core.convert.TypeDescriptor.collection;
+import static org.springframework.core.convert.TypeDescriptor.valueOf;
 
 import java.util.List;
 
@@ -40,7 +41,9 @@ public final class UserWebservice {
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public List<UserDto> list() {
-        return userService.getAll().stream().map(user -> conversionService.convert(user, UserDto.class)).collect(toList());
+        List<User> pojos = userService.getAll();
+        return (List<UserDto>) conversionService.convert(pojos, collection(List.class, valueOf(User.class)),
+                collection(List.class, valueOf(UserDto.class)));
     }
 
 }
