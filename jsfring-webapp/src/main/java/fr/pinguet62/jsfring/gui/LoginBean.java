@@ -16,7 +16,7 @@ import javax.servlet.ServletResponse;
 import org.springframework.beans.factory.annotation.Value;
 
 import fr.pinguet62.jsfring.gui.config.SpringSecurityConfig;
-import fr.pinguet62.jsfring.gui.util.scope.SpringRequestScoped;
+import fr.pinguet62.jsfring.gui.config.scope.SpringRequestScoped;
 
 /** Bean for user login. */
 @Named

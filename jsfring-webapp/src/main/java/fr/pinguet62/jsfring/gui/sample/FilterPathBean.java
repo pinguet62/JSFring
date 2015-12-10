@@ -12,7 +12,7 @@ import com.mysema.query.types.path.StringPath;
 
 import fr.pinguet62.jsfring.gui.component.filter.NumberPathFilter;
 import fr.pinguet62.jsfring.gui.component.filter.StringPathFilter;
-import fr.pinguet62.jsfring.gui.util.scope.SpringViewScoped;
+import fr.pinguet62.jsfring.gui.config.scope.SpringViewScoped;
 import fr.pinguet62.jsfring.model.QUser;
 import fr.pinguet62.jsfring.model.User;
 

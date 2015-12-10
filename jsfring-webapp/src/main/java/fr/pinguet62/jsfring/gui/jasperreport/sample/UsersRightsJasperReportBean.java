@@ -2,8 +2,8 @@ package fr.pinguet62.jsfring.gui.jasperreport.sample;
 
 import javax.inject.Named;
 
+import fr.pinguet62.jsfring.gui.config.scope.SpringViewScoped;
 import fr.pinguet62.jsfring.gui.jasperreport.AbstractJasperReportBean;
-import fr.pinguet62.jsfring.gui.util.scope.SpringViewScoped;
 
 @Named
 @SpringViewScoped

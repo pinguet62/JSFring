@@ -7,22 +7,15 @@
 	<context:component-scan base-package="fr.pinguet62.jsfring" />
 	<context:annotation-config />
 
-	<bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+	<!-- <bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
 		<property name="scopes">
 			<map>
 				<entry key="view">
-					<!-- CDI: ViewScoped -->
+					CDI: ViewScoped
 					<bean class="fr.pinguet62.jsfring.gui.util.scope.SpringViewScope" />
 				</entry>
 			</map>
 		</property>
-	</bean>
-
-	<!-- i18n -->
-	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-		<property name="basename">
-			<value>fr.pinguet62.jsfring.messages</value>
-		</property>
-	</bean>
+	</bean> -->
 
 </beans>

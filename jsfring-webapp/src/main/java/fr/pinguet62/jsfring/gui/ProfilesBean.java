@@ -12,7 +12,7 @@ import org.primefaces.model.DualListModel;
 
 import com.mysema.query.types.path.EntityPathBase;
 
-import fr.pinguet62.jsfring.gui.util.scope.SpringViewScoped;
+import fr.pinguet62.jsfring.gui.config.scope.SpringViewScoped;
 import fr.pinguet62.jsfring.model.Profile;
 import fr.pinguet62.jsfring.model.QProfile;
 import fr.pinguet62.jsfring.model.Right;

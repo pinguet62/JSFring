@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.gui.util.scope;
+package fr.pinguet62.jsfring.gui.config.scope;
 
 import java.util.Map;
 
@@ -18,6 +18,8 @@ import org.springframework.web.context.WebApplicationContext;
  *      >Porting JSF 2.0’s ViewScope to Spring 3.0<a/>
  */
 public final class SpringViewScope implements Scope {
+
+    public static final String NAME = "view";
 
     @Override
     public Object get(String name, ObjectFactory<?> objectFactory) {

@@ -10,7 +10,7 @@ import javax.inject.Named;
 
 import org.springframework.context.MessageSource;
 
-import fr.pinguet62.jsfring.gui.util.scope.SpringViewScoped;
+import fr.pinguet62.jsfring.gui.config.scope.SpringViewScoped;
 import fr.pinguet62.jsfring.model.User;
 import fr.pinguet62.jsfring.service.UserService;
 

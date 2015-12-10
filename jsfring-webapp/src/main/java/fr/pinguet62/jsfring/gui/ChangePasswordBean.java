@@ -15,8 +15,8 @@ import javax.validation.constraints.Pattern;
 import org.springframework.context.MessageSource;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import fr.pinguet62.jsfring.gui.config.scope.SpringViewScoped;
 import fr.pinguet62.jsfring.gui.sample.UserBean;
-import fr.pinguet62.jsfring.gui.util.scope.SpringViewScoped;
 import fr.pinguet62.jsfring.model.User;
 import fr.pinguet62.jsfring.service.UserService;
 
@@ -79,12 +79,9 @@ public final class ChangePasswordBean implements Serializable {
         UserDetails userDetails = userBean.get();
 
         if (!newPassword.equals(userDetails.getPassword())) {
-            Locale locale = FacesContext.getCurrentInstance().getViewRoot()
-                    .getLocale();
-            String msg = messageSource.getMessage(
-                    "changePassword.invalidCurrentPassword", null, locale);
-            FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, null));
+            Locale locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
+            String msg = messageSource.getMessage("changePassword.invalidCurrentPassword", null, locale);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, null));
         }
 
         userService.updatePassword(userDetails.getUsername(), newPassword);
