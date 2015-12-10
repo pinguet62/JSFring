@@ -22,13 +22,13 @@
 		<!-- Application -->
 		<script src="scripts/app.js"></script>
 		<script src="scripts/controllers/main.js"></script>
-		<!--<script src="scripts/controllers/userController.js"></script>-->
+		<script src="scripts/controllers/rightController.js"></script>
 		<script src="scripts/controllers/profileController.js"></script>
-		<!--<script src="scripts/controllers/rightController.js"></script>
-		<script src="scripts/services/userService.js"></script>-->
+		<script src="scripts/controllers/userController.js"></script>
+		<script src="scripts/services/rightService.js"></script>
 		<script src="scripts/services/profileService.js"></script>
-		<!--<script src="scripts/services/rightService.js"></script>
-		<link rel="stylesheet" href="styles/main.css">-->
+		<script src="scripts/services/userService.js"></script>
+		<!--<link rel="stylesheet" href="styles/main.css">-->
 	</head>
 	<body ng-app="jsangleApp">
 		<div class="header">
@@ -62,7 +62,9 @@
 		</div>
 
 		<div class="container">
+			<div ng-include="'views/rights.html'" ng-controller="rightController"></div>
 			<div ng-include="'views/profiles.html'" ng-controller="profileController"></div>
+			<div ng-include="'views/users.html'" ng-controller="userController"></div>
 		</div>
 	</body>
 </html>
