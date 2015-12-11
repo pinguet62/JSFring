@@ -60,7 +60,7 @@ Integration of Spring into JSF project.
 
 All dependencies use the latest version.
 
-[![Dependency Status](https://www.versioneye.com/user/projects/56193e49a193340f2f000309/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56193e49a193340f2f000309)
+[![Dependency Status](https://www.versioneye.com/user/projects/5669cbc7a3a446000a1a866e/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5669cbc7a3a446000a1a866e)
 	
 ## Code style/quality, Continue Integration, Deployment
 
