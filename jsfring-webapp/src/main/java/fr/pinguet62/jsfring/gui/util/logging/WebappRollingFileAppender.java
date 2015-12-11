@@ -33,6 +33,8 @@ import org.apache.logging.log4j.core.util.Integers;
  * A {@link FileAppender} used to create file into web-app, in deploy folder.
  * <p>
  * It's a copy/paste of {@link RollingFileAppender}.
+ * 
+ * @see RollingFileAppender
  */
 @Plugin(name = "WebappRollingFile", category = "Core", elementType = "appender", printObject = true)
 public final class WebappRollingFileAppender extends AbstractOutputStreamAppender<RollingFileManager> {
@@ -95,7 +97,7 @@ public final class WebappRollingFileAppender extends AbstractOutputStreamAppende
 
         if (strategy == null)
             strategy = DefaultRolloverStrategy.createStrategy(null, null, null, String.valueOf(Deflater.DEFAULT_COMPRESSION),
-                    config);
+                    null, true, config);
 
         if (layout == null)
             layout = PatternLayout.createDefaultLayout();
