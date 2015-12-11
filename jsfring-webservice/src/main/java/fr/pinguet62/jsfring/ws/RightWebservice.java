@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.ws;
 
+import static fr.pinguet62.jsfring.ws.RightWebservice.PATH;
 import static org.springframework.core.convert.TypeDescriptor.collection;
 import static org.springframework.core.convert.TypeDescriptor.valueOf;
 
@@ -18,8 +19,10 @@ import fr.pinguet62.jsfring.model.Right;
 import fr.pinguet62.jsfring.service.RightService;
 import fr.pinguet62.jsfring.ws.dto.RightDto;
 
-@Path("/right")
+@Path(PATH)
 public final class RightWebservice {
+
+    public static final String PATH = "/right";
 
     @Inject
     private ConversionService conversionService;

@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.ws.converter.config;
+package fr.pinguet62.jsfring.ws.converter;
 
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertFalse;
@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -19,7 +20,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import com.mysema.query.SearchResults;
 
 import fr.pinguet62.jsfring.Config;
-import fr.pinguet62.jsfring.ws.converter.SearchResultsGenericConverter;
+import fr.pinguet62.jsfring.ws.converter.config.TypeDescriptorUtils;
 import fr.pinguet62.jsfring.ws.dto.SearchResultsDto;
 
 /** @see SearchResultsGenericConverter */
@@ -46,6 +47,14 @@ public class SearchResultsGenericConverterTest {
         assertTrue(target.getResults().get(0) instanceof String);
     }
 
+    /**
+     * For the conversion from {@code Source<A>} to {@code Target<B>}, 2
+     * {@link Converter} must be used:
+     * <ul>
+     * <li>From: {@code Source} to {@code Target}</li>
+     * <li>From: {@code A} to {@code B}</li>
+     * </ul>
+     */
     @Test
     public void test_typeConverting() {
         assertTrue(conversionService.canConvert(String.class, Integer.class));

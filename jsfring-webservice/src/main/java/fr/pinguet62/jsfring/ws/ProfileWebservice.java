@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.ws;
 
+import static fr.pinguet62.jsfring.ws.ProfileWebservice.PATH;
 import static fr.pinguet62.jsfring.ws.converter.config.TypeDescriptorUtils.generic;
 import static org.springframework.core.convert.TypeDescriptor.collection;
 import static org.springframework.core.convert.TypeDescriptor.valueOf;
@@ -28,8 +29,10 @@ import fr.pinguet62.jsfring.service.ProfileService;
 import fr.pinguet62.jsfring.ws.dto.ProfileDto;
 import fr.pinguet62.jsfring.ws.dto.SearchResultsDto;
 
-@Path("/profile")
+@Path(PATH)
 public final class ProfileWebservice {
+
+    public static final String PATH = "/profile";
 
     @Inject
     private ConversionService conversionService;

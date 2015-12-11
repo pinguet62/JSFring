@@ -1,5 +1,9 @@
 package fr.pinguet62.jsfring.ws;
 
+import static fr.pinguet62.jsfring.Config.BASE_URL;
+import static fr.pinguet62.jsfring.Config.DATASET;
+import static fr.pinguet62.jsfring.Config.SPRING;
+import static fr.pinguet62.jsfring.ws.ProfileWebservice.PATH;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
@@ -18,21 +22,16 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
-import fr.pinguet62.jsfring.Config;
 import fr.pinguet62.jsfring.dao.ProfileDao;
 import fr.pinguet62.jsfring.model.Profile;
 import fr.pinguet62.jsfring.ws.dto.ProfileDto;
 
 /** @see ProfileWebservice */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = Config.SPRING)
-@DatabaseSetup(Config.DATASET)
+@ContextConfiguration(locations = SPRING)
+@DatabaseSetup(DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 public class ProfileWebserviceTest {
-
-    private static final String BASE_URL = "http://localhost:8080/webservice/rest";
-
-    private static final String PATH = "/profile";
 
     @Inject
     private ProfileDao profileDao;
