@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.ws;
 
+import static fr.pinguet62.jsfring.ws.converter.config.TypeDescriptorUtils.generic;
 import static org.springframework.core.convert.TypeDescriptor.collection;
 import static org.springframework.core.convert.TypeDescriptor.valueOf;
 
@@ -54,6 +55,7 @@ public final class ProfileWebservice {
     public SearchResultsDto<ProfileDto> find(@QueryParam("page") Integer page, @QueryParam("pageSize") Integer pageSize,
             @QueryParam("sortField") String sortField, @QueryParam("sortOrder") @DefaultValue("asc") String sortOrder) {
         JPAQuery query = new JPAQuery().from(QProfile.profile);
+
         // Pagination
         if (page != null && pageSize != null) {
             int first = page * pageSize - 1;
@@ -86,8 +88,10 @@ public final class ProfileWebservice {
         }
 
         // Filtering
+
         SearchResults<Profile> searchResults = profileService.findPanginated(query);
-        return conversionService.convert(searchResults, (Class<SearchResultsDto<ProfileDto>>) (Class<?>) SearchResults.class);
+        return (SearchResultsDto<ProfileDto>) conversionService.convert(searchResults,
+                generic(SearchResults.class, Profile.class), generic(SearchResultsDto.class, ProfileDto.class));
     }
 
     @GET
