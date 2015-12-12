@@ -15,6 +15,11 @@ public final class GenericTypeDescriptor extends TypeDescriptor {
 
     private static final long serialVersionUID = 1;
 
+    /**
+     * Constructor with {@link ResolvableType}.
+     *
+     * @param resolvableType The {@link ResolvableType}.
+     */
     public GenericTypeDescriptor(ResolvableType resolvableType) {
         super(resolvableType, null, null);
     }
