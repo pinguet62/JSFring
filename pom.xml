@@ -250,6 +250,7 @@
 					<argLine>${surefireArgLine}</argLine>
 					<excludes>
 						<exclude>fr/pinguet62/jsfring/gui/**/*.java</exclude>
+						<exclude>fr/pinguet62/jsfring/ws/**/*.java</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
@@ -270,6 +271,7 @@
 							<argLine>${failsafeArgLine}</argLine>
 							<includes>
 								<include>fr/pinguet62/jsfring/gui/**/*.java</include>
+								<include>fr/pinguet62/jsfring/ws/**/*.java</include>
 							</includes>
 						</configuration>
 					</execution>

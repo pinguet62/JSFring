@@ -53,20 +53,6 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
-		<!-- Client -->
-		<!-- <dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-client</artifactId>
-			<version>${resteasy.version}</version>
-			TODO <scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-jackson-provider</artifactId>
-			<version>${resteasy.version}</version>
-			TODO <scope>test</scope>
-		</dependency> -->
 	</dependencies>
 
 	<properties>
@@ -94,6 +80,38 @@
 					<source>${java.version}</source>
 					<target>${java.version}</target>
 				</configuration>
+			</plugin>
+
+			<!-- Portable server -->
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.3.6.v20151106</version>
+				<configuration>
+					<scanIntervalSeconds>3</scanIntervalSeconds>
+					<stopPort>8079</stopPort>
+					<stopKey>stop</stopKey>
+				</configuration>
+				<executions>
+					<execution>
+						<id>start-jetty</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>run-forked</goal>
+						</goals>
+						<configuration>
+							<waitForChild>false</waitForChild>
+							<jvmArgs>${failsafeArgLine}</jvmArgs>
+						</configuration>
+					</execution>
+					<execution>
+						<id>stop-jetty</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>stop</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
