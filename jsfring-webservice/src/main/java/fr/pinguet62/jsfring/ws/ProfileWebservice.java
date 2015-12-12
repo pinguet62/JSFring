@@ -1,7 +1,7 @@
 package fr.pinguet62.jsfring.ws;
 
 import static fr.pinguet62.jsfring.ws.ProfileWebservice.PATH;
-import static fr.pinguet62.jsfring.ws.converter.config.TypeDescriptorUtils.generic;
+import static org.springframework.core.ResolvableType.forClassWithGenerics;
 import static org.springframework.core.convert.TypeDescriptor.collection;
 import static org.springframework.core.convert.TypeDescriptor.valueOf;
 
@@ -26,6 +26,7 @@ import com.mysema.query.types.expr.ComparableExpressionBase;
 import fr.pinguet62.jsfring.model.Profile;
 import fr.pinguet62.jsfring.model.QProfile;
 import fr.pinguet62.jsfring.service.ProfileService;
+import fr.pinguet62.jsfring.ws.converter.config.GenericTypeDescriptor;
 import fr.pinguet62.jsfring.ws.dto.ProfileDto;
 import fr.pinguet62.jsfring.ws.dto.SearchResultsDto;
 
@@ -41,7 +42,6 @@ public final class ProfileWebservice {
     private ProfileService profileService;
 
     /**
-     * 
      * @param page The page index.<br>
      *            The first page is {@code 1}.
      * @param pageSize The page size.
@@ -94,7 +94,8 @@ public final class ProfileWebservice {
 
         SearchResults<Profile> searchResults = profileService.findPanginated(query);
         return (SearchResultsDto<ProfileDto>) conversionService.convert(searchResults,
-                generic(SearchResults.class, Profile.class), generic(SearchResultsDto.class, ProfileDto.class));
+                new GenericTypeDescriptor(forClassWithGenerics(SearchResults.class, Profile.class)),
+                new GenericTypeDescriptor(forClassWithGenerics(SearchResultsDto.class, ProfileDto.class)));
     }
 
     @GET

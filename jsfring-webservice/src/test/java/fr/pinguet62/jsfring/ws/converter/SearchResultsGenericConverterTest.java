@@ -3,6 +3,7 @@ package fr.pinguet62.jsfring.ws.converter;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.springframework.core.ResolvableType.forClassWithGenerics;
 
 import javax.inject.Inject;
 
@@ -20,7 +21,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import com.mysema.query.SearchResults;
 
 import fr.pinguet62.jsfring.Config;
-import fr.pinguet62.jsfring.ws.converter.config.TypeDescriptorUtils;
+import fr.pinguet62.jsfring.ws.converter.config.GenericTypeDescriptor;
 import fr.pinguet62.jsfring.ws.dto.SearchResultsDto;
 
 /** @see SearchResultsGenericConverter */
@@ -36,8 +37,8 @@ public class SearchResultsGenericConverterTest {
     public void test_sameType() {
         SearchResults<String> source = new SearchResults<>(asList("1", "2", "3"), 2l, 1l, 10l);
 
-        TypeDescriptor srcType = TypeDescriptorUtils.generic(SearchResults.class, String.class);
-        TypeDescriptor tgtType = TypeDescriptorUtils.generic(SearchResultsDto.class, String.class);
+        TypeDescriptor srcType = new GenericTypeDescriptor(forClassWithGenerics(SearchResults.class, String.class));
+        TypeDescriptor tgtType = new GenericTypeDescriptor(forClassWithGenerics(SearchResultsDto.class, String.class));
         Object converted = conversionService.convert(source, srcType, tgtType);
 
         // Converted type
@@ -61,8 +62,8 @@ public class SearchResultsGenericConverterTest {
 
         SearchResults<String> source = new SearchResults<>(asList("1", "2", "3"), 2l, 1l, 10l);
 
-        TypeDescriptor srcType = TypeDescriptorUtils.generic(SearchResults.class, String.class);
-        TypeDescriptor tgtType = TypeDescriptorUtils.generic(SearchResultsDto.class, Integer.class);
+        TypeDescriptor srcType = new GenericTypeDescriptor(forClassWithGenerics(SearchResults.class, String.class));
+        TypeDescriptor tgtType = new GenericTypeDescriptor(forClassWithGenerics(SearchResultsDto.class, Integer.class));
         Object converted = conversionService.convert(source, srcType, tgtType);
 
         // Converted type
@@ -81,8 +82,8 @@ public class SearchResultsGenericConverterTest {
 
         SearchResults<SrcType> source = new SearchResults<>(asList(new SrcType(), new SrcType()), 2l, 1l, 10l);
 
-        TypeDescriptor srcType = TypeDescriptorUtils.generic(SearchResults.class, SrcType.class);
-        TypeDescriptor tgtType = TypeDescriptorUtils.generic(SearchResultsDto.class, TgtType.class);
+        TypeDescriptor srcType = new GenericTypeDescriptor(forClassWithGenerics(SearchResults.class, SrcType.class));
+        TypeDescriptor tgtType = new GenericTypeDescriptor(forClassWithGenerics(SearchResultsDto.class, TgtType.class));
         conversionService.convert(source, srcType, tgtType); // error
     }
 
