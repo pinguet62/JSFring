@@ -13,7 +13,7 @@
 		<module>jsfring-dao</module>
 		<module>jsfring-service</module>
 		<module>jsfring-webapp</module>
-		<module>jsfring-webapp-test</module>
+		<!--<module>jsfring-webapp-test</module>-->
 		<module>jsfring-webservice</module>
 	</modules>
 
