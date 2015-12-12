@@ -2,14 +2,16 @@ package fr.pinguet62.jsfring.ws.converter.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.support.DefaultConversionService;
-import org.springframework.core.convert.support.GenericConversionService;
 
+/** Configuration for Spring converters. */
 @Configuration
 public class ConversionServiceConfig {
 
+    /** @see ConversionService */
     @Bean
-    public GenericConversionService conversionService() {
+    public ConversionService conversionService() {
         return new DefaultConversionService();
     }
 
