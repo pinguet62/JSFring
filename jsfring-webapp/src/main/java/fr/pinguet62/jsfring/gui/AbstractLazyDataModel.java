@@ -3,6 +3,7 @@ package fr.pinguet62.jsfring.gui;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
@@ -11,11 +12,13 @@ import com.mysema.query.SearchResults;
 import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.types.OrderSpecifier;
 import com.mysema.query.types.Predicate;
+import com.mysema.query.types.expr.ComparableExpressionBase;
 import com.mysema.query.types.path.EntityPathBase;
 
-import fr.pinguet62.jsfring.gui.util.querydsl.FilterConverter;
-import fr.pinguet62.jsfring.gui.util.querydsl.OrderConverter;
+import fr.pinguet62.jsfring.gui.util.OrderConverter;
 import fr.pinguet62.jsfring.service.AbstractService;
+import fr.pinguet62.jsfring.util.querydsl.FilterConverter;
+import fr.pinguet62.jsfring.util.reflection.PropertyResolver;
 
 /**
  * Abstract {@link LazyDataModel} who implements default
@@ -75,9 +78,10 @@ public class AbstractLazyDataModel<T extends Serializable> extends LazyDataModel
         query.limit(pageSize);
         // Order
         if (sortField != null) {
-            OrderSpecifier<?> order = new OrderConverter(from).apply(sortField, sortOrder);
-            if (order != null)
-                query.orderBy(order);
+            ComparableExpressionBase<?> field = (ComparableExpressionBase<?>) new PropertyResolver(from).apply(sortField);
+            Function<ComparableExpressionBase<?>, OrderSpecifier<?>> orderApplier = new OrderConverter().apply(sortOrder);
+            OrderSpecifier<?> order = orderApplier.apply(field);
+            query.orderBy(order);
         }
         // Filter
         Predicate predicate = new FilterConverter(from).apply(filters);

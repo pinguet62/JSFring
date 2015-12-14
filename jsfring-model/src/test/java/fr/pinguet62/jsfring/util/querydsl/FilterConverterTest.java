@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.gui.util.querydsl;
+package fr.pinguet62.jsfring.util.querydsl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;

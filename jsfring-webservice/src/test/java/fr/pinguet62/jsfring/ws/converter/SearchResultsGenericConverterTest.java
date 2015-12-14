@@ -21,7 +21,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import com.mysema.query.SearchResults;
 
 import fr.pinguet62.jsfring.Config;
-import fr.pinguet62.jsfring.ws.converter.config.GenericTypeDescriptor;
+import fr.pinguet62.jsfring.util.spring.GenericTypeDescriptor;
 import fr.pinguet62.jsfring.ws.dto.SearchResultsDto;
 
 /** @see SearchResultsGenericConverter */

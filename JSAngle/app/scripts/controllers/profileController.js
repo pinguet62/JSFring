@@ -11,10 +11,10 @@
 	angular.module('jsangleApp')
 		.controller('profileController', ['$scope', 'profileService', function($scope, profileService) {
 			
-			var lazy = false;
+			var lazy = true;
 			
 			var paginationOptions = {
-				pageNumber: 1,
+				page: 0,
 				pageSize: 2,
 				sort: null,
 				filter: null
@@ -26,9 +26,10 @@
 			 */
 			var getPage = function() {
 				if (lazy) {
-					var results = profileService.find(paginationOptions);
-					$scope.gridOptions.data = results.values;
-					$scope.gridOptions.totalItems = results.totalCount;
+					profileService.find(paginationOptions, function(results) {
+						$scope.gridOptions.data = results.results;
+						$scope.gridOptions.totalItems = results.total;
+					});
 				} else {
 					profileService.list(function(results) {
 							$scope.gridOptions.data = results;
@@ -46,7 +47,7 @@
 				onRegisterApi: function(gridApi) {
 					// Pagination
 					gridApi.pagination.on.paginationChanged($scope, function(newPage, pageSize) {
-						paginationOptions.pageNumber = newPage;
+						paginationOptions.page = newPage - 1;
 						paginationOptions.pageSize = pageSize;
 						getPage();
 					});

@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.ws.converter.config;
+package fr.pinguet62.jsfring.util.spring;
 
 import java.lang.annotation.Annotation;
 

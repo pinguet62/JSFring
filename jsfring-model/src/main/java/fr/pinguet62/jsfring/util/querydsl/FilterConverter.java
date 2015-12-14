@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.gui.util.querydsl;
+package fr.pinguet62.jsfring.util.querydsl;
 
 import java.util.Map;
 import java.util.Map.Entry;
@@ -11,6 +11,8 @@ import com.mysema.query.types.expr.BooleanExpression;
 import com.mysema.query.types.expr.ComparableExpressionBase;
 import com.mysema.query.types.expr.SimpleExpression;
 import com.mysema.query.types.path.EntityPathBase;
+
+import fr.pinguet62.jsfring.util.reflection.PropertyResolver;
 
 /**
  * Convert a {@link Map} who associate the property and the value, to the
@@ -43,20 +45,20 @@ public final class FilterConverter implements Function<Map<String, Object>, Pred
      * @throws NullPointerException If {@code filters} is {@code null}.
      * @throws ClassCastException The target field is not a
      *             {@link ComparableExpressionBase}, so doen't support filter.
-     * @see PropertyConverter Transform property name to
-     *      {@link SimpleExpression}.
+     * @see PropertyResolver Transform property name to {@link SimpleExpression}
+     *      .
      */
     @Override
     public Predicate apply(Map<String, Object> filters) {
-        PropertyConverter propertyConverter = new PropertyConverter(meta);
+        PropertyResolver propertyConverter = new PropertyResolver(meta);
         BooleanBuilder builder = new BooleanBuilder();
         for (Entry<String, Object> filter : filters.entrySet()) {
-            // Attribute
+            // Field
             String property = filter.getKey();
-            SimpleExpression<?> attribute = propertyConverter.apply(property);
+            SimpleExpression<?> attribute = (SimpleExpression<?>) propertyConverter.apply(property);
             ComparableExpressionBase<?> comparable = (ComparableExpressionBase<?>) attribute;
 
-            // Filter value
+            // Value
             String value = filter.getValue().toString();
 
             // Apply

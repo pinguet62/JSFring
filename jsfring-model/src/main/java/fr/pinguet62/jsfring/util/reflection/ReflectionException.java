@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.gui.util.querydsl;
+package fr.pinguet62.jsfring.util.reflection;
 
 /**
  * {@link Exception} thrown when an problem occurs during reflection
