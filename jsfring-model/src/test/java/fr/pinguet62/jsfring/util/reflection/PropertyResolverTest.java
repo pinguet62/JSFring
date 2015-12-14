@@ -1,7 +1,6 @@
 package fr.pinguet62.jsfring.util.reflection;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.util.Arrays;
@@ -12,15 +11,19 @@ import fr.pinguet62.jsfring.model.QProfile;
 import fr.pinguet62.jsfring.model.QRight;
 import fr.pinguet62.jsfring.model.QUser;
 
-/** @see PropertyResolver */
+/**
+ * @see PropertyResolver
+ * @see PropertyResolver#apply(String)
+ */
 public final class PropertyResolverTest {
 
-    /** @see PropertyResolver#apply(String) */
+    /**
+     * An {@link IllegalArgumentException} must be thrown because the attribute
+     * doesn't exist.
+     */
     @Test
     public void test_apply_propertyNotFound() {
         QRight right = QRight.right_;
-
-        assertNotNull(new PropertyResolver(right).apply("code"));
 
         PropertyResolver converter = new PropertyResolver(right);
         for (String property : Arrays.asList("", " ", " code", "code ", " code ", ".", ".code", "code.", ".code.", "code..foo"))
@@ -30,37 +33,28 @@ public final class PropertyResolverTest {
             } catch (IllegalArgumentException exception) {}
     }
 
-    /**
-     * The target field-type is invalid.
-     *
-     * @see PropertyResolver#apply(String)
-     * @see ClassCastException
-     */
-    @Test
-    public void test_apply_targetAttributeBadType() {
-        try {
-            assertEquals(QRight.right_.profiles, new PropertyResolver(QRight.right_).apply("profiles"));
-            fail();
-        } catch (ClassCastException e) {}
-
-        try {
-            assertEquals(QProfile.profile.rights, new PropertyResolver(QProfile.profile).apply("rights"));
-            fail();
-        } catch (ClassCastException e) {}
-        try {
-            assertEquals(QProfile.profile.users, new PropertyResolver(QProfile.profile).apply("users"));
-            fail();
-        } catch (ClassCastException e) {}
-
-        try {
-            assertEquals(QUser.user.profiles, new PropertyResolver(QUser.user).apply("profiles"));
-            fail();
-        } catch (ClassCastException e) {}
-    }
-
-    /** @see PropertyResolver#apply(String) */
+    /** Multi-property. */
     @Test
     public void test_appy() {
+        class Bar {
+            int attr;
+        }
+        class Foo {
+            Bar bar;
+        }
+
+        final int value = 5;
+
+        Foo foo = new Foo();
+        foo.bar = new Bar();
+        foo.bar.attr = value;
+
+        assertEquals(foo.bar.attr, new PropertyResolver(foo).apply("bar.attr"));
+    }
+
+    /** Meta-model for Querydsl. */
+    @Test
+    public void test_appy_QModel() {
         {
             QRight right = QRight.right_;
             assertEquals(right.code, new PropertyResolver(right).apply("code"));
@@ -73,10 +67,10 @@ public final class PropertyResolverTest {
         }
         {
             QUser user = QUser.user;
-            assertEquals(user.login, new PropertyResolver(user).apply("login"));
-            assertEquals(user.password, new PropertyResolver(user).apply("password"));
-            assertEquals(user.email, new PropertyResolver(user).apply("email"));
-            assertEquals(user.lastConnection, new PropertyResolver(user).apply("lastConnection"));
+            assertEquals(user.login, new PropertyResolver(user).apply(user.login.toString()));
+            assertEquals(user.password, new PropertyResolver(user).apply(user.password.toString()));
+            assertEquals(user.email, new PropertyResolver(user).apply(user.email.toString()));
+            assertEquals(user.lastConnection, new PropertyResolver(user).apply(user.lastConnection.toString()));
         }
     }
 
