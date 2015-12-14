@@ -4,9 +4,11 @@
  * @url The target sub-URL.
  */
 function initCrudService(crudService, url, $http) {
+	var baseUrl = 'http://localhost:8080/rest'
+	
 	crudService.list = function(callback) {
 		$http
-			.get('http://localhost:8080/webservice/rest' + url + '')
+			.get(baseUrl + url + '')
 			.success(function(response) {
 				callback && callback(response);
 			});
@@ -14,7 +16,7 @@ function initCrudService(crudService, url, $http) {
 	
 	crudService.find = function(paginationOptions, callback) {
 		$http
-			.get('http://localhost:8080/webservice/rest' + url + '/find', {params: paginationOptions})
+			.get(baseUrl + url + '/find', {params: paginationOptions})
 			.success(function(response) {
 				callback && callback(response);
 			});

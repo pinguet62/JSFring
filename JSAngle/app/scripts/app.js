@@ -4,8 +4,9 @@
 	/**
 	 * Main module of the application.
 	 */
-	var app = angular.module('jsangleApp', [
+	angular.module('jsangleApp', [
 		'ngRoute',
+		'pascalprecht.translate',
 		'ui.bootstrap',
 		'ui.grid', 'ui.grid.pagination'
 	]);
