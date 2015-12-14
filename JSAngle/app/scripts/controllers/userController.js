@@ -16,7 +16,7 @@
 			$scope.gridOptions.columnDefs = [
 				{ name: 'login', displayName: $translate.instant('user.login') },
 				{ name: 'email', displayName: $translate.instant('user.email') },
-				{ name: 'lastConnection', displayName: $translate.instant('user.lastConnection') },
+				{ name: 'lastConnection', displayName: $translate.instant('user.lastConnection'), cellFilter: 'date: medium' },
 			];
 		}]);
 })();
