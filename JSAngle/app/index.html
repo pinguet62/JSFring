@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="jsangleApp">
 	<head>
 		<meta charset="utf-8">
 		<title></title>
@@ -13,6 +13,7 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.css">
 		<!-- AngularJS -->
 		<script src="bower_components/angular/angular.js"></script>
+		<script src="bower_components/angular-route/angular-route.js"></script>
 		<!-- UI Bootstrap -->
 		<script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
 		<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
@@ -21,6 +22,7 @@
 		<script src="bower_components/angular-ui-grid/ui-grid.js"></script>
 		<!-- Application -->
 		<script src="scripts/app.js"></script>
+		<script src="scripts/routes.js"></script>
 		<script src="scripts/controllers/main.js"></script>
 		<script src="scripts/controllers/crudController.js"></script>
 		<script src="scripts/controllers/rightController.js"></script>
@@ -32,7 +34,7 @@
 		<script src="scripts/services/userService.js"></script>
 		<!--<link rel="stylesheet" href="styles/main.css">-->
 	</head>
-	<body ng-app="jsangleApp">
+	<body>
 		<div class="header">
 			<!-- Menu -->
 			<nav class="navbar navbar-default">
@@ -45,9 +47,9 @@
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administration <span class="caret"></span></a>
 								<ul class="dropdown-menu">
-									<li><a href="#">Users</a></li>
-									<li><a href="#">Profiles</a></li>
-									<li><a href="#">Rights</a></li>
+									<li><a href="#/admin/user">Users</a></li>
+									<li><a href="#/admin/profile">Profiles</a></li>
+									<li><a href="#/admin/right">Rights</a></li>
 								</ul>
 							</li>
 							<li class="dropdown">
@@ -64,9 +66,7 @@
 		</div>
 
 		<div class="container">
-			<div ng-include="'views/rights.html'" ng-controller="rightController"></div>
-			<div ng-include="'views/profiles.html'" ng-controller="profileController"></div>
-			<div ng-include="'views/users.html'" ng-controller="userController"></div>
+			<div ng-view></div>
 		</div>
 	</body>
 </html>
