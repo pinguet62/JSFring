@@ -2,13 +2,11 @@
 	'use strict';
 
 	/**
-	 * @ngdoc overview
-	 * @name jsangleApp
-	 * @description
-	 * # jsangleApp
-	 *
 	 * Main module of the application.
 	 */
-	angular
-		.module('jsangleApp', []);
+	var app = angular.module('jsangleApp', [
+		'ngRoute',
+		'ui.bootstrap',
+		'ui.grid', 'ui.grid.pagination'
+	]);
 })();
