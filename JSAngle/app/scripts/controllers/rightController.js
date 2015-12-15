@@ -13,14 +13,14 @@
 			initCrudController($scope, rightService);
 			
 			$scope.openShowDialog = function() {
-				ngDialog.open({ template: 'views/showDialog.html' });
+				ngDialog.open({ template: 'views/right/show.html' });
 			};
 			$scope.openUpdateDialog = function() {
-				ngDialog.open({ template: 'views/updateDialog.html' });
+				ngDialog.open({ template: 'views/right/update.html' });
 			};
-			$scope.openDeleteDialog = function() {
-				ngDialog.open({ template: 'views/deleteDialog.html' });
-			};
+			// $scope.openDeleteDialog = function() {
+				// ngDialog.open({ template: 'views/right/delete.html' });
+			// };
 			
 			// Column titles
 			$scope.gridOptions.columnDefs = [
@@ -28,9 +28,9 @@
 				{ field: 'title', displayName: $translate.instant('right.title') },
 				{ name: 'action', displayName: 'Action',
 					cellTemplate:
-						'<button id="show" type="button" ng-click="grid.appScope.openShowDialog()">Show</button>' +
-						'<button id="update" type="button" ng-click="grid.appScope.openUpdateDialog()">Update</button>' + 
-						'<button id="delete" type="button" ng-click="grid.appScope.openDeleteDialog()">Delete</button>' },
+						'<button id="show" type="button" ng-click="grid.appScope.openShowDialog()">'+$translate.instant('grid.actions.show')+'</button>' +
+						'<button id="update" type="button" ng-click="grid.appScope.openUpdateDialog()">'+$translate.instant('grid.actions.update')+'</button>' /*+ 
+						'<button id="delete" type="button" ng-click="grid.appScope.openDeleteDialog()">'+$translate.instant('grid.actions.delete')+'</button>'*/ },
 			];
 		}]);
 })();
