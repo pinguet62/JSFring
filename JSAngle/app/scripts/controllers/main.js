@@ -3,7 +3,7 @@
 	
 	angular.module('jsangleApp')
 		.controller('MainCtrl', ['$scope', 'ngDialog', function($scope, ngDialog) {
-			$scope.openShowDialog = function() {
+			$scope.openShowDialoga = function() {
 				ngDialog.open({ template: 'views/showDialog.html' });
 			};
 		}]);
