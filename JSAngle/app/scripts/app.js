@@ -8,6 +8,7 @@
 		'ngRoute',
 		'pascalprecht.translate',
 		'ui.bootstrap',
+		'ngDialog',
 		'ui.grid', 'ui.grid.pagination'
 	]);
 })();

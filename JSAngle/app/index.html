@@ -19,6 +19,10 @@
 		<!-- UI Bootstrap -->
 		<script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
 		<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+		<!-- ngDialog -->
+		<script src="bower_components/ng-dialog/js/ngDialog.js"></script>
+		<link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog.css">
+		<link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog-theme-default.css">
 		<!-- UI Grid -->
 		<link rel="stylesheet" type="text/css" href="bower_components/angular-ui-grid/ui-grid.css">
 		<script src="bower_components/angular-ui-grid/ui-grid.js"></script>
@@ -68,8 +72,11 @@
 			</nav>
 		</div>
 
-		<div class="container">
+		<div class="container" ng-controller="MainCtrl">
 			<div ng-view></div>
+
+			<button ng-click="openShowDialog()"></button>
+			<!--<ng-include src="'views/showDialog.html'" />-->
 		</div>
 	</body>
 </html>

@@ -7,6 +7,7 @@
 	angular.module('jsangleApp')
 		.config(['$translateProvider', function($translateProvider) {
 			$translateProvider.translations('en', {
+				'button.submit': 'Submit',
 				'right.code': 'Code',
 				'right.title': 'Title',
 				'profile.id': 'Id',
@@ -16,6 +17,7 @@
 				'user.lastConnection': 'Last connection',
 			});
 			$translateProvider.translations('fr', {
+				'button.submit': 'Valider',
 				'right.code': 'Code',
 				'right.title': 'Titre',
 				'profile.id': 'Id',
