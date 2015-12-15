@@ -2,14 +2,14 @@
 	<div class="form-group">
 		<label for="code" class="col-sm-2 control-label">{{ 'right.code' | translate }}</label>
 		<div class="col-sm-10">
-			<p id="code" class="form-control-static">{ { right.code } }</p>
+			<p id="code" class="form-control-static">{{ right.code }}</p>
 		</div>
 	</div>
 	
 	<div class="form-group">
 		<label for="title" class="col-sm-2 control-label">{{ 'right.title' | translate }}</label>
 		<div class="col-sm-10">
-			<input id="title" class="form-control" placeholder="{{ 'right.title' | translate }}" />
+			<input id="title" ng-model="right.title" type="text" class="form-control" placeholder="{{ 'right.title' | translate }}" />
 		</div>
 	</div>
 	

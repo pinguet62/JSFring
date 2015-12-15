@@ -2,7 +2,7 @@
 	<div class="form-group">
 		<label for="title" class="col-sm-2 control-label">{{ 'profile.title' | translate }}</label>
 		<div class="col-sm-10">
-			<input id="title" class="form-control" placeholder="{{ 'profile.title' | translate }}" />
+			<input id="title" ng-model="profile.title" type="text" class="form-control" placeholder="{{ 'profile.title' | translate }}" />
 		</div>
 	</div>
 	
