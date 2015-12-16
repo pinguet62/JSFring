@@ -9,7 +9,6 @@
 	 * Controller of the jsangleApp
 	 */
 	angular.module('jsangleApp')
-		.controller('userController', ['$scope', 'userService', '$translate', function($scope, userService, $translate) {
 		.controller('userController', ['$scope', 'userService', '$translate', 'ngDialog', function($scope, userService, $translate, ngDialog) {
 			initCrudController($scope, userService);
 			
