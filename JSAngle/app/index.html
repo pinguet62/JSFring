@@ -32,6 +32,7 @@
 		<script src="scripts/app.js"></script>
 		<script src="scripts/routes.js"></script>
 		<script src="scripts/i18n.js"></script>
+		<script src="scripts/directives/picklistDirective.js"></script>
 		<script src="scripts/controllers/main.js"></script>
 		<script src="scripts/controllers/crudController.js"></script>
 		<script src="scripts/controllers/rightController.js"></script>
@@ -41,6 +42,7 @@
 		<script src="scripts/services/rightService.js"></script>
 		<script src="scripts/services/profileService.js"></script>
 		<script src="scripts/services/userService.js"></script>
+		<link rel="stylesheet" href="styles/picklist.css" />
 		<!--<link rel="stylesheet" href="styles/main.css" />-->
 	</head>
 	<body>
@@ -76,6 +78,7 @@
 
 		<div class="container" ng-controller="MainCtrl">
 			<div ng-view></div>
+			<picklist value="data" />
 		</div>
 	</body>
 </html>

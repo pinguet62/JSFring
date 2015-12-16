@@ -1,0 +1,24 @@
+<div class="picklist">
+	<div class="picklist-list">
+		<select multiple ng-model="data.selectedSources" ng-options="item.value for item in data.source track by item.key" class="picklist-list" />
+	</div>
+	
+	<div class="picklist-buttons btn-group-vertical">
+		<button ng-click="selectedSrcToTgt()" type="button" class="btn btn-default">
+			<span class="glyphicon glyphicon-arrow-right" aria-hidden="true" />
+		</button>
+		<button ng-click="allSrcToTgt()" type="button" class="btn btn-default">
+			<span class="glyphicon glyphicon-fast-forward" aria-hidden="true" />
+		</button>
+		<button ng-click="selectedTgtToSrc()" type="button" class="btn btn-default">
+			<span class="glyphicon glyphicon-arrow-left" aria-hidden="true" />
+		</button>
+		<button ng-click="allTgtToSrc()" type="button" class="btn btn-default">
+			<span class="glyphicon glyphicon-fast-backward" aria-hidden="true" />
+		</button>
+	</div>
+	
+	<div class="picklist-list">
+		<select multiple ng-model="data.selectedTargets" ng-options="item.value for item in data.target track by item.key" class="picklist-list" />
+	</div>
+</div>
