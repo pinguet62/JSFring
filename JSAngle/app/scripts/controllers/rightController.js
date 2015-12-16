@@ -9,13 +9,38 @@
 	 * Controller of the jsangleApp
 	 */
 	angular.module('jsangleApp')
-		.controller('rightController', ['$scope', 'rightService', '$translate', function($scope, rightService, $translate) {
+		.controller('rightController', ['$scope', 'rightService', '$translate', 'ngDialog', function($scope, rightService, $translate, ngDialog) {
 			initCrudController($scope, rightService);
+			
+			$scope.openShowDialog = function(entity) {
+				ngDialog.open({
+					template: 'views/right/show.html',
+					controller: ['$scope', function($scope) {
+						$scope.right = entity;
+					}]
+				});
+			};
+			$scope.openUpdateDialog = function(entity) {
+				ngDialog.open({
+					template: 'views/right/update.html',
+					controller: ['$scope', function($scope) {
+						$scope.right = entity;
+					}]
+				});
+			};
+			// $scope.openDeleteDialog = function() {
+				// ngDialog.open({ template: 'views/right/delete.html' });
+			// };
 			
 			// Column titles
 			$scope.gridOptions.columnDefs = [
-				{ name: 'code', displayName: $translate.instant('right.code') },
-				{ name: 'title', displayName: $translate.instant('right.title') },
+				{ field: 'code', displayName: $translate.instant('right.code') },
+				{ field: 'title', displayName: $translate.instant('right.title') },
+				{ name: 'action', displayName: 'Action',
+					cellTemplate:
+						'<button id="show" type="button" ng-click="grid.appScope.openShowDialog(row.entity)">'+$translate.instant('grid.actions.show')+'</button>' +
+						'<button id="update" type="button" ng-click="grid.appScope.openUpdateDialog(row.entity)">'+$translate.instant('grid.actions.update')+'</button>' /*+ 
+						'<button id="delete" type="button" ng-click="grid.appScope.openDeleteDialog(row.entity)">'+$translate.instant('grid.actions.delete')+'</button>'*/ },
 			];
 		}]);
 })();

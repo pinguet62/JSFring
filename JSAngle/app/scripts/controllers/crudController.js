@@ -28,6 +28,8 @@ function initCrudController($scope, crudService) {
 	};
 	
 	$scope.gridOptions = {
+		enableGridMenu: true,
+		
 		// Pagination
 		paginationPageSizes: [2, 5, 10],
 		paginationPageSize: $scope.paginationOptions.pageSize,
@@ -52,7 +54,7 @@ function initCrudController($scope, crudService) {
 				$scope.getPage();
 			});
 			// TODO Filtering
-		}
+		},
 	};
 	
 	$scope.getPage(); // initial load

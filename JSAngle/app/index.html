@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html ng-app="jsangleApp">
 	<head>
-		<meta charset="utf-8">
-		<title></title>
-		<meta name="description" content="">
-		<meta name="viewport" content="width=device-width">
+		<meta charset="utf-8" />
+		<title>JSAngle</title>
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width" />
 		<!-- jQuery -->
 		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 		<!-- Bootstrap -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
-		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.css">
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.css" />
 		<!-- AngularJS -->
 		<script src="bower_components/angular/angular.js"></script>
 		<script src="bower_components/angular-route/angular-route.js"></script>
@@ -19,13 +19,20 @@
 		<!-- UI Bootstrap -->
 		<script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
 		<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+		<!-- ngDialog -->
+		<script src="bower_components/ng-dialog/js/ngDialog.js"></script>
+		<link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog.css" />
+		<link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog-theme-default.css" />
 		<!-- UI Grid -->
-		<link rel="stylesheet" type="text/css" href="bower_components/angular-ui-grid/ui-grid.css">
+		<link rel="stylesheet" type="text/css" href="bower_components/angular-ui-grid/ui-grid.css" />
 		<script src="bower_components/angular-ui-grid/ui-grid.js"></script>
+		<script src="bower_components/pdfmake/build/pdfmake.js"></script>
+		<script src="bower_components/pdfmake/build/vfs_fonts.js"></script>
 		<!-- Application -->
 		<script src="scripts/app.js"></script>
 		<script src="scripts/routes.js"></script>
 		<script src="scripts/i18n.js"></script>
+		<script src="scripts/directives/picklistDirective.js"></script>
 		<script src="scripts/controllers/main.js"></script>
 		<script src="scripts/controllers/crudController.js"></script>
 		<script src="scripts/controllers/rightController.js"></script>
@@ -35,7 +42,8 @@
 		<script src="scripts/services/rightService.js"></script>
 		<script src="scripts/services/profileService.js"></script>
 		<script src="scripts/services/userService.js"></script>
-		<!--<link rel="stylesheet" href="styles/main.css">-->
+		<link rel="stylesheet" href="styles/picklist.css" />
+		<!--<link rel="stylesheet" href="styles/main.css" />-->
 	</head>
 	<body>
 		<div class="header">
@@ -68,8 +76,9 @@
 			</nav>
 		</div>
 
-		<div class="container">
+		<div class="container" ng-controller="MainCtrl">
 			<div ng-view></div>
+			<picklist value="data" />
 		</div>
 	</body>
 </html>
