@@ -9,6 +9,6 @@
 		'pascalprecht.translate',
 		'ui.bootstrap',
 		'ngDialog',
-		'ui.grid', 'ui.grid.pagination'
+		'ui.grid', 'ui.grid.pagination', 'ui.grid.exporter'
 	]);
 })();
