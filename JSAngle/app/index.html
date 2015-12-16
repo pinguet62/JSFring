@@ -78,7 +78,9 @@
 
 		<div class="container" ng-controller="MainCtrl">
 			<div ng-view></div>
-			<picklist value="data" />
+			
+			<!--<picklist value="data" />-->
+			<ng-include src="'views/picklist.html'" />
 		</div>
 	</body>
 </html>

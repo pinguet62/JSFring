@@ -1,10 +1,10 @@
-<div class="picklist">
-	<div class="picklist-list">
-		<select multiple ng-model="data.selectedSources" ng-options="item.value for item in data.source track by item.key" class="picklist-list" />
+<div style="display: table;"  ng-controller="MainCtrl">
+	<div style="display: table-cell; vertical-align: middle;">
+		<select multiple ng-model="selectedSources" ng-options="item.value for item in data.source track by item.key" style="height: 200px; width: 200px;" />
 	</div>
 	
-	<div class="picklist-buttons btn-group-vertical">
-		<button ng-click="selectedSrcToTgt()" type="button" class="btn btn-default">
+	<div class="btn-group-vertical" style="display: table-cell; vertical-align: middle; padding: 0px 5px;">
+		<button ng-click="selectedSrcToTgt()" class="btn btn-default">
 			<span class="glyphicon glyphicon-arrow-right" aria-hidden="true" />
 		</button>
 		<button ng-click="allSrcToTgt()" type="button" class="btn btn-default">
@@ -18,7 +18,7 @@
 		</button>
 	</div>
 	
-	<div class="picklist-list">
-		<select multiple ng-model="data.selectedTargets" ng-options="item.value for item in data.target track by item.key" class="picklist-list" />
+	<div style="display: table-cell; vertical-align: middle;">
+		<select multiple ng-model="selectedTargets" ng-options="item.value for item in data.target track by item.key" style="height: 200px; width: 200px;" />
 	</div>
 </div>
