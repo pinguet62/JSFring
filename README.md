@@ -32,7 +32,11 @@ Integration of Spring into JSF project.
 			* [**PrimeFaces**](http://primefaces.org/)
 		* [**Spring security**](http://projects.spring.io/spring-security/)
 			* Taglib (JSF integration)
-	* [AngularJS](https://angularjs.org/)
+	* [**AngularJS**](https://angularjs.org/)
+		* [Angular Translate](https://angular-translate.github.io/)
+		* [**Bootstrap**](http://getbootstrap.com/) & [UI Bootstrap](https://angular-ui.github.io/bootstrap/)
+		* [ngDialog](http://ngmodules.org/modules/ngDialog)
+		* [UI Grid](http://ui-grid.info/)
 * Tests:
 	* [**JUnit**](http://junit.org/)
 	* [**DBUnit**](http://dbunit.sourceforge.net/)
