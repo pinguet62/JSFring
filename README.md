@@ -64,8 +64,13 @@ Integration of Spring into JSF project.
 
 All dependencies use the latest version.
 
-[![Dependency Status](https://www.versioneye.com/user/projects/5669cbc7a3a446000a1a866e/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5669cbc7a3a446000a1a866e)
-	
+[![Dependency Status](https://www.versioneye.com/user/projects/56729e638fea07000e093826/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56729e638fea07000e093826)
+[![Dependency Status](https://www.versioneye.com/user/projects/56729e698fea07000a09375a/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56729e698fea07000a09375a)
+[![Dependency Status](https://www.versioneye.com/user/projects/56729e6f8fea07000e093878/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56729e6f8fea07000e093878)
+[![Dependency Status](https://www.versioneye.com/user/projects/56729e738fea07000e0938b0/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56729e738fea07000e0938b0)
+[![Dependency Status](https://www.versioneye.com/user/projects/56729e798fea07000e0938eb/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56729e798fea07000e0938eb)
+[![Dependency Status](https://www.versioneye.com/user/projects/56729e808fea07000a0937cb/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56729e808fea07000a0937cb)
+
 ## Code style/quality, Continue Integration, Deployment
 
 ### Code quality
