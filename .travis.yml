@@ -9,6 +9,8 @@ env:
     - export JAVA_OPTS=-Xmx1g
 
 before_install:
+  # VersionEye
+  - mvn versioneye:update
   # Codecov.io: install
   - pip install --user codecov
 
