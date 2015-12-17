@@ -13,6 +13,7 @@
 	<ui:define name="content">
 		<h:form>
 			<p62:dataTable bean="#{rightsBean}" var="right"
+				showView="/right/show.xhtml" updateView="/right/update.xhtml"
 				title="#{msg['page.rights.title']}">
 
 				<p:column headerText="#{msg['right.code']}" filterBy="#{right.code}"
