@@ -20,6 +20,11 @@
 					templateUrl: 'views/crud.html',
 					controller: 'userController'
 				})
+				// Sample
+				.when('/sample/picklist', {
+					templateUrl: 'views/sample/picklist.html',
+					controller: 'picklistController'
+				})
 				// Other
 				.otherwise({
 					redirectTo: '/'

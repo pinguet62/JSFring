@@ -1,6 +1,6 @@
-<div style="display: table;"  ng-controller="MainCtrl">
+<div style="display: table;">
 	<div style="display: table-cell; vertical-align: middle;">
-		<select multiple ng-model="selectedSources" ng-options="item.value for item in data.source track by item.key" style="height: 200px; width: 200px;" />
+		<select multiple ng-model="selectedSources" ng-options="itemValue(item) for item in value.source track by itemKey(item)" style="height: 200px; width: 200px;" />
 	</div>
 	
 	<div class="btn-group-vertical" style="display: table-cell; vertical-align: middle; padding: 0px 5px;">
@@ -19,6 +19,6 @@
 	</div>
 	
 	<div style="display: table-cell; vertical-align: middle;">
-		<select multiple ng-model="selectedTargets" ng-options="item.value for item in data.target track by item.key" style="height: 200px; width: 200px;" />
+		<select multiple ng-model="selectedTargets" ng-options="itemValue(item) for item in value.target track by itemKey(item)" style="height: 200px; width: 200px;" />
 	</div>
 </div>

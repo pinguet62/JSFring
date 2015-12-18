@@ -38,11 +38,11 @@
 		<script src="scripts/controllers/rightController.js"></script>
 		<script src="scripts/controllers/profileController.js"></script>
 		<script src="scripts/controllers/userController.js"></script>
+		<script src="scripts/controllers/sample/picklistController.js"></script>
 		<script src="scripts/services/crudService.js"></script>
 		<script src="scripts/services/rightService.js"></script>
 		<script src="scripts/services/profileService.js"></script>
 		<script src="scripts/services/userService.js"></script>
-		<link rel="stylesheet" href="styles/picklist.css" />
 		<!--<link rel="stylesheet" href="styles/main.css" />-->
 	</head>
 	<body>
@@ -70,6 +70,12 @@
 									<li><a href="#">Parameters</a></li>
 								</ul>
 							</li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sample <span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="#/sample/picklist">Picklist</a></li>
+								</ul>
+							</li>
 						</ul>
 					</div>
 				</div>
@@ -78,9 +84,6 @@
 
 		<div class="container" ng-controller="MainCtrl">
 			<div ng-view></div>
-			
-			<!--<picklist value="data" />-->
-			<ng-include src="'views/picklist.html'" />
 		</div>
 	</body>
 </html>
