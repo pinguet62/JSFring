@@ -35,6 +35,11 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${hivernate.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+			<version>1.1</version>
+		</dependency>
 	</dependencies>
 
 	<properties>
