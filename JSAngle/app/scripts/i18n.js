@@ -20,6 +20,7 @@
 				'user.email': 'Email',
 				'user.active': 'Active',
 				'user.lastConnection': 'Last connection',
+				'user.profiles': 'Profiles',
 			});
 			$translateProvider.translations('fr', {
 				'button.submit': 'Valider',
@@ -35,6 +36,7 @@
 				'user.email': 'Email',
 				'user.active': 'Actif',
 				'user.lastConnection': 'Dernière connexion',
+				'user.profiles': 'Profils',
 			});
 			$translateProvider.preferredLanguage('en');
 		}]);

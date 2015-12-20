@@ -69,8 +69,8 @@
 			$scope.update = function() {
 				// Right association
 				$scope.profile.rights = [];
-				for (var i = 0 ; i < rightAssociation.target.length ; i ++)
-					profile.rights.push($scope.itemKeyConverter(rightAssociation.target[i]));
+				for (var i = 0 ; i < rightsAssociation.target.length ; i ++)
+					$scope.profile.rights.push($scope.itemKeyConverter(rightsAssociation.target[i]));
 				
 				profileService.update(profile);
 			};

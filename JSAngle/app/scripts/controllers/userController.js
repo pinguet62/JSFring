@@ -9,13 +9,14 @@
 	 * Controller of the jsangleApp
 	 */
 	angular.module('jsangleApp')
-		.controller('userController', ['$scope', 'userService', '$translate', 'ngDialog', function($scope, userService, $translate, ngDialog) {
+		.controller('userController', ['$scope', 'userService', '$translate', 'ngDialog', 'profileService', function($scope, userService, $translate, ngDialog, profileService) {
 			initCrudController($scope, userService);
 			
 			// Column titles
 			$scope.gridOptions.columnDefs = [
 				{ field: 'login', displayName: $translate.instant('user.login') },
 				{ field: 'email', displayName: $translate.instant('user.email') },
+				{ field: 'active', displayName: $translate.instant('user.active') },
 				{ field: 'lastConnection', displayName: $translate.instant('user.lastConnection') },
 				{ name: 'action', displayName: 'Action',
 					cellTemplate:
@@ -24,24 +25,56 @@
 						'<button id="delete" type="button" ng-click="grid.appScope.openDeleteDialog(row.entity)">'+$translate.instant('grid.actions.delete')+'</button>'*/ },
 			];
 			
+			// Actions
 			$scope.openShowDialog = function(entity) {
+				$scope.user = entity;
+				$scope.initProfilesAssociation(); // Profile association
 				ngDialog.open({
 					template: 'views/user/show.html',
-					controller: ['$scope', function($scope) {
-						$scope.user = entity;
-					}]
+					scope: $scope
 				});
 			};
 			$scope.openUpdateDialog = function(entity) {
+				$scope.user = entity;
+				$scope.initProfilesAssociation(); // Profile association
 				ngDialog.open({
 					template: 'views/user/update.html',
-					controller: ['$scope', function($scope) {
-						$scope.user = entity;
-					}]
+					scope: $scope
 				});
 			};
 			// $scope.openDeleteDialog = function() {
 				// ngDialog.open({ template: 'views/user/delete.html' });
 			// };
+			
+			// TODO synchrone
+			var profiles = null;
+			profileService.list(function(results) {
+				profiles = results;
+			});
+			
+			// Profile association
+			$scope.itemKeyConverter = function(x) { return x.id; };
+			$scope.itemValueConverter = function(x) { return x.title; };
+			$scope.initProfilesAssociation = function() {
+				$scope.profilesAssociation = {
+					source: [],
+					target: []
+				};
+				// TODO Synchrone: var profiles = rightService.list();
+				for (var i = 0 ; i < profiles.length ; i ++)
+					if ($scope.user.profiles.indexOf($scope.itemKeyConverter(profiles[i])) === -1)
+						$scope.profilesAssociation.source.push(profiles[i]);
+					else
+						$scope.profilesAssociation.target.push(profiles[i]);
+			};
+			
+			$scope.update = function() {
+				// Profile association
+				$scope.user.profiles = [];
+				for (var i = 0 ; i < profilesAssociation.target.length ; i ++)
+					$scope.profile.rights.push($scope.itemKeyConverter(profilesAssociation.target[i]));
+				
+				userService.update($scope.profile);
+			};
 		}]);
 })();
