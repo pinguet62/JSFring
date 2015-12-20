@@ -32,11 +32,11 @@
 			// Right association
 			$scope.itemKeyConverter = function(x) { return x.code; };
 			$scope.itemValueConverter = function(x) { return x.title; };
-			$scope.rightsAssociation = {
-				source: [],
-				target: []
-			};
 			$scope.initRightsAssociation = function() {
+				$scope.rightsAssociation = {
+					source: [],
+					target: []
+				};
 				// TODO Synchrone: var rights = rightService.list();
 				for (var i = 0 ; i < rights.length ; i ++)
 					if ($scope.profile.rights.indexOf($scope.itemKeyConverter(rights[i])) === -1)
