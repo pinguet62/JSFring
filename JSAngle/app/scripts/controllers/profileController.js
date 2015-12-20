@@ -23,6 +23,27 @@
 						'<button id="delete" type="button" ng-click="grid.appScope.openDeleteDialog(row.entity)">'+$translate.instant('grid.actions.delete')+'</button>'*/ },
 			];
 			
+			// Actions
+			$scope.openShowDialog = function(entity) {
+				$scope.profile = entity;
+				$scope.initRightsAssociation(); // Right association
+				ngDialog.open({
+					template: 'views/profile/show.html',
+					scope: $scope
+				});
+			};
+			$scope.openUpdateDialog = function(entity) {
+				$scope.profile = entity;
+				$scope.initRightsAssociation(); // Right association
+				ngDialog.open({
+					template: 'views/profile/update.html',
+					scope: $scope
+				});
+			};
+			// $scope.openDeleteDialog = function() {
+				// ngDialog.open({ template: 'views/profile/delete.html' });
+			// };
+			
 			// TODO synchrone
 			var rights = null;
 			rightService.list(function(results) {
@@ -44,27 +65,6 @@
 					else
 						$scope.rightsAssociation.target.push(rights[i]);
 			};
-			
-			// Actions
-			$scope.openShowDialog = function(entity) {
-				$scope.profile = entity;
-				$scope.initRightsAssociation(); // Right association
-				ngDialog.open({
-					template: 'views/profile/show.html',
-					scope: $scope
-				});
-			};
-			$scope.openUpdateDialog = function(entity) {
-				$scope.profile = entity;
-				$scope.initRightsAssociation(); // Right association
-				ngDialog.open({
-					template: 'views/profile/update.html',
-					scope: $scope
-				});
-			};
-			// $scope.openDeleteDialog = function() {
-				// ngDialog.open({ template: 'views/profile/delete.html' });
-			// };
 			
 			$scope.update = function() {
 				// Right association
