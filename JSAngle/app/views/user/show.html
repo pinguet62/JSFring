@@ -31,7 +31,7 @@
 		<label for="profiles" class="col-sm-2 control-label">{{ 'user.profiles' | translate }}</label>
 		<div class="col-sm-10">
 			<ul id="profiles" class="form-control-static">
-				<li ng-repeat="profile in profilesAssociation.target track by itemKeyConverter(profile)">{{profile.title}}</li>
+				<li ng-repeat="profile in profilesAssociation.target track by itemKeyConverter(profile)">{{ profile.title }}</li>
 			</ul>
 		</div>
 	</div>
