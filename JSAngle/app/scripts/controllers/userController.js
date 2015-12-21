@@ -26,6 +26,14 @@
 			];
 			
 			// Actions
+			$scope.openCreateDialog = function() {
+				$scope.selectedValue = { profiles: [] };
+				$scope.initProfilesAssociation(); // Profile association
+				ngDialog.open({
+					template: 'views/user/create.html',
+					scope: $scope
+				});
+			};
 			$scope.openShowDialog = function(entity) {
 				$scope.selectedValue = entity;
 				$scope.initProfilesAssociation(); // Profile association

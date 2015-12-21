@@ -22,6 +22,13 @@ function initCrudService(crudService, url, $http) {
 			});
 	};
 	
+	crudService.create = function(object) {
+		$http
+			.put(baseUrl + url + '/', object)
+			.success(function(data, status, headers, config) {
+			});
+	};
+	
 	crudService.update = function(object) {
 		$http
 			.post(baseUrl + url + '/', object)

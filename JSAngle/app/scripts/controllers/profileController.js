@@ -24,6 +24,14 @@
 			];
 			
 			// Actions
+			$scope.openCreateDialog = function() {
+				$scope.selectedValue = { rights: [] };
+				$scope.initRightsAssociation(); // Right association
+				ngDialog.open({
+					template: 'views/profile/create.html',
+					scope: $scope
+				});
+			};
 			$scope.openShowDialog = function(entity) {
 				$scope.selectedValue = entity;
 				$scope.initRightsAssociation(); // Right association

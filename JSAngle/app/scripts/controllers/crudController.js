@@ -55,6 +55,9 @@ function initCrudController($scope, crudService) {
 			});
 			// TODO Filtering
 		},
+		
+		showGridFooter: true,
+		gridFooterTemplate: '<button ng-click="grid.appScope.openCreateDialog()" type="button">' + 'Create' + '</div>', // TODO translate
 	};
 	
 	$scope.getPage(); // initial load
