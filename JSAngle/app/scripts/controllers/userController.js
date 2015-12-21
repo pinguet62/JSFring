@@ -72,7 +72,7 @@
 				// Profile association
 				$scope.selectedValue.profiles = [];
 				for (var i = 0 ; i < profilesAssociation.target.length ; i ++)
-					$scope.selectedValue.rights.push($scope.itemKeyConverter(profilesAssociation.target[i]));
+					$scope.selectedValue.rights.push($scope.itemKeyConverter($scope.profilesAssociation.target[i]));
 				
 				userService.update($scope.selectedValue);
 			};
