@@ -7,7 +7,9 @@ import static org.springframework.core.convert.TypeDescriptor.valueOf;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -47,6 +49,14 @@ public final class UserWebservice {
         List<User> pojos = userService.getAll();
         return (List<UserDto>) conversionService.convert(pojos, collection(List.class, valueOf(User.class)),
                 collection(List.class, valueOf(UserDto.class)));
+    }
+
+    @POST
+    @Path("/")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void update(UserDto userDto) {
+        User user = conversionService.convert(userDto, User.class);
+        userService.update(user);
     }
 
 }

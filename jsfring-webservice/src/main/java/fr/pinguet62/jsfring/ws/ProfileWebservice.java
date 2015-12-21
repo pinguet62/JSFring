@@ -8,8 +8,10 @@ import static org.springframework.core.convert.TypeDescriptor.valueOf;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -80,4 +82,13 @@ public final class ProfileWebservice extends AbstractWebservice<Profile, Integer
         return (List<ProfileDto>) conversionService.convert(pojos, collection(List.class, valueOf(Profile.class)),
                 collection(List.class, valueOf(ProfileDto.class)));
     }
+
+    @POST
+    @Path("/")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void update(ProfileDto profileDto) {
+        Profile profile = conversionService.convert(profileDto, Profile.class);
+        profileService.update(profile);
+    }
+
 }
