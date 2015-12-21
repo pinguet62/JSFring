@@ -58,4 +58,15 @@ function initCrudController($scope, crudService) {
 	};
 	
 	$scope.getPage(); // initial load
+	
+	// Actions
+	$scope.create = function() {
+		crudService.create($scope.selectedValue);
+	};
+	$scope.update = function() {
+		crudService.update($scope.selectedValue);
+	};
+	$scope.delete = function() {
+		crudService.delete($scope.selectedValue);
+	};
 };

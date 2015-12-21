@@ -8,7 +8,7 @@ function initCrudService(crudService, url, $http) {
 	
 	crudService.list = function(callback) {
 		$http
-			.get(baseUrl + url + '')
+			.get(baseUrl + url + '/')
 			.success(function(response) {
 				callback && callback(response);
 			});
@@ -19,6 +19,13 @@ function initCrudService(crudService, url, $http) {
 			.get(baseUrl + url + '/find', {params: paginationOptions})
 			.success(function(response) {
 				callback && callback(response);
+			});
+	};
+	
+	crudService.update = function(object) {
+		$http
+			.post(baseUrl + url + '/', object)
+			.success(function(data, status, headers, config) {
 			});
 	};
 }

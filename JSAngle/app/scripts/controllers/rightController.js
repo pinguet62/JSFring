@@ -13,19 +13,17 @@
 			initCrudController($scope, rightService);
 			
 			$scope.openShowDialog = function(entity) {
+				$scope.selectedValue = entity;
 				ngDialog.open({
 					template: 'views/right/show.html',
-					controller: ['$scope', function($scope) {
-						$scope.right = entity;
-					}]
+					scope: $scope
 				});
 			};
 			$scope.openUpdateDialog = function(entity) {
+				$scope.selectedValue = entity;
 				ngDialog.open({
 					template: 'views/right/update.html',
-					controller: ['$scope', function($scope) {
-						$scope.right = entity;
-					}]
+					scope: $scope
 				});
 			};
 			// $scope.openDeleteDialog = function() {

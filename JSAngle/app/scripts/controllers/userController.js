@@ -27,7 +27,7 @@
 			
 			// Actions
 			$scope.openShowDialog = function(entity) {
-				$scope.user = entity;
+				$scope.selectedValue = entity;
 				$scope.initProfilesAssociation(); // Profile association
 				ngDialog.open({
 					template: 'views/user/show.html',
@@ -35,7 +35,7 @@
 				});
 			};
 			$scope.openUpdateDialog = function(entity) {
-				$scope.user = entity;
+				$scope.selectedValue = entity;
 				$scope.initProfilesAssociation(); // Profile association
 				ngDialog.open({
 					template: 'views/user/update.html',
@@ -62,7 +62,7 @@
 				};
 				// TODO Synchrone: var profiles = rightService.list();
 				for (var i = 0 ; i < profiles.length ; i ++)
-					if ($scope.user.profiles.indexOf($scope.itemKeyConverter(profiles[i])) === -1)
+					if ($scope.selectedValue.profiles.indexOf($scope.itemKeyConverter(profiles[i])) === -1)
 						$scope.profilesAssociation.source.push(profiles[i]);
 					else
 						$scope.profilesAssociation.target.push(profiles[i]);
@@ -70,11 +70,11 @@
 			
 			$scope.update = function() {
 				// Profile association
-				$scope.user.profiles = [];
+				$scope.selectedValue.profiles = [];
 				for (var i = 0 ; i < profilesAssociation.target.length ; i ++)
-					$scope.profile.rights.push($scope.itemKeyConverter(profilesAssociation.target[i]));
+					$scope.selectedValue.rights.push($scope.itemKeyConverter(profilesAssociation.target[i]));
 				
-				userService.update($scope.profile);
+				userService.update($scope.selectedValue);
 			};
 		}]);
 })();
