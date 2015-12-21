@@ -35,4 +35,11 @@ public class RightService extends AbstractService<Right, String> {
         return super.getAll();
     }
 
+    @Override
+    @Cacheable(CacheConfig.RIGHT_CACHE)
+    @Transactional(readOnly = true)
+    public Right update(Right object) {
+        return super.update(object);
+    }
+
 }
