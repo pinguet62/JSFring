@@ -1,6 +1,6 @@
 package fr.pinguet62.jsfring.dao.sample;
 
-import javax.inject.Named;
+import org.springframework.stereotype.Repository;
 
 import com.mysema.query.types.Expression;
 
@@ -9,7 +9,7 @@ import fr.pinguet62.jsfring.model.sample.Description;
 import fr.pinguet62.jsfring.model.sample.QDescription;
 
 /** The DAO for {@link Description}. */
-@Named
+@Repository
 public class DescriptionDao extends AbstractDao<Description, Integer> {
 
     @Override
