@@ -12,6 +12,7 @@
 		<module>jsfring-model</module>
 		<module>jsfring-dao</module>
 		<module>jsfring-service</module>
+		<!--<module>jsfring-task</module>-->
 		<module>jsfring-webapp</module>
 		<!--<module>jsfring-webapp-test</module>-->
 		<module>jsfring-webservice</module>
