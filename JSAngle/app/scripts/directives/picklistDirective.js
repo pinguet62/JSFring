@@ -25,21 +25,27 @@
 					'itemValue': '='
 				},
 				controller: ['$scope', function($scope) {
+					// Key/Value converters
 					if (angular.isUndefined($scope.itemKey))
 						$scope.itemKey = function(x) { return x; };
 					if (angular.isUndefined($scope.itemValue))
 						$scope.itemValue = function(x) { return x; };
 					
+					// Selection
 					$scope.selectedSources = [];
 					$scope.selectedTargets = [];
 					
+					// Button actions
 					$scope.selectedSrcToTgt = function() {
 						for (var i = 0; i < $scope.selectedSources.length ; i ++) {
 							var selected = $scope.selectedSources[i];
-							var f = find($scope.value.source, function(value, index) { return $scope.itemKey(value) === $scope.itemKey(selected); });
+							// src
+							var f = find($scope.value.source, function(value, index) { return $scope.itemKey(value) == $scope.itemKey(selected); });
 							$scope.value.source.splice(f, 1);
+							// tgt
 							$scope.value.target.push(selected);
 						}
+						$scope.selectedSources = [];
 					};
 					$scope.allSrcToTgt = function() {
 						$scope.value.target = $scope.value.target.concat($scope.value.source);
@@ -48,10 +54,13 @@
 					$scope.selectedTgtToSrc = function() {
 						for (var i = 0; i < $scope.selectedTargets.length ; i ++) {
 							var selected = $scope.selectedTargets[i];
-							$scope.value.source.push(selected);
-							var f = find($scope.value.target, function(value, index) { return $scope.itemKey(value) === $scope.itemKey(selected); });
+							// src
+							var f = find($scope.value.target, function(value, index) { return $scope.itemKey(value) == $scope.itemKey(selected); });
 							$scope.value.target.splice(f, 1);
+							// tgt
+							$scope.value.source.push(selected);
 						}
+						$scope.selectedTargets = [];
 					};
 					$scope.allTgtToSrc = function() {
 						$scope.value.source = $scope.value.source.concat($scope.value.target);
