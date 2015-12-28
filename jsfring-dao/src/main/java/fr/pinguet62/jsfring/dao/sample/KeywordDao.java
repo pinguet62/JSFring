@@ -10,7 +10,7 @@ import fr.pinguet62.jsfring.model.sample.QKeyword;
 
 /** The DAO for {@link Keyword}. */
 @Named
-public final class KeywordDao extends AbstractDao<Keyword, Integer> {
+public class KeywordDao extends AbstractDao<Keyword, Integer> {
 
     @Override
     protected Expression<Keyword> getBaseExpression() {

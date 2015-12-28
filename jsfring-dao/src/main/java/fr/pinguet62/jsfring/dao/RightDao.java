@@ -9,7 +9,7 @@ import fr.pinguet62.jsfring.model.Right;
 
 /** The DAO for {@link Right}. */
 @Named
-public final class RightDao extends AbstractDao<Right, String> {
+public class RightDao extends AbstractDao<Right, String> {
 
     @Override
     protected Expression<Right> getBaseExpression() {

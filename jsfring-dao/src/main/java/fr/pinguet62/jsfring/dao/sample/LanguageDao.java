@@ -10,7 +10,7 @@ import fr.pinguet62.jsfring.model.sample.QLanguage;
 
 /** The DAO for {@link Language}. */
 @Named
-public final class LanguageDao extends AbstractDao<Language, String> {
+public class LanguageDao extends AbstractDao<Language, String> {
 
     @Override
     protected Expression<Language> getBaseExpression() {

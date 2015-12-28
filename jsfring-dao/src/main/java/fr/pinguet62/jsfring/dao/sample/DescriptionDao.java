@@ -10,7 +10,7 @@ import fr.pinguet62.jsfring.model.sample.QDescription;
 
 /** The DAO for {@link Description}. */
 @Named
-public final class DescriptionDao extends AbstractDao<Description, Integer> {
+public class DescriptionDao extends AbstractDao<Description, Integer> {
 
     @Override
     protected Expression<Description> getBaseExpression() {
