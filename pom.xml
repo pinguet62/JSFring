@@ -19,7 +19,7 @@
 		<module>jsfring-dao</module>
 		<module>jsfring-service</module>
 		<module>jsfring-webapp</module>
-		<!--<module>jsfring-webapp-test</module>-->
+		<!--<module>jsfring-webapp-test</module> -->
 		<module>jsfring-webservice</module>
 	</modules>
 
@@ -132,19 +132,6 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		<!-- Test -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<version>${spring.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.github.springtestdbunit</groupId>
-			<artifactId>spring-test-dbunit</artifactId>
-			<version>1.2.1</version>
-			<scope>test</scope>
-		</dependency>
 
 		<!-- ===== Test ===== -->
 		<dependency>
@@ -157,6 +144,12 @@
 			<groupId>org.dbunit</groupId>
 			<artifactId>dbunit</artifactId>
 			<version>2.5.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.github.springtestdbunit</groupId>
+			<artifactId>spring-test-dbunit</artifactId>
+			<version>1.2.1</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

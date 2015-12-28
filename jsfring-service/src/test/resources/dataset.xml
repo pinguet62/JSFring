@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-	<RIGHT Code="RIGHT_RO" Title="Affichage des droits" />
-	<RIGHT Code="PROFILE_RO" Title="Affichage des profils" />
-	<RIGHT Code="PROFILE_RW" Title="Edition des profils" />
-	<RIGHT Code="USER_RO" Title="Affichage des utilisateurs" />
-	<RIGHT Code="USER_RW" Title="Edition des utilisateurs" />
+	<right Code="RIGHT_RO" Title="Affichage des droits" />
+	<right Code="PROFILE_RO" Title="Affichage des profils" />
+	<right Code="PROFILE_RW" Title="Edition des profils" />
+	<right Code="USER_RO" Title="Affichage des utilisateurs" />
+	<right Code="USER_RW" Title="Edition des utilisateurs" />
 
 
 	<profile Id="1" Title="Profile admin" />
@@ -19,16 +19,16 @@
 	<profiles_rights Profile="2" Right="USER_RW" />
 
 
-	<USER Login="super admin" Password="Azerty1!" Email="admin@domain.fr"
+	<user Login="super admin" Password="Azerty1!" Email="admin@domain.fr"
 		Active="true" last_connection="2015-11-14 13:45:41" />
 	<users_profiles User="super admin" Profile="1" />
 	<users_profiles User="super admin" Profile="2" />
 
-	<USER Login="admin profile" Password="Azerty1!" Email="admin_profile@domain.fr"
+	<user Login="admin profile" Password="Azerty1!" Email="admin_profile@domain.fr"
 		Active="true" />
 	<users_profiles User="admin profile" Profile="1" />
 
-	<USER Login="admin user" Password="Azerty1!" Email="admin_user@domain.fr"
+	<user Login="admin user" Password="Azerty1!" Email="admin_user@domain.fr"
 		Active="true" />
 	<users_profiles User="admin user" Profile="2" />
 
