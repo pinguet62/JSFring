@@ -15,12 +15,9 @@
 	<packaging>jar</packaging>
 
 	<dependencies>
-		<!-- ===== JPA ===== -->
-		<!-- ORM -->
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>${hivernate.version}</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
 		<!-- Search query -->
@@ -41,7 +38,6 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<!-- Dependencies -->
-		<hivernate.version>5.0.5.Final</hivernate.version>
 		<querydsl.version>3.7.0</querydsl.version>
 	</properties>
 
