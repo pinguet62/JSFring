@@ -24,10 +24,12 @@ module.exports = function(config) {
       // bower:js
       'bower_components/angular/angular.js',
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+      'bower_components/angular-route/angular-route.js',
       'bower_components/angular-translate/angular-translate.js',
+      'bower_components/angular-ui-grid/ui-grid.js',
+      'bower_components/ng-dialog/js/ngDialog.js',
       'bower_components/pdfmake/build/pdfmake.js',
       'bower_components/pdfmake/build/vfs_fonts.js',
-      'bower_components/ngDraggable/ngDraggable.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",
