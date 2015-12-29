@@ -27,8 +27,8 @@ import org.primefaces.model.menu.MenuModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@FacesComponent(value = "breadCrumb")
-public final class BreadCrumbComponent extends BreadCrumb {
+@FacesComponent(value = "breadCrumb", tagName = "breadCrumb", createTag = true, namespace = "http://java.sun.com/jsf/composite/p62")
+public class BreadCrumbComponent extends BreadCrumb {
 
     private static enum PropertyKeys {
         index, menu;
