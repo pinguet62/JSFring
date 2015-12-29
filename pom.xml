@@ -18,25 +18,13 @@
 		<module>jsfring-model</module>
 		<module>jsfring-dao</module>
 		<module>jsfring-service</module>
-		<module>jsfring-webapp</module>
+		<!--<module>jsfring-webapp</module> -->
 		<!--<module>jsfring-webapp-test</module> -->
-		<module>jsfring-webservice</module>
+		<!--<module>jsfring-webservice</module> -->
 	</modules>
 
 	<dependencies>
 		<!-- ===== Others ===== -->
-		<!-- Logging -->
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-slf4j-impl</artifactId>
-			<version>${log4j2.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>${log4j2.version}</version>
-		</dependency>
-		<!-- Apache -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
@@ -75,7 +63,6 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>5.2.2.Final</version>
 		</dependency>
 
 		<!-- CDI -->
@@ -91,49 +78,7 @@
 		</dependency>
 
 		<!-- ===== Spring ===== -->
-		<!-- Spring -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-core</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context-support</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-beans</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-tx</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-orm</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-
-		<!-- ===== Test ===== -->
+		<!-- Test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -160,7 +105,6 @@
 		<java.version>1.8</java.version>
 		<!-- Commons -->
 		<log4j2.version>2.5</log4j2.version>
-		<spring.version>4.2.4.RELEASE</spring.version>
 		<!-- Utils -->
 		<sonar.host.url>http://localhost:9000/</sonar.host.url>
 	</properties>
