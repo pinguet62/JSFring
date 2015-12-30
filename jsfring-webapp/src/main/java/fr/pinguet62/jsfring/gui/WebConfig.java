@@ -49,13 +49,10 @@ public class WebConfig implements ServletContextInitializer {
         sc.setInitParameter(ProjectStage.PROJECT_STAGE_PARAM_NAME, ProjectStage.Development.toString());
         sc.setInitParameter(ViewHandler.FACELETS_SKIP_COMMENTS_PARAM_NAME, Boolean.TRUE.toString());
         // TimeZone: getDefault() instead of "GMT"
-        sc.setInitParameter(Converter.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE_PARAM_NAME,
-                Boolean.TRUE.toString());
+        sc.setInitParameter(Converter.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE_PARAM_NAME, Boolean.TRUE.toString());
 
         // JSF without "web.xml" and "faces-config.xml"
         sc.setInitParameter("com.sun.faces.forceLoadConfiguration", Boolean.TRUE.toString());
-
-        sc.setInitParameter("javax.faces.WEBAPP_RESOURCES_DIRECTORY", "/META-INF/resources");
 
         // Primefaces
         sc.setInitParameter(ContextParams.THEME, themeSwitcherBean.getTheme().getKey());
