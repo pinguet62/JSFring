@@ -6,7 +6,7 @@ import javax.faces.context.ExternalContext;
 
 import org.primefaces.component.datatable.DataTable;
 
-@FacesComponent(value = "dataTable", tagName = "dataTable", createTag = true, namespace = "http://java.sun.com/jsf/composite/p62")
+@FacesComponent("fr.pinguet62.jsfring.gui.component.DataTableComponent")
 public final class DataTableComponent extends DataTable {
 
     /**
