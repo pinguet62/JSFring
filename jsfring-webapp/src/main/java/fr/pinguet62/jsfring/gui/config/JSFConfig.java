@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.gui;
+package fr.pinguet62.jsfring.gui.config;
 
 import java.lang.annotation.Annotation;
 import java.util.HashSet;
@@ -14,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.embedded.ServletContextInitializer;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.core.type.filter.AssignableTypeFilter;
 import org.springframework.util.ClassUtils;
@@ -26,12 +25,11 @@ import com.sun.faces.config.FacesInitializer;
  * all annotated classes to {@link FacesInitializer}.
  * <p>
  * {@link FacesComponent} (and other?) not working with embedded server.
- * 
- * @see <a
- *      href="https://github.com/spring-projects/spring-boot/issues/3216">Spring-Boot
- *      issue #3216</a>
+ *
+ * @see <a href="https://github.com/spring-projects/spring-boot/issues/3216">
+ *      Spring-Boot issue #3216</a>
  */
-@Configuration
+// @Configuration
 public class JSFConfig implements ServletContextInitializer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JSFConfig.class);
@@ -79,16 +77,16 @@ public class JSFConfig implements ServletContextInitializer {
      * the container to do it for us.
      * </p>
      *
-     * @see <a
-     *      href="https://github.com/spring-projects/spring-boot/issues/321">Embedded
-     *      Tomcat does not honor ServletContainerInitializers</a>.
-     * @see <a
-     *      href="https://github.com/spring-projects/spring-boot/issues/3216">
-     *      Spring Boot doesn't work with Mojarra 2.2.11</a>.
+     * @see <a href="https://github.com/spring-projects/spring-boot/issues/321">
+     *      Embedded Tomcat does not honor ServletContainerInitializers</a>.
+     * @see <a href=
+     *      "https://github.com/spring-projects/spring-boot/issues/3216"> Spring
+     *      Boot doesn't work with Mojarra 2.2.11</a>.
      */
     private void runServletInitializer(ServletContext servletContext, FacesInitializer facesInitializer,
             String... basePackagesToScan) throws ServletException {
-        ClassPathScanningCandidateComponentProvider scanner = constructScannerForServletInitializer(facesInitializer.getClass());
+        ClassPathScanningCandidateComponentProvider scanner = constructScannerForServletInitializer(
+                facesInitializer.getClass());
         Set<Class<?>> annotatedClasses = findAnnotatedClasses(scanner, basePackagesToScan);
         facesInitializer.onStartup(annotatedClasses, servletContext);
     }

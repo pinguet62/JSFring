@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.gui;
+package fr.pinguet62.jsfring.gui.config;
 
 import javax.faces.application.ProjectStage;
 import javax.faces.application.ViewHandler;
@@ -15,14 +15,13 @@ import org.springframework.boot.context.embedded.ServletContextInitializer;
 import org.springframework.boot.context.embedded.ServletListenerRegistrationBean;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import com.sun.faces.config.ConfigureListener;
 
 import fr.pinguet62.jsfring.gui.theme.ThemeSwitcherBean;
 
 /** Java configuration for {@code web.xml} file. */
-@Configuration
+// @Configuration
 public class WebConfig implements ServletContextInitializer {
 
     @Inject
@@ -49,7 +48,12 @@ public class WebConfig implements ServletContextInitializer {
         sc.setInitParameter(ProjectStage.PROJECT_STAGE_PARAM_NAME, ProjectStage.Development.toString());
         sc.setInitParameter(ViewHandler.FACELETS_SKIP_COMMENTS_PARAM_NAME, Boolean.TRUE.toString());
         // TimeZone: getDefault() instead of "GMT"
-        sc.setInitParameter(Converter.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE_PARAM_NAME, Boolean.TRUE.toString());
+        sc.setInitParameter(Converter.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE_PARAM_NAME,
+                Boolean.TRUE.toString());
+
+        // Spring
+        // sc.setInitParameter(ContextLoader.CONFIG_LOCATION_PARAM,
+        // "applicationContext.xml");
 
         // JSF without "web.xml" and "faces-config.xml"
         sc.setInitParameter("com.sun.faces.forceLoadConfiguration", Boolean.TRUE.toString());
