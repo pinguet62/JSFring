@@ -6,7 +6,6 @@ import static org.springframework.core.convert.TypeDescriptor.valueOf;
 
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -16,6 +15,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 
 import fr.pinguet62.jsfring.model.User;
@@ -27,10 +27,10 @@ public final class UserWebservice {
 
     public static final String PATH = "/user";
 
-    @Inject
+    @Autowired
     private ConversionService conversionService;
 
-    @Inject
+    @Autowired
     private UserService userService;
 
     @PUT
