@@ -27,8 +27,8 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import fr.pinguet62.jsfring.TestRuntimeException;
-import fr.pinguet62.jsfring.config.Application;
 import fr.pinguet62.jsfring.dao.ProfileDao;
+import fr.pinguet62.jsfring.dao.config.Application;
 import fr.pinguet62.jsfring.model.Profile;
 import fr.pinguet62.jsfring.service.TestService.RollbackMeIMFamousException;
 

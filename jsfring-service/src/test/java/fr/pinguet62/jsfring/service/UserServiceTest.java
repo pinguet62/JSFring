@@ -22,7 +22,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
-import fr.pinguet62.jsfring.config.Application;
+import fr.pinguet62.jsfring.dao.config.Application;
 import fr.pinguet62.jsfring.dao.util.PasswordGenerator;
 import fr.pinguet62.jsfring.model.User;
 

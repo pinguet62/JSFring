@@ -27,7 +27,7 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.mysema.query.jpa.impl.JPAQuery;
 
-import fr.pinguet62.jsfring.config.Application;
+import fr.pinguet62.jsfring.dao.config.Application;
 import fr.pinguet62.jsfring.model.QUser;
 import fr.pinguet62.jsfring.model.User;
 

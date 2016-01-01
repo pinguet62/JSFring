@@ -26,7 +26,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.mysema.query.SearchResults;
 import com.mysema.query.jpa.impl.JPAQuery;
 
-import fr.pinguet62.jsfring.config.Application;
+import fr.pinguet62.jsfring.dao.config.Application;
 import fr.pinguet62.jsfring.dao.util.PasswordGenerator;
 import fr.pinguet62.jsfring.model.Profile;
 import fr.pinguet62.jsfring.model.QRight;

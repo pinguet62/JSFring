@@ -22,13 +22,13 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.mysema.query.SearchResults;
 import com.mysema.query.jpa.impl.JPAQuery;
 
-import fr.pinguet62.jsfring.config.Application;
 import fr.pinguet62.jsfring.dao.AbstractDao;
 import fr.pinguet62.jsfring.dao.util.PasswordGenerator;
 import fr.pinguet62.jsfring.model.Profile;
 import fr.pinguet62.jsfring.model.QRight;
 import fr.pinguet62.jsfring.model.Right;
 import fr.pinguet62.jsfring.model.User;
+import fr.pinguet62.jsfring.service.config.Application;
 
 /** @see AbstractService */
 @RunWith(SpringJUnit4ClassRunner.class)
