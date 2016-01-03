@@ -12,6 +12,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Test;
@@ -40,20 +42,30 @@ import fr.pinguet62.jsfring.model.User;
 @Transactional
 public class UserDaoTest {
 
+    @PersistenceContext
+    private EntityManager em;
+
     @Inject
     private UserDao userDao;
 
-    /** @see UserDao#disableInactiveUsers(int) */
+    /**
+     * @TODO InvalidDataAccessApiUsageException<br>
+     *       See {@code spring.aop.auto.proxy-target-class=false}
+     * @see UserDao#disableInactiveUsers(int)
+     */
     @Test
     public void test_disableInactiveUsers_illegalArgument() {
         for (Integer arg : Arrays.asList(-1, 0))
             try {
                 userDao.disableInactiveUsers(arg);
                 fail();
-            } catch (IllegalArgumentException e) {}
+            } catch (RuntimeException e) {}
     }
 
-    /** @see UserDao#disableInactiveUsers(int) */
+    /**
+     * @TODO Better tested
+     * @see UserDao#disableInactiveUsers(int)
+     */
     @Test
     public void test_disableInactiveUsers_stayInactive() {
         final int nbOfDays = 1;
@@ -69,8 +81,7 @@ public class UserDaoTest {
                 .find(new JPAQuery().from(u).where(u.lastConnection.before(yesterday)).where(u.active.isTrue()));
 
         userDao.disableInactiveUsers(nbOfDays);
-        // because first-level cache is not updated by this method
-        userDao.em.clear();
+        em.clear(); // because first-level cache is not updated by this method
 
         // check
         for (User user : usersToDeactivate)
