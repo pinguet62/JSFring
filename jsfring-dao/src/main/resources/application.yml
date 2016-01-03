@@ -1,0 +1,22 @@
+spring:
+    aop:
+        # Disable proxies
+        auto: false
+        proxy-target-class: false
+    datasource:
+        url: ${DATABASE_URL}
+        #username: ${DATABASE_USERNAME}
+        #password: ${DATABASE_PASSWORD}
+        driver-class-name: org.postgresql.Driver
+    jpa:
+        hibernate:
+            # Lower/underscore conversion of table/column name
+            naming_strategy: org.hibernate.cfg.DefaultNamingStrategy
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQL9Dialect
+                # globally_quoted_identifiers: true
+                # default_schema: public
+                use_sql_comments: false
+                show_sql: true
+                format_sql: true
