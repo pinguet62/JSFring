@@ -5,9 +5,6 @@ spring:
         proxy-target-class: false
     datasource:
         url: ${DATABASE_URL}
-        #username: ${DATABASE_USERNAME}
-        #password: ${DATABASE_PASSWORD}
-        driver-class-name: org.postgresql.Driver
     jpa:
         hibernate:
             # Lower/underscore conversion of table/column name
