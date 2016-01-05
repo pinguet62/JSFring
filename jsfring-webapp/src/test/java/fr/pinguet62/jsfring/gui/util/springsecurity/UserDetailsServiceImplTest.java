@@ -21,14 +21,14 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
+import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.gui.config.UserDetailsServiceImpl;
 import fr.pinguet62.jsfring.model.User;
 import fr.pinguet62.jsfring.service.UserService;
-import fr.pinguet62.jsfring.service.config.Application;
 
 /** @see UserDetailsServiceImpl */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringApplicationConfiguration(SpringBootConfig.class)
 @DatabaseSetup(DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 public class UserDetailsServiceImplTest {

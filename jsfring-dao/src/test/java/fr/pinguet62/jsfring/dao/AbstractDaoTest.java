@@ -26,7 +26,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.mysema.query.SearchResults;
 import com.mysema.query.jpa.impl.JPAQuery;
 
-import fr.pinguet62.jsfring.dao.config.Application;
+import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.dao.util.PasswordGenerator;
 import fr.pinguet62.jsfring.model.Profile;
 import fr.pinguet62.jsfring.model.QRight;
@@ -35,7 +35,7 @@ import fr.pinguet62.jsfring.model.User;
 
 /** @see AbstractDao */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringApplicationConfiguration(SpringBootConfig.class)
 @DatabaseSetup(DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class })

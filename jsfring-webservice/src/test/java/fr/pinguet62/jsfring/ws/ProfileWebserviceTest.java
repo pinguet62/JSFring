@@ -22,14 +22,14 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
+import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.dao.ProfileDao;
 import fr.pinguet62.jsfring.model.Profile;
-import fr.pinguet62.jsfring.ws.config.Application;
 import fr.pinguet62.jsfring.ws.dto.ProfileDto;
 
 /** @see ProfileWebservice */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(Application.class)
+@SpringApplicationConfiguration(SpringBootConfig.class)
 @WebIntegrationTest
 @DatabaseSetup(DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })

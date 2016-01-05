@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackages;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.embedded.ServletContextInitializer;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.context.annotation.Configuration;
@@ -39,6 +40,10 @@ import com.sun.faces.config.FacesInitializer;
  * of {@link HandlesTypes} of {@link FacesInitializer}. Then Spring scans all
  * annotated classes of classpath. Finally, these classes are given to
  * {@link FacesInitializer} instance to continue initialization.
+ * <p>
+ * The scanned package is defined by
+ * {@link AutoConfigurationPackages#get(BeanFactory)}, so it is the sub-packages
+ * of {@link SpringBootApplication} location.
  *
  * @see <a href="https://github.com/spring-projects/spring-boot/issues/3216">
  *      Spring-Boot issue #3216</a>

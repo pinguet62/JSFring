@@ -22,13 +22,13 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
-import fr.pinguet62.jsfring.dao.config.Application;
+import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.dao.util.PasswordGenerator;
 import fr.pinguet62.jsfring.model.User;
 
 /** @see UserService */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringApplicationConfiguration(SpringBootConfig.class)
 @DatabaseSetup(DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 public class UserServiceTest {

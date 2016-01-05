@@ -26,9 +26,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
+import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.TestRuntimeException;
 import fr.pinguet62.jsfring.dao.ProfileDao;
-import fr.pinguet62.jsfring.dao.config.Application;
 import fr.pinguet62.jsfring.model.Profile;
 import fr.pinguet62.jsfring.service.TestService.RollbackMeIMFamousException;
 
@@ -38,7 +38,7 @@ import fr.pinguet62.jsfring.service.TestService.RollbackMeIMFamousException;
  * {@link TestService} contains the specifics {@link Service}s.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringApplicationConfiguration(SpringBootConfig.class)
 @DatabaseSetup(DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 public class ServiceControlsTest {

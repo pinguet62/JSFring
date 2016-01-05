@@ -18,13 +18,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.mysema.query.SearchResults;
 
+import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.util.spring.GenericTypeDescriptor;
-import fr.pinguet62.jsfring.ws.config.Application;
 import fr.pinguet62.jsfring.ws.dto.SearchResultsDto;
 
 /** @see SearchResultsGenericConverter */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(Application.class)
+@SpringApplicationConfiguration(SpringBootConfig.class)
 public class SearchResultsGenericConverterTest {
 
     @Inject

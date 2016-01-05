@@ -29,13 +29,13 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.mysema.query.jpa.impl.JPAQuery;
 
-import fr.pinguet62.jsfring.dao.config.Application;
+import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.model.QUser;
 import fr.pinguet62.jsfring.model.User;
 
 /** @see UserDao */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringApplicationConfiguration(SpringBootConfig.class)
 @DatabaseSetup(DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class,
         TransactionalTestExecutionListener.class })
