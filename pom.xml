@@ -19,8 +19,8 @@
 		<module>jsfring-dao</module>
 		<module>jsfring-service</module>
 		<module>jsfring-webapp</module>
-		<!--<module>jsfring-webapp-test</module> -->
-		<!--<module>jsfring-webservice</module> -->
+		<!--<module>jsfring-webapp-test</module>-->
+		<module>jsfring-webservice</module>
 	</modules>
 
 	<dependencies>
@@ -110,6 +110,7 @@
 	</dependencies>
 
 	<properties>
+		<java.version>1.8</java.version>
 		<sonar.host.url>http://localhost:9000/</sonar.host.url>
 	</properties>
 
