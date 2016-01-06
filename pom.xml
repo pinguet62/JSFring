@@ -19,7 +19,7 @@
 		<module>jsfring-dao</module>
 		<module>jsfring-service</module>
 		<module>jsfring-webapp</module>
-		<!--<module>jsfring-webapp-test</module>-->
+		<!--<module>jsfring-webapp-test</module> -->
 		<module>jsfring-webservice</module>
 	</modules>
 
@@ -84,6 +84,16 @@
 
 		<!-- ===== Spring ===== -->
 		<!-- Logging -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-log4j2</artifactId>
