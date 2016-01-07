@@ -6,6 +6,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.stream.Stream;
 
@@ -15,6 +16,7 @@ import javax.validation.constraints.Pattern;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.mail.MailSender;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
@@ -25,6 +27,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.dao.util.PasswordGenerator;
 import fr.pinguet62.jsfring.model.User;
+import fr.pinguet62.jsfring.service.config.MailSenderThrowableMock;
 
 /** @see UserService */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -34,23 +37,49 @@ import fr.pinguet62.jsfring.model.User;
 public class UserServiceTest {
 
     @Inject
+    private MailSenderThrowableMock mailSender;
+
+    @Inject
     private UserService service;
 
-    /**
-     * @todo Test that email was sent
-     * @see UserService#forgottenPassword(String)
-     */
+    /** @see UserService#forgottenPassword(String) */
     @Test
     public void test_forgottenPassword() {
-        final String login = "super admin";
+        final String login = service.getAll().get(0).getLogin();
 
-        User user1 = service.get(login);
-        final String initialPassword = user1.getPassword();
+        User user = service.get(login);
+        final String initialPassword = user.getPassword();
 
-        service.forgottenPassword(user1.getEmail());
+        service.forgottenPassword(user.getEmail());
 
         User user2 = service.get(login);
         assertNotEquals(initialPassword, user2.getPassword());
+    }
+
+    /**
+     * If an error occurs during
+     * {@link MailSender#send(org.springframework.mail.SimpleMailMessage...)
+     * mail sending}, the password must not be updated.
+     *
+     * @see UserService#forgottenPassword(String)
+     */
+    @Test
+    public void test_forgottenPassword_smtpError() {
+        final String login = service.getAll().get(0).getLogin();
+
+        // Before
+        User user = service.get(login);
+        final String initialPassword = user.getPassword();
+
+        // Case
+        mailSender.mustThrow();
+        try {
+            service.forgottenPassword(user.getEmail());
+            fail();
+        } catch (RuntimeException e) {}
+
+        // After
+        assertEquals(initialPassword, service.get(login).getPassword());
     }
 
     /**
