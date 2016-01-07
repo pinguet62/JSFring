@@ -17,7 +17,7 @@ before_install:
 # Default: 'mvn test -B'
 # Override: add integration-test Maven phase
 script:
-  - mvn verify -B
+  - mvn verify -B --spring.application.json="$SPRING_APPLICATION_JSON"
 
 after_success:
   # JaCoCo: workaround because goal 'jacoco:report@post-integration-test' not working
