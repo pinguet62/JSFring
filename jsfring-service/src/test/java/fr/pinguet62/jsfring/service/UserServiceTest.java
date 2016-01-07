@@ -2,13 +2,12 @@ package fr.pinguet62.jsfring.service;
 
 import static fr.pinguet62.jsfring.Config.DATASET;
 import static fr.pinguet62.jsfring.model.User.PASSWORD_REGEX;
+import static java.util.stream.Stream.generate;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-
-import java.util.stream.Stream;
 
 import javax.inject.Inject;
 import javax.validation.constraints.Pattern;
@@ -101,7 +100,7 @@ public class UserServiceTest {
      */
     @Test
     public void test_randomPassword() {
-        assertTrue(Stream.generate(UserService::randomPassword).limit(100).allMatch(pwd -> pwd.matches(PASSWORD_REGEX)));
+        assertTrue(generate(UserService::randomPassword).limit(100).allMatch(pwd -> pwd.matches(PASSWORD_REGEX)));
     }
 
     /** @see UserService#updatePassword(String, String) */

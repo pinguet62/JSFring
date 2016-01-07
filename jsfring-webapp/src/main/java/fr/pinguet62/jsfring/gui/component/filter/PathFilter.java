@@ -1,5 +1,7 @@
 package fr.pinguet62.jsfring.gui.component.filter;
 
+import static java.util.stream.Stream.of;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
@@ -19,8 +21,8 @@ import fr.pinguet62.jsfring.gui.component.filter.operator.Operator;
  * @param <Exp> The type of {@link SimpleExpression} on which apply filter.
  * @param <T> The type of parameter of the {@link Operator}.
  */
-public abstract class PathFilter<Exp extends SimpleExpression<T>, T extends Serializable> implements Supplier<Predicate>,
-        Serializable {
+public abstract class PathFilter<Exp extends SimpleExpression<T>, T extends Serializable>
+        implements Supplier<Predicate>, Serializable {
 
     private static final long serialVersionUID = 1;
 
@@ -173,7 +175,7 @@ public abstract class PathFilter<Exp extends SimpleExpression<T>, T extends Seri
      * number of arguments}.
      */
     private Stream<T> values() {
-        return Stream.of(value1, value2).limit(operator.getNumberOfParameters());
+        return of(value1, value2).limit(operator.getNumberOfParameters());
     }
 
 }
