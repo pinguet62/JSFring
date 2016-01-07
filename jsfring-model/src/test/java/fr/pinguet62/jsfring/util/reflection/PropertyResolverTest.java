@@ -1,9 +1,8 @@
 package fr.pinguet62.jsfring.util.reflection;
 
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-
-import java.util.Arrays;
 
 import org.junit.Test;
 
@@ -26,7 +25,7 @@ public final class PropertyResolverTest {
         QRight right = QRight.right_;
 
         PropertyResolver converter = new PropertyResolver(right);
-        for (String property : Arrays.asList("", " ", " code", "code ", " code ", ".", ".code", "code.", ".code.", "code..foo"))
+        for (String property : asList("", " ", " code", "code ", " code ", ".", ".code", "code.", ".code.", "code..foo"))
             try {
                 converter.apply(property);
                 fail(property);

@@ -1,10 +1,9 @@
 package fr.pinguet62.jsfring.util.reflection;
 
 import static fr.pinguet62.jsfring.util.reflection.ReflectionUtil.getDefaultMetaObject;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-
-import java.util.Arrays;
 
 import javax.persistence.Entity;
 
@@ -35,7 +34,7 @@ public final class ReflectionUtilTest {
      */
     @Test
     public void test_getDefaultMetaObject_badEntityType() {
-        for (Class<?> type : Arrays.asList(null, String.class))
+        for (Class<?> type : asList(null, String.class))
             try {
                 getDefaultMetaObject(type);
                 fail();

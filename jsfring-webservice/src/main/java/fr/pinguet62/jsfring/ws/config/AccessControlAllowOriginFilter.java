@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.ws.config;
 
+import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.joining;
 import static javax.ws.rs.Priorities.HEADER_DECORATOR;
 import static org.springframework.http.HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS;
@@ -8,7 +9,6 @@ import static org.springframework.http.HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN;
 import static org.springframework.http.HttpMethod.values;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import javax.annotation.Priority;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -27,9 +27,12 @@ public class AccessControlAllowOriginFilter implements ContainerResponseFilter {
         MultivaluedMap<String, Object> headers = response.getHeaders();
         headers.add(ACCESS_CONTROL_ALLOW_ORIGIN, "*");
         headers.add(ACCESS_CONTROL_ALLOW_HEADERS, "Authorization, Origin, X-Requested-With, Content-Type");
-        // headers.add("Access-Control-Expose-Headers","Location, Content-Disposition");
+        // headers.add("Access-Control-Expose-Headers","Location,
+        // Content-Disposition");
         // headers.add("Access-Control-Allow-Credentials", true);
-        headers.add(ACCESS_CONTROL_ALLOW_METHODS, Arrays.stream(values()).map(it -> it.toString()).collect(joining(", "))); // TODO Check "*"
+        headers.add(ACCESS_CONTROL_ALLOW_METHODS, stream(values()).map(it -> it.toString()).collect(joining(", "))); // TODO
+                                                                                                                     // Check
+                                                                                                                     // "*"
     }
 
 }
