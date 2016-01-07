@@ -4,7 +4,7 @@ spring:
         auto: false
         proxy-target-class: false
     datasource:
-        url: ${DATABASE_URL}
+        #url: external config
     jpa:
         hibernate:
             # Lower/underscore conversion of table/column name
@@ -17,3 +17,13 @@ spring:
                 use_sql_comments: false
                 show_sql: true
                 format_sql: true
+    mail:
+        test-connection: true
+        #host: external config
+        #port: external config
+        #username: external config
+        #password: external config
+        properties:
+            mail.smtp.auth: true
+            mail.smtp.starttls.enable: true
+            #mail.smtp.ssl.trust: smtp.gmail.com
