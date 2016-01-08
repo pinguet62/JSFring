@@ -2,7 +2,6 @@ package fr.pinguet62.jsfring.ws;
 
 import static fr.pinguet62.jsfring.Config.BASE_URL;
 import static fr.pinguet62.jsfring.Config.DATASET;
-import static fr.pinguet62.jsfring.Config.SPRING;
 import static fr.pinguet62.jsfring.ws.RightWebservice.PATH;
 import static org.junit.Assert.assertEquals;
 
@@ -14,7 +13,8 @@ import javax.ws.rs.core.GenericType;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
@@ -22,13 +22,15 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
+import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.dao.RightDao;
 import fr.pinguet62.jsfring.model.Right;
 import fr.pinguet62.jsfring.ws.dto.RightDto;
 
 /** @see RightWebservice */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = SPRING)
+@SpringApplicationConfiguration(SpringBootConfig.class)
+@WebIntegrationTest
 @DatabaseSetup(DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 public class RightWebserviceTest {

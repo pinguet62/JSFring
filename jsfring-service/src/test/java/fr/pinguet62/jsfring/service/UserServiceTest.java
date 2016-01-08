@@ -1,19 +1,21 @@
 package fr.pinguet62.jsfring.service;
 
+import static fr.pinguet62.jsfring.Config.DATASET;
 import static fr.pinguet62.jsfring.model.User.PASSWORD_REGEX;
+import static java.util.stream.Stream.generate;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-
-import java.util.stream.Stream;
+import static org.junit.Assert.fail;
 
 import javax.inject.Inject;
 import javax.validation.constraints.Pattern;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.mail.MailSender;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
@@ -21,35 +23,62 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
-import fr.pinguet62.jsfring.Config;
+import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.dao.util.PasswordGenerator;
 import fr.pinguet62.jsfring.model.User;
+import fr.pinguet62.jsfring.service.config.MailSenderThrowableMock;
 
 /** @see UserService */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = Config.SPRING)
-@DatabaseSetup(Config.DATASET)
+@SpringApplicationConfiguration(SpringBootConfig.class)
+@DatabaseSetup(DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 public class UserServiceTest {
 
     @Inject
+    private MailSenderThrowableMock mailSender;
+
+    @Inject
     private UserService service;
 
-    /**
-     * @todo Test that email was sent
-     * @see UserService#forgottenPassword(String)
-     */
+    /** @see UserService#forgottenPassword(String) */
     @Test
     public void test_forgottenPassword() {
-        final String login = "super admin";
+        final String login = service.getAll().get(0).getLogin();
 
-        User user1 = service.get(login);
-        final String initialPassword = user1.getPassword();
+        User user = service.get(login);
+        final String initialPassword = user.getPassword();
 
-        service.forgottenPassword(user1.getEmail());
+        service.forgottenPassword(user.getEmail());
 
         User user2 = service.get(login);
         assertNotEquals(initialPassword, user2.getPassword());
+    }
+
+    /**
+     * If an error occurs during
+     * {@link MailSender#send(org.springframework.mail.SimpleMailMessage...)
+     * mail sending}, the password must not be updated.
+     *
+     * @see UserService#forgottenPassword(String)
+     */
+    @Test
+    public void test_forgottenPassword_smtpError() {
+        final String login = service.getAll().get(0).getLogin();
+
+        // Before
+        User user = service.get(login);
+        final String initialPassword = user.getPassword();
+
+        // Case
+        mailSender.mustThrow();
+        try {
+            service.forgottenPassword(user.getEmail());
+            fail();
+        } catch (RuntimeException e) {}
+
+        // After
+        assertEquals(initialPassword, service.get(login).getPassword());
     }
 
     /**
@@ -71,7 +100,7 @@ public class UserServiceTest {
      */
     @Test
     public void test_randomPassword() {
-        assertTrue(Stream.generate(UserService::randomPassword).limit(100).allMatch(pwd -> pwd.matches(PASSWORD_REGEX)));
+        assertTrue(generate(UserService::randomPassword).limit(100).allMatch(pwd -> pwd.matches(PASSWORD_REGEX)));
     }
 
     /** @see UserService#updatePassword(String, String) */

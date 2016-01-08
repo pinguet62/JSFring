@@ -1,23 +1,19 @@
 package fr.pinguet62.jsfring.task;
 
-import java.util.Date;
-
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.pinguet62.jsfring.dao.UserDao;
-import fr.pinguet62.jsfring.dao.util.PasswordGenerator;
 import fr.pinguet62.jsfring.model.User;
 
 /** The service for {@link User}. */
 @Component
-public final class UserTask {
+public class UserTask {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserTask.class);
 

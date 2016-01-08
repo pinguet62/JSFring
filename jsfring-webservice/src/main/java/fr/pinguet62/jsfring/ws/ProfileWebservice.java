@@ -7,7 +7,6 @@ import static org.springframework.core.convert.TypeDescriptor.valueOf;
 
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
@@ -19,6 +18,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 
 import com.mysema.query.SearchResults;
@@ -36,10 +36,10 @@ public final class ProfileWebservice extends AbstractWebservice<Profile, Integer
 
     public static final String PATH = "/profile";
 
-    @Inject
+    @Autowired
     private ConversionService conversionService;
 
-    @Inject
+    @Autowired
     private ProfileService profileService;
 
     @PUT

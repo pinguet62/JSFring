@@ -6,7 +6,7 @@ import javax.faces.context.ExternalContext;
 
 import org.primefaces.component.datatable.DataTable;
 
-@FacesComponent(value = "dataTable")
+@FacesComponent("fr.pinguet62.jsfring.gui.component.DataTableComponent")
 public final class DataTableComponent extends DataTable {
 
     /**
@@ -30,14 +30,14 @@ public final class DataTableComponent extends DataTable {
      * component:<br>
      * <code>&#60;p62:dataTable var="foo"&#62;</code></li>
      * <li>The value of variable is get into
-     * {@link ExternalContext#getRequestMap()}, to the key {@link #getVar()}.</li>
+     * {@link ExternalContext#getRequestMap()}, to the key {@link #getVar()}.
+     * </li>
      * </ol>
      *
      * @return The evaluated {@code var} variable.
      */
     public Object getEvaluatedVar() {
-        return getFacesContext().getExternalContext().getRequestMap()
-                .get(getVar());
+        return getFacesContext().getExternalContext().getRequestMap().get(getVar());
     }
 
     @Override

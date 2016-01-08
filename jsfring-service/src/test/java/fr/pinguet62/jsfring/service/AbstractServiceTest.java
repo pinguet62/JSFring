@@ -1,17 +1,18 @@
 package fr.pinguet62.jsfring.service;
 
+import static fr.pinguet62.jsfring.Config.DATASET;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
@@ -21,7 +22,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.mysema.query.SearchResults;
 import com.mysema.query.jpa.impl.JPAQuery;
 
-import fr.pinguet62.jsfring.Config;
+import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.dao.AbstractDao;
 import fr.pinguet62.jsfring.dao.util.PasswordGenerator;
 import fr.pinguet62.jsfring.model.Profile;
@@ -31,8 +32,8 @@ import fr.pinguet62.jsfring.model.User;
 
 /** @see AbstractService */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = Config.SPRING)
-@DatabaseSetup(Config.DATASET)
+@SpringApplicationConfiguration(SpringBootConfig.class)
+@DatabaseSetup(DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 public class AbstractServiceTest {
 
@@ -86,7 +87,7 @@ public class AbstractServiceTest {
         List<Right> rights = rightService.find(query);
 
         assertEquals(2, rights.size());
-        rights.stream().allMatch(right -> Arrays.asList("PROFILE_RO", "PROFILE_RW").contains(right.getTitle()));
+        rights.stream().allMatch(right -> asList("PROFILE_RO", "PROFILE_RW").contains(right.getTitle()));
     }
 
     /**

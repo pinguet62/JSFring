@@ -1,13 +1,14 @@
 package fr.pinguet62.jsfring.gui.component.breadcrumb;
 
-import java.util.Arrays;
+import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.joining;
+
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.application.NavigationCase;
@@ -27,8 +28,8 @@ import org.primefaces.model.menu.MenuModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@FacesComponent(value = "breadCrumb")
-public final class BreadCrumbComponent extends BreadCrumb {
+@FacesComponent("fr.pinguet62.jsfring.gui.component.breadcrumb.BreadCrumbComponent")
+public class BreadCrumbComponent extends BreadCrumb {
 
     private static enum PropertyKeys {
         index, menu;
@@ -109,7 +110,7 @@ public final class BreadCrumbComponent extends BreadCrumb {
     @SuppressWarnings("unchecked")
     private void initBreadcrumbs(Menubar menu) {
         for (MenuElement element : (List<MenuElement>) menu.getElements())
-            parseMenuElement(new LinkedList<MenuElement>(Arrays.asList(element)));
+            parseMenuElement(new LinkedList<MenuElement>(asList(element)));
     }
 
     /**
@@ -137,8 +138,7 @@ public final class BreadCrumbComponent extends BreadCrumb {
             // - save
             breadcrumbs.put(outcome, breadcrumb);
             LOGGER.trace("Breadcrumb: " + breadcrumb.getElements().stream().map(element -> (DefaultMenuItem) element)
-                    .map(item -> String.format("(\"%s\"/%s)", item.getTitle(), item.getOutcome()))
-                    .collect(Collectors.joining(" > ")));
+                    .map(item -> String.format("(\"%s\"/%s)", item.getTitle(), item.getOutcome())).collect(joining(" > ")));
         }
         // Recursive
         else if (last instanceof MenuGroup) {

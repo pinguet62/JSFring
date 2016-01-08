@@ -7,7 +7,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p62="http://java.sun.com/jsf/composite/component"
+	xmlns:p62="http://java.sun.com/jsf/composite/pinguet62"
 	template="/template/layout.xhtml">
 
 	<ui:define name="content">
@@ -141,8 +141,7 @@ public class ProfilesBean extends AbstractCrudBean&lt;Profile&gt; {
 
         // Right association
         List&lt;Right&gt; associatedRights = new ArrayList&lt;&gt;(getSelectedValue().getRights());
-        List&lt;Right&gt; availableRights = rightService.getAll().stream().filter(right -&gt; !associatedRights.contains(right))
-                .collect(Collectors.toList());
+        List&lt;Right&gt; availableRights = rightService.getAll().stream().filter(right -&gt; !associatedRights.contains(right)).collect(toList());
         rightsAssociation = new DualListModel&lt;Right&gt;(availableRights, associatedRights);
     }
 

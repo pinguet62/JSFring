@@ -1,7 +1,8 @@
 package fr.pinguet62.jsfring.gui.component.filter;
 
+import static java.util.Arrays.asList;
+
 import java.io.IOException;
-import java.util.Arrays;
 
 import javax.faces.application.Application;
 import javax.faces.component.FacesComponent;
@@ -22,9 +23,8 @@ import org.primefaces.component.selectonemenu.SelectOneMenu;
 import fr.pinguet62.jsfring.gui.component.filter.operator.Operator;
 
 /** {@link UIComponent} who manage the {@link PathFilter}. */
-@FacesComponent(value = "filter")
-public final class PathFilterComponent extends UIInput implements
-        NamingContainer {
+@FacesComponent("fr.pinguet62.jsfring.gui.component.filter.PathFilterComponent")
+public final class PathFilterComponent extends UIInput implements NamingContainer {
 
     private SelectOneMenu operatorSelectOneMenu;
 
@@ -79,8 +79,7 @@ public final class PathFilterComponent extends UIInput implements
      * @return The new value.
      */
     @Override
-    protected PathFilter<?, ?> getConvertedValue(FacesContext context,
-            Object newSubmittedValue) throws ConverterException {
+    protected PathFilter<?, ?> getConvertedValue(FacesContext context, Object newSubmittedValue) throws ConverterException {
         PathFilter<?, ?> filter = getValue();
         filter.setOperator((Operator<?, ?>) operatorSelectOneMenu.getValue());
         filter.setValue1(value1InputText.getValue());
@@ -134,14 +133,12 @@ public final class PathFilterComponent extends UIInput implements
      * {@link InputText} children.
      */
     private void initConverterAndValidators() {
-        for (InputText inputText : Arrays.asList(value1InputText,
-                value2InputText)) {
+        for (InputText inputText : asList(value1InputText, value2InputText)) {
             // Converter
             inputText.setConverter(getConverter());
             // Validator
             for (Validator validator : getValidators())
-                if (!Arrays.asList(inputText.getValidators()).contains(
-                        validator))
+                if (!asList(inputText.getValidators()).contains(validator))
                     inputText.addValidator(validator);
         }
     }

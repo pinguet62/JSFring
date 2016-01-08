@@ -109,7 +109,7 @@ public class ParametersJasperReportBean extends AbstractJasperReportBean {
     
     private List&lt;String&gt; listParam; // + getter/setter
     public List&lt;String&gt; complete(String query) {
-        List&lt;String&gt; values = Arrays.asList(&quot;Avion&quot;, &quot;Ballon&quot;, &quot;Cadeau&quot;, /*...*/ &quot;Z&egrave;bre&quot;);
+        List&lt;String&gt; values = asList(&quot;Avion&quot;, &quot;Ballon&quot;, &quot;Cadeau&quot;, /*...*/ &quot;Z&egrave;bre&quot;);
         return values.stream().map(String::toLowerCase).filter(it -&gt; it.contains(query.toLowerCase())).collect(toList());
     }
 

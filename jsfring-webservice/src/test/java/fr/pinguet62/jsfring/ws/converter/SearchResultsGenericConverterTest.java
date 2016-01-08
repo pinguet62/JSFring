@@ -9,25 +9,22 @@ import javax.inject.Inject;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import com.mysema.query.SearchResults;
 
-import fr.pinguet62.jsfring.Config;
+import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.util.spring.GenericTypeDescriptor;
 import fr.pinguet62.jsfring.ws.dto.SearchResultsDto;
 
 /** @see SearchResultsGenericConverter */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = Config.SPRING)
-@TestExecutionListeners(DependencyInjectionTestExecutionListener.class)
+@SpringApplicationConfiguration(SpringBootConfig.class)
 public class SearchResultsGenericConverterTest {
 
     @Inject

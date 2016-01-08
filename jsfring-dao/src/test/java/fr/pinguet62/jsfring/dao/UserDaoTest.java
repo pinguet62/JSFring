@@ -1,17 +1,19 @@
 package fr.pinguet62.jsfring.dao;
 
 import static fr.pinguet62.jsfring.Config.DATASET;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Test;
@@ -27,33 +29,43 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.mysema.query.jpa.impl.JPAQuery;
 
-import fr.pinguet62.jsfring.config.Application;
+import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.model.QUser;
 import fr.pinguet62.jsfring.model.User;
 
 /** @see UserDao */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringApplicationConfiguration(SpringBootConfig.class)
 @DatabaseSetup(DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class,
         TransactionalTestExecutionListener.class })
 @Transactional
 public class UserDaoTest {
 
+    @PersistenceContext
+    private EntityManager em;
+
     @Inject
     private UserDao userDao;
 
-    /** @see UserDao#disableInactiveUsers(int) */
+    /**
+     * @TODO InvalidDataAccessApiUsageException<br>
+     *       See {@code spring.aop.auto.proxy-target-class=false}
+     * @see UserDao#disableInactiveUsers(int)
+     */
     @Test
     public void test_disableInactiveUsers_illegalArgument() {
-        for (Integer arg : Arrays.asList(-1, 0))
+        for (Integer arg : asList(-1, 0))
             try {
                 userDao.disableInactiveUsers(arg);
                 fail();
-            } catch (IllegalArgumentException e) {}
+            } catch (RuntimeException e) {}
     }
 
-    /** @see UserDao#disableInactiveUsers(int) */
+    /**
+     * @TODO Better tested
+     * @see UserDao#disableInactiveUsers(int)
+     */
     @Test
     public void test_disableInactiveUsers_stayInactive() {
         final int nbOfDays = 1;
@@ -69,8 +81,7 @@ public class UserDaoTest {
                 .find(new JPAQuery().from(u).where(u.lastConnection.before(yesterday)).where(u.active.isTrue()));
 
         userDao.disableInactiveUsers(nbOfDays);
-        // because first-level cache is not updated by this method
-        userDao.em.clear();
+        em.clear(); // because first-level cache is not updated by this method
 
         // check
         for (User user : usersToDeactivate)

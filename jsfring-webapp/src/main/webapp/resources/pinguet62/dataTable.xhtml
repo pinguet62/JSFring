@@ -9,7 +9,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:composite="http://java.sun.com/jsf/composite">
 
-<composite:interface componentType="dataTable"
+<composite:interface componentType="fr.pinguet62.jsfring.gui.component.DataTableComponent"
 	shortDescription="PrimeFaces DataTable for CRUD operations.">
 	<composite:attribute name="lazy" type="java.lang.Boolean"
 		default="false" shortDescription="If loading must be lazy." />
@@ -84,7 +84,7 @@
 						title="#{msg['dataTable.actions.show']}">
 						<f:setPropertyActionListener
 							target="#{cc.attrs.bean.selectedValue}"
-							value="#{cc.getEvaluatedVar()}" />
+							value="#{cc.evaluatedVar}" />
 					</p:commandButton>
 				</c:if>
 
@@ -95,7 +95,7 @@
 						icon="ui-icon-pencil" title="#{msg['dataTable.actions.update']}">
 						<f:setPropertyActionListener
 							target="#{cc.attrs.bean.selectedValue}"
-							value="#{cc.getEvaluatedVar()}" />
+							value="#{cc.evaluatedVar}" />
 					</p:commandButton>
 				</c:if>
 
@@ -105,8 +105,8 @@
 						title="#{msg['dataTable.actions.delete']}" update="dataTable">
 						<f:setPropertyActionListener
 							target="#{cc.attrs.bean.selectedValue}"
-							value="#{cc.getEvaluatedVar()}" />
-						<f:actionListener binding="#{cc.attrs.bean.delete()}" />
+							value="#{cc.evaluatedVar}" />
+						<f:actionListener binding="#{cc.attrs.bean.delete}" />
 						<p:confirm icon="ui-icon-alert"
 							header="#{msg['dataTable.actions.delete']}"
 							message="#{msg['dataTable.actions.delete.confirm']}" />

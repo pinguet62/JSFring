@@ -6,8 +6,7 @@ import static org.springframework.core.convert.TypeDescriptor.valueOf;
 import java.io.Serializable;
 import java.util.function.Function;
 
-import javax.inject.Inject;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 
 import com.mysema.query.SearchResults;
@@ -22,7 +21,7 @@ import fr.pinguet62.jsfring.util.spring.GenericTypeDescriptor;
 
 public abstract class AbstractWebservice<T extends Serializable, PK extends Serializable> {
 
-    @Inject
+    @Autowired
     private ConversionService conversionService;
 
     private AbstractService<T, PK> service;
