@@ -1,1 +1,1 @@
-web:    java $JAVA_OPTS -jar jsfring-webapp/target/dependency/webapp-runner.jar --port $PORT jsfring-webapp/target/*.war
+web: java -Dserver.port=$PORT -jar $JAR_FILE
