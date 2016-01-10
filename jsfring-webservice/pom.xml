@@ -12,7 +12,7 @@
 	</parent>
 
 	<artifactId>webservice</artifactId>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<dependencies>
 		<!-- ===== Project ===== -->
@@ -40,22 +40,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<requiresUnpack>
-						<dependency>
-							<groupId>${project.groupId}</groupId>
-							<artifactId>service</artifactId>
-						</dependency>
-						<dependency>
-							<groupId>${project.groupId}</groupId>
-							<artifactId>webservice</artifactId>
-						</dependency>
-						<dependency>
-							<groupId>${project.groupId}</groupId>
-							<artifactId>dao</artifactId>
-						</dependency>
-					</requiresUnpack>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
