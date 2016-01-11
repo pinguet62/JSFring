@@ -70,12 +70,14 @@ public class UserServiceTest {
         User user = service.get(login);
         final String initialPassword = user.getPassword();
 
-        // Case
-        mailSender.mustThrow();
+        mailSender.mustThrow(true);
         try {
+            // Case
             service.forgottenPassword(user.getEmail());
             fail();
-        } catch (RuntimeException e) {}
+        } catch (RuntimeException e) {} finally {
+            mailSender.mustThrow(false);
+        }
 
         // After
         assertEquals(initialPassword, service.get(login).getPassword());

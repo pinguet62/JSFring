@@ -1,7 +1,5 @@
 package fr.pinguet62.jsfring.service.config;
 
-import javax.enterprise.context.RequestScoped;
-
 import org.springframework.context.annotation.Primary;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailSendException;
@@ -19,16 +17,19 @@ import org.springframework.stereotype.Component;
  * @see MailSender
  */
 @Component
-@Primary
-@RequestScoped
+@Primary // Mock
 public class MailSenderThrowableMock implements MailSender {
 
     /** Define if the next sending must fail. */
     private boolean mustThrow = false;
 
-    /** The next send will fail. */
-    public void mustThrow() {
-        this.mustThrow = true;
+    /**
+     * The next send will fail.
+     *
+     * @param mustThrow If next call must fail.
+     */
+    public void mustThrow(boolean mustThrow) {
+        this.mustThrow = mustThrow;
     }
 
     /** @see #send(SimpleMailMessage...) */
