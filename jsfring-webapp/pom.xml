@@ -15,7 +15,13 @@
 	<packaging>war</packaging>
 
 	<dependencies>
-		<!-- ===== Project ===== -->
+		<!-- Project -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>common-test</artifactId>
+			<version>${project.version}</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>service</artifactId>
@@ -66,6 +72,11 @@
 			<version>2.2.1-b04</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>el-impl</artifactId>
+			<version>2.2</version>
+		</dependency>
 
 		<!-- ===== PrimeFaces ===== -->
 		<dependency>
@@ -99,37 +110,18 @@
 		</dependency>
 
 		<!-- ===== Spring ===== -->
-		<!-- Webflow -->
 		<dependency>
-			<groupId>org.springframework.webflow</groupId>
-			<artifactId>spring-faces</artifactId>
-			<version>${spring-webflow.version}</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.webflow</groupId>
-			<artifactId>spring-webflow</artifactId>
-			<version>${spring-webflow.version}</version>
-		</dependency>
-		<!-- Security -->
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-core</artifactId>
-			<version>${spring-security.version}</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-web</artifactId>
-			<version>${spring-security.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-config</artifactId>
-			<version>${spring-security.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-taglibs</artifactId>
-			<version>${spring-security.version}</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- ===== Test ===== -->
@@ -147,12 +139,8 @@
 	</dependencies>
 
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
 		<jsf.version>2.2.12</jsf.version>
-		<!-- Dependencies -->
-		<spring-webflow.version>2.4.2.RELEASE</spring-webflow.version>
-		<spring-security.version>4.0.3.RELEASE</spring-security.version>
 	</properties>
 
 	<build>
@@ -161,28 +149,6 @@
 				<directory>${project.basedir}/src/test/resources</directory>
 			</testResource>
 		</testResources>
-
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.3</version>
-				<configuration>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
-				</configuration>
-			</plugin>
-
-			<!-- JAR for dependency -->
-			<plugin>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.6</version>
-				<configuration>
-					<attachClasses>true</attachClasses>
-					<classesClassifier>classes</classesClassifier>
-				</configuration>
-			</plugin>
-		</plugins>
 	</build>
 
 	<repositories>

@@ -2,11 +2,8 @@
 
 ## Variable environment
 
-* Database
-	* `DATABASE_URL`
-	* `DATABASE_URL_PARAMETERS` (optional): 
-* SMTP
-	* `SMTP_HOST`
-	* `SMTP_PORT`
-	* `SMTP_USERNAME`
-	* `SMTP_PASSWORD`
+* `spring.datasource.url` : `jdbc:postgresql://IP:PORT/DATABASE?user=USERNAME&password=USERNAME&ssl=true`
+* `spring.mail.host`
+* `spring.mail.password`
+* `spring.mail.port`
+* `spring.mail.username`

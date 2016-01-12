@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface componentType="fr.pinguet62.jsfring.gui.component.DataTableComponent"
+	shortDescription="PrimeFaces DataTable for CRUD operations.">
+	<composite:attribute name="lazy" type="java.lang.Boolean"
+		default="false" shortDescription="If loading must be lazy." />
+	<composite:attribute name="var" type="java.lang.String"
+		shortDescription="Name of variable of row." />
+
+	<composite:attribute name="title" type="java.lang.String"
+		shortDescription="Title who appears in header of datatable." />
+
+	<!-- CRUD operations -->
+	<composite:attribute name="bean"
+		type="fr.pinguet62.jsfring.gui.AbstractBean"
+		shortDescription="The Bean used for CRUD operations." required="true" />
+	<composite:attribute name="createView"
+		shortDescription="View for creation. Use 'selectedValue' as for current value." />
+	<composite:attribute name="showView"
+		shortDescription="View for show. Use 'selectedValue' as for current value." />
+	<composite:attribute name="updateView"
+		shortDescription="View for update. Use 'selectedValue' as for current value." />
+	<composite:attribute name="deletable" type="java.lang.Boolean"
+		default="false" shortDescription="If the deletion is authorized." />
+</composite:interface>
+
+<!-- Documentation -->
+<!-- Dialog :
+		appendTo="@(body)" requiered if modal="true"
+		<h:form> inside because emits Ajax requests
+		<f:subview> because the <ui:include> can use the same page for update or create, so each IDs will be duplicated also
+	-->
+
+<composite:implementation>
+
+	<p:dataTable id="dataTable" widgetVar="#{cc.attrs.widgetVar}"
+		value="#{cc.attrs.lazy ? cc.attrs.bean.lazyDataModel : cc.attrs.bean.list}"
+		lazy="#{cc.attrs.lazy}" paginator="true"
+		currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords}"
+		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		rows="2" rowsPerPageTemplate="2 5 10"
+		emptyMessage="#{msg['dataTable.noRecord']}">
+		<!-- EL expression cannot be passed directly by "var" argument -->
+		<c:set target="#{component}" property="var" value="#{cc.attrs.var}" />
+
+		<f:facet name="header">
+			<p:commandButton id="toggler" type="button" icon="ui-icon-calculator"
+				value="#{msg['dataTable.columnToggler']}" style="float: left" />
+			<p:columnToggler datasource="dataTable" trigger="toggler" />
+
+			<!-- Create -->
+			<c:if test="#{cc.attrs.createView != null}">
+				<p:commandButton actionListener="#{cc.attrs.bean.preCreate}"
+					update=":#{p:component('createDialog')}"
+					oncomplete="PF('createDialogWidget').show();" icon="ui-icon-plus"
+					value="#{msg['dataTable.actions.create']}" style="float: right" />
+			</c:if>
+
+			<h:outputText value="#{cc.attrs.title}" />
+
+			<!-- to wrap content on header -->
+			<div style="clear: both;" />
+		</f:facet>
+
+		<composite:insertChildren />
+
+		<c:if
+			test="#{cc.attrs.showView != null or cc.attrs.updateView != null or cc.attrs.deletable}">
+			<p:column headerText="#{msg['datatable.actions.headerText']}"
+				style="width: 150px; text-align: center" exportable="false">
+				<!-- Show -->
+				<c:if test="#{cc.attrs.showView != null}">
+					<p:commandButton update=":#{p:component('showDialog')}"
+						oncomplete="PF('showDialogWidget').show();" icon="ui-icon-search"
+						title="#{msg['dataTable.actions.show']}">
+						<f:setPropertyActionListener
+							target="#{cc.attrs.bean.selectedValue}"
+							value="#{cc.evaluatedVar}" />
+					</p:commandButton>
+				</c:if>
+
+				<!-- Update -->
+				<c:if test="#{cc.attrs.updateView != null}">
+					<p:commandButton update=":#{p:component('updateDialog')}"
+						oncomplete="PF('updateDialogWidget').show();"
+						icon="ui-icon-pencil" title="#{msg['dataTable.actions.update']}">
+						<f:setPropertyActionListener
+							target="#{cc.attrs.bean.selectedValue}"
+							value="#{cc.evaluatedVar}" />
+					</p:commandButton>
+				</c:if>
+
+				<!-- Delete -->
+				<c:if test="#{cc.attrs.deletable}">
+					<p:commandButton icon="ui-icon-trash"
+						title="#{msg['dataTable.actions.delete']}" update="dataTable">
+						<f:setPropertyActionListener
+							target="#{cc.attrs.bean.selectedValue}"
+							value="#{cc.evaluatedVar}" />
+						<f:actionListener binding="#{cc.attrs.bean.delete}" />
+						<p:confirm icon="ui-icon-alert"
+							header="#{msg['dataTable.actions.delete']}"
+							message="#{msg['dataTable.actions.delete.confirm']}" />
+					</p:commandButton>
+				</c:if>
+			</p:column>
+		</c:if>
+
+		<f:facet name="footer">
+			<!-- Extract -->
+			<h:commandLink>
+				<p:graphicImage name="/img/csv.png" width="24" alt="ERROR" />
+				<p:dataExporter type="csv" target="dataTable" fileName="export" />
+			</h:commandLink>
+			<h:commandLink>
+				<p:graphicImage name="/img/xls.png" width="24" alt="ERROR" />
+				<p:dataExporter type="xls" target="dataTable" fileName="export" />
+			</h:commandLink>
+			<h:commandLink>
+				<p:graphicImage name="/img/xlsx.png" width="24" alt="ERROR" />
+				<p:dataExporter type="xlsx" target="dataTable" fileName="export" />
+			</h:commandLink>
+			<h:commandLink>
+				<p:graphicImage name="/img/xml.png" width="24" alt="ERROR" />
+				<p:dataExporter type="xml" target="dataTable" fileName="export" />
+			</h:commandLink>
+			<h:commandLink>
+				<p:graphicImage name="/img/pdf.png" width="24" alt="ERROR" />
+				<p:dataExporter type="pdf" target="dataTable" fileName="export" />
+			</h:commandLink>
+		</f:facet>
+	</p:dataTable>
+
+	<!-- CRUD dialogs -->
+	<p:dialog id="createDialog" widgetVar="createDialogWidget"
+		dynamic="true" modal="true" appendTo="@(body)"
+		header="#{msg['dataTable.actions.create']}" showEffect="fade"
+		hideEffect="fade" resizable="false">
+		<p:hotkey bind="esc" handler="PF('createDialogWidget').hide();" />
+		<h:form>
+			<f:subview id="createSubview">
+				<ui:include src="#{cc.attrs.createView}">
+					<ui:param name="bean" value="#{cc.attrs.bean}" />
+				</ui:include>
+			</f:subview>
+			<p:commandButton process=":#{p:component('createDialog')}"
+				actionListener="#{cc.attrs.bean.create}"
+				oncomplete="if (!args.validationFailed) PF('createDialogWidget').hide();"
+				update=":#{p:component(cc.attrs.id)}:dataTable"
+				value="#{msg['button.submit']}" />
+		</h:form>
+	</p:dialog>
+	<p:dialog id="showDialog" widgetVar="showDialogWidget" dynamic="true"
+		modal="true" appendTo="@(body)"
+		header="#{msg['dataTable.actions.show']}" showEffect="fade"
+		hideEffect="fade" resizable="false">
+		<p:hotkey bind="esc" handler="PF('showDialogWidget').hide();" />
+		<f:subview id="showSubview">
+			<ui:include src="#{cc.attrs.showView}">
+				<ui:param name="bean" value="#{cc.attrs.bean}" />
+			</ui:include>
+		</f:subview>
+	</p:dialog>
+	<p:dialog id="updateDialog" widgetVar="updateDialogWidget"
+		dynamic="true" modal="true" appendTo="@(body)"
+		header="#{msg['dataTable.actions.update']}" showEffect="fade"
+		hideEffect="fade" resizable="false">
+		<p:hotkey bind="esc" handler="PF('updateDialogWidget').hide();" />
+		<h:form>
+			<f:subview id="updateSubview">
+				<ui:include src="#{cc.attrs.updateView}">
+					<ui:param name="bean" value="#{cc.attrs.bean}" />
+				</ui:include>
+			</f:subview>
+			<p:commandButton actionListener="#{cc.attrs.bean.update}"
+				process=":#{p:component('updateDialog')}"
+				oncomplete="if (!args.validationFailed) PF('updateDialogWidget').hide();"
+				update=":#{p:component(cc.attrs.id)}:dataTable"
+				value="#{msg['button.submit']}" />
+		</h:form>
+	</p:dialog>
+	<p:confirmDialog widgetVar="deleteConfigDialogWidget" global="true">
+		<p:hotkey bind="esc" handler="PF('deleteConfigDialogWidget').hide();" />
+		<p:commandButton icon="ui-icon-check" value="#{msg['true']}"
+			styleClass="ui-confirmdialog-yes" />
+		<p:commandButton icon="ui-icon-close" value="#{msg['false']}"
+			styleClass="ui-confirmdialog-no" />
+	</p:confirmDialog>
+
+	<p:blockUI block="dataTable" trigger="dataTable">
+		<p:graphicImage name="/img/ajaxloadingbar.gif" />
+	</p:blockUI>
+</composite:implementation>
+
+</html>

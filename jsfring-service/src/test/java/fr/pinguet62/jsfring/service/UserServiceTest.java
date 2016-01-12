@@ -1,6 +1,7 @@
 package fr.pinguet62.jsfring.service;
 
 import static fr.pinguet62.jsfring.model.User.PASSWORD_REGEX;
+import static fr.pinguet62.jsfring.test.Config.DATASET;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
@@ -13,7 +14,7 @@ import javax.validation.constraints.Pattern;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
@@ -21,14 +22,14 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
-import fr.pinguet62.jsfring.Config;
-import fr.pinguet62.jsfring.dao.util.PasswordGenerator;
+import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.model.User;
+import fr.pinguet62.jsfring.util.PasswordGenerator;
 
 /** @see UserService */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = Config.SPRING)
-@DatabaseSetup(Config.DATASET)
+@SpringApplicationConfiguration(SpringBootConfig.class)
+@DatabaseSetup(DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 public class UserServiceTest {
 

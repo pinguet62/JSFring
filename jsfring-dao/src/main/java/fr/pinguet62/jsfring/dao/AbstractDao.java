@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-import javax.inject.Named;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,6 +12,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+
+import org.springframework.stereotype.Repository;
 
 import com.mysema.query.SearchResults;
 import com.mysema.query.jpa.impl.JPAQuery;
@@ -24,7 +25,7 @@ import com.mysema.query.types.Expression;
  * @param <T> The {@link Entity} type.
  * @param <PK> The Primary key type.
  */
-@Named
+@Repository
 public abstract class AbstractDao<T, PK extends Serializable> {
 
     /** The {@link EntityManager}. */

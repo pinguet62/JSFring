@@ -16,7 +16,7 @@ import fr.pinguet62.jsfring.model.User;
 
 /** The DAO for {@link User}. */
 @Repository
-public final class UserDao extends AbstractDao<User, String> {
+public class UserDao extends AbstractDao<User, String> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserDao.class);
 

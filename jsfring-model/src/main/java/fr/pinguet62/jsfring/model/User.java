@@ -54,7 +54,7 @@ public class User implements Serializable {
     private String email;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "last_connection", nullable = false)
+    @Column(name = "last_connection", nullable = true)
     private Date lastConnection;
 
     // Validation

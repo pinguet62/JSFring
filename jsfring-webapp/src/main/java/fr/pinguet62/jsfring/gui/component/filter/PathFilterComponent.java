@@ -22,7 +22,7 @@ import org.primefaces.component.selectonemenu.SelectOneMenu;
 import fr.pinguet62.jsfring.gui.component.filter.operator.Operator;
 
 /** {@link UIComponent} who manage the {@link PathFilter}. */
-@FacesComponent(value = "filter")
+@FacesComponent("fr.pinguet62.jsfring.gui.component.filter.PathFilterComponent")
 public final class PathFilterComponent extends UIInput implements
         NamingContainer {
 

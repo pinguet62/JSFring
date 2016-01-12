@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.pinguet62.jsfring.dao.UserDao;
-import fr.pinguet62.jsfring.dao.util.PasswordGenerator;
 import fr.pinguet62.jsfring.model.User;
+import fr.pinguet62.jsfring.util.PasswordGenerator;
 
 /** The service for {@link User}. */
 @Service
@@ -55,6 +55,19 @@ public class UserService extends AbstractService<User, String> {
         object.setLastConnection(new Date());
 
         return super.create(object);
+    }
+
+    /**
+     * Disable all users who have not connected since a delay.
+     * <p>
+     * Scheduled method as batch.
+     */
+    // @Scheduled(fixedRate = 1_000/* ms */ * 60/* sec */ * 60/* min */ * 1/* h
+    // */)
+    @Transactional
+    public void disableInactiveUsers() {
+        LOGGER.info("Scheduling...");
+        dao.disableInactiveUsers(7);
     }
 
     /**
