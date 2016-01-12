@@ -17,6 +17,8 @@ before_install:
 # Default: 'mvn test -B'
 # Override: add integration-test Maven phase
 script:
+  # Spring-Boot: external config: 
+  # Fix: export variable not working in runtime -> use SPRING_APPLICATION_JSON variable
   - mvn -B -Dspring.application.json="$SPRING_APPLICATION_JSON" verify
 
 after_success:

@@ -1,6 +1,6 @@
 package fr.pinguet62.jsfring.service;
 
-import static fr.pinguet62.jsfring.Config.DATASET;
+import static fr.pinguet62.jsfring.test.Config.DATASET;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -27,10 +27,10 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.TestRuntimeException;
 import fr.pinguet62.jsfring.dao.ProfileDao;
 import fr.pinguet62.jsfring.model.Profile;
 import fr.pinguet62.jsfring.service.TestService.RollbackMeIMFamousException;
+import fr.pinguet62.jsfring.test.TestRuntimeException;
 
 /**
  * Tests that the controls of {@link AbstractService} are correct.

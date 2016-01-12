@@ -1,6 +1,6 @@
 package fr.pinguet62.jsfring.dao;
 
-import static fr.pinguet62.jsfring.Config.DATASET;
+import static fr.pinguet62.jsfring.test.Config.DATASET;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
@@ -27,11 +27,11 @@ import com.mysema.query.SearchResults;
 import com.mysema.query.jpa.impl.JPAQuery;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.dao.util.PasswordGenerator;
 import fr.pinguet62.jsfring.model.Profile;
 import fr.pinguet62.jsfring.model.QRight;
 import fr.pinguet62.jsfring.model.Right;
 import fr.pinguet62.jsfring.model.User;
+import fr.pinguet62.jsfring.util.PasswordGenerator;
 
 /** @see AbstractDao */
 @RunWith(SpringJUnit4ClassRunner.class)

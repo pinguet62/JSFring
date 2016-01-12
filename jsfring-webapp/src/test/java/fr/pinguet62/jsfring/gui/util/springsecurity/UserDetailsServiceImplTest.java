@@ -1,6 +1,6 @@
 package fr.pinguet62.jsfring.gui.util.springsecurity;
 
-import static fr.pinguet62.jsfring.Config.DATASET;
+import static fr.pinguet62.jsfring.test.Config.DATASET;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;

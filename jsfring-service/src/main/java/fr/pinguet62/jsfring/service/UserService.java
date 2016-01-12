@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.pinguet62.jsfring.dao.UserDao;
-import fr.pinguet62.jsfring.dao.util.PasswordGenerator;
 import fr.pinguet62.jsfring.model.User;
+import fr.pinguet62.jsfring.util.PasswordGenerator;
 
 /** The service for {@link User}. */
 @Service
