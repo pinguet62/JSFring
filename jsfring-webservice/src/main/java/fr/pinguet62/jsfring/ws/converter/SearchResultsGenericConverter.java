@@ -1,8 +1,9 @@
 package fr.pinguet62.jsfring.ws.converter;
 
+import static java.util.Collections.singleton;
 import static java.util.stream.Collectors.toList;
+import static org.springframework.core.convert.TypeDescriptor.valueOf;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
@@ -42,8 +43,8 @@ public class SearchResultsGenericConverter implements GenericConverter {
 
     /** Generic method used to cast objects to correct type. */
     private <Pojo, Dto> Object convertTyped(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
-        TypeDescriptor srcType = TypeDescriptor.valueOf((Class<?>) sourceType.getResolvableType().getGenerics()[0].getType());
-        TypeDescriptor tgtType = TypeDescriptor.valueOf((Class<?>) targetType.getResolvableType().getGenerics()[0].getType());
+        TypeDescriptor srcType = valueOf((Class<?>) sourceType.getResolvableType().getGenerics()[0].getType());
+        TypeDescriptor tgtType = valueOf((Class<?>) targetType.getResolvableType().getGenerics()[0].getType());
         Function<Pojo, Dto> mapper = x -> (Dto) conversionService.convert(x, srcType, tgtType);
 
         SearchResults<Pojo> searchResults = (SearchResults<Pojo>) source;
@@ -59,7 +60,7 @@ public class SearchResultsGenericConverter implements GenericConverter {
      */
     @Override
     public Set<ConvertiblePair> getConvertibleTypes() {
-        return Collections.singleton(new ConvertiblePair(SearchResults.class, SearchResultsDto.class));
+        return singleton(new ConvertiblePair(SearchResults.class, SearchResultsDto.class));
     }
 
 }

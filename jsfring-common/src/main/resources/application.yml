@@ -1,3 +1,6 @@
+# Note: "external config" = requires to be set by external configuration
+# See: https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html
+
 spring:
     aop:
         # Disable proxies
@@ -8,22 +11,22 @@ spring:
     jpa:
         hibernate:
             # Lower/underscore conversion of table/column name
-            naming_strategy: org.hibernate.cfg.DefaultNamingStrategy
+            naming-strategy: org.hibernate.cfg.DefaultNamingStrategy
         properties:
             hibernate:
+                default_schema: public
                 dialect: org.hibernate.dialect.PostgreSQL9Dialect
-                # globally_quoted_identifiers: true
-                # default_schema: public
-                use_sql_comments: false
-                show_sql: true
                 format_sql: true
+                #globally_quoted_identifiers: true
+                use_sql_comments: false
+        show-sql: true
     mail:
-        test-connection: false
         #host: external config
-        #port: external config
-        #username: external config
         #password: external config
+        #port: external config
         properties:
             mail.smtp.auth: true
             mail.smtp.starttls.enable: true
             #mail.smtp.ssl.trust: smtp.gmail.com
+        test-connection: false
+        #username: external config

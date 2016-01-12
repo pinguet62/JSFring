@@ -46,20 +46,6 @@
 			<version>3.7.0</version>
 			<scope>compile</scope>
 		</dependency>
-		<!-- PDF parser -->
-		<dependency>
-			<groupId>com.lowagie</groupId>
-			<artifactId>itext</artifactId>
-			<version>2.1.7</version>
-			<scope>compile</scope>
-		</dependency>
-		<!-- HTML parser -->
-		<dependency>
-			<groupId>org.jsoup</groupId>
-			<artifactId>jsoup</artifactId>
-			<version>1.8.3</version>
-			<scope>compile</scope>
-		</dependency>
 	</dependencies>
 
 	<properties>

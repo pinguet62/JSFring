@@ -1,8 +1,8 @@
 package fr.pinguet62.jsfring.gui.jasperreport.sample;
 
+import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -28,8 +28,8 @@ public final class ParametersJasperReportBean extends AbstractJasperReportBean {
     private String stringParam;
 
     public List<String> complete(String query) {
-        List<String> values = Arrays.asList("Avion", "Ballon", "Cadeau", "Dauphin", "Eléphant", "Fusée", "Gateau", "Hibou",
-                "Ile", "Jouet", "Kangourou", "Lune", "Maman", "Nuage", "Orange", "Papa", "Quille", "Roue", "Soleil", "Tortue",
+        List<String> values = asList("Avion", "Ballon", "Cadeau", "Dauphin", "Eléphant", "Fusée", "Gateau", "Hibou", "Ile",
+                "Jouet", "Kangourou", "Lune", "Maman", "Nuage", "Orange", "Papa", "Quille", "Roue", "Soleil", "Tortue",
                 "Uniforme", "Vélo", "Wagon", "Xylophono", "Yoyo", "Zèbre");
         return values.stream().map(String::toLowerCase).filter(it -> it.contains(query.toLowerCase())).collect(toList());
     }

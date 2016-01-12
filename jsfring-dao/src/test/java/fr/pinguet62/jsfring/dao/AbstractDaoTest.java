@@ -1,12 +1,12 @@
 package fr.pinguet62.jsfring.dao;
 
 import static fr.pinguet62.jsfring.test.Config.DATASET;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -118,7 +118,7 @@ public class AbstractDaoTest {
         List<Right> rights = rightDao.find(query);
 
         assertEquals(2, rights.size());
-        rights.stream().allMatch(r -> Arrays.asList("PROFILE_RO", "PROFILE_RW").contains(r.getTitle()));
+        rights.stream().allMatch(r -> asList("PROFILE_RO", "PROFILE_RW").contains(r.getTitle()));
     }
 
     /** @see AbstractDao#find(JPAQuery) */

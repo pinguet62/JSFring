@@ -1,9 +1,9 @@
 package fr.pinguet62.jsfring.util.querydsl;
 
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -45,7 +45,7 @@ public final class FilterConverterTest {
     @Test
     public void test_apply_number() {
         QProfile profile = QProfile.profile;
-        for (Number value : Arrays.asList(1, 0.1)) {
+        for (Number value : asList(1, 0.1)) {
             Map<String, Object> params = new HashMap<>();
             params.put(profile.id.toString(), value);
 
@@ -93,7 +93,7 @@ public final class FilterConverterTest {
     @Test
     public void test_apply_string() {
         QRight right = QRight.right_;
-        for (String value : Arrays.asList("RIGHT_", "ILE_", "_RO", "%", "^", "\\")) {
+        for (String value : asList("RIGHT_", "ILE_", "_RO", "%", "^", "\\")) {
             Map<String, Object> params = new HashMap<>();
             params.put(right.code.toString(), value);
 

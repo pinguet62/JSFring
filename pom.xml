@@ -20,7 +20,7 @@
 		<module>jsfring-model</module>
 		<module>jsfring-dao</module>
 		<module>jsfring-service</module>
-		<!--<module>jsfring-task</module>-->
+		<module>jsfring-task</module>
 		<module>jsfring-webapp</module>
 		<!--<module>jsfring-webapp-test</module> -->
 		<module>jsfring-webservice</module>
@@ -52,14 +52,21 @@
 			<groupId>org.odftoolkit</groupId>
 			<artifactId>odfdom-java</artifactId>
 			<version>0.8.7</version>
-			<scope>test</scope>
+			<!-- <scope>test</scope> -->
 		</dependency>
 		<!-- HTML -->
 		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
 			<version>1.8.3</version>
-			<scope>test</scope>
+			<!-- <scope>test</scope> -->
+		</dependency>
+		<!-- PDF parser -->
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>2.1.7</version>
+			<!-- <scope>compile</scope> -->
 		</dependency>
 
 		<!-- Bean validation -->
@@ -161,17 +168,6 @@
 							</goals>
 						</execution>
 					</executions>
-				</configuration>
-			</plugin>
-
-			<!-- Build -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.3</version>
-				<configuration>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
 				</configuration>
 			</plugin>
 
@@ -281,39 +277,13 @@
 				<version>4.1.0</version>
 			</plugin>
 
-			<!-- Heroku deploy -->
-			<!-- $ java -jar target/dependency/webapp-runner.jar target/*.war -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>2.10</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
-						<configuration>
-							<artifactItems>
-								<artifactItem>
-									<groupId>com.github.jsimone</groupId>
-									<artifactId>webapp-runner</artifactId>
-									<version>7.0.57.2</version>
-									<destFileName>webapp-runner.jar</destFileName>
-								</artifactItem>
-							</artifactItems>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
 			<!-- Heroku: reducing the Slug size -->
 			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
 				<version>3.0.0</version>
 				<executions>
 					<execution>
-						<phase>install</phase>
+						<phase>package</phase>
 						<goals>
 							<goal>clean</goal>
 						</goals>
@@ -322,10 +292,10 @@
 							<filesets>
 								<fileset>
 									<directory>target</directory>
+									<!--includes> <include>**/target/**</include> </includes -->
 									<excludes>
-										<exclude>dependency/webapp-runner.jar</exclude>
-										<exclude>*.war</exclude>
 										<exclude>*.jar</exclude>
+										<exclude>*.war</exclude>
 									</excludes>
 								</fileset>
 							</filesets>

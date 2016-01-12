@@ -1,10 +1,11 @@
 package fr.pinguet62.jsfring.util.querydsl;
 
+import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.toList;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
 
@@ -47,9 +48,9 @@ public final class ReflectionUtil {
         }
 
         // Field
-        List<Field> fields = Arrays.asList(metaObjectType.getDeclaredFields()).stream()
+        List<Field> fields = asList(metaObjectType.getDeclaredFields()).stream()
                 .filter(/* Static */attr -> Modifier.isStatic(attr.getModifiers()))
-                .filter(/* Same type */attr -> attr.getType().equals(metaObjectType)).collect(Collectors.toList());
+                .filter(/* Same type */attr -> attr.getType().equals(metaObjectType)).collect(toList());
         if (fields.isEmpty())
             throw new IllegalArgumentException("Field not found.");
         else if (fields.size() > 1)

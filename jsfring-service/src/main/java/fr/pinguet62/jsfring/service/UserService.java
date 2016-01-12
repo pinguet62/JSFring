@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +38,9 @@ public class UserService extends AbstractService<User, String> {
     private SimpleMailMessage forgottenPasswordMessage;
 
     @Inject
+    private MailSender mailSender;
+
+    @Inject
     protected UserService(UserDao dao) {
         super(dao);
         this.dao = dao;
@@ -55,19 +59,6 @@ public class UserService extends AbstractService<User, String> {
         object.setLastConnection(new Date());
 
         return super.create(object);
-    }
-
-    /**
-     * Disable all users who have not connected since a delay.
-     * <p>
-     * Scheduled method as batch.
-     */
-    // @Scheduled(fixedRate = 1_000/* ms */ * 60/* sec */ * 60/* min */ * 1/* h
-    // */)
-    @Transactional
-    public void disableInactiveUsers() {
-        LOGGER.info("Scheduling...");
-        dao.disableInactiveUsers(7);
     }
 
     /**
@@ -91,7 +82,7 @@ public class UserService extends AbstractService<User, String> {
         SimpleMailMessage message = new SimpleMailMessage(forgottenPasswordMessage);
         message.setTo(user.getEmail());
         message.setText(String.format(forgottenPasswordMessage.getText(), user.getLogin(), user.getPassword()));
-        // TODO Check on Travis CI: mailSender.send(message);
+        mailSender.send(message);
         LOGGER.info("New password sent to " + user.getLogin() + " user's email");
     }
 

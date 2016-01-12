@@ -1,34 +1,34 @@
 package fr.pinguet62.jsfring.util;
 
+import static java.lang.String.valueOf;
+import static java.util.Arrays.asList;
+import static java.util.Collections.shuffle;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.IntStream.rangeClosed;
+
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class PasswordGenerator implements Supplier<String> {
 
     @Override
     public String get() {
-        List<String> characters = IntStream.rangeClosed('a', 'z').mapToObj(c -> String.valueOf((char) c))
-                .collect(Collectors.toList());
-        characters.addAll(IntStream.rangeClosed('A', 'Z').mapToObj(c -> String.valueOf((char) c)).collect(Collectors.toList()));
-        List<String> letters = IntStream.rangeClosed('0', '9').mapToObj(c -> String.valueOf((char) c))
-                .collect(Collectors.toList());
-        List<String> specials = Arrays.asList("!", "#", "$", "%", "&", "*", "+", "-", "<", "=", ">", "?", "@", "_");
+        List<String> characters = rangeClosed('a', 'z').mapToObj(c -> valueOf((char) c)).collect(toList());
+        characters.addAll(rangeClosed('A', 'Z').mapToObj(c -> valueOf((char) c)).collect(toList()));
+        List<String> letters = rangeClosed('0', '9').mapToObj(c -> valueOf((char) c)).collect(toList());
+        List<String> specials = asList("!", "#", "$", "%", "&", "*", "+", "-", "<", "=", ">", "?", "@", "_");
 
-        Collections.shuffle(characters);
-        Collections.shuffle(letters);
-        Collections.shuffle(specials);
+        shuffle(characters);
+        shuffle(letters);
+        shuffle(specials);
 
         List<String> choosen = new ArrayList<>();
         choosen.addAll(characters.subList(0, 8));
         choosen.add(letters.get(0));
         choosen.add(specials.get(0));
 
-        Collections.shuffle(choosen);
+        shuffle(choosen);
 
         return String.join("", choosen);
     }

@@ -1,9 +1,10 @@
 package fr.pinguet62.jsfring.gui;
 
+import static java.util.stream.Collectors.toList;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -93,7 +94,7 @@ public final class UsersBean extends AbstractCrudBean<User> {
         // Custom
         List<Profile> associatedProfiles = new ArrayList<>(getSelectedValue().getProfiles());
         List<Profile> availableProfiles = profileService.getAll().stream()
-                .filter(profile -> !associatedProfiles.contains(profile)).collect(Collectors.toList());
+                .filter(profile -> !associatedProfiles.contains(profile)).collect(toList());
         profilesAssociation = new DualListModel<>(availableProfiles, associatedProfiles);
     }
 

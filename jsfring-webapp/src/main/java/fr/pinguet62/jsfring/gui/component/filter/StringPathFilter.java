@@ -1,7 +1,8 @@
 package fr.pinguet62.jsfring.gui.component.filter;
 
+import static java.util.Arrays.asList;
+
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 
 import com.mysema.query.types.expr.StringExpression;
@@ -25,8 +26,8 @@ public class StringPathFilter extends PathFilter<StringExpression, String> imple
 
     @Override
     public List<Operator<StringExpression, String>> getOperators() {
-        return Arrays.asList(new IsNullOperator<>(), new EqualsToOperator<StringExpression, String>(),
-                new StartsWithOperator(), new ContainsOperator(), new EndsWithOperator(), new LikeOperator());
+        return asList(new IsNullOperator<>(), new EqualsToOperator<StringExpression, String>(), new StartsWithOperator(),
+                new ContainsOperator(), new EndsWithOperator(), new LikeOperator());
     }
 
 }

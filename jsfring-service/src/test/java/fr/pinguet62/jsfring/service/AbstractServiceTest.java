@@ -1,11 +1,11 @@
 package fr.pinguet62.jsfring.service;
 
 import static fr.pinguet62.jsfring.test.Config.DATASET;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -87,7 +87,7 @@ public class AbstractServiceTest {
         List<Right> rights = rightService.find(query);
 
         assertEquals(2, rights.size());
-        rights.stream().allMatch(right -> Arrays.asList("PROFILE_RO", "PROFILE_RW").contains(right.getTitle()));
+        rights.stream().allMatch(right -> asList("PROFILE_RO", "PROFILE_RW").contains(right.getTitle()));
     }
 
     /**

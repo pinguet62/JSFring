@@ -13,7 +13,7 @@ import fr.pinguet62.jsfring.model.User;
 
 /** The service for {@link User}. */
 @Component
-public final class UserTask {
+public class UserTask {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserTask.class);
 

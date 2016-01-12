@@ -1,12 +1,12 @@
 package fr.pinguet62.jsfring.dao;
 
 import static fr.pinguet62.jsfring.test.Config.DATASET;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -55,7 +55,7 @@ public class UserDaoTest {
      */
     @Test
     public void test_disableInactiveUsers_illegalArgument() {
-        for (Integer arg : Arrays.asList(-1, 0))
+        for (Integer arg : asList(-1, 0))
             try {
                 userDao.disableInactiveUsers(arg);
                 fail();
