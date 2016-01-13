@@ -3,12 +3,18 @@ package fr.pinguet62.jsfring.gui.component;
 import static fr.pinguet62.jsfring.gui.htmlunit.DateUtils.equalsSecond;
 import static fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column.EMAIL;
 import static fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column.LOGIN;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isCSV;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isPDF;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isXLS;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isXLSX;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isXML;
 import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.toList;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
@@ -28,11 +34,12 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
+import au.com.bytecode.opencsv.CSVReader;
+
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.mysema.query.jpa.impl.JPAQuery;
 
-import au.com.bytecode.opencsv.CSVReader;
 import fr.pinguet62.jsfring.Config;
 import fr.pinguet62.jsfring.dao.ProfileDao;
 import fr.pinguet62.jsfring.dao.RightDao;
@@ -58,7 +65,6 @@ import fr.pinguet62.jsfring.gui.htmlunit.user.popup.UserUpdatePopup;
 import fr.pinguet62.jsfring.model.Profile;
 import fr.pinguet62.jsfring.model.QUser;
 import fr.pinguet62.jsfring.model.User;
-import fr.pinguet62.jsfring.util.FileChecker;
 
 /**
  * @see AbstractBean
@@ -367,7 +373,7 @@ public final class DataTableComponentTest {
     public void test_export_csv() throws IOException {
         UsersPage usersPage = AbstractPage.get().gotoUsersPage();
         InputStream is = usersPage.exportCSV();
-        assertTrue(FileChecker.isCSV(is));
+        assertThat(is, isCSV());
 
         // Content
         try (CSVReader reader = new CSVReader(new InputStreamReader(is))) {
@@ -383,7 +389,7 @@ public final class DataTableComponentTest {
     public void test_export_pdf() throws IOException {
         UsersPage usersPage = AbstractPage.get().gotoUsersPage();
         InputStream is = usersPage.exportPDF();
-        assertTrue(FileChecker.isPDF(is));
+        assertThat(is, isPDF());
     }
 
     /** @see AbstractDatatablePage#exportXLS() */
@@ -391,7 +397,7 @@ public final class DataTableComponentTest {
     public void test_export_xls() throws IOException {
         UsersPage usersPage = AbstractPage.get().gotoUsersPage();
         InputStream is = usersPage.exportXLS();
-        assertTrue(FileChecker.isXLS(is));
+        assertThat(is, isXLS());
     }
 
     /** @see AbstractDatatablePage#exportXLSX() */
@@ -399,7 +405,7 @@ public final class DataTableComponentTest {
     public void test_export_xlsx() throws IOException {
         UsersPage usersPage = AbstractPage.get().gotoUsersPage();
         InputStream is = usersPage.exportXLSX();
-        assertTrue(FileChecker.isXLSX(is));
+        assertThat(is, isXLSX());
     }
 
     /** @see AbstractDatatablePage#exportXML() */
@@ -407,7 +413,7 @@ public final class DataTableComponentTest {
     public void test_export_xml() throws Exception {
         UsersPage usersPage = AbstractPage.get().gotoUsersPage();
         InputStream is = usersPage.exportXML();
-        assertTrue(FileChecker.isXML(is));
+        assertThat(is, isXML());
     }
 
     /** @see UsersPage#filterByActive(ActiveFilter) */

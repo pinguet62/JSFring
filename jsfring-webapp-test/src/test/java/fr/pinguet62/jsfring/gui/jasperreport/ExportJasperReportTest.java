@@ -1,6 +1,19 @@
 package fr.pinguet62.jsfring.gui.jasperreport;
 
-import static org.junit.Assert.assertTrue;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isCSV;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isDOCX;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isHTML;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isImage;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isODS;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isODT;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isPDF;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isPPTX;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isRTF;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isTXT;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isXLS;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isXLSX;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isXML;
+import static org.junit.Assert.assertThat;
 
 import java.io.InputStream;
 
@@ -11,7 +24,6 @@ import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.jasperreport.AbstractJasperReportPage;
 import fr.pinguet62.jsfring.gui.htmlunit.jasperreport.UsersRightsJasperReportPage;
 import fr.pinguet62.jsfring.gui.jasperreport.sample.UsersRightsJasperReportBean;
-import fr.pinguet62.jsfring.util.FileChecker;
 
 /**
  * @see AbstractJasperReportBean#getStreamedContent(ExportType)
@@ -34,7 +46,7 @@ public final class ExportJasperReportTest {
     @Test
     public void test_csv() {
         InputStream is = page.exportCSV();
-        assertTrue(FileChecker.isCSV(is));
+        assertThat(is, isCSV());
     }
 
     /**
@@ -44,7 +56,7 @@ public final class ExportJasperReportTest {
     @Test
     public void test_docx() {
         InputStream is = page.exportDOCX();
-        assertTrue(FileChecker.isDOCX(is));
+        assertThat(is, isDOCX());
     }
 
     /**
@@ -54,7 +66,7 @@ public final class ExportJasperReportTest {
     @Test
     public void test_graphics2d() {
         InputStream is = page.exportGraphics2D();
-        assertTrue(FileChecker.isImage(is));
+        assertThat(is, isImage());
     }
 
     /**
@@ -64,7 +76,7 @@ public final class ExportJasperReportTest {
     @Test
     public void test_html() {
         InputStream is = page.exportHTML();
-        assertTrue(FileChecker.isHTML(is));
+        assertThat(is, isHTML());
     }
 
     /**
@@ -74,7 +86,7 @@ public final class ExportJasperReportTest {
     @Test
     public void test_ods() {
         InputStream is = page.exportODS();
-        assertTrue(FileChecker.isODS(is));
+        assertThat(is, isODS());
     }
 
     /**
@@ -84,7 +96,7 @@ public final class ExportJasperReportTest {
     @Test
     public void test_odt() throws Exception {
         InputStream is = page.exportODT();
-        assertTrue(FileChecker.isODT(is));
+        assertThat(is, isODT());
     }
 
     /**
@@ -94,7 +106,7 @@ public final class ExportJasperReportTest {
     @Test
     public void test_pdf() {
         InputStream is = page.exportPDF();
-        assertTrue(FileChecker.isPDF(is));
+        assertThat(is, isPDF());
     }
 
     /**
@@ -104,7 +116,7 @@ public final class ExportJasperReportTest {
     @Test
     public void test_pptx() {
         InputStream is = page.exportPPTX();
-        assertTrue(FileChecker.isPPTX(is));
+        assertThat(is, isPPTX());
     }
 
     /**
@@ -114,7 +126,7 @@ public final class ExportJasperReportTest {
     @Test
     public void test_rtf() {
         InputStream is = page.exportRTF();
-        assertTrue(FileChecker.isRTF(is));
+        assertThat(is, isRTF());
     }
 
     /**
@@ -124,7 +136,7 @@ public final class ExportJasperReportTest {
     @Test
     public void test_text() {
         InputStream is = page.exportTEXT();
-        assertTrue(FileChecker.isTXT(is));
+        assertThat(is, isTXT());
     }
 
     /**
@@ -134,7 +146,7 @@ public final class ExportJasperReportTest {
     @Test
     public void test_xls() {
         InputStream is = page.exportXLS();
-        assertTrue(FileChecker.isXLS(is));
+        assertThat(is, isXLS());
     }
 
     /**
@@ -144,7 +156,7 @@ public final class ExportJasperReportTest {
     @Test
     public void test_xlsx() {
         InputStream is = page.exportXLSX();
-        assertTrue(FileChecker.isXLSX(is));
+        assertThat(is, isXLSX());
     }
 
     /**
@@ -154,7 +166,7 @@ public final class ExportJasperReportTest {
     @Test
     public void test_xml() {
         InputStream is = page.exportXML();
-        assertTrue(FileChecker.isXML(is));
+        assertThat(is, isXML());
     }
 
 }
