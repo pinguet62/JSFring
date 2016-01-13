@@ -3,6 +3,7 @@ package fr.pinguet62.jsfring.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.zip.ZipInputStream;
 
 import javax.imageio.ImageIO;
 import javax.swing.text.BadLocationException;
@@ -200,6 +201,12 @@ public final class FileChecker {
         } catch (ParserConfigurationException | SAXException | IOException e) {
             return false;
         }
+    }
+
+    /** @see ZipInputStream */
+    public static boolean isZIP(InputStream is) {
+        new ZipInputStream(is);
+        return true;
     }
 
     // Util

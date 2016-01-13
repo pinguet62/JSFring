@@ -16,6 +16,7 @@ import static fr.pinguet62.jsfring.util.FileChecker.isTXT;
 import static fr.pinguet62.jsfring.util.FileChecker.isXLS;
 import static fr.pinguet62.jsfring.util.FileChecker.isXLSX;
 import static fr.pinguet62.jsfring.util.FileChecker.isXML;
+import static fr.pinguet62.jsfring.util.FileChecker.isZIP;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -62,6 +63,8 @@ public final class FileCheckerTest {
         assertFalse(isRTF(getClass().getResourceAsStream(path)));
         assertFalse(isXLS(getClass().getResourceAsStream(path)));
         assertFalse(isXLSX(getClass().getResourceAsStream(path)));
+
+        assertTrue(isZIP(getClass().getResourceAsStream(path)));
     }
 
     /** @see FileChecker#isDOCX(InputStream) */
@@ -78,6 +81,8 @@ public final class FileCheckerTest {
         assertFalse(isRTF(getClass().getResourceAsStream(path)));
         assertFalse(isXLS(getClass().getResourceAsStream(path)));
         assertFalse(isXLSX(getClass().getResourceAsStream(path)));
+
+        assertTrue(isZIP(getClass().getResourceAsStream(path)));
     }
 
     /** @see FileChecker#isHTML(InputStream) */
@@ -110,6 +115,8 @@ public final class FileCheckerTest {
         assertFalse(isRTF(getClass().getResourceAsStream(path)));
         assertFalse(isXLS(getClass().getResourceAsStream(path)));
         assertFalse(isXLSX(getClass().getResourceAsStream(path)));
+
+        assertTrue(isZIP(getClass().getResourceAsStream(path)));
     }
 
     /** @see FileChecker#isODS(InputStream) */
@@ -126,6 +133,8 @@ public final class FileCheckerTest {
         assertFalse(isRTF(getClass().getResourceAsStream(path)));
         assertFalse(isXLS(getClass().getResourceAsStream(path)));
         assertFalse(isXLSX(getClass().getResourceAsStream(path)));
+
+        assertTrue(isZIP(getClass().getResourceAsStream(path)));
     }
 
     /** @see FileChecker#isODT(InputStream) */
@@ -142,6 +151,8 @@ public final class FileCheckerTest {
         assertFalse(isRTF(getClass().getResourceAsStream(path)));
         assertFalse(isXLS(getClass().getResourceAsStream(path)));
         assertFalse(isXLSX(getClass().getResourceAsStream(path)));
+
+        assertTrue(isZIP(getClass().getResourceAsStream(path)));
     }
 
     /** @see FileChecker#isPDF(InputStream) */
@@ -164,6 +175,8 @@ public final class FileCheckerTest {
         assertFalse(isRTF(getClass().getResourceAsStream(path)));
         assertFalse(isXLS(getClass().getResourceAsStream(path)));
         assertFalse(isXLSX(getClass().getResourceAsStream(path)));
+
+        assertTrue(isZIP(getClass().getResourceAsStream(path)));
     }
 
     /** @see FileChecker#isPPTX(InputStream) */
@@ -180,6 +193,8 @@ public final class FileCheckerTest {
         assertFalse(isRTF(getClass().getResourceAsStream(path)));
         assertFalse(isXLS(getClass().getResourceAsStream(path)));
         assertFalse(isXLSX(getClass().getResourceAsStream(path)));
+
+        assertTrue(isZIP(getClass().getResourceAsStream(path)));
     }
 
     /** @see FileChecker#isRTF(InputStream) */
@@ -220,6 +235,8 @@ public final class FileCheckerTest {
         assertFalse(isRTF(getClass().getResourceAsStream(path)));
         assertTrue(isXLS(getClass().getResourceAsStream(path)));
         assertFalse(isXLSX(getClass().getResourceAsStream(path)));
+
+        assertTrue(isZIP(getClass().getResourceAsStream(path)));
     }
 
     /** @see FileChecker#isXLSX(InputStream) */
@@ -236,6 +253,8 @@ public final class FileCheckerTest {
         assertFalse(isRTF(getClass().getResourceAsStream(path)));
         assertFalse(isXLS(getClass().getResourceAsStream(path)));
         assertTrue(isXLSX(getClass().getResourceAsStream(path)));
+
+        assertTrue(isZIP(getClass().getResourceAsStream(path)));
     }
 
     /** @see FileChecker#isXML(InputStream) */
@@ -244,6 +263,13 @@ public final class FileCheckerTest {
         String path = "/example.xml";
         assertTrue(isXML(getClass().getResourceAsStream(path)));
         assertTrue(isTXT(getClass().getResourceAsStream(path)));
+    }
+
+    /** @see FileChecker#isZIP(InputStream) */
+    @Test
+    public void test_isZIP() {
+        String path = "/example.zip";
+        assertTrue(isZIP(getClass().getResourceAsStream(path)));
     }
 
 }
