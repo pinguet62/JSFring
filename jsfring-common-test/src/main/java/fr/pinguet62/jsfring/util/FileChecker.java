@@ -13,11 +13,14 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.poi.POIXMLDocument;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.hslf.HSLFSlideShow;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.jsoup.Jsoup;
+import org.odftoolkit.odfdom.doc.OdfPresentationDocument;
 import org.odftoolkit.odfdom.doc.OdfSpreadsheetDocument;
 import org.odftoolkit.odfdom.doc.OdfTextDocument;
 import org.xml.sax.SAXException;
@@ -27,6 +30,7 @@ import au.com.bytecode.opencsv.CSVReader;
 import com.lowagie.text.pdf.PdfReader;
 
 // TODO Matcher
+// TODO Exception: catch(Exception) to high level Exception
 /** Utility class used to verify is the format file is correct. */
 public final class FileChecker {
 
@@ -39,11 +43,22 @@ public final class FileChecker {
         }
     }
 
+    /** @see HWPFDocument */
+    public static boolean isDOC(InputStream is) {
+        try {
+            new HWPFDocument(is);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     /** @see XWPFDocument */
     public static boolean isDOCX(InputStream is) {
         try {
-            return XWPFDocument.hasOOXMLHeader(is);
-        } catch (IOException e) {
+            new XWPFDocument(is);
+            return true;
+        } catch (Exception e) {
             return false;
         }
     }
@@ -66,6 +81,16 @@ public final class FileChecker {
             ImageIO.read(is);
             return true;
         } catch (IOException e) {
+            return false;
+        }
+    }
+
+    /** @see OdfPresentationDocument */
+    public static boolean isODP(InputStream is) {
+        try {
+            OdfPresentationDocument.loadDocument(is);
+            return true;
+        } catch (Exception e) {
             return false;
         }
     }
@@ -100,11 +125,22 @@ public final class FileChecker {
         }
     }
 
+    /** @see HSLFSlideShow */
+    public static boolean isPPT(InputStream is) {
+        try {
+            new HSLFSlideShow(is);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     /** @see XMLSlideShow */
     public static boolean isPPTX(InputStream is) {
         try {
-            return XMLSlideShow.hasOOXMLHeader(is);
-        } catch (IOException e) {
+            new XMLSlideShow(is);
+            return true;
+        } catch (Exception e) {
             return false;
         }
     }
@@ -116,7 +152,7 @@ public final class FileChecker {
         try {
             rtfParser.read(is, document, 0);
             return true;
-        } catch (IOException | BadLocationException e) {
+        } catch (IOException | BadLocationException | NumberFormatException e) {
             return false;
         }
     }
@@ -134,20 +170,22 @@ public final class FileChecker {
         }
     }
 
-    /** @see POIFSFileSystem */
+    /** @see HSSFWorkbook */
     public static boolean isXLS(InputStream is) {
         try {
-            return POIFSFileSystem.hasPOIFSHeader(is);
-        } catch (IOException e) {
+            new HSSFWorkbook(is);
+            return true;
+        } catch (Exception e) {
             return false;
         }
     }
 
-    /** @see POIXMLDocument */
+    /** @see XSSFWorkbook */
     public static boolean isXLSX(InputStream is) {
         try {
-            return POIXMLDocument.hasOOXMLHeader(is);
-        } catch (IOException e) {
+            new XSSFWorkbook(is);
+            return true;
+        } catch (Exception e) {
             return false;
         }
     }
