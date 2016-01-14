@@ -12,6 +12,8 @@ import org.springframework.boot.context.embedded.ServletListenerRegistrationBean
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.sun.faces.config.ConfigureListener;
 
@@ -19,6 +21,23 @@ import fr.pinguet62.jsfring.gui.theme.ThemeSwitcherBean;
 
 @Configuration
 public class WebConfig {
+
+    /**
+     * Set the index page.
+     * <p>
+     * <code> 
+     * &lt;welcome-file-list&gt;<br>
+     * &nbsp;&nbsp;&nbsp;&nbsp;&lt;welcome-file&gt;index.jsp&lt;/welcome-file&gt;<br>
+     * &lt;/welcome-file-list&gt;
+     * </code>
+     */
+    @Configuration
+    public static class IndexConfig extends WebMvcConfigurerAdapter {
+        @Override
+        public void addViewControllers(ViewControllerRegistry registry) {
+            registry.addViewController("/").setViewName("index.xhtml");
+        }
+    }
 
     @Inject
     private ThemeSwitcherBean themeSwitcherBean;
