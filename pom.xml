@@ -124,7 +124,10 @@
 	<build>
 		<plugins>
 			<!-- VersionEye -->
-			<!-- Usage: mvn versioneye:create -->
+			<!-- Usage:
+				mvn versioneye:create
+				mvn versioneye:update
+			-->
 			<plugin>
 				<groupId>com.versioneye</groupId>
 				<artifactId>versioneye-maven-plugin</artifactId>
