@@ -9,6 +9,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.Path;
+import javax.ws.rs.ext.Provider;
 
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
@@ -62,9 +63,9 @@ public class JerseyConfig {
          */
         private void registerScannedPackages(Collection<String> packages) {
             ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
+            // TODO Scan all @nnotations of JAX-RS
             scanner.addIncludeFilter(new AnnotationTypeFilter(Path.class)); // JAX-RS
-            // scanner.addIncludeFilter(new
-            // AnnotationTypeFilter(RestController.class)); // Spring
+            scanner.addIncludeFilter(new AnnotationTypeFilter(Provider.class));
             for (String basePackage : packages)
                 for (BeanDefinition bd : scanner.findCandidateComponents(basePackage))
                     register(ClassUtils.resolveClassName(bd.getBeanClassName(), getClass().getClassLoader()));
