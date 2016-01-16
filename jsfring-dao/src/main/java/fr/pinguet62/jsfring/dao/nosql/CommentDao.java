@@ -3,8 +3,8 @@ package fr.pinguet62.jsfring.dao.nosql;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import fr.pinguet62.jsfring.model.nosql.Message;
+import fr.pinguet62.jsfring.model.nosql.Comment;
 
-/** @see Message */
+/** @see Comment */
 @Repository
-public interface MessageDao extends MongoRepository<Message, String> {}
+public interface CommentDao extends MongoRepository<Comment, String> {}

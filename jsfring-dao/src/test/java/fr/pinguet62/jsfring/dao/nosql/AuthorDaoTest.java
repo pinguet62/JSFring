@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.dao;
+package fr.pinguet62.jsfring.dao.nosql;
 
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
@@ -13,15 +13,14 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.dao.nosql.MessageDao;
 
-/** @see MessageDao */
+/** @see AuthorDao */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(SpringBootConfig.class)
-public class MessageDaoTest {
+public class AuthorDaoTest {
 
     @Inject
-    private MessageDao dao;
+    private AuthorDao dao;
 
     @Test
     public void test_list() {

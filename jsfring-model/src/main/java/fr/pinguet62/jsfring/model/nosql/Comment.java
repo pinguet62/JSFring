@@ -1,11 +1,10 @@
 package fr.pinguet62.jsfring.model.nosql;
 
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.data.annotation.Id;
 
-public class Message {
+public class Comment {
 
     private Author author;
 
@@ -15,8 +14,6 @@ public class Message {
 
     @Id
     private String id;
-
-    private List<Message> responses;
 
     public Author getAuthor() {
         return author;
@@ -34,10 +31,6 @@ public class Message {
         return id;
     }
 
-    public List<Message> getResponses() {
-        return responses;
-    }
-
     public void setAuthor(Author author) {
         this.author = author;
     }
@@ -52,10 +45,6 @@ public class Message {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public void setResponses(List<Message> responses) {
-        this.responses = responses;
     }
 
 }
