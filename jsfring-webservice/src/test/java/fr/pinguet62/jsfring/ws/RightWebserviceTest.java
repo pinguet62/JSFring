@@ -41,12 +41,12 @@ public class RightWebserviceTest {
     /** @see RightWebservice#get(int) */
     @Test
     public void test_get() {
-        String code = rightDao.getAll().get(0).getCode();
+        String code = rightDao.findAll().get(0).getCode();
 
         RightDto actual = ClientBuilder.newClient().target(BASE_URL).path(PATH + "/{code}").resolveTemplate("code", code)
                 .request().get(RightDto.class);
 
-        Right pojo = rightDao.get(code);
+        Right pojo = rightDao.findOne(code);
         RightDto expected = new RightDto();
         expected.setCode(pojo.getCode());
         expected.setTitle(pojo.getTitle());
@@ -61,7 +61,7 @@ public class RightWebserviceTest {
         List<RightDto> actual = ClientBuilder.newClient().target(BASE_URL).path(PATH + "/").request()
                 .get(new GenericType<List<RightDto>>() {});
 
-        List<Right> expected = rightDao.getAll();
+        List<Right> expected = rightDao.findAll();
 
         assertEquals(expected.size(), actual.size());
     }

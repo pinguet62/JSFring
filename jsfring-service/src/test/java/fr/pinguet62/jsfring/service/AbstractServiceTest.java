@@ -6,7 +6,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.stream.StreamSupport;
 
 import javax.inject.Inject;
 
@@ -19,11 +19,12 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.google.common.collect.Iterables;
 import com.mysema.query.SearchResults;
 import com.mysema.query.jpa.impl.JPAQuery;
+import com.mysema.query.types.Predicate;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.dao.AbstractDao;
 import fr.pinguet62.jsfring.model.Profile;
 import fr.pinguet62.jsfring.model.QRight;
 import fr.pinguet62.jsfring.model.Right;
@@ -81,13 +82,13 @@ public class AbstractServiceTest {
     /** @see AbstractService#find(JPAQuery) */
     @Test
     public void test_find() {
-        QRight r = QRight.right_;
-        JPAQuery query = new JPAQuery().from(r).where(r.code.contains("PROFILE"));
+        Predicate query = QRight.right_.code.contains("PROFILE");
 
-        List<Right> rights = rightService.find(query);
+        Iterable<Right> rights = rightService.findAll(query);
 
-        assertEquals(2, rights.size());
-        rights.stream().allMatch(right -> asList("PROFILE_RO", "PROFILE_RW").contains(right.getTitle()));
+        assertEquals(2, Iterables.size(rights));
+        StreamSupport.stream(rights.spliterator(), false)
+                .allMatch(right -> asList("PROFILE_RO", "PROFILE_RW").contains(right.getTitle()));
     }
 
     /**

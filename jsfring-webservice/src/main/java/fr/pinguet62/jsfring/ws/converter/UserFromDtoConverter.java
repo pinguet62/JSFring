@@ -1,20 +1,18 @@
 package fr.pinguet62.jsfring.ws.converter;
 
-import java.util.HashSet;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import com.mysema.query.jpa.impl.JPAQuery;
+import com.mysema.query.types.Predicate;
 
 import fr.pinguet62.jsfring.model.Profile;
 import fr.pinguet62.jsfring.model.QProfile;
 import fr.pinguet62.jsfring.model.User;
 import fr.pinguet62.jsfring.service.ProfileService;
 import fr.pinguet62.jsfring.ws.dto.UserDto;
+import jersey.repackaged.com.google.common.collect.Sets;
 
 @Component
 public final class UserFromDtoConverter implements Converter<UserDto, User> {
@@ -30,10 +28,9 @@ public final class UserFromDtoConverter implements Converter<UserDto, User> {
         user.setActive(dto.getActive());
         user.setLastConnection(dto.getLastConnection());
 
-        QProfile p = QProfile.profile;
-        JPAQuery query = new JPAQuery().from(p).where(p.id.in(dto.getProfiles()));
-        List<Profile> profiles = profileService.find(query);
-        user.setProfiles(new HashSet<>(profiles));
+        Predicate query = QProfile.profile.id.in(dto.getProfiles());
+        Iterable<Profile> profiles = profileService.findAll(query);
+        user.setProfiles(Sets.newHashSet(profiles));
 
         return user;
     }

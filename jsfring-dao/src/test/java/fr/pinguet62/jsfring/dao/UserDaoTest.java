@@ -9,7 +9,6 @@ import static org.junit.Assert.fail;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -27,7 +26,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.mysema.query.jpa.impl.JPAQuery;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.model.QUser;
@@ -77,29 +75,28 @@ public class UserDaoTest {
 
         // users who will be deactivate
         QUser u = QUser.user;
-        List<User> usersToDeactivate = userDao
-                .find(new JPAQuery().from(u).where(u.lastConnection.before(yesterday)).where(u.active.isTrue()));
+        Iterable<User> usersToDeactivate = userDao.findAll(u.lastConnection.before(yesterday).and(u.active.isTrue()));
 
         userDao.disableInactiveUsers(nbOfDays);
         em.clear(); // because first-level cache is not updated by this method
 
         // check
         for (User user : usersToDeactivate)
-            assertFalse(userDao.get(user.getLogin()).isActive());
+            assertFalse(userDao.findOne(user.getLogin()).isActive());
     }
 
     /**
      * Check that {@link User#lastConnection last connection date} was updated
      * to current day.
      *
-     * @see UserDao#resetLastConnectionDate(User)
+     * @see UserDao#doStuffResetLastConnectionDate(User)
      */
     @Test
     public void test_resetLastConnectionDate() {
         Date today = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
         String login = "super admin";
 
-        User user = userDao.get(login);
+        User user = userDao.findOne(login);
         // Before
         Date lastConnectionBefore = user.getLastConnection();
         assertTrue(lastConnectionBefore.before(today));
@@ -107,7 +104,7 @@ public class UserDaoTest {
         userDao.resetLastConnectionDate(user);
 
         // Test
-        Date lastConnectionAfter = DateUtils.truncate(userDao.get(login).getLastConnection(), Calendar.DAY_OF_MONTH);
+        Date lastConnectionAfter = DateUtils.truncate(userDao.findOne(login).getLastConnection(), Calendar.DAY_OF_MONTH);
         assertEquals(today, lastConnectionAfter);
     }
 

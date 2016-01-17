@@ -196,7 +196,7 @@ class TestService {
      */
     @Transactional(readOnly = true)
     public void modificationIntoReadonlyService() {
-        profileDao.create(random());
+        profileDao.save(random());
     }
 
     private Profile random() {
@@ -205,7 +205,7 @@ class TestService {
 
     @Transactional
     public void read() {
-        profileDao.getAll();
+        profileDao.findAll();
         LOGGER.trace("Read: {}", new Date().getTime());
     }
 
@@ -220,7 +220,7 @@ class TestService {
      */
     @Transactional
     public void rollbackedMethod() {
-        profileDao.create(random());
+        profileDao.save(random());
         throw new RollbackMeIMFamousException();
     }
 

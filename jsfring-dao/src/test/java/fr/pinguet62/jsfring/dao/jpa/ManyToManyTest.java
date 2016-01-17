@@ -50,15 +50,15 @@ public class ManyToManyTest {
         final int id = 1;
 
         // Before
-        Profile profile = profileDao.get(id);
+        Profile profile = profileDao.findOne(id);
         long initialCount = profile.getRights().size();
 
-        profile.getRights().add(rightDao.get("USER_RO"));
+        profile.getRights().add(rightDao.findOne("USER_RO"));
         assertEquals(initialCount + 1, profile.getRights().size());
-        profileDao.update(profile);
+        profileDao.save(profile);
 
         // Test
-        long newCount = profileDao.get(id).getRights().size();
+        long newCount = profileDao.findOne(id).getRights().size();
         assertEquals(initialCount + 1, newCount);
     }
 
@@ -71,7 +71,7 @@ public class ManyToManyTest {
      */
     @Test
     public void test_lazyLoad() {
-        Profile profile = profileDao.get(1);
+        Profile profile = profileDao.findOne(1);
 
         assertEquals(3, profile.getRights().size());
     }

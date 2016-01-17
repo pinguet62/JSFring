@@ -1,19 +1,11 @@
 package fr.pinguet62.jsfring.dao;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
-import com.mysema.query.types.Expression;
-
 import fr.pinguet62.jsfring.model.Profile;
-import fr.pinguet62.jsfring.model.QProfile;
 
-/** The DAO for {@link Profile}. */
+/** @see Profile */
 @Repository
-public class ProfileDao extends AbstractDao<Profile, Integer> {
-
-    @Override
-    protected Expression<Profile> getBaseExpression() {
-        return QProfile.profile;
-    }
-
-}
+public interface ProfileDao extends JpaRepository<Profile, Integer>, QueryDslPredicateExecutor<Profile> {}

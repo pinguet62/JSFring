@@ -2,8 +2,6 @@ package fr.pinguet62.jsfring.service;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -11,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mysema.query.SearchResults;
 import com.mysema.query.jpa.impl.JPAQuery;
+import com.mysema.query.types.Predicate;
 
-import fr.pinguet62.jsfring.dao.ProfileDao;
 import fr.pinguet62.jsfring.model.Profile;
 import fr.pinguet62.jsfring.service.config.CacheConfig;
 
@@ -20,16 +18,11 @@ import fr.pinguet62.jsfring.service.config.CacheConfig;
 @Service
 public class ProfileService extends AbstractService<Profile, Integer> {
 
-    @Inject
-    protected ProfileService(ProfileDao dao) {
-        super(dao);
-    }
-
     @Override
     @CacheEvict(value = CacheConfig.PROFILE_CACHE, allEntries = true)
     @Transactional
     public Profile create(Profile object) {
-        return dao.create(object);
+        return dao.save(object);
     }
 
     @Override
@@ -42,8 +35,8 @@ public class ProfileService extends AbstractService<Profile, Integer> {
     @Override
     @Cacheable(CacheConfig.PROFILE_CACHE)
     @Transactional(readOnly = true)
-    public List<Profile> find(JPAQuery query) {
-        return dao.find(query);
+    public Iterable<Profile> findAll(Predicate predicate) {
+        return dao.findAll(predicate);
     }
 
     @Override
@@ -71,7 +64,7 @@ public class ProfileService extends AbstractService<Profile, Integer> {
     @CacheEvict(value = CacheConfig.PROFILE_CACHE, allEntries = true)
     @Transactional
     public Profile update(Profile object) {
-        return dao.update(object);
+        return dao.save(object);
     }
 
 }

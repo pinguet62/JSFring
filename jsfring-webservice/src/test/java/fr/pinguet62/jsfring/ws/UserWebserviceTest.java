@@ -43,12 +43,12 @@ public class UserWebserviceTest {
     /** @see UserWebservice#get(int) */
     @Test
     public void test_get() {
-        String login = userDao.getAll().get(0).getLogin();
+        String login = userDao.findAll().get(0).getLogin();
 
         UserDto actual = ClientBuilder.newClient().target(BASE_URL).path(PATH + "/{login}").resolveTemplate("login", login)
                 .request().get(UserDto.class);
 
-        User pojo = userDao.get(login);
+        User pojo = userDao.findOne(login);
         UserDto expected = new UserDto();
         expected.setLogin(pojo.getLogin());
         expected.setEmail(pojo.getEmail());
@@ -65,7 +65,7 @@ public class UserWebserviceTest {
         List<UserDto> actual = ClientBuilder.newClient().target(BASE_URL).path(PATH + "/").request()
                 .get(new GenericType<List<UserDto>>() {});
 
-        List<User> expected = userDao.getAll();
+        List<User> expected = userDao.findAll();
 
         assertEquals(expected.size(), actual.size());
     }

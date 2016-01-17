@@ -49,7 +49,7 @@ public final class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        User user = userDao.get(login);
+        User user = userDao.findOne(login);
 
         if (user == null)
             throw new UsernameNotFoundException(null);

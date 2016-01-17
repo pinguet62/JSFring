@@ -7,7 +7,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
+import java.util.stream.StreamSupport;
 
 import javax.inject.Inject;
 import javax.persistence.GeneratedValue;
@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.mysema.query.SearchResults;
+import com.google.common.collect.Iterables;
 import com.mysema.query.jpa.impl.JPAQuery;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
@@ -64,12 +64,12 @@ public class AbstractDaoTest {
     public void test_create() {
         {
             long count = profileDao.count();
-            profileDao.create(new Profile("new profile"));
+            profileDao.save(new Profile("new profile"));
             assertEquals(count + 1, profileDao.count());
         }
         {
             long count = userDao.count();
-            userDao.create(new User("new login", new PasswordGenerator().get(), "foo@hostname.domain"));
+            userDao.save(new User("new login", new PasswordGenerator().get(), "foo@hostname.domain"));
             assertEquals(count + 1, userDao.count());
         }
     }
@@ -84,7 +84,7 @@ public class AbstractDaoTest {
     public void test_create_autoIncrement() {
         long initialCount = profileDao.count();
         assertEquals(initialCount, profileDao.count());
-        profileDao.create(new Profile("new profile"));
+        profileDao.save(new Profile("new profile"));
         assertEquals(initialCount + 1, profileDao.count());
     }
 
@@ -92,9 +92,9 @@ public class AbstractDaoTest {
     @Test
     public void test_delete() {
         assertEquals(2, profileDao.count());
-        profileDao.delete(profileDao.get(1));
+        profileDao.delete(profileDao.findOne(1));
         assertEquals(1, profileDao.count());
-        profileDao.delete(profileDao.get(2));
+        profileDao.delete(profileDao.findOne(2));
         assertEquals(0, profileDao.count());
     }
 
@@ -112,116 +112,61 @@ public class AbstractDaoTest {
     /** @see AbstractDao#find(JPAQuery) */
     @Test
     public void test_find() {
-        QRight right = QRight.right_;
-        JPAQuery query = new JPAQuery().from(right).where(right.code.contains("PROFILE"));
+        Iterable<Right> rights = rightDao.findAll(QRight.right_.code.contains("PROFILE"));
 
-        List<Right> rights = rightDao.find(query);
-
-        assertEquals(2, rights.size());
-        rights.stream().allMatch(r -> asList("PROFILE_RO", "PROFILE_RW").contains(r.getTitle()));
+        assertEquals(2, Iterables.size(rights));
+        StreamSupport.stream(rights.spliterator(), false)
+                .allMatch(r -> asList("PROFILE_RO", "PROFILE_RW").contains(r.getTitle()));
     }
 
     /** @see AbstractDao#find(JPAQuery) */
     @Test
     public void test_find_notFound() {
-        QRight right = QRight.right_;
-        JPAQuery query = new JPAQuery().from(right).where(right.code.contains("#$!@"));
-
-        List<Right> rights = rightDao.find(query);
-
-        assertTrue(rights.isEmpty());
-    }
-
-    /**
-     * @see AbstractDao#findPanginated(JPAQuery)
-     * @see SearchResults#getResults()
-     * @see SearchResults#getTotal()
-     */
-    @Test
-    public void test_findPanginated() {
-        int pageSize = 2;
-
-        final long totalCount = rightDao.count();
-        JPAQuery query = new JPAQuery().from(QRight.right_);
-        {
-            SearchResults<Right> page1 = rightDao.findPanginated(query.clone().limit(2).offset(0 * pageSize));
-            assertEquals(2, page1.getResults().size());
-            assertEquals(totalCount, page1.getTotal());
-        }
-        {
-            SearchResults<Right> page2 = rightDao.findPanginated(query.clone().limit(2).offset(1 * pageSize));
-            assertEquals(2, page2.getResults().size());
-            assertEquals(totalCount, page2.getTotal());
-        }
-        {
-            SearchResults<Right> page3 = rightDao.findPanginated(query.clone().limit(2).offset(2 * pageSize));
-            assertEquals(1, page3.getResults().size());
-            assertEquals(totalCount, page3.getTotal());
-        }
-        for (int n = 3; n <= 5; n++) {
-            SearchResults<Right> pageN = rightDao.findPanginated(query.clone().limit(2).offset(n * pageSize));
-            assertTrue(pageN.getResults().isEmpty());
-            assertEquals(totalCount, pageN.getTotal());
-        }
-    }
-
-    /**
-     * @see AbstractDao#findPanginated(JPAQuery)
-     * @see SearchResults#getResults()
-     * @see SearchResults#getTotal()
-     */
-    @Test
-    public void test_findPanginated_notFound() {
-        QRight right = QRight.right_;
-        JPAQuery query = new JPAQuery().from(right).where(right.code.contains("#$!@"));
-
-        SearchResults<Right> page = rightDao.findPanginated(query.limit(2).offset(0));
-
-        assertTrue(page.getResults().isEmpty());
-        assertEquals(0, page.getTotal());
+        Iterable<Right> rights = rightDao.findAll(QRight.right_.code.contains("#$!@"));
+        assertTrue(Iterables.isEmpty(rights));
     }
 
     /** @see AbstractDao#get(java.io.Serializable) */
     @Test
     public void test_get() {
         {
-            assertEquals("Affichage des droits", rightDao.get("RIGHT_RO").getTitle());
-            assertEquals("Affichage des profils", rightDao.get("PROFILE_RO").getTitle());
+            assertEquals("Affichage des droits", rightDao.findOne("RIGHT_RO").getTitle());
+            assertEquals("Affichage des profils", rightDao.findOne("PROFILE_RO").getTitle());
         }
         {
-            assertEquals("Profile admin", profileDao.get(1).getTitle());
-            assertEquals("User admin", profileDao.get(2).getTitle());
+            assertEquals("Profile admin", profileDao.findOne(1).getTitle());
+            assertEquals("User admin", profileDao.findOne(2).getTitle());
         }
         {
-            assertEquals("Azerty1!", userDao.get("super admin").getPassword());
-            assertEquals("admin_profile@domain.fr", userDao.get("admin profile").getEmail());
+            assertEquals("Azerty1!", userDao.findOne("super admin").getPassword());
+            assertEquals("admin_profile@domain.fr", userDao.findOne("admin profile").getEmail());
         }
     }
 
     /** @see AbstractDao#get(java.io.Serializable) */
     @Test
     public void test_get_notExisting() {
-        assertNull(profileDao.get(-1));
-        assertNull(profileDao.get(99));
+        assertNull(profileDao.findOne(-1));
+        assertNull(profileDao.findOne(99));
     }
 
     /** @see AbstractDao#getAll() */
     @Test
     public void test_getAll() {
-        assertEquals(5, rightDao.getAll().size());
-        assertEquals(2, profileDao.getAll().size());
-        assertEquals(3, userDao.getAll().size());
+        assertEquals(5, rightDao.findAll().size());
+        assertEquals(2, profileDao.findAll().size());
+        assertEquals(3, userDao.findAll().size());
     }
 
     /** @see AbstractDao#update(Object) */
     @Test
     public void test_update() {
-        Profile profile = profileDao.get(1);
+        Profile profile = profileDao.findOne(1);
 
         profile.setTitle("new title");
-        profileDao.update(profile);
+        profileDao.save(profile);
 
-        assertEquals("new title", profileDao.get(1).getTitle());
+        assertEquals("new title", profileDao.findOne(1).getTitle());
     }
 
     /** @see AbstractDao#update(Object) */
@@ -230,12 +175,12 @@ public class AbstractDaoTest {
         int id = 1;
         String newTitle = "new title";
 
-        Profile profile = profileDao.get(id);
+        Profile profile = profileDao.findOne(id);
         assertNotEquals(newTitle, profile.getTitle());
 
         profile.setTitle(newTitle);
-        profileDao.update(profile);
-        assertEquals("new title", profileDao.get(id).getTitle());
+        profileDao.save(profile);
+        assertEquals("new title", profileDao.findOne(id).getTitle());
     }
 
 }

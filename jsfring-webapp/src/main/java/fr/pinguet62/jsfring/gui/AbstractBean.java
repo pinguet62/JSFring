@@ -1,14 +1,15 @@
 package fr.pinguet62.jsfring.gui;
 
 import java.io.Serializable;
-import java.util.List;
 
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.model.LazyDataModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.mysema.query.BooleanBuilder;
 import com.mysema.query.jpa.impl.JPAQuery;
+import com.mysema.query.types.Predicate;
 import com.mysema.query.types.path.EntityPathBase;
 
 import fr.pinguet62.jsfring.service.AbstractService;
@@ -35,7 +36,7 @@ public abstract class AbstractBean<T extends Serializable> implements Serializab
     /**
      * Used for <b>eager loading</b> to store result of last call in database.
      */
-    private List<T> list;
+    private Iterable<T> list;
 
     /**
      * Get the default {@link EntityPathBase} of managed objects.
@@ -70,10 +71,10 @@ public abstract class AbstractBean<T extends Serializable> implements Serializab
      *
      * @see AbstractService#find(JPAQuery)
      */
-    public List<T> getList() {
+    public Iterable<T> getList() {
         if (list == null) {
             LOGGER.debug("Eager loading: initialization");
-            list = getService().find(getQuery());
+            list = getService().findAll(getQuery());
         }
         return list;
     }
@@ -86,8 +87,8 @@ public abstract class AbstractBean<T extends Serializable> implements Serializab
      * {@link AbstractLazyDataModel#load(int, int, String, org.primefaces.model.SortOrder, java.util.Map)
      * loading}.
      */
-    protected JPAQuery getQuery() {
-        return new JPAQuery().from(getBaseExpression());
+    protected Predicate getQuery() {
+        return new BooleanBuilder();
     }
 
     /** Get the {@link AbstractService service} used to load data. */

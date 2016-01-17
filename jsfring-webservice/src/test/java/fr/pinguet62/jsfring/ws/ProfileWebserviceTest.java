@@ -41,12 +41,12 @@ public class ProfileWebserviceTest {
     /** @see ProfileWebservice#get(int) */
     @Test
     public void test_get() {
-        int id = profileDao.getAll().get(0).getId();
+        int id = profileDao.findAll().get(0).getId();
 
         ProfileDto actual = ClientBuilder.newClient().target(BASE_URL).path(PATH + "/{id}").resolveTemplate("id", id).request()
                 .get(ProfileDto.class);
 
-        Profile pojo = profileDao.get(id);
+        Profile pojo = profileDao.findOne(id);
         ProfileDto expected = new ProfileDto();
         expected.setId(pojo.getId());
         expected.setTitle(pojo.getTitle());
@@ -61,7 +61,7 @@ public class ProfileWebserviceTest {
         List<ProfileDto> actual = ClientBuilder.newClient().target(BASE_URL).path(PATH + "/").request()
                 .get(new GenericType<List<ProfileDto>>() {});
 
-        List<Profile> expected = profileDao.getAll();
+        List<Profile> expected = profileDao.findAll();
 
         assertEquals(expected.size(), actual.size());
     }
