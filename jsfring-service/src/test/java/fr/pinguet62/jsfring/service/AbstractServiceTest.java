@@ -22,7 +22,6 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.google.common.collect.Iterables;
 import com.mysema.query.SearchResults;
 import com.mysema.query.jpa.impl.JPAQuery;
-import com.mysema.query.types.Predicate;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.model.Profile;
@@ -82,9 +81,10 @@ public class AbstractServiceTest {
     /** @see AbstractService#find(JPAQuery) */
     @Test
     public void test_find() {
-        Predicate query = QRight.right_.code.contains("PROFILE");
+        QRight r = QRight.right_;
+        JPAQuery query = new JPAQuery().from(r).where(r.code.contains("PROFILE"));
 
-        Iterable<Right> rights = rightService.findAll(query);
+        Iterable<Right> rights = rightService.find(query);
 
         assertEquals(2, Iterables.size(rights));
         StreamSupport.stream(rights.spliterator(), false)

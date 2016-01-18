@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mysema.query.SearchResults;
 import com.mysema.query.jpa.impl.JPAQuery;
-import com.mysema.query.types.Predicate;
 
 import fr.pinguet62.jsfring.model.Profile;
 import fr.pinguet62.jsfring.service.config.CacheConfig;
@@ -35,15 +34,15 @@ public class ProfileService extends AbstractService<Profile, Integer> {
     @Override
     @Cacheable(CacheConfig.PROFILE_CACHE)
     @Transactional(readOnly = true)
-    public Iterable<Profile> findAll(Predicate predicate) {
-        return dao.findAll(predicate);
+    public Iterable<Profile> find(JPAQuery query) {
+        return dao.find(query);
     }
 
     @Override
     @Cacheable(CacheConfig.PROFILE_CACHE)
     @Transactional(readOnly = true)
     public SearchResults<Profile> findPanginated(JPAQuery query) {
-        return dao.findPanginated(query);
+        return dao.findPaginated(query);
     }
 
     @Override

@@ -9,18 +9,17 @@ import javax.persistence.PersistenceContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
 import com.mysema.query.jpa.impl.JPAUpdateClause;
 
+import fr.pinguet62.jsfring.dao.common.CommonRepository;
 import fr.pinguet62.jsfring.model.QUser;
 import fr.pinguet62.jsfring.model.User;
 
 /** @see User */
 @Repository
-public interface UserDao extends JpaRepository<User, String>, QueryDslPredicateExecutor<User>, UserDaoCustom {
+public interface UserDao extends CommonRepository<User, String>, UserDaoCustom {
     User findByEmail(String email);
 }
 
@@ -34,7 +33,7 @@ interface UserDaoCustom {
 
 class UserDaoImpl implements UserDaoCustom {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserDao.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserDaoImpl.class);
 
     @Inject
     private UserDao dao;

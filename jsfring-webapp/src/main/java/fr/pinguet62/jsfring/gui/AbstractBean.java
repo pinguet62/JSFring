@@ -7,9 +7,7 @@ import org.primefaces.model.LazyDataModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mysema.query.BooleanBuilder;
 import com.mysema.query.jpa.impl.JPAQuery;
-import com.mysema.query.types.Predicate;
 import com.mysema.query.types.path.EntityPathBase;
 
 import fr.pinguet62.jsfring.service.AbstractService;
@@ -74,7 +72,7 @@ public abstract class AbstractBean<T extends Serializable> implements Serializab
     public Iterable<T> getList() {
         if (list == null) {
             LOGGER.debug("Eager loading: initialization");
-            list = getService().findAll(getQuery());
+            list = getService().find(getQuery());
         }
         return list;
     }
@@ -87,8 +85,8 @@ public abstract class AbstractBean<T extends Serializable> implements Serializab
      * {@link AbstractLazyDataModel#load(int, int, String, org.primefaces.model.SortOrder, java.util.Map)
      * loading}.
      */
-    protected Predicate getQuery() {
-        return new BooleanBuilder();
+    protected JPAQuery getQuery() {
+        return new JPAQuery();
     }
 
     /** Get the {@link AbstractService service} used to load data. */

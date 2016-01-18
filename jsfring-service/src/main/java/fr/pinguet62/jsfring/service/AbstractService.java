@@ -12,7 +12,7 @@ import com.mysema.query.SearchResults;
 import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.types.Predicate;
 
-import fr.pinguet62.jsfring.dao.Repository;
+import fr.pinguet62.jsfring.dao.common.CommonRepository;
 
 /**
  * The generic service for entities.
@@ -29,7 +29,7 @@ public abstract class AbstractService<T extends Serializable, ID extends Seriali
 
     /** The {@link AbstractDao}. */
     @Inject
-    protected Repository<T, ID> dao;
+    protected CommonRepository<T, ID> dao;
 
     /**
      * Get number of objects.
@@ -69,8 +69,8 @@ public abstract class AbstractService<T extends Serializable, ID extends Seriali
      * @return The objects found.
      */
     @Transactional(readOnly = true)
-    public Iterable<T> findAll(Predicate predicate) {
-        return dao.findAll(predicate);
+    public Iterable<T> find(JPAQuery query) {
+        return dao.find(query);
     }
 
     /**
@@ -80,7 +80,7 @@ public abstract class AbstractService<T extends Serializable, ID extends Seriali
      */
     @Transactional(readOnly = true)
     public SearchResults<T> findPanginated(JPAQuery query) {
-        return dao.findPanginated(query);
+        return dao.findPaginated(query);
     }
 
     /**
