@@ -24,6 +24,7 @@
 		<module>jsfring-webapp</module>
 		<!--<module>jsfring-webapp-test</module> -->
 		<module>jsfring-webservice</module>
+		<module>jsfring-indexer-nosql</module>
 	</modules>
 
 	<dependencies>

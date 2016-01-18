@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<name>Indexer NoSQL</name>
+
+	<parent>
+		<groupId>fr.pinguet62.jsfring</groupId>
+		<artifactId>JSFring</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>indexer-nosql</artifactId>
+	<packaging>jar</packaging>
+
+	<dependencies>
+		<!-- ===== Project ===== -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>dao</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.moviejukebox</groupId>
+			<artifactId>allocine-api</artifactId>
+			<version>1.5</version>
+		</dependency>
+
+		<!-- ===== Test ===== -->
+		<!-- HtmlUnit -->
+		<dependency>
+			<groupId>net.sourceforge.htmlunit</groupId>
+			<artifactId>htmlunit</artifactId>
+			<version>2.19</version>
+		</dependency>
+		<dependency>
+			<groupId>xml-apis</groupId>
+			<artifactId>xml-apis</artifactId>
+			<version>1.4.01</version>
+		</dependency>
+	</dependencies>
+
+	<properties>
+		<target.webapp>${project.build.directory}/webapp-tmp</target.webapp>
+	</properties>
+
+	<build>
+		<testResources>
+			<testResource>
+				<directory>${project.basedir}/src/test/resources</directory>
+			</testResource>
+		</testResources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
