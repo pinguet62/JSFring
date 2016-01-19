@@ -1,5 +1,8 @@
 package fr.pinguet62.jsfring.dao;
 
+import static java.util.Calendar.DAY_OF_YEAR;
+import static java.util.Calendar.getInstance;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -45,9 +48,11 @@ class UserDaoImpl implements UserDaoCustom {
     /**
      * Disable all users who have not connected since {@code numberOfDays} days.
      * <br>
-     * Ignore {@link User}s who never be connected.
+     * Ignore never connected {@link User}s.
+     * <p>
+     * Reset the {@link EntityManager} before call, to impact calling methods.
      *
-     * @param numberOfDays Number of days.
+     * @param numberOfDays Number of days (positive).
      * @throws IllegalArgumentException Zero or negative number of days.
      */
     @Override
@@ -55,13 +60,14 @@ class UserDaoImpl implements UserDaoCustom {
         if (numberOfDays <= 0)
             throw new IllegalArgumentException("The number of days must be a positive value.");
 
-        Calendar c = Calendar.getInstance();
-        c.add(Calendar.DAY_OF_YEAR, numberOfDays);
+        Calendar c = getInstance();
+        c.add(DAY_OF_YEAR, -1 * numberOfDays);
         Date lastAccepted = c.getTime();
 
+        em.clear(); // because first-level cache is not updated by this method
+
         QUser u = QUser.user;
-        long nb = new JPAUpdateClause(em, u).where(u.active.eq(true).and(u.lastConnection.before(lastAccepted)))
-                .set(u.active, false).execute();
+        long nb = new JPAUpdateClause(em, u).where(u.lastConnection.before(lastAccepted)).set(u.active, false).execute();
         LOGGER.info("Number of users disabled: {}", nb);
     }
 

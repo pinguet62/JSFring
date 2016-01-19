@@ -34,6 +34,9 @@ public interface CommonRepository<T, ID extends Serializable> extends JpaReposit
      */
     List<T> find(JPAQuery query);
 
+    @Override
+    List<T> findAll(Predicate predicate);
+
     /**
      * Find all objects who match to the {@link JPAQuery}:
      * <ul>
