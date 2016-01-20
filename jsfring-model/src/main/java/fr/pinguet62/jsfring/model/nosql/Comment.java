@@ -2,6 +2,7 @@ package fr.pinguet62.jsfring.model.nosql;
 
 import java.util.Date;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
 public class Comment {
@@ -13,7 +14,7 @@ public class Comment {
     private Date date;
 
     @Id
-    private String id;
+    private ObjectId id;
 
     private short rating;
 
@@ -29,7 +30,7 @@ public class Comment {
         return date;
     }
 
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
@@ -49,7 +50,7 @@ public class Comment {
         this.date = date;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 

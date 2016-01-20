@@ -3,6 +3,7 @@ package fr.pinguet62.jsfring.model.nosql;
 import java.util.Date;
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
 public final class Movie {
@@ -12,7 +13,7 @@ public final class Movie {
     private List<Comment> comments;
 
     @Id
-    private String id;
+    private ObjectId id;
 
     private Date releaseDate;
 
@@ -28,7 +29,7 @@ public final class Movie {
         return comments;
     }
 
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
@@ -52,7 +53,7 @@ public final class Movie {
         this.comments = comments;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 

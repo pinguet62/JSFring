@@ -2,6 +2,7 @@ package fr.pinguet62.jsfring.model.nosql;
 
 import java.util.Date;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
 public class Person {
@@ -11,7 +12,7 @@ public class Person {
     private Date birthDate;
 
     @Id
-    private String id;
+    private ObjectId id;
 
     private String name;
 
@@ -23,7 +24,7 @@ public class Person {
         return birthDate;
     }
 
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
@@ -39,7 +40,7 @@ public class Person {
         this.birthDate = birthDate;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 

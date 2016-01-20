@@ -1,10 +1,20 @@
 package fr.pinguet62.jsfring.model.nosql;
 
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+
 public class Casting {
+
+    @Id
+    private ObjectId id;
 
     private Person person;
 
     private String role;
+
+    public ObjectId getId() {
+        return id;
+    }
 
     public Person getPerson() {
         return person;
@@ -12,6 +22,10 @@ public class Casting {
 
     public String getRole() {
         return role;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
     public void setPerson(Person person) {
