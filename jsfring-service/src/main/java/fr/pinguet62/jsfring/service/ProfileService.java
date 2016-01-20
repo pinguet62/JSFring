@@ -34,7 +34,7 @@ public class ProfileService extends AbstractService<Profile, Integer> {
     @Override
     @Cacheable(CacheConfig.PROFILE_CACHE)
     @Transactional(readOnly = true)
-    public Iterable<Profile> find(JPAQuery query) {
+    public List<Profile> find(JPAQuery query) {
         return dao.find(query);
     }
 

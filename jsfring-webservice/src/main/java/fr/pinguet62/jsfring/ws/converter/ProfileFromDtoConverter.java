@@ -1,11 +1,13 @@
 package fr.pinguet62.jsfring.ws.converter;
 
+import java.util.HashSet;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import com.google.common.collect.Sets;
 import com.mysema.query.types.Predicate;
 
 import fr.pinguet62.jsfring.model.Profile;
@@ -27,9 +29,9 @@ public final class ProfileFromDtoConverter implements Converter<ProfileDto, Prof
         profile.setId(dto.getId());
         profile.setTitle(dto.getTitle());
 
-        Predicate query = QRight.right_.code.in(dto.getRights());
-        Iterable<Right> rights = rightService.findAll(query);
-        profile.setRights(Sets.newHashSet(rights));
+        Predicate predicate = QRight.right_.code.in(dto.getRights());
+        List<Right> rights = rightService.findAll(predicate);
+        profile.setRights(new HashSet<>(rights));
 
         return profile;
     }

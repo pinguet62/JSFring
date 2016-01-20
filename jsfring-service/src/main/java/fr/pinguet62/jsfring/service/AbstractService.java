@@ -69,8 +69,19 @@ public abstract class AbstractService<T extends Serializable, ID extends Seriali
      * @return The objects found.
      */
     @Transactional(readOnly = true)
-    public Iterable<T> find(JPAQuery query) {
+    public List<T> find(JPAQuery query) {
         return dao.find(query);
+    }
+
+    /**
+     * Find list of objects.
+     *
+     * @param predicate The {@link Predicate}.
+     * @return The objects found.
+     */
+    @Transactional(readOnly = true)
+    public List<T> findAll(Predicate predicate) {
+        return dao.findAll(predicate);
     }
 
     /**
