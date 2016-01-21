@@ -2,7 +2,7 @@ package fr.pinguet62.jsfring.ws;
 
 import static fr.pinguet62.jsfring.test.Config.DATASET;
 import static fr.pinguet62.jsfring.ws.Config.BASE_URL;
-import static fr.pinguet62.jsfring.ws.RightWebservice.PATH;
+import static fr.pinguet62.jsfring.ws.ProfileWebservice.PATH;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
@@ -23,45 +23,45 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.dao.RightDao;
-import fr.pinguet62.jsfring.model.Right;
-import fr.pinguet62.jsfring.ws.dto.RightDto;
+import fr.pinguet62.jsfring.dao.ProfileDao;
+import fr.pinguet62.jsfring.model.Profile;
+import fr.pinguet62.jsfring.ws.dto.ProfileDto;
 
-/** @see RightWebservice */
+/** @see ProfileWebservice */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(SpringBootConfig.class)
 @WebIntegrationTest
 @DatabaseSetup(DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
-public class RightWebserviceTest {
+public class ProfileWebserviceITTest {
 
     @Inject
-    private RightDao rightDao;
+    private ProfileDao profileDao;
 
-    /** @see RightWebservice#get(int) */
+    /** @see ProfileWebservice#get(int) */
     @Test
     public void test_get() {
-        String code = rightDao.findAll().get(0).getCode();
+        int id = profileDao.findAll().get(0).getId();
 
-        RightDto actual = ClientBuilder.newClient().target(BASE_URL).path(PATH + "/{code}").resolveTemplate("code", code)
-                .request().get(RightDto.class);
+        ProfileDto actual = ClientBuilder.newClient().target(BASE_URL).path(PATH + "/{id}").resolveTemplate("id", id).request()
+                .get(ProfileDto.class);
 
-        Right pojo = rightDao.findOne(code);
-        RightDto expected = new RightDto();
-        expected.setCode(pojo.getCode());
+        Profile pojo = profileDao.findOne(id);
+        ProfileDto expected = new ProfileDto();
+        expected.setId(pojo.getId());
         expected.setTitle(pojo.getTitle());
 
-        assertEquals(expected.getCode(), actual.getCode());
+        assertEquals(expected.getId(), actual.getId());
         assertEquals(expected.getTitle(), actual.getTitle());
     }
 
-    /** @see RightWebservice#list() */
+    /** @see ProfileWebservice#list() */
     @Test
     public void test_list() {
-        List<RightDto> actual = ClientBuilder.newClient().target(BASE_URL).path(PATH + "/").request()
-                .get(new GenericType<List<RightDto>>() {});
+        List<ProfileDto> actual = ClientBuilder.newClient().target(BASE_URL).path(PATH + "/").request()
+                .get(new GenericType<List<ProfileDto>>() {});
 
-        List<Right> expected = rightDao.findAll();
+        List<Profile> expected = profileDao.findAll();
 
         assertEquals(expected.size(), actual.size());
     }

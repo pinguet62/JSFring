@@ -35,7 +35,7 @@ import fr.pinguet62.jsfring.ws.dto.UserDto;
 @WebIntegrationTest
 @DatabaseSetup(DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
-public class UserWebserviceTest {
+public class UserWebserviceITTest {
 
     @Inject
     private UserDao userDao;
