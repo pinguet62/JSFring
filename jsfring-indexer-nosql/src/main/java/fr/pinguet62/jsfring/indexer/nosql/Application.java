@@ -33,7 +33,7 @@ public class Application implements CommandLineRunner {
 
     /** Convert {@link Long} to {@link ObjectId}. */
     private static ObjectId format(long code) {
-        return new ObjectId(String.valueOf(code));
+        return new ObjectId(0, 0, (int) code);
     }
 
     public static void main(String[] args) throws Exception {
@@ -93,8 +93,6 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... arg0) throws Exception {
-        System.out.println(movieDao);
-
         Search s = api.searchMovies("toto");
         List<com.moviejukebox.allocine.model.Movie> movieDtos = s.getMovies();
         for (com.moviejukebox.allocine.model.Movie movieDto : movieDtos)
@@ -105,6 +103,7 @@ public class Application implements CommandLineRunner {
     private void test_getMovieInfos() throws Exception {
         MovieInfos movieDto = api.getMovieInfos("222968");
         System.out.println(movieDto.getCode());
+        System.out.println(movieDto.getTitle());
         System.out.println(movieDto.getTitle());
     }
 
