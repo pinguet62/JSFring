@@ -8,8 +8,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.pinguet62.jsfring.dao.UserDao;
-import fr.pinguet62.jsfring.model.User;
+import fr.pinguet62.jsfring.dao.sql.UserDao;
+import fr.pinguet62.jsfring.model.sql.User;
 
 /** The service for {@link User}. */
 @Component

@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.dao;
+package fr.pinguet62.jsfring.dao.sql;
 
 import static fr.pinguet62.jsfring.test.Config.DATASET;
 import static org.junit.Assert.assertEquals;
@@ -33,11 +33,11 @@ import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.types.Predicate;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.dao.common.CommonRepository;
-import fr.pinguet62.jsfring.model.Profile;
-import fr.pinguet62.jsfring.model.QRight;
-import fr.pinguet62.jsfring.model.Right;
-import fr.pinguet62.jsfring.model.User;
+import fr.pinguet62.jsfring.dao.sql.common.CommonRepository;
+import fr.pinguet62.jsfring.model.sql.Profile;
+import fr.pinguet62.jsfring.model.sql.QRight;
+import fr.pinguet62.jsfring.model.sql.Right;
+import fr.pinguet62.jsfring.model.sql.User;
 import fr.pinguet62.jsfring.util.PasswordGenerator;
 
 /** @see CommonRepository */

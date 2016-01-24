@@ -10,8 +10,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.pinguet62.jsfring.dao.UserDao;
-import fr.pinguet62.jsfring.model.User;
+import fr.pinguet62.jsfring.dao.sql.UserDao;
+import fr.pinguet62.jsfring.model.sql.User;
 
 /**
  * Implementation of {@link UserDetailsService}.

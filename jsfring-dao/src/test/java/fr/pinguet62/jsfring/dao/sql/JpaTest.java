@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.dao;
+package fr.pinguet62.jsfring.dao.sql;
 
 import static fr.pinguet62.jsfring.test.Config.DATASET;
 import static java.util.stream.Collectors.toList;
@@ -28,10 +28,10 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.mysema.query.types.Predicate;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.model.Profile;
-import fr.pinguet62.jsfring.model.QProfile;
-import fr.pinguet62.jsfring.model.QRight;
-import fr.pinguet62.jsfring.model.Right;
+import fr.pinguet62.jsfring.model.sql.Profile;
+import fr.pinguet62.jsfring.model.sql.QProfile;
+import fr.pinguet62.jsfring.model.sql.QRight;
+import fr.pinguet62.jsfring.model.sql.Right;
 
 /** Simple tests for JPA relationships. */
 @RunWith(SpringJUnit4ClassRunner.class)

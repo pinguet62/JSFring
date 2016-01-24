@@ -23,8 +23,8 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.dao.ProfileDao;
-import fr.pinguet62.jsfring.model.Profile;
+import fr.pinguet62.jsfring.dao.sql.ProfileDao;
+import fr.pinguet62.jsfring.model.sql.Profile;
 import fr.pinguet62.jsfring.ws.dto.ProfileDto;
 
 /** @see ProfileWebservice */

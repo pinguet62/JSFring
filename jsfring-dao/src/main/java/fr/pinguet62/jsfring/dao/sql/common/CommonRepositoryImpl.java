@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.dao.common;
+package fr.pinguet62.jsfring.dao.sql.common;
 
 import java.io.Serializable;
 import java.util.List;

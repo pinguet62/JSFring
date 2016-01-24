@@ -14,9 +14,9 @@ import org.primefaces.model.SortOrder;
 import com.mysema.query.types.OrderSpecifier;
 import com.mysema.query.types.expr.ComparableExpressionBase;
 
-import fr.pinguet62.jsfring.model.QProfile;
-import fr.pinguet62.jsfring.model.QRight;
-import fr.pinguet62.jsfring.model.QUser;
+import fr.pinguet62.jsfring.model.sql.QProfile;
+import fr.pinguet62.jsfring.model.sql.QRight;
+import fr.pinguet62.jsfring.model.sql.QUser;
 
 /** @see OrderConverter */
 public final class OrderConverterTest {

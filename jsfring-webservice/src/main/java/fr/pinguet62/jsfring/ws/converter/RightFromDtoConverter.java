@@ -3,7 +3,7 @@ package fr.pinguet62.jsfring.ws.converter;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import fr.pinguet62.jsfring.model.Right;
+import fr.pinguet62.jsfring.model.sql.Right;
 import fr.pinguet62.jsfring.ws.dto.RightDto;
 
 @Component

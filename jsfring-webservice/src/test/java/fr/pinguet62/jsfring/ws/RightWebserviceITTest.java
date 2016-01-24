@@ -23,8 +23,8 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.dao.RightDao;
-import fr.pinguet62.jsfring.model.Right;
+import fr.pinguet62.jsfring.dao.sql.RightDao;
+import fr.pinguet62.jsfring.model.sql.Right;
 import fr.pinguet62.jsfring.ws.dto.RightDto;
 
 /** @see RightWebservice */

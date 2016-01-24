@@ -3,7 +3,7 @@ package fr.pinguet62.jsfring.ws.dto;
 import java.util.Date;
 import java.util.Set;
 
-import fr.pinguet62.jsfring.model.User;
+import fr.pinguet62.jsfring.model.sql.User;
 
 /** @see User */
 public final class UserDto {

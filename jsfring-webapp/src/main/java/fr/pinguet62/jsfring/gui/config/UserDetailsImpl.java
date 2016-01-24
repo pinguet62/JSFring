@@ -8,9 +8,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import fr.pinguet62.jsfring.model.Profile;
-import fr.pinguet62.jsfring.model.Right;
-import fr.pinguet62.jsfring.model.User;
+import fr.pinguet62.jsfring.model.sql.Profile;
+import fr.pinguet62.jsfring.model.sql.Right;
+import fr.pinguet62.jsfring.model.sql.User;
 
 /**
  * Simple implementation of {@link UserDetails} wrapping {@link User}.

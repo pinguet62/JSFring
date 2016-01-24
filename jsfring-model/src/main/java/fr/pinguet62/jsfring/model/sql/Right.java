@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.model;
+package fr.pinguet62.jsfring.model.sql;
 
 import java.io.Serializable;
 import java.util.HashSet;

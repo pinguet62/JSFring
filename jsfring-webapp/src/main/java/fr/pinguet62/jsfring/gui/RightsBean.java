@@ -8,8 +8,8 @@ import javax.inject.Named;
 import com.mysema.query.types.path.EntityPathBase;
 
 import fr.pinguet62.jsfring.gui.config.scope.SpringViewScoped;
-import fr.pinguet62.jsfring.model.QRight;
-import fr.pinguet62.jsfring.model.Right;
+import fr.pinguet62.jsfring.model.sql.QRight;
+import fr.pinguet62.jsfring.model.sql.Right;
 import fr.pinguet62.jsfring.service.AbstractService;
 import fr.pinguet62.jsfring.service.RightService;
 

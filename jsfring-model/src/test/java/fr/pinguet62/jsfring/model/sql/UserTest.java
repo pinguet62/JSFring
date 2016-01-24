@@ -1,7 +1,7 @@
-package fr.pinguet62.jsfring.model;
+package fr.pinguet62.jsfring.model.sql;
 
-import static fr.pinguet62.jsfring.model.User.EMAIL_REGEX;
-import static fr.pinguet62.jsfring.model.User.PASSWORD_REGEX;
+import static fr.pinguet62.jsfring.model.sql.User.EMAIL_REGEX;
+import static fr.pinguet62.jsfring.model.sql.User.PASSWORD_REGEX;
 import static fr.pinguet62.jsfring.util.MatcherUtils.matches;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.joining;
@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import fr.pinguet62.jsfring.model.sql.User;
 import fr.pinguet62.jsfring.util.Combinator;
 
 /** @see User */

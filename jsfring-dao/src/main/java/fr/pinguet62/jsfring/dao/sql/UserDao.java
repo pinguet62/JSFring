@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.dao;
+package fr.pinguet62.jsfring.dao.sql;
 
 import static java.util.Calendar.DAY_OF_YEAR;
 import static java.util.Calendar.getInstance;
@@ -16,9 +16,9 @@ import org.springframework.stereotype.Repository;
 
 import com.mysema.query.jpa.impl.JPAUpdateClause;
 
-import fr.pinguet62.jsfring.dao.common.CommonRepository;
-import fr.pinguet62.jsfring.model.QUser;
-import fr.pinguet62.jsfring.model.User;
+import fr.pinguet62.jsfring.dao.sql.common.CommonRepository;
+import fr.pinguet62.jsfring.model.sql.QUser;
+import fr.pinguet62.jsfring.model.sql.User;
 
 /** @see User */
 @Repository

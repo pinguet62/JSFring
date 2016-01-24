@@ -1,9 +1,11 @@
-package fr.pinguet62.jsfring.model;
+package fr.pinguet62.jsfring.model.sql;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import org.junit.Test;
+
+import fr.pinguet62.jsfring.model.sql.Profile;
 
 /** @see Profile */
 public final class ProfileTest {

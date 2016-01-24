@@ -7,7 +7,7 @@ import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import fr.pinguet62.jsfring.model.Profile;
+import fr.pinguet62.jsfring.model.sql.Profile;
 import fr.pinguet62.jsfring.service.ProfileService;
 
 /**

@@ -12,7 +12,7 @@ import com.mysema.query.SearchResults;
 import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.types.Predicate;
 
-import fr.pinguet62.jsfring.dao.common.CommonRepository;
+import fr.pinguet62.jsfring.dao.sql.common.CommonRepository;
 
 /**
  * The generic service for entities.

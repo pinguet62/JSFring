@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.model;
+package fr.pinguet62.jsfring.model.sql;
 
 import static javax.persistence.GenerationType.IDENTITY;
 

@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.dao;
+package fr.pinguet62.jsfring.dao.sql;
 
 import static fr.pinguet62.jsfring.test.Config.DATASET;
 import static java.util.Arrays.asList;
@@ -30,7 +30,8 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.model.User;
+import fr.pinguet62.jsfring.dao.sql.UserDao;
+import fr.pinguet62.jsfring.model.sql.User;
 
 /** @see UserDao */
 @RunWith(SpringJUnit4ClassRunner.class)

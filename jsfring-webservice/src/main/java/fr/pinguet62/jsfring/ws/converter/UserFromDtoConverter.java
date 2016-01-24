@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 
 import com.mysema.query.types.Predicate;
 
-import fr.pinguet62.jsfring.model.Profile;
-import fr.pinguet62.jsfring.model.QProfile;
-import fr.pinguet62.jsfring.model.User;
+import fr.pinguet62.jsfring.model.sql.Profile;
+import fr.pinguet62.jsfring.model.sql.QProfile;
+import fr.pinguet62.jsfring.model.sql.User;
 import fr.pinguet62.jsfring.service.ProfileService;
 import fr.pinguet62.jsfring.ws.dto.UserDto;
 

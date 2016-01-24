@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mysema.query.SearchResults;
 import com.mysema.query.jpa.impl.JPAQuery;
 
-import fr.pinguet62.jsfring.model.Profile;
+import fr.pinguet62.jsfring.model.sql.Profile;
 import fr.pinguet62.jsfring.service.config.CacheConfig;
 
 /** The service for {@link Profile}. */
