@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<name>Data Access Object</name>
+	<name>Indexer NoSQL</name>
 
 	<parent>
 		<groupId>fr.pinguet62.jsfring</groupId>
@@ -11,11 +11,11 @@
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>dao</artifactId>
+	<artifactId>indexer-nosql</artifactId>
 	<packaging>jar</packaging>
 
 	<dependencies>
-		<!-- Project -->
+		<!-- ===== Project ===== -->
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>common-test</artifactId>
@@ -24,29 +24,32 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>model</artifactId>
+			<artifactId>dao</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 
-		<!-- JPA Driver -->
 		<dependency>
-			<groupId>org.hsqldb</groupId>
-			<artifactId>hsqldb</artifactId>
-			<scope>runtime</scope>
+			<groupId>com.moviejukebox</groupId>
+			<artifactId>allocine-api</artifactId>
+			<version>1.5</version>
+		</dependency>
+
+		<!-- ===== Test ===== -->
+		<!-- HtmlUnit -->
+		<dependency>
+			<groupId>net.sourceforge.htmlunit</groupId>
+			<artifactId>htmlunit</artifactId>
+			<version>2.19</version>
 		</dependency>
 		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-		</dependency>
-		<!-- NoSQL Driver -->
-		<dependency>
-			<groupId>de.flapdoodle.embed</groupId>
-			<artifactId>de.flapdoodle.embed.mongo</artifactId>
+			<groupId>xml-apis</groupId>
+			<artifactId>xml-apis</artifactId>
+			<version>1.4.01</version>
 		</dependency>
 	</dependencies>
 
 	<properties>
-		<java.version>1.8</java.version>
+		<target.webapp>${project.build.directory}/webapp-tmp</target.webapp>
 	</properties>
 
 	<build>
@@ -55,6 +58,13 @@
 				<directory>${project.basedir}/src/test/resources</directory>
 			</testResource>
 		</testResources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
 	</build>
 
 </project>
