@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import fr.pinguet62.jsfring.model.nosql.User;
 
 /** @see User */
-@Repository
+@Repository("nosql.userDao")
 public interface UserDao extends MongoRepository<User, ObjectId>, QueryDslPredicateExecutor<User> {
 
     User findByPseudo(String pseudo);
