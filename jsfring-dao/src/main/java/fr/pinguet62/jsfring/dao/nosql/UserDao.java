@@ -5,8 +5,12 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
-import fr.pinguet62.jsfring.model.nosql.Person;
+import fr.pinguet62.jsfring.model.nosql.User;
 
-/** @see Person */
+/** @see User */
 @Repository
-public interface PersonDao extends MongoRepository<Person, ObjectId>, QueryDslPredicateExecutor<Person> {}
+public interface UserDao extends MongoRepository<User, ObjectId>, QueryDslPredicateExecutor<User> {
+
+    User findByPseudo(String pseudo);
+
+}

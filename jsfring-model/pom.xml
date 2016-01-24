@@ -70,7 +70,10 @@
 							<goal>process</goal>
 						</goals>
 						<configuration>
-							<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
+							<processors>
+								<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
+								<processor>org.springframework.data.mongodb.repository.support.MongoAnnotationProcessor</processor>
+							</processors>
 							<outputDirectory>target/generated-sources/java</outputDirectory>
 							<validationAnnotations>true</validationAnnotations>
 						</configuration>

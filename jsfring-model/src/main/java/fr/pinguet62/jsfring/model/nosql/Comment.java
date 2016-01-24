@@ -4,10 +4,9 @@ import java.util.Date;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 public class Comment {
-
-    private Author author;
 
     private String content;
 
@@ -16,11 +15,10 @@ public class Comment {
     @Id
     private ObjectId id;
 
-    private short rating;
+    private int rating;
 
-    public Author getAuthor() {
-        return author;
-    }
+    @DBRef
+    private User user;
 
     public String getContent() {
         return content;
@@ -34,12 +32,12 @@ public class Comment {
         return id;
     }
 
-    public short getRating() {
+    public int getRating() {
         return rating;
     }
 
-    public void setAuthor(Author author) {
-        this.author = author;
+    public User getUser() {
+        return user;
     }
 
     public void setContent(String content) {
@@ -54,8 +52,12 @@ public class Comment {
         this.id = id;
     }
 
-    public void setRating(short rating) {
+    public void setRating(int rating) {
         this.rating = rating;
+    }
+
+    public void setUser(User author) {
+        this.user = author;
     }
 
 }

@@ -14,13 +14,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
 
-/** @see AuthorDao */
+/** @see UserDao */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(SpringBootConfig.class)
-public class AuthorDaoTest {
+public class UserDaoTest {
 
     @Inject
-    private AuthorDao dao;
+    private UserDao dao;
 
     @Test
     public void test_list() {

@@ -17,14 +17,18 @@ import com.moviejukebox.allocine.AllocineApi;
 import com.moviejukebox.allocine.model.MovieInfos;
 import com.moviejukebox.allocine.model.MoviePerson;
 import com.moviejukebox.allocine.model.PersonInfos;
-import com.moviejukebox.allocine.model.Search;
+import com.moviejukebox.allocine.model.Review;
+import com.moviejukebox.allocine.model.Writer;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.dao.nosql.MovieDao;
 import fr.pinguet62.jsfring.dao.nosql.PersonDao;
+import fr.pinguet62.jsfring.dao.nosql.UserDao;
 import fr.pinguet62.jsfring.model.nosql.Casting;
+import fr.pinguet62.jsfring.model.nosql.Comment;
 import fr.pinguet62.jsfring.model.nosql.Movie;
 import fr.pinguet62.jsfring.model.nosql.Person;
+import fr.pinguet62.jsfring.model.nosql.User;
 
 @Component
 public class Application implements CommandLineRunner {
@@ -49,19 +53,24 @@ public class Application implements CommandLineRunner {
     @Inject
     private PersonDao personDao;
 
-    private Movie getOrCreateMovie(long code) throws Exception {
+    @Inject
+    private UserDao userDao;
+
+    /** @see Movie */
+    private Movie createMoveIfNotExists(long code) throws Exception {
         Movie movie = movieDao.findOne(format(code));
         if (movie != null)
             return movie;
 
-        LOGGER.info("Init Movie: " + code);
+        LOGGER.info("Init {}: {}", Movie.class.getSimpleName(), code);
         MovieInfos movieDto = api.getMovieInfos(String.valueOf(code));
         movie = new Movie();
         movie.setId(format(movieDto.getCode()));
-        movie.setReleaseDate(movieDto.getReleaseDate() == null ? null : new SimpleDateFormat("yyyy-MM-dd").parse(movieDto
-                .getReleaseDate()));
+        movie.setReleaseDate(
+                movieDto.getReleaseDate() == null ? null : new SimpleDateFormat("yyyy-MM-dd").parse(movieDto.getReleaseDate()));
         movie.setSynopsis(movieDto.getSynopsis());
         movie.setTitle(movieDto.getTitle());
+
         // Casting
         List<Casting> castings = new ArrayList<>();
         for (MoviePerson personDto : movieDto.getActors()) {
@@ -71,49 +80,58 @@ public class Application implements CommandLineRunner {
             castings.add(casting);
         }
         movie.setCastings(castings);
-        movieDao.save(movie);
 
-        return movie;
+        // Comments
+        List<Comment> comments = new ArrayList<>();
+        for (Review review : movieDto.getMovie().getHelpfulNegativeReview()) {
+            Comment comment = new Comment();
+            comment.setContent(review.getBody());
+            comment.setRating((int) review.getRating());
+            comment.setUser(getOrCreateUser(review.getWriter()));
+            comments.add(comment);
+        }
+        movie.setComments(comments);
+
+        return movieDao.save(movie);
     }
 
+    /** @see Person */
     private Person getOrCreatePerson(long code) throws Exception {
         Person person = personDao.findOne(format(code));
         if (person != null)
             return null;
 
-        LOGGER.info("Init Person: " + code);
+        LOGGER.info("Init {}: {}", Person.class.getSimpleName(), code);
         PersonInfos personDto = api.getPersonInfos(String.valueOf(code));
         person = new Person();
         person.setId(format(personDto.getCode()));
         person.setName(personDto.getFullName());
-        personDao.save(person);
 
-        return person;
+        return personDao.save(person);
+    }
+
+    /** @see User */
+    private User getOrCreateUser(Writer writer) {
+        String pseudo = writer.getName();
+
+        User user = userDao.findByPseudo(pseudo);
+        if (user != null)
+            return user;
+
+        LOGGER.info("Init {}: {}", User.class.getSimpleName(), pseudo);
+        user = new User();
+        user.setPseudo(pseudo);
+
+        return userDao.save(user);
     }
 
     @Override
     public void run(String... arg0) throws Exception {
-        Search s = api.searchMovies("toto");
-        List<com.moviejukebox.allocine.model.Movie> movieDtos = s.getMovies();
-        for (com.moviejukebox.allocine.model.Movie movieDto : movieDtos)
-            getOrCreateMovie(movieDto.getCode());
-    }
-
-    /** @see Movie */
-    private void test_getMovieInfos() throws Exception {
-        MovieInfos movieDto = api.getMovieInfos("222968");
-        System.out.println(movieDto.getCode());
-        System.out.println(movieDto.getTitle());
-        System.out.println(movieDto.getTitle());
-    }
-
-    /** @see Person */
-    private void test_getPersonInfos() throws Exception {
-        PersonInfos personDto = api.getPersonInfos("180667");
-        System.out.println(personDto.getCode());
-        System.out.println(personDto.getFullName());
-        System.out.println(personDto.getBirthDate());
-        System.out.println(personDto.getBiography());
+        for (int code = 0; code < 5; code++) {
+            MovieInfos movieDto = api.getMovieInfos(String.valueOf(code));
+            if (movieDto.getMovie() != null)
+                createMoveIfNotExists(movieDto.getCode());
+        }
     }
 
 }

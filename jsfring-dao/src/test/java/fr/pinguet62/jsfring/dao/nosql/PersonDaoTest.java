@@ -13,15 +13,14 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.dao.nosql.CommentDao;
 
-/** @see CommentDao */
+/** @see PersonDao */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(SpringBootConfig.class)
-public class CommentDaoTest {
+public class PersonDaoTest {
 
     @Inject
-    private CommentDao dao;
+    private PersonDao dao;
 
     @Test
     public void test_list() {
