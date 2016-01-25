@@ -6,6 +6,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.cache.Cache;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mysema.query.SearchResults;
@@ -82,6 +84,10 @@ public abstract class AbstractService<T extends Serializable, ID extends Seriali
     @Transactional(readOnly = true)
     public List<T> findAll(Predicate predicate) {
         return dao.findAll(predicate);
+    }
+
+    public Page<T> findAll(Predicate predicate, Pageable pageable) {
+        return dao.findAll(predicate, pageable);
     }
 
     /**
