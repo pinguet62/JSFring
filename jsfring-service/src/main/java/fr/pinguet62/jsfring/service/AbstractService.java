@@ -3,13 +3,16 @@ package fr.pinguet62.jsfring.service;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.springframework.cache.Cache;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mysema.query.SearchResults;
 import com.mysema.query.jpa.impl.JPAQuery;
+import com.mysema.query.types.Predicate;
 
-import fr.pinguet62.jsfring.dao.AbstractDao;
+import fr.pinguet62.jsfring.dao.sql.common.CommonRepository;
 
 /**
  * The generic service for entities.
@@ -22,21 +25,11 @@ import fr.pinguet62.jsfring.dao.AbstractDao;
  *            {@link Object#equals(Object)} methods must be {@link Override
  *            overridden}.
  */
-public abstract class AbstractService<T extends Serializable, PK extends Serializable> {
+public abstract class AbstractService<T extends Serializable, ID extends Serializable> {
 
     /** The {@link AbstractDao}. */
-    protected final AbstractDao<T, PK> dao;
-
-    /**
-     * Constructor with {@link AbstractDao}.<br>
-     * The classes who inherit of this class must call this constructor with the
-     * associated {@link AbstractDao}.
-     *
-     * @param dao The {@link AbstractDao}.
-     */
-    protected AbstractService(AbstractDao<T, PK> dao) {
-        this.dao = dao;
-    }
+    @Inject
+    protected CommonRepository<T, ID> dao;
 
     /**
      * Get number of objects.
@@ -56,7 +49,7 @@ public abstract class AbstractService<T extends Serializable, PK extends Seriali
      */
     @Transactional
     public T create(T object) {
-        return dao.create(object);
+        return dao.save(object);
     }
 
     /**
@@ -70,13 +63,25 @@ public abstract class AbstractService<T extends Serializable, PK extends Seriali
     }
 
     /**
-     * Get list of object from {@link JPAQuery}.
+     * Find list of objects.
      *
+     * @param predicate The {@link Predicate}.
      * @return The objects found.
      */
     @Transactional(readOnly = true)
     public List<T> find(JPAQuery query) {
         return dao.find(query);
+    }
+
+    /**
+     * Find list of objects.
+     *
+     * @param predicate The {@link Predicate}.
+     * @return The objects found.
+     */
+    @Transactional(readOnly = true)
+    public List<T> findAll(Predicate predicate) {
+        return dao.findAll(predicate);
     }
 
     /**
@@ -86,7 +91,7 @@ public abstract class AbstractService<T extends Serializable, PK extends Seriali
      */
     @Transactional(readOnly = true)
     public SearchResults<T> findPanginated(JPAQuery query) {
-        return dao.findPanginated(query);
+        return dao.findPaginated(query);
     }
 
     /**
@@ -96,8 +101,8 @@ public abstract class AbstractService<T extends Serializable, PK extends Seriali
      * @return The object, {@code null} if not found.
      */
     @Transactional(readOnly = true)
-    public T get(PK id) {
-        return dao.get(id);
+    public T get(ID id) {
+        return dao.findOne(id);
     }
 
     /**
@@ -107,7 +112,7 @@ public abstract class AbstractService<T extends Serializable, PK extends Seriali
      */
     @Transactional(readOnly = true)
     public List<T> getAll() {
-        return dao.getAll();
+        return dao.findAll();
     }
 
     /**
@@ -118,7 +123,7 @@ public abstract class AbstractService<T extends Serializable, PK extends Seriali
      */
     @Transactional
     public T update(T object) {
-        return dao.update(object);
+        return dao.save(object);
     }
 
 }

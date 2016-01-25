@@ -1,6 +1,6 @@
 package fr.pinguet62.jsfring.ws.dto;
 
-import fr.pinguet62.jsfring.model.Right;
+import fr.pinguet62.jsfring.model.sql.Right;
 
 /** @see Right */
 public final class RightDto {

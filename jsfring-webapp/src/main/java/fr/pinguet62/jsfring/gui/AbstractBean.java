@@ -1,7 +1,6 @@
 package fr.pinguet62.jsfring.gui;
 
 import java.io.Serializable;
-import java.util.List;
 
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.model.LazyDataModel;
@@ -35,7 +34,7 @@ public abstract class AbstractBean<T extends Serializable> implements Serializab
     /**
      * Used for <b>eager loading</b> to store result of last call in database.
      */
-    private List<T> list;
+    private Iterable<T> list;
 
     /**
      * Get the default {@link EntityPathBase} of managed objects.
@@ -70,7 +69,7 @@ public abstract class AbstractBean<T extends Serializable> implements Serializab
      *
      * @see AbstractService#find(JPAQuery)
      */
-    public List<T> getList() {
+    public Iterable<T> getList() {
         if (list == null) {
             LOGGER.debug("Eager loading: initialization");
             list = getService().find(getQuery());
@@ -87,7 +86,7 @@ public abstract class AbstractBean<T extends Serializable> implements Serializab
      * loading}.
      */
     protected JPAQuery getQuery() {
-        return new JPAQuery().from(getBaseExpression());
+        return new JPAQuery();
     }
 
     /** Get the {@link AbstractService service} used to load data. */

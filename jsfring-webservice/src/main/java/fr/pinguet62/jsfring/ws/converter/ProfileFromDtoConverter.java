@@ -8,11 +8,11 @@ import javax.inject.Inject;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import com.mysema.query.jpa.impl.JPAQuery;
+import com.mysema.query.types.Predicate;
 
-import fr.pinguet62.jsfring.model.Profile;
-import fr.pinguet62.jsfring.model.QRight;
-import fr.pinguet62.jsfring.model.Right;
+import fr.pinguet62.jsfring.model.sql.Profile;
+import fr.pinguet62.jsfring.model.sql.QRight;
+import fr.pinguet62.jsfring.model.sql.Right;
 import fr.pinguet62.jsfring.service.RightService;
 import fr.pinguet62.jsfring.ws.dto.ProfileDto;
 
@@ -29,9 +29,8 @@ public final class ProfileFromDtoConverter implements Converter<ProfileDto, Prof
         profile.setId(dto.getId());
         profile.setTitle(dto.getTitle());
 
-        QRight r = QRight.right_;
-        JPAQuery query = new JPAQuery().from(r).where(r.code.in(dto.getRights()));
-        List<Right> rights = rightService.find(query);
+        Predicate predicate = QRight.right_.code.in(dto.getRights());
+        List<Right> rights = rightService.findAll(predicate);
         profile.setRights(new HashSet<>(rights));
 
         return profile;

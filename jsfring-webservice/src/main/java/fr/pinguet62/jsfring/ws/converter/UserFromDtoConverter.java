@@ -8,11 +8,11 @@ import javax.inject.Inject;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import com.mysema.query.jpa.impl.JPAQuery;
+import com.mysema.query.types.Predicate;
 
-import fr.pinguet62.jsfring.model.Profile;
-import fr.pinguet62.jsfring.model.QProfile;
-import fr.pinguet62.jsfring.model.User;
+import fr.pinguet62.jsfring.model.sql.Profile;
+import fr.pinguet62.jsfring.model.sql.QProfile;
+import fr.pinguet62.jsfring.model.sql.User;
 import fr.pinguet62.jsfring.service.ProfileService;
 import fr.pinguet62.jsfring.ws.dto.UserDto;
 
@@ -25,14 +25,14 @@ public final class UserFromDtoConverter implements Converter<UserDto, User> {
     @Override
     public User convert(UserDto dto) {
         User user = new User();
+
         user.setLogin(dto.getLogin());
         user.setEmail(dto.getEmail());
         user.setActive(dto.getActive());
         user.setLastConnection(dto.getLastConnection());
 
-        QProfile p = QProfile.profile;
-        JPAQuery query = new JPAQuery().from(p).where(p.id.in(dto.getProfiles()));
-        List<Profile> profiles = profileService.find(query);
+        Predicate predicate = QProfile.profile.id.in(dto.getProfiles());
+        List<Profile> profiles = profileService.findAll(predicate);
         user.setProfiles(new HashSet<>(profiles));
 
         return user;

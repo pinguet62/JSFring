@@ -27,8 +27,8 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.dao.ProfileDao;
-import fr.pinguet62.jsfring.model.Profile;
+import fr.pinguet62.jsfring.dao.sql.ProfileDao;
+import fr.pinguet62.jsfring.model.sql.Profile;
 import fr.pinguet62.jsfring.service.TestService.RollbackMeIMFamousException;
 import fr.pinguet62.jsfring.test.TestRuntimeException;
 
@@ -196,7 +196,7 @@ class TestService {
      */
     @Transactional(readOnly = true)
     public void modificationIntoReadonlyService() {
-        profileDao.create(random());
+        profileDao.save(random());
     }
 
     private Profile random() {
@@ -205,7 +205,7 @@ class TestService {
 
     @Transactional
     public void read() {
-        profileDao.getAll();
+        profileDao.findAll();
         LOGGER.trace("Read: {}", new Date().getTime());
     }
 
@@ -220,7 +220,7 @@ class TestService {
      */
     @Transactional
     public void rollbackedMethod() {
-        profileDao.create(random());
+        profileDao.save(random());
         throw new RollbackMeIMFamousException();
     }
 

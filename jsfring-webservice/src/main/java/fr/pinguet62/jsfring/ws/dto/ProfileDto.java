@@ -2,7 +2,7 @@ package fr.pinguet62.jsfring.ws.dto;
 
 import java.util.Set;
 
-import fr.pinguet62.jsfring.model.Profile;
+import fr.pinguet62.jsfring.model.sql.Profile;
 
 /** @see Profile */
 public class ProfileDto {

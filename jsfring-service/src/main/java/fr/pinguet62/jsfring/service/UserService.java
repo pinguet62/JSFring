@@ -11,8 +11,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.pinguet62.jsfring.dao.UserDao;
-import fr.pinguet62.jsfring.model.User;
+import fr.pinguet62.jsfring.dao.sql.UserDao;
+import fr.pinguet62.jsfring.model.sql.User;
 import fr.pinguet62.jsfring.util.PasswordGenerator;
 
 /** The service for {@link User}. */
@@ -32,19 +32,14 @@ public class UserService extends AbstractService<User, String> {
         return new PasswordGenerator().get();
     }
 
-    private final UserDao dao;
+    @Inject
+    private UserDao dao;
 
     @Inject
     private SimpleMailMessage forgottenPasswordMessage;
 
     @Inject
     private MailSender mailSender;
-
-    @Inject
-    protected UserService(UserDao dao) {
-        super(dao);
-        this.dao = dao;
-    }
 
     /**
      * {@inheritDoc}
@@ -70,13 +65,13 @@ public class UserService extends AbstractService<User, String> {
     @Transactional
     public void forgottenPassword(String email) {
         // Get user
-        User user = dao.getByEmail(email);
+        User user = dao.findByEmail(email);
         if (user == null)
             throw new IllegalArgumentException("Email unknown: " + email);
 
         // Reset password
         user.setPassword(randomPassword());
-        dao.update(user);
+        dao.save(user);
 
         // Send email
         SimpleMailMessage message = new SimpleMailMessage(forgottenPasswordMessage);
@@ -95,7 +90,7 @@ public class UserService extends AbstractService<User, String> {
      */
     @Transactional
     public void updatePassword(String login, String password) {
-        User user = dao.get(login);
+        User user = dao.findOne(login);
         if (user == null)
             throw new IllegalArgumentException("User not found");
 

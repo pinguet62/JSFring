@@ -18,7 +18,7 @@ import javax.ws.rs.core.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 
-import fr.pinguet62.jsfring.model.User;
+import fr.pinguet62.jsfring.model.sql.User;
 import fr.pinguet62.jsfring.service.UserService;
 import fr.pinguet62.jsfring.ws.dto.UserDto;
 

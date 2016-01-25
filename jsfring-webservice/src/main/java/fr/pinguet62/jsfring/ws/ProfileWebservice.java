@@ -23,8 +23,8 @@ import org.springframework.core.convert.ConversionService;
 
 import com.mysema.query.SearchResults;
 
-import fr.pinguet62.jsfring.model.Profile;
-import fr.pinguet62.jsfring.model.QProfile;
+import fr.pinguet62.jsfring.model.sql.Profile;
+import fr.pinguet62.jsfring.model.sql.QProfile;
 import fr.pinguet62.jsfring.service.ProfileService;
 import fr.pinguet62.jsfring.util.spring.GenericTypeDescriptor;
 import fr.pinguet62.jsfring.ws.converter.OrderConverter;

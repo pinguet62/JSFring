@@ -10,8 +10,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.pinguet62.jsfring.dao.UserDao;
-import fr.pinguet62.jsfring.model.User;
+import fr.pinguet62.jsfring.dao.sql.UserDao;
+import fr.pinguet62.jsfring.model.sql.User;
 
 /**
  * Implementation of {@link UserDetailsService}.
@@ -49,7 +49,7 @@ public final class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        User user = userDao.get(login);
+        User user = userDao.findOne(login);
 
         if (user == null)
             throw new UsernameNotFoundException(null);

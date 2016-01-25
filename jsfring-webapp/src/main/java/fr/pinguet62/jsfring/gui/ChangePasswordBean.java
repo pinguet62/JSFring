@@ -1,7 +1,7 @@
 package fr.pinguet62.jsfring.gui;
 
-import static fr.pinguet62.jsfring.model.User.EMAIL_VALIDATION_MESSAGE;
-import static fr.pinguet62.jsfring.model.User.PASSWORD_REGEX;
+import static fr.pinguet62.jsfring.model.sql.User.EMAIL_VALIDATION_MESSAGE;
+import static fr.pinguet62.jsfring.model.sql.User.PASSWORD_REGEX;
 
 import java.io.Serializable;
 import java.util.Locale;
@@ -17,7 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import fr.pinguet62.jsfring.gui.config.scope.SpringViewScoped;
 import fr.pinguet62.jsfring.gui.sample.UserBean;
-import fr.pinguet62.jsfring.model.User;
+import fr.pinguet62.jsfring.model.sql.User;
 import fr.pinguet62.jsfring.service.UserService;
 
 /** Page to change its {@link User#password}. */
