@@ -101,7 +101,7 @@ public abstract class AbstractBean<T extends Serializable> implements Serializab
     }
 
     /** Get the {@link AbstractService service} used to load data. */
-    abstract public AbstractService<T, ? extends Serializable> getService();
+    public abstract AbstractService<T, ? extends Serializable> getService();
 
     /**
      * Refresh the database.
