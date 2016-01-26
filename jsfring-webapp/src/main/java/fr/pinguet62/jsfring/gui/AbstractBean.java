@@ -1,14 +1,18 @@
 package fr.pinguet62.jsfring.gui;
 
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
+
+import javax.persistence.Entity;
 
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.model.LazyDataModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.querydsl.SimpleEntityPathResolver;
 
 import com.mysema.query.jpa.impl.JPAQuery;
-import com.mysema.query.types.path.EntityPathBase;
+import com.mysema.query.types.EntityPath;
 
 import fr.pinguet62.jsfring.service.AbstractService;
 
@@ -36,12 +40,10 @@ public abstract class AbstractBean<T extends Serializable> implements Serializab
      */
     private Iterable<T> list;
 
-    /**
-     * Get the default {@link EntityPathBase} of managed objects.
-     *
-     * @return The {@link EntityPathBase}.
-     */
-    protected abstract EntityPathBase<T> getBaseExpression();
+    /** The {@link EntityPath} of target {@link Entity}. */
+    @SuppressWarnings("unchecked")
+    private final EntityPath<T> path = SimpleEntityPathResolver.INSTANCE
+            .createPath((Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
 
     /**
      * Used for lazy loading.<br>
@@ -78,6 +80,15 @@ public abstract class AbstractBean<T extends Serializable> implements Serializab
     }
 
     /**
+     * Get the {@link EntityPath} of target {@link Entity}.
+     *
+     * @return The {@link #path}.
+     */
+    protected EntityPath<T> getPath() {
+        return path;
+    }
+
+    /**
      * Get the {@link JPAQuery query} to get data.
      * <p>
      * Don't add the paginated filters: they will be added automatically by
@@ -86,7 +97,7 @@ public abstract class AbstractBean<T extends Serializable> implements Serializab
      * loading}.
      */
     protected JPAQuery getQuery() {
-        return new JPAQuery();
+        return new JPAQuery().from(path);
     }
 
     /** Get the {@link AbstractService service} used to load data. */

@@ -10,10 +10,10 @@ import org.primefaces.model.SortOrder;
 
 import com.mysema.query.SearchResults;
 import com.mysema.query.jpa.impl.JPAQuery;
+import com.mysema.query.types.EntityPath;
 import com.mysema.query.types.OrderSpecifier;
 import com.mysema.query.types.Predicate;
 import com.mysema.query.types.expr.ComparableExpressionBase;
-import com.mysema.query.types.path.EntityPathBase;
 
 import fr.pinguet62.jsfring.gui.util.OrderConverter;
 import fr.pinguet62.jsfring.service.AbstractService;
@@ -70,7 +70,7 @@ public class AbstractLazyDataModel<T extends Serializable> extends LazyDataModel
      */
     @Override
     public List<T> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-        EntityPathBase<T> from = bean.getBaseExpression();
+        EntityPath<T> path = bean.getPath();
         JPAQuery query = bean.getQuery();
 
         // Pagination
@@ -78,13 +78,13 @@ public class AbstractLazyDataModel<T extends Serializable> extends LazyDataModel
         query.limit(pageSize);
         // Order
         if (sortField != null) {
-            ComparableExpressionBase<?> field = (ComparableExpressionBase<?>) new PropertyResolver(from).apply(sortField);
+            ComparableExpressionBase<?> field = (ComparableExpressionBase<?>) new PropertyResolver(path).apply(sortField);
             Function<ComparableExpressionBase<?>, OrderSpecifier<?>> orderApplier = new OrderConverter().apply(sortOrder);
             OrderSpecifier<?> order = orderApplier.apply(field);
             query.orderBy(order);
         }
         // Filter
-        Predicate predicate = new FilterConverter(from).apply(filters);
+        Predicate predicate = new FilterConverter(path).apply(filters);
         query.where(predicate);
 
         SearchResults<T> results = bean.getService().findPanginated(query);
