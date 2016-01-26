@@ -1,12 +1,10 @@
 package fr.pinguet62.jsfring.service;
 
 import static fr.pinguet62.jsfring.test.Config.DATASET;
-import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import java.io.Serializable;
-import java.util.stream.StreamSupport;
 
 import javax.inject.Inject;
 
@@ -19,14 +17,9 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.google.common.collect.Iterables;
-import com.mysema.query.SearchResults;
-import com.mysema.query.jpa.impl.JPAQuery;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.model.sql.Profile;
-import fr.pinguet62.jsfring.model.sql.QRight;
-import fr.pinguet62.jsfring.model.sql.Right;
 import fr.pinguet62.jsfring.model.sql.User;
 import fr.pinguet62.jsfring.util.PasswordGenerator;
 
@@ -76,34 +69,6 @@ public class AbstractServiceTest {
         assertEquals(1, profileService.count());
         profileService.delete(profileService.get(2));
         assertEquals(0, profileService.count());
-    }
-
-    /** @see AbstractService#find(JPAQuery) */
-    @Test
-    public void test_find() {
-        QRight r = QRight.right_;
-        JPAQuery query = new JPAQuery().from(r).where(r.code.contains("PROFILE"));
-
-        Iterable<Right> rights = rightService.find(query);
-
-        assertEquals(2, Iterables.size(rights));
-        StreamSupport.stream(rights.spliterator(), false)
-                .allMatch(right -> asList("PROFILE_RO", "PROFILE_RW").contains(right.getTitle()));
-    }
-
-    /**
-     * @see AbstractService#findPanginated(JPAQuery)
-     * @see SearchResults#getResults()
-     * @see SearchResults#getTotal()
-     */
-    @Test
-    public void test_findPanginated() {
-        JPAQuery query = new JPAQuery().from(QRight.right_);
-
-        SearchResults<Right> page2 = rightService.findPanginated(query.clone().limit(2).offset(2));
-
-        assertEquals(2, page2.getResults().size());
-        assertEquals(rightService.count(), page2.getTotal());
     }
 
     /** @see AbstractService#get(Serializable) */

@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mysema.query.SearchResults;
-import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.types.Predicate;
 
 import fr.pinguet62.jsfring.dao.sql.common.CommonRepository;
@@ -71,33 +69,20 @@ public abstract class AbstractService<T extends Serializable, ID extends Seriali
      * @return The objects found.
      */
     @Transactional(readOnly = true)
-    public List<T> find(JPAQuery query) {
-        return dao.find(query);
-    }
-
-    /**
-     * Find list of objects.
-     *
-     * @param predicate The {@link Predicate}.
-     * @return The objects found.
-     */
-    @Transactional(readOnly = true)
     public List<T> findAll(Predicate predicate) {
         return dao.findAll(predicate);
     }
 
+    /**
+     * Find paginated results.
+     *
+     * @param predicate The {@link Predicate} used to filter results.
+     * @param pageable The {@link Pageable} used to define current pagination,
+     *            and sort results.
+     * @return The {@link Page paginated results}.
+     */
     public Page<T> findAll(Predicate predicate, Pageable pageable) {
         return dao.findAll(predicate, pageable);
-    }
-
-    /**
-     * Get list of objects from paginated {@link JPAQuery}.
-     *
-     * @return The {@link SearchResults} who contains paginated objects.
-     */
-    @Transactional(readOnly = true)
-    public SearchResults<T> findPanginated(JPAQuery query) {
-        return dao.findPaginated(query);
     }
 
     /**

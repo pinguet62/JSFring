@@ -8,7 +8,6 @@ import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.stereotype.Repository;
 
-import com.mysema.query.SearchResults;
 import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.types.OrderSpecifier;
 import com.mysema.query.types.Predicate;
@@ -36,18 +35,5 @@ public interface CommonRepository<T, ID extends Serializable> extends JpaReposit
 
     @Override
     List<T> findAll(Predicate predicate);
-
-    /**
-     * Find all objects who match to the {@link JPAQuery}:
-     * <ul>
-     * <li>{@link Predicate} for filtering</li>
-     * <li>{@link OrderSpecifier} for sorting</li>
-     * <li>Pagination</li>
-     * </ul>
-     *
-     * @param query The {@link JPAQuery}.
-     * @return The paginated objects found.
-     */
-    SearchResults<T> findPaginated(JPAQuery query);
 
 }
