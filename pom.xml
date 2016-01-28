@@ -142,43 +142,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.10.3</version>
-				<configuration>
-					<additionalparam>-Xdoclint:none</additionalparam>
-					<!-- Customer tags -->
-					<tags>
-						<!-- Tags for properties -->
-						<tag>
-							<name>property.attribute</name>
-							<head>Property for attribute: </head>
-						</tag>
-						<tag>
-							<name>property.getter</name>
-							<head>Property get: </head>
-						</tag>
-						<tag>
-							<name>property.setter</name>
-							<head>Property set: </head>
-						</tag>
-						<!-- Tag for JSF injection -->
-						<tag>
-							<name>inject.attribute</name>
-							<head>Attribute injected: </head>
-						</tag>
-						<tag>
-							<name>inject.setter</name>
-							<head>Setter for injection: </head>
-						</tag>
-					</tags>
-					<executions>
-						<execution>
-							<phase>site</phase>
-							<goals>
-								<goal>javadoc</goal>
-							</goals>
-						</execution>
-					</executions>
-				</configuration>
 			</plugin>
 
 			<!-- Unit test -->

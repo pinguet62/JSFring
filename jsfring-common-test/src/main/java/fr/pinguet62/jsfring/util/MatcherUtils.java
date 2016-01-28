@@ -13,8 +13,9 @@ public final class MatcherUtils {
     /**
      * Check that {@link List} is sorted.
      *
-     * @param The {@link Comparator} used by algorithm.
-     * @return The result.
+     * @param <T> The type of elements.
+     * @param comparator The {@link Comparator} used by algorithm.
+     * @return The {@link Matcher}.
      */
     public static <T> Matcher<List<T>> isSorted(Comparator<T> comparator) {
         return new TypeSafeMatcher<List<T>>() {
@@ -41,7 +42,7 @@ public final class MatcherUtils {
      * Check that value {@link String#matches(String) matches to regex}.
      *
      * @param regex The regex.
-     * @return The result.
+     * @return The {@link Matcher}.
      * @see String#matches(String)
      */
     public static Matcher<String> matches(String regex) {

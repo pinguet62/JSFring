@@ -29,15 +29,19 @@ import org.odftoolkit.odfdom.doc.OdfSpreadsheetDocument;
 import org.odftoolkit.odfdom.doc.OdfTextDocument;
 import org.xml.sax.SAXException;
 
-import au.com.bytecode.opencsv.CSVReader;
-
 import com.lowagie.text.pdf.PdfReader;
+
+import au.com.bytecode.opencsv.CSVReader;
 
 // TODO Exception: catch(Exception) to high level Exception
 /** Utility class used to verify is the format file is correct. */
 public final class FileFormatMatcher {
 
-    /** @see CSVReader */
+    /**
+     * @return The {@link Matcher} to check that the {@link InputStream} is a
+     *         CSV file.
+     * @see CSVReader
+     */
     public static Matcher<InputStream> isCSV() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
@@ -54,7 +58,11 @@ public final class FileFormatMatcher {
         };
     }
 
-    /** @see HWPFDocument */
+    /**
+     * @return The {@link Matcher} to check that the {@link InputStream} is a
+     *         DOC file.
+     * @see HWPFDocument
+     */
     public static Matcher<InputStream> isDOC() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
@@ -72,7 +80,11 @@ public final class FileFormatMatcher {
         };
     }
 
-    /** @see XWPFDocument */
+    /**
+     * @return The {@link Matcher} to check that the {@link InputStream} is a
+     *         DOCX file.
+     * @see XWPFDocument
+     */
     public static Matcher<InputStream> isDOCX() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
@@ -90,7 +102,11 @@ public final class FileFormatMatcher {
         };
     }
 
-    /** @see Jsoup */
+    /**
+     * @return The {@link Matcher} to check that the {@link InputStream} is a
+     *         HTML file.
+     * @see Jsoup
+     */
     public static Matcher<InputStream> isHTML() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
@@ -110,7 +126,11 @@ public final class FileFormatMatcher {
         };
     }
 
-    /** @see ImageIO */
+    /**
+     * @return The {@link Matcher} to check that the {@link InputStream} is an
+     *         <i>image</i> file.
+     * @see ImageIO
+     */
     public static Matcher<InputStream> isImage() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
@@ -128,7 +148,11 @@ public final class FileFormatMatcher {
         };
     }
 
-    /** @see OdfPresentationDocument */
+    /**
+     * @return The {@link Matcher} to check that the {@link InputStream} is a
+     *         ODP file.
+     * @see OdfPresentationDocument
+     */
     public static Matcher<InputStream> isODP() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
@@ -146,7 +170,11 @@ public final class FileFormatMatcher {
         };
     }
 
-    /** @see OdfSpreadsheetDocument */
+    /**
+     * @return The {@link Matcher} to check that the {@link InputStream} is a
+     *         ODS file.
+     * @see OdfSpreadsheetDocument
+     */
     public static Matcher<InputStream> isODS() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
@@ -164,7 +192,11 @@ public final class FileFormatMatcher {
         };
     }
 
-    /** @see OdfTextDocument */
+    /**
+     * @return The {@link Matcher} to check that the {@link InputStream} is a
+     *         ODT file.
+     * @see OdfTextDocument
+     */
     public static Matcher<InputStream> isODT() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
@@ -182,7 +214,11 @@ public final class FileFormatMatcher {
         };
     }
 
-    /** @see PdfReader */
+    /**
+     * @return The {@link Matcher} to check that the {@link InputStream} is a
+     *         PDF file.
+     * @see PdfReader
+     */
     public static Matcher<InputStream> isPDF() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
@@ -200,7 +236,11 @@ public final class FileFormatMatcher {
         };
     }
 
-    /** @see HSLFSlideShow */
+    /**
+     * @return The {@link Matcher} to check that the {@link InputStream} is a
+     *         PPT file.
+     * @see HSLFSlideShow
+     */
     public static Matcher<InputStream> isPPT() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
@@ -218,7 +258,11 @@ public final class FileFormatMatcher {
         };
     }
 
-    /** @see XMLSlideShow */
+    /**
+     * @return The {@link Matcher} to check that the {@link InputStream} is a
+     *         PPTX file.
+     * @see XMLSlideShow
+     */
     public static Matcher<InputStream> isPPTX() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
@@ -236,7 +280,11 @@ public final class FileFormatMatcher {
         };
     }
 
-    /** @see RTFEditorKit */
+    /**
+     * @return The {@link Matcher} to check that the {@link InputStream} is a
+     *         RTF file.
+     * @see RTFEditorKit
+     */
     public static Matcher<InputStream> isRTF() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
@@ -256,7 +304,11 @@ public final class FileFormatMatcher {
         };
     }
 
-    /** @see Character#isISOControl(char) */
+    /**
+     * @return The {@link Matcher} to check that the {@link InputStream} is a
+     *         TXT file.
+     * @see Character#isISOControl(char)
+     */
     public static Matcher<InputStream> isTXT() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
@@ -277,7 +329,11 @@ public final class FileFormatMatcher {
         };
     }
 
-    /** @see HSSFWorkbook */
+    /**
+     * @return The {@link Matcher} to check that the {@link InputStream} is a
+     *         XLS file.
+     * @see HSSFWorkbook
+     */
     public static Matcher<InputStream> isXLS() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
@@ -295,7 +351,11 @@ public final class FileFormatMatcher {
         };
     }
 
-    /** @see XSSFWorkbook */
+    /**
+     * @return The {@link Matcher} to check that the {@link InputStream} is a
+     *         XLSX file.
+     * @see XSSFWorkbook
+     */
     public static Matcher<InputStream> isXLSX() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
@@ -313,7 +373,11 @@ public final class FileFormatMatcher {
         };
     }
 
-    /** @see DocumentBuilder */
+    /**
+     * @return The {@link Matcher} to check that the {@link InputStream} is a
+     *         XML file.
+     * @see DocumentBuilder
+     */
     public static Matcher<InputStream> isXML() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
@@ -333,7 +397,11 @@ public final class FileFormatMatcher {
         };
     }
 
-    /** @see ZipInputStream */
+    /**
+     * @return The {@link Matcher} to check that the {@link InputStream} is a
+     *         ZIP file.
+     * @see ZipInputStream
+     */
     public static Matcher<InputStream> isZIP() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
