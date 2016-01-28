@@ -32,20 +32,11 @@ public abstract class AbstractService<T extends Serializable, ID extends Seriali
     protected CommonRepository<T, ID> dao;
 
     /**
-     * Get number of objects.
-     *
-     * @return The number of objects.
-     */
-    @Transactional(readOnly = true)
-    public long count() {
-        return dao.count();
-    }
-
-    /**
      * Create new object.
      *
      * @param object The object.
      * @return The created object.
+     * @see CommonRepository#save(Object)
      */
     @Transactional
     public T create(T object) {
@@ -56,6 +47,7 @@ public abstract class AbstractService<T extends Serializable, ID extends Seriali
      * Delete the object.
      *
      * @param object The object to delete.
+     * @see CommonRepository#delete(Object)
      */
     @Transactional
     public void delete(T object) {
@@ -67,6 +59,7 @@ public abstract class AbstractService<T extends Serializable, ID extends Seriali
      *
      * @param predicate The {@link Predicate}.
      * @return The objects found.
+     * @see CommonRepository#findAll(Predicate)
      */
     @Transactional(readOnly = true)
     public List<T> findAll(Predicate predicate) {
@@ -80,7 +73,9 @@ public abstract class AbstractService<T extends Serializable, ID extends Seriali
      * @param pageable The {@link Pageable} used to define current pagination,
      *            and sort results.
      * @return The {@link Page paginated results}.
+     * @see CommonRepository#findAll(Predicate, Pageable)
      */
+    @Transactional(readOnly = true)
     public Page<T> findAll(Predicate predicate, Pageable pageable) {
         return dao.findAll(predicate, pageable);
     }
@@ -100,6 +95,7 @@ public abstract class AbstractService<T extends Serializable, ID extends Seriali
      * Get all objects.
      *
      * @return All objects.
+     * @see CommonRepository#findAll()
      */
     @Transactional(readOnly = true)
     public List<T> getAll() {
@@ -111,6 +107,7 @@ public abstract class AbstractService<T extends Serializable, ID extends Seriali
      *
      * @param object The object to update.
      * @return The updated object.
+     * @see CommonRepository#save(Object)
      */
     @Transactional
     public T update(T object) {

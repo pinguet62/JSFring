@@ -39,26 +39,18 @@ public class AbstractServiceTest {
     @Inject
     private UserService userService;
 
-    /** @see AbstractService#count() */
-    @Test
-    public void test_count() {
-        assertEquals(5, rightService.count());
-        assertEquals(2, profileService.count());
-        assertEquals(3, userService.count());
-    }
-
     /** @see AbstractService#create(Serializable) */
     @Test
     public void test_create() {
         {
-            long count = profileService.count();
+            long count = profileService.getAll().size();
             profileService.create(new Profile("new profile"));
-            assertEquals(count + 1, profileService.count());
+            assertEquals(count + 1, profileService.getAll().size());
         }
         {
-            long count = userService.count();
+            long count = userService.getAll().size();
             userService.create(new User("new login", new PasswordGenerator().get(), "foo@hostname.domain"));
-            assertEquals(count + 1, userService.count());
+            assertEquals(count + 1, userService.getAll().size());
         }
     }
 
@@ -66,9 +58,9 @@ public class AbstractServiceTest {
     @Test
     public void test_delete() {
         profileService.delete(profileService.get(1));
-        assertEquals(1, profileService.count());
+        assertEquals(1, profileService.getAll().size());
         profileService.delete(profileService.get(2));
-        assertEquals(0, profileService.count());
+        assertEquals(0, profileService.getAll().size());
     }
 
     /** @see AbstractService#get(Serializable) */
