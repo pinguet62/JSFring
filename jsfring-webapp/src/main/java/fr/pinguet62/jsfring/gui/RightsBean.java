@@ -5,10 +5,7 @@ import java.io.Serializable;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.mysema.query.types.path.EntityPathBase;
-
 import fr.pinguet62.jsfring.gui.config.scope.SpringViewScoped;
-import fr.pinguet62.jsfring.model.sql.QRight;
 import fr.pinguet62.jsfring.model.sql.Right;
 import fr.pinguet62.jsfring.service.AbstractService;
 import fr.pinguet62.jsfring.service.RightService;
@@ -21,11 +18,6 @@ public class RightsBean extends AbstractSelectableBean<Right> {
 
     @Inject
     private transient RightService rightService;
-
-    @Override
-    protected EntityPathBase<Right> getBaseExpression() {
-        return QRight.right_;
-    }
 
     @Override
     public AbstractService<Right, ? extends Serializable> getService() {

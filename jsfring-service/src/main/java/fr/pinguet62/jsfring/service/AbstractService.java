@@ -6,10 +6,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.cache.Cache;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mysema.query.SearchResults;
-import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.types.Predicate;
 
 import fr.pinguet62.jsfring.dao.sql.common.CommonRepository;
@@ -32,20 +32,11 @@ public abstract class AbstractService<T extends Serializable, ID extends Seriali
     protected CommonRepository<T, ID> dao;
 
     /**
-     * Get number of objects.
-     *
-     * @return The number of objects.
-     */
-    @Transactional(readOnly = true)
-    public long count() {
-        return dao.count();
-    }
-
-    /**
      * Create new object.
      *
      * @param object The object.
      * @return The created object.
+     * @see CommonRepository#save(Object)
      */
     @Transactional
     public T create(T object) {
@@ -56,6 +47,7 @@ public abstract class AbstractService<T extends Serializable, ID extends Seriali
      * Delete the object.
      *
      * @param object The object to delete.
+     * @see CommonRepository#delete(Object)
      */
     @Transactional
     public void delete(T object) {
@@ -67,17 +59,7 @@ public abstract class AbstractService<T extends Serializable, ID extends Seriali
      *
      * @param predicate The {@link Predicate}.
      * @return The objects found.
-     */
-    @Transactional(readOnly = true)
-    public List<T> find(JPAQuery query) {
-        return dao.find(query);
-    }
-
-    /**
-     * Find list of objects.
-     *
-     * @param predicate The {@link Predicate}.
-     * @return The objects found.
+     * @see CommonRepository#findAll(Predicate)
      */
     @Transactional(readOnly = true)
     public List<T> findAll(Predicate predicate) {
@@ -85,13 +67,17 @@ public abstract class AbstractService<T extends Serializable, ID extends Seriali
     }
 
     /**
-     * Get list of objects from paginated {@link JPAQuery}.
+     * Find paginated results.
      *
-     * @return The {@link SearchResults} who contains paginated objects.
+     * @param predicate The {@link Predicate} used to filter results.
+     * @param pageable The {@link Pageable} used to define current pagination,
+     *            and sort results.
+     * @return The {@link Page paginated results}.
+     * @see CommonRepository#findAll(Predicate, Pageable)
      */
     @Transactional(readOnly = true)
-    public SearchResults<T> findPanginated(JPAQuery query) {
-        return dao.findPaginated(query);
+    public Page<T> findAll(Predicate predicate, Pageable pageable) {
+        return dao.findAll(predicate, pageable);
     }
 
     /**
@@ -109,6 +95,7 @@ public abstract class AbstractService<T extends Serializable, ID extends Seriali
      * Get all objects.
      *
      * @return All objects.
+     * @see CommonRepository#findAll()
      */
     @Transactional(readOnly = true)
     public List<T> getAll() {
@@ -120,6 +107,7 @@ public abstract class AbstractService<T extends Serializable, ID extends Seriali
      *
      * @param object The object to update.
      * @return The updated object.
+     * @see CommonRepository#save(Object)
      */
     @Transactional
     public T update(T object) {

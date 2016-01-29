@@ -7,6 +7,7 @@ import static org.springframework.core.convert.TypeDescriptor.valueOf;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
+import java.util.stream.StreamSupport;
 
 import javax.inject.Inject;
 
@@ -14,24 +15,20 @@ import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.GenericConverter;
 import org.springframework.core.convert.support.GenericConversionService;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
-import com.mysema.query.SearchResults;
-
-import fr.pinguet62.jsfring.ws.dto.SearchResultsDto;
+import fr.pinguet62.jsfring.ws.dto.PageDto;
 
 /**
- * {@link GenericConverter} from {@link SearchResults} to
- * {@link SearchResultsDto}.
+ * {@link GenericConverter} from {@link Page} to {@link PageDto}.
  * <p>
- * Each value of {@link SearchResults#getResults() results} are converted using
- * corresponding converter.<br>
- * For example, to convert {@code SearchResults<String>} to
- * {@code SearchResultsDto<Integer>}, the {@code Converter<String, Integer>}
- * must exists.
+ * Each value of {@link Page} are converted using corresponding converter.<br>
+ * For example, to convert {@code Page<String>} to {@code Page<Integer>}, the
+ * {@code Converter<String, Integer>} must exists.
  */
 @Component
-public class SearchResultsGenericConverter implements GenericConverter {
+public class PageGenericConverter implements GenericConverter {
 
     @Inject
     private GenericConversionService conversionService;
@@ -42,15 +39,16 @@ public class SearchResultsGenericConverter implements GenericConverter {
     }
 
     /** Generic method used to cast objects to correct type. */
+    @SuppressWarnings("unchecked")
     private <Pojo, Dto> Object convertTyped(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
+        Page<Pojo> page = (Page<Pojo>) source;
+
         TypeDescriptor srcType = valueOf((Class<?>) sourceType.getResolvableType().getGenerics()[0].getType());
         TypeDescriptor tgtType = valueOf((Class<?>) targetType.getResolvableType().getGenerics()[0].getType());
         Function<Pojo, Dto> mapper = x -> (Dto) conversionService.convert(x, srcType, tgtType);
 
-        SearchResults<Pojo> searchResults = (SearchResults<Pojo>) source;
-        List<Dto> convertedResults = searchResults.getResults().stream().map(mapper).collect(toList());
-        return new SearchResultsDto<Dto>(convertedResults, searchResults.getLimit(), searchResults.getOffset(),
-                searchResults.getTotal());
+        List<Dto> convertedResults = StreamSupport.stream(page.spliterator(), false).map(mapper).collect(toList());
+        return new PageDto<Dto>(convertedResults, page.getTotalElements());
     }
 
     /**
@@ -60,7 +58,7 @@ public class SearchResultsGenericConverter implements GenericConverter {
      */
     @Override
     public Set<ConvertiblePair> getConvertibleTypes() {
-        return singleton(new ConvertiblePair(SearchResults.class, SearchResultsDto.class));
+        return singleton(new ConvertiblePair(Page.class, PageDto.class));
     }
 
 }

@@ -6,11 +6,11 @@ import java.util.function.Function;
 
 import com.mysema.query.BooleanBuilder;
 import com.mysema.query.support.QueryBase;
+import com.mysema.query.types.EntityPath;
 import com.mysema.query.types.Predicate;
 import com.mysema.query.types.expr.BooleanExpression;
 import com.mysema.query.types.expr.ComparableExpressionBase;
 import com.mysema.query.types.expr.SimpleExpression;
-import com.mysema.query.types.path.EntityPathBase;
 
 import fr.pinguet62.jsfring.util.reflection.PropertyResolver;
 
@@ -26,14 +26,14 @@ import fr.pinguet62.jsfring.util.reflection.PropertyResolver;
 public final class FilterConverter implements Function<Map<String, Object>, Predicate> {
 
     /** The meta-object. */
-    private final EntityPathBase<?> meta;
+    private final EntityPath<?> meta;
 
     /**
      * Constructor.
      *
      * @param meta The meta-object.
      */
-    public FilterConverter(EntityPathBase<?> meta) {
+    public FilterConverter(EntityPath<?> meta) {
         this.meta = meta;
     }
 

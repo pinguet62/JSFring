@@ -2,13 +2,12 @@ package fr.pinguet62.jsfring.gui.config.scope;
 
 import java.util.Map;
 
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.ObjectFactory;
-import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.beans.factory.config.Scope;
-import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.WebApplicationContext;
+import org.springframework.context.annotation.Bean;
 
 /**
  * JSF view {@link Scope} implementation for Spring.
@@ -21,25 +20,21 @@ public final class SpringViewScope implements Scope {
 
     public static final String NAME = "view";
 
+    /**
+     * Get the {@link Bean} from its name.<br>
+     * Get the value into the {@link UIViewRoot#getViewMap() view map}. If it
+     * doesn't exist, the {@link Bean} is created, and stored into this
+     * {@link UIViewRoot#getViewMap() view map}.
+     */
     @Override
     public Object get(String name, ObjectFactory<?> objectFactory) {
         Map<String, Object> viewMap = FacesContext.getCurrentInstance().getViewRoot().getViewMap();
-
-        if (viewMap.containsKey(name)) {
-            Object bean = viewMap.get(name);
-
-            // Restore a transient autowired beans after re-serialization bean
-            WebApplicationContext webAppContext = ContextLoader.getCurrentWebApplicationContext();
-            AutowireCapableBeanFactory autowireFactory = webAppContext.getAutowireCapableBeanFactory();
-            if (webAppContext.containsBean(name))
-                bean = autowireFactory.configureBean(bean, name);
-
-            return bean;
-        } else {
-            Object object = objectFactory.getObject();
-            viewMap.put(name, object);
-            return object;
+        Object bean = viewMap.get(name);
+        if (bean == null) {
+            bean = objectFactory.getObject();
+            viewMap.put(name, bean);
         }
+        return bean;
     }
 
     /** @return {@code null} */

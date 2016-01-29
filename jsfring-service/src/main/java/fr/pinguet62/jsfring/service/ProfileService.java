@@ -7,9 +7,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mysema.query.SearchResults;
-import com.mysema.query.jpa.impl.JPAQuery;
-
 import fr.pinguet62.jsfring.model.sql.Profile;
 import fr.pinguet62.jsfring.service.config.CacheConfig;
 
@@ -29,20 +26,6 @@ public class ProfileService extends AbstractService<Profile, Integer> {
     @Transactional
     public void delete(Profile object) {
         dao.delete(object);
-    }
-
-    @Override
-    @Cacheable(CacheConfig.PROFILE_CACHE)
-    @Transactional(readOnly = true)
-    public List<Profile> find(JPAQuery query) {
-        return dao.find(query);
-    }
-
-    @Override
-    @Cacheable(CacheConfig.PROFILE_CACHE)
-    @Transactional(readOnly = true)
-    public SearchResults<Profile> findPanginated(JPAQuery query) {
-        return dao.findPaginated(query);
     }
 
     @Override

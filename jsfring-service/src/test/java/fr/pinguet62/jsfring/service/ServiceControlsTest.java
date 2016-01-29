@@ -89,9 +89,9 @@ public class ServiceControlsTest {
      */
     // TODO fix local: @Test
     public void test_readonly_noModification() {
-        final long initialCount = profileService.count();
+        final long initialCount = profileService.getAll().size();
         testService.modificationIntoReadonlyService();
-        assertEquals(initialCount, profileService.count());
+        assertEquals(initialCount, profileService.getAll().size());
     }
 
     /**
@@ -103,12 +103,12 @@ public class ServiceControlsTest {
      */
     // TODO fix local: @Test
     public void test_rollbackWhenError() {
-        final long initialCount = profileService.count();
+        final long initialCount = profileService.getAll().size();
         try {
             testService.rollbackedMethod();
             fail();
         } catch (RollbackMeIMFamousException e) {
-            assertEquals(initialCount, profileService.count());
+            assertEquals(initialCount, profileService.getAll().size());
         }
     }
 

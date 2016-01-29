@@ -11,11 +11,8 @@ import javax.inject.Named;
 
 import org.primefaces.model.DualListModel;
 
-import com.mysema.query.types.path.EntityPathBase;
-
 import fr.pinguet62.jsfring.gui.config.scope.SpringViewScoped;
 import fr.pinguet62.jsfring.model.sql.Profile;
-import fr.pinguet62.jsfring.model.sql.QUser;
 import fr.pinguet62.jsfring.model.sql.User;
 import fr.pinguet62.jsfring.service.AbstractService;
 import fr.pinguet62.jsfring.service.ProfileService;
@@ -54,12 +51,6 @@ public final class UsersBean extends AbstractCrudBean<User> {
         getSelectedValue().getProfiles().addAll(profilesAssociation.getTarget());
 
         super.create();
-    }
-
-    /** @return {@link QUser#user} */
-    @Override
-    protected EntityPathBase<User> getBaseExpression() {
-        return QUser.user;
     }
 
     @Override

@@ -1,14 +1,23 @@
 package fr.pinguet62.jsfring.gui;
 
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Entity;
 
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.model.LazyDataModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.querydsl.SimpleEntityPathResolver;
 
+import com.mysema.query.BooleanBuilder;
 import com.mysema.query.jpa.impl.JPAQuery;
-import com.mysema.query.types.path.EntityPathBase;
+import com.mysema.query.types.EntityPath;
+import com.mysema.query.types.OrderSpecifier;
+import com.mysema.query.types.Predicate;
 
 import fr.pinguet62.jsfring.service.AbstractService;
 
@@ -36,12 +45,10 @@ public abstract class AbstractBean<T extends Serializable> implements Serializab
      */
     private Iterable<T> list;
 
-    /**
-     * Get the default {@link EntityPathBase} of managed objects.
-     *
-     * @return The {@link EntityPathBase}.
-     */
-    protected abstract EntityPathBase<T> getBaseExpression();
+    /** The {@link EntityPath} of target {@link Entity}. */
+    @SuppressWarnings("unchecked")
+    private final EntityPath<T> path = SimpleEntityPathResolver.INSTANCE
+            .createPath((Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
 
     /**
      * Used for lazy loading.<br>
@@ -67,30 +74,52 @@ public abstract class AbstractBean<T extends Serializable> implements Serializab
      * So the {@link #list} is initialized at the first call (when is
      * {@code null}) and used by next calls.
      *
-     * @see AbstractService#find(JPAQuery)
+     * @see AbstractService#findAll(Predicate)
      */
     public Iterable<T> getList() {
         if (list == null) {
             LOGGER.debug("Eager loading: initialization");
-            list = getService().find(getQuery());
+            list = getService().findAll(getPredicate());
         }
         return list;
     }
 
     /**
-     * Get the {@link JPAQuery query} to get data.
+     * The {@link OrderSpecifier} used to sort data.
      * <p>
-     * Don't add the paginated filters: they will be added automatically by
-     * {@link AbstractLazyDataModel lazy data-model} during
-     * {@link AbstractLazyDataModel#load(int, int, String, org.primefaces.model.SortOrder, java.util.Map)
-     * loading}.
+     * To add custom order, override this method and {@link List#add(Object)
+     * add} sort to {@code super} default implementation.
+     *
+     * @return The built {@link OrderSpecifier}.
      */
-    protected JPAQuery getQuery() {
-        return new JPAQuery();
+    protected List<OrderSpecifier<?>> getOrderSpecifiers() {
+        return new ArrayList<>();
+    }
+
+    /**
+     * Get the {@link EntityPath} of target {@link Entity}.
+     *
+     * @return The {@link #path}.
+     */
+    protected EntityPath<T> getPath() {
+        return path;
+    }
+
+    /**
+     * The {@link Predicate} used to filter data.
+     * <p>
+     * To add custom criteria, override this method and
+     * {@link BooleanBuilder#and(Predicate) apply} criteria to {@code super}
+     * default implementation.
+     *
+     * @return The built {@link Predicate}.
+     */
+    protected BooleanBuilder getPredicate() {
+        return new BooleanBuilder();
     }
 
     /** Get the {@link AbstractService service} used to load data. */
-    abstract public AbstractService<T, ? extends Serializable> getService();
+    public abstract AbstractService<T, ? extends Serializable> getService();
 
     /**
      * Refresh the database.

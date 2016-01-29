@@ -78,7 +78,7 @@ public class UserService extends AbstractService<User, String> {
         message.setTo(user.getEmail());
         message.setText(String.format(forgottenPasswordMessage.getText(), user.getLogin(), user.getPassword()));
         mailSender.send(message);
-        LOGGER.info("New password sent to " + user.getLogin() + " user's email");
+        LOGGER.info("New password sent to {} user's email", user.getLogin());
     }
 
     /**

@@ -20,16 +20,15 @@ import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
-
-import com.mysema.query.SearchResults;
+import org.springframework.data.domain.Page;
 
 import fr.pinguet62.jsfring.model.sql.Profile;
 import fr.pinguet62.jsfring.model.sql.QProfile;
 import fr.pinguet62.jsfring.service.ProfileService;
 import fr.pinguet62.jsfring.util.spring.GenericTypeDescriptor;
 import fr.pinguet62.jsfring.ws.converter.OrderConverter;
+import fr.pinguet62.jsfring.ws.dto.PageDto;
 import fr.pinguet62.jsfring.ws.dto.ProfileDto;
-import fr.pinguet62.jsfring.ws.dto.SearchResultsDto;
 
 @Path(PATH)
 public final class ProfileWebservice extends AbstractWebservice<Profile, Integer> {
@@ -64,13 +63,13 @@ public final class ProfileWebservice extends AbstractWebservice<Profile, Integer
     @GET
     @Path("/find")
     @Produces(MediaType.APPLICATION_JSON)
-    public SearchResultsDto<ProfileDto> find(@QueryParam("page") @DefaultValue("0") int page,
+    public PageDto<ProfileDto> find(@QueryParam("page") @DefaultValue("0") int page,
             @QueryParam("pageSize") @DefaultValue("20") int pageSize, @QueryParam("sortField") String sortField,
             @QueryParam("sortOrder") @DefaultValue(OrderConverter.ASC) String sortOrder) {
-        SearchResults<Profile> searchResults = super.find(QProfile.profile, page, pageSize, sortField, sortOrder);
-        return (SearchResultsDto<ProfileDto>) conversionService.convert(searchResults,
-                new GenericTypeDescriptor(forClassWithGenerics(SearchResults.class, Profile.class)),
-                new GenericTypeDescriptor(forClassWithGenerics(SearchResultsDto.class, ProfileDto.class)));
+        Page<Profile> results = super.findAll(profileService, QProfile.profile, page, pageSize, sortField, sortOrder);
+        return (PageDto<ProfileDto>) conversionService.convert(results,
+                new GenericTypeDescriptor(forClassWithGenerics(Page.class, Profile.class)),
+                new GenericTypeDescriptor(forClassWithGenerics(PageDto.class, ProfileDto.class)));
     }
 
     @GET

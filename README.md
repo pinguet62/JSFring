@@ -2,63 +2,72 @@
 
 Integration of Spring into JSF project.
 
-## Frameworks & APIs
+## Frameworks & APIs & Utils
 
 ### Used
 
-* [**Maven**](https://maven.apache.org/)
-* **JPA** (Java Persistence API)
-	* [Hibernate](http://hibernate.org/)
-	* [Querydsl](http://www.querydsl.com/)
+Layers :
+* Data access
+	* ![LOGO](https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png =90x25) [**Spring Data**](http://projects.spring.io/spring-data)
+	* Databases :
+		* SQL
+			* **JPA**
+				* ![LOGO](http://static.jboss.org/hibernate/images/hibernate_logo_whitebkg_200px.png =100x25) [Hibernate](http://hibernate.org)
+			* ![LOGO](https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/langfr-540px-Postgresql_elephant.svg.png =24x25) [PostgreSQL](http://www.postgresql.org)
+		* NoSQL
+			* ![LOGO](https://www.mongodb.org/assets/global/mongodb-logo-web-tagline-99280fe76cc002a93d023901c1a05df8b621f1c893084a580dee83de9be96630.png =69x25) [MongoDB](https://www.mongodb.org)
+	* ![LOGO](http://devrates.com/project/logo/337129 =80x25) [Querydsl](http://www.querydsl.com)
+* Webservice:
+	* ![LOGO](http://www.mkyong.com/wp-content/uploads/2011/07/jaxrs-tutorials.gif =62x25)
+		[**JAX-RS**](https://jax-rs-spec.java.net)
+		* ![LOGO](https://jersey.java.net/images/jersey_logo.png =29x25)
+			[Jersey](https://jersey.java.net)
+* Webapp:
+	* Java
+		* ![LOGO](https://upload.wikimedia.org/wikipedia/en/thumb/7/75/20110510-jsf-logo.tiff/lossless-page1-320px-20110510-jsf-logo.tiff.png =50x25) **JSF**
+			* ![LOGO](http://www.primefaces.org/images/logo.png =111x25) [**PrimeFaces**](http://primefaces.org)
+		* ![LOGO](https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png =90x25) [Spring security](http://projects.spring.io/spring-security)
+			* Taglib (JSF integration)
+	* ![LOGO](https://angularjs.org/img/AngularJS-large.png =89x25) [**AngularJS**](https://angularjs.org)
+		* ![LOGO](https://angular-translate.github.io/img/logo/angular-translate-alternative/angular-translate_alternative_medium2.png =186x25) [Angular Translate](https://angular-translate.github.io)
+		* ![LOGO](https://upload.wikimedia.org/wikipedia/fr/1/13/TwitterBootstrap.png =25x25) [**Bootstrap**](http://getbootstrap.com)
+			* [UI Bootstrap](https://angular-ui.github.io/bootstrap)
+		* [ngDialog](http://ngmodules.org/modules/ngDialog)
+		* [UI Grid](http://ui-grid.info)
+
+Transverse :
 * *Transverse*
 	* **Java EE**
 		* [**CDI**](https://docs.oracle.com/javaee/7/tutorial/cdi-basic.htm) (Contexts and Dependency Injection)
-	* [**Spring**](http://projects.spring.io/spring-framework/)
-		* *Context & Context support*
-			* Cache
-			* Scheduling
-			* Mail: [JavaMail](http://www.oracle.com/technetwork/java/javamail/index.html)
-		* *Database*
-			* JDBC
-			* *ORM:* Hibernate
-			* JPA
-		* Test: [DBUnit](http://springtestdbunit.github.io/spring-test-dbunit/)
-* Webservice
-	* [**JAX-RS**](https://jax-rs-spec.java.net/) (Java API for RESTful Services)
-		* [Jersey](https://jersey.java.net/)
-* Webapp:
-	* Java
-		* **JSF** (JavaServer Faces)
-			* [**PrimeFaces**](http://primefaces.org/)
-		* [**Spring security**](http://projects.spring.io/spring-security/)
-			* Taglib (JSF integration)
-	* [**AngularJS**](https://angularjs.org/)
-		* [Angular Translate](https://angular-translate.github.io/)
-		* [**Bootstrap**](http://getbootstrap.com/) & [UI Bootstrap](https://angular-ui.github.io/bootstrap/)
-		* [ngDialog](http://ngmodules.org/modules/ngDialog)
-		* [UI Grid](http://ui-grid.info/)
+	* ![LOGO](https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png =90x25) [**Spring framework**](http://projects.spring.io/spring-framework)
+		* [Caching Data](https://spring.io/guides/gs/caching)
+		* [Scheduling Tasks](https://spring.io/guides/gs/scheduling-tasks)
 * Tests:
-	* [**JUnit**](http://junit.org/)
-	* [**DBUnit**](http://dbunit.sourceforge.net/)
+	* ![LOGO](http://junit.org/images/junit-logo.png =63x25) [**JUnit**](http://junit.org)
+	* ![LOGO](http://hamcrest.org/images/logo.jpg =25x25) [Hamcrest](http://hamcrest.org/JavaHamcrest)
+	* ![LOGO](http://dbunit.sourceforge.net/images/dbunit-logo.jpg =50x25) [**DBUnit**](http://dbunit.sourceforge.net)
+	* [Spring Test DBUnit](http://springtestdbunit.github.io/spring-test-dbunit)
 * Logging:
-	* [SLF4J](http://www.slf4j.org/)
-	* [**Log4j**](http://logging.apache.org/log4j/2.x/)
+	* ![LOGO](http://www.slf4j.org/images/logos/slf4j-logo.jpg =59x25) [SLF4J](http://www.slf4j.org)
+	* ![LOGO](http://logging.apache.org/log4j/2.x/images/logo.jpg =66x25) [**Log4j2**](http://logging.apache.org/log4j/2.x)
+* Mail:
+	* ![LOGO](https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png =90x25) [JavaMail](http://www.oracle.com/technetwork/java/javamail/index.html)
 * Reporting:
-	* [**Jasper Report**](https://community.jaspersoft.com/project/jasperreports-server)
+	* ![LOGO](http://community-static.jaspersoft.com/sites/default/files/styles/project_icon/public/projects/icons/js_reports-library_1_rg2.png?itok=YfQKPh7R =28x25) [**Jasper Report**](https://community.jaspersoft.com/project/jasperreports-server)
+
+Utils :
+* ![LOGO](https://maven.apache.org/images/maven-logo-black-on-white.png =99x25) [**Maven**](https://maven.apache.org)
 
 ### TODO
 
 * [Multitenancy](https://en.wikipedia.org/wiki/Multitenancy) architecture
 * Datastore
-	* NoSQL: [**MongoDB**](https://www.mongodb.org/)
-	* [Elasticsearch](https://www.elastic.co/fr/)
-* Utils:
-	* [JIRA](https://fr.atlassian.com/software/jira)
-	* [**Jenkins**](https://jenkins-ci.org/)
+	* [Elasticsearch](https://www.elastic.co/fr)
 * Test
-	* [**JMeter**](http://jmeter.apache.org/)
+	* [**JMeter**](http://jmeter.apache.org)
 * Logging
 	* [Logstash](https://www.elastic.co/products/logstash)
+* ![LOGO](http://oauth.net/images/oauth-2-sm.png =25x25) ![LOGO](https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png =90x25) [OAuth2](http://oauth.net/2)
 
 ### Version
 
@@ -113,8 +122,8 @@ Measure the degree to which the source code of a program is *tested*.
 
 Deploy web-application on the cloud, in continue!
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](http://pinguet62-jsfring.herokuapp.com/)
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](http://pinguet62-jsfring.herokuapp.com)
 
 ## Licence
 
-[![Creative Commons BY-NC-SA](https://img.shields.io/badge/Licence-Creative%20Commons-brightgreen.svg)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
+[![Creative Commons BY-NC-SA](https://img.shields.io/badge/Licence-Creative%20Commons-brightgreen.svg)](http://creativecommons.org/licenses/by-nc-sa/4.0)

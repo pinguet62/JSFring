@@ -11,11 +11,8 @@ import javax.inject.Named;
 
 import org.primefaces.model.DualListModel;
 
-import com.mysema.query.types.path.EntityPathBase;
-
 import fr.pinguet62.jsfring.gui.config.scope.SpringViewScoped;
 import fr.pinguet62.jsfring.model.sql.Profile;
-import fr.pinguet62.jsfring.model.sql.QProfile;
 import fr.pinguet62.jsfring.model.sql.Right;
 import fr.pinguet62.jsfring.service.AbstractService;
 import fr.pinguet62.jsfring.service.ProfileService;
@@ -55,12 +52,6 @@ public final class ProfilesBean extends AbstractCrudBean<Profile> {
         getSelectedValue().getRights().addAll(rightsAssociation.getTarget());
 
         super.create();
-    }
-
-    /** @return {@link QProfile#profile} */
-    @Override
-    protected EntityPathBase<Profile> getBaseExpression() {
-        return QProfile.profile;
     }
 
     @Override

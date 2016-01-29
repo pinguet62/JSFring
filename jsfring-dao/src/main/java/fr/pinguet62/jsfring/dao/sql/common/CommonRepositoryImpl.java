@@ -10,7 +10,6 @@ import org.springframework.data.jpa.repository.support.QueryDslJpaRepository;
 import org.springframework.data.querydsl.SimpleEntityPathResolver;
 import org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport;
 
-import com.mysema.query.SearchResults;
 import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.types.EntityPath;
 
@@ -37,12 +36,6 @@ public class CommonRepositoryImpl<T, ID extends Serializable> extends QueryDslJp
     public List<T> find(JPAQuery query) {
         JPAQuery emQuery = query.clone(entityManager);
         return emQuery.list(entityPath);
-    }
-
-    @Override
-    public SearchResults<T> findPaginated(JPAQuery query) {
-        JPAQuery emQuery = query.clone(entityManager);
-        return emQuery.listResults(entityPath);
     }
 
 }
