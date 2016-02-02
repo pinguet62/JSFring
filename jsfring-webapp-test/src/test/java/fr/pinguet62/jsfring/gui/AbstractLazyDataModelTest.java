@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.gui;
 
+import static fr.pinguet62.jsfring.test.Config.DATASET;
 import static fr.pinguet62.jsfring.util.MatcherUtils.isSorted;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
@@ -18,18 +19,20 @@ import javax.inject.Inject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.primefaces.model.SortOrder;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.mysema.query.BooleanBuilder;
 import com.mysema.query.types.path.EntityPathBase;
 
-import fr.pinguet62.jsfring.Config;
-import fr.pinguet62.jsfring.model.QRight;
-import fr.pinguet62.jsfring.model.Right;
+import fr.pinguet62.jsfring.SpringBootConfig;
+import fr.pinguet62.jsfring.model.sql.QRight;
+import fr.pinguet62.jsfring.model.sql.Right;
 import fr.pinguet62.jsfring.service.AbstractService;
 import fr.pinguet62.jsfring.service.RightService;
 
@@ -39,8 +42,9 @@ import fr.pinguet62.jsfring.service.RightService;
  *      org.primefaces.model.SortOrder, java.util.Map)
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = Config.SPRING)
-@DatabaseSetup(Config.DATASET)
+@SpringApplicationConfiguration(SpringBootConfig.class)
+@WebIntegrationTest
+@DatabaseSetup(DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 public class AbstractLazyDataModelTest {
 
@@ -76,7 +80,7 @@ public class AbstractLazyDataModelTest {
     public void test_load_filter() {
         // Default
         model.load(0, Integer.MAX_VALUE, NO_SORT, DEFAULT_ORDER, NO_FILTER);
-        assertEquals(service.count(), model.getRowCount());
+        assertEquals(service.findAll(new BooleanBuilder()).size(), model.getRowCount());
 
         // User input
         final String input = "P";

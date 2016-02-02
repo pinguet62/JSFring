@@ -3,6 +3,7 @@ package fr.pinguet62.jsfring.gui.component;
 import static fr.pinguet62.jsfring.gui.htmlunit.DateUtils.equalsSecond;
 import static fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column.EMAIL;
 import static fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column.LOGIN;
+import static fr.pinguet62.jsfring.test.Config.DATASET;
 import static fr.pinguet62.jsfring.util.FileFormatMatcher.isCSV;
 import static fr.pinguet62.jsfring.util.FileFormatMatcher.isPDF;
 import static fr.pinguet62.jsfring.util.FileFormatMatcher.isXLS;
@@ -29,21 +30,21 @@ import javax.inject.Inject;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-
-import au.com.bytecode.opencsv.CSVReader;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.mysema.query.jpa.impl.JPAQuery;
 
-import fr.pinguet62.jsfring.Config;
-import fr.pinguet62.jsfring.dao.ProfileDao;
-import fr.pinguet62.jsfring.dao.RightDao;
-import fr.pinguet62.jsfring.dao.UserDao;
+import au.com.bytecode.opencsv.CSVReader;
+import fr.pinguet62.jsfring.SpringBootConfig;
+import fr.pinguet62.jsfring.dao.sql.ProfileDao;
+import fr.pinguet62.jsfring.dao.sql.RightDao;
+import fr.pinguet62.jsfring.dao.sql.UserDao;
 import fr.pinguet62.jsfring.gui.AbstractBean;
 import fr.pinguet62.jsfring.gui.AbstractCrudBean;
 import fr.pinguet62.jsfring.gui.AbstractSelectableBean;
@@ -62,9 +63,9 @@ import fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.ActiveFilter;
 import fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column;
 import fr.pinguet62.jsfring.gui.htmlunit.user.popup.UserShowPopup;
 import fr.pinguet62.jsfring.gui.htmlunit.user.popup.UserUpdatePopup;
-import fr.pinguet62.jsfring.model.Profile;
-import fr.pinguet62.jsfring.model.QUser;
-import fr.pinguet62.jsfring.model.User;
+import fr.pinguet62.jsfring.model.sql.Profile;
+import fr.pinguet62.jsfring.model.sql.QUser;
+import fr.pinguet62.jsfring.model.sql.User;
 
 /**
  * @see AbstractBean
@@ -74,8 +75,9 @@ import fr.pinguet62.jsfring.model.User;
  * @see AbstractDatatablePage
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = Config.SPRING)
-@DatabaseSetup(Config.DATASET)
+@SpringApplicationConfiguration(SpringBootConfig.class)
+@WebIntegrationTest
+@DatabaseSetup(DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 public final class DataTableComponentTest {
 
@@ -171,7 +173,7 @@ public final class DataTableComponentTest {
      */
     @Test
     public void test_action_show() {
-        List<User> users = userDao.getAll().stream().sorted(comparing(User::getLogin)).collect(toList());
+        List<User> users = userDao.findAll().stream().sorted(comparing(User::getLogin)).collect(toList());
 
         UsersPage page = AbstractPage.get().gotoUsersPage();
         page.sortBy(LOGIN);
@@ -231,7 +233,7 @@ public final class DataTableComponentTest {
         page.filterLogin(login); // because updated value is placed at the end
         assertEquals(1, page.getTotalCount());
         assertEquals(newEmail, page.getRows().get(0).getEmail());
-        assertEquals(newEmail, userDao.get(login).getEmail());
+        assertEquals(newEmail, userDao.findOne(login).getEmail());
     }
 
     /**
@@ -244,7 +246,7 @@ public final class DataTableComponentTest {
         final UsersPage page = AbstractPage.get().gotoUsersPage();
 
         // Before
-        User userBefore = userDao.getAll().get(idx);
+        User userBefore = userDao.findAll().get(idx);
         final String login = userBefore.getLogin();
         final String email = userBefore.getEmail();
         final boolean active = userBefore.isActive();
@@ -262,7 +264,7 @@ public final class DataTableComponentTest {
         assertEquals(active, rowAfter.isActive());
         assertTrue(equalsSecond(lastConnection, rowAfter.getLastConnection()));
         // - check database value
-        User userAfter = userDao.getAll().get(idx);
+        User userAfter = userDao.findAll().get(idx);
         assertEquals(login, userAfter.getLogin());
         assertEquals(email, userAfter.getEmail());
         assertEquals(active, userAfter.isActive());
@@ -281,7 +283,7 @@ public final class DataTableComponentTest {
      */
     @Test
     public void test_action_update_values() {
-        List<User> users = userDao.getAll().stream().sorted(comparing(User::getLogin)).collect(toList());
+        List<User> users = userDao.findAll().stream().sorted(comparing(User::getLogin)).collect(toList());
 
         UsersPage page = AbstractPage.get().gotoUsersPage();
         page.sortBy(LOGIN);
@@ -346,7 +348,7 @@ public final class DataTableComponentTest {
      */
     @Test
     public void test_content() {
-        List<User> users = userDao.getAll().stream().sorted(comparing(User::getLogin)).collect(toList());
+        List<User> users = userDao.findAll().stream().sorted(comparing(User::getLogin)).collect(toList());
 
         UsersPage page = AbstractPage.get().gotoUsersPage();
         page.sortBy(LOGIN);
@@ -473,7 +475,7 @@ public final class DataTableComponentTest {
     /** @see UsersPage#sortByEmail() */
     @Test
     public void test_sort_email() {
-        List<String> emails = userDao.getAll().stream().map(User::getEmail).sorted().collect(toList());
+        List<String> emails = userDao.findAll().stream().map(User::getEmail).sorted().collect(toList());
 
         UsersPage usersPage = AbstractPage.get().gotoUsersPage();
         usersPage.sortBy(EMAIL);
@@ -486,7 +488,7 @@ public final class DataTableComponentTest {
     /** @see UsersPage#sortByLogin() */
     @Test
     public void test_sort_login() {
-        List<String> logins = userDao.getAll().stream().map(User::getLogin).sorted().collect(toList());
+        List<String> logins = userDao.findAll().stream().map(User::getLogin).sorted().collect(toList());
 
         UsersPage usersPage = AbstractPage.get().gotoUsersPage();
         usersPage.sortBy(LOGIN);

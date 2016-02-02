@@ -8,7 +8,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import fr.pinguet62.jsfring.gui.LoginBean;
-import fr.pinguet62.jsfring.model.User;
+import fr.pinguet62.jsfring.model.sql.User;
 
 /** @see LoginBean */
 public final class LoginPage extends AbstractPage {

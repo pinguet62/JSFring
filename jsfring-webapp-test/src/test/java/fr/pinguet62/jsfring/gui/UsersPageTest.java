@@ -1,10 +1,12 @@
 package fr.pinguet62.jsfring.gui;
 
+import static fr.pinguet62.jsfring.test.Config.DATASET;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
@@ -12,7 +14,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
-import fr.pinguet62.jsfring.Config;
+import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.AbstractRow;
 import fr.pinguet62.jsfring.gui.htmlunit.user.UserRow;
@@ -20,8 +22,9 @@ import fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage;
 
 /** @see UsersPage */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = Config.SPRING)
-@DatabaseSetup(Config.DATASET)
+@SpringApplicationConfiguration(SpringBootConfig.class)
+@WebIntegrationTest
+@DatabaseSetup(DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 public class UsersPageTest {
 
