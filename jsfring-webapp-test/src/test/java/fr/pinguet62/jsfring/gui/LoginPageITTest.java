@@ -1,9 +1,12 @@
 package fr.pinguet62.jsfring.gui;
 
 import static fr.pinguet62.jsfring.test.Config.DATASET;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+
+import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -48,19 +51,39 @@ public class LoginPageITTest {
     }
 
     /**
-     * Bad {@link User#login} or {@link User#password}:
+     * Invalid {@link User#password}:
      * <ul>
-     * <li>Redirect to the same login page</li>
+     * <li>Refresh current login page</li>
      * <li>Error message</li>
      * </ul>
      */
     @Test
-    public void test_login_invalid() {
-        String login = "foo";
+    public void test_login_invalidPassword() {
+        User user = userDao.findAll().get(0);
+        String invalidPassword = UUID.randomUUID().toString();
+        assertNotEquals(invalidPassword, user.getPassword());
+
+        LoginPage loginPage = AbstractPage.get().gotoLoginPage();
+        AbstractPage afterLogin = loginPage.doLogin(user.getLogin(), invalidPassword);
+
+        assertTrue(afterLogin instanceof LoginPage);
+        assertNotNull(loginPage.getMessageError());
+    }
+
+    /**
+     * Unknown {@link User#login}:
+     * <ul>
+     * <li>Refresh current login page</li>
+     * <li>Error message</li>
+     * </ul>
+     */
+    @Test
+    public void test_login_unknownLogin() {
+        String login = UUID.randomUUID().toString();
         assertNull(userDao.findOne(login));
 
         LoginPage loginPage = AbstractPage.get().gotoLoginPage();
-        AbstractPage afterLogin = loginPage.doLogin(login, "password");
+        AbstractPage afterLogin = loginPage.doLogin(login, "a password");
 
         assertTrue(afterLogin instanceof LoginPage);
         assertNotNull(loginPage.getMessageError());
