@@ -30,7 +30,7 @@ import fr.pinguet62.jsfring.gui.jasperreport.sample.UsersRightsJasperReportBean;
  * @see ExportType
  * @see AbstractJasperReportPage
  */
-public final class ExportJasperReportTest {
+public final class ExportJasperReportITTest {
 
     private UsersRightsJasperReportPage page;
 

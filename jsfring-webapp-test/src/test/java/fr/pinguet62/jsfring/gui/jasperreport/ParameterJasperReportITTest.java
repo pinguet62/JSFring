@@ -18,7 +18,7 @@ import fr.pinguet62.jsfring.gui.htmlunit.jasperreport.ParametersJasperReportPage
 import fr.pinguet62.jsfring.gui.jasperreport.sample.ParametersJasperReportBean;
 
 /** @see ParametersJasperReportBean */
-public final class ParameterJasperReportTest {
+public final class ParameterJasperReportITTest {
 
     private ParametersJasperReportPage page;
 

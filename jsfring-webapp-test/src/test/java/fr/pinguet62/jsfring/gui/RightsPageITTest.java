@@ -26,7 +26,7 @@ import fr.pinguet62.jsfring.gui.htmlunit.right.RightsPage;
 @WebIntegrationTest
 @DatabaseSetup(DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
-public final class RightsPageTest {
+public final class RightsPageITTest {
 
     /**
      * Visibility of action buttons.

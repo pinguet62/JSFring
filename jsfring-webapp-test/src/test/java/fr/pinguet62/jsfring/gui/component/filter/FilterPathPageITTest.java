@@ -45,7 +45,7 @@ import fr.pinguet62.jsfring.gui.sample.FilterPathBean;
  * @see LongRangeValidator
  */
 @RunWith(Parameterized.class)
-public class FilterPathPageTest {
+public class FilterPathPageITTest {
 
     // Because lambda cannot be used into inline array
     private static final Function<FilterPathPage, FilterField> fieldNumber = FilterPathPage::getNumberFilterDefault;
@@ -243,7 +243,7 @@ public class FilterPathPageTest {
      * @param result The {@link Predicate} result.<br>
      *            {@code null} for fail.
      */
-    public FilterPathPageTest(Function<FilterPathPage, FilterField> fieldFactory, Class<?> operator, String[] values,
+    public FilterPathPageITTest(Function<FilterPathPage, FilterField> fieldFactory, Class<?> operator, String[] values,
             Predicate result) {
         this.fieldFactory = fieldFactory;
         this.operator = operator;

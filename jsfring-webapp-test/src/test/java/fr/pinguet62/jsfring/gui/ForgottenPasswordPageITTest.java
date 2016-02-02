@@ -30,7 +30,7 @@ import fr.pinguet62.jsfring.model.sql.QUser;
 @WebIntegrationTest
 @DatabaseSetup(DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
-public class ForgottenPasswordPageTest {
+public class ForgottenPasswordPageITTest {
 
     @Inject
     private UserDao userDao;

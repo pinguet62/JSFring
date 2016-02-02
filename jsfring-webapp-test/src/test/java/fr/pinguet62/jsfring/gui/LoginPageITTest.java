@@ -31,7 +31,7 @@ import fr.pinguet62.jsfring.model.sql.User;
 @WebIntegrationTest
 @DatabaseSetup(DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
-public class LoginPageTest {
+public class LoginPageITTest {
 
     @Inject
     private UserDao userDao;

@@ -79,7 +79,7 @@ import fr.pinguet62.jsfring.model.sql.User;
 @WebIntegrationTest
 @DatabaseSetup(DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
-public final class DataTableComponentTest {
+public final class DataTableComponentITTest {
 
     @Inject
     private ProfileDao profileDao;

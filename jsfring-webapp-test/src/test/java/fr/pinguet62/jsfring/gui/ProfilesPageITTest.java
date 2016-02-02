@@ -17,16 +17,16 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.AbstractRow;
-import fr.pinguet62.jsfring.gui.htmlunit.user.UserRow;
-import fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage;
+import fr.pinguet62.jsfring.gui.htmlunit.profile.ProfileRow;
+import fr.pinguet62.jsfring.gui.htmlunit.profile.ProfilesPage;
 
-/** @see UsersPage */
+/** @see ProfilesPage */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(SpringBootConfig.class)
 @WebIntegrationTest
 @DatabaseSetup(DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
-public class UsersPageTest {
+public final class ProfilesPageITTest {
 
     /**
      * Visibility of action buttons.
@@ -39,10 +39,10 @@ public class UsersPageTest {
      */
     @Test
     public void test_dataTable_action_rendered() {
-        UsersPage usersPage = AbstractPage.get().gotoUsersPage();
+        ProfilesPage profilesPage = AbstractPage.get().gotoProfilesPage();
 
-        assertTrue(usersPage.isCreateButtonVisible());
-        for (UserRow row : usersPage.getRows()) {
+        assertTrue(profilesPage.isCreateButtonVisible());
+        for (ProfileRow row : profilesPage.getRows()) {
             assertTrue(row.isActionButtonShowVisible());
             assertTrue(row.isActionButtonUpdateVisible());
             assertTrue(row.isActionButtonDeleteVisible());
