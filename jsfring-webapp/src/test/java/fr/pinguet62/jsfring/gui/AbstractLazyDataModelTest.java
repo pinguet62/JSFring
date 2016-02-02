@@ -20,7 +20,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.primefaces.model.SortOrder;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
@@ -28,7 +27,6 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.mysema.query.BooleanBuilder;
-import com.mysema.query.types.path.EntityPathBase;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.model.sql.QRight;
@@ -43,7 +41,6 @@ import fr.pinguet62.jsfring.service.RightService;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(SpringBootConfig.class)
-@WebIntegrationTest
 @DatabaseSetup(DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 public class AbstractLazyDataModelTest {
@@ -57,11 +54,6 @@ public class AbstractLazyDataModelTest {
     // Implementation test
     private final AbstractBean<Right> bean = new AbstractBean<Right>() {
         private static final long serialVersionUID = 1;
-
-        @Override
-        protected EntityPathBase<Right> getBaseExpression() {
-            return QRight.right_;
-        }
 
         @Override
         public AbstractService<Right, ? extends Serializable> getService() {
