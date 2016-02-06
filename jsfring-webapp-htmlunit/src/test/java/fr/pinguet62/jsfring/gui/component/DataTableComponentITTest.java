@@ -48,6 +48,7 @@ import fr.pinguet62.jsfring.dao.sql.UserDao;
 import fr.pinguet62.jsfring.gui.AbstractBean;
 import fr.pinguet62.jsfring.gui.AbstractCrudBean;
 import fr.pinguet62.jsfring.gui.AbstractSelectableBean;
+import fr.pinguet62.jsfring.gui.component.DataTableComponent;
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.AbstractDatatablePage;
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.AbstractRow;

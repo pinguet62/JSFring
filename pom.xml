@@ -20,9 +20,9 @@
 		<module>jsfring-model</module>
 		<module>jsfring-dao</module>
 		<module>jsfring-service</module>
-		<!--module>jsfring-task</module>
-		<module>jsfring-webapp</module-->
-		<!--<module>jsfring-webapp-test</module> -->
+		<module>jsfring-task</module>
+		<module>jsfring-webapp</module>
+		<module>jsfring-webapp-htmlunit</module>
 		<module>jsfring-webservice</module>
 		<module>jsfring-indexer-nosql</module>
 	</modules>
