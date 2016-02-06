@@ -2,13 +2,14 @@ package fr.pinguet62.jsfring.gui.htmlunit.datatable;
 
 import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.Delay.MEDIUM;
 import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.Delay.SHORT;
+import static java.util.stream.Collectors.toList;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.StreamSupport;
 
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
@@ -16,9 +17,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTableCell;
 import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
 import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
-import com.google.common.collect.Lists;
 
-import fr.pinguet62.jsfring.gui.component.DataTableComponent;
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.DateUtils;
 import fr.pinguet62.jsfring.gui.htmlunit.NavigatorException;
@@ -196,7 +195,7 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
      *         {@code null} if empty cell.
      */
     protected String getString(int column) {
-        ArrayList<DomElement> tds = Lists.newArrayList(row.getChildElements());
+        List<DomElement> tds = StreamSupport.stream(row.getChildElements().spliterator(), false).collect(toList());
         String content = tds.get(column).asText();
         return content.isEmpty() ? null : content;
     }

@@ -8,7 +8,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
-import fr.pinguet62.jsfring.gui.ForgottenPasswordBean;
 import fr.pinguet62.jsfring.gui.htmlunit.field.InputText;
 import fr.pinguet62.jsfring.gui.htmlunit.field.ReadWriteField;
 

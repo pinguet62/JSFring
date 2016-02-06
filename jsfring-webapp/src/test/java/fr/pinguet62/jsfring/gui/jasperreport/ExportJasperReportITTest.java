@@ -23,6 +23,8 @@ import org.junit.Test;
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.jasperreport.AbstractJasperReportPage;
 import fr.pinguet62.jsfring.gui.htmlunit.jasperreport.UsersRightsJasperReportPage;
+import fr.pinguet62.jsfring.gui.jasperreport.AbstractJasperReportBean;
+import fr.pinguet62.jsfring.gui.jasperreport.ExportType;
 import fr.pinguet62.jsfring.gui.jasperreport.sample.UsersRightsJasperReportBean;
 
 /**

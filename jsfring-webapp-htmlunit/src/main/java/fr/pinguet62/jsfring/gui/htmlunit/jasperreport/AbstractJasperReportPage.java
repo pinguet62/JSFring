@@ -1,10 +1,9 @@
 package fr.pinguet62.jsfring.gui.htmlunit.jasperreport;
 
+import java.awt.Panel;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-
-import org.primefaces.component.panel.Panel;
 
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -12,8 +11,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.NavigatorException;
-import fr.pinguet62.jsfring.gui.jasperreport.AbstractJasperReportBean;
-import fr.pinguet62.jsfring.gui.jasperreport.ExportType;
 
 /** @see AbstractJasperReportBean */
 public abstract class AbstractJasperReportPage extends AbstractPage {
@@ -42,11 +39,11 @@ public abstract class AbstractJasperReportPage extends AbstractPage {
     }
 
     public InputStream exportCSV() {
-        return export(ExportType.CSV.toString());
+        return export("csv");
     }
 
     public InputStream exportDOCX() {
-        return export(ExportType.DOCX.toString());
+        return export("docx");
     }
 
     public InputStream exportGraphics2D() {
@@ -54,43 +51,43 @@ public abstract class AbstractJasperReportPage extends AbstractPage {
     }
 
     public InputStream exportHTML() {
-        return export(ExportType.HTML.toString());
+        return export("html");
     }
 
     public InputStream exportODS() {
-        return export(ExportType.ODS.toString());
+        return export("ods");
     }
 
     public InputStream exportODT() {
-        return export(ExportType.ODT.toString());
+        return export("odt");
     }
 
     public InputStream exportPDF() {
-        return export(ExportType.PDF.toString());
+        return export("pdf");
     }
 
     public InputStream exportPPTX() {
-        return export(ExportType.PPTX.toString());
+        return export("pptx");
     }
 
     public InputStream exportRTF() {
-        return export(ExportType.RTF.toString());
+        return export("rtf");
     }
 
     public InputStream exportTEXT() {
-        return export(ExportType.TEXT.toString());
+        return export("text");
     }
 
     public InputStream exportXLS() {
-        return export(ExportType.XLS.toString());
+        return export("xls");
     }
 
     public InputStream exportXLSX() {
-        return export(ExportType.XLSX.toString());
+        return export("xlsx");
     }
 
     public InputStream exportXML() {
-        return export(ExportType.XML.toString());
+        return export("xml");
     }
 
 }

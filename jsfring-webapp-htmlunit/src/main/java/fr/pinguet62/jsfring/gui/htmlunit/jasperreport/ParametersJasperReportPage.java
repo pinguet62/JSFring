@@ -11,7 +11,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
 import fr.pinguet62.jsfring.gui.htmlunit.field.AutocompleteInputText;
 import fr.pinguet62.jsfring.gui.htmlunit.field.DatetimeInputText;
 import fr.pinguet62.jsfring.gui.htmlunit.field.InputText;
-import fr.pinguet62.jsfring.gui.jasperreport.sample.ParametersJasperReportBean;
 
 /** @see ParametersJasperReportBean */
 public final class ParametersJasperReportPage extends AbstractJasperReportPage {

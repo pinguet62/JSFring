@@ -5,7 +5,6 @@ import java.util.function.Function;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
 
-import fr.pinguet62.jsfring.gui.ProfilesBean;
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.AbstractDatatablePage;
 
 /** @see ProfilesBean */

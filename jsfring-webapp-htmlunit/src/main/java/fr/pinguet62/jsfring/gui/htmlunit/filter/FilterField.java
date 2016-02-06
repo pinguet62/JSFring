@@ -6,6 +6,8 @@ import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.Delay.SHORT;
 import java.io.IOException;
 import java.util.List;
 
+import org.springframework.expression.spel.ast.Operator;
+
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -13,8 +15,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
 import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
 
-import fr.pinguet62.jsfring.gui.component.filter.OperatorConverter;
-import fr.pinguet62.jsfring.gui.component.filter.operator.Operator;
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.NavigatorException;
 

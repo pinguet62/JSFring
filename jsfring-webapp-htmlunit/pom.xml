@@ -15,21 +15,6 @@
 	<packaging>jar</packaging>
 
 	<dependencies>
-		<!-- ===== Project ===== -->
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>common-test</artifactId>
-			<version>${project.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>webapp</artifactId>
-			<version>${project.version}</version>
-			<classifier>classes</classifier>
-		</dependency>
-
-		<!-- ===== Test ===== -->
 		<!-- HtmlUnit -->
 		<dependency>
 			<groupId>net.sourceforge.htmlunit</groupId>
@@ -41,104 +26,6 @@
 			<artifactId>xml-apis</artifactId>
 			<version>1.4.01</version>
 		</dependency>
-
-		<!-- TODO -->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>jsp-api</artifactId>
-			<version>2.2.1-b03</version>
-			<scope>provided</scope>
-		</dependency>
 	</dependencies>
-
-	<properties>
-		<target.webapp>${project.build.directory}/webapp-tmp</target.webapp>
-	</properties>
-
-	<build>
-		<testResources>
-			<testResource>
-				<directory>${project.basedir}/src/test/resources</directory>
-			</testResource>
-		</testResources>
-
-		<plugins>
-			<!-- Copy webapp content to "/target" to be used into this module -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>2.10</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>unpack</goal>
-						</goals>
-						<configuration>
-							<artifactItems>
-								<artifactItem>
-									<groupId>fr.pinguet62.jsfring</groupId>
-									<artifactId>webapp</artifactId>
-									<version>${project.version}</version>
-									<type>war</type>
-									<excludes>WEB-INF/lib/**</excludes>
-								</artifactItem>
-							</artifactItems>
-							<outputDirectory>${target.webapp}</outputDirectory>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
-			<!-- Portable server -->
-			<plugin>
-				<groupId>org.eclipse.jetty</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
-				<version>9.3.6.v20151106</version>
-				<configuration>
-					<scanIntervalSeconds>3</scanIntervalSeconds>
-					<stopPort>8079</stopPort>
-					<stopKey>stop</stopKey>
-					<webAppSourceDirectory>${target.webapp}</webAppSourceDirectory>
-				</configuration>
-				<executions>
-					<execution>
-						<id>start-jetty</id>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>run-forked</goal>
-						</goals>
-						<configuration>
-							<waitForChild>false</waitForChild>
-							<jvmArgs>${failsafeArgLine}</jvmArgs>
-						</configuration>
-					</execution>
-					<execution>
-						<id>stop-jetty</id>
-						<phase>post-integration-test</phase>
-						<goals>
-							<goal>stop</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
-
-	<repositories>
-		<!-- PrimeFaces -->
-		<repository>
-			<id>prime-repo</id>
-			<name>PrimeFaces Maven Repository</name>
-			<url>http://repository.primefaces.org</url>
-			<layout>default</layout>
-		</repository>
-	</repositories>
 
 </project>

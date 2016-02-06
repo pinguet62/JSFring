@@ -3,7 +3,6 @@ package fr.pinguet62.jsfring.gui.htmlunit.filter;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
-import fr.pinguet62.jsfring.gui.sample.FilterPathBean;
 
 public final class FilterPathPage extends AbstractPage {
 
