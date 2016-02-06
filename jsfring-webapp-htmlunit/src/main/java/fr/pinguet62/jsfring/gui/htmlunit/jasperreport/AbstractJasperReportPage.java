@@ -39,11 +39,11 @@ public abstract class AbstractJasperReportPage extends AbstractPage {
     }
 
     public InputStream exportCSV() {
-        return export("csv");
+        return export("CSV");
     }
 
     public InputStream exportDOCX() {
-        return export("docx");
+        return export("DOCX");
     }
 
     public InputStream exportGraphics2D() {
@@ -51,43 +51,43 @@ public abstract class AbstractJasperReportPage extends AbstractPage {
     }
 
     public InputStream exportHTML() {
-        return export("html");
+        return export("HTML");
     }
 
     public InputStream exportODS() {
-        return export("ods");
+        return export("ODS");
     }
 
     public InputStream exportODT() {
-        return export("odt");
+        return export("ODT");
     }
 
     public InputStream exportPDF() {
-        return export("pdf");
+        return export("PDF");
     }
 
     public InputStream exportPPTX() {
-        return export("pptx");
+        return export("PPTX");
     }
 
     public InputStream exportRTF() {
-        return export("rtf");
+        return export("RTF");
     }
 
     public InputStream exportTEXT() {
-        return export("text");
+        return export("TEXT");
     }
 
     public InputStream exportXLS() {
-        return export("xls");
+        return export("XLS");
     }
 
     public InputStream exportXLSX() {
-        return export("xlsx");
+        return export("XLSX");
     }
 
     public InputStream exportXML() {
-        return export("xml");
+        return export("XML");
     }
 
 }
