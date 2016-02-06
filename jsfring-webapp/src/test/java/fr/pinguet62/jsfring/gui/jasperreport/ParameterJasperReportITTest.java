@@ -12,13 +12,21 @@ import java.util.List;
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.WebIntegrationTest;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.jasperreport.ParametersJasperReportPage;
 import fr.pinguet62.jsfring.gui.jasperreport.sample.ParametersJasperReportBean;
 
 /** @see ParametersJasperReportBean */
-public final class ParameterJasperReportITTest {
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringApplicationConfiguration(SpringBootConfig.class)
+@WebIntegrationTest
+public class ParameterJasperReportITTest {
 
     private ParametersJasperReportPage page;
 
@@ -28,7 +36,7 @@ public final class ParameterJasperReportITTest {
     }
 
     /** @see Date */
-    //@Test
+    // @Test
     public void test_date() throws IOException {
         Date date = new Date();
 
