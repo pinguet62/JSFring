@@ -106,7 +106,7 @@
 						<f:setPropertyActionListener
 							target="#{cc.attrs.bean.selectedValue}"
 							value="#{cc.evaluatedVar}" />
-						<f:actionListener binding="#{cc.attrs.bean.delete}" />
+						<f:actionListener binding="#{cc.attrs.bean.delete()}" />
 						<p:confirm icon="ui-icon-alert"
 							header="#{msg['dataTable.actions.delete']}"
 							message="#{msg['dataTable.actions.delete.confirm']}" />
