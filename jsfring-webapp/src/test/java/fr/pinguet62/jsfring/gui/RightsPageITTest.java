@@ -2,6 +2,7 @@ package fr.pinguet62.jsfring.gui;
 
 import static fr.pinguet62.jsfring.test.Config.DATASET;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,8 +44,8 @@ public final class RightsPageITTest {
 
         assertFalse(rightsPage.isCreateButtonVisible());
         for (RightRow row : rightsPage.getRows()) {
-            assertFalse(row.isActionButtonShowVisible());
-            assertFalse(row.isActionButtonUpdateVisible());
+            assertTrue(row.isActionButtonShowVisible());
+            assertTrue(row.isActionButtonUpdateVisible());
             assertFalse(row.isActionButtonDeleteVisible());
         }
     }
