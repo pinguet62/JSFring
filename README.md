@@ -28,7 +28,7 @@ Layers :
 			* ![LOGO](http://www.primefaces.org/images/logo.png =111x25) [**PrimeFaces**](http://primefaces.org)
 		* ![LOGO](https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png =90x25) [Spring security](http://projects.spring.io/spring-security)
 			* Taglib (JSF integration)
-	* ![LOGO](https://cloud.githubusercontent.com/assets/2929786/12901283/178ece74-cebb-11e5-8820-ab852dcb549b.png =89x25) [**AngularJS**](https://angularjs.org)
+	* <img src="https://cloud.githubusercontent.com/assets/2929786/12901283/178ece74-cebb-11e5-8820-ab852dcb549b.png" width="89" height="25" /> [**AngularJS**](https://angularjs.org)
 		* ![LOGO](https://angular-translate.github.io/img/logo/angular-translate-alternative/angular-translate_alternative_medium2.png =186x25) [Angular Translate](https://angular-translate.github.io)
 		* ![LOGO](https://upload.wikimedia.org/wikipedia/fr/1/13/TwitterBootstrap.png =25x25) [**Bootstrap**](http://getbootstrap.com)
 			* [UI Bootstrap](https://angular-ui.github.io/bootstrap)
