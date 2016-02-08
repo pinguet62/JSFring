@@ -1,5 +1,7 @@
 package fr.pinguet62.jsfring.gui.converter;
 
+import static java.lang.Integer.parseInt;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -26,9 +28,8 @@ public class ProfileConverter implements Converter {
      * @return The {@link Profile}.
      */
     @Override
-    public Object getAsObject(FacesContext context, UIComponent component,
-            String id) {
-        return profileService.get(Integer.parseInt(id));
+    public Object getAsObject(FacesContext context, UIComponent component, String id) {
+        return profileService.get(parseInt(id));
     }
 
     /**
@@ -36,8 +37,7 @@ public class ProfileConverter implements Converter {
      * @return The {@link Profile#id id} as {@link String}.
      */
     @Override
-    public String getAsString(FacesContext context, UIComponent component,
-            Object object) {
+    public String getAsString(FacesContext context, UIComponent component, Object object) {
         Profile profile = (Profile) object;
         return profile.getId().toString();
     }

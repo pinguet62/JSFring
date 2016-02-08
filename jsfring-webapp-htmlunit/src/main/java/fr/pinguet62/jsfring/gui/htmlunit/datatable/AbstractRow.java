@@ -2,6 +2,8 @@ package fr.pinguet62.jsfring.gui.htmlunit.datatable;
 
 import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.Delay.MEDIUM;
 import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.Delay.SHORT;
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 import static java.util.stream.Collectors.toList;
 
 import java.io.IOException;
@@ -156,9 +158,9 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
 
         // Parse
         if (Arrays.asList("true").contains(content))
-            return Boolean.TRUE;
+            return TRUE;
         if (Arrays.asList("false").contains(content))
-            return Boolean.FALSE;
+            return FALSE;
         throw new NavigatorException("Invalid boolean format: " + content);
     }
 

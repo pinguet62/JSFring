@@ -1,6 +1,7 @@
 package fr.pinguet62.jsfring.gui.htmlunit.datatable;
 
 import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.Delay.SHORT;
+import static java.lang.Integer.parseInt;
 import static java.util.stream.Collectors.toList;
 
 import java.io.IOException;
@@ -184,7 +185,7 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends
         Matcher matcher = pattern.matcher(currentPageReportTemplate.asText());
         matcher.find();
         String total = matcher.group().substring(1);
-        return Integer.parseInt(total);
+        return parseInt(total);
     }
 
     /** @throws NavigatorException No next page. See {@link #hasNextPage()}. */

@@ -2,6 +2,8 @@ package fr.pinguet62.jsfring.gui;
 
 import static fr.pinguet62.jsfring.test.Config.DATASET;
 import static fr.pinguet62.jsfring.util.MatcherUtils.isSorted;
+import static java.lang.Integer.MAX_VALUE;
+import static java.util.Comparator.comparing;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -46,9 +48,11 @@ import fr.pinguet62.jsfring.service.RightService;
 public class AbstractLazyDataModelTest {
 
     private static final String COLUMN = QRight.right_.code.toString().split("\\.")[1];
-    private static final SortOrder DEFAULT_ORDER = SortOrder.ASCENDING;
+    private static final SortOrder DEFAULT_ORDER = ASCENDING;
 
+    private static final int FIRST_PAGE = 0;
     private static final Map<String, Object> NO_FILTER = new HashMap<String, Object>();
+    private static final int NO_LIMITE = MAX_VALUE;
     private static final String NO_SORT = null;
 
     // Implementation test
@@ -71,7 +75,7 @@ public class AbstractLazyDataModelTest {
     @Test
     public void test_load_filter() {
         // Default
-        model.load(0, Integer.MAX_VALUE, NO_SORT, DEFAULT_ORDER, NO_FILTER);
+        model.load(FIRST_PAGE, NO_LIMITE, NO_SORT, DEFAULT_ORDER, NO_FILTER);
         assertEquals(service.findAll(new BooleanBuilder()).size(), model.getRowCount());
 
         // User input
@@ -80,7 +84,7 @@ public class AbstractLazyDataModelTest {
         assertTrue(nb > 1); // useful test case
         Map<String, Object> filters = new HashMap<>();
         filters.put(COLUMN, input);
-        model.load(0, Integer.MAX_VALUE, NO_SORT, DEFAULT_ORDER, filters);
+        model.load(FIRST_PAGE, NO_LIMITE, NO_SORT, DEFAULT_ORDER, filters);
         assertEquals(nb, model.getRowCount());
     }
 
@@ -91,11 +95,11 @@ public class AbstractLazyDataModelTest {
      */
     @Test
     public void test_load_order() {
-        List<Right> resultsAsc = model.load(0, Integer.MAX_VALUE, COLUMN, ASCENDING, NO_FILTER);
-        Comparator<Right> asc = Comparator.comparing(Right::getCode);
+        List<Right> resultsAsc = model.load(FIRST_PAGE, NO_LIMITE, COLUMN, ASCENDING, NO_FILTER);
+        Comparator<Right> asc = comparing(Right::getCode);
         assertThat(resultsAsc, isSorted(asc));
 
-        List<Right> resultsDesc = model.load(0, Integer.MAX_VALUE, COLUMN, DESCENDING, NO_FILTER);
+        List<Right> resultsDesc = model.load(FIRST_PAGE, NO_LIMITE, COLUMN, DESCENDING, NO_FILTER);
         Comparator<Right> desc = asc.reversed();
         assertThat(resultsDesc, isSorted(desc));
     }

@@ -1,5 +1,7 @@
 package fr.pinguet62.jsfring.gui;
 
+import static fr.pinguet62.jsfring.gui.config.SpringSecurityConfig.LOGIN_PROCESSING_URL;
+
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -15,7 +17,6 @@ import javax.servlet.ServletResponse;
 
 import org.springframework.beans.factory.annotation.Value;
 
-import fr.pinguet62.jsfring.gui.config.SpringSecurityConfig;
 import fr.pinguet62.jsfring.gui.config.scope.SpringRequestScoped;
 
 /** Bean for user login. */
@@ -69,8 +70,7 @@ public final class LoginBean implements Serializable {
      */
     public void login() throws ServletException, IOException {
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-        RequestDispatcher dispatcher = ((ServletRequest) context.getRequest())
-                .getRequestDispatcher(SpringSecurityConfig.LOGIN_PROCESSING_URL);
+        RequestDispatcher dispatcher = ((ServletRequest) context.getRequest()).getRequestDispatcher(LOGIN_PROCESSING_URL);
         dispatcher.forward((ServletRequest) context.getRequest(), (ServletResponse) context.getResponse());
         FacesContext.getCurrentInstance().responseComplete();
     }

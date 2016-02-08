@@ -1,5 +1,8 @@
 package fr.pinguet62.jsfring.gui.config;
 
+import static org.springframework.boot.autoconfigure.AutoConfigurationPackages.get;
+import static org.springframework.util.ClassUtils.resolveClassName;
+
 import java.lang.annotation.Annotation;
 import java.util.HashSet;
 import java.util.List;
@@ -22,7 +25,6 @@ import org.springframework.context.annotation.ClassPathScanningCandidateComponen
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.core.type.filter.AssignableTypeFilter;
-import org.springframework.util.ClassUtils;
 
 import com.sun.faces.config.FacesInitializer;
 
@@ -98,14 +100,14 @@ public class JSFInitializerConfig implements ServletContextInitializer {
         for (String basePackage : basePackagesToScan) {
             LOGGER.debug("Scanning under {}", basePackage);
             for (BeanDefinition bd : scanner.findCandidateComponents(basePackage))
-                annotatedClasses.add(ClassUtils.resolveClassName(bd.getBeanClassName(), getClass().getClassLoader()));
+                annotatedClasses.add(resolveClassName(bd.getBeanClassName(), getClass().getClassLoader()));
         }
         return annotatedClasses;
     }
 
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
-        List<String> basePackagesToScan = AutoConfigurationPackages.get(beanFactory);
+        List<String> basePackagesToScan = get(beanFactory);
         runServletInitializer(servletContext, new FacesInitializer(), basePackagesToScan);
     }
 

@@ -2,6 +2,8 @@ package fr.pinguet62.jsfring.ws.config;
 
 import static java.util.stream.Collectors.joining;
 import static org.glassfish.jersey.servlet.ServletProperties.JAXRS_APPLICATION_CLASS;
+import static org.springframework.boot.autoconfigure.AutoConfigurationPackages.get;
+import static org.springframework.util.ClassUtils.resolveClassName;
 
 import java.util.Collection;
 import java.util.List;
@@ -17,13 +19,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.boot.autoconfigure.AutoConfigurationPackages;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
-import org.springframework.util.ClassUtils;
 
 @Configuration
 @ApplicationPath("/")
@@ -46,7 +46,7 @@ public class JerseyConfig {
          */
         @PostConstruct
         private void init() {
-            List<String> packages = AutoConfigurationPackages.get(beanFactory);
+            List<String> packages = get(beanFactory);
             LOGGER.debug("Registrer packages: {}", packages.stream().collect(joining(", ", "[", "]")));
             registerScannedPackages(packages); // packages(packages.stream().toArray(String[]::new));
         }
@@ -67,7 +67,7 @@ public class JerseyConfig {
             // AnnotationTypeFilter(RestController.class)); // Spring
             for (String basePackage : packages)
                 for (BeanDefinition bd : scanner.findCandidateComponents(basePackage))
-                    register(ClassUtils.resolveClassName(bd.getBeanClassName(), getClass().getClassLoader()));
+                    register(resolveClassName(bd.getBeanClassName(), getClass().getClassLoader()));
         }
 
     }

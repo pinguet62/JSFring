@@ -9,6 +9,7 @@ import static fr.pinguet62.jsfring.util.FileFormatMatcher.isPDF;
 import static fr.pinguet62.jsfring.util.FileFormatMatcher.isXLS;
 import static fr.pinguet62.jsfring.util.FileFormatMatcher.isXLSX;
 import static fr.pinguet62.jsfring.util.FileFormatMatcher.isXML;
+import static java.lang.Integer.compare;
 import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.toList;
 import static org.junit.Assert.assertArrayEquals;
@@ -48,7 +49,6 @@ import fr.pinguet62.jsfring.dao.sql.UserDao;
 import fr.pinguet62.jsfring.gui.AbstractBean;
 import fr.pinguet62.jsfring.gui.AbstractCrudBean;
 import fr.pinguet62.jsfring.gui.AbstractSelectableBean;
-import fr.pinguet62.jsfring.gui.component.DataTableComponent;
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.AbstractDatatablePage;
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.AbstractRow;
@@ -325,7 +325,7 @@ public final class DataTableComponentITTest {
     @Test
     public void test_column_rendered() {
         UsersPage page = AbstractPage.get().gotoUsersPage();
-        for (Column column : UsersPage.Column.values())
+        for (Column column : Column.values())
             assertTrue(page.columnVisibile(column));
     }
 
@@ -380,7 +380,7 @@ public final class DataTableComponentITTest {
 
         // Content
         try (CSVReader reader = new CSVReader(new InputStreamReader(is))) {
-            String[] header = Stream.of(Column.values()).sorted((a, b) -> Integer.compare(a.getIndex(), b.getIndex()))
+            String[] header = Stream.of(Column.values()).sorted((a, b) -> compare(a.getIndex(), b.getIndex()))
                     .map(Column::getTitle).limit(Column.values().length - 1).toArray(String[]::new);
             assertArrayEquals(header, reader.readNext()); // header
             assertEquals(userDao.count(), reader.readAll().size()); // content
