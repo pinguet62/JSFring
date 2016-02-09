@@ -6,6 +6,7 @@ spring:
         # Disable proxies
         auto: false
         proxy-target-class: false
+    #data.mongodb.uri: external config
     datasource:
         #url: external config
     jpa:
