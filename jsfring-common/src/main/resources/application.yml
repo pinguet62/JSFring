@@ -20,7 +20,7 @@ spring:
                 format_sql: true
                 #globally_quoted_identifiers: true
                 use_sql_comments: false
-        show-sql: true
+        #show-sql: true
     mail:
         #host: external config
         #password: external config
@@ -31,3 +31,17 @@ spring:
             #mail.smtp.ssl.trust: smtp.gmail.com
         test-connection: false
         #username: external config
+security:
+    user:
+        name: user
+        password: pwd
+    oauth2:
+        client:
+            client-id: client
+            client-secret: secret
+            authorized-grant-types: authorization_code,refresh_token,password
+            scope: openid
+        # resource:
+            # id
+            # id
+            # id
