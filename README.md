@@ -74,12 +74,7 @@ Utils :
 
 All dependencies use the latest version.
 
-[![Dependency Status](https://www.versioneye.com/user/projects/56729e638fea07000e093826/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56729e638fea07000e093826)
-[![Dependency Status](https://www.versioneye.com/user/projects/56729e698fea07000a09375a/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56729e698fea07000a09375a)
-[![Dependency Status](https://www.versioneye.com/user/projects/56729e6f8fea07000e093878/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56729e6f8fea07000e093878)
-[![Dependency Status](https://www.versioneye.com/user/projects/56729e738fea07000e0938b0/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56729e738fea07000e0938b0)
-[![Dependency Status](https://www.versioneye.com/user/projects/56729e798fea07000e0938eb/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56729e798fea07000e0938eb)
-[![Dependency Status](https://www.versioneye.com/user/projects/56729e808fea07000a0937cb/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56729e808fea07000a0937cb)
+[![Dependency Status](https://www.versioneye.com/user/projects/56b7dc23a70289000d663313/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56b7dc23a70289000d663313)
 
 ## Code style/quality, Continue Integration, Deployment
 
@@ -123,7 +118,8 @@ Measure the degree to which the source code of a program is *tested*.
 
 Deploy web-application on the cloud, in continue!
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](http://pinguet62-jsfring.herokuapp.com)
+* Webapp: [![Deploy](https://www.herokucdn.com/deploy/button.png)](http://jsfring-webapp.herokuapp.com)
+* Webservice: [![Deploy](https://www.herokucdn.com/deploy/button.png)](http://jsfring-webservice.herokuapp.com)
 
 ## Licence
 
