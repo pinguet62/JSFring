@@ -1,8 +1,9 @@
 package fr.pinguet62.jsfring.service;
 
-import static java.util.stream.Stream.generate;
 import static fr.pinguet62.jsfring.model.sql.User.PASSWORD_REGEX;
-import static fr.pinguet62.jsfring.test.Config.DATASET;import static org.junit.Assert.assertEquals;
+import static fr.pinguet62.jsfring.test.Config.DATASET;
+import static java.util.stream.Stream.generate;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -23,9 +24,10 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
+import fr.pinguet62.jsfring.mock.MailSenderThrowableMock;
 import fr.pinguet62.jsfring.model.sql.User;
 import fr.pinguet62.jsfring.util.PasswordGenerator;
-import fr.pinguet62.jsfring.service.config.MailSenderThrowableMock;
+
 /** @see UserService */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(SpringBootConfig.class)
