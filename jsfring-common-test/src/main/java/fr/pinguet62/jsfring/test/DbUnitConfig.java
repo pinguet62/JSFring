@@ -3,6 +3,7 @@ package fr.pinguet62.jsfring.test;
 import javax.inject.Inject;
 import javax.sql.DataSource;
 
+import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,6 +19,7 @@ public class DbUnitConfig {
     @Bean
     public DatabaseConfigBean dbUnitDatabaseConfig() {
         DatabaseConfigBean databaseConfigBean = new DatabaseConfigBean();
+        databaseConfigBean.setDatatypeFactory(new PostgresqlDataTypeFactory());
         databaseConfigBean.setCaseSensitiveTableNames(true);
         databaseConfigBean.setEscapePattern("\"?\"");
         return databaseConfigBean;
