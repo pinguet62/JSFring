@@ -87,7 +87,7 @@ public class FilterPathPageITTest {
 
                 { fieldString, LikeOperator.class, new String[] { "" }, new BooleanBuilder() },
                 { fieldString, LikeOperator.class, new String[] { "foo" }, EXPRESSION_STRING.like("foo") },
-
+/*
                 // ===== String: RegexValidator
 
                 { fieldStringRegex, null, new String[] {}, new BooleanBuilder() },
@@ -216,7 +216,7 @@ public class FilterPathPageITTest {
                 // validateRequired
                 { fieldNumberLongRange, BetweenOperator.class, new String[] { "0", "34" }, null },
                 { fieldNumberLongRange, BetweenOperator.class, new String[] { "12", "34" }, EXPRESSION_NUMBER.between(12, 34) }
-
+*/
                 // =====
         });
     }
