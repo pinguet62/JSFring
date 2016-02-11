@@ -151,9 +151,9 @@
 				<version>2.19</version>
 				<configuration>
 					<argLine>${surefireArgLine}</argLine>
-					<excludes>
+					<includes>
 						<exclude>**/*ITTest.java</exclude>
-					</excludes>
+					</includes>
 				</configuration>
 			</plugin>
 
@@ -262,8 +262,11 @@
 							<filesets>
 								<fileset>
 									<directory>target</directory>
-									<!--includes> <include>**/target/**</include> </includes -->
 									<excludes>
+										<!-- Reports -->
+										<exclude>jacoco.exec</exclude>
+										<exclude>jacoco-it.exec</exclude>
+										<!-- Executables -->
 										<exclude>*.jar</exclude>
 										<exclude>*.war</exclude>
 									</excludes>
