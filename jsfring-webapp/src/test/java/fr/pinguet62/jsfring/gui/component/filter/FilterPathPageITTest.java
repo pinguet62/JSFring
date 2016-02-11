@@ -12,15 +12,18 @@ import java.util.function.Function;
 import javax.faces.validator.LongRangeValidator;
 import javax.faces.validator.RegexValidator;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.WebIntegrationTest;
+import org.springframework.test.context.TestContextManager;
 
 import com.mysema.query.BooleanBuilder;
 import com.mysema.query.types.Predicate;
 
+import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.gui.component.filter.operator.BetweenOperator;
 import fr.pinguet62.jsfring.gui.component.filter.operator.ContainsOperator;
 import fr.pinguet62.jsfring.gui.component.filter.operator.EndsWithOperator;
@@ -45,6 +48,8 @@ import fr.pinguet62.jsfring.gui.sample.FilterPathBean;
  * @see LongRangeValidator
  */
 @RunWith(Parameterized.class)
+@SpringApplicationConfiguration(SpringBootConfig.class)
+@WebIntegrationTest
 public class FilterPathPageITTest {
 
     // Because lambda cannot be used into inline array
@@ -52,17 +57,6 @@ public class FilterPathPageITTest {
     private static final Function<FilterPathPage, FilterField> fieldNumberLongRange = FilterPathPage::getNumberFilterLongRange;
     private static final Function<FilterPathPage, FilterField> fieldString = FilterPathPage::getStringFilterDefault;
     private static final Function<FilterPathPage, FilterField> fieldStringRegex = FilterPathPage::getStringFilterRegex;
-
-    private static FilterPathPage page;
-
-    /**
-     * Go to the page to test.<br>
-     * Doesn't need to reload the page between each test case.
-     */
-    @BeforeClass
-    public static void beforeClass() {
-        page = AbstractPage.get().gotoSampleFilterSimple();
-    }
 
     /**
      * The test cases.<br>
@@ -229,6 +223,7 @@ public class FilterPathPageITTest {
 
     // Test parameters
     private final Function<FilterPathPage, FilterField> fieldFactory;
+
     private final Class<?> operator;
     private final Predicate result;
     private final String[] values;
@@ -244,7 +239,8 @@ public class FilterPathPageITTest {
      *            {@code null} for fail.
      */
     public FilterPathPageITTest(Function<FilterPathPage, FilterField> fieldFactory, Class<?> operator, String[] values,
-            Predicate result) {
+            Predicate result) throws Exception {
+        new TestContextManager(getClass()).prepareTestInstance(this); // @RunWith(SpringJUnit4ClassRunner.class)
         this.fieldFactory = fieldFactory;
         this.operator = operator;
         this.values = values;
@@ -253,6 +249,7 @@ public class FilterPathPageITTest {
 
     @Test
     public void test() {
+        FilterPathPage page = AbstractPage.get().gotoSampleFilterSimple();
         FilterField field = fieldFactory.apply(page);
         field.setOperator(operator);
         for (int i = 0; i < values.length; i++)
