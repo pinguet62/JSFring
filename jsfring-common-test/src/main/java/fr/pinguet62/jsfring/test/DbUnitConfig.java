@@ -13,6 +13,8 @@ import com.github.springtestdbunit.bean.DatabaseDataSourceConnectionFactoryBean;
 @Configuration
 public class DbUnitConfig {
 
+    public static final String DATASET = "/dataset.xml";
+
     @Inject
     private DataSource dataSource;
 

@@ -1,6 +1,6 @@
 package fr.pinguet62.jsfring.dao.sql;
 
-import static fr.pinguet62.jsfring.test.Config.DATASET;
+import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;

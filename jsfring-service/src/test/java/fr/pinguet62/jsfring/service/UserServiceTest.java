@@ -1,7 +1,7 @@
 package fr.pinguet62.jsfring.service;
 
 import static fr.pinguet62.jsfring.model.sql.User.PASSWORD_REGEX;
-import static fr.pinguet62.jsfring.test.Config.DATASET;
+import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
 import static java.util.stream.Stream.generate;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;

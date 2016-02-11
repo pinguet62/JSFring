@@ -3,7 +3,7 @@ package fr.pinguet62.jsfring.gui.component;
 import static fr.pinguet62.jsfring.gui.htmlunit.DateUtils.equalsSecond;
 import static fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column.EMAIL;
 import static fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column.LOGIN;
-import static fr.pinguet62.jsfring.test.Config.DATASET;
+import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
 import static fr.pinguet62.jsfring.util.FileFormatMatcher.isCSV;
 import static fr.pinguet62.jsfring.util.FileFormatMatcher.isPDF;
 import static fr.pinguet62.jsfring.util.FileFormatMatcher.isXLS;

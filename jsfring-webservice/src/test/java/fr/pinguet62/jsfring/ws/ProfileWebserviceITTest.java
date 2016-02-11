@@ -1,6 +1,6 @@
 package fr.pinguet62.jsfring.ws;
 
-import static fr.pinguet62.jsfring.test.Config.DATASET;
+import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
 import static fr.pinguet62.jsfring.ws.Config.BASE_URL;
 import static fr.pinguet62.jsfring.ws.ProfileWebservice.PATH;
 import static org.junit.Assert.assertEquals;

@@ -1,6 +1,6 @@
 package fr.pinguet62.jsfring.gui;
 
-import static fr.pinguet62.jsfring.test.Config.DATASET;
+import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
