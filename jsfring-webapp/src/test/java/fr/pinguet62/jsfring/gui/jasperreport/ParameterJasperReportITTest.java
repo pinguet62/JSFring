@@ -1,6 +1,7 @@
 package fr.pinguet62.jsfring.gui.jasperreport;
 
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.Matchers.containsString;
+import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,14 +37,14 @@ public class ParameterJasperReportITTest {
     }
 
     /** @see Date */
-    // @Test
+    // TODO Fix @Test
     public void test_date() throws IOException {
         Date date = new Date();
 
         page.setDate(date);
         InputStream is = page.exportTEXT();
         String content = IOUtils.toString(is);
-        assertTrue(content.contains(new SimpleDateFormat("dd/MM/yy hh:mm").format(date)));
+        assertThat(content, containsString(new SimpleDateFormat("dd/MM/yy hh:mm").format(date)));
     }
 
     /** @see Integer */
@@ -52,7 +53,7 @@ public class ParameterJasperReportITTest {
         page.setInteger(42);
         InputStream is = page.exportTEXT();
         String content = IOUtils.toString(is);
-        assertTrue(content.contains("42"));
+        assertThat(content, containsString("42"));
     }
 
     /** @see List */
@@ -61,8 +62,8 @@ public class ParameterJasperReportITTest {
         page.setList(Arrays.asList("avion", "vélo"));
         InputStream is = page.exportTEXT();
         String content = IOUtils.toString(is);
-        assertTrue(content.contains("avion"));
-        assertTrue(content.contains("vélo"));
+        assertThat(content, containsString("avion"));
+        assertThat(content, containsString("vélo"));
     }
 
     /** @see String */
@@ -71,7 +72,7 @@ public class ParameterJasperReportITTest {
         page.setString("foo");
         InputStream is = page.exportTEXT();
         String content = IOUtils.toString(is);
-        assertTrue(content.contains("foo"));
+        assertThat(content, containsString("foo"));
     }
 
 }
