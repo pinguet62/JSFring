@@ -1,12 +1,14 @@
 package fr.pinguet62.jsfring.gui;
 
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
-import static fr.pinguet62.jsfring.util.MatcherUtils.isSorted;
+import static fr.pinguet62.jsfring.util.MatcherUtils.sorted;
 import static java.lang.Integer.MAX_VALUE;
 import static java.util.Comparator.comparing;
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 import static org.primefaces.model.SortOrder.ASCENDING;
 import static org.primefaces.model.SortOrder.DESCENDING;
 
@@ -76,16 +78,16 @@ public class AbstractLazyDataModelTest {
     public void test_load_filter() {
         // Default
         model.load(FIRST_PAGE, NO_LIMITE, NO_SORT, DEFAULT_ORDER, NO_FILTER);
-        assertEquals(service.findAll(new BooleanBuilder()).size(), model.getRowCount());
+        assertThat(model.getRowCount(), is(equalTo(service.findAll(new BooleanBuilder()).size())));
 
         // User input
         final String input = "P";
         final long nb = service.getAll().stream().map(Right::getCode).filter(c -> c.startsWith(input)).count();
-        assertTrue(nb > 1); // useful test case
+        assertThat(nb, is(greaterThan(1L))); // useful test case
         Map<String, Object> filters = new HashMap<>();
         filters.put(COLUMN, input);
         model.load(FIRST_PAGE, NO_LIMITE, NO_SORT, DEFAULT_ORDER, filters);
-        assertEquals(nb, model.getRowCount());
+        assertThat(model.getRowCount(), is(equalTo(nb)));
     }
 
     /**
@@ -97,27 +99,27 @@ public class AbstractLazyDataModelTest {
     public void test_load_order() {
         List<Right> resultsAsc = model.load(FIRST_PAGE, NO_LIMITE, COLUMN, ASCENDING, NO_FILTER);
         Comparator<Right> asc = comparing(Right::getCode);
-        assertThat(resultsAsc, isSorted(asc));
+        assertThat(resultsAsc, is(sorted(asc)));
 
         List<Right> resultsDesc = model.load(FIRST_PAGE, NO_LIMITE, COLUMN, DESCENDING, NO_FILTER);
         Comparator<Right> desc = asc.reversed();
-        assertThat(resultsDesc, isSorted(desc));
+        assertThat(resultsDesc, is(sorted(desc)));
     }
 
     /** Check that pagination is correct. */
     @Test
     public void test_load_pagination() {
         List<Right> resultsP1 = model.load(0, 2, NO_SORT, DEFAULT_ORDER, NO_FILTER);
-        assertEquals(2, resultsP1.size());
-        assertEquals(5, model.getRowCount());
+        assertThat(resultsP1, hasSize(2));
+        assertThat(model.getRowCount(), is(equalTo(5)));
 
         List<Right> resultsP2 = model.load(2, 2, NO_SORT, DEFAULT_ORDER, NO_FILTER);
-        assertEquals(2, resultsP2.size());
-        assertEquals(5, model.getRowCount());
+        assertThat(resultsP2, hasSize(2));
+        assertThat(model.getRowCount(), is(equalTo(5)));
 
         List<Right> resultsP3 = model.load(4, 2, NO_SORT, DEFAULT_ORDER, NO_FILTER);
-        assertEquals(1, resultsP3.size());
-        assertEquals(5, model.getRowCount());
+        assertThat(resultsP3, hasSize(1));
+        assertThat(model.getRowCount(), is(equalTo(5)));
     }
 
 }

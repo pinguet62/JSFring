@@ -31,13 +31,13 @@ public final class OrderConverter implements Function<SortOrder, Function<Compar
      *             {@code null}.
      * @throws ClassCastException The target field is not a
      *             {@link ComparableExpressionBase}, so doen't support filter.
-     * @see PropertyResolver Transform property name to
-     *      {@link SimpleExpression}.
+     * @see PropertyResolver Transform property name to {@link SimpleExpression}
+     *      .
      */
     @Override
     public Function<ComparableExpressionBase<?>, OrderSpecifier<?>> apply(SortOrder order) {
         switch (order) {
-            case UNSORTED:
+            case UNSORTED: // "Unsorted Function is unknown in Querydsl
                 return null;
             case ASCENDING:
                 return x -> x.asc();

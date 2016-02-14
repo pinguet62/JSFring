@@ -1,10 +1,12 @@
 package fr.pinguet62.jsfring.gui;
 
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
+import static org.junit.Assert.assertThat;
 
 import java.util.UUID;
 
@@ -47,7 +49,7 @@ public class LoginPageITTest {
         LoginPage loginPage = AbstractPage.get().gotoLoginPage();
         AbstractPage afterLogin = loginPage.doLogin(user.getLogin(), user.getPassword());
 
-        assertTrue(afterLogin instanceof IndexPage);
+        assertThat(afterLogin, is(instanceOf(IndexPage.class)));
     }
 
     /**
@@ -61,13 +63,13 @@ public class LoginPageITTest {
     public void test_login_invalidPassword() {
         User user = userDao.findAll().get(0);
         String invalidPassword = UUID.randomUUID().toString();
-        assertNotEquals(invalidPassword, user.getPassword());
+        assertThat(user.getPassword(), is(not(equalTo(invalidPassword))));
 
         LoginPage loginPage = AbstractPage.get().gotoLoginPage();
         AbstractPage afterLogin = loginPage.doLogin(user.getLogin(), invalidPassword);
 
-        assertTrue(afterLogin instanceof LoginPage);
-        assertNotNull(loginPage.getMessageError());
+        assertThat(afterLogin, is(instanceOf(LoginPage.class)));
+        assertThat(loginPage.getMessageError(), is(not(nullValue())));
     }
 
     /**
@@ -80,15 +82,16 @@ public class LoginPageITTest {
     @Test
     public void test_login_unknownLogin() {
         String login = UUID.randomUUID().toString();
-        assertNull(userDao.findOne(login));
+        assertThat(userDao.findOne(login), is(nullValue()));
 
         LoginPage loginPage = AbstractPage.get().gotoLoginPage();
         AbstractPage afterLogin = loginPage.doLogin(login, "a password");
 
-        assertTrue(afterLogin instanceof LoginPage);
-        assertNotNull(loginPage.getMessageError());
+        assertThat(afterLogin, is(instanceOf(LoginPage.class)));
+        assertThat(loginPage.getMessageError(), is(not(nullValue())));
     }
 
+    // TODO Remember me
     // @Test
     // public void test_rememberMe() {
     // throw new UnsupportedOperationException("TODO");

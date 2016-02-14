@@ -2,8 +2,10 @@ package fr.pinguet62.jsfring.dao.sql;
 
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
 import static java.util.stream.Collectors.toList;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -60,7 +62,7 @@ public class JpaTest {
 
         // Initial state
         Profile profile = profileDao.getOne(id);
-        long initialCount = profile.getRights().size();
+        int initialCount = profile.getRights().size();
 
         // Find existing & Not associated
         List<String> associatedCodes = profile.getRights().stream().map(Right::getCode).collect(toList());
@@ -69,13 +71,12 @@ public class JpaTest {
 
         // Associate
         profile.getRights().add(notAssociated);
-        assertEquals(initialCount + 1, profile.getRights().size());
+        assertThat(profile.getRights(), hasSize(initialCount + 1));
         profileDao.save(profile);
 
         // Check
         profileDao.flush();
-        long newCount = profileDao.getOne(id).getRights().size();
-        assertEquals(initialCount + 1, newCount);
+        assertThat(profileDao.getOne(id).getRights(), hasSize(initialCount + 1));
     }
 
     /**
@@ -91,16 +92,16 @@ public class JpaTest {
 
         // Initial state
         Profile profile = profileDao.getOne(id);
-        long initialCount = profile.getRights().size();
+        int initialCount = profile.getRights().size();
 
         // Create new & Not associated
         String code = UUID.randomUUID().toString().substring(0, 4);
-        assertFalse(rightDao.exists(code));
+        assertThat(rightDao.exists(code), is(false));
         Right newRight = new Right(code);
 
         // Associate
         profile.getRights().add(newRight);
-        assertEquals(initialCount + 1, profile.getRights().size());
+        assertThat(profile.getRights(), hasSize(initialCount + 1));
         try {
             profileDao.save(profile);
         } catch (Exception e) {
@@ -122,8 +123,7 @@ public class JpaTest {
     @Test
     public void test_lazyLoad() {
         Profile profile = profileDao.getOne(1);
-
-        assertEquals(3, profile.getRights().size());
+        assertThat(profile.getRights(), hasSize(3));
     }
 
     /**
@@ -138,17 +138,16 @@ public class JpaTest {
 
         // Initial state
         Profile profile = profileDao.getOne(id);
-        long initialCount = profile.getRights().size();
+        int initialCount = profile.getRights().size();
 
         // Remove an associated entity
         profile.getRights().remove(profile.getRights().iterator().next());
-        assertEquals(initialCount - 1, profile.getRights().size());
+        assertThat(profile.getRights(), hasSize(initialCount - 1));
         profileDao.save(profile);
 
         // Check
         profileDao.flush();
-        long newCount = profileDao.getOne(id).getRights().size();
-        assertEquals(initialCount - 1, newCount);
+        assertThat(profileDao.getOne(id).getRights(), hasSize(initialCount - 1));
     }
 
 }

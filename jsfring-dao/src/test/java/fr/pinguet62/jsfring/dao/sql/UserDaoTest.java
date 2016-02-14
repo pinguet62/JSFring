@@ -5,9 +5,10 @@ import static java.util.Arrays.asList;
 import static java.util.Calendar.DATE;
 import static java.util.Calendar.DAY_OF_MONTH;
 import static java.util.Calendar.getInstance;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.exparity.hamcrest.date.DateMatchers.before;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
 import java.util.Calendar;
@@ -30,7 +31,6 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.dao.sql.UserDao;
 import fr.pinguet62.jsfring.model.sql.User;
 
 /** @see UserDao */
@@ -73,7 +73,7 @@ public class UserDaoTest {
         userDao.disableInactiveUsers(1);
 
         // Check
-        assertTrue(userDao.getOne(id).isActive());
+        assertThat(userDao.getOne(id).isActive(), is(true));
     }
 
     /**
@@ -97,7 +97,7 @@ public class UserDaoTest {
         userDao.disableInactiveUsers(nbOfDays);
 
         // Check
-        assertFalse(userDao.findOne(id).isActive());
+        assertThat(userDao.findOne(id).isActive(), is(false));
     }
 
     /**
@@ -121,7 +121,7 @@ public class UserDaoTest {
         userDao.disableInactiveUsers(nbOfDays);
 
         // Check
-        assertTrue(userDao.findOne(id).isActive());
+        assertThat(userDao.findOne(id).isActive(), is(true));
     }
 
     /**
@@ -138,13 +138,13 @@ public class UserDaoTest {
         // Initial state
         User user = userDao.findOne(login);
         Date lastConnectionBefore = user.getLastConnection();
-        assertTrue(lastConnectionBefore.before(today));
+        assertThat(lastConnectionBefore, is(before(today)));
 
         userDao.resetLastConnectionDate(user);
 
         // Test
         Date lastConnectionAfter = DateUtils.truncate(userDao.findOne(login).getLastConnection(), DAY_OF_MONTH);
-        assertEquals(today, lastConnectionAfter);
+        assertThat(lastConnectionAfter, is(equalTo(today)));
     }
 
 }

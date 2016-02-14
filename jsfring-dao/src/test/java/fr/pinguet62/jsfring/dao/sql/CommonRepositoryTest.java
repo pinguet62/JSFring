@@ -1,11 +1,15 @@
 package fr.pinguet62.jsfring.dao.sql;
 
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static fr.pinguet62.jsfring.util.MatcherUtils.mappedTo;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.everyItem;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
 import java.io.Serializable;
@@ -61,28 +65,28 @@ public class CommonRepositoryTest {
     /** @see CrudRepository#count() */
     @Test
     public void test_count() {
-        assertEquals(5, rightDao.count());
-        assertEquals(2, profileDao.count());
-        assertEquals(3, userDao.count());
+        assertThat(rightDao.count(), is(equalTo(5L)));
+        assertThat(profileDao.count(), is(equalTo(2L)));
+        assertThat(userDao.count(), is(equalTo(3L)));
     }
 
     /** @see CrudRepository#delete(Object) */
     @Test
     public void test_delete() {
-        assertEquals(2, profileDao.count());
+        assertThat(profileDao.count(), is(equalTo(2L)));
         profileDao.delete(profileDao.getOne(1));
-        assertEquals(1, profileDao.count());
+        assertThat(profileDao.count(), is(equalTo(1L)));
         profileDao.delete(profileDao.getOne(2));
-        assertEquals(0, profileDao.count());
+        assertThat(profileDao.count(), is(equalTo(0L)));
     }
 
     /** @see CrudRepository#deleteAll() */
     @Test
     public void test_deleteAll() {
-        assertEquals(2, profileDao.count());
+        assertThat(profileDao.count(), is(equalTo(2L)));
         // not empty
         profileDao.deleteAll();
-        assertEquals(0, profileDao.count());
+        assertThat(profileDao.count(), is(equalTo(0L)));
         // already empty
         profileDao.deleteAll();
     }
@@ -96,15 +100,15 @@ public class CommonRepositoryTest {
         JPAQuery query = new JPAQuery().from(r).where(r.code.contains(keyword));
         List<Right> rights = rightDao.find(query);
 
-        assertTrue(rights.stream().allMatch(right -> right.getCode().contains(keyword)));
+        assertThat(rights, everyItem(mappedTo(Right::getCode, containsString(keyword))));
     }
 
     /** @see JpaRepository#findAll() */
     @Test
     public void test_findAll() {
-        assertEquals(5, rightDao.findAll().size());
-        assertEquals(2, profileDao.findAll().size());
-        assertEquals(3, userDao.findAll().size());
+        assertThat(rightDao.findAll(), hasSize(5));
+        assertThat(profileDao.findAll(), hasSize(2));
+        assertThat(userDao.findAll(), hasSize(3));
     }
 
     /** @see QueryDslPredicateExecutor#findAll(Predicate) */
@@ -115,14 +119,14 @@ public class CommonRepositoryTest {
         Predicate predicate = QRight.right_.code.contains(keyword);
         List<Right> rights = rightDao.findAll(predicate);
 
-        assertTrue(rights.stream().allMatch(right -> right.getCode().contains(keyword)));
+        assertThat(rights, everyItem(mappedTo(Right::getCode, containsString(keyword))));
     }
 
     /** @see QueryDslPredicateExecutor#findAll(Predicate) */
     @Test
     public void test_findAll_Predicate_notFound() {
         List<Right> rights = rightDao.findAll(QRight.right_.code.contains("#$!@"));
-        assertTrue(rights.isEmpty());
+        assertThat(rights, is(empty()));
     }
 
     /**
@@ -133,16 +137,16 @@ public class CommonRepositoryTest {
     @Test
     public void test_getOne() {
         {
-            assertEquals("Affichage des droits", rightDao.getOne("RIGHT_RO").getTitle());
-            assertEquals("Affichage des profils", rightDao.getOne("PROFILE_RO").getTitle());
+            assertThat(rightDao.getOne("RIGHT_RO").getTitle(), is(equalTo("Affichage des droits")));
+            assertThat(rightDao.getOne("PROFILE_RO").getTitle(), is(equalTo("Affichage des profils")));
         }
         {
-            assertEquals("Profile admin", profileDao.getOne(1).getTitle());
-            assertEquals("User admin", profileDao.getOne(2).getTitle());
+            assertThat(profileDao.getOne(1).getTitle(), is(equalTo("Profile admin")));
+            assertThat(profileDao.getOne(2).getTitle(), is(equalTo("User admin")));
         }
         {
-            assertEquals("Azerty1!", userDao.getOne("super admin").getPassword());
-            assertEquals("admin_profile@domain.fr", userDao.getOne("admin profile").getEmail());
+            assertThat(userDao.getOne("super admin").getPassword(), is(equalTo("Azerty1!")));
+            assertThat(userDao.getOne("admin profile").getEmail(), is(equalTo("admin_profile@domain.fr")));
         }
     }
 
@@ -155,10 +159,10 @@ public class CommonRepositoryTest {
     @Test
     public void test_getOne_notExisting() {
         final int id = -1;
-        assertFalse(profileDao.exists(id));
+        assertThat(profileDao.exists(id), is(false));
 
         try {
-            assertNull(profileDao.getOne(id));
+            profileDao.getOne(id).getTitle(); // fail
             fail();
         } catch (EntityNotFoundException e) {}
     }
@@ -169,12 +173,12 @@ public class CommonRepositoryTest {
         {
             long count = profileDao.count();
             profileDao.save(new Profile("new profile"));
-            assertEquals(count + 1, profileDao.count());
+            assertThat(profileDao.count(), is(equalTo(count + 1)));
         }
         {
             long count = userDao.count();
             userDao.save(new User("new login", new PasswordGenerator().get(), "foo@hostname.domain"));
-            assertEquals(count + 1, userDao.count());
+            assertThat(userDao.count(), is(equalTo(count + 1)));
         }
     }
 
@@ -201,7 +205,7 @@ public class CommonRepositoryTest {
 
         // Initial state
         Profile profile = profileDao.getOne(id);
-        assertNotEquals(newTitle, profile.getTitle());
+        assertThat(profile.getTitle(), is(not(equalTo(newTitle))));
 
         // Update
         profile.setTitle(newTitle);
@@ -209,7 +213,7 @@ public class CommonRepositoryTest {
 
         // Check
         profileDao.flush();
-        assertEquals(newTitle, profileDao.getOne(1).getTitle());
+        assertThat(profileDao.getOne(1).getTitle(), is(equalTo(newTitle)));
     }
 
 }

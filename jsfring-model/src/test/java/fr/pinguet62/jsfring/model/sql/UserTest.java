@@ -6,19 +6,16 @@ import static fr.pinguet62.jsfring.util.MatcherUtils.matches;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.everyItem;
 import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
 import org.junit.Test;
 
-import fr.pinguet62.jsfring.model.sql.User;
 import fr.pinguet62.jsfring.util.Combinator;
 
 /** @see User */
@@ -33,26 +30,26 @@ public final class UserTest {
     /** @see User#EMAIL_REGEX */
     @Test
     public void test_email_regex() {
-        assertTrue("username@host.domain".matches(EMAIL_REGEX));
+        assertThat("username@host.domain", matches(EMAIL_REGEX));
 
-        assertFalse("@host.domain".matches(EMAIL_REGEX));
-        assertFalse("usernamehost.domain".matches(EMAIL_REGEX));
-        assertFalse("username@.domain".matches(EMAIL_REGEX));
-        // assertFalse("username@hostdomain".matches(EMAIL_REGEX));
-        assertFalse("username@host.".matches(EMAIL_REGEX));
-        assertFalse("".matches(EMAIL_REGEX));
+        assertThat("@host.domain", not(matches(EMAIL_REGEX)));
+        assertThat("usernamehost.domain", not(matches(EMAIL_REGEX)));
+        assertThat("username@.domain", not(matches(EMAIL_REGEX)));
+        // assertThat("username@hostdomain", not(matches(EMAIL_REGEX))));
+        assertThat("username@host.", not(matches(EMAIL_REGEX)));
+        assertThat("", not(matches(EMAIL_REGEX)));
     }
 
     /** @see User#equals(Object) */
     @Test
     public void test_equals() {
-        assertEquals(new User(), new User());
-        assertEquals(new User("same login"), new User("same login"));
-        assertEquals(new User("same login", null, null), new User("same login", null, null));
-        assertEquals(new User("same login", "AAA", "BBB"), new User("same login", "111", "222"));
+        assertThat(new User(), is(equalTo(new User())));
+        assertThat(new User("same login"), is(equalTo(new User("same login"))));
+        assertThat(new User("same login", null, null), is(equalTo(new User("same login", null, null))));
+        assertThat(new User("same login", "AAA", "BBB"), is(equalTo(new User("same login", "111", "222"))));
 
-        assertNotEquals(new User("an id", null, null), new User("other value", null, null));
-        assertNotEquals(new User(), "other type");
+        assertThat(new User("an id", null, null), is(not(equalTo(new User("other value", null, null)))));
+        assertThat(new User(), is(not(equalTo("other type"))));
     }
 
     /** @see User#PASSWORD_REGEX */

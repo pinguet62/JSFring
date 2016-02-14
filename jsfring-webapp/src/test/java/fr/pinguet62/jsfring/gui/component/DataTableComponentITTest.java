@@ -1,6 +1,5 @@
 package fr.pinguet62.jsfring.gui.component;
 
-import static fr.pinguet62.jsfring.gui.htmlunit.DateUtils.equalsSecond;
 import static fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column.EMAIL;
 import static fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column.LOGIN;
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
@@ -9,15 +8,18 @@ import static fr.pinguet62.jsfring.util.FileFormatMatcher.isPDF;
 import static fr.pinguet62.jsfring.util.FileFormatMatcher.isXLS;
 import static fr.pinguet62.jsfring.util.FileFormatMatcher.isXLSX;
 import static fr.pinguet62.jsfring.util.FileFormatMatcher.isXML;
+import static fr.pinguet62.jsfring.util.MatcherUtils.equalToTruncated;
 import static java.lang.Integer.compare;
+import static java.util.Calendar.SECOND;
 import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.toList;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -106,7 +108,7 @@ public final class DataTableComponentITTest {
 
         usersPage.getRows().get(0).actionDelete().cancel();
 
-        assertEquals(initialCount, usersPage.getTotalCount());
+        assertThat(usersPage.getTotalCount(), is(equalTo(initialCount)));
     }
 
     /**
@@ -135,10 +137,10 @@ public final class DataTableComponentITTest {
         row.actionDelete().confirm();
 
         // After
-        assertEquals(initialDbCount - 1, userDao.count());
-        assertEquals(initialDatatableCount - 1, usersPage.getTotalCount());
+        assertThat(userDao.count(), is(equalTo(initialDbCount - 1)));
+        assertThat(usersPage.getTotalCount(), is(equalTo(initialDatatableCount - 1)));
         for (UserRow r : usersPage)
-            assertNotEquals(key, r.getLogin());
+            assertThat(r.getLogin(), is(not(equalTo(key))));
     }
 
     /**
@@ -154,11 +156,11 @@ public final class DataTableComponentITTest {
     public void test_action_rendered() {
         UsersPage usersPage = AbstractPage.get().gotoUsersPage();
 
-        assertTrue(usersPage.isCreateButtonVisible());
+        assertThat(usersPage.isCreateButtonVisible(), is(true));
         for (UserRow row : usersPage.getRows()) {
-            assertTrue(row.isActionButtonShowVisible());
-            assertTrue(row.isActionButtonUpdateVisible());
-            assertTrue(row.isActionButtonDeleteVisible());
+            assertThat(row.isActionButtonShowVisible(), is(true));
+            assertThat(row.isActionButtonUpdateVisible(), is(true));
+            assertThat(row.isActionButtonDeleteVisible(), is(true));
         }
     }
 
@@ -184,20 +186,24 @@ public final class DataTableComponentITTest {
             User user = users.get(i);
             UserShowPopup popup = row.actionShow();
 
-            assertTrue(popup.getLogin().isReadonly());
-            assertEquals(user.getLogin(), popup.getLogin().getValue());
+            assertThat(popup.getLogin().isReadonly(), is(true));
+            assertThat(popup.getLogin().getValue(), is(equalTo(user.getLogin())));
 
-            assertTrue(popup.getEmail().isReadonly());
-            assertEquals(user.getEmail(), popup.getEmail().getValue());
+            assertThat(popup.getEmail().isReadonly(), is(true));
+            assertThat(popup.getEmail().getValue(), is(equalTo(user.getEmail())));
 
-            assertTrue(popup.isActive().isReadonly());
-            assertEquals(user.isActive(), popup.isActive().getValue());
+            assertThat(popup.isActive().isReadonly(), is(true));
+            assertThat(popup.isActive().getValue(), is(equalTo(user.isActive())));
 
-            assertTrue(popup.getLastConnection().isReadonly());
-            assertTrue(equalsSecond(user.getLastConnection(), popup.getLastConnection().getValue()));
+            assertThat(popup.getLastConnection().isReadonly(), is(true));
+            if (user.getLastConnection() == null)
+                assertThat(popup.getLastConnection().getValue(), is(nullValue()));
+            else
+                assertThat(popup.getLastConnection().getValue(), is(equalToTruncated(user.getLastConnection(), SECOND)));
 
-            assertTrue(popup.getProfiles().isReadonly());
-            assertEquals(user.getProfiles().stream().map(Profile::getTitle).collect(toList()), popup.getProfiles().getValue());
+            assertThat(popup.getProfiles().isReadonly(), is(true));
+            assertThat(popup.getProfiles().getValue(),
+                    is(equalTo(user.getProfiles().stream().map(Profile::getTitle).collect(toList()))));
 
             popup.close();
 
@@ -223,7 +229,7 @@ public final class DataTableComponentITTest {
 
         UserRow row = page.getRows().get(0);
         final String login = row.getLogin();
-        assertNotEquals(newEmail, row.getEmail());
+        assertThat(row.getEmail(), is(not(equalTo(newEmail))));
 
         // Action
         UserUpdatePopup updatePopup = row.actionUpdate();
@@ -232,9 +238,9 @@ public final class DataTableComponentITTest {
 
         // Before
         page.filterLogin(login); // because updated value is placed at the end
-        assertEquals(1, page.getTotalCount());
-        assertEquals(newEmail, page.getRows().get(0).getEmail());
-        assertEquals(newEmail, userDao.findOne(login).getEmail());
+        assertThat(page.getTotalCount(), is(equalTo(1)));
+        assertThat(page.getRows().get(0).getEmail(), is(equalTo(newEmail)));
+        assertThat(userDao.findOne(login).getEmail(), is(equalTo(newEmail)));
     }
 
     /**
@@ -260,17 +266,17 @@ public final class DataTableComponentITTest {
         // After
         // - check row
         UserRow rowAfter = page.getRows().get(idx);
-        assertEquals(login, rowAfter.getLogin());
-        assertEquals(email, rowAfter.getEmail());
-        assertEquals(active, rowAfter.isActive());
-        assertTrue(equalsSecond(lastConnection, rowAfter.getLastConnection()));
+        assertThat(rowAfter.getLogin(), is(equalTo(login)));
+        assertThat(rowAfter.getEmail(), is(equalTo(email)));
+        assertThat(rowAfter.isActive(), is(equalTo(active)));
+        assertThat(rowAfter.getLastConnection(), is(equalToTruncated(lastConnection, SECOND)));
         // - check database value
         User userAfter = userDao.findAll().get(idx);
-        assertEquals(login, userAfter.getLogin());
-        assertEquals(email, userAfter.getEmail());
-        assertEquals(active, userAfter.isActive());
-        assertEquals(lastConnection, userAfter.getLastConnection());
-        assertEquals(profiles, userAfter.getProfiles());
+        assertThat(userAfter.getLogin(), is(equalTo(login)));
+        assertThat(userAfter.getEmail(), is(equalTo(email)));
+        assertThat(userAfter.isActive(), is(equalTo(active)));
+        assertThat(userAfter.getLastConnection(), is(equalTo(lastConnection)));
+        assertThat(userAfter.getProfiles(), is(equalTo(profiles)));
     }
 
     /**
@@ -294,20 +300,24 @@ public final class DataTableComponentITTest {
             User user = users.get(i);
             UserUpdatePopup popup = row.actionUpdate();
 
-            assertTrue(popup.getLogin().isReadonly());
-            assertEquals(user.getLogin(), popup.getLogin().getValue());
+            assertThat(popup.getLogin().isReadonly(), is(true));
+            assertThat(popup.getLogin().getValue(), is(equalTo(user.getLogin())));
 
-            assertFalse(popup.getEmail().isReadonly());
-            assertEquals(user.getEmail(), popup.getEmail().getValue());
+            assertThat(popup.getEmail().isReadonly(), is(false));
+            assertThat(popup.getEmail().getValue(), is(equalTo(user.getEmail())));
 
-            assertFalse(popup.isActive().isReadonly());
-            assertEquals(user.isActive(), popup.isActive().getValue());
+            assertThat(popup.isActive().isReadonly(), is(false));
+            assertThat(popup.isActive().getValue(), is(equalTo(user.isActive())));
 
-            assertTrue(popup.getLastConnection().isReadonly());
-            assertTrue(equalsSecond(user.getLastConnection(), popup.getLastConnection().getValue()));
+            assertThat(popup.getLastConnection().isReadonly(), is(true));
+            if (user.getLastConnection() == null)
+                assertThat(popup.getLastConnection().getValue(), is(nullValue()));
+            else
+                assertThat(popup.getLastConnection().getValue(), is(equalToTruncated(user.getLastConnection(), SECOND)));
 
-            assertFalse(popup.getProfiles().isReadonly());
-            assertEquals(user.getProfiles().stream().map(Profile::getTitle).collect(toList()), popup.getProfiles().getValue());
+            assertThat(popup.getProfiles().isReadonly(), is(false));
+            assertThat(popup.getProfiles().getValue(),
+                    is(equalTo(user.getProfiles().stream().map(Profile::getTitle).collect(toList()))));
 
             popup.close();
 
@@ -326,7 +336,7 @@ public final class DataTableComponentITTest {
     public void test_column_rendered() {
         UsersPage page = AbstractPage.get().gotoUsersPage();
         for (Column column : Column.values())
-            assertTrue(page.columnVisibile(column));
+            assertThat(page.columnVisibile(column), is(true));
     }
 
     /**
@@ -338,7 +348,7 @@ public final class DataTableComponentITTest {
         UsersPage page = AbstractPage.get().gotoUsersPage();
         for (Column column : UsersPage.Column.values()) {
             page.hideOrShowColumn(column);
-            assertFalse(page.columnVisibile(column));
+            assertThat(page.columnVisibile(column), is(false));
         }
     }
 
@@ -358,10 +368,13 @@ public final class DataTableComponentITTest {
         for (UserRow row : page) {
             User user = users.get(i);
 
-            assertEquals(user.getLogin(), row.getLogin());
-            assertEquals(user.getEmail(), row.getEmail());
-            assertEquals(user.isActive(), row.isActive());
-            assertTrue(equalsSecond(user.getLastConnection(), row.getLastConnection()));
+            assertThat(row.getLogin(), is(equalTo(user.getLogin())));
+            assertThat(row.getEmail(), is(equalTo(user.getEmail())));
+            assertThat(row.isActive(), is(equalTo(user.isActive())));
+            if (user.getLastConnection() == null)
+                assertThat(row.getLastConnection(), is(nullValue()));
+            else
+                assertThat(row.getLastConnection(), is(equalToTruncated(user.getLastConnection(), SECOND)));
 
             i++;
         }
@@ -383,7 +396,7 @@ public final class DataTableComponentITTest {
             String[] header = Stream.of(Column.values()).sorted((a, b) -> compare(a.getIndex(), b.getIndex()))
                     .map(Column::getTitle).limit(Column.values().length - 1).toArray(String[]::new);
             assertArrayEquals(header, reader.readNext()); // header
-            assertEquals(userDao.count(), reader.readAll().size()); // content
+            assertThat(reader.readAll(), hasSize((int) userDao.count())); // content
         }
     }
 
@@ -424,16 +437,16 @@ public final class DataTableComponentITTest {
     public void test_filter_custom() {
         UsersPage usersPage = AbstractPage.get().gotoUsersPage();
 
-        assertEquals(3, usersPage.getTotalCount());
+        assertThat(usersPage.getTotalCount(), is(equalTo(3)));
 
         usersPage.filterByActive(ActiveFilter.Yes);
-        assertEquals(3, usersPage.getTotalCount());
+        assertThat(usersPage.getTotalCount(), is(equalTo(3)));
 
         usersPage.filterByActive(ActiveFilter.No);
-        assertEquals(0, usersPage.getTotalCount());
+        assertThat(usersPage.getTotalCount(), is(equalTo(0)));
 
         usersPage.filterByActive(ActiveFilter.All);
-        assertEquals(3, usersPage.getTotalCount());
+        assertThat(usersPage.getTotalCount(), is(equalTo(3)));
     }
 
     /** @see UsersPage#filterLogin(String) */
@@ -450,11 +463,11 @@ public final class DataTableComponentITTest {
 
         // Test
         // - number of results
-        assertEquals(logins.size(), page.getTotalCount());
+        assertThat(page.getTotalCount(), is(equalTo(logins.size())));
         // - check order
         int i = 0;
         for (UserRow row : page) {
-            assertEquals(logins.get(i), row.getLogin());
+            assertThat(row.getLogin(), is(equalTo(logins.get(i))));
             i++;
         }
     }
@@ -468,9 +481,9 @@ public final class DataTableComponentITTest {
     public void test_getTotalCount() {
         AbstractPage nav = AbstractPage.get();
 
-        assertEquals(userDao.count(), nav.gotoUsersPage().getTotalCount());
-        assertEquals(profileDao.count(), nav.gotoProfilesPage().getTotalCount());
-        assertEquals(rightDao.count(), nav.gotoRightsPage().getTotalCount());
+        assertThat(nav.gotoUsersPage().getTotalCount(), is(equalTo((int) userDao.count())));
+        assertThat(nav.gotoProfilesPage().getTotalCount(), is(equalTo((int) profileDao.count())));
+        assertThat(nav.gotoRightsPage().getTotalCount(), is(equalTo((int) rightDao.count())));
     }
 
     /** @see UsersPage#sortByEmail() */
@@ -483,7 +496,7 @@ public final class DataTableComponentITTest {
         List<UserRow> rows = usersPage.getRows();
 
         for (int i = 0; i < 2; i++)
-            assertEquals(emails.get(i), rows.get(i).getEmail());
+            assertThat(rows.get(i).getEmail(), is(equalTo(emails.get(i))));
     }
 
     /** @see UsersPage#sortByLogin() */
@@ -496,7 +509,7 @@ public final class DataTableComponentITTest {
         List<UserRow> rows = usersPage.getRows();
 
         for (int i = 0; i < 2; i++)
-            assertEquals(logins.get(i), rows.get(i).getLogin());
+            assertThat(rows.get(i).getLogin(), is(equalTo(logins.get(i))));
     }
 
 }

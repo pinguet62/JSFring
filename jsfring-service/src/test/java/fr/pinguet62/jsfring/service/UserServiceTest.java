@@ -3,9 +3,11 @@ package fr.pinguet62.jsfring.service;
 import static fr.pinguet62.jsfring.model.sql.User.PASSWORD_REGEX;
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
 import static java.util.stream.Stream.generate;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNull;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -52,7 +54,7 @@ public class UserServiceTest {
         service.forgottenPassword(user.getEmail());
 
         User user2 = service.get(login);
-        assertNotEquals(initialPassword, user2.getPassword());
+        assertThat(user2.getPassword(), is(not(equalTo(initialPassword))));
     }
 
     /**
@@ -80,7 +82,7 @@ public class UserServiceTest {
         }
 
         // After
-        assertEquals(initialPassword, service.get(login).getPassword());
+        assertThat(service.get(login).getPassword(), is(equalTo(initialPassword)));
     }
 
     /**
@@ -110,10 +112,10 @@ public class UserServiceTest {
     public void test_updatePassword() {
         String login = "super admin";
         String newPassword = new PasswordGenerator().get();
-        assertNotEquals(newPassword, service.get(login).getPassword());
+        assertThat(service.get(login).getPassword(), is(not(equalTo(newPassword))));
 
         service.updatePassword(login, newPassword);
-        assertEquals(newPassword, service.get(login).getPassword());
+        assertThat(service.get(login).getPassword(), is(equalTo(newPassword)));
     }
 
     /**
@@ -126,7 +128,7 @@ public class UserServiceTest {
     public void test_updatePassword_invalidNewPassword() {
         String login = "super admin";
         String newPassword = "bad";
-        assertNotEquals(newPassword, service.get(login).getPassword());
+        assertThat(service.get(login).getPassword(), is(not(equalTo(newPassword))));
 
         service.updatePassword(login, newPassword);
     }
@@ -139,7 +141,7 @@ public class UserServiceTest {
     @Test(expected = IllegalArgumentException.class)
     public void test_updatePassword_unknownLogin() {
         String login = "unknown";
-        assertNull(service.get(login));
+        assertThat(service.get(login), is(nullValue()));
 
         service.updatePassword(login, new PasswordGenerator().get());
     }

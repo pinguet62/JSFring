@@ -1,7 +1,8 @@
 package fr.pinguet62.jsfring.gui;
 
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,11 +42,11 @@ public final class ProfilesPageITTest {
     public void test_dataTable_action_rendered() {
         ProfilesPage profilesPage = AbstractPage.get().gotoProfilesPage();
 
-        assertTrue(profilesPage.isCreateButtonVisible());
+        assertThat(profilesPage.isCreateButtonVisible(), is(true));
         for (ProfileRow row : profilesPage.getRows()) {
-            assertTrue(row.isActionButtonShowVisible());
-            assertTrue(row.isActionButtonUpdateVisible());
-            assertTrue(row.isActionButtonDeleteVisible());
+            assertThat(row.isActionButtonShowVisible(), is(true));
+            assertThat(row.isActionButtonUpdateVisible(), is(true));
+            assertThat(row.isActionButtonDeleteVisible(), is(true));
         }
     }
 

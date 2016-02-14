@@ -1,7 +1,9 @@
 package fr.pinguet62.jsfring.util.querydsl;
 
 import static java.util.Arrays.asList;
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
 import java.util.HashMap;
@@ -34,7 +36,7 @@ public final class FilterConverterTest {
         Predicate predicate = filter.apply(params);
 
         Predicate expected = new BooleanBuilder().and(user.password.contains("ssw").and(user.email.contains("profile")));
-        assertEquals(expected, predicate);
+        assertThat(expected, is(equalTo(predicate)));
     }
 
     /**
@@ -53,7 +55,7 @@ public final class FilterConverterTest {
 
             Predicate actual = profile.id.stringValue().contains(value.toString());
             // toString() because Predicate::equals() check class-type
-            assertEquals(actual.toString(), expected.toString());
+            assertThat(actual.toString(), is(equalTo(expected.toString())));
         }
     }
 
@@ -72,7 +74,7 @@ public final class FilterConverterTest {
         Predicate predicate = filter.apply(params);
 
         Predicate noFilter = new BooleanBuilder();
-        assertEquals(noFilter, predicate);
+        assertThat(noFilter, is(equalTo(predicate)));
     }
 
     /**
@@ -101,7 +103,7 @@ public final class FilterConverterTest {
 
             Predicate actual = right.code.stringValue().contains(value);
             // toString() because Predicate::equals() check class-type
-            assertEquals(expected.toString(), actual.toString());
+            assertThat(expected.toString(), is(equalTo(actual.toString())));
         }
     }
 

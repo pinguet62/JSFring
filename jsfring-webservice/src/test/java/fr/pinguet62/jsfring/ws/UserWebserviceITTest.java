@@ -5,7 +5,10 @@ import static fr.pinguet62.jsfring.ws.Config.BASE_URL;
 import static fr.pinguet62.jsfring.ws.UserWebservice.PATH;
 import static java.util.Calendar.SECOND;
 import static org.apache.commons.lang3.time.DateUtils.truncate;
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
@@ -54,9 +57,9 @@ public class UserWebserviceITTest {
         expected.setEmail(pojo.getEmail());
         expected.setLastConnection(pojo.getLastConnection());
 
-        assertEquals(expected.getLogin(), actual.getLogin());
-        assertEquals(expected.getEmail(), actual.getEmail());
-        assertEquals(truncate(expected.getLastConnection(), SECOND), truncate(actual.getLastConnection(), SECOND));
+        assertThat(actual.getLogin(), is(equalTo(expected.getLogin())));
+        assertThat(actual.getEmail(), is(equalTo(expected.getEmail())));
+        assertThat(truncate(actual.getLastConnection(), SECOND), is(equalTo(truncate(expected.getLastConnection(), SECOND))));
     }
 
     /** @see UserWebservice#list() */
@@ -67,7 +70,7 @@ public class UserWebserviceITTest {
 
         List<User> expected = userDao.findAll();
 
-        assertEquals(expected.size(), actual.size());
+        assertThat(actual, hasSize(expected.size()));
     }
 
 }

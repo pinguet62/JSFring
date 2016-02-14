@@ -1,8 +1,8 @@
 package fr.pinguet62.jsfring.gui;
 
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,11 +42,11 @@ public final class RightsPageITTest {
     public void test_dataTable_action_rendered() {
         RightsPage rightsPage = AbstractPage.get().gotoRightsPage();
 
-        assertFalse(rightsPage.isCreateButtonVisible());
+        assertThat(rightsPage.isCreateButtonVisible(), is(false));
         for (RightRow row : rightsPage.getRows()) {
-            assertTrue(row.isActionButtonShowVisible());
-            assertTrue(row.isActionButtonUpdateVisible());
-            assertFalse(row.isActionButtonDeleteVisible());
+            assertThat(row.isActionButtonShowVisible(), is(true));
+            assertThat(row.isActionButtonUpdateVisible(), is(true));
+            assertThat(row.isActionButtonDeleteVisible(), is(false));
         }
     }
 

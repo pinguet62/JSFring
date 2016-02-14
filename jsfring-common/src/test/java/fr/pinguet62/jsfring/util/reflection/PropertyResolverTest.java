@@ -1,7 +1,9 @@
 package fr.pinguet62.jsfring.util.reflection;
 
 import static java.util.Arrays.asList;
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
@@ -48,28 +50,28 @@ public final class PropertyResolverTest {
         foo.bar = new Bar();
         foo.bar.attr = value;
 
-        assertEquals(foo.bar.attr, new PropertyResolver(foo).apply("bar.attr"));
+        assertThat(new PropertyResolver(foo).apply("bar.attr"), is(equalTo(foo.bar.attr)));
     }
 
-    /** Meta-model for Querydsl. */
+    /** Meta-model for QueryDsl. */
     @Test
     public void test_appy_QModel() {
         {
             QRight right = QRight.right_;
-            assertEquals(right.code, new PropertyResolver(right).apply("code"));
-            assertEquals(right.title, new PropertyResolver(right).apply("title"));
+            assertThat(new PropertyResolver(right).apply("code"), is(equalTo(right.code)));
+            assertThat(new PropertyResolver(right).apply("title"), is(equalTo(right.title)));
         }
         {
             QProfile profile = QProfile.profile;
-            assertEquals(profile.id, new PropertyResolver(profile).apply("id"));
-            assertEquals(profile.title, new PropertyResolver(profile).apply("title"));
+            assertThat(new PropertyResolver(profile).apply("id"), is(equalTo(profile.id)));
+            assertThat(new PropertyResolver(profile).apply("title"), is(equalTo(profile.title)));
         }
         {
             QUser user = QUser.user;
-            assertEquals(user.login, new PropertyResolver(user).apply(user.login.toString()));
-            assertEquals(user.password, new PropertyResolver(user).apply(user.password.toString()));
-            assertEquals(user.email, new PropertyResolver(user).apply(user.email.toString()));
-            assertEquals(user.lastConnection, new PropertyResolver(user).apply(user.lastConnection.toString()));
+            assertThat(new PropertyResolver(user).apply(user.login.toString()), is(equalTo(user.login)));
+            assertThat(new PropertyResolver(user).apply(user.password.toString()), is(equalTo(user.password)));
+            assertThat(new PropertyResolver(user).apply(user.email.toString()), is(equalTo(user.email)));
+            assertThat(new PropertyResolver(user).apply(user.lastConnection.toString()), is(equalTo(user.lastConnection)));
         }
     }
 

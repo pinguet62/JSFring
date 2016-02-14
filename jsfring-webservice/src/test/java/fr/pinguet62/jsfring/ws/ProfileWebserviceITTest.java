@@ -3,7 +3,10 @@ package fr.pinguet62.jsfring.ws;
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
 import static fr.pinguet62.jsfring.ws.Config.BASE_URL;
 import static fr.pinguet62.jsfring.ws.ProfileWebservice.PATH;
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
@@ -51,8 +54,8 @@ public class ProfileWebserviceITTest {
         expected.setId(pojo.getId());
         expected.setTitle(pojo.getTitle());
 
-        assertEquals(expected.getId(), actual.getId());
-        assertEquals(expected.getTitle(), actual.getTitle());
+        assertThat(actual.getId(), is(equalTo(expected.getId())));
+        assertThat(actual.getTitle(), is(equalTo(expected.getTitle())));
     }
 
     /** @see ProfileWebservice#list() */
@@ -63,7 +66,7 @@ public class ProfileWebserviceITTest {
 
         List<Profile> expected = profileDao.findAll();
 
-        assertEquals(expected.size(), actual.size());
+        assertThat(actual, hasSize(expected.size()));
     }
 
 }

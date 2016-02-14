@@ -1,9 +1,10 @@
 package fr.pinguet62.jsfring.service;
 
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
 import java.util.Date;
@@ -89,9 +90,9 @@ public class ServiceControlsTest {
      */
     // TODO fix local: @Test
     public void test_readonly_noModification() {
-        final long initialCount = profileService.getAll().size();
+        final int initialCount = profileService.getAll().size();
         testService.modificationIntoReadonlyService();
-        assertEquals(initialCount, profileService.getAll().size());
+        assertThat(profileService.getAll(), hasSize(initialCount));
     }
 
     /**
@@ -103,12 +104,12 @@ public class ServiceControlsTest {
      */
     // TODO fix local: @Test
     public void test_rollbackWhenError() {
-        final long initialCount = profileService.getAll().size();
+        final int initialCount = profileService.getAll().size();
         try {
             testService.rollbackedMethod();
             fail();
         } catch (RollbackMeIMFamousException e) {
-            assertEquals(initialCount, profileService.getAll().size());
+            assertThat(profileService.getAll(), hasSize(initialCount));
         }
     }
 
@@ -164,7 +165,7 @@ class TestService {
         try {
             LOGGER.debug("Before action: joining...");
             actionBefore.join();
-            assertFalse(actionBefore.isAlive());
+            assertThat(actionBefore.isAlive(), is(false));
         } catch (InterruptedException e) {
             throw new TestRuntimeException(e);
         }
@@ -181,7 +182,7 @@ class TestService {
             LOGGER.debug("After action: joining... ({}ms max)", maxWait);
             actionAfter.join(maxWait);
             Date endJoin = new Date();
-            assertTrue(endJoin.getTime() - startJoin.getTime() > maxWait);
+            assertThat(endJoin.getTime() - startJoin.getTime() > maxWait, is(true));
         } catch (InterruptedException e) {
             throw new TestRuntimeException(e);
         }

@@ -1,8 +1,11 @@
 package fr.pinguet62.jsfring.gui;
 
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
+import static org.junit.Assert.assertThat;
 
 import javax.inject.Inject;
 
@@ -45,21 +48,21 @@ public class ForgottenPasswordPageITTest {
         forgottenPasswordPage.getEmail().setValue(email);
         forgottenPasswordPage.submit();
 
-        assertNotNull(forgottenPasswordPage.getMessageInfo());
+        assertThat(forgottenPasswordPage.getMessageInfo(), is(not(nullValue())));
     }
 
     /** Unknown email: ERROR message. */
     @Test
     public void test_forgottenPassword_unknown() {
         String email = "unknown";
-        assertTrue(userDao.find(new JPAQuery().from(QUser.user).where(QUser.user.email.eq(email))).isEmpty());
+        assertThat(userDao.find(new JPAQuery().from(QUser.user).where(QUser.user.email.eq(email))), is(empty()));
 
         ForgottenPasswordPage forgottenPasswordPage = AbstractPage.get().gotoLoginPage().gotoForgottenPasswordPage();
 
         forgottenPasswordPage.getEmail().setValue(email);
         forgottenPasswordPage.submit();
 
-        assertNotNull(forgottenPasswordPage.getMessageError());
+        assertThat(forgottenPasswordPage.getMessageError(), is(not(nullValue())));
     }
 
 }

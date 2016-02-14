@@ -26,3 +26,17 @@ spring:
         #port: external config
         test-connection: true
         #username: external config
+security:
+    user:
+        name: user
+        password: pwd
+    oauth2:
+        client:
+            client-id: client
+            client-secret: secret
+            authorized-grant-types: authorization_code,refresh_token,password
+            scope: openid
+        # resource:
+            # id
+            # id
+            # id
