@@ -11,7 +11,7 @@ env:
 before_install:
     # VersionEye
     # Disabled: - mvn versioneye:update
-	
+    
     # Codecov.io: install
     - pip install --user codecov
 
@@ -24,10 +24,10 @@ script:
 after_success:
     # JaCoCo: workaround because goal 'jacoco:report@post-integration-test' not working
     - mvn verify -DskipTests -B
-	
+    
     # Coveralls.io: publish
     - mvn coveralls:report
-	
+    
     # Codecov.io: install
     - codecov
 
