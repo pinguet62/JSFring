@@ -4,33 +4,36 @@ language: java
 jdk: oraclejdk8
 
 env:
-  global:
-    # Memory limit: 2Go
-    - export JAVA_OPTS=-Xmx1g
+    global:
+        # Memory limit: 2Go
+        - export JAVA_OPTS=-Xmx1g
 
 before_install:
-  # VersionEye
-  - mvn versioneye:update
-  # Codecov.io: install
-  - pip install --user codecov
+    # VersionEye
+    # Disabled: - mvn versioneye:update
+	
+    # Codecov.io: install
+    - pip install --user codecov
 
 # Default: 'mvn test -B'
 # Override: add integration-test Maven phase
 script:
-  # Spring-Boot: external config: 
-  # Fix: export variable not working in runtime -> use SPRING_APPLICATION_JSON variable
-  - mvn -B -Dspring.application.json="$SPRING_APPLICATION_JSON" verify
+    # Spring-Boot: external config: use "spring.application.json" command line argument
+    - mvn -B -Dspring.application.json="$SPRING_APPLICATION_JSON" verify
 
 after_success:
-  # JaCoCo: workaround because goal 'jacoco:report@post-integration-test' not working
-  - mvn verify -DskipTests -B
-  # Coveralls.io: publish
-  - mvn coveralls:report
-  # Codecov.io: install
-  - codecov
+    # JaCoCo: workaround because goal 'jacoco:report@post-integration-test' not working
+    - mvn verify -DskipTests -B
+	
+    # Coveralls.io: publish
+    - mvn coveralls:report
+	
+    # Codecov.io: install
+    - codecov
 
+# Information about failure
 after_failure:
-  # show memory usage again
-  - sudo free -m -t
-  # show actions of the OOM killer
-  - sudo dmesg
+    # show memory usage again
+    - sudo free -m -t
+    # show actions of the OOM killer
+    - sudo dmesg
