@@ -87,7 +87,7 @@ public class AbstractLazyDataModelTest {
         Map<String, Object> filters = new HashMap<>();
         filters.put(COLUMN, input);
         model.load(FIRST_PAGE, NO_LIMITE, NO_SORT, DEFAULT_ORDER, filters);
-        assertThat(model.getRowCount(), is(equalTo(nb)));
+        assertThat(model.getRowCount(), is(equalTo((int) nb)));
     }
 
     /**
