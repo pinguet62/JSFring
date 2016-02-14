@@ -151,9 +151,9 @@
 				<version>2.19.1</version>
 				<configuration>
 					<argLine>${surefireArgLine}</argLine>
-					<includes>
+					<excludes>
 						<exclude>**/*ITTest.java</exclude>
-					</includes>
+					</excludes>
 				</configuration>
 			</plugin>
 
