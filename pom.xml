@@ -264,6 +264,7 @@
 									<directory>target</directory>
 									<excludes>
 										<!-- Reports -->
+										<exclude>site/**</exclude>
 										<exclude>jacoco.exec</exclude>
 										<exclude>jacoco-it.exec</exclude>
 										<!-- Executables -->

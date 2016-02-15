@@ -28,7 +28,7 @@ after_success:
     # Coveralls.io: publish
     - mvn coveralls:report
     
-    # Codecov.io: install
+    # Codecov.io: publish
     - codecov
 
 # Information about failure
