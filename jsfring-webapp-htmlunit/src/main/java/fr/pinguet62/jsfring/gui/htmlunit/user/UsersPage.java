@@ -2,6 +2,8 @@ package fr.pinguet62.jsfring.gui.htmlunit.user;
 
 import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.Delay.MEDIUM;
 import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.Delay.SHORT;
+import static fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column.ACTIVE;
+import static fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column.LOGIN;
 
 import java.io.IOException;
 import java.util.List;
@@ -71,7 +73,7 @@ public final class UsersPage extends AbstractDatatablePage<UserRow> {
 
     public void filterByActive(ActiveFilter value) {
         // TODO common abstract parent method
-        HtmlDivision div = (HtmlDivision) getDatatableTableHeader(Column.ACTIVE.getTitle())
+        HtmlDivision div = (HtmlDivision) getDatatableTableHeader(ACTIVE.getTitle())
                 .getByXPath("./div[contains(@class, 'ui-column-customfilter')]/div[contains(@class, 'ui-selectonebutton')]")
                 .get(0);
         SelectOneButton<ActiveFilter> selectOneButton = new SelectOneButton<ActiveFilter>(div, ActiveFilter::valueOf);
@@ -83,7 +85,7 @@ public final class UsersPage extends AbstractDatatablePage<UserRow> {
      *            {@code null} to reset filter.
      */
     public void filterLogin(String value) {
-        HtmlInput input = (HtmlInput) getDatatableTableHeader(Column.LOGIN.getTitle())
+        HtmlInput input = (HtmlInput) getDatatableTableHeader(LOGIN.getTitle())
                 .getByXPath("./input[contains(@class, 'ui-column-filter')]").get(0);
         try {
             input.type(value);

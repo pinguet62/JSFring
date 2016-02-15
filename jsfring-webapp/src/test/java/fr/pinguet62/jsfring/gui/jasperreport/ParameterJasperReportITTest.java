@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.gui.jasperreport;
 
+import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.get;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertThat;
 
@@ -19,7 +20,6 @@ import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.jasperreport.ParametersJasperReportPage;
 import fr.pinguet62.jsfring.gui.jasperreport.sample.ParametersJasperReportBean;
 
@@ -33,7 +33,7 @@ public class ParameterJasperReportITTest {
 
     @Before
     public void before() {
-        page = AbstractPage.get().gotoParametersJasperReportPage();
+        page = get().gotoParametersJasperReportPage();
     }
 
     /** @see Date */

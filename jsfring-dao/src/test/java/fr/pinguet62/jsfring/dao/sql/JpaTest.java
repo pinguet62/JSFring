@@ -1,15 +1,14 @@
 package fr.pinguet62.jsfring.dao.sql;
 
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
+import static java.util.UUID.randomUUID;
 import static java.util.stream.Collectors.toList;
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
-import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.persistence.EntityNotFoundException;
@@ -95,7 +94,7 @@ public class JpaTest {
         int initialCount = profile.getRights().size();
 
         // Create new & Not associated
-        String code = UUID.randomUUID().toString().substring(0, 4);
+        String code = randomUUID().toString().substring(0, 4);
         assertThat(rightDao.exists(code), is(false));
         Right newRight = new Right(code);
 

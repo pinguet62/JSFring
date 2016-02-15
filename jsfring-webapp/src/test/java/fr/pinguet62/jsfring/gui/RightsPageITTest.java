@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.gui;
 
+import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.get;
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -16,7 +17,6 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.AbstractRow;
 import fr.pinguet62.jsfring.gui.htmlunit.right.RightRow;
 import fr.pinguet62.jsfring.gui.htmlunit.right.RightsPage;
@@ -40,7 +40,7 @@ public final class RightsPageITTest {
      */
     @Test
     public void test_dataTable_action_rendered() {
-        RightsPage rightsPage = AbstractPage.get().gotoRightsPage();
+        RightsPage rightsPage = get().gotoRightsPage();
 
         assertThat(rightsPage.isCreateButtonVisible(), is(false));
         for (RightRow row : rightsPage.getRows()) {

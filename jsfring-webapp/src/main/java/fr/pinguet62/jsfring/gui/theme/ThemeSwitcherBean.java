@@ -1,5 +1,7 @@
 package fr.pinguet62.jsfring.gui.theme;
 
+import static fr.pinguet62.jsfring.gui.theme.Theme.values;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -26,7 +28,7 @@ public final class ThemeSwitcherBean implements Serializable {
 
     /** @return {@link Theme#values()} */
     public Theme[] getThemes() {
-        return Theme.values();
+        return values();
     }
 
     /**

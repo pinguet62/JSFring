@@ -1,14 +1,14 @@
 package fr.pinguet62.jsfring.gui;
 
+import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.get;
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
+import static java.util.UUID.randomUUID;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
-
-import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -46,7 +46,7 @@ public class LoginPageITTest {
     public void test_login() {
         User user = userDao.findAll().get(0);
 
-        LoginPage loginPage = AbstractPage.get().gotoLoginPage();
+        LoginPage loginPage = get().gotoLoginPage();
         AbstractPage afterLogin = loginPage.doLogin(user.getLogin(), user.getPassword());
 
         assertThat(afterLogin, is(instanceOf(IndexPage.class)));
@@ -62,10 +62,10 @@ public class LoginPageITTest {
     @Test
     public void test_login_invalidPassword() {
         User user = userDao.findAll().get(0);
-        String invalidPassword = UUID.randomUUID().toString();
+        String invalidPassword = randomUUID().toString();
         assertThat(user.getPassword(), is(not(equalTo(invalidPassword))));
 
-        LoginPage loginPage = AbstractPage.get().gotoLoginPage();
+        LoginPage loginPage = get().gotoLoginPage();
         AbstractPage afterLogin = loginPage.doLogin(user.getLogin(), invalidPassword);
 
         assertThat(afterLogin, is(instanceOf(LoginPage.class)));
@@ -81,10 +81,10 @@ public class LoginPageITTest {
      */
     @Test
     public void test_login_unknownLogin() {
-        String login = UUID.randomUUID().toString();
+        String login = randomUUID().toString();
         assertThat(userDao.findOne(login), is(nullValue()));
 
-        LoginPage loginPage = AbstractPage.get().gotoLoginPage();
+        LoginPage loginPage = get().gotoLoginPage();
         AbstractPage afterLogin = loginPage.doLogin(login, "a password");
 
         assertThat(afterLogin, is(instanceOf(LoginPage.class)));

@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.gui.jasperreport;
 
+import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.get;
 import static fr.pinguet62.jsfring.util.FileFormatMatcher.isCSV;
 import static fr.pinguet62.jsfring.util.FileFormatMatcher.isDOCX;
 import static fr.pinguet62.jsfring.util.FileFormatMatcher.isHTML;
@@ -20,11 +21,8 @@ import java.io.InputStream;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.jasperreport.AbstractJasperReportPage;
 import fr.pinguet62.jsfring.gui.htmlunit.jasperreport.UsersRightsJasperReportPage;
-import fr.pinguet62.jsfring.gui.jasperreport.AbstractJasperReportBean;
-import fr.pinguet62.jsfring.gui.jasperreport.ExportType;
 import fr.pinguet62.jsfring.gui.jasperreport.sample.UsersRightsJasperReportBean;
 
 /**
@@ -38,7 +36,7 @@ public final class ExportJasperReportITTest {
 
     @Before
     public void before() {
-        page = AbstractPage.get().gotoReportsUsersRightsPage();
+        page = get().gotoReportsUsersRightsPage();
     }
 
     /**

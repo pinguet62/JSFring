@@ -1,7 +1,9 @@
 package fr.pinguet62.jsfring.gui.component;
 
+import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.get;
 import static fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column.EMAIL;
 import static fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column.LOGIN;
+import static fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column.values;
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
 import static fr.pinguet62.jsfring.util.FileFormatMatcher.isCSV;
 import static fr.pinguet62.jsfring.util.FileFormatMatcher.isPDF;
@@ -102,7 +104,7 @@ public final class DataTableComponentITTest {
      */
     @Test
     public void test_action_delete_cancel() {
-        UsersPage usersPage = AbstractPage.get().gotoUsersPage();
+        UsersPage usersPage = get().gotoUsersPage();
 
         final int initialCount = usersPage.getTotalCount();
 
@@ -125,7 +127,7 @@ public final class DataTableComponentITTest {
      */
     @Test
     public void test_action_delete_confirm() {
-        UsersPage usersPage = AbstractPage.get().gotoUsersPage();
+        UsersPage usersPage = get().gotoUsersPage();
 
         // Before
         final long initialDbCount = userDao.count();
@@ -154,7 +156,7 @@ public final class DataTableComponentITTest {
      */
     @Test
     public void test_action_rendered() {
-        UsersPage usersPage = AbstractPage.get().gotoUsersPage();
+        UsersPage usersPage = get().gotoUsersPage();
 
         assertThat(usersPage.isCreateButtonVisible(), is(true));
         for (UserRow row : usersPage.getRows()) {
@@ -178,7 +180,7 @@ public final class DataTableComponentITTest {
     public void test_action_show() {
         List<User> users = userDao.findAll().stream().sorted(comparing(User::getLogin)).collect(toList());
 
-        UsersPage page = AbstractPage.get().gotoUsersPage();
+        UsersPage page = get().gotoUsersPage();
         page.sortBy(LOGIN);
 
         int i = 0;
@@ -223,7 +225,7 @@ public final class DataTableComponentITTest {
      */
     @Test
     public void test_action_update_submit_modification() {
-        final UsersPage page = AbstractPage.get().gotoUsersPage();
+        final UsersPage page = get().gotoUsersPage();
 
         final String newEmail = "new@value.ap";
 
@@ -250,7 +252,7 @@ public final class DataTableComponentITTest {
     @Test
     public void test_action_update_submit_noModificiation() {
         final int idx = 0;
-        final UsersPage page = AbstractPage.get().gotoUsersPage();
+        final UsersPage page = get().gotoUsersPage();
 
         // Before
         User userBefore = userDao.findAll().get(idx);
@@ -292,7 +294,7 @@ public final class DataTableComponentITTest {
     public void test_action_update_values() {
         List<User> users = userDao.findAll().stream().sorted(comparing(User::getLogin)).collect(toList());
 
-        UsersPage page = AbstractPage.get().gotoUsersPage();
+        UsersPage page = get().gotoUsersPage();
         page.sortBy(LOGIN);
 
         int i = 0;
@@ -334,8 +336,8 @@ public final class DataTableComponentITTest {
      */
     @Test
     public void test_column_rendered() {
-        UsersPage page = AbstractPage.get().gotoUsersPage();
-        for (Column column : Column.values())
+        UsersPage page = get().gotoUsersPage();
+        for (Column column : values())
             assertThat(page.columnVisibile(column), is(true));
     }
 
@@ -345,8 +347,8 @@ public final class DataTableComponentITTest {
      */
     // @Test
     public void test_columnToggler() {
-        UsersPage page = AbstractPage.get().gotoUsersPage();
-        for (Column column : UsersPage.Column.values()) {
+        UsersPage page = get().gotoUsersPage();
+        for (Column column : values()) {
             page.hideOrShowColumn(column);
             assertThat(page.columnVisibile(column), is(false));
         }
@@ -361,7 +363,7 @@ public final class DataTableComponentITTest {
     public void test_content() {
         List<User> users = userDao.findAll().stream().sorted(comparing(User::getLogin)).collect(toList());
 
-        UsersPage page = AbstractPage.get().gotoUsersPage();
+        UsersPage page = get().gotoUsersPage();
         page.sortBy(LOGIN);
 
         int i = 0;
@@ -387,14 +389,14 @@ public final class DataTableComponentITTest {
      */
     @Test
     public void test_export_csv() throws IOException {
-        UsersPage usersPage = AbstractPage.get().gotoUsersPage();
+        UsersPage usersPage = get().gotoUsersPage();
         InputStream is = usersPage.exportCSV();
         assertThat(is, isCSV());
 
         // Content
         try (CSVReader reader = new CSVReader(new InputStreamReader(is))) {
-            String[] header = Stream.of(Column.values()).sorted((a, b) -> compare(a.getIndex(), b.getIndex()))
-                    .map(Column::getTitle).limit(Column.values().length - 1).toArray(String[]::new);
+            String[] header = Stream.of(values()).sorted((a, b) -> compare(a.getIndex(), b.getIndex())).map(Column::getTitle)
+                    .limit(values().length - 1).toArray(String[]::new);
             assertArrayEquals(header, reader.readNext()); // header
             assertThat(reader.readAll(), hasSize((int) userDao.count())); // content
         }
@@ -403,7 +405,7 @@ public final class DataTableComponentITTest {
     /** @see AbstractDatatablePage#exportPDF() */
     @Test
     public void test_export_pdf() throws IOException {
-        UsersPage usersPage = AbstractPage.get().gotoUsersPage();
+        UsersPage usersPage = get().gotoUsersPage();
         InputStream is = usersPage.exportPDF();
         assertThat(is, isPDF());
     }
@@ -411,7 +413,7 @@ public final class DataTableComponentITTest {
     /** @see AbstractDatatablePage#exportXLS() */
     @Test
     public void test_export_xls() throws IOException {
-        UsersPage usersPage = AbstractPage.get().gotoUsersPage();
+        UsersPage usersPage = get().gotoUsersPage();
         InputStream is = usersPage.exportXLS();
         assertThat(is, isXLS());
     }
@@ -419,7 +421,7 @@ public final class DataTableComponentITTest {
     /** @see AbstractDatatablePage#exportXLSX() */
     @Test
     public void test_export_xlsx() throws IOException {
-        UsersPage usersPage = AbstractPage.get().gotoUsersPage();
+        UsersPage usersPage = get().gotoUsersPage();
         InputStream is = usersPage.exportXLSX();
         assertThat(is, isXLSX());
     }
@@ -427,7 +429,7 @@ public final class DataTableComponentITTest {
     /** @see AbstractDatatablePage#exportXML() */
     @Test
     public void test_export_xml() throws Exception {
-        UsersPage usersPage = AbstractPage.get().gotoUsersPage();
+        UsersPage usersPage = get().gotoUsersPage();
         InputStream is = usersPage.exportXML();
         assertThat(is, isXML());
     }
@@ -435,7 +437,7 @@ public final class DataTableComponentITTest {
     /** @see UsersPage#filterByActive(ActiveFilter) */
     @Test
     public void test_filter_custom() {
-        UsersPage usersPage = AbstractPage.get().gotoUsersPage();
+        UsersPage usersPage = get().gotoUsersPage();
 
         assertThat(usersPage.getTotalCount(), is(equalTo(3)));
 
@@ -458,7 +460,7 @@ public final class DataTableComponentITTest {
                 .sorted().collect(toList());
 
         // Action
-        UsersPage page = AbstractPage.get().gotoUsersPage();
+        UsersPage page = get().gotoUsersPage();
         page.filterLogin(value);
 
         // Test
@@ -479,7 +481,7 @@ public final class DataTableComponentITTest {
      */
     @Test
     public void test_getTotalCount() {
-        AbstractPage nav = AbstractPage.get();
+        AbstractPage nav = get();
 
         assertThat(nav.gotoUsersPage().getTotalCount(), is(equalTo((int) userDao.count())));
         assertThat(nav.gotoProfilesPage().getTotalCount(), is(equalTo((int) profileDao.count())));
@@ -491,7 +493,7 @@ public final class DataTableComponentITTest {
     public void test_sort_email() {
         List<String> emails = userDao.findAll().stream().map(User::getEmail).sorted().collect(toList());
 
-        UsersPage usersPage = AbstractPage.get().gotoUsersPage();
+        UsersPage usersPage = get().gotoUsersPage();
         usersPage.sortBy(EMAIL);
         List<UserRow> rows = usersPage.getRows();
 
@@ -504,7 +506,7 @@ public final class DataTableComponentITTest {
     public void test_sort_login() {
         List<String> logins = userDao.findAll().stream().map(User::getLogin).sorted().collect(toList());
 
-        UsersPage usersPage = AbstractPage.get().gotoUsersPage();
+        UsersPage usersPage = get().gotoUsersPage();
         usersPage.sortBy(LOGIN);
         List<UserRow> rows = usersPage.getRows();
 

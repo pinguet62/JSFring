@@ -1,5 +1,8 @@
 package fr.pinguet62.jsfring.model.sql;
 
+import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.TemporalType.TIMESTAMP;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
@@ -8,14 +11,12 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
@@ -53,7 +54,7 @@ public class User implements Serializable {
     @Column(name = "EMAIL", nullable = false, length = 255)
     private String email;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TIMESTAMP)
     @Column(name = "last_connection", nullable = true)
     private Date lastConnection;
 
@@ -70,7 +71,7 @@ public class User implements Serializable {
     @Column(name = "PASSWORD", nullable = false, length = 30)
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = EAGER)
     @JoinTable(name = "users_profiles", joinColumns = {
             @JoinColumn(name = "\"USER\"", nullable = false, updatable = false) }, inverseJoinColumns = {
                     @JoinColumn(name = "profile", nullable = false, updatable = false) })

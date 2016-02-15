@@ -1,5 +1,13 @@
 package fr.pinguet62.jsfring.gui.htmlunit;
 
+import static java.util.Calendar.DATE;
+import static java.util.Calendar.HOUR;
+import static java.util.Calendar.MINUTE;
+import static java.util.Calendar.MONTH;
+import static java.util.Calendar.SECOND;
+import static java.util.Calendar.YEAR;
+import static java.util.Calendar.getInstance;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -34,14 +42,14 @@ public final class DateUtils {
      * @return The {@link Date}.
      */
     public static Date getDatetime(int year, int month, int day, int hour, int minute, int second) {
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = getInstance();
         calendar.clear();
-        calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month - 1);
-        calendar.set(Calendar.DATE, day);
-        calendar.set(Calendar.HOUR, hour);
-        calendar.set(Calendar.MINUTE, minute);
-        calendar.set(Calendar.SECOND, second);
+        calendar.set(YEAR, year);
+        calendar.set(MONTH, month - 1);
+        calendar.set(DATE, day);
+        calendar.set(HOUR, hour);
+        calendar.set(MINUTE, minute);
+        calendar.set(SECOND, second);
         return calendar.getTime();
     }
 

@@ -2,6 +2,7 @@ package fr.pinguet62.jsfring.gui.component.breadcrumb;
 
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.joining;
+import static javax.faces.context.FacesContext.getCurrentInstance;
 
 import java.util.Deque;
 import java.util.HashMap;
@@ -59,7 +60,7 @@ public class BreadCrumbComponent extends BreadCrumb {
      * @return The current <code>outcome</code>.
      */
     private String getCurrentOutcome() {
-        FacesContext context = FacesContext.getCurrentInstance();
+        FacesContext context = getCurrentInstance();
         String viewId = context.getViewRoot().getViewId();
         Map<String, Set<NavigationCase>> navigationRules = ((ConfigurableNavigationHandler) context.getApplication()
                 .getNavigationHandler()).getNavigationCases();

@@ -1,5 +1,7 @@
 package fr.pinguet62.jsfring.util;
 
+import static javax.xml.parsers.DocumentBuilderFactory.newInstance;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -386,7 +388,7 @@ public final class FileFormatMatcher {
             @Override
             protected boolean matchesSafely(InputStream is) {
                 try {
-                    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                    DocumentBuilderFactory factory = newInstance();
                     DocumentBuilder builder = factory.newDocumentBuilder();
                     builder.parse(is);
                     return true;

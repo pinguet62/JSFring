@@ -1,6 +1,7 @@
 package fr.pinguet62.jsfring.service;
 
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
+import static java.util.UUID.randomUUID;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
@@ -8,7 +9,6 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
 import java.util.Date;
-import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -201,7 +201,7 @@ class TestService {
     }
 
     private Profile random() {
-        return new Profile(UUID.randomUUID().toString().substring(0, 10));
+        return new Profile(randomUUID().toString().substring(0, 10));
     }
 
     @Transactional

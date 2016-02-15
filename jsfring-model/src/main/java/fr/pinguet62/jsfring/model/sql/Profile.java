@@ -1,5 +1,7 @@
 package fr.pinguet62.jsfring.model.sql;
 
+import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
@@ -9,7 +11,6 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -30,8 +31,10 @@ public class Profile implements Serializable {
     @Column(name = "ID", unique = true, nullable = false)
     private Integer id;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "profiles_rights", joinColumns = { @JoinColumn(name = "profile", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "\"RIGHT\"", nullable = false, updatable = false) })
+    @ManyToMany(fetch = EAGER)
+    @JoinTable(name = "profiles_rights", joinColumns = {
+            @JoinColumn(name = "profile", nullable = false, updatable = false) }, inverseJoinColumns = {
+                    @JoinColumn(name = "\"RIGHT\"", nullable = false, updatable = false) })
     private Set<Right> rights = new HashSet<Right>(0);
 
     // Validation
@@ -40,8 +43,10 @@ public class Profile implements Serializable {
     @Column(name = "TITLE", nullable = false, length = 30)
     private String title;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "users_profiles", joinColumns = { @JoinColumn(name = "profile", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "\"USER\"", nullable = false, updatable = false) })
+    @ManyToMany(fetch = LAZY)
+    @JoinTable(name = "users_profiles", joinColumns = {
+            @JoinColumn(name = "profile", nullable = false, updatable = false) }, inverseJoinColumns = {
+                    @JoinColumn(name = "\"USER\"", nullable = false, updatable = false) })
     private Set<User> users = new HashSet<User>(0);
 
     public Profile() {

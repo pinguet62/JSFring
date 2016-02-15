@@ -1,13 +1,12 @@
 package fr.pinguet62.jsfring.dao.nosql;
 
+import static java.util.UUID.randomUUID;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
-
-import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -49,7 +48,7 @@ public class NoSQLRepositoryTest {
 
         Person entityWithSameId = new Person();
         entityWithSameId.setId(existing.getId());
-        entityWithSameId.setName(UUID.randomUUID().toString());
+        entityWithSameId.setName(randomUUID().toString());
         personDao.insert(entityWithSameId);
     }
 
@@ -59,7 +58,7 @@ public class NoSQLRepositoryTest {
         long initialCount = personDao.count();
 
         Person entity = new Person();
-        entity.setName(UUID.randomUUID().toString());
+        entity.setName(randomUUID().toString());
         personDao.insert(entity);
 
         long actualCount = personDao.count();

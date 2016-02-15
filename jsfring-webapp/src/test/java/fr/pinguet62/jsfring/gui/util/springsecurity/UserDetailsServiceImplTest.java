@@ -61,7 +61,7 @@ public class UserDetailsServiceImplTest {
 
         // Test: last connection date
         Date lastConnection = userService.get(login).getLastConnection();
-        assertThat(lastConnection, within(5, SECONDS, now()));
+        assertThat(lastConnection, within(30, SECONDS, now()));
     }
 
     /**

@@ -1,8 +1,9 @@
 package fr.pinguet62.jsfring.gui.htmlunit.field;
 
+import static java.util.stream.Collectors.toList;
+
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
@@ -63,7 +64,7 @@ public final class PickList extends ReadWriteField<HtmlDivision, List<String>> {
 
     @Override
     public List<String> getValue() {
-        return getTarget().stream().map(HtmlElement::asText).collect(Collectors.toList());
+        return getTarget().stream().map(HtmlElement::asText).collect(toList());
     }
 
     /** Warning: the item values must be unique. */

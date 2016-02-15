@@ -1,5 +1,7 @@
 package fr.pinguet62.jsfring.model.sql;
 
+import static javax.persistence.FetchType.LAZY;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
@@ -7,7 +9,6 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -29,8 +30,10 @@ public class Right implements Serializable {
     @Column(name = "CODE", unique = true, nullable = false, length = 30)
     private String code;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "profiles_rights", joinColumns = { @JoinColumn(name = "\"RIGHT\"", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "profile", nullable = false, updatable = false) })
+    @ManyToMany(fetch = LAZY)
+    @JoinTable(name = "profiles_rights", joinColumns = {
+            @JoinColumn(name = "\"RIGHT\"", nullable = false, updatable = false) }, inverseJoinColumns = {
+                    @JoinColumn(name = "profile", nullable = false, updatable = false) })
     private Set<Profile> profiles = new HashSet<Profile>(0);
 
     @Column(name = "TITLE", nullable = false, length = 50)

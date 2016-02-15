@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.gui;
 
+import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.get;
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -16,7 +17,6 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.AbstractRow;
 import fr.pinguet62.jsfring.gui.htmlunit.profile.ProfileRow;
 import fr.pinguet62.jsfring.gui.htmlunit.profile.ProfilesPage;
@@ -40,7 +40,7 @@ public final class ProfilesPageITTest {
      */
     @Test
     public void test_dataTable_action_rendered() {
-        ProfilesPage profilesPage = AbstractPage.get().gotoProfilesPage();
+        ProfilesPage profilesPage = get().gotoProfilesPage();
 
         assertThat(profilesPage.isCreateButtonVisible(), is(true));
         for (ProfileRow row : profilesPage.getRows()) {

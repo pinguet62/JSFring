@@ -5,7 +5,7 @@ import static fr.pinguet62.jsfring.gui.sample.FilterPathBean.EXPRESSION_STRING;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
-
+import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.*;
 import java.util.Arrays;
 import java.util.function.Function;
 
@@ -75,127 +75,130 @@ public class FilterPathPageITTest {
 
                 { fieldString, EqualsToOperator.class, new String[] { "" }, EXPRESSION_STRING.eq("") },
                 { fieldString, EqualsToOperator.class, new String[] { "foo" }, EXPRESSION_STRING.eq("foo") },
-/*
-                { fieldString, StartsWithOperator.class, new String[] { "" }, new BooleanBuilder() },
-                { fieldString, StartsWithOperator.class, new String[] { "foo" }, EXPRESSION_STRING.startsWith("foo") },
-
-                { fieldString, ContainsOperator.class, new String[] { "" }, new BooleanBuilder() },
-                { fieldString, ContainsOperator.class, new String[] { "foo" }, EXPRESSION_STRING.contains("foo") },
-
-                { fieldString, EndsWithOperator.class, new String[] { "" }, new BooleanBuilder() },
-                { fieldString, EndsWithOperator.class, new String[] { "foo" }, EXPRESSION_STRING.endsWith("foo") },
-
-                { fieldString, LikeOperator.class, new String[] { "" }, new BooleanBuilder() },
-                { fieldString, LikeOperator.class, new String[] { "foo" }, EXPRESSION_STRING.like("foo") },
-
-                // ===== String: RegexValidator
-                { fieldStringRegex, null, new String[] {}, new BooleanBuilder() },
-                { fieldStringRegex, IsNullOperator.class, new String[] {}, EXPRESSION_STRING.isNull() },
-                // validateRegex
-                { fieldStringRegex, EqualsToOperator.class, new String[] { "" }, null },
-                // validateRegex
-                { fieldStringRegex, EqualsToOperator.class, new String[] { "foo" }, null },
-                { fieldStringRegex, EqualsToOperator.class, new String[] { "1234" }, EXPRESSION_STRING.eq("1234") },
-                // validateRegex
-                { fieldStringRegex, StartsWithOperator.class, new String[] { "" }, null },
-                // validateRegex
-                { fieldStringRegex, StartsWithOperator.class, new String[] { "foo" }, null },
-                { fieldStringRegex, StartsWithOperator.class, new String[] { "1234" }, EXPRESSION_STRING.startsWith("1234") },
-                // validateRegex
-                { fieldStringRegex, ContainsOperator.class, new String[] { "" }, null },
-                // validateRegex
-                { fieldStringRegex, ContainsOperator.class, new String[] { "foo" }, null },
-                { fieldStringRegex, ContainsOperator.class, new String[] { "1234" }, EXPRESSION_STRING.contains("1234") },
-                // validateRegex
-                { fieldStringRegex, EndsWithOperator.class, new String[] { "" }, null },
-                // validateRegex
-                { fieldStringRegex, EndsWithOperator.class, new String[] { "foo" }, null },
-                { fieldStringRegex, EndsWithOperator.class, new String[] { "1234" }, EXPRESSION_STRING.endsWith("1234") },
-                // validateRegex
-                { fieldStringRegex, LikeOperator.class, new String[] { "" }, null },
-                // validateRegex
-                { fieldStringRegex, LikeOperator.class, new String[] { "foo" }, null },
-                { fieldStringRegex, LikeOperator.class, new String[] { "1234" }, EXPRESSION_STRING.like("1234") },
-                // ===== Number: Converter
-                { fieldNumber, null, new String[] {}, new BooleanBuilder() },
-                { fieldNumber, IsNullOperator.class, new String[] {}, EXPRESSION_NUMBER.isNull() },
-                // validateRequired
-                { fieldNumber, EqualsToOperator.class, new String[] { "" }, null },
-                // converter
-                { fieldNumber, EqualsToOperator.class, new String[] { "foo" }, null },
-                { fieldNumber, EqualsToOperator.class, new String[] { "1234" }, EXPRESSION_NUMBER.eq(1234) },
-                // validateRequired
-                { fieldNumber, GreaterThanOperator.class, new String[] { "" }, null },
-                // converter
-                { fieldNumber, GreaterThanOperator.class, new String[] { "foo" }, null },
-                { fieldNumber, GreaterThanOperator.class, new String[] { "1234" }, EXPRESSION_NUMBER.gt(1234) },
-                // validateRequired
-                { fieldNumber, LessThanOperator.class, new String[] { "" }, null },
-                // converter
-                { fieldNumber, LessThanOperator.class, new String[] { "foo" }, null },
-                { fieldNumber, LessThanOperator.class, new String[] { "1234" }, EXPRESSION_NUMBER.lt(1234) },
-                // validateRequired
-                { fieldNumber, BetweenOperator.class, new String[] { "", "" }, null },
-                // validateRequired + converter
-                { fieldNumber, BetweenOperator.class, new String[] { "", "bar" }, null },
-                // validateRequired
-                { fieldNumber, BetweenOperator.class, new String[] { "", "12" }, null },
-                // converter + validateRequired
-                { fieldNumber, BetweenOperator.class, new String[] { "foo", "" }, null },
-                // validateRequired
-                { fieldNumber, BetweenOperator.class, new String[] { "12", "" }, null },
-                // converter
-                { fieldNumber, BetweenOperator.class, new String[] { "foo", "bar" }, null },
-                { fieldNumber, BetweenOperator.class, new String[] { "12", "34" }, EXPRESSION_NUMBER.between(12, 34) },
-                // ===== Number: Converter + LongRangeValidator
-                { fieldNumberLongRange, null, new String[] {}, new BooleanBuilder() },
-                { fieldNumberLongRange, IsNullOperator.class, new String[] {}, EXPRESSION_NUMBER.isNull() },
-                // validateRequired
-                { fieldNumberLongRange, EqualsToOperator.class, new String[] { "" }, null },
-                // converter
-                { fieldNumberLongRange, EqualsToOperator.class, new String[] { "foo" }, null },
-                // validateLongRange
-                { fieldNumberLongRange, EqualsToOperator.class, new String[] { "0" }, null },
-                // validateLongRange
-                { fieldNumberLongRange, EqualsToOperator.class, new String[] { "999" }, null },
-                { fieldNumberLongRange, EqualsToOperator.class, new String[] { "12" }, EXPRESSION_NUMBER.eq(12) },
-                // validateRequired
-                { fieldNumberLongRange, GreaterThanOperator.class, new String[] { "" }, null },
-                // converter
-                { fieldNumberLongRange, GreaterThanOperator.class, new String[] { "foo" }, null },
-                // validateLongRange
-                { fieldNumberLongRange, GreaterThanOperator.class, new String[] { "0" }, null },
-                // validateLongRange
-                { fieldNumberLongRange, GreaterThanOperator.class, new String[] { "999" }, null },
-                { fieldNumberLongRange, GreaterThanOperator.class, new String[] { "12" }, EXPRESSION_NUMBER.gt(12) },
-                // validateRequired
-                { fieldNumberLongRange, LessThanOperator.class, new String[] { "" }, null },
-                // converter
-                { fieldNumberLongRange, LessThanOperator.class, new String[] { "foo" }, null },
-                // validateLongRange
-                { fieldNumberLongRange, LessThanOperator.class, new String[] { "0" }, null },
-                // validateLongRange
-                { fieldNumberLongRange, LessThanOperator.class, new String[] { "999" }, null },
-                { fieldNumberLongRange, LessThanOperator.class, new String[] { "12" }, EXPRESSION_NUMBER.lt(12) },
-                // validateRequired
-                { fieldNumberLongRange, BetweenOperator.class, new String[] { "", "" }, null },
-                // validateRequired + converter
-                { fieldNumberLongRange, BetweenOperator.class, new String[] { "", "bar" }, null },
-                // validateRequired
-                { fieldNumberLongRange, BetweenOperator.class, new String[] { "", "12" }, null },
-                // converter + validateRequired
-                { fieldNumberLongRange, BetweenOperator.class, new String[] { "foo", "" }, null },
-                // validateRequired
-                { fieldNumberLongRange, BetweenOperator.class, new String[] { "12", "" }, null },
-                { fieldNumberLongRange, BetweenOperator.class, new String[] { "foo", "bar" }, null },
-                // validateRequired
-                { fieldNumberLongRange, BetweenOperator.class, new String[] { "0", "999" }, null },
-                // validateRequired
-                { fieldNumberLongRange, BetweenOperator.class, new String[] { "12", "999" }, null },
-                // validateRequired
-                { fieldNumberLongRange, BetweenOperator.class, new String[] { "0", "34" }, null },
-                { fieldNumberLongRange, BetweenOperator.class, new String[] { "12", "34" }, EXPRESSION_NUMBER.between(12, 34) }
-*/
+                /*
+                 * { fieldString, StartsWithOperator.class, new String[] { "" },
+                 * new BooleanBuilder() }, { fieldString,
+                 * StartsWithOperator.class, new String[] { "foo" },
+                 * EXPRESSION_STRING.startsWith("foo") }, { fieldString,
+                 * ContainsOperator.class, new String[] { "" }, new
+                 * BooleanBuilder() }, { fieldString, ContainsOperator.class,
+                 * new String[] { "foo" }, EXPRESSION_STRING.contains("foo") },
+                 * { fieldString, EndsWithOperator.class, new String[] { "" },
+                 * new BooleanBuilder() }, { fieldString,
+                 * EndsWithOperator.class, new String[] { "foo" },
+                 * EXPRESSION_STRING.endsWith("foo") }, { fieldString,
+                 * LikeOperator.class, new String[] { "" }, new BooleanBuilder()
+                 * }, { fieldString, LikeOperator.class, new String[] { "foo" },
+                 * EXPRESSION_STRING.like("foo") }, // ===== String:
+                 * RegexValidator { fieldStringRegex, null, new String[] {}, new
+                 * BooleanBuilder() }, { fieldStringRegex, IsNullOperator.class,
+                 * new String[] {}, EXPRESSION_STRING.isNull() }, //
+                 * validateRegex { fieldStringRegex, EqualsToOperator.class, new
+                 * String[] { "" }, null }, // validateRegex { fieldStringRegex,
+                 * EqualsToOperator.class, new String[] { "foo" }, null }, {
+                 * fieldStringRegex, EqualsToOperator.class, new String[] {
+                 * "1234" }, EXPRESSION_STRING.eq("1234") }, // validateRegex {
+                 * fieldStringRegex, StartsWithOperator.class, new String[] { ""
+                 * }, null }, // validateRegex { fieldStringRegex,
+                 * StartsWithOperator.class, new String[] { "foo" }, null }, {
+                 * fieldStringRegex, StartsWithOperator.class, new String[] {
+                 * "1234" }, EXPRESSION_STRING.startsWith("1234") }, //
+                 * validateRegex { fieldStringRegex, ContainsOperator.class, new
+                 * String[] { "" }, null }, // validateRegex { fieldStringRegex,
+                 * ContainsOperator.class, new String[] { "foo" }, null }, {
+                 * fieldStringRegex, ContainsOperator.class, new String[] {
+                 * "1234" }, EXPRESSION_STRING.contains("1234") }, //
+                 * validateRegex { fieldStringRegex, EndsWithOperator.class, new
+                 * String[] { "" }, null }, // validateRegex { fieldStringRegex,
+                 * EndsWithOperator.class, new String[] { "foo" }, null }, {
+                 * fieldStringRegex, EndsWithOperator.class, new String[] {
+                 * "1234" }, EXPRESSION_STRING.endsWith("1234") }, //
+                 * validateRegex { fieldStringRegex, LikeOperator.class, new
+                 * String[] { "" }, null }, // validateRegex { fieldStringRegex,
+                 * LikeOperator.class, new String[] { "foo" }, null }, {
+                 * fieldStringRegex, LikeOperator.class, new String[] { "1234"
+                 * }, EXPRESSION_STRING.like("1234") }, // ===== Number:
+                 * Converter { fieldNumber, null, new String[] {}, new
+                 * BooleanBuilder() }, { fieldNumber, IsNullOperator.class, new
+                 * String[] {}, EXPRESSION_NUMBER.isNull() }, //
+                 * validateRequired { fieldNumber, EqualsToOperator.class, new
+                 * String[] { "" }, null }, // converter { fieldNumber,
+                 * EqualsToOperator.class, new String[] { "foo" }, null }, {
+                 * fieldNumber, EqualsToOperator.class, new String[] { "1234" },
+                 * EXPRESSION_NUMBER.eq(1234) }, // validateRequired {
+                 * fieldNumber, GreaterThanOperator.class, new String[] { "" },
+                 * null }, // converter { fieldNumber,
+                 * GreaterThanOperator.class, new String[] { "foo" }, null }, {
+                 * fieldNumber, GreaterThanOperator.class, new String[] { "1234"
+                 * }, EXPRESSION_NUMBER.gt(1234) }, // validateRequired {
+                 * fieldNumber, LessThanOperator.class, new String[] { "" },
+                 * null }, // converter { fieldNumber, LessThanOperator.class,
+                 * new String[] { "foo" }, null }, { fieldNumber,
+                 * LessThanOperator.class, new String[] { "1234" },
+                 * EXPRESSION_NUMBER.lt(1234) }, // validateRequired {
+                 * fieldNumber, BetweenOperator.class, new String[] { "", "" },
+                 * null }, // validateRequired + converter { fieldNumber,
+                 * BetweenOperator.class, new String[] { "", "bar" }, null }, //
+                 * validateRequired { fieldNumber, BetweenOperator.class, new
+                 * String[] { "", "12" }, null }, // converter +
+                 * validateRequired { fieldNumber, BetweenOperator.class, new
+                 * String[] { "foo", "" }, null }, // validateRequired {
+                 * fieldNumber, BetweenOperator.class, new String[] { "12", ""
+                 * }, null }, // converter { fieldNumber, BetweenOperator.class,
+                 * new String[] { "foo", "bar" }, null }, { fieldNumber,
+                 * BetweenOperator.class, new String[] { "12", "34" },
+                 * EXPRESSION_NUMBER.between(12, 34) }, // ===== Number:
+                 * Converter + LongRangeValidator { fieldNumberLongRange, null,
+                 * new String[] {}, new BooleanBuilder() }, {
+                 * fieldNumberLongRange, IsNullOperator.class, new String[] {},
+                 * EXPRESSION_NUMBER.isNull() }, // validateRequired {
+                 * fieldNumberLongRange, EqualsToOperator.class, new String[] {
+                 * "" }, null }, // converter { fieldNumberLongRange,
+                 * EqualsToOperator.class, new String[] { "foo" }, null }, //
+                 * validateLongRange { fieldNumberLongRange,
+                 * EqualsToOperator.class, new String[] { "0" }, null }, //
+                 * validateLongRange { fieldNumberLongRange,
+                 * EqualsToOperator.class, new String[] { "999" }, null }, {
+                 * fieldNumberLongRange, EqualsToOperator.class, new String[] {
+                 * "12" }, EXPRESSION_NUMBER.eq(12) }, // validateRequired {
+                 * fieldNumberLongRange, GreaterThanOperator.class, new String[]
+                 * { "" }, null }, // converter { fieldNumberLongRange,
+                 * GreaterThanOperator.class, new String[] { "foo" }, null }, //
+                 * validateLongRange { fieldNumberLongRange,
+                 * GreaterThanOperator.class, new String[] { "0" }, null }, //
+                 * validateLongRange { fieldNumberLongRange,
+                 * GreaterThanOperator.class, new String[] { "999" }, null }, {
+                 * fieldNumberLongRange, GreaterThanOperator.class, new String[]
+                 * { "12" }, EXPRESSION_NUMBER.gt(12) }, // validateRequired {
+                 * fieldNumberLongRange, LessThanOperator.class, new String[] {
+                 * "" }, null }, // converter { fieldNumberLongRange,
+                 * LessThanOperator.class, new String[] { "foo" }, null }, //
+                 * validateLongRange { fieldNumberLongRange,
+                 * LessThanOperator.class, new String[] { "0" }, null }, //
+                 * validateLongRange { fieldNumberLongRange,
+                 * LessThanOperator.class, new String[] { "999" }, null }, {
+                 * fieldNumberLongRange, LessThanOperator.class, new String[] {
+                 * "12" }, EXPRESSION_NUMBER.lt(12) }, // validateRequired {
+                 * fieldNumberLongRange, BetweenOperator.class, new String[] {
+                 * "", "" }, null }, // validateRequired + converter {
+                 * fieldNumberLongRange, BetweenOperator.class, new String[] {
+                 * "", "bar" }, null }, // validateRequired {
+                 * fieldNumberLongRange, BetweenOperator.class, new String[] {
+                 * "", "12" }, null }, // converter + validateRequired {
+                 * fieldNumberLongRange, BetweenOperator.class, new String[] {
+                 * "foo", "" }, null }, // validateRequired {
+                 * fieldNumberLongRange, BetweenOperator.class, new String[] {
+                 * "12", "" }, null }, { fieldNumberLongRange,
+                 * BetweenOperator.class, new String[] { "foo", "bar" }, null },
+                 * // validateRequired { fieldNumberLongRange,
+                 * BetweenOperator.class, new String[] { "0", "999" }, null },
+                 * // validateRequired { fieldNumberLongRange,
+                 * BetweenOperator.class, new String[] { "12", "999" }, null },
+                 * // validateRequired { fieldNumberLongRange,
+                 * BetweenOperator.class, new String[] { "0", "34" }, null }, {
+                 * fieldNumberLongRange, BetweenOperator.class, new String[] {
+                 * "12", "34" }, EXPRESSION_NUMBER.between(12, 34) }
+                 */
                 // =====
         });
     }
@@ -228,7 +231,7 @@ public class FilterPathPageITTest {
 
     @Test
     public void test() {
-        FilterPathPage page = AbstractPage.get().gotoSampleFilterSimple();
+        FilterPathPage page = get().gotoSampleFilterSimple();
         FilterField field = fieldFactory.apply(page);
         field.setOperator(operator);
         for (int i = 0; i < values.length; i++)

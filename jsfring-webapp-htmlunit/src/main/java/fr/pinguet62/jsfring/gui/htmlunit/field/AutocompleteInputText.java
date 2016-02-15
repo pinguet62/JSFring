@@ -1,10 +1,10 @@
 package fr.pinguet62.jsfring.gui.htmlunit.field;
 
 import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.Delay.MEDIUM;
+import static java.util.stream.Collectors.toList;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
@@ -31,7 +31,7 @@ public final class AutocompleteInputText extends ReadWriteField<HtmlDivision, Li
         return getTokens().stream()
                 .map(li -> ((HtmlSpan) li.getByXPath("./span[contains(@class, 'ui-autocomplete-token-label')]").get(0))
                         .getTextContent())
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     // TODO reset initial values

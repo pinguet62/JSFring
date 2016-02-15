@@ -1,9 +1,10 @@
 package fr.pinguet62.jsfring.gui.config.scope;
 
+import static javax.faces.context.FacesContext.getCurrentInstance;
+
 import java.util.Map;
 
 import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.config.Scope;
@@ -28,7 +29,7 @@ public final class SpringViewScope implements Scope {
      */
     @Override
     public Object get(String name, ObjectFactory<?> objectFactory) {
-        Map<String, Object> viewMap = FacesContext.getCurrentInstance().getViewRoot().getViewMap();
+        Map<String, Object> viewMap = getCurrentInstance().getViewRoot().getViewMap();
         Object bean = viewMap.get(name);
         if (bean == null) {
             bean = objectFactory.getObject();
@@ -55,7 +56,7 @@ public final class SpringViewScope implements Scope {
 
     @Override
     public Object remove(String name) {
-        return FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove(name);
+        return getCurrentInstance().getViewRoot().getViewMap().remove(name);
     }
 
     /** @return {@code null} */
