@@ -1,9 +1,10 @@
 package fr.pinguet62.jsfring.task;
 
+import static org.slf4j.LoggerFactory.getLogger;
+
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +16,7 @@ import fr.pinguet62.jsfring.model.sql.User;
 @Component
 public class UserTask {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserTask.class);
+    private static final Logger LOGGER = getLogger(UserTask.class);
 
     @Inject
     private UserDao dao;
@@ -26,7 +27,7 @@ public class UserTask {
      * <p>
      * Scheduled method as batch.
      */
-    @Scheduled(fixedRate = 1_000/* ms */* 60/* sec */* 60/* min */* 1/* h */)
+    @Scheduled(fixedRate = 1_000/* ms */ * 60/* sec */ * 60/* min */ * 1/* h */)
     @Transactional
     public void disableInactiveUsers() {
         LOGGER.info("Scheduling...");

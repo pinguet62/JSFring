@@ -11,7 +11,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlListItem;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
-import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.NavigatorException;
 
 public final class PickList extends ReadWriteField<HtmlDivision, List<String>> {
@@ -24,7 +23,7 @@ public final class PickList extends ReadWriteField<HtmlDivision, List<String>> {
         HtmlButton button = getActionButton("ui-picklist-button-add");
         try {
             HtmlPage page = button.click();
-            AbstractPage.debug(page);
+            debug(page);
         } catch (IOException e) {
             throw new NavigatorException(e);
         }
@@ -34,7 +33,7 @@ public final class PickList extends ReadWriteField<HtmlDivision, List<String>> {
         HtmlButton button = getActionButton("ui-picklist-button-remove");
         try {
             HtmlPage page = button.click();
-            AbstractPage.debug(page);
+            debug(page);
         } catch (IOException e) {
             throw new NavigatorException(e);
         }
@@ -76,7 +75,7 @@ public final class PickList extends ReadWriteField<HtmlDivision, List<String>> {
                 for (HtmlListItem li : getTarget())
                     if (!values.contains(li.asText())) {
                         HtmlPage page = li.click();
-                        AbstractPage.debug(page);
+                        debug(page);
                         clickRemoveSelected();
                         continue continue_removes;
                     }
@@ -88,7 +87,7 @@ public final class PickList extends ReadWriteField<HtmlDivision, List<String>> {
                 for (HtmlListItem li : getTarget())
                     if (values.contains(li.asText())) {
                         HtmlPage page = li.click();
-                        AbstractPage.debug(page);
+                        debug(page);
                         clickAddSelected();
                         continue continue_adds;
                     }

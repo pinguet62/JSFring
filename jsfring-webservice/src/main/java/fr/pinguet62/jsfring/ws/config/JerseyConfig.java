@@ -2,6 +2,7 @@ package fr.pinguet62.jsfring.ws.config;
 
 import static java.util.stream.Collectors.joining;
 import static org.glassfish.jersey.servlet.ServletProperties.JAXRS_APPLICATION_CLASS;
+import static org.slf4j.LoggerFactory.getLogger;
 import static org.springframework.boot.autoconfigure.AutoConfigurationPackages.get;
 import static org.springframework.util.ClassUtils.resolveClassName;
 
@@ -15,7 +16,6 @@ import javax.ws.rs.Path;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -32,7 +32,7 @@ public class JerseyConfig {
     /** Register for Jersey. */
     public static class PackageResourceConfig extends ResourceConfig {
 
-        private static final Logger LOGGER = LoggerFactory.getLogger(PackageResourceConfig.class);
+        private static final Logger LOGGER = getLogger(PackageResourceConfig.class);
 
         @Autowired
         private BeanFactory beanFactory;

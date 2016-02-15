@@ -2,6 +2,7 @@ package fr.pinguet62.jsfring.gui.htmlunit.datatable;
 
 import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.Delay.SHORT;
 import static java.lang.Integer.parseInt;
+import static java.util.regex.Pattern.compile;
 import static java.util.stream.Collectors.toList;
 
 import java.io.IOException;
@@ -181,7 +182,7 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends
         HtmlSpan currentPageReportTemplate = (HtmlSpan) getDatatablePaginator()
                 .getByXPath("./span[contains(@class, 'ui-paginator-current')]").get(0);
         // Parse "x-y of z"
-        Pattern pattern = Pattern.compile(" [0-9]+$");
+        Pattern pattern = compile(" [0-9]+$");
         Matcher matcher = pattern.matcher(currentPageReportTemplate.asText());
         matcher.find();
         String total = matcher.group().substring(1);

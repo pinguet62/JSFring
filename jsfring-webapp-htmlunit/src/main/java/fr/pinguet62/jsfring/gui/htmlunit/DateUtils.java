@@ -7,14 +7,13 @@ import static java.util.Calendar.MONTH;
 import static java.util.Calendar.SECOND;
 import static java.util.Calendar.YEAR;
 import static java.util.Calendar.getInstance;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
-import org.apache.commons.lang3.StringUtils;
 
 public final class DateUtils {
 
@@ -60,7 +59,7 @@ public final class DateUtils {
      * @throws IllegalArgumentException Invalid/Unknown date format.
      */
     public static Date parseDateOrDateTime(String value) {
-        if (StringUtils.isBlank(value))
+        if (isBlank(value))
             return null;
 
         try {

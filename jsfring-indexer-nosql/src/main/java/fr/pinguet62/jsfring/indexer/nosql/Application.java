@@ -1,5 +1,8 @@
 package fr.pinguet62.jsfring.indexer.nosql;
 
+import static java.lang.String.valueOf;
+import static org.slf4j.LoggerFactory.getLogger;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +11,6 @@ import javax.inject.Inject;
 
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.stereotype.Component;
@@ -33,7 +35,7 @@ import fr.pinguet62.jsfring.model.nosql.User;
 @Component
 public class Application implements CommandLineRunner {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
+    private static final Logger LOGGER = getLogger(Application.class);
 
     /** Convert {@link Long} to {@link ObjectId}. */
     private static ObjectId format(long code) {
@@ -63,7 +65,7 @@ public class Application implements CommandLineRunner {
             return movie;
 
         LOGGER.info("Init {}: {}", Movie.class.getSimpleName(), code);
-        MovieInfos movieDto = api.getMovieInfos(String.valueOf(code));
+        MovieInfos movieDto = api.getMovieInfos(valueOf(code));
         movie = new Movie();
         movie.setId(format(movieDto.getCode()));
         movie.setReleaseDate(

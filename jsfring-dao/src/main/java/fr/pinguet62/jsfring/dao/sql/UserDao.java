@@ -2,6 +2,7 @@ package fr.pinguet62.jsfring.dao.sql;
 
 import static java.util.Calendar.DAY_OF_YEAR;
 import static java.util.Calendar.getInstance;
+import static org.slf4j.LoggerFactory.getLogger;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -11,7 +12,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.mysema.query.jpa.impl.JPAUpdateClause;
@@ -36,7 +36,7 @@ interface UserDaoCustom {
 
 class UserDaoImpl implements UserDaoCustom {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserDaoImpl.class);
+    private static final Logger LOGGER = getLogger(UserDaoImpl.class);
 
     @Inject
     private UserDao dao;

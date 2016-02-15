@@ -1,5 +1,9 @@
 package fr.pinguet62.jsfring.gui.htmlunit;
 
+import static java.io.File.createTempFile;
+import static java.lang.Thread.sleep;
+import static org.slf4j.LoggerFactory.getLogger;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -8,7 +12,6 @@ import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.gargoylesoftware.htmlunit.SgmlPage;
 import com.gargoylesoftware.htmlunit.WebClient;
@@ -46,14 +49,14 @@ public class AbstractPage {
         }
     }
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractPage.class);
+    private static final Logger LOGGER = getLogger(AbstractPage.class);
 
     private static final File TMP_FILE;
 
     /** Initialize the {@link #OUTPUT_STREAM}. */
     static {
         try {
-            TMP_FILE = File.createTempFile("navigator-", null);
+            TMP_FILE = createTempFile("navigator-", null);
         } catch (IOException e) {
             throw new NavigatorException(e);
         }
@@ -240,7 +243,7 @@ public class AbstractPage {
         for (int t = 0; manager.getJobCount() > 0 && t < delay.getMs(); t += period)
             try {
                 LOGGER.trace("Wait " + t + "ms");
-                Thread.sleep(period);
+                sleep(period);
             } catch (InterruptedException e) {
                 throw new NavigatorException(e);
             }

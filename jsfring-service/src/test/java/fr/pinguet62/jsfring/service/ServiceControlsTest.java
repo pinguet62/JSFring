@@ -1,12 +1,14 @@
 package fr.pinguet62.jsfring.service;
 
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
+import static java.lang.Thread.sleep;
 import static java.util.UUID.randomUUID;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
+import static org.slf4j.LoggerFactory.getLogger;
 
 import java.util.Date;
 
@@ -16,7 +18,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.stereotype.Service;
 import org.springframework.test.context.TestExecutionListeners;
@@ -124,7 +125,7 @@ class TestService {
         private static final long serialVersionUID = 1;
     }
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TestService.class);
+    private static final Logger LOGGER = getLogger(TestService.class);
 
     @Inject
     private ProfileDao profileDao;
@@ -230,7 +231,7 @@ class TestService {
     public void write() {
         try {
             LOGGER.trace("Write: {}", new Date().getTime());
-            Thread.sleep(2_000);
+            sleep(2_000);
         } catch (InterruptedException e) {
             throw new TestRuntimeException(e);
         }
@@ -239,7 +240,7 @@ class TestService {
         LOGGER.trace("Write: {}", new Date().getTime());
 
         try {
-            Thread.sleep(2_000);
+            sleep(2_000);
         } catch (InterruptedException e) {
             throw new TestRuntimeException(e);
         }

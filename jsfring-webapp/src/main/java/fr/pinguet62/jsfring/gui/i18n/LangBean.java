@@ -1,6 +1,7 @@
 package fr.pinguet62.jsfring.gui.i18n;
 
 import static javax.faces.context.FacesContext.getCurrentInstance;
+import static org.apache.commons.collections.IteratorUtils.toList;
 
 import java.io.Serializable;
 import java.util.Iterator;
@@ -11,7 +12,6 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
-import org.apache.commons.collections.IteratorUtils;
 import org.springframework.context.annotation.Scope;
 
 /**
@@ -40,7 +40,7 @@ public final class LangBean implements Serializable {
     @SuppressWarnings("unchecked")
     public Iterable<Locale> getSupportedLocales() {
         Iterator<Locale> it = getCurrentInstance().getApplication().getSupportedLocales();
-        return IteratorUtils.toList(it);
+        return toList(it);
     }
 
     /** Initialize the {@link #locale} with default value. */

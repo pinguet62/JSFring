@@ -1,5 +1,7 @@
 package fr.pinguet62.jsfring.gui.htmlunit.jasperreport;
 
+import static java.lang.String.valueOf;
+
 import java.util.Date;
 import java.util.List;
 
@@ -34,7 +36,7 @@ public final class ParametersJasperReportPage extends AbstractJasperReportPage {
 
     public void setInteger(int value) {
         HtmlInput input = (HtmlInput) getParam(1).getByXPath("./input").get(0);
-        new InputText(input).setValue(String.valueOf(value));
+        new InputText(input).setValue(valueOf(value));
     }
 
     public void setList(List<String> value) {

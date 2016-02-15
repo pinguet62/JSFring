@@ -1,13 +1,13 @@
 package fr.pinguet62.jsfring.gui.jasperreport;
 
 import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.get;
+import static java.util.Arrays.asList;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -59,7 +59,7 @@ public class ParameterJasperReportITTest {
     /** @see List */
     @Test
     public void test_list() throws IOException {
-        page.setList(Arrays.asList("avion", "vélo"));
+        page.setList(asList("avion", "vélo"));
         InputStream is = page.exportTEXT();
         String content = IOUtils.toString(is);
         assertThat(content, containsString("avion"));

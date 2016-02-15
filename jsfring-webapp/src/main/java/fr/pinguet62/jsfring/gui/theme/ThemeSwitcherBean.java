@@ -1,9 +1,10 @@
 package fr.pinguet62.jsfring.gui.theme;
 
+import static fr.pinguet62.jsfring.gui.theme.Theme.fromKey;
 import static fr.pinguet62.jsfring.gui.theme.Theme.values;
+import static java.util.Objects.requireNonNull;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -19,7 +20,7 @@ public final class ThemeSwitcherBean implements Serializable {
      * The current {@link Theme}.<br>
      * Initialized with default value.
      */
-    private Theme theme = Theme.fromKey("dark-hive");
+    private Theme theme = fromKey("dark-hive");
 
     /** Get the current {@link Theme}. */
     public Theme getTheme() {
@@ -37,7 +38,7 @@ public final class ThemeSwitcherBean implements Serializable {
      * @throws NullPointerException If the parameter is {@code null}.
      */
     public void setTheme(Theme theme) {
-        Objects.requireNonNull(theme);
+        requireNonNull(theme);
         this.theme = theme;
     }
 

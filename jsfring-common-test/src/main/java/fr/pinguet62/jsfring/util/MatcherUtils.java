@@ -1,5 +1,7 @@
 package fr.pinguet62.jsfring.util;
 
+import static org.apache.commons.lang3.time.DateUtils.truncate;
+
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -40,7 +42,7 @@ public final class MatcherUtils {
                 else if (expected == null || actual == null)
                     return false;
                 else
-                    return Objects.equals(DateUtils.truncate(actual, field), DateUtils.truncate(expected, field));
+                    return Objects.equals(truncate(actual, field), truncate(expected, field));
             }
         };
     };

@@ -1,5 +1,7 @@
 package fr.pinguet62.jsfring.gui.theme;
 
+import static fr.pinguet62.jsfring.gui.theme.Theme.fromKey;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -15,15 +17,13 @@ public final class ThemeConverter implements Converter {
 
     /** @see Theme#fromKey(String) */
     @Override
-    public Object getAsObject(FacesContext context, UIComponent component,
-            String value) {
-        return Theme.fromKey(value);
+    public Object getAsObject(FacesContext context, UIComponent component, String value) {
+        return fromKey(value);
     }
 
     /** @return The {@link Theme#toString()} result. */
     @Override
-    public String getAsString(FacesContext context, UIComponent component,
-            Object value) {
+    public String getAsString(FacesContext context, UIComponent component, Object value) {
         Theme theme = (Theme) value;
         return theme.toString();
     }

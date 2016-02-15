@@ -1,6 +1,11 @@
 package fr.pinguet62.jsfring.util;
 
+import static java.lang.Character.isISOControl;
+import static java.lang.Character.isWhitespace;
+import static javax.imageio.ImageIO.read;
 import static javax.xml.parsers.DocumentBuilderFactory.newInstance;
+import static org.apache.commons.io.IOUtils.toByteArray;
+import static org.jsoup.Jsoup.parse;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -119,7 +124,7 @@ public final class FileFormatMatcher {
                 try {
                     String html = IOUtils.toString(is);
                     // TODO Jsoup doesn't throw Exception
-                    Jsoup.parse(html);
+                    parse(html);
                     return true;
                 } catch (IOException e) {
                     return false;
@@ -141,7 +146,7 @@ public final class FileFormatMatcher {
             @Override
             protected boolean matchesSafely(InputStream is) {
                 try {
-                    ImageIO.read(is);
+                    read(is);
                     return true;
                 } catch (IOException e) {
                     return false;
@@ -319,9 +324,9 @@ public final class FileFormatMatcher {
             @Override
             protected boolean matchesSafely(InputStream is) {
                 try {
-                    byte[] bytes = IOUtils.toByteArray(is);
+                    byte[] bytes = toByteArray(is);
                     for (byte b : bytes)
-                        if (!Character.isWhitespace(b) && Character.isISOControl(b))
+                        if (!isWhitespace(b) && isISOControl(b))
                             return false;
                     return true;
                 } catch (IOException e) {

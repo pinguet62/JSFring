@@ -5,7 +5,6 @@ import java.io.IOException;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
-import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.NavigatorException;
 
 public final class CheckBox extends ReadWriteField<HtmlDivision, Boolean> {
@@ -14,7 +13,9 @@ public final class CheckBox extends ReadWriteField<HtmlDivision, Boolean> {
         super(div);
     }
 
-    /** The {@link HtmlDivision} contains the {@code "ui-state-active"} class. */
+    /**
+     * The {@link HtmlDivision} contains the {@code "ui-state-active"} class.
+     */
     @Override
     public Boolean getValue() {
         HtmlDivision div = (HtmlDivision) html.getByXPath("./div[contains(@class, 'ui-chkbox-box')]").get(0);
@@ -25,7 +26,7 @@ public final class CheckBox extends ReadWriteField<HtmlDivision, Boolean> {
     public void setValue(Boolean value) {
         try {
             HtmlPage page = html.click();
-            AbstractPage.debug(page);
+            debug(page);
         } catch (IOException e) {
             throw new NavigatorException(e);
         }

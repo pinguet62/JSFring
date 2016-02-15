@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.gui.config;
 
+import static org.slf4j.LoggerFactory.getLogger;
 import static org.springframework.boot.autoconfigure.AutoConfigurationPackages.get;
 import static org.springframework.util.ClassUtils.resolveClassName;
 
@@ -15,7 +16,6 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.HandlesTypes;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackages;
@@ -54,7 +54,7 @@ import com.sun.faces.config.FacesInitializer;
 @Configuration
 public class JSFInitializerConfig implements ServletContextInitializer {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(JSFInitializerConfig.class);
+    private static final Logger LOGGER = getLogger(JSFInitializerConfig.class);
 
     @Inject
     private BeanFactory beanFactory;

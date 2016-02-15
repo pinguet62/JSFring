@@ -1,6 +1,7 @@
 package fr.pinguet62.jsfring.indexer.nosql;
 
-import org.apache.commons.lang3.StringUtils;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+
 import org.apache.http.HttpHost;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.params.ConnRoutePNames;
@@ -30,7 +31,7 @@ public class AllocineApiBean {
     public AllocineApi allocineApi() throws Exception {
         HttpClient httpclient = new DefaultHttpClient();
 
-        if (StringUtils.isNotEmpty(proxyHost) && proxyPort != null) {
+        if (isNotEmpty(proxyHost) && proxyPort != null) {
             HttpHost proxy = new HttpHost(proxyHost, proxyPort);
             httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
         }

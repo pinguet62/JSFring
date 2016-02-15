@@ -1,6 +1,7 @@
 package fr.pinguet62.jsfring.gui;
 
 import static javax.faces.context.FacesContext.getCurrentInstance;
+import static org.slf4j.LoggerFactory.getLogger;
 
 import java.io.Serializable;
 
@@ -9,7 +10,6 @@ import javax.faces.application.FacesMessage;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.model.LazyDataModel;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import fr.pinguet62.jsfring.service.AbstractService;
 
@@ -27,7 +27,7 @@ import fr.pinguet62.jsfring.service.AbstractService;
  */
 public abstract class AbstractCrudBean<T extends Serializable> extends AbstractSelectableBean<T> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractCrudBean.class);
+    private static final Logger LOGGER = getLogger(AbstractCrudBean.class);
 
     private static final long serialVersionUID = 1;
 

@@ -4,10 +4,10 @@ import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.Delay.MEDIUM;
 import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.Delay.SHORT;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
+import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Function;
@@ -157,9 +157,9 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
             return null;
 
         // Parse
-        if (Arrays.asList("true").contains(content))
+        if (asList("true").contains(content))
             return TRUE;
-        if (Arrays.asList("false").contains(content))
+        if (asList("false").contains(content))
             return FALSE;
         throw new NavigatorException("Invalid boolean format: " + content);
     }
