@@ -188,6 +188,7 @@
 						<exclude>**com.steadystate*</exclude>
 						<!-- Generated sources -->
 						<exclude>fr/pinguet62/jsfring/model/**/Q*.class</exclude>
+						<exclude>org/bson/types/QObjectId.class</exclude>
 					</excludes>
 				</configuration>
 				<executions>
