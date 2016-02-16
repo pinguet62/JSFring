@@ -21,8 +21,9 @@ script:
     # Spring-Boot: external config: use "spring.application.json" command line argument
     - mvn -B -Dspring.application.json="$SPRING_APPLICATION_JSON" verify
 
+# Reporting
 after_success:
-    # JaCoCo: workaround because goal 'jacoco:report@post-integration-test' not working
+    # JaCoCo: workaround: 'jacoco:report@post-integration-test' not working
     - mvn verify -DskipTests -B
     
     # Coveralls.io: publish
