@@ -2,6 +2,8 @@ package fr.pinguet62.jsfring.gui;
 
 import static fr.pinguet62.jsfring.model.sql.User.PASSWORD_REGEX;
 import static fr.pinguet62.jsfring.model.sql.User.PASSWORD_VALIDATION_MESSAGE;
+import static javax.faces.application.FacesMessage.SEVERITY_ERROR;
+import static javax.faces.application.FacesMessage.SEVERITY_INFO;
 import static javax.faces.context.FacesContext.getCurrentInstance;
 
 import java.io.Serializable;
@@ -92,12 +94,12 @@ public final class ChangePasswordBean implements Serializable {
         UserDetails userDetails = userBean.get();
 
         if (!currentPassword.equals(userDetails.getPassword())) {
-            showMessage(FacesMessage.SEVERITY_ERROR, "changePassword.invalidCurrentPassword");
+            showMessage(SEVERITY_ERROR, "changePassword.invalidCurrentPassword");
             return;
         }
 
         userService.updatePassword(userDetails.getUsername(), newPassword);
-        showMessage(FacesMessage.SEVERITY_INFO, "changePassword.confirmation");
+        showMessage(SEVERITY_INFO, "changePassword.confirmation");
     }
 
 }
