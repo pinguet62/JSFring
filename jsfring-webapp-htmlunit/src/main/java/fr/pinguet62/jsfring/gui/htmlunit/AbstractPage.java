@@ -150,6 +150,16 @@ public class AbstractPage {
         return page;
     }
 
+    public ChangePasswordPage gotoChangePasswordPage() {
+        try {
+            page = webClient.getPage(getUrl("/change-password.xhtml"));
+            debug();
+            return new ChangePasswordPage(page);
+        } catch (IOException e) {
+            throw new NavigatorException(e);
+        }
+    }
+
     public IndexPage gotoIndex() {
         try {
             page = webClient.getPage(getUrl(null));

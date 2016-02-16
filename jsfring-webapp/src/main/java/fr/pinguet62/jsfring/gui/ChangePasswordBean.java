@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.Locale;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.Pattern;
@@ -68,6 +69,18 @@ public final class ChangePasswordBean implements Serializable {
     }
 
     /**
+     * Display message.
+     *
+     * @param severity The {@link FacesMessage} severity.
+     * @param code Code of i18n message.
+     */
+    private void showMessage(Severity severity, String code) {
+        Locale locale = getCurrentInstance().getViewRoot().getLocale();
+        String msg = messageSource.getMessage(code, null, locale);
+        getCurrentInstance().addMessage(null, new FacesMessage(severity, msg, null));
+    }
+
+    /**
      * <ul>
      * <li>Check the {@link #currentPassword};</li>
      * <li>Update the {@link User#password}.</li>
@@ -78,13 +91,13 @@ public final class ChangePasswordBean implements Serializable {
     public void submit() {
         UserDetails userDetails = userBean.get();
 
-        if (!newPassword.equals(userDetails.getPassword())) {
-            Locale locale = getCurrentInstance().getViewRoot().getLocale();
-            String msg = messageSource.getMessage("changePassword.invalidCurrentPassword", null, locale);
-            getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, null));
+        if (!currentPassword.equals(userDetails.getPassword())) {
+            showMessage(FacesMessage.SEVERITY_ERROR, "changePassword.invalidCurrentPassword");
+            return;
         }
 
         userService.updatePassword(userDetails.getUsername(), newPassword);
+        showMessage(FacesMessage.SEVERITY_INFO, "changePassword.confirmation");
     }
 
 }
