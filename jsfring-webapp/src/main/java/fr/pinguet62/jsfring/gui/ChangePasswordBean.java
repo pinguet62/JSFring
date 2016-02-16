@@ -1,7 +1,7 @@
 package fr.pinguet62.jsfring.gui;
 
-import static fr.pinguet62.jsfring.model.sql.User.EMAIL_VALIDATION_MESSAGE;
 import static fr.pinguet62.jsfring.model.sql.User.PASSWORD_REGEX;
+import static fr.pinguet62.jsfring.model.sql.User.PASSWORD_VALIDATION_MESSAGE;
 import static javax.faces.context.FacesContext.getCurrentInstance;
 
 import java.io.Serializable;
@@ -32,7 +32,7 @@ public final class ChangePasswordBean implements Serializable {
     @Inject
     private transient MessageSource messageSource;
 
-    @Pattern(regexp = PASSWORD_REGEX, message = EMAIL_VALIDATION_MESSAGE)
+    @Pattern(regexp = PASSWORD_REGEX, message = PASSWORD_VALIDATION_MESSAGE)
     private String newPassword;
 
     private String newPasswordConfirmation;
