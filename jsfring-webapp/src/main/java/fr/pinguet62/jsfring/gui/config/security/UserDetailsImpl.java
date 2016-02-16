@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.gui.config;
+package fr.pinguet62.jsfring.gui.config.security;
 
 import java.util.Collection;
 import java.util.HashSet;

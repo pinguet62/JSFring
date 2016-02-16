@@ -19,7 +19,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import fr.pinguet62.jsfring.gui.config.scope.SpringViewScoped;
-import fr.pinguet62.jsfring.gui.sample.UserBean;
 import fr.pinguet62.jsfring.model.sql.User;
 import fr.pinguet62.jsfring.service.UserService;
 
@@ -33,15 +32,15 @@ public final class ChangePasswordBean implements Serializable {
     private String currentPassword;
 
     @Inject
+    private UserDetails currentUserDetails;
+
+    @Inject
     private transient MessageSource messageSource;
 
     @Pattern(regexp = PASSWORD_REGEX, message = PASSWORD_VALIDATION_MESSAGE)
     private String newPassword;
 
     private String newPasswordConfirmation;
-
-    @Inject
-    private transient UserBean userBean;
 
     @Inject
     private transient UserService userService;
@@ -91,14 +90,12 @@ public final class ChangePasswordBean implements Serializable {
      * @see UserService#updatePassword(String, String)
      */
     public void submit() {
-        UserDetails userDetails = userBean.get();
-
-        if (!currentPassword.equals(userDetails.getPassword())) {
+        if (!currentPassword.equals(currentUserDetails.getPassword())) {
             showMessage(SEVERITY_ERROR, "changePassword.invalidCurrentPassword");
             return;
         }
 
-        userService.updatePassword(userDetails.getUsername(), newPassword);
+        userService.updatePassword(currentUserDetails.getUsername(), newPassword);
         showMessage(SEVERITY_INFO, "changePassword.confirmation");
     }
 

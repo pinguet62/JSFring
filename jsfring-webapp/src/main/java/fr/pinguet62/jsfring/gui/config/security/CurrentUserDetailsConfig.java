@@ -1,32 +1,26 @@
-package fr.pinguet62.jsfring.gui.sample;
+package fr.pinguet62.jsfring.gui.config.security;
 
 import static org.springframework.security.core.context.SecurityContextHolder.getContext;
 
-import java.io.Serializable;
-
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
-
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import fr.pinguet62.jsfring.gui.config.UserDetailsImpl;
+import fr.pinguet62.jsfring.gui.config.scope.SpringRequestScoped;
 
-@Named
-@SessionScoped
-public final class UserBean implements Serializable {
-
-    private static final long serialVersionUID = 1;
+@Configuration
+public class CurrentUserDetailsConfig {
 
     /**
-     * Get the {@link UserDetails} in {@link SecurityContext}.
+     * Access to connected {@link UserDetails}.
      *
      * @return The {@link UserDetails}.
-     * @see UserDetailsImpl
      */
-    public static UserDetails get() {
+    @Bean
+    @SpringRequestScoped
+    public UserDetails currentUserDetails() {
         Authentication authentication = getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()
                 || authentication instanceof AnonymousAuthenticationToken)
