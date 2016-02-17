@@ -75,9 +75,11 @@ Utils :
 
 All dependencies use the latest version.
 
+<img src="https://www.versioneye.com/assets/verisoneye-logo-small-09d4dc67649e8bb51adc2c37216a341f01306950d556f4024c82c302f259ebda.png" height="25" />
+[VersionEye](https://www.versioneye.com)
 [![Dependency Status](https://www.versioneye.com/user/projects/56b7dc23a70289000d663313/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56b7dc23a70289000d663313)
 
-## Code style/quality, Continue Integration, Deployment
+## Static analysis
 
 ### Code quality
 
@@ -89,39 +91,44 @@ Check that *source code* respect *best practices*:
 * code duplication
 * ...
 
+<img src="https://www.codacy.com/versioned/images/favicon.png" height="25" />
+[Codacy](https://www.codacy.com)
 [![Codacy Badge](https://api.codacy.com/project/badge/9ea574afb85b496294af3b6057e278aa)](https://www.codacy.com/app/pinguet62/JSFring)
 
-### Testing
+## Build & Test
 
-#### Unit test
-
-**JUnit** is used to execute code.
-
-#### Integration test
-
-**HtmlUnit** is used to navigate into website.
-
-#### Continue Integration
+### Continue Integration
 
 Build and run unit/integration tests, in continue!
 
+<img src="http://img.photobucket.com/albums/v330/pretendercrazy/travis-an_zpsb8ef2f7e.gif" height="25" />
+[Travis CI](https://travis-ci.org)
 [![Build Status](https://travis-ci.org/pinguet62/JSFring.svg?branch=master)](https://travis-ci.org/pinguet62/JSFring)
 
-#### Code coverage
+### Code coverage
 
 Measure the degree to which the source code of a program is *tested*.
 
-[![Coverage Status](https://coveralls.io/repos/pinguet62/JSFring/badge.svg?branch=master&service=github)](https://coveralls.io/github/pinguet62/JSFring?branch=master)
+<img src="https://coveralls.io/favicon.png" height="25" />
+[Coveralls](https://coveralls.io)
+[![Coverage Status](https://coveralls.io/repos/github/pinguet62/JSFring/badge.svg?branch=master)](https://coveralls.io/github/pinguet62/JSFring?branch=master)
 
+
+<img src="https://d234q63orb21db.cloudfront.net/9fe342f72c9a347589de9022ee335ed24d278355/media/images/pink.png" height="25" />
+[Codecov](https://codecov.io)
 [![codecov.io](https://codecov.io/github/pinguet62/JSFring/coverage.svg?branch=master)](https://codecov.io/github/pinguet62/JSFring?branch=master)
 
-## SAS & Continue Integration
+## Install & Runtime
 
-Deploy web-application on the cloud, in continue!
+### SaaS (Software as a Service): Continuous Deployment
 
-* Webapp: [![Deploy](https://www.herokucdn.com/deploy/button.png)](http://jsfring-webapp.herokuapp.com)
-* Webservice: [![Deploy](https://www.herokucdn.com/deploy/button.png)](http://jsfring-webservice.herokuapp.com)
+Multi web-application deployed on cloud... in continue!
+
+* Webapp: <img src="https://d3k90kvix375hb.cloudfront.net/assets/logo-purple.svg" height="25" /> [Heroku](https://www.heroku.com/home) [![Deploy](https://www.herokucdn.com/deploy/button.png)](http://jsfring-webapp.herokuapp.com)
+* Webservice: <img src="https://d3k90kvix375hb.cloudfront.net/assets/logo-purple.svg" height="25" /> [Heroku](https://www.heroku.com/home) [![Deploy](https://www.herokucdn.com/deploy/button.png)](http://jsfring-webservice.herokuapp.com)
 
 ## Licence
 
+<img src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png" height="25" />
+[Creative Commons BY-NC-SA](http://creativecommons.org/licenses/by-nc-sa/4.0)
 [![Creative Commons BY-NC-SA](https://img.shields.io/badge/Licence-Creative%20Commons-brightgreen.svg)](http://creativecommons.org/licenses/by-nc-sa/4.0)
