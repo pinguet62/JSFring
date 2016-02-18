@@ -1,5 +1,8 @@
 package fr.pinguet62.jsfring.gui;
 
+import static org.slf4j.LoggerFactory.getLogger;
+import static org.springframework.data.querydsl.SimpleEntityPathResolver.INSTANCE;
+
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
@@ -10,8 +13,6 @@ import javax.persistence.Entity;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.model.LazyDataModel;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.querydsl.SimpleEntityPathResolver;
 
 import com.mysema.query.BooleanBuilder;
 import com.mysema.query.jpa.impl.JPAQuery;
@@ -33,7 +34,7 @@ import fr.pinguet62.jsfring.service.AbstractService;
  */
 public abstract class AbstractBean<T extends Serializable> implements Serializable {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractBean.class);
+    private static final Logger LOGGER = getLogger(AbstractBean.class);
 
     private static final long serialVersionUID = 1;
 
@@ -47,7 +48,7 @@ public abstract class AbstractBean<T extends Serializable> implements Serializab
 
     /** The {@link EntityPath} of target {@link Entity}. */
     @SuppressWarnings("unchecked")
-    private final EntityPath<T> path = SimpleEntityPathResolver.INSTANCE
+    private final EntityPath<T> path = INSTANCE
             .createPath((Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
 
     /**

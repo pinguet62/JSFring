@@ -1,8 +1,11 @@
 package fr.pinguet62.jsfring.service;
 
-import static fr.pinguet62.jsfring.test.Config.DATASET;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.junit.Assert.assertThat;
 
 import java.io.Serializable;
 
@@ -43,14 +46,14 @@ public class AbstractServiceTest {
     @Test
     public void test_create() {
         {
-            long count = profileService.getAll().size();
+            int initialCount = profileService.getAll().size();
             profileService.create(new Profile("new profile"));
-            assertEquals(count + 1, profileService.getAll().size());
+            assertThat(profileService.getAll(), hasSize(initialCount + 1));
         }
         {
-            long count = userService.getAll().size();
+            int initialCount = userService.getAll().size();
             userService.create(new User("new login", new PasswordGenerator().get(), "foo@hostname.domain"));
-            assertEquals(count + 1, userService.getAll().size());
+            assertThat(userService.getAll(), hasSize(initialCount + 1));
         }
     }
 
@@ -58,34 +61,35 @@ public class AbstractServiceTest {
     @Test
     public void test_delete() {
         profileService.delete(profileService.get(1));
-        assertEquals(1, profileService.getAll().size());
+        assertThat(profileService.getAll(), hasSize(1));
+
         profileService.delete(profileService.get(2));
-        assertEquals(0, profileService.getAll().size());
+        assertThat(profileService.getAll(), hasSize(0));
     }
 
     /** @see AbstractService#get(Serializable) */
     @Test
     public void test_get() {
         {
-            assertEquals("Affichage des droits", rightService.get("RIGHT_RO").getTitle());
-            assertEquals("Affichage des profils", rightService.get("PROFILE_RO").getTitle());
+            assertThat(rightService.get("RIGHT_RO").getTitle(), is(equalTo("Affichage des droits")));
+            assertThat(rightService.get("PROFILE_RO").getTitle(), is(equalTo("Affichage des profils")));
         }
         {
-            assertEquals("Profile admin", profileService.get(1).getTitle());
-            assertEquals("User admin", profileService.get(2).getTitle());
+            assertThat(profileService.get(1).getTitle(), is(equalTo("Profile admin")));
+            assertThat(profileService.get(2).getTitle(), is(equalTo("User admin")));
         }
         {
-            assertEquals("Azerty1!", userService.get("super admin").getPassword());
-            assertEquals("admin_profile@domain.fr", userService.get("admin profile").getEmail());
+            assertThat(userService.get("super admin").getPassword(), is(equalTo("Azerty1!")));
+            assertThat(userService.get("admin profile").getEmail(), is(equalTo("admin_profile@domain.fr")));
         }
     }
 
     /** @see AbstractDao#getAll() */
     @Test
     public void test_getAll() {
-        assertEquals(5, rightService.getAll().size());
-        assertEquals(2, profileService.getAll().size());
-        assertEquals(3, userService.getAll().size());
+        assertThat(rightService.getAll(), hasSize(5));
+        assertThat(profileService.getAll(), hasSize(2));
+        assertThat(userService.getAll(), hasSize(3));
     }
 
     /** @see AbstractService#update(Object) */
@@ -96,13 +100,13 @@ public class AbstractServiceTest {
 
         // Before
         Profile profile = profileService.get(id);
-        assertNotEquals(newTitle, profile.getTitle());
+        assertThat(profile.getTitle(), is(not(equalTo(newTitle))));
 
         profile.setTitle(newTitle);
         profileService.update(profile);
 
         // Test
-        assertEquals("new title", profileService.get(id).getTitle());
+        assertThat(profileService.get(id).getTitle(), is(equalTo(newTitle)));
     }
 
 }

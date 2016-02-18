@@ -1,8 +1,9 @@
 package fr.pinguet62.jsfring.ws.converter;
 
 import static java.util.Arrays.asList;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 import static org.springframework.core.ResolvableType.forClassWithGenerics;
 
 import javax.inject.Inject;
@@ -39,10 +40,10 @@ public class PageGenericConverterTest {
         Object converted = conversionService.convert(source, srcType, tgtType);
 
         // Converted type
-        assertTrue(converted instanceof PageDto);
+        assertThat(converted, is(instanceOf(PageDto.class)));
         PageDto<?> target = (PageDto<?>) converted;
         // Elements type
-        assertTrue(target.getResults().get(0) instanceof String);
+        assertThat(target.getResults().get(0), is(instanceOf(String.class)));
     }
 
     /**
@@ -55,7 +56,7 @@ public class PageGenericConverterTest {
      */
     @Test
     public void test_typeConverting() {
-        assertTrue(conversionService.canConvert(String.class, Integer.class));
+        assertThat(conversionService.canConvert(String.class, Integer.class), is(true));
 
         Page<String> source = new PageImpl<>(asList("1", "2", "3"), null, 10);
 
@@ -64,10 +65,10 @@ public class PageGenericConverterTest {
         Object converted = conversionService.convert(source, srcType, tgtType);
 
         // Converted type
-        assertTrue(converted instanceof PageDto);
+        assertThat(converted, is(instanceOf(PageDto.class)));
         PageDto<?> target = (PageDto<?>) converted;
         // Elements type
-        assertTrue(target.getResults().get(0) instanceof Integer);
+        assertThat(target.getResults().get(0), is(instanceOf(Integer.class)));
     }
 
     @Test(expected = ConversionFailedException.class)
@@ -75,7 +76,7 @@ public class PageGenericConverterTest {
         // Types
         class SrcType {}
         class TgtType {}
-        assertFalse(conversionService.canConvert(SrcType.class, TgtType.class));
+        assertThat(conversionService.canConvert(SrcType.class, TgtType.class), is(false));
 
         Page<SrcType> source = new PageImpl<>(asList(new SrcType(), new SrcType()), null, 10);
 

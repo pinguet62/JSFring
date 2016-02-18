@@ -2,6 +2,8 @@ package fr.pinguet62.jsfring.gui.component.breadcrumb;
 
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.joining;
+import static javax.faces.context.FacesContext.getCurrentInstance;
+import static org.slf4j.LoggerFactory.getLogger;
 
 import java.util.Deque;
 import java.util.HashMap;
@@ -26,7 +28,6 @@ import org.primefaces.model.menu.MenuGroup;
 import org.primefaces.model.menu.MenuItem;
 import org.primefaces.model.menu.MenuModel;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @FacesComponent("fr.pinguet62.jsfring.gui.component.breadcrumb.BreadCrumbComponent")
 public class BreadCrumbComponent extends BreadCrumb {
@@ -35,7 +36,7 @@ public class BreadCrumbComponent extends BreadCrumb {
         index, menu;
     }
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(BreadCrumbComponent.class);
+    private static final Logger LOGGER = getLogger(BreadCrumbComponent.class);
 
     /** The association of <b>outcome</b> to its {@link BreadCrumb}. */
     protected final Map<String, MenuModel> breadcrumbs = new HashMap<>();
@@ -59,7 +60,7 @@ public class BreadCrumbComponent extends BreadCrumb {
      * @return The current <code>outcome</code>.
      */
     private String getCurrentOutcome() {
-        FacesContext context = FacesContext.getCurrentInstance();
+        FacesContext context = getCurrentInstance();
         String viewId = context.getViewRoot().getViewId();
         Map<String, Set<NavigationCase>> navigationRules = ((ConfigurableNavigationHandler) context.getApplication()
                 .getNavigationHandler()).getNavigationCases();

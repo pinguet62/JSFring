@@ -1,11 +1,12 @@
 package fr.pinguet62.jsfring.service;
 
+import static org.slf4j.LoggerFactory.getLogger;
+
 import java.util.Date;
 
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ import fr.pinguet62.jsfring.util.PasswordGenerator;
 @Service
 public class UserService extends AbstractService<User, String> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
+    private static final Logger LOGGER = getLogger(UserService.class);
 
     /**
      * Generate random {@link User#password}.

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration packages="fr.pinguet62.jsfring">
+
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d [%-5p] (%F:%M:%L) %m%n" />
+		</Console>
+	</Appenders>
+
+	<Loggers>
+		<Root level="INFO">
+			<AppenderRef ref="Console" />
+		</Root>
+		<Logger name="com.gargoylesoftware.htmlunit" level="OFF">
+			<AppenderRef ref="Console" />
+		</Logger>
+		<Logger name="org.odftoolkit.odfdom.pkg.OdfPackage" level="OFF">
+			<AppenderRef ref="Console" />
+		</Logger>
+	</Loggers>
+
+</Configuration>

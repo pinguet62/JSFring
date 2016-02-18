@@ -76,19 +76,20 @@ public class AbstractLazyDataModel<T extends Serializable> extends LazyDataModel
 
         // Pagination
         int pageIndex = firstIndex / pageSize;
-        Pageable pageable = new QPageRequest(pageIndex, pageSize);
         // Order
+        QSort sort = null;
         if (sortField != null) {
             ComparableExpressionBase<?> field = (ComparableExpressionBase<?>) new PropertyResolver(path).apply(sortField);
             Function<ComparableExpressionBase<?>, OrderSpecifier<?>> orderApplier = new OrderConverter().apply(sortOrder);
-            OrderSpecifier<?> order = orderApplier.apply(field);
-            pageable.getSort().and(new QSort(order));
+            OrderSpecifier<?> orderSpecifier = orderApplier.apply(field);
+            sort = new QSort(orderSpecifier);
         }
         // Filter
         Predicate datatablePredicates = new FilterConverter(path).apply(filters);
         Predicate predicate = bean.getPredicate().and(datatablePredicates);
 
         // Request
+        Pageable pageable = new QPageRequest(pageIndex, pageSize, sort);
         Page<T> page = bean.getService().findAll(predicate, pageable);
 
         // Save result state

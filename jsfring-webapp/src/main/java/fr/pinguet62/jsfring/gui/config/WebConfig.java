@@ -1,12 +1,16 @@
 package fr.pinguet62.jsfring.gui.config;
 
-import javax.faces.application.ViewHandler;
+import static com.sun.faces.config.WebConfiguration.BooleanWebContextInitParameter.ForceLoadFacesConfigFiles;
+import static java.lang.Boolean.TRUE;
+import static javax.faces.application.ViewHandler.DEFAULT_FACELETS_SUFFIX;
+import static javax.faces.application.ViewHandler.FACELETS_SKIP_COMMENTS_PARAM_NAME;
+import static javax.faces.convert.Converter.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE_PARAM_NAME;
+import static org.primefaces.util.Constants.ContextParams.THEME;
+
 import javax.faces.context.FacesContextFactory;
-import javax.faces.convert.Converter;
 import javax.faces.webapp.FacesServlet;
 import javax.inject.Inject;
 
-import org.primefaces.util.Constants.ContextParams;
 import org.springframework.boot.context.embedded.ServletContextInitializer;
 import org.springframework.boot.context.embedded.ServletListenerRegistrationBean;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
@@ -25,7 +29,7 @@ public class WebConfig {
     /**
      * Set the index page.
      * <p>
-     * <code> 
+     * <code>
      * &lt;welcome-file-list&gt;<br>
      * &nbsp;&nbsp;&nbsp;&nbsp;&lt;welcome-file&gt;index.jsp&lt;/welcome-file&gt;<br>
      * &lt;/welcome-file-list&gt;
@@ -46,7 +50,7 @@ public class WebConfig {
     @Bean
     public ServletRegistrationBean facesServletRegistration() {
         FacesServlet servlet = new FacesServlet();
-        String extension = "*" + ViewHandler.DEFAULT_FACELETS_SUFFIX;
+        String extension = "*" + DEFAULT_FACELETS_SUFFIX;
         ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(servlet, extension);
         servletRegistrationBean.setLoadOnStartup(1);
         return servletRegistrationBean;
@@ -68,16 +72,15 @@ public class WebConfig {
         return servletContext -> {
             // servletContext.setInitParameter(ProjectStage.PROJECT_STAGE_PARAM_NAME,
             // ProjectStage.Development.toString());
-            servletContext.setInitParameter(ViewHandler.FACELETS_SKIP_COMMENTS_PARAM_NAME, Boolean.TRUE.toString());
+            servletContext.setInitParameter(FACELETS_SKIP_COMMENTS_PARAM_NAME, TRUE.toString());
             // TimeZone: getDefault() instead of "GMT"
-            servletContext.setInitParameter(Converter.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE_PARAM_NAME,
-                    Boolean.TRUE.toString());
+            servletContext.setInitParameter(DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE_PARAM_NAME, TRUE.toString());
 
             // JSF without "web.xml" and "faces-config.xml"
-            servletContext.setInitParameter("com.sun.faces.forceLoadConfiguration", Boolean.TRUE.toString());
+            servletContext.setInitParameter(ForceLoadFacesConfigFiles.getQualifiedName(), TRUE.toString());
 
             // Primefaces
-            servletContext.setInitParameter(ContextParams.THEME, themeSwitcherBean.getTheme().getKey());
+            servletContext.setInitParameter(THEME, themeSwitcherBean.getTheme().getKey());
         };
     }
 

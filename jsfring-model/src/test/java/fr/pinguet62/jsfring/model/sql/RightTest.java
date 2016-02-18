@@ -1,11 +1,11 @@
 package fr.pinguet62.jsfring.model.sql;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
-
-import fr.pinguet62.jsfring.model.sql.Right;
 
 /** @see Right */
 public final class RightTest {
@@ -13,12 +13,12 @@ public final class RightTest {
     /** @see Right#equals(Object) */
     @Test
     public void test_equals() {
-        assertEquals(new Right(), new Right());
-        assertEquals(new Right("same code"), new Right("same code"));
-        assertEquals(new Right("same code", "AAA"), new Right("same code", "111"));
+        assertThat(new Right(), is(equalTo(new Right())));
+        assertThat(new Right("same code"), is(equalTo(new Right("same code"))));
+        assertThat(new Right("same code", "AAA"), is(equalTo(new Right("same code", "111"))));
 
-        assertNotEquals(new Right("a code"), new Right("other value"));
-        assertNotEquals(new Right(), "other type");
+        assertThat(new Right("a code"), is(not(equalTo(new Right("other value")))));
+        assertThat(new Right(), is(not(equalTo("other type"))));
     }
 
 }

@@ -1,14 +1,17 @@
 package fr.pinguet62.jsfring.ws;
 
-import static fr.pinguet62.jsfring.test.Config.DATASET;
+import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
 import static fr.pinguet62.jsfring.ws.Config.BASE_URL;
 import static fr.pinguet62.jsfring.ws.ProfileWebservice.PATH;
-import static org.junit.Assert.assertEquals;
+import static javax.ws.rs.client.ClientBuilder.newClient;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;
 
 import org.junit.Test;
@@ -43,7 +46,7 @@ public class ProfileWebserviceITTest {
     public void test_get() {
         int id = profileDao.findAll().get(0).getId();
 
-        ProfileDto actual = ClientBuilder.newClient().target(BASE_URL).path(PATH + "/{id}").resolveTemplate("id", id).request()
+        ProfileDto actual = newClient().target(BASE_URL).path(PATH + "/{id}").resolveTemplate("id", id).request()
                 .get(ProfileDto.class);
 
         Profile pojo = profileDao.findOne(id);
@@ -51,19 +54,19 @@ public class ProfileWebserviceITTest {
         expected.setId(pojo.getId());
         expected.setTitle(pojo.getTitle());
 
-        assertEquals(expected.getId(), actual.getId());
-        assertEquals(expected.getTitle(), actual.getTitle());
+        assertThat(actual.getId(), is(equalTo(expected.getId())));
+        assertThat(actual.getTitle(), is(equalTo(expected.getTitle())));
     }
 
     /** @see ProfileWebservice#list() */
     @Test
     public void test_list() {
-        List<ProfileDto> actual = ClientBuilder.newClient().target(BASE_URL).path(PATH + "/").request()
+        List<ProfileDto> actual = newClient().target(BASE_URL).path(PATH + "/").request()
                 .get(new GenericType<List<ProfileDto>>() {});
 
         List<Profile> expected = profileDao.findAll();
 
-        assertEquals(expected.size(), actual.size());
+        assertThat(actual, hasSize(expected.size()));
     }
 
 }

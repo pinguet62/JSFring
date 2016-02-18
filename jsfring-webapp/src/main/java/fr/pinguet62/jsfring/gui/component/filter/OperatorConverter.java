@@ -1,5 +1,7 @@
 package fr.pinguet62.jsfring.gui.component.filter;
 
+import static java.lang.Class.forName;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -13,14 +15,11 @@ public final class OperatorConverter implements Converter {
 
     /** @see Class#newInstance() */
     @Override
-    public Operator<?, ?> getAsObject(FacesContext context,
-            UIComponent component, String className) {
+    public Operator<?, ?> getAsObject(FacesContext context, UIComponent component, String className) {
         try {
-            return (Operator<?, ?>) Class.forName(className).newInstance();
-        } catch (InstantiationException | IllegalAccessException
-                | ClassNotFoundException e) {
-            throw new IllegalArgumentException(
-                    "Error during creation of operator", e);
+            return (Operator<?, ?>) forName(className).newInstance();
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+            throw new IllegalArgumentException("Error during creation of operator", e);
         }
     }
 
@@ -30,8 +29,7 @@ public final class OperatorConverter implements Converter {
      * @see Class#getName()
      */
     @Override
-    public String getAsString(FacesContext context, UIComponent component,
-            Object value) {
+    public String getAsString(FacesContext context, UIComponent component, Object value) {
         if (value == null)
             return null;
         Operator<?, ?> operator = (Operator<?, ?>) value;

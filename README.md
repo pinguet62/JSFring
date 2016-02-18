@@ -8,29 +8,29 @@ Integration of Spring into JSF project.
 
 Layers :
 * Data access
-	* ![LOGO](https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png =90x25) [**Spring Data**](http://projects.spring.io/spring-data)
+	* <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> [**Spring Data**](http://projects.spring.io/spring-data)
 	* Databases :
 		* SQL
 			* **JPA**
-				* ![LOGO](http://static.jboss.org/hibernate/images/hibernate_logo_whitebkg_200px.png =100x25) [Hibernate](http://hibernate.org)
-			* ![LOGO](https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/langfr-540px-Postgresql_elephant.svg.png =24x25) [PostgreSQL](http://www.postgresql.org)
+				* <img src="http://static.jboss.org/hibernate/images/hibernate_logo_whitebkg_200px.png" height="25" /> [Hibernate](http://hibernate.org)
+			* <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/langfr-540px-Postgresql_elephant.svg.png" height="25" /> [PostgreSQL](http://www.postgresql.org)
 		* NoSQL
-			* ![LOGO](https://www.mongodb.org/assets/global/mongodb-logo-web-tagline-99280fe76cc002a93d023901c1a05df8b621f1c893084a580dee83de9be96630.png =69x25) [MongoDB](https://www.mongodb.org)
-	* ![LOGO](http://devrates.com/project/logo/337129 =80x25) [Querydsl](http://www.querydsl.com)
+			* <img src="https://www.mongodb.org/assets/global/mongodb-logo-web-tagline-99280fe76cc002a93d023901c1a05df8b621f1c893084a580dee83de9be96630.png" height="25" /> [MongoDB](https://www.mongodb.org)
+	* <img src="http://devrates.com/project/logo/337129" height="25" /> [Querydsl](http://www.querydsl.com)
 * Webservice:
-	* ![LOGO](http://www.mkyong.com/wp-content/uploads/2011/07/jaxrs-tutorials.gif =62x25)
+	* <img src="http://www.mkyong.com/wp-content/uploads/2011/07/jaxrs-tutorials.gif" height="25" />
 		[**JAX-RS**](https://jax-rs-spec.java.net)
-		* ![LOGO](https://jersey.java.net/images/jersey_logo.png =29x25)
+		* <img src="https://jersey.java.net/images/jersey_logo.png" height="25" />
 			[Jersey](https://jersey.java.net)
 * Webapp:
 	* Java
-		* ![LOGO](https://upload.wikimedia.org/wikipedia/en/thumb/7/75/20110510-jsf-logo.tiff/lossless-page1-320px-20110510-jsf-logo.tiff.png =50x25) **JSF**
-			* ![LOGO](http://www.primefaces.org/images/logo.png =111x25) [**PrimeFaces**](http://primefaces.org)
-		* ![LOGO](https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png =90x25) [Spring security](http://projects.spring.io/spring-security)
+		* <img src="https://upload.wikimedia.org/wikipedia/en/thumb/7/75/20110510-jsf-logo.tiff/lossless-page1-320px-20110510-jsf-logo.tiff.png" height="25" /> **JSF**
+			* <img src="http://www.primefaces.org/images/logo.png" height="25" /> [**PrimeFaces**](http://primefaces.org)
+		* <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> [Spring security](http://projects.spring.io/spring-security)
 			* Taglib (JSF integration)
-	* ![LOGO](https://angularjs.org/img/AngularJS-large.png =89x25) [**AngularJS**](https://angularjs.org)
-		* ![LOGO](https://angular-translate.github.io/img/logo/angular-translate-alternative/angular-translate_alternative_medium2.png =186x25) [Angular Translate](https://angular-translate.github.io)
-		* ![LOGO](https://upload.wikimedia.org/wikipedia/fr/1/13/TwitterBootstrap.png =25x25) [**Bootstrap**](http://getbootstrap.com)
+	* <img src="https://angularjs.org/img/AngularJS-large.png" height="25" /> [**AngularJS**](https://angularjs.org)
+		* <img src="https://angular-translate.github.io/img/logo/angular-translate-alternative/angular-translate_alternative_medium2.png" height="25" /> [Angular Translate](https://angular-translate.github.io)
+		* <img src="https://upload.wikimedia.org/wikipedia/fr/1/13/TwitterBootstrap.png" height="25" /> [**Bootstrap**](http://getbootstrap.com)
 			* [UI Bootstrap](https://angular-ui.github.io/bootstrap)
 		* [ngDialog](http://ngmodules.org/modules/ngDialog)
 		* [UI Grid](http://ui-grid.info)
@@ -39,48 +39,47 @@ Transverse :
 * *Transverse*
 	* **Java EE**
 		* [**CDI**](https://docs.oracle.com/javaee/7/tutorial/cdi-basic.htm) (Contexts and Dependency Injection)
-	* ![LOGO](https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png =90x25) [**Spring framework**](http://projects.spring.io/spring-framework)
+	* <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> [**Spring framework**](http://projects.spring.io/spring-framework)
 		* [Caching Data](https://spring.io/guides/gs/caching)
 		* [Scheduling Tasks](https://spring.io/guides/gs/scheduling-tasks)
 * Tests:
-	* ![LOGO](http://junit.org/images/junit-logo.png =63x25) [**JUnit**](http://junit.org)
-	* ![LOGO](http://hamcrest.org/images/logo.jpg =25x25) [Hamcrest](http://hamcrest.org/JavaHamcrest)
-	* ![LOGO](http://dbunit.sourceforge.net/images/dbunit-logo.jpg =50x25) [**DBUnit**](http://dbunit.sourceforge.net)
+	* <img src="http://junit.org/images/junit-logo.png" height="25" /> [**JUnit**](http://junit.org)
+	* <img src="http://hamcrest.org/images/logo.jpg" height="25" /> [Hamcrest](http://hamcrest.org/JavaHamcrest)
+	* <img src="http://dbunit.sourceforge.net/images/dbunit-logo.jpg" height="25" /> [**DBUnit**](http://dbunit.sourceforge.net)
+	* <img src="http://htmlunit.sourceforge.net/images/GargoyleSoftwareLogo.jpg" height="25" /> [**DBUnitHtmlUnit**](http://htmlunit.sourceforge.net/)
 	* [Spring Test DBUnit](http://springtestdbunit.github.io/spring-test-dbunit)
 * Logging:
-	* ![LOGO](http://www.slf4j.org/images/logos/slf4j-logo.jpg =59x25) [SLF4J](http://www.slf4j.org)
-	* ![LOGO](http://logging.apache.org/log4j/2.x/images/logo.jpg =66x25) [**Log4j2**](http://logging.apache.org/log4j/2.x)
+	* <img src="http://www.slf4j.org/images/logos/slf4j-logo.jpg" height="25" /> [SLF4J](http://www.slf4j.org)
+	* <img src="http://logging.apache.org/log4j/2.x/images/logo.jpg" height="25" /> [**Log4j2**](http://logging.apache.org/log4j/2.x)
 * Mail:
-	* ![LOGO](https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png =90x25) [JavaMail](http://www.oracle.com/technetwork/java/javamail/index.html)
+	* <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> [JavaMail](http://www.oracle.com/technetwork/java/javamail/index.html)
 * Reporting:
-	* ![LOGO](http://community-static.jaspersoft.com/sites/default/files/styles/project_icon/public/projects/icons/js_reports-library_1_rg2.png?itok=YfQKPh7R =28x25) [**Jasper Report**](https://community.jaspersoft.com/project/jasperreports-server)
+	* <img src="http://community-static.jaspersoft.com/sites/default/files/styles/project_icon/public/projects/icons/js_reports-library_1_rg2.png?itok=YfQKPh7R" height="25" /> [**Jasper Report**](https://community.jaspersoft.com/project/jasperreports-server)
 
 Utils :
-* ![LOGO](https://maven.apache.org/images/maven-logo-black-on-white.png =99x25) [**Maven**](https://maven.apache.org)
+* <img src="https://maven.apache.org/images/maven-logo-black-on-white.png" height="25" /> [**Maven**](https://maven.apache.org)
 
 ### TODO
 
 * [Multitenancy](https://en.wikipedia.org/wiki/Multitenancy) architecture
 * Datastore
-	* [Elasticsearch](https://www.elastic.co/fr)
+	* <img src="http://www.steamulo.com/blobs/com.cardiweb.cardiboxv6.cm.business.Article/3131807079036093132/img/1/fr/logo-elastic.png" height="25" /> [Elasticsearch](https://www.elastic.co/fr)
 * Test
 	* [**JMeter**](http://jmeter.apache.org)
 * Logging
-	* [Logstash](https://www.elastic.co/products/logstash)
-* ![LOGO](http://oauth.net/images/oauth-2-sm.png =25x25) ![LOGO](https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png =90x25) [OAuth2](http://oauth.net/2)
+	* <img src="http://logz.io/wp-content/uploads/2015/12/logstash-logo.png" height="25" /> [Logstash](https://www.elastic.co/products/logstash)
+* <img src="http://oauth.net/images/oauth-2-sm.png" height="25" />
+	<img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> [OAuth2](http://oauth.net/2)
 
 ### Version
 
 All dependencies use the latest version.
 
-[![Dependency Status](https://www.versioneye.com/user/projects/56729e638fea07000e093826/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56729e638fea07000e093826)
-[![Dependency Status](https://www.versioneye.com/user/projects/56729e698fea07000a09375a/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56729e698fea07000a09375a)
-[![Dependency Status](https://www.versioneye.com/user/projects/56729e6f8fea07000e093878/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56729e6f8fea07000e093878)
-[![Dependency Status](https://www.versioneye.com/user/projects/56729e738fea07000e0938b0/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56729e738fea07000e0938b0)
-[![Dependency Status](https://www.versioneye.com/user/projects/56729e798fea07000e0938eb/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56729e798fea07000e0938eb)
-[![Dependency Status](https://www.versioneye.com/user/projects/56729e808fea07000a0937cb/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56729e808fea07000a0937cb)
+<img src="https://www.versioneye.com/assets/verisoneye-logo-small-09d4dc67649e8bb51adc2c37216a341f01306950d556f4024c82c302f259ebda.png" height="25" />
+[VersionEye](https://www.versioneye.com)
+[![Dependency Status](https://www.versioneye.com/user/projects/56b7dc23a70289000d663313/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56b7dc23a70289000d663313)
 
-## Code style/quality, Continue Integration, Deployment
+## Static analysis
 
 ### Code quality
 
@@ -92,38 +91,44 @@ Check that *source code* respect *best practices*:
 * code duplication
 * ...
 
+<img src="https://www.codacy.com/versioned/images/favicon.png" height="25" />
+[Codacy](https://www.codacy.com)
 [![Codacy Badge](https://api.codacy.com/project/badge/9ea574afb85b496294af3b6057e278aa)](https://www.codacy.com/app/pinguet62/JSFring)
 
-### Testing
+## Build & Test
 
-#### Unit test
-
-**JUnit** is used to execute code.
-
-#### Integration test
-
-**HtmlUnit** is used to navigate into website.
-
-#### Continue Integration
+### Continue Integration
 
 Build and run unit/integration tests, in continue!
 
+<img src="http://img.photobucket.com/albums/v330/pretendercrazy/travis-an_zpsb8ef2f7e.gif" height="25" />
+[Travis CI](https://travis-ci.org)
 [![Build Status](https://travis-ci.org/pinguet62/JSFring.svg?branch=master)](https://travis-ci.org/pinguet62/JSFring)
 
-#### Code coverage
+### Code coverage
 
 Measure the degree to which the source code of a program is *tested*.
 
-[![Coverage Status](https://coveralls.io/repos/pinguet62/JSFring/badge.svg?branch=master&service=github)](https://coveralls.io/github/pinguet62/JSFring?branch=master)
+<img src="https://coveralls.io/favicon.png" height="25" />
+[Coveralls](https://coveralls.io)
+[![Coverage Status](https://coveralls.io/repos/github/pinguet62/JSFring/badge.svg?branch=master)](https://coveralls.io/github/pinguet62/JSFring?branch=master)
 
+
+<img src="https://d234q63orb21db.cloudfront.net/9fe342f72c9a347589de9022ee335ed24d278355/media/images/pink.png" height="25" />
+[Codecov](https://codecov.io)
 [![codecov.io](https://codecov.io/github/pinguet62/JSFring/coverage.svg?branch=master)](https://codecov.io/github/pinguet62/JSFring?branch=master)
 
-## SAS & Continue Integration
+## Install & Runtime
 
-Deploy web-application on the cloud, in continue!
+### SaaS (Software as a Service): Continuous Deployment
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](http://pinguet62-jsfring.herokuapp.com)
+Multi web-application deployed on cloud... in continue!
+
+* Webapp: <img src="https://d3k90kvix375hb.cloudfront.net/assets/logo-purple.svg" height="25" /> [Heroku](https://www.heroku.com/home) [![Deploy](https://www.herokucdn.com/deploy/button.png)](http://jsfring-webapp.herokuapp.com)
+* Webservice: <img src="https://d3k90kvix375hb.cloudfront.net/assets/logo-purple.svg" height="25" /> [Heroku](https://www.heroku.com/home) [![Deploy](https://www.herokucdn.com/deploy/button.png)](http://jsfring-webservice.herokuapp.com)
 
 ## Licence
 
+<img src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png" height="25" />
+[Creative Commons BY-NC-SA](http://creativecommons.org/licenses/by-nc-sa/4.0)
 [![Creative Commons BY-NC-SA](https://img.shields.io/badge/Licence-Creative%20Commons-brightgreen.svg)](http://creativecommons.org/licenses/by-nc-sa/4.0)

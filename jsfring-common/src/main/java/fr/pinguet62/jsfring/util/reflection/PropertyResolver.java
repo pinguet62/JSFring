@@ -1,10 +1,9 @@
 package fr.pinguet62.jsfring.util.reflection;
 
-import java.lang.reflect.Field;
-import java.util.Objects;
-import java.util.function.Function;
+import static java.util.Objects.nonNull;
 
-import fr.pinguet62.jsfring.util.reflection.ReflectionException;
+import java.lang.reflect.Field;
+import java.util.function.Function;
 
 /**
  * Get the target attribute value by reflection.
@@ -41,7 +40,7 @@ public final class PropertyResolver implements Function<String, Object> {
      */
     @Override
     public Object apply(String property) {
-        Objects.nonNull(property);
+        nonNull(property);
         if (property.isEmpty() || property.endsWith("."))
             throw new IllegalArgumentException("Invalid properties path: " + property);
 

@@ -1,10 +1,13 @@
 package fr.pinguet62.jsfring.gui;
 
+import static javax.faces.application.FacesMessage.SEVERITY_ERROR;
+import static javax.faces.application.FacesMessage.SEVERITY_INFO;
+import static javax.faces.context.FacesContext.getCurrentInstance;
+
 import java.io.Serializable;
 import java.util.Locale;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -40,15 +43,15 @@ public final class ForgottenPasswordBean implements Serializable {
      * @see UserService#forgottenPassword(String)
      */
     public void reset() {
-        Locale locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
+        Locale locale = getCurrentInstance().getViewRoot().getLocale();
 
         try {
             userService.forgottenPassword(email);
             String message = messageSource.getMessage("forgottenPassword.messages.informationsSent", null, locale);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
+            getCurrentInstance().addMessage(null, new FacesMessage(SEVERITY_INFO, message, null));
         } catch (IllegalArgumentException exception) {
             String message = messageSource.getMessage("forgottenPassword.messages.emailUnknown", null, locale);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+            getCurrentInstance().addMessage(null, new FacesMessage(SEVERITY_ERROR, message, null));
         }
     }
 

@@ -1,7 +1,9 @@
 package fr.pinguet62.jsfring.gui.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
+import static org.junit.Assert.assertThat;
 import static org.primefaces.model.SortOrder.ASCENDING;
 import static org.primefaces.model.SortOrder.DESCENDING;
 import static org.primefaces.model.SortOrder.UNSORTED;
@@ -30,23 +32,23 @@ public final class OrderConverterTest {
         {
             QRight right = QRight.right_;
 
-            assertEquals(right.code.asc(), ascOrderApplier.apply(right.code));
-            assertEquals(right.code.desc(), descOrderApplier.apply(right.code));
+            assertThat(ascOrderApplier.apply(right.code), is(equalTo(right.code.asc())));
+            assertThat(descOrderApplier.apply(right.code), is(equalTo(right.code.desc())));
 
-            assertEquals(right.title.asc(), ascOrderApplier.apply(right.title));
-            assertEquals(right.title.desc(), descOrderApplier.apply(right.title));
+            assertThat(ascOrderApplier.apply(right.title), is(equalTo(right.title.asc())));
+            assertThat(descOrderApplier.apply(right.title), is(equalTo(right.title.desc())));
         }
         {
             QProfile profile = QProfile.profile;
 
-            assertEquals(profile.id.asc(), ascOrderApplier.apply(profile.id));
-            assertEquals(profile.id.desc(), descOrderApplier.apply(profile.id));
+            assertThat(ascOrderApplier.apply(profile.id), is(equalTo(profile.id.asc())));
+            assertThat(descOrderApplier.apply(profile.id), is(equalTo(profile.id.desc())));
         }
         {
             QUser user = QUser.user;
 
-            assertEquals(user.login.asc(), ascOrderApplier.apply(user.login));
-            assertEquals(user.login.desc(), descOrderApplier.apply(user.login));
+            assertThat(ascOrderApplier.apply(user.login), is(equalTo(user.login.asc())));
+            assertThat(descOrderApplier.apply(user.login), is(equalTo(user.login.desc())));
         }
     }
 
@@ -58,8 +60,7 @@ public final class OrderConverterTest {
      */
     @Test
     public void test_apply_unsorded() {
-        assertNull(new OrderConverter().apply(UNSORTED));
-        assertNull(new OrderConverter().apply(UNSORTED));
+        assertThat(new OrderConverter().apply(UNSORTED), is(nullValue()));
     }
 
 }

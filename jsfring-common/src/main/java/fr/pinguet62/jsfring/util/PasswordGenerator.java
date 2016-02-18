@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.util;
 
+import static java.lang.String.join;
 import static java.lang.String.valueOf;
 import static java.util.Arrays.asList;
 import static java.util.Collections.shuffle;
@@ -30,7 +31,7 @@ public class PasswordGenerator implements Supplier<String> {
 
         shuffle(choosen);
 
-        return String.join("", choosen);
+        return join("", choosen);
     }
 
 }

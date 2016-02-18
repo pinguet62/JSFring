@@ -1,8 +1,14 @@
 package fr.pinguet62.jsfring.util;
 
-import java.util.Comparator;
-import java.util.List;
+import static org.apache.commons.lang3.time.DateUtils.truncate;
 
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
+import java.util.function.Function;
+
+import org.apache.commons.lang3.time.DateUtils;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
@@ -11,29 +17,61 @@ import org.hamcrest.TypeSafeMatcher;
 public final class MatcherUtils {
 
     /**
-     * Check that {@link List} is sorted.
+     * Check that the {@link Date} is equals to another with a delta.
      *
-     * @param <T> The type of elements.
-     * @param comparator The {@link Comparator} used by algorithm.
+     * @param expected The {@link Date}.
+     * @param field The field from the field {@code Calendar}.
      * @return The {@link Matcher}.
+     * @see DateUtils#truncate(Date, int)
+     * @see Date#equals(Object)
      */
-    public static <T> Matcher<List<T>> isSorted(Comparator<T> comparator) {
-        return new TypeSafeMatcher<List<T>>() {
+    public static Matcher<Date> equalToTruncated(Date expected, int field) {
+        return new TypeSafeMatcher<Date>() {
             @Override
             public void describeTo(Description description) {}
 
             /**
-             * @param values The {@link List} to check.
-             * @throws ClassCastException If the list contains elements that are
-             *             not {@link Comparable}.
+             * @param actual The {@link Date} to compare.
+             * @see Date#truncate(Date, int)
+             * @see Date#equals(Object)
              */
             @Override
-            protected boolean matchesSafely(List<T> values) {
-                for (int i = 0, j = 1; j < values.size(); i++, j++) {
-                    if (0 < comparator.compare(values.get(i), values.get(j)))
-                        return false;
-                }
-                return true;
+            protected boolean matchesSafely(Date actual) {
+                if (expected == null && actual == null)
+                    return true;
+                else if (expected == null || actual == null)
+                    return false;
+                else
+                    return Objects.equals(truncate(actual, field), truncate(expected, field));
+            }
+        };
+    };
+
+    /**
+     * {@link Matcher} used to {@link Function map} object to another type and
+     * apply another {@link Mapper} on converted value.
+     *
+     * @param <S> The source type.
+     * @param <M> The mapped type.
+     * @param mapper The {@link Function mapper}.
+     * @param matcher The {@link Matcher} to apply on converted value.
+     * @return The {@link Matcher}.
+     */
+    public static <S, M> Matcher<S> mappedTo(Function<S, M> mapper, Matcher<M> matcher) {
+        return new TypeSafeMatcher<S>() {
+            @Override
+            public void describeTo(Description description) {}
+
+            /**
+             * Convert source object and apply {@link Matcher}.
+             *
+             * @param actual The source object.
+             * @see Matcher#matches(Object)
+             */
+            @Override
+            protected boolean matchesSafely(S actual) {
+                M mapped = mapper.apply(actual);
+                return matcher.matches(mapped);
             }
         };
     };
@@ -51,12 +89,40 @@ public final class MatcherUtils {
             public void describeTo(Description description) {}
 
             /**
-             * @param value The {@link String} to test.
+             * @param actual The {@link String} to test.
              * @see String#matches(String)
              */
             @Override
-            protected boolean matchesSafely(String value) {
-                return value.matches(regex);
+            protected boolean matchesSafely(String actual) {
+                return actual.matches(regex);
+            }
+        };
+    }
+
+    /**
+     * Check that {@link List} is sorted.
+     *
+     * @param <T> The type of elements.
+     * @param comparator The {@link Comparator} used by algorithm.
+     * @return The {@link Matcher}.
+     */
+    public static <T> Matcher<List<T>> sorted(Comparator<T> comparator) {
+        return new TypeSafeMatcher<List<T>>() {
+            @Override
+            public void describeTo(Description description) {}
+
+            /**
+             * @param values The {@link List} to check.
+             * @throws ClassCastException If the list contains elements that are
+             *             not {@link Comparable}.
+             */
+            @Override
+            protected boolean matchesSafely(List<T> values) {
+                for (int i = 0, j = 1; j < values.size(); i++, j++) {
+                    if (0 < comparator.compare(values.get(i), values.get(j)))
+                        return false;
+                }
+                return true;
             }
         };
     }

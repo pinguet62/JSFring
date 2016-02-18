@@ -1,12 +1,15 @@
 package fr.pinguet62.jsfring.gui;
 
+import static fr.pinguet62.jsfring.gui.config.security.SpringSecurityConfig.LOGIN_PROCESSING_URL;
+import static javax.faces.application.FacesMessage.SEVERITY_ERROR;
+import static javax.faces.context.FacesContext.getCurrentInstance;
+
 import java.io.IOException;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,7 +18,6 @@ import javax.servlet.ServletResponse;
 
 import org.springframework.beans.factory.annotation.Value;
 
-import fr.pinguet62.jsfring.gui.config.SpringSecurityConfig;
 import fr.pinguet62.jsfring.gui.config.scope.SpringRequestScoped;
 
 /** Bean for user login. */
@@ -54,8 +56,7 @@ public final class LoginBean implements Serializable {
     @PostConstruct
     public void init() {
         if (error != null)
-            FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Username or password invalid.", null));
+            getCurrentInstance().addMessage(null, new FacesMessage(SEVERITY_ERROR, "Username or password invalid.", null));
     }
 
     public boolean isRememberMe() {
@@ -68,11 +69,10 @@ public final class LoginBean implements Serializable {
      * Spring-Security will manage the authentication.
      */
     public void login() throws ServletException, IOException {
-        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-        RequestDispatcher dispatcher = ((ServletRequest) context.getRequest())
-                .getRequestDispatcher(SpringSecurityConfig.LOGIN_PROCESSING_URL);
+        ExternalContext context = getCurrentInstance().getExternalContext();
+        RequestDispatcher dispatcher = ((ServletRequest) context.getRequest()).getRequestDispatcher(LOGIN_PROCESSING_URL);
         dispatcher.forward((ServletRequest) context.getRequest(), (ServletResponse) context.getResponse());
-        FacesContext.getCurrentInstance().responseComplete();
+        getCurrentInstance().responseComplete();
     }
 
     public void setError(String error) {

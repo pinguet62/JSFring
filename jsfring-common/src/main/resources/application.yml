@@ -6,6 +6,7 @@ spring:
         # Disable proxies
         auto: false
         proxy-target-class: false
+    #data.mongodb.uri: external config
     datasource:
         #url: external config
     jpa:
@@ -19,14 +20,23 @@ spring:
                 format_sql: true
                 #globally_quoted_identifiers: true
                 use_sql_comments: false
-        show-sql: true
     mail:
         #host: external config
         #password: external config
         #port: external config
-        properties:
-            mail.smtp.auth: true
-            mail.smtp.starttls.enable: true
-            #mail.smtp.ssl.trust: smtp.gmail.com
-        test-connection: false
+        test-connection: true
         #username: external config
+security:
+    user:
+        name: user
+        password: pwd
+    oauth2:
+        client:
+            client-id: client
+            client-secret: secret
+            authorized-grant-types: authorization_code,refresh_token,password
+            scope: openid
+        # resource:
+            # id
+            # id
+            # id

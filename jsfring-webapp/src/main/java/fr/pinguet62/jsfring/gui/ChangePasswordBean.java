@@ -1,13 +1,16 @@
 package fr.pinguet62.jsfring.gui;
 
-import static fr.pinguet62.jsfring.model.sql.User.EMAIL_VALIDATION_MESSAGE;
 import static fr.pinguet62.jsfring.model.sql.User.PASSWORD_REGEX;
+import static fr.pinguet62.jsfring.model.sql.User.PASSWORD_VALIDATION_MESSAGE;
+import static javax.faces.application.FacesMessage.SEVERITY_ERROR;
+import static javax.faces.application.FacesMessage.SEVERITY_INFO;
+import static javax.faces.context.FacesContext.getCurrentInstance;
 
 import java.io.Serializable;
 import java.util.Locale;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
+import javax.faces.application.FacesMessage.Severity;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.Pattern;
@@ -16,7 +19,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import fr.pinguet62.jsfring.gui.config.scope.SpringViewScoped;
-import fr.pinguet62.jsfring.gui.sample.UserBean;
 import fr.pinguet62.jsfring.model.sql.User;
 import fr.pinguet62.jsfring.service.UserService;
 
@@ -30,15 +32,15 @@ public final class ChangePasswordBean implements Serializable {
     private String currentPassword;
 
     @Inject
+    private UserDetails currentUserDetails;
+
+    @Inject
     private transient MessageSource messageSource;
 
-    @Pattern(regexp = PASSWORD_REGEX, message = EMAIL_VALIDATION_MESSAGE)
+    @Pattern(regexp = PASSWORD_REGEX, message = PASSWORD_VALIDATION_MESSAGE)
     private String newPassword;
 
     private String newPasswordConfirmation;
-
-    @Inject
-    private transient UserBean userBean;
 
     @Inject
     private transient UserService userService;
@@ -68,6 +70,18 @@ public final class ChangePasswordBean implements Serializable {
     }
 
     /**
+     * Display message.
+     *
+     * @param severity The {@link FacesMessage} severity.
+     * @param code Code of i18n message.
+     */
+    private void showMessage(Severity severity, String code) {
+        Locale locale = getCurrentInstance().getViewRoot().getLocale();
+        String msg = messageSource.getMessage(code, null, locale);
+        getCurrentInstance().addMessage(null, new FacesMessage(severity, msg, null));
+    }
+
+    /**
      * <ul>
      * <li>Check the {@link #currentPassword};</li>
      * <li>Update the {@link User#password}.</li>
@@ -76,15 +90,13 @@ public final class ChangePasswordBean implements Serializable {
      * @see UserService#updatePassword(String, String)
      */
     public void submit() {
-        UserDetails userDetails = userBean.get();
-
-        if (!newPassword.equals(userDetails.getPassword())) {
-            Locale locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
-            String msg = messageSource.getMessage("changePassword.invalidCurrentPassword", null, locale);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, null));
+        if (!currentPassword.equals(currentUserDetails.getPassword())) {
+            showMessage(SEVERITY_ERROR, "changePassword.invalidCurrentPassword");
+            return;
         }
 
-        userService.updatePassword(userDetails.getUsername(), newPassword);
+        userService.updatePassword(currentUserDetails.getUsername(), newPassword);
+        showMessage(SEVERITY_INFO, "changePassword.confirmation");
     }
 
 }

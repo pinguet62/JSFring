@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.util.querydsl;
 
+import static java.lang.Class.forName;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 
@@ -42,7 +43,7 @@ public final class ReflectionUtil {
                 .toString();
         Class<? extends EntityPathBase<T>> metaObjectType;
         try {
-            metaObjectType = (Class<? extends EntityPathBase<T>>) Class.forName(metaObjectTypeName);
+            metaObjectType = (Class<? extends EntityPathBase<T>>) forName(metaObjectTypeName);
         } catch (ClassNotFoundException exception) {
             throw new UnsupportedOperationException("Metaclass not found", exception);
         }
