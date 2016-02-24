@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.gui;
 
+import static fr.pinguet62.jsfring.gui.config.security.UserDetailsUtils.getCurrent;
 import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.get;
 import static fr.pinguet62.jsfring.model.sql.User.PASSWORD_REGEX;
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
@@ -18,11 +19,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -63,23 +59,10 @@ public class ChangePasswordPageITTest {
         page = get().gotoChangePasswordPage();
     }
 
-    // TODO Static method shared with CurrentUserDetailsConfig:currentUserDetails()
-    private UserDetails getCurrentUserDetails() {
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        if (securityContext == null)
-            return null;
-        Authentication authentication = securityContext.getAuthentication();
-        if (authentication == null || !authentication.isAuthenticated()
-                || authentication instanceof AnonymousAuthenticationToken)
-            return null;
-        return (UserDetails) authentication.getPrincipal();
-    }
-
     private User getUser() {
-        return userService.findAll(QUser.user.login.eq(getCurrentUserDetails().getUsername())).get(0);
+        return userService.findAll(QUser.user.login.eq(getCurrent().getUsername())).get(0);
     }
 
-    // TODO Fix SecurityContext for HtmlUnit
     @Test
     @WithUserHavingRoles("RIGHT_RO")
     public void test() {
