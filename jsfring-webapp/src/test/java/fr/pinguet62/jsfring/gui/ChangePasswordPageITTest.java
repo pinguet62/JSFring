@@ -6,7 +6,6 @@ import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
 import static fr.pinguet62.jsfring.util.MatcherUtils.matches;
 import static java.util.UUID.randomUUID;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -19,6 +18,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -26,20 +30,20 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.mysema.query.BooleanBuilder;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
+import fr.pinguet62.jsfring.gui.config.scope.SpringRequestScoped;
 import fr.pinguet62.jsfring.gui.config.security.RequiresAnyUser;
+import fr.pinguet62.jsfring.gui.config.security.WithAnyUser;
 import fr.pinguet62.jsfring.gui.config.security.WithUserHavingRoles;
-import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.ChangePasswordPage;
-import fr.pinguet62.jsfring.gui.htmlunit.IndexPage;
-import fr.pinguet62.jsfring.gui.htmlunit.LoginPage;
+import fr.pinguet62.jsfring.model.sql.QUser;
 import fr.pinguet62.jsfring.model.sql.User;
 import fr.pinguet62.jsfring.service.UserService;
 import fr.pinguet62.jsfring.util.PasswordGenerator;
 
 /** @see ChangePasswordPage */
+@SpringRequestScoped
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(SpringBootConfig.class)
 @WebIntegrationTest
@@ -50,30 +54,38 @@ public class ChangePasswordPageITTest {
 
     private ChangePasswordPage page;
 
-    private User user;
-
     @Inject
     private UserService userService;
 
     /** Page requires login. */
     @Before
     public void before() {
-        user = userService.findAll(new BooleanBuilder()).get(0);
+        page = get().gotoChangePasswordPage();
+    }
 
-        LoginPage loginPage = get().gotoLoginPage();
-        AbstractPage logedPage = loginPage.doLogin(user.getLogin(), user.getPassword());
-        assertThat(logedPage, is(instanceOf(IndexPage.class)));
+    // TODO Static method shared with CurrentUserDetailsConfig:currentUserDetails()
+    private UserDetails getCurrentUserDetails() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        if (securityContext == null)
+            return null;
+        Authentication authentication = securityContext.getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()
+                || authentication instanceof AnonymousAuthenticationToken)
+            return null;
+        return (UserDetails) authentication.getPrincipal();
+    }
 
-        page = logedPage.gotoChangePasswordPage();
+    private User getUser() {
+        return userService.findAll(QUser.user.login.eq(getCurrentUserDetails().getUsername())).get(0);
     }
 
     // TODO Fix SecurityContext for HtmlUnit
-    // @Test
+    @Test
     @WithUserHavingRoles("RIGHT_RO")
     public void test() {
         final String newPassword = new PasswordGenerator().get();
 
-        page.setActualPassword(user.getPassword());
+        page.setActualPassword(getUser().getPassword());
         page.setNewPassword(newPassword);
         page.setConfirmPassword(newPassword);
         page.submit();
@@ -81,7 +93,7 @@ public class ChangePasswordPageITTest {
         // Checks
         assertThat(page.getMessageInfo(), is(not(nullValue())));
         assertThat(page.getMessageError(), is(nullValue()));
-        assertThat(userService.get(user.getLogin()).getPassword(), is(equalTo(newPassword)));
+        assertThat(userService.get(getUser().getLogin()).getPassword(), is(equalTo(newPassword)));
     }
 
     /** The confirm password doesn't match to the new password. */
@@ -101,11 +113,11 @@ public class ChangePasswordPageITTest {
     }
 
     /** The confirm password doesn't match to the new password. */
-    // TODO Fix SecurityContext for HtmlUnit
-    // @Test
+    @Test
+    @WithAnyUser
     public void test_invalidCurrent() {
         String currentPassword = randomUUID().toString();
-        assertThat(currentPassword, not(matches(user.getPassword())));
+        assertThat(currentPassword, not(matches(getUser().getPassword())));
 
         String newPassword = new PasswordGenerator().get();
 
@@ -119,11 +131,12 @@ public class ChangePasswordPageITTest {
 
     /** The confirm password doesn't match to the new password. */
     @Test
+    @WithAnyUser
     public void test_ruleValidation() {
         String newPassword = "toto";
         assertThat(newPassword, not(matches(PASSWORD_REGEX)));
 
-        page.setActualPassword(user.getPassword());
+        page.setActualPassword(getUser().getPassword());
         page.setNewPassword(newPassword);
         page.setConfirmPassword(newPassword);
         page.submit();
