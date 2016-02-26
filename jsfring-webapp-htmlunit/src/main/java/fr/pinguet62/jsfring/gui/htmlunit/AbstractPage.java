@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import com.gargoylesoftware.htmlunit.SgmlPage;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
+import com.gargoylesoftware.htmlunit.html.HtmlLink;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager;
@@ -150,6 +151,18 @@ public class AbstractPage {
         return page;
     }
 
+    /**
+     * Find PrimeFaces {@code <head><link>} tag and parse the {@code href} resource URL.
+     *
+     * @return The Theme key.
+     * @see Theme
+     */
+    public String getTheme() {
+        String resourceUrl = "/javax.faces.resource/theme.css.xhtml?ln=primefaces-";
+        HtmlLink link = (HtmlLink) page.getByXPath("//head/link[contains(@href, '" + resourceUrl + "')]").get(0);
+        return link.getAttribute("href").substring(resourceUrl.length());
+    }
+
     public ChangePasswordPage gotoChangePasswordPage() {
         try {
             page = webClient.getPage(getUrl("/change-password.xhtml"));
@@ -175,6 +188,16 @@ public class AbstractPage {
             page = webClient.getPage(getUrl("/login.xhtml"));
             debug();
             return new LoginPage(page);
+        } catch (IOException e) {
+            throw new NavigatorException(e);
+        }
+    }
+
+    public MyAccountPage gotoMyAccountPage() {
+        try {
+            page = webClient.getPage(getUrl("/my-profile.xhtml"));
+            debug();
+            return new MyAccountPage(page);
         } catch (IOException e) {
             throw new NavigatorException(e);
         }
