@@ -20,6 +20,7 @@ spring:
                 format_sql: true
                 #globally_quoted_identifiers: true
                 use_sql_comments: false
+                temp.use_jdbc_metadata_defaults: false
     mail:
         #host: external config
         #password: external config
