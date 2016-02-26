@@ -2,16 +2,22 @@ package fr.pinguet62.jsfring.gui.htmlunit;
 
 import static java.io.File.createTempFile;
 import static java.lang.Thread.sleep;
+import static java.util.stream.Collectors.joining;
 import static org.slf4j.LoggerFactory.getLogger;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
+import org.springframework.ui.context.Theme;
 
 import com.gargoylesoftware.htmlunit.SgmlPage;
 import com.gargoylesoftware.htmlunit.WebClient;
@@ -108,6 +114,26 @@ public class AbstractPage {
      */
     protected AbstractPage(HtmlPage page) {
         this.page = page;
+        checkI18n();
+    }
+
+    /**
+     * Check that there is no missing i18n messages into current page.<br>
+     * Check only the current language.<br>
+     * A missing i18n message is formatted as {@code "???key???"}.
+     *
+     * @throws NavigatorException Missing i18n message.
+     */
+    private void checkI18n() {
+        if (page == null)
+            return;
+        Collection<String> libelles = new ArrayList<>();
+        Pattern pattern = Pattern.compile("\\?\\?\\?[^\\?]+\\?\\?\\?");
+        Matcher matcher = pattern.matcher(page.asXml());
+        while (matcher.find())
+            libelles.add(matcher.group());
+        if (!libelles.isEmpty())
+            throw new NavigatorException("Missing i18n message: " + libelles.stream().collect(joining(", ")));
     }
 
     /**
