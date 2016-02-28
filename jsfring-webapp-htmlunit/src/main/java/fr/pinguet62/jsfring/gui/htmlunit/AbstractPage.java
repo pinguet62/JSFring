@@ -279,6 +279,16 @@ public class AbstractPage {
         }
     }
 
+    public AbstractPage gotoUrl(String subUrl) {
+        try {
+            page = webClient.getPage(getUrl(subUrl));
+            debug();
+            return this;
+        } catch (IOException e) {
+            throw new NavigatorException(e);
+        }
+    }
+
     public UsersPage gotoUsersPage() {
         try {
             page = webClient.getPage(getUrl("/user/list.xhtml"));
