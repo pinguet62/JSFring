@@ -97,7 +97,7 @@ public class AbstractPage {
     private static String getUrl(String subUrl) {
         if (subUrl == null)
             subUrl = "";
-        return "http://localhost:8080/" + subUrl + "?lang=en";
+        return "http://localhost:8080/" + subUrl;
     }
 
     protected HtmlPage page;
@@ -241,7 +241,7 @@ public class AbstractPage {
     }
 
     public UsersPage gotoUsersPage() {
-        return gotoPage("/user/list.xhtml", UsersPage::new);
+        return gotoPage("/user/list.xhtml?lang=en", UsersPage::new);
     }
 
     /**

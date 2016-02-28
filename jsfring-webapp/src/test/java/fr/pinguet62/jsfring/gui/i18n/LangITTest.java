@@ -36,13 +36,13 @@ public class LangITTest {
     @Test
     public void test_switcher() {
         String initialLangKey = navigator.gotoMyAccountPage().getLangSwitcher().getValue();
-        String initialTitle = navigator.gotoUsersPage().getTitle();
+        String initialTitle = navigator.gotoRightsPage().getTitle();
 
-        String newLangKey = langBean.getSupportedLocales().stream().filter(l -> l.getLanguage().equals(initialLangKey))
-                .findAny().get().getLanguage();
+        String newLangKey = langBean.getSupportedLocales().stream()
+                .filter(loc -> !loc.getLanguage().equals(initialLangKey)).findAny().get().getLanguage();
         navigator.gotoMyAccountPage().getLangSwitcher().setValue(newLangKey);
 
-        String newTitle = navigator.gotoUsersPage().getTitle();
+        String newTitle = navigator.gotoRightsPage().getTitle();
         assertThat(newTitle, is(not(equalTo(initialTitle))));
     }
 

@@ -36,14 +36,14 @@ public class LangFilterITTest {
     @Test
     public void test_getParameter() {
         String initialLangKey = navigator.gotoMyAccountPage().getLangSwitcher().getValue();
-        String initialTitle = navigator.gotoUsersPage().getTitle();
+        String initialTitle = navigator.gotoRightsPage().getTitle();
 
-        String newLangKey = langBean.getSupportedLocales().stream().filter(l -> l.getLanguage().equals(initialLangKey))
-                .findAny().get().getLanguage();
-        String subUrl = String.format("/index.xhtml?%1=%2", LangFilter.PARAMETER, newLangKey);
+        String newLangKey = langBean.getSupportedLocales().stream()
+                .filter(loc -> !loc.getLanguage().equals(initialLangKey)).findAny().get().getLanguage();
+        String subUrl = String.format("/index.xhtml?%s=%s", LangFilter.PARAMETER, newLangKey);
         navigator.gotoUrl(subUrl);
 
-        String newTitle = navigator.gotoUsersPage().getTitle();
+        String newTitle = navigator.gotoRightsPage().getTitle();
         assertThat(newTitle, is(not(equalTo(initialTitle))));
     }
 
