@@ -12,6 +12,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -139,8 +140,8 @@ public class AbstractPage {
     /**
      * To call after each page action.<br>
      * Executed in {@link Logger#isDebugEnabled() debug level} or less.<br>
-     * {@link OutputStream#write(byte[]) write} {@link HtmlPage#asXml() content
-     * of current page} into {@link #OUTPUT_STREAM target Stream}.
+     * {@link OutputStream#write(byte[]) write} {@link HtmlPage#asXml() content of current page} into
+     * {@link #OUTPUT_STREAM target Stream}.
      *
      * @param page The {@link HtmlPage HTML page} to write.
      */
@@ -152,7 +153,7 @@ public class AbstractPage {
      * Get the <code>&lt;p:messages/&gt;</code> content.
      *
      * @param xpath The XPath to find the tag.<br>
-     *            Depends on message level.
+     *        Depends on message level.
      * @return The tag content.
      */
     private String getMessage(String xpath) {
@@ -190,113 +191,57 @@ public class AbstractPage {
     }
 
     public ChangePasswordPage gotoChangePasswordPage() {
-        try {
-            page = webClient.getPage(getUrl("/change-password.xhtml"));
-            debug();
-            return new ChangePasswordPage(page);
-        } catch (IOException e) {
-            throw new NavigatorException(e);
-        }
+        return gotoPage("/change-password.xhtml", ChangePasswordPage::new);
     }
 
     public IndexPage gotoIndex() {
-        try {
-            page = webClient.getPage(getUrl(null));
-            debug();
-            return new IndexPage(page);
-        } catch (IOException e) {
-            throw new NavigatorException(e);
-        }
+        return gotoPage(null, IndexPage::new);
     }
 
     public LoginPage gotoLoginPage() {
-        try {
-            page = webClient.getPage(getUrl("/login.xhtml"));
-            debug();
-            return new LoginPage(page);
-        } catch (IOException e) {
-            throw new NavigatorException(e);
-        }
+        return gotoPage("/login.xhtml", LoginPage::new);
     }
 
     public MyAccountPage gotoMyAccountPage() {
+        return gotoPage("/my-profile.xhtml", MyAccountPage::new);
+    }
+
+    private <T extends AbstractPage> T gotoPage(String subUrl, Function<HtmlPage, T> factory) {
         try {
-            page = webClient.getPage(getUrl("/my-profile.xhtml"));
+            page = webClient.getPage(getUrl(subUrl));
             debug();
-            return new MyAccountPage(page);
+            return factory.apply(page);
         } catch (IOException e) {
-            throw new NavigatorException(e);
+            throw new NavigatorException("Error going to sub-url: " + subUrl, e);
         }
     }
 
     public ParametersJasperReportPage gotoParametersJasperReportPage() {
-        try {
-            page = webClient.getPage(getUrl("/report/parameters.xhtml"));
-            debug();
-            return new ParametersJasperReportPage(page);
-        } catch (IOException e) {
-            throw new NavigatorException(e);
-        }
+        return gotoPage("/report/parameters.xhtml", ParametersJasperReportPage::new);
     }
 
     public ProfilesPage gotoProfilesPage() {
-        try {
-            page = webClient.getPage(getUrl("/profile/list.xhtml"));
-            debug();
-            return new ProfilesPage(page);
-        } catch (IOException e) {
-            throw new NavigatorException(e);
-        }
+        return gotoPage("/profile/list.xhtml", ProfilesPage::new);
     }
 
     public UsersRightsJasperReportPage gotoReportsUsersRightsPage() {
-        try {
-            page = webClient.getPage(getUrl("/report/usersRights.xhtml"));
-            debug();
-            return new UsersRightsJasperReportPage(page);
-        } catch (IOException e) {
-            throw new NavigatorException(e);
-        }
+        return gotoPage("/report/usersRights.xhtml", UsersRightsJasperReportPage::new);
     }
 
     public RightsPage gotoRightsPage() {
-        try {
-            page = webClient.getPage(getUrl("/right/list.xhtml"));
-            debug();
-            return new RightsPage(page);
-        } catch (IOException e) {
-            throw new NavigatorException(e);
-        }
+        return gotoPage("/right/list.xhtml", RightsPage::new);
     }
 
     public FilterPathPage gotoSampleFilterSimple() {
-        try {
-            page = webClient.getPage(getUrl("/sample/filterPath.xhtml"));
-            debug();
-            return new FilterPathPage(page);
-        } catch (IOException e) {
-            throw new NavigatorException(e);
-        }
+        return gotoPage("/sample/filterPath.xhtml", FilterPathPage::new);
     }
 
     public AbstractPage gotoUrl(String subUrl) {
-        try {
-            page = webClient.getPage(getUrl(subUrl));
-            debug();
-            return this;
-        } catch (IOException e) {
-            throw new NavigatorException(e);
-        }
+        return gotoPage(subUrl, p -> this);
     }
 
     public UsersPage gotoUsersPage() {
-        try {
-            page = webClient.getPage(getUrl("/user/list.xhtml"));
-            debug();
-            return new UsersPage(page);
-        } catch (IOException e) {
-            throw new NavigatorException(e);
-        }
+        return gotoPage("/user/list.xhtml", UsersPage::new);
     }
 
     /**

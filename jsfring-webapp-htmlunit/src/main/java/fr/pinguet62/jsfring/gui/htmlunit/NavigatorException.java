@@ -16,6 +16,10 @@ public final class NavigatorException extends RuntimeException {
         super(message);
     }
 
+    public NavigatorException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
     /**
      * Constructor with cause.
      *
