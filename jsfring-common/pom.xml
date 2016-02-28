@@ -33,7 +33,7 @@
 		<dependency>
 			<groupId>com.mysema.querydsl</groupId>
 			<artifactId>querydsl-core</artifactId>
-			<version>3.7.0</version>
+			<version>${querydsl.version}</version>
 			<scope>compile</scope>
 		</dependency>
 		<!-- PDF parser -->

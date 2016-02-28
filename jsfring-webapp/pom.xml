@@ -104,7 +104,7 @@
 			<!-- DataExporter (Excel) -->
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
-			<version>3.13</version>
+			<version>${poi.version}</version>
 		</dependency>
 		<dependency>
 			<!-- Push -->
