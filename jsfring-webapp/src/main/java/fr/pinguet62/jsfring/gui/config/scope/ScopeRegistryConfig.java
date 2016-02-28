@@ -1,5 +1,7 @@
 package fr.pinguet62.jsfring.gui.config.scope;
 
+import static fr.pinguet62.jsfring.gui.config.scope.SpringViewScope.NAME;
+
 import org.springframework.beans.factory.config.CustomScopeConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +14,7 @@ public class ScopeRegistryConfig {
     @Bean
     public CustomScopeConfigurer customScopeConfigurer() {
         CustomScopeConfigurer customScopeConfigurer = new CustomScopeConfigurer();
-        customScopeConfigurer.addScope(SpringViewScope.NAME, new SpringViewScope());
+        customScopeConfigurer.addScope(NAME, new SpringViewScope());
         return customScopeConfigurer;
     }
 
