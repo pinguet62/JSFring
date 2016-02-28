@@ -21,7 +21,7 @@ import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(SpringBootConfig.class)
 @WebIntegrationTest
-public class LangFilterItTest {
+public class LangFilterITTest {
 
     @Inject
     private LangBean langBean;
