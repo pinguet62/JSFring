@@ -192,10 +192,12 @@
 				<version>0.7.6.201602180812</version>
 				<configuration>
 					<excludes>
-						<exclude>**com.steadystate*</exclude>
+						<exclude>fr/pinguet62/jsfring/gui/htmlunit/**/*.*</exclude>
 						<!-- Generated sources -->
-						<exclude>fr/pinguet62/jsfring/model/**/Q*.class</exclude>
 						<exclude>org/bson/types/QObjectId.class</exclude>
+						<exclude>fr/pinguet62/jsfring/model/**/Q*.class</exclude>
+						<!-- Fix -->
+						<exclude>**com.steadystate*</exclude>
 					</excludes>
 				</configuration>
 				<executions>
