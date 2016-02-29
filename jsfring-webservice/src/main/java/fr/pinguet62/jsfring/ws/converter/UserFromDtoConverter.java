@@ -31,9 +31,11 @@ public final class UserFromDtoConverter implements Converter<UserDto, User> {
         user.setActive(dto.getActive());
         user.setLastConnection(dto.getLastConnection());
 
-        Predicate predicate = QProfile.profile.id.in(dto.getProfiles());
-        List<Profile> profiles = profileService.findAll(predicate);
-        user.setProfiles(new HashSet<>(profiles));
+        if (dto.getProfiles() != null) {
+            Predicate predicate = QProfile.profile.id.in(dto.getProfiles());
+            List<Profile> profiles = profileService.findAll(predicate);
+            user.setProfiles(new HashSet<>(profiles));
+        }
 
         return user;
     }

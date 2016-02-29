@@ -29,9 +29,11 @@ public final class ProfileFromDtoConverter implements Converter<ProfileDto, Prof
         profile.setId(dto.getId());
         profile.setTitle(dto.getTitle());
 
-        Predicate predicate = QRight.right_.code.in(dto.getRights());
-        List<Right> rights = rightService.findAll(predicate);
-        profile.setRights(new HashSet<>(rights));
+        if (dto.getRights() != null) {
+            Predicate predicate = QRight.right_.code.in(dto.getRights());
+            List<Right> rights = rightService.findAll(predicate);
+            profile.setRights(new HashSet<>(rights));
+        }
 
         return profile;
     }

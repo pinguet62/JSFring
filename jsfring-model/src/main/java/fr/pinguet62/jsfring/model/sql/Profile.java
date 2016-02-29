@@ -5,7 +5,6 @@ import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -35,7 +34,7 @@ public class Profile implements Serializable {
     @JoinTable(name = "profiles_rights", joinColumns = {
             @JoinColumn(name = "profile", nullable = false, updatable = false) }, inverseJoinColumns = {
                     @JoinColumn(name = "\"RIGHT\"", nullable = false, updatable = false) })
-    private Set<Right> rights = new HashSet<Right>(0);
+    private Set<Right> rights;
 
     // Validation
     @Length(min = 5, max = 30)
@@ -47,7 +46,7 @@ public class Profile implements Serializable {
     @JoinTable(name = "users_profiles", joinColumns = {
             @JoinColumn(name = "profile", nullable = false, updatable = false) }, inverseJoinColumns = {
                     @JoinColumn(name = "\"USER\"", nullable = false, updatable = false) })
-    private Set<User> users = new HashSet<User>(0);
+    private Set<User> users;
 
     public Profile() {
         // No action

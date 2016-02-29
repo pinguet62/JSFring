@@ -3,7 +3,6 @@ package fr.pinguet62.jsfring.model.sql;
 import static javax.persistence.FetchType.LAZY;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -34,7 +33,7 @@ public class Right implements Serializable {
     @JoinTable(name = "profiles_rights", joinColumns = {
             @JoinColumn(name = "\"RIGHT\"", nullable = false, updatable = false) }, inverseJoinColumns = {
                     @JoinColumn(name = "profile", nullable = false, updatable = false) })
-    private Set<Profile> profiles = new HashSet<Profile>(0);
+    private Set<Profile> profiles;
 
     @Column(name = "TITLE", nullable = false, length = 50)
     private String title;

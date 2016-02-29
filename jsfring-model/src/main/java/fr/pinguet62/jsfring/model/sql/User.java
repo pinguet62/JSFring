@@ -49,7 +49,7 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1;
 
     @Column(name = "ACTIVE", nullable = false)
-    private boolean active;
+    private Boolean active;
 
     // Validation
     @Pattern(regexp = EMAIL_REGEX, message = EMAIL_VALIDATION_MESSAGE)
@@ -78,7 +78,7 @@ public class User implements Serializable {
     @JoinTable(name = "users_profiles", joinColumns = {
             @JoinColumn(name = "\"USER\"", nullable = false, updatable = false) }, inverseJoinColumns = {
                     @JoinColumn(name = "profile", nullable = false, updatable = false) })
-    private Set<Profile> profiles = new HashSet<Profile>(0);
+    private Set<Profile> profiles;
 
     public User() {
         // No action
@@ -146,11 +146,11 @@ public class User implements Serializable {
         return Objects.hash(login);
     }
 
-    public boolean isActive() {
+    public Boolean isActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 
