@@ -61,7 +61,7 @@ public class UserFromDtoConverterTest {
         assertThat(entity.getLogin(), is(equalTo(login)));
         assertThat(entity.getEmail(), is(equalTo(email)));
         assertThat(entity.getLastConnection(), is(equalTo(lastConnection)));
-        assertThat(entity.isActive(), is(active));
+        assertThat(entity.getActive(), is(active));
     }
 
     @Test

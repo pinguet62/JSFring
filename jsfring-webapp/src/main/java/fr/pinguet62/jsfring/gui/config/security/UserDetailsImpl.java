@@ -28,8 +28,7 @@ public final class UserDetailsImpl implements UserDetails {
     }
 
     /**
-     * @return {@link Right#getTitle() Key right}s of each
-     *         {@link User#getProfiles() user's profiles}.
+     * @return {@link Right#getTitle() Key right}s of each {@link User#getProfiles() user's profiles}.
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -85,7 +84,7 @@ public final class UserDetailsImpl implements UserDetails {
     /** @return {@link User#isActive()} */
     @Override
     public boolean isEnabled() {
-        return user.isActive();
+        return user.getActive();
     }
 
 }

@@ -17,7 +17,7 @@ public final class UserConverter implements Converter<User, UserDto> {
         UserDto dto = new UserDto();
         dto.setLogin(user.getLogin());
         dto.setEmail(user.getEmail());
-        dto.setActive(user.isActive());
+        dto.setActive(user.getActive());
         dto.setLastConnection(user.getLastConnection());
         dto.setProfiles(user.getProfiles().stream().map(Profile::getId).collect(toSet()));
         return dto;

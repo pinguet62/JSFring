@@ -116,6 +116,10 @@ public class User implements Serializable {
         return Objects.equals(login, other.login);
     }
 
+    public Boolean getActive() {
+        return active;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -144,10 +148,6 @@ public class User implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(login);
-    }
-
-    public Boolean isActive() {
-        return active;
     }
 
     public void setActive(Boolean active) {

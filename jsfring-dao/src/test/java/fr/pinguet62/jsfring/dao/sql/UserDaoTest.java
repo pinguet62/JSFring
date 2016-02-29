@@ -73,7 +73,7 @@ public class UserDaoTest {
         userDao.disableInactiveUsers(1);
 
         // Check
-        assertThat(userDao.getOne(id).isActive(), is(true));
+        assertThat(userDao.getOne(id).getActive(), is(true));
     }
 
     /**
@@ -97,7 +97,7 @@ public class UserDaoTest {
         userDao.disableInactiveUsers(nbOfDays);
 
         // Check
-        assertThat(userDao.findOne(id).isActive(), is(false));
+        assertThat(userDao.findOne(id).getActive(), is(false));
     }
 
     /**
@@ -121,12 +121,11 @@ public class UserDaoTest {
         userDao.disableInactiveUsers(nbOfDays);
 
         // Check
-        assertThat(userDao.findOne(id).isActive(), is(true));
+        assertThat(userDao.findOne(id).getActive(), is(true));
     }
 
     /**
-     * Check that {@link User#lastConnection last connection date} was updated
-     * to current day.
+     * Check that {@link User#lastConnection last connection date} was updated to current day.
      *
      * @see UserDao#resetLastConnectionDate(User)
      */

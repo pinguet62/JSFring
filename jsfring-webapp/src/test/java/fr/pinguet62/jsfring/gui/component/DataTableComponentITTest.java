@@ -167,8 +167,7 @@ public final class DataTableComponentITTest {
     }
 
     /**
-     * {@link DetailsPopup Details} of {@link ShowPopup show popup} must be the
-     * same than Database content.
+     * {@link DetailsPopup Details} of {@link ShowPopup show popup} must be the same than Database content.
      * <p>
      * Check if {@link Field}s are not updatable.
      *
@@ -195,13 +194,14 @@ public final class DataTableComponentITTest {
             assertThat(popup.getEmail().getValue(), is(equalTo(user.getEmail())));
 
             assertThat(popup.isActive().isReadonly(), is(true));
-            assertThat(popup.isActive().getValue(), is(equalTo(user.isActive())));
+            assertThat(popup.isActive().getValue(), is(equalTo(user.getActive())));
 
             assertThat(popup.getLastConnection().isReadonly(), is(true));
             if (user.getLastConnection() == null)
                 assertThat(popup.getLastConnection().getValue(), is(nullValue()));
             else
-                assertThat(popup.getLastConnection().getValue(), is(equalToTruncated(user.getLastConnection(), SECOND)));
+                assertThat(popup.getLastConnection().getValue(),
+                        is(equalToTruncated(user.getLastConnection(), SECOND)));
 
             assertThat(popup.getProfiles().isReadonly(), is(true));
             assertThat(popup.getProfiles().getValue(),
@@ -246,8 +246,7 @@ public final class DataTableComponentITTest {
     }
 
     /**
-     * When user click on "Submit" button without modification, the data must
-     * not change.
+     * When user click on "Submit" button without modification, the data must not change.
      */
     @Test
     public void test_action_update_submit_noModificiation() {
@@ -258,7 +257,7 @@ public final class DataTableComponentITTest {
         User userBefore = userDao.findAll().get(idx);
         final String login = userBefore.getLogin();
         final String email = userBefore.getEmail();
-        final boolean active = userBefore.isActive();
+        final boolean active = userBefore.getActive();
         final Date lastConnection = userBefore.getLastConnection();
         final Set<Profile> profiles = userBefore.getProfiles();
 
@@ -276,14 +275,13 @@ public final class DataTableComponentITTest {
         User userAfter = userDao.findAll().get(idx);
         assertThat(userAfter.getLogin(), is(equalTo(login)));
         assertThat(userAfter.getEmail(), is(equalTo(email)));
-        assertThat(userAfter.isActive(), is(equalTo(active)));
+        assertThat(userAfter.getActive(), is(equalTo(active)));
         assertThat(userAfter.getLastConnection(), is(equalTo(lastConnection)));
         assertThat(userAfter.getProfiles(), is(equalTo(profiles)));
     }
 
     /**
-     * {@link DetailsPopup Initial details} of {@link UpdatePopup update popup}
-     * must be the same than Database content.
+     * {@link DetailsPopup Initial details} of {@link UpdatePopup update popup} must be the same than Database content.
      * <p>
      * Check if {@link Field}s are updatable.
      *
@@ -309,13 +307,14 @@ public final class DataTableComponentITTest {
             assertThat(popup.getEmail().getValue(), is(equalTo(user.getEmail())));
 
             assertThat(popup.isActive().isReadonly(), is(false));
-            assertThat(popup.isActive().getValue(), is(equalTo(user.isActive())));
+            assertThat(popup.isActive().getValue(), is(equalTo(user.getActive())));
 
             assertThat(popup.getLastConnection().isReadonly(), is(true));
             if (user.getLastConnection() == null)
                 assertThat(popup.getLastConnection().getValue(), is(nullValue()));
             else
-                assertThat(popup.getLastConnection().getValue(), is(equalToTruncated(user.getLastConnection(), SECOND)));
+                assertThat(popup.getLastConnection().getValue(),
+                        is(equalToTruncated(user.getLastConnection(), SECOND)));
 
             assertThat(popup.getProfiles().isReadonly(), is(false));
             assertThat(popup.getProfiles().getValue(),
@@ -372,7 +371,7 @@ public final class DataTableComponentITTest {
 
             assertThat(row.getLogin(), is(equalTo(user.getLogin())));
             assertThat(row.getEmail(), is(equalTo(user.getEmail())));
-            assertThat(row.isActive(), is(equalTo(user.isActive())));
+            assertThat(row.isActive(), is(equalTo(user.getActive())));
             if (user.getLastConnection() == null)
                 assertThat(row.getLastConnection(), is(nullValue()));
             else
@@ -395,8 +394,8 @@ public final class DataTableComponentITTest {
 
         // Content
         try (CSVReader reader = new CSVReader(new InputStreamReader(is))) {
-            String[] header = Stream.of(values()).sorted((a, b) -> compare(a.getIndex(), b.getIndex())).map(Column::getTitle)
-                    .limit(values().length - 1).toArray(String[]::new);
+            String[] header = Stream.of(values()).sorted((a, b) -> compare(a.getIndex(), b.getIndex()))
+                    .map(Column::getTitle).limit(values().length - 1).toArray(String[]::new);
             assertArrayEquals(header, reader.readNext()); // header
             assertThat(reader.readAll(), hasSize((int) userDao.count())); // content
         }
@@ -456,8 +455,8 @@ public final class DataTableComponentITTest {
     public void test_filter_default() {
         final String value = "super";
         QUser u = QUser.user;
-        List<String> logins = userDao.find(new JPAQuery().from(u).where(u.login.contains(value))).stream().map(User::getLogin)
-                .sorted().collect(toList());
+        List<String> logins = userDao.find(new JPAQuery().from(u).where(u.login.contains(value))).stream()
+                .map(User::getLogin).sorted().collect(toList());
 
         // Action
         UsersPage page = get().gotoUsersPage();
