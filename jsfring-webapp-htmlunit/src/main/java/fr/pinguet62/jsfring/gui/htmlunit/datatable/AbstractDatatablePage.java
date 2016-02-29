@@ -15,6 +15,7 @@ import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.gargoylesoftware.htmlunit.html.DomText;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
@@ -175,6 +176,12 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends
         if (rows.size() == 1 && rows.get(0).getAttribute("class").contains("ui-datatable-empty-message"))
             return new ArrayList<>();
         return rows.stream().map(getRowFactory()).collect(toList());
+    }
+
+    /** @return The title on Datatable header. */
+    public String getTitle() {
+        DomText dom = (DomText) getDatatableHeader().getByXPath("./text()").get(0);
+        return dom.asText();
     }
 
     /** Parse the {@code currentPageReportTemplate} attribute value. */

@@ -9,7 +9,6 @@ import static org.primefaces.util.Constants.ContextParams.THEME;
 
 import javax.faces.context.FacesContextFactory;
 import javax.faces.webapp.FacesServlet;
-import javax.inject.Inject;
 
 import org.springframework.boot.context.embedded.ServletContextInitializer;
 import org.springframework.boot.context.embedded.ServletListenerRegistrationBean;
@@ -20,8 +19,6 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.sun.faces.config.ConfigureListener;
-
-import fr.pinguet62.jsfring.gui.theme.ThemeSwitcherBean;
 
 @Configuration
 public class WebConfig {
@@ -42,9 +39,6 @@ public class WebConfig {
             registry.addViewController("/").setViewName("index.xhtml");
         }
     }
-
-    @Inject
-    private ThemeSwitcherBean themeSwitcherBean;
 
     /** JSF registration: {@link Servlet} & page extension. */
     @Bean
@@ -80,7 +74,7 @@ public class WebConfig {
             servletContext.setInitParameter(ForceLoadFacesConfigFiles.getQualifiedName(), TRUE.toString());
 
             // Primefaces
-            servletContext.setInitParameter(THEME, themeSwitcherBean.getTheme().getKey());
+            servletContext.setInitParameter(THEME, "#{themeSwitcherBean.theme.key}"); // TODO EL to Java
         };
     }
 
