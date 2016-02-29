@@ -45,10 +45,10 @@ public final class UserTest {
     public void test_equals() {
         assertThat(new User(), is(equalTo(new User())));
         assertThat(new User("same login"), is(equalTo(new User("same login"))));
-        assertThat(new User("same login", null, null), is(equalTo(new User("same login", null, null))));
-        assertThat(new User("same login", "AAA", "BBB"), is(equalTo(new User("same login", "111", "222"))));
+        assertThat(new User("same login", null, null, null), is(equalTo(new User("same login", null, null, null))));
+        assertThat(new User("same login", "AAA", "BBB", true), is(equalTo(new User("same login", "111", "222", true))));
 
-        assertThat(new User("an id", null, null), is(not(equalTo(new User("other value", null, null)))));
+        assertThat(new User("an id", null, null, null), is(not(equalTo(new User("other value", null, null, null)))));
         assertThat(new User(), is(not(equalTo("other type"))));
     }
 
@@ -58,9 +58,11 @@ public final class UserTest {
         // < 6 character
         assertThat(forAllCombinaisonOf("a", "b", "c", "1", "$"), everyItem(not(matches(PASSWORD_REGEX))));
         // 0 letter
-        assertThat(forAllCombinaisonOf("a", "b", "c", "d", "e", "f", "$", "#", "~"), everyItem(not(matches(PASSWORD_REGEX))));
+        assertThat(forAllCombinaisonOf("a", "b", "c", "d", "e", "f", "$", "#", "~"),
+                everyItem(not(matches(PASSWORD_REGEX))));
         // 0 special
-        assertThat(forAllCombinaisonOf("1", "2", "3", "a", "b", "c", "d", "e", "f"), everyItem(not(matches(PASSWORD_REGEX))));
+        assertThat(forAllCombinaisonOf("1", "2", "3", "a", "b", "c", "d", "e", "f"),
+                everyItem(not(matches(PASSWORD_REGEX))));
     }
 
     /** @see User#PASSWORD_REGEX */
@@ -69,7 +71,8 @@ public final class UserTest {
         // 1 letter + 1 special + 6 character
         assertThat(forAllCombinaisonOf("5", "$", "a", "b", "c", "d", "e", "f"), everyItem(matches(PASSWORD_REGEX)));
         // >1 letter + >1 special + >6 character
-        assertThat(forAllCombinaisonOf("5", "6", "$", "^", "a", "b", "c", "d", "e", "f"), everyItem(matches(PASSWORD_REGEX)));
+        assertThat(forAllCombinaisonOf("5", "6", "$", "^", "a", "b", "c", "d", "e", "f"),
+                everyItem(matches(PASSWORD_REGEX)));
     }
 
 }

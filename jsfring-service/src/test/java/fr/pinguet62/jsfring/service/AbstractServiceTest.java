@@ -8,6 +8,7 @@ import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertThat;
 
 import java.io.Serializable;
+import java.util.Random;
 
 import javax.inject.Inject;
 
@@ -52,7 +53,8 @@ public class AbstractServiceTest {
         }
         {
             int initialCount = userService.getAll().size();
-            userService.create(new User("new login", new PasswordGenerator().get(), "foo@hostname.domain"));
+            userService.create(new User("new login", new PasswordGenerator().get(), "foo@hostname.domain",
+                    new Random().nextBoolean()));
             assertThat(userService.getAll(), hasSize(initialCount + 1));
         }
     }

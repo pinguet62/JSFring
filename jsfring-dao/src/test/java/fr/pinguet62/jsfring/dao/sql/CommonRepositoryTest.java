@@ -14,6 +14,7 @@ import static org.junit.Assert.fail;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Random;
 
 import javax.inject.Inject;
 import javax.persistence.EntityNotFoundException;
@@ -151,8 +152,7 @@ public class CommonRepositoryTest {
     }
 
     /**
-     * If the entity doesn't exists, an {@link EntityNotFoundException} must be
-     * thrown.
+     * If the entity doesn't exists, an {@link EntityNotFoundException} must be thrown.
      *
      * @see JpaRepository#getOne(Serializable)
      */
@@ -177,7 +177,8 @@ public class CommonRepositoryTest {
         }
         {
             long count = userDao.count();
-            userDao.save(new User("new login", new PasswordGenerator().get(), "foo@hostname.domain"));
+            userDao.save(new User("new login", new PasswordGenerator().get(), "foo@hostname.domain",
+                    new Random().nextBoolean()));
             assertThat(userDao.count(), is(equalTo(count + 1)));
         }
     }
