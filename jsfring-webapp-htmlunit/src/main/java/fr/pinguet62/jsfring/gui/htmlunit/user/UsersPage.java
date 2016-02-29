@@ -21,8 +21,9 @@ import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
 import fr.pinguet62.jsfring.gui.htmlunit.NavigatorException;
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.AbstractDatatablePage;
 import fr.pinguet62.jsfring.gui.htmlunit.field.SelectOneButton;
+import fr.pinguet62.jsfring.gui.htmlunit.user.popup.UserCreatePopup;
 
-public final class UsersPage extends AbstractDatatablePage<UserRow> {
+public final class UsersPage extends AbstractDatatablePage<UserRow, UserCreatePopup> {
 
     public static enum ActiveFilter {
         All, No, Yes;
@@ -30,7 +31,8 @@ public final class UsersPage extends AbstractDatatablePage<UserRow> {
 
     public static enum Column {
 
-        ACTIONS(5, "Actions"), ACTIVE(3, "Active"), EMAIL(2, "Email"), LAST_CONNECTION(4, "Last connection"), LOGIN(1, "Login");
+        ACTIONS(5, "Actions"), ACTIVE(3, "Active"), EMAIL(2, "Email"), LAST_CONNECTION(4, "Last connection"), LOGIN(1,
+                "Login");
 
         public static Column fromTitle(String title) {
             for (Column column : values())
@@ -63,8 +65,7 @@ public final class UsersPage extends AbstractDatatablePage<UserRow> {
     }
 
     /**
-     * Check that {@link HtmlTableHeaderCell table header} {@code class}
-     * contains {@code "ui-helper-hidden"} value.
+     * Check that {@link HtmlTableHeaderCell table header} {@code class} contains {@code "ui-helper-hidden"} value.
      */
     public boolean columnVisibile(Column column) {
         HtmlTableHeaderCell th = getDatatableTableHeader(column.getTitle());
@@ -74,7 +75,8 @@ public final class UsersPage extends AbstractDatatablePage<UserRow> {
     public void filterByActive(ActiveFilter value) {
         // TODO common abstract parent method
         HtmlDivision div = (HtmlDivision) getDatatableTableHeader(ACTIVE.getTitle())
-                .getByXPath("./div[contains(@class, 'ui-column-customfilter')]/div[contains(@class, 'ui-selectonebutton')]")
+                .getByXPath(
+                        "./div[contains(@class, 'ui-column-customfilter')]/div[contains(@class, 'ui-selectonebutton')]")
                 .get(0);
         SelectOneButton<ActiveFilter> selectOneButton = new SelectOneButton<ActiveFilter>(div, ActiveFilter::valueOf);
         selectOneButton.setValue(value);
@@ -82,7 +84,7 @@ public final class UsersPage extends AbstractDatatablePage<UserRow> {
 
     /**
      * @param value The value to set.<br>
-     *            {@code null} to reset filter.
+     *        {@code null} to reset filter.
      */
     public void filterLogin(String value) {
         HtmlInput input = (HtmlInput) getDatatableTableHeader(LOGIN.getTitle())
@@ -97,6 +99,11 @@ public final class UsersPage extends AbstractDatatablePage<UserRow> {
     }
 
     @Override
+    protected Function<HtmlPage, UserCreatePopup> getPopupCreateFactory() {
+        return UserCreatePopup::new;
+    }
+
+    @Override
     protected Function<HtmlTableRow, UserRow> getRowFactory() {
         return UserRow::new;
     }
@@ -104,7 +111,8 @@ public final class UsersPage extends AbstractDatatablePage<UserRow> {
     // TODO test
     public void hideOrShowColumn(Column column) {
         try {
-            HtmlButton toggler = (HtmlButton) getDatatableHeader().getByXPath("./button[contains(@id, 'toggler')]").get(0);
+            HtmlButton toggler = (HtmlButton) getDatatableHeader().getByXPath("./button[contains(@id, 'toggler')]")
+                    .get(0);
 
             // Show Toogler
             page = toggler.click();
@@ -114,8 +122,8 @@ public final class UsersPage extends AbstractDatatablePage<UserRow> {
             @SuppressWarnings("unchecked")
             List<HtmlListItem> choices = (List<HtmlListItem>) page.getByXPath(
                     "//div[contains(@class, 'ui-columntoggler')]/ul[contains(@class, 'ui-columntoggler-items')]/li[contains(@class, 'ui-columntoggler-item')]");
-            HtmlListItem choice = choices.stream()
-                    .filter(li -> Column.fromTitle(((HtmlLabel) li.getByXPath("./label").get(0)).asText()).equals(column))
+            HtmlListItem choice = choices.stream().filter(
+                    li -> Column.fromTitle(((HtmlLabel) li.getByXPath("./label").get(0)).asText()).equals(column))
                     .findAny().get();
             choice.click();
             page = ((HtmlDivision) choice.getByXPath("./div[contains(@class, 'ui-chkbox')]").get(0)).click();
@@ -132,8 +140,7 @@ public final class UsersPage extends AbstractDatatablePage<UserRow> {
     }
 
     /**
-     * Find the {@link HtmlTableHeaderCell} from column title, and click to sort
-     * results.
+     * Find the {@link HtmlTableHeaderCell} from column title, and click to sort results.
      * <p>
      * <code>&lt;span class="...ui-column-title..."&gt;</code>
      *

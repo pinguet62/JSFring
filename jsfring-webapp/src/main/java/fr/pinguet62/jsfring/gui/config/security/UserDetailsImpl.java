@@ -81,7 +81,7 @@ public final class UserDetailsImpl implements UserDetails {
         return true;
     }
 
-    /** @return {@link User#isActive()} */
+    /** @return {@link User#getActive()} */
     @Override
     public boolean isEnabled() {
         return user.getActive();

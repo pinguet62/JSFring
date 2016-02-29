@@ -6,6 +6,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
 
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.AbstractRow;
+import fr.pinguet62.jsfring.gui.htmlunit.profile.popup.ProfileShowPopup;
+import fr.pinguet62.jsfring.gui.htmlunit.profile.popup.ProfileUpdatePopup;
 
 public final class ProfileRow extends AbstractRow<ProfileShowPopup, ProfileUpdatePopup> {
 

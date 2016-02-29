@@ -15,11 +15,11 @@ import com.mysema.query.types.Predicate;
 /**
  * Common methods for {@link Repository}s.
  * <p>
- * Extension of {@link JpaRepository} and {@link QueryDslPredicateExecutor},
- * with custom shared methods.
+ * Extension of {@link JpaRepository} and {@link QueryDslPredicateExecutor}, with custom shared methods.
  */
 @NoRepositoryBean // Required: "No managed bean Object"
-public interface CommonRepository<T, ID extends Serializable> extends JpaRepository<T, ID>, QueryDslPredicateExecutor<T> {
+public interface CommonRepository<T, ID extends Serializable>
+        extends JpaRepository<T, ID>, QueryDslPredicateExecutor<T> {
 
     /**
      * Find all objects who match to the {@link JPAQuery}:
@@ -33,7 +33,10 @@ public interface CommonRepository<T, ID extends Serializable> extends JpaReposit
      */
     List<T> find(JPAQuery query);
 
-    @Override
+    @Override // Iterable to List
+    List<T> findAll(OrderSpecifier<?>... orders);
+
+    @Override // Iterable to List
     List<T> findAll(Predicate predicate);
 
 }

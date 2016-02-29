@@ -20,8 +20,13 @@ public final class UserShowPopup extends AbstractUserPopup implements ShowPopup 
         return new StringOutputText((HtmlSpan) getFieldTableCell(1).getByXPath("./span").get(0));
     }
 
+    public Field<?, String> getLogin() {
+        return new StringOutputText((HtmlSpan) getFieldTableCell(0).getByXPath("./span").get(0));
+    }
+
     public Field<?, ?> getProfiles() {
-        return new ListField((HtmlDivision) getFieldTableCell(4).getByXPath("./div[contains(@class, 'ui-datalist')]").get(0));
+        return new ListField(
+                (HtmlDivision) getFieldTableCell(4).getByXPath("./div[contains(@class, 'ui-datalist')]").get(0));
     }
 
     public Field<?, ?> isActive() {

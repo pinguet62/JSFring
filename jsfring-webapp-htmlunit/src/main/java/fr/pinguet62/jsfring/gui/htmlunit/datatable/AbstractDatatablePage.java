@@ -28,24 +28,41 @@ import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
 
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.NavigatorException;
+import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.UpdatePopup;
 
 /**
  * @param <T> The {@link AbstractRow} type.
  * @see DataTableComponent
  */
-public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends AbstractPage implements Iterable<T> {
+public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> extends AbstractPage
+        implements Iterable<T> {
 
     protected AbstractDatatablePage(HtmlPage page) {
         super(page);
     }
 
+    public CP actionCreate() {
+        HtmlButton button = (HtmlButton) getDatatableHeader().getByXPath("./button[contains(@onclick, 'createDialog')]")
+                .get(0);
+        try {
+            HtmlPage page = button.click();
+            waitJS(SHORT);
+            debug();
+
+            return getPopupCreateFactory().apply(page);
+        } catch (IOException e) {
+            throw new NavigatorException(e);
+        }
+    }
+
     /**
      * @param imageName The icon file path.<br>
-     *            Example: {@code "/img/foo.png"}.
+     *        Example: {@code "/img/foo.png"}.
      * @return The download {@link InputStream}.
      */
     protected InputStream export(String iconPath) {
-        HtmlImage icon = (HtmlImage) getDatatableFooter().getByXPath("./a/img[contains(@src, '" + iconPath + "')]").get(0);
+        HtmlImage icon = (HtmlImage) getDatatableFooter().getByXPath("./a/img[contains(@src, '" + iconPath + "')]")
+                .get(0);
         HtmlAnchor link = (HtmlAnchor) icon.getParentNode();
         try {
             return link.click().getWebResponse().getContentAsStream();
@@ -80,18 +97,14 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends
     }
 
     /**
-     * Iterate on each {@link HtmlSpan} and stop when
-     * {@code class="ui-state-active"}.
+     * Iterate on each {@link HtmlSpan} and stop when {@code class="ui-state-active"}.
      * <p>
      * Search paginator by <i>XPath</i>:
      * <ol>
-     * <li>Paginator: {@code div} avec une {@code class} de
-     * {@code "ui-paginator"}</li>
+     * <li>Paginator: {@code div} avec une {@code class} de {@code "ui-paginator"}</li>
      * <li>Footer: le 2nd</li>
-     * <li>Liste des pages: {@code span} avec une {@code class} de
-     * {@code "ui-paginator-pages"}</li>
-     * <li>Page active: {@code span} avec une {@code class} de
-     * {@code "ui-state-active"}</li>
+     * <li>Liste des pages: {@code span} avec une {@code class} de {@code "ui-paginator-pages"}</li>
+     * <li>Page active: {@code span} avec une {@code class} de {@code "ui-state-active"}</li>
      * </ol>
      */
     protected Iterator<HtmlSpan> getCurrentPage() {
@@ -141,8 +154,9 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends
      * @return The {@link HtmlTableHeaderCell}.
      */
     protected HtmlTableHeaderCell getDatatableTableHeader(String title) {
-        Optional<HtmlTableHeaderCell> find = getDatatableTableHeaders().stream().filter(
-                th -> ((HtmlSpan) th.getByXPath("./span[contains(@class, 'ui-column-title')]").get(0)).asText().equals(title))
+        Optional<HtmlTableHeaderCell> find = getDatatableTableHeaders().stream()
+                .filter(th -> ((HtmlSpan) th.getByXPath("./span[contains(@class, 'ui-column-title')]").get(0)).asText()
+                        .equals(title))
                 .findAny();
         return find.isPresent() ? find.get() : null;
     }
@@ -156,6 +170,13 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends
     protected List<HtmlTableHeaderCell> getDatatableTableHeaders() {
         return (List<HtmlTableHeaderCell>) getDatatableTable().getByXPath("./thead/tr/th");
     }
+
+    /**
+     * Converter from {@link HtmlPage} to {@link UpdatePopup}.
+     *
+     * @return The {@link Function}.
+     */
+    protected abstract Function<HtmlPage, CP> getPopupCreateFactory();
 
     /**
      * Converter from {@link HtmlTableRow} to {@link AbstractRow}.
@@ -228,13 +249,12 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>> extends
     }
 
     @Override
-    public RowIterator<T> iterator() {
+    public RowIterator<T, CP> iterator() {
         return new RowIterator<>(this);
     }
 
     /**
-     * Find the {@link HtmlTableHeaderCell} from column title, and click to sort
-     * results.
+     * Find the {@link HtmlTableHeaderCell} from column title, and click to sort results.
      * <p>
      * <code>&lt;span class="...ui-column-title..."&gt;</code>
      *
