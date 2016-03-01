@@ -1,5 +1,7 @@
 package fr.pinguet62.jsfring.gui.htmlunit.profile.popup;
 
+import java.util.List;
+
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
@@ -15,7 +17,7 @@ public class ProfileShowPopup extends AbstractProfilePopup implements ShowPopup 
         super(page);
     }
 
-    public Field<?, ?> getRights() {
+    public Field<?, List<String>> getRights() {
         return new ListField(
                 (HtmlDivision) getFieldTableCell(1).getByXPath("./div[contains(@class, 'ui-datalist')]").get(0));
     }

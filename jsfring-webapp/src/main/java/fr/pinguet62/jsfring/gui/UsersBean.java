@@ -4,6 +4,7 @@ import static java.util.stream.Collectors.toList;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -26,8 +27,7 @@ public final class UsersBean extends AbstractCrudBean<User> {
     private static final long serialVersionUID = 1;
 
     /**
-     * The {@link Profile} association (available/associated) of the
-     * {@link #getSelectedValue() selected user}.
+     * The {@link Profile} association (available/associated) of the {@link #getSelectedValue() selected user}.
      *
      * @property.getter {@link #getProfilesAssociation()}
      * @property.setter {@link #setProfilesAssociation(DualListModel)}
@@ -55,7 +55,9 @@ public final class UsersBean extends AbstractCrudBean<User> {
 
     @Override
     protected User getNewValue() {
-        return new User();
+        User newEntity = new User();
+        newEntity.setProfiles(new HashSet<>());
+        return newEntity;
     }
 
     /** @property.attribute {@link #profilesAssociation} */

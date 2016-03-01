@@ -14,11 +14,12 @@ public final class ListField extends ReadOnlyField<HtmlDivision, List<String>> {
         super(div);
     }
 
+    /** @return The {@link HtmlListItem} label. */
     @Override
     public List<String> getValue() {
         @SuppressWarnings("unchecked")
-        List<HtmlListItem> lis = (List<HtmlListItem>) html
-                .getByXPath("./div[contains(@class, 'ui-datalist-content')]/ul[contains(@class, 'ui-datalist-data')]/li");
+        List<HtmlListItem> lis = (List<HtmlListItem>) html.getByXPath(
+                "./div[contains(@class, 'ui-datalist-content')]/ul[contains(@class, 'ui-datalist-data')]/li");
         List<String> values = lis.stream().map(HtmlElement::asText).collect(toList());
         return values;
     }

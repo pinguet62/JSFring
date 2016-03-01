@@ -4,6 +4,7 @@ import static java.util.stream.Collectors.toList;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -29,8 +30,7 @@ public final class ProfilesBean extends AbstractCrudBean<Profile> {
     private transient ProfileService profileService;
 
     /**
-     * The {@link Right} association (available/associated) of the
-     * {@link #getSelectedValue() selected profile}.
+     * The {@link Right} association (available/associated) of the {@link #getSelectedValue() selected profile}.
      *
      * @property.getter {@link #getRightsAssociation()}
      * @property.setter {@link #setRightsAssociation(DualListModel)}
@@ -56,7 +56,9 @@ public final class ProfilesBean extends AbstractCrudBean<Profile> {
 
     @Override
     protected Profile getNewValue() {
-        return new Profile();
+        Profile newEntity = new Profile();
+        newEntity.setRights(new HashSet<>());
+        return newEntity;
     }
 
     /** @property.attribute {@link #rightsAssociation} */

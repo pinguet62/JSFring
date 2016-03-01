@@ -306,8 +306,8 @@ public final class DataTableComponentITTest {
             assertThat(popup.getEmail().isReadonly(), is(false));
             assertThat(popup.getEmail().getValue(), is(equalTo(user.getEmail())));
 
-            assertThat(popup.isActive().isReadonly(), is(false));
-            assertThat(popup.isActive().getValue(), is(equalTo(user.getActive())));
+            assertThat(popup.getActive().isReadonly(), is(false));
+            assertThat(popup.getActive().getValue(), is(equalTo(user.getActive())));
 
             assertThat(popup.getLastConnection().isReadonly(), is(true));
             if (user.getLastConnection() == null)

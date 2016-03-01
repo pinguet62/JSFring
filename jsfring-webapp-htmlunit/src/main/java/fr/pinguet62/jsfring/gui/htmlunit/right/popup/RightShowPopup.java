@@ -9,7 +9,7 @@ import fr.pinguet62.jsfring.gui.htmlunit.field.StringOutputText;
 
 public final class RightShowPopup extends AbstractRightPopup implements ShowPopup {
 
-    protected RightShowPopup(HtmlPage page) {
+    public RightShowPopup(HtmlPage page) {
         super(page);
     }
 

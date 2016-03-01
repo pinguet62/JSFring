@@ -1,6 +1,7 @@
 package frpinguet62.jsfring.util;
 
 import static fr.pinguet62.jsfring.util.MatcherUtils.equalToTruncated;
+import static fr.pinguet62.jsfring.util.MatcherUtils.equalWithoutOrderTo;
 import static fr.pinguet62.jsfring.util.MatcherUtils.mappedTo;
 import static fr.pinguet62.jsfring.util.MatcherUtils.matches;
 import static fr.pinguet62.jsfring.util.MatcherUtils.sorted;
@@ -34,10 +35,13 @@ public final class MatcherUtilsTest {
     public void test_equalToTruncated() {
         assertThat(new Date(2016, 1, 2, 10, 20, 30), is(equalToTruncated(new Date(2016, 1, 2, 10, 29, 39), YEAR)));
         assertThat(new Date(2016, 1, 2, 10, 20, 30), is(equalToTruncated(new Date(2016, 1, 2, 10, 29, 39), MONTH)));
-        assertThat(new Date(2016, 1, 2, 10, 20, 30), is(equalToTruncated(new Date(2016, 1, 2, 10, 29, 39), DAY_OF_MONTH)));
+        assertThat(new Date(2016, 1, 2, 10, 20, 30),
+                is(equalToTruncated(new Date(2016, 1, 2, 10, 29, 39), DAY_OF_MONTH)));
         assertThat(new Date(2016, 1, 2, 10, 20, 30), is(not(equalToTruncated(new Date(2016, 1, 2, 19, 29, 39), HOUR))));
-        assertThat(new Date(2016, 1, 2, 10, 20, 30), is(not(equalToTruncated(new Date(2016, 1, 2, 19, 29, 39), MINUTE))));
-        assertThat(new Date(2016, 1, 2, 10, 20, 30), is(not(equalToTruncated(new Date(2016, 1, 2, 19, 29, 39), SECOND))));
+        assertThat(new Date(2016, 1, 2, 10, 20, 30),
+                is(not(equalToTruncated(new Date(2016, 1, 2, 19, 29, 39), MINUTE))));
+        assertThat(new Date(2016, 1, 2, 10, 20, 30),
+                is(not(equalToTruncated(new Date(2016, 1, 2, 19, 29, 39), SECOND))));
     }
 
     /** @see MatcherUtils#equalToTruncated(Date, int) */
@@ -50,6 +54,15 @@ public final class MatcherUtilsTest {
             tests.forEach(Runnable::run);
             fail();
         } catch (AssertionError e) {}
+    }
+
+    /** @see MatcherUtils#equalWithoutOrderTo(Iterable) */
+    @Test
+    public void test_equalWithoutOrderTo() {
+        assertThat(asList(), is(equalWithoutOrderTo(asList())));
+        assertThat(asList(42), is(equalWithoutOrderTo(asList(42))));
+        assertThat(asList(1, 2, 3), is(equalWithoutOrderTo(asList(3, 2, 1))));
+        assertThat(asList(1, 2, 3), is(not(equalWithoutOrderTo(asList(7, 8, 9)))));
     }
 
     /** @see MatcherUtils#sorted(Comparator) */

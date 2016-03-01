@@ -3,6 +3,7 @@ package fr.pinguet62.jsfring.gui.htmlunit.field;
 import static java.util.stream.Collectors.toList;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
@@ -40,21 +41,24 @@ public final class PickList extends ReadWriteField<HtmlDivision, List<String>> {
     }
 
     /**
-     * @param classValue The {@code "class"} tag attribute used to determinate
-     *            what type of action is.
+     * @param classValue The {@code "class"} tag attribute used to determinate what type of action is.
      */
     private HtmlButton getActionButton(String classValue) {
-        return (HtmlButton) html.getByXPath(
-                "./div[contains(@class, 'ui-picklist')]/div[@class='ui-picklist-buttons']/div/button[contains(@class, 'ui-picklist-button-remove')][1]");
+        return (HtmlButton) html
+                .getByXPath("./div[@class='ui-picklist-buttons']/div/button[contains(@class, '" + classValue + "')]")
+                .get(0);
     }
 
     /**
-     * @param classValue The {@code "class"} tag attribute used to determinate
-     *            if it's the source or target list.
+     * @param classValue The {@code "class"} tag attribute used to determinate if it's the source or target list.
      */
     @SuppressWarnings("unchecked")
     private List<HtmlListItem> getList(String classValue) {
         return (List<HtmlListItem>) html.getByXPath("./div/ul[contains(@class, '" + classValue + "')]/li");
+    }
+
+    private List<HtmlListItem> getSource() {
+        return getList("ui-picklist-source");
     }
 
     private List<HtmlListItem> getTarget() {
@@ -69,29 +73,33 @@ public final class PickList extends ReadWriteField<HtmlDivision, List<String>> {
     /** Warning: the item values must be unique. */
     @Override
     public void setValue(List<String> values) {
+        // Check unique
+        if (values.size() != new HashSet<String>(values).size())
+            throw new IllegalArgumentException("There are duplicate values");
+
         try {
-            // Remove old
-            continue_removes: while (true) {
-                for (HtmlListItem li : getTarget())
+            { // Remove old
+                List<HtmlListItem> lis = getTarget();
+                for (int i = lis.size() - 1; 0 <= i; i--) {
+                    HtmlListItem li = lis.get(i);
                     if (!values.contains(li.asText())) {
                         HtmlPage page = li.click();
                         debug(page);
                         clickRemoveSelected();
-                        continue continue_removes;
                     }
-                break; // no remove: stop
+                }
             }
 
-            // Add new
-            continue_adds: while (true) {
-                for (HtmlListItem li : getTarget())
+            { // Add new
+                List<HtmlListItem> lis = getSource();
+                for (int i = lis.size() - 1; 0 <= i; i--) {
+                    HtmlListItem li = lis.get(i);
                     if (values.contains(li.asText())) {
                         HtmlPage page = li.click();
                         debug(page);
                         clickAddSelected();
-                        continue continue_adds;
                     }
-                break; // no add: stop
+                }
             }
         } catch (IOException e) {
             throw new NavigatorException(e);

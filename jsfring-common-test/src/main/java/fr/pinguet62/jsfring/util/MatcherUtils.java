@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.util;
 
+import static org.apache.commons.collections.CollectionUtils.isEqualCollection;
 import static org.apache.commons.lang3.time.DateUtils.truncate;
 
 import java.util.Comparator;
@@ -8,10 +9,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+
+import com.google.common.collect.Lists;
 
 /** Utility class with simple {@link Matcher}s. */
 public final class MatcherUtils {
@@ -27,8 +31,10 @@ public final class MatcherUtils {
      */
     public static Matcher<Date> equalToTruncated(Date expected, int field) {
         return new TypeSafeMatcher<Date>() {
+
             @Override
-            public void describeTo(Description description) {}
+            public void describeTo(Description description) {
+            }
 
             /**
              * @param actual The {@link Date} to compare.
@@ -48,8 +54,35 @@ public final class MatcherUtils {
     };
 
     /**
-     * {@link Matcher} used to {@link Function map} object to another type and
-     * apply another {@link Mapper} on converted value.
+     * Check That 2 {@link Iterable}s are {@link Object#equals(Object) equals}, without considering the order.
+     *
+     * @param expected The expected {@link Iterable}.
+     */
+    public static <T> Matcher<Iterable<T>> equalWithoutOrderTo(Iterable<T> expected) {
+        return new TypeSafeMatcher<Iterable<T>>() {
+
+            @Override
+            public void describeTo(Description description) {
+            }
+
+            /**
+             * @param actual The {@link Iterable} to check.
+             * @see ListUtils#intersection(List, List)
+             */
+            @Override
+            protected boolean matchesSafely(Iterable<T> actual) {
+                List<T> actualList = Lists.newArrayList(actual);
+                List<T> expectedList = Lists.newArrayList(expected);
+                if (expectedList.size() != actualList.size())
+                    return false;
+                return isEqualCollection(actualList, expectedList);
+            }
+        };
+    };
+
+    /**
+     * {@link Matcher} used to {@link Function map} object to another type and apply another {@link Mapper} on converted
+     * value.
      *
      * @param <S> The source type.
      * @param <M> The mapped type.
@@ -59,8 +92,10 @@ public final class MatcherUtils {
      */
     public static <S, M> Matcher<S> mappedTo(Function<S, M> mapper, Matcher<M> matcher) {
         return new TypeSafeMatcher<S>() {
+
             @Override
-            public void describeTo(Description description) {}
+            public void describeTo(Description description) {
+            }
 
             /**
              * Convert source object and apply {@link Matcher}.
@@ -74,7 +109,7 @@ public final class MatcherUtils {
                 return matcher.matches(mapped);
             }
         };
-    };
+    }
 
     /**
      * Check that value {@link String#matches(String) matches to regex}.
@@ -85,8 +120,10 @@ public final class MatcherUtils {
      */
     public static Matcher<String> matches(String regex) {
         return new TypeSafeMatcher<String>() {
+
             @Override
-            public void describeTo(Description description) {}
+            public void describeTo(Description description) {
+            }
 
             /**
              * @param actual The {@link String} to test.
@@ -108,26 +145,27 @@ public final class MatcherUtils {
      */
     public static <T> Matcher<List<T>> sorted(Comparator<T> comparator) {
         return new TypeSafeMatcher<List<T>>() {
+
             @Override
-            public void describeTo(Description description) {}
+            public void describeTo(Description description) {
+            }
 
             /**
              * @param values The {@link List} to check.
-             * @throws ClassCastException If the list contains elements that are
-             *             not {@link Comparable}.
+             * @throws ClassCastException If the list contains elements that are not {@link Comparable}.
              */
             @Override
             protected boolean matchesSafely(List<T> values) {
-                for (int i = 0, j = 1; j < values.size(); i++, j++) {
+                for (int i = 0, j = 1; j < values.size(); i++, j++)
                     if (0 < comparator.compare(values.get(i), values.get(j)))
                         return false;
-                }
                 return true;
             }
         };
     }
 
     // Utils class
-    private MatcherUtils() {}
+    private MatcherUtils() {
+    }
 
 }

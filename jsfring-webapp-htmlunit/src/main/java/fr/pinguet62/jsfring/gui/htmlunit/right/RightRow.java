@@ -21,12 +21,12 @@ public final class RightRow extends AbstractRow<RightShowPopup, RightUpdatePopup
 
     @Override
     protected Function<HtmlPage, RightShowPopup> getPopupShowFactory() {
-        throw new UnsupportedOperationException();
+        return RightShowPopup::new;
     }
 
     @Override
     protected Function<HtmlPage, RightUpdatePopup> getPopupUpdateFactory() {
-        throw new UnsupportedOperationException();
+        return RightUpdatePopup::new;
     }
 
     public String getTitle() {

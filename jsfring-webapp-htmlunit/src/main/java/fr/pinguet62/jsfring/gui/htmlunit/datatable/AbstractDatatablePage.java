@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.gui.htmlunit.datatable;
 
+import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.Delay.MEDIUM;
 import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.Delay.SHORT;
 import static java.lang.Integer.parseInt;
 import static java.util.regex.Pattern.compile;
@@ -28,7 +29,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
 
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.NavigatorException;
-import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.UpdatePopup;
+import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.CreatePopup;
 
 /**
  * @param <T> The {@link AbstractRow} type.
@@ -46,7 +47,7 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
                 .get(0);
         try {
             HtmlPage page = button.click();
-            waitJS(SHORT);
+            waitJS(MEDIUM);
             debug();
 
             return getPopupCreateFactory().apply(page);
@@ -172,7 +173,7 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
     }
 
     /**
-     * Converter from {@link HtmlPage} to {@link UpdatePopup}.
+     * Converter from {@link HtmlPage} to {@link CreatePopup}.
      *
      * @return The {@link Function}.
      */

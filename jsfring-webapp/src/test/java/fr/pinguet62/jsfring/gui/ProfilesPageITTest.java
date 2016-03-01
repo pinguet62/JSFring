@@ -2,9 +2,11 @@ package fr.pinguet62.jsfring.gui;
 
 import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.get;
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
+import static fr.pinguet62.jsfring.util.MatcherUtils.equalWithoutOrderTo;
 import static java.util.stream.Collectors.toList;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 import java.util.List;
@@ -66,19 +68,20 @@ public final class ProfilesPageITTest {
         // Fill fields
         ProfileCreatePopup popup = page.actionCreate();
         popup.getTitle().setValue(title);
-        popup.getRights().setValue(rights.stream().map(Right::getCode).collect(toList()));
+        popup.getRights().setValue(rights.stream().map(Right::getTitle).collect(toList()));
         popup.submit();
+
+        assertThat(page.getMessageError(), is(nullValue()));
 
         // Check
         Profile lastProfile = profileDao.findAll(QProfile.profile.id.desc()).get(0);
         assertThat(lastProfile.getTitle(), is(equalTo(title)));
-        assertThat(lastProfile.getRights(), is(equalTo(rights)));
+        assertThat(lastProfile.getRights(), is(equalWithoutOrderTo(rights)));
     }
 
     @Test
     public void test_action_create_field_readonly() {
         ProfileCreatePopup popup = page.actionCreate();
-
         assertThat(popup.getTitle().isReadonly(), is(false));
         assertThat(popup.getRights().isReadonly(), is(false));
     }
@@ -96,7 +99,6 @@ public final class ProfilesPageITTest {
     @Test
     public void test_action_show_field_readonly() {
         ProfileShowPopup popup = page.iterator().next().actionShow();
-
         assertThat(popup.getTitle().isReadonly(), is(true));
         assertThat(popup.getRights().isReadonly(), is(true));
     }
@@ -104,17 +106,38 @@ public final class ProfilesPageITTest {
     @Test
     public void test_action_show_field_value() {
         ProfileRow row = page.iterator().next();
-        ProfileShowPopup popup = row.actionShow();
         Profile profile = profileDao.findOne(QProfile.profile.title.eq(row.getTitle()));
 
+        ProfileShowPopup popup = row.actionShow();
         assertThat(popup.getTitle().getValue(), is(equalTo(profile.getTitle())));
-        assertThat(popup.getRights().getValue(), is(equalTo(profile.getRights())));
+        assertThat(popup.getRights().getValue(),
+                is(equalWithoutOrderTo(profile.getRights().stream().map(Right::getTitle).collect(toList()))));
+    }
+
+    @Test
+    public void test_action_update() {
+        ProfileRow row = page.iterator().next();
+        ProfileUpdatePopup popup = row.actionUpdate();
+
+        // Data
+        int id = profileDao.findOne(QProfile.profile.title.eq(row.getTitle())).getId();
+        String title = UUID.randomUUID().toString();
+        List<Right> rights = rightDao.findAll().stream().limit(2).collect(toList());
+
+        // Fill fields
+        popup.getTitle().setValue(title);
+        popup.getRights().setValue(rights.stream().map(Right::getTitle).collect(toList()));
+        popup.submit();
+
+        // Check
+        Profile profile = profileDao.findOne(id);
+        assertThat(profile.getTitle(), is(equalTo(title)));
+        assertThat(profile.getRights(), is(equalWithoutOrderTo(rights)));
     }
 
     @Test
     public void test_action_update_field_readonly() {
         ProfileUpdatePopup popup = page.iterator().next().actionUpdate();
-
         assertThat(popup.getTitle().isReadonly(), is(false));
         assertThat(popup.getRights().isReadonly(), is(false));
     }
@@ -122,11 +145,12 @@ public final class ProfilesPageITTest {
     @Test
     public void test_action_update_field_value() {
         ProfileRow row = page.iterator().next();
-        ProfileUpdatePopup popup = row.actionUpdate();
         Profile profile = profileDao.findOne(QProfile.profile.title.eq(row.getTitle()));
 
+        ProfileUpdatePopup popup = row.actionUpdate();
         assertThat(popup.getTitle().getValue(), is(equalTo(profile.getTitle())));
-        assertThat(popup.getRights().getValue(), is(equalTo(profile.getRights())));
+        assertThat(popup.getRights().getValue(),
+                is(equalWithoutOrderTo(profile.getRights().stream().map(Right::getTitle).collect(toList()))));
     }
 
 }
