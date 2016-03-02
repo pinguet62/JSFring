@@ -73,7 +73,7 @@ public class UsersPageITTest {
         popup.getLogin().setValue(login);
         popup.getEmail().setValue(email);
         popup.getActive().setValue(active);
-        popup.getProfiles().setValue(profiles.stream().map(Profile::getId).map(String::valueOf).collect(toList()));
+        popup.getProfiles().setValue(profiles.stream().map(Profile::getTitle).collect(toList()));
         popup.submit();
 
         // Check
