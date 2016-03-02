@@ -22,6 +22,7 @@
 		<module>jsfring-service</module>
 		<module>jsfring-task</module>
 		<module>jsfring-webapp</module>
+		<module>jsfring-webapp-angularjs</module>
 		<module>jsfring-webapp-htmlunit</module>
 		<module>jsfring-webservice</module>
 		<module>jsfring-indexer-nosql</module>
