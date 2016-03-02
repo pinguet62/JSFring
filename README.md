@@ -29,24 +29,28 @@ Layers :
 		* <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> [Spring security](http://projects.spring.io/spring-security)
 			* Taglib (JSF integration)
 	* <img src="https://angularjs.org/img/AngularJS-large.png" height="25" /> [**AngularJS**](https://angularjs.org)
-		* <img src="https://angular-translate.github.io/img/logo/angular-translate-alternative/angular-translate_alternative_medium2.png" height="25" /> [Angular Translate](https://angular-translate.github.io)
+		* <img src="http://www.webjars.org/assets/logo.png" height="25" /> [WebJars](http://www.webjars.org)
 		* <img src="https://upload.wikimedia.org/wikipedia/fr/1/13/TwitterBootstrap.png" height="25" /> [**Bootstrap**](http://getbootstrap.com)
-			* [UI Bootstrap](https://angular-ui.github.io/bootstrap)
-		* [ngDialog](http://ngmodules.org/modules/ngDialog)
-		* [UI Grid](http://ui-grid.info)
+		* AngularJS modules:
+			* <img src="http://angular-ui.github.io/bootstrap/assets/favicon.ico" height="25" /> [UI Bootstrap](https://angular-ui.github.io/bootstrap)
+			* <img src="https://angular-translate.github.io/img/logo/angular-translate-alternative/angular-translate_alternative_medium2.png" height="25" /> [Angular Translate](https://angular-translate.github.io)
+			* [ngDialog](http://ngmodules.org/modules/ngDialog)
+			* [UI Grid](http://ui-grid.info)
 
 Transverse :
 * *Transverse*
+	* <img src="https://upload.wikimedia.org/wikipedia/en/8/88/Java_logo.png" height="25" /> [**Java**](http://www.oracle.com/technetwork/java/index.html)
 	* **Java EE**
-		* [**CDI**](https://docs.oracle.com/javaee/7/tutorial/cdi-basic.htm) (Contexts and Dependency Injection)
+		* [CDI](https://docs.oracle.com/javaee/7/tutorial/cdi-basic.htm) (Contexts and Dependency Injection)
 	* <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> [**Spring framework**](http://projects.spring.io/spring-framework)
+		* <img src="http://g00glen00b.be/wp-content/uploads/2012/08/spring-boot-logo.png" height="25" /> [Spring Boot](http://projects.spring.io/spring-boot)
 		* [Caching Data](https://spring.io/guides/gs/caching)
 		* [Scheduling Tasks](https://spring.io/guides/gs/scheduling-tasks)
 * Tests:
 	* <img src="http://junit.org/images/junit-logo.png" height="25" /> [**JUnit**](http://junit.org)
 	* <img src="http://hamcrest.org/images/logo.jpg" height="25" /> [Hamcrest](http://hamcrest.org/JavaHamcrest)
 	* <img src="http://dbunit.sourceforge.net/images/dbunit-logo.jpg" height="25" /> [**DBUnit**](http://dbunit.sourceforge.net)
-	* <img src="http://htmlunit.sourceforge.net/images/GargoyleSoftwareLogo.jpg" height="25" /> [**DBUnitHtmlUnit**](http://htmlunit.sourceforge.net/)
+	* <img src="http://htmlunit.sourceforge.net/images/GargoyleSoftwareLogo.jpg" height="25" /> [**HtmlUnit**](http://htmlunit.sourceforge.net/)
 	* [Spring Test DBUnit](http://springtestdbunit.github.io/spring-test-dbunit)
 * Logging:
 	* <img src="http://www.slf4j.org/images/logos/slf4j-logo.jpg" height="25" /> [SLF4J](http://www.slf4j.org)
