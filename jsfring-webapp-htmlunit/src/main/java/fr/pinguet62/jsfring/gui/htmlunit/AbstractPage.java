@@ -1,6 +1,5 @@
 package fr.pinguet62.jsfring.gui.htmlunit;
 
-import static java.io.File.createTempFile;
 import static java.lang.Thread.sleep;
 import static java.util.stream.Collectors.joining;
 import static org.slf4j.LoggerFactory.getLogger;
@@ -63,11 +62,7 @@ public class AbstractPage {
 
     /** Initialize the {@link #OUTPUT_STREAM}. */
     static {
-        try {
-            TMP_FILE = createTempFile("navigator-", null);
-        } catch (IOException e) {
-            throw new NavigatorException(e);
-        }
+        TMP_FILE = new File("C:\\Users\\Pinguet62\\Downloads\\out.html");
         LOGGER.debug("Temporary file: {}", TMP_FILE);
     }
 
@@ -80,8 +75,8 @@ public class AbstractPage {
     }
 
     public static void debug(String xml) {
-        if (!LOGGER.isDebugEnabled())
-            return;
+        // if (!LOGGER.isDebugEnabled())
+        // return;
 
         try {
             IOUtils.write(xml, new FileOutputStream(TMP_FILE));

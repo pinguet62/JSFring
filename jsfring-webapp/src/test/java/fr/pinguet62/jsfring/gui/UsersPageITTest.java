@@ -3,6 +3,7 @@ package fr.pinguet62.jsfring.gui;
 import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.get;
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
 import static fr.pinguet62.jsfring.util.MatcherUtils.equalWithoutOrderTo;
+import static java.util.UUID.randomUUID;
 import static java.util.stream.Collectors.toList;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -12,7 +13,6 @@ import static org.junit.Assert.assertThat;
 
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -63,7 +63,7 @@ public class UsersPageITTest {
     @Test
     public void test_action_create() {
         // Data
-        String login = UUID.randomUUID().toString().substring(0, 20);
+        String login = randomUUID().toString().substring(0, 20);
         String email = "ramdon@domail.org";
         boolean active = new Random().nextBoolean();
         List<Profile> profiles = profileDao.findAll().stream().limit(2).collect(toList());
@@ -71,11 +71,10 @@ public class UsersPageITTest {
         // Fill fields
         UserCreatePopup popup = page.actionCreate();
         popup.getLogin().setValue(login);
+        popup.getEmail().setValue(email);
         popup.getActive().setValue(active);
         popup.getProfiles().setValue(profiles.stream().map(Profile::getId).map(String::valueOf).collect(toList()));
         popup.submit();
-
-        assertThat(page.getMessageError(), is(nullValue()));
 
         // Check
         User user = userDao.findOne(login);

@@ -3,6 +3,7 @@ package fr.pinguet62.jsfring.gui.htmlunit.field;
 import java.io.IOException;
 
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
+import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 
@@ -19,8 +20,8 @@ public final class CheckBox extends ReadWriteField<HtmlDivision, Boolean> {
      */
     @Override
     public Boolean getValue() {
-        HtmlDivision div = (HtmlDivision) html.getByXPath("./div[1]/input").get(0);
-        String value = div.getAttribute("aria-checked");
+        HtmlInput input = (HtmlInput) html.getByXPath("./div[1]/input").get(0);
+        String value = input.getAttribute("aria-checked");
         if ("true".equals(value))
             return true;
         else if ("false".equals(value))
@@ -31,6 +32,8 @@ public final class CheckBox extends ReadWriteField<HtmlDivision, Boolean> {
 
     @Override
     public void setValue(Boolean value) {
+        if (getValue() == value)
+            return;
         try {
             HtmlSpan span = (HtmlSpan) html.getByXPath("./div[2]/span[contains(@class, 'ui-chkbox-icon')]").get(0);
             HtmlPage page = span.click();

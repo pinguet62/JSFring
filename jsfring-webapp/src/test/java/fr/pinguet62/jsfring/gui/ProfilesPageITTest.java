@@ -3,14 +3,13 @@ package fr.pinguet62.jsfring.gui;
 import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.get;
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
 import static fr.pinguet62.jsfring.util.MatcherUtils.equalWithoutOrderTo;
+import static java.util.UUID.randomUUID;
 import static java.util.stream.Collectors.toList;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 import java.util.List;
-import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -62,7 +61,7 @@ public final class ProfilesPageITTest {
     @Test
     public void test_action_create() {
         // Data
-        String title = UUID.randomUUID().toString();
+        String title = randomUUID().toString().substring(0, 29);
         List<Right> rights = rightDao.findAll().stream().limit(2).collect(toList());
 
         // Fill fields
@@ -70,8 +69,6 @@ public final class ProfilesPageITTest {
         popup.getTitle().setValue(title);
         popup.getRights().setValue(rights.stream().map(Right::getTitle).collect(toList()));
         popup.submit();
-
-        assertThat(page.getMessageError(), is(nullValue()));
 
         // Check
         Profile lastProfile = profileDao.findAll(QProfile.profile.id.desc()).get(0);
@@ -121,7 +118,7 @@ public final class ProfilesPageITTest {
 
         // Data
         int id = profileDao.findOne(QProfile.profile.title.eq(row.getTitle())).getId();
-        String title = UUID.randomUUID().toString();
+        String title = randomUUID().toString().substring(0, 29);
         List<Right> rights = rightDao.findAll().stream().limit(2).collect(toList());
 
         // Fill fields

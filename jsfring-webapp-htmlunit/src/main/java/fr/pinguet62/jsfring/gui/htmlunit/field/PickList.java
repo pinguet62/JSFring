@@ -24,6 +24,7 @@ public final class PickList extends ReadWriteField<HtmlDivision, List<String>> {
         HtmlButton button = getActionButton("ui-picklist-button-add");
         try {
             HtmlPage page = button.click();
+            waitJS(Delay.SHORT);
             debug(page);
         } catch (IOException e) {
             throw new NavigatorException(e);
@@ -34,6 +35,7 @@ public final class PickList extends ReadWriteField<HtmlDivision, List<String>> {
         HtmlButton button = getActionButton("ui-picklist-button-remove");
         try {
             HtmlPage page = button.click();
+            waitJS(Delay.SHORT);
             debug(page);
         } catch (IOException e) {
             throw new NavigatorException(e);
