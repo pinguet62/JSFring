@@ -11,7 +11,7 @@
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>webapp-htmlunit</artifactId>
+	<artifactId>webapp-jsf-htmlunit</artifactId>
 	<packaging>jar</packaging>
 
 	<dependencies>
