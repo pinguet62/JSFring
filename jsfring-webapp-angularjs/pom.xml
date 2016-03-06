@@ -53,8 +53,9 @@
 			<resource>
 				<directory>${project.basedir}/src/main/resources</directory>
 			</resource>
+			<!-- Webapp -->
 			<resource>
-				<directory>${project.build.directory}/generated-resources</directory>
+				<directory>${project.basedir}/src/main/webapp</directory>
 			</resource>
 		</resources>
 		
@@ -149,7 +150,7 @@
 						<source>/lib/angular-bootstrap.js</source>
 						<source>/webjars/angularjs/1.3.8/angular-mocks.js</source>
 					</preloadSources>
-					<jsSrcDir>${project.basedir}/src/main/resources/static/js</jsSrcDir>
+					<jsSrcDir>${project.basedir}/src/main/webapp/js</jsSrcDir>
 					<jsTestSrcDir>${project.basedir}/src/test/resources/static/js</jsTestSrcDir>
 					<webDriverClassName>org.openqa.selenium.phantomjs.PhantomJSDriver</webDriverClassName>
 				</configuration>
