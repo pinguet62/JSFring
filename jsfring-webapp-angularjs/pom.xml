@@ -12,7 +12,7 @@
 	</parent>
 
 	<artifactId>webapp-angularjs</artifactId>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<dependencies>
 		<dependency>
