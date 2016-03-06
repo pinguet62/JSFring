@@ -3,16 +3,21 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<name>Common</name>
-
 	<parent>
 		<groupId>fr.pinguet62.jsfring</groupId>
-		<artifactId>JSFring</artifactId>
+		<artifactId>jsfring</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>common</artifactId>
 	<packaging>jar</packaging>
+
+	<name>Common</name>
+	<description>Common dependencies for other modules</description>
+
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
 
 	<dependencies>
 		<!-- Spring -->
@@ -29,6 +34,7 @@
 			<version>1.0.0.Final</version>
 			<scope>compile</scope>
 		</dependency>
+
 		<!-- Querydsl -->
 		<dependency>
 			<groupId>com.mysema.querydsl</groupId>
@@ -36,6 +42,7 @@
 			<version>${querydsl.version}</version>
 			<scope>compile</scope>
 		</dependency>
+
 		<!-- PDF parser -->
 		<dependency>
 			<groupId>com.lowagie</groupId>
@@ -44,17 +51,5 @@
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
-
-	<properties>
-		<java.version>1.8</java.version>
-	</properties>
-
-	<build>
-		<testResources>
-			<testResource>
-				<directory>${project.basedir}/src/test/resources</directory>
-			</testResource>
-		</testResources>
-	</build>
 
 </project>

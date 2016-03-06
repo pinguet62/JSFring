@@ -3,16 +3,18 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<name>AngularJS</name>
-	
 	<parent>
 		<groupId>fr.pinguet62.jsfring</groupId>
-		<artifactId>JSFring</artifactId>
+		<artifactId>jsfring</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>webapp-angularjs</artifactId>
 	<packaging>war</packaging>
+
+	<name>AngularJS</name>
+	<description>AngularJS web application, using Webjars</description>
+	<url>http://jsfring-${project.artifactId}.herokuapp.com</url>
 
 	<dependencies>
 		<dependency>
@@ -28,7 +30,7 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>angularjs</artifactId>
@@ -58,19 +60,18 @@
 				<directory>${project.basedir}/src/main/webapp</directory>
 			</resource>
 		</resources>
-		
+
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			
+
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
 				<executions>
 					<execution>
-						<!-- Serves *only* to filter the wro.xml so it can get an absolute 
-							path for the project -->
+						<!-- Serves *only* to filter the wro.xml so it can get an absolute path for the project -->
 						<id>copy-resources</id>
 						<phase>validate</phase>
 						<goals>
@@ -88,7 +89,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>ro.isdc.wro4j</groupId>
 				<artifactId>wro4j-maven-plugin</artifactId>
@@ -127,7 +128,7 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>com.github.searls</groupId>
 				<artifactId>jasmine-maven-plugin</artifactId>
@@ -151,7 +152,7 @@
 						<source>/webjars/angularjs/1.3.8/angular-mocks.js</source>
 					</preloadSources>
 					<jsSrcDir>${project.basedir}/src/main/webapp/js</jsSrcDir>
-					<jsTestSrcDir>${project.basedir}/src/test/resources/static/js</jsTestSrcDir>
+					<jsTestSrcDir>${project.basedir}/src/test/webapp/js</jsTestSrcDir>
 					<webDriverClassName>org.openqa.selenium.phantomjs.PhantomJSDriver</webDriverClassName>
 				</configuration>
 				<dependencies>

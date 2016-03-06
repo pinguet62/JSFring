@@ -3,16 +3,21 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<name>Service</name>
-
 	<parent>
 		<groupId>fr.pinguet62.jsfring</groupId>
-		<artifactId>JSFring</artifactId>
+		<artifactId>jsfring</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>service</artifactId>
 	<packaging>jar</packaging>
+
+	<name>Service</name>
+	<description>Service layer</description>
+
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
 
 	<dependencies>
 		<!-- Project -->
@@ -34,17 +39,5 @@
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
 	</dependencies>
-
-	<properties>
-		<java.version>1.8</java.version>
-	</properties>
-
-	<build>
-		<testResources>
-			<testResource>
-				<directory>${project.basedir}/src/test/resources</directory>
-			</testResource>
-		</testResources>
-	</build>
 
 </project>

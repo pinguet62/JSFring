@@ -3,19 +3,24 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<name>Indexer NoSQL</name>
-
 	<parent>
 		<groupId>fr.pinguet62.jsfring</groupId>
-		<artifactId>JSFring</artifactId>
+		<artifactId>jsfring</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>indexer-nosql</artifactId>
 	<packaging>jar</packaging>
 
+	<name>Indexer NoSQL</name>
+	<description>Populate database from Allocine.fr</description>
+
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+
 	<dependencies>
-		<!-- ===== Project ===== -->
+		<!-- Project -->
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>common-test</artifactId>
@@ -35,17 +40,7 @@
 		</dependency>
 	</dependencies>
 
-	<properties>
-		<target.webapp>${project.build.directory}/webapp-tmp</target.webapp>
-	</properties>
-
 	<build>
-		<testResources>
-			<testResource>
-				<directory>${project.basedir}/src/test/resources</directory>
-			</testResource>
-		</testResources>
-
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

@@ -3,16 +3,21 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<name>Web Application robot</name>
-
 	<parent>
 		<groupId>fr.pinguet62.jsfring</groupId>
-		<artifactId>JSFring</artifactId>
+		<artifactId>jsfring</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>webapp-jsf-htmlunit</artifactId>
 	<packaging>jar</packaging>
+
+	<name>JSF HtmlUnit</name>
+	<description>Wrapper of HtmlUnit used to navigate on JSF webapp</description>
+
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
 
 	<dependencies>
 		<!-- HtmlUnit -->

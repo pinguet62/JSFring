@@ -128,8 +128,9 @@ Measure the degree to which the source code of a program is *tested*.
 
 Multi web-application deployed on cloud... in continue!
 
-* Webapp: JSF <img src="https://d3k90kvix375hb.cloudfront.net/assets/logo-purple.svg" height="25" /> [Heroku](https://www.heroku.com/home) [![Deploy](https://www.herokucdn.com/deploy/button.png)](http://jsfring-webapp.herokuapp.com)
-* Webapp: AngularJS: <img src="https://d3k90kvix375hb.cloudfront.net/assets/logo-purple.svg" height="25" /> [Heroku](https://www.heroku.com/home) [![Deploy](https://www.herokucdn.com/deploy/button.png)](http://jsfring-webapp-angularjs.herokuapp.com)
+* Webapp:
+	* JSF: <img src="https://d3k90kvix375hb.cloudfront.net/assets/logo-purple.svg" height="25" /> [Heroku](https://www.heroku.com/home) [![Deploy](https://www.herokucdn.com/deploy/button.png)](http://jsfring-webapp.herokuapp.com)
+	* AngularJS: <img src="https://d3k90kvix375hb.cloudfront.net/assets/logo-purple.svg" height="25" /> [Heroku](https://www.heroku.com/home) [![Deploy](https://www.herokucdn.com/deploy/button.png)](http://jsfring-webapp-angularjs.herokuapp.com)
 * Webservice: <img src="https://d3k90kvix375hb.cloudfront.net/assets/logo-purple.svg" height="25" /> [Heroku](https://www.heroku.com/home) [![Deploy](https://www.herokucdn.com/deploy/button.png)](http://jsfring-webservice.herokuapp.com)
 
 ## Licence
