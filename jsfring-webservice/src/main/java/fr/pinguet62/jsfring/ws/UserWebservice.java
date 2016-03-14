@@ -13,7 +13,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import static javax.ws.rs.core.MediaType.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
@@ -35,7 +35,7 @@ public final class UserWebservice {
 
     @PUT
     @Path("/")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes(APPLICATION_JSON)
     public void create(UserDto userDto) {
         User user = conversionService.convert(userDto, User.class);
         userService.create(user);
@@ -43,7 +43,7 @@ public final class UserWebservice {
 
     @GET
     @Path("/{login}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
     public UserDto get(@PathParam("login") String login) {
         User user = userService.get(login);
         if (user == null)
@@ -53,7 +53,7 @@ public final class UserWebservice {
 
     @GET
     @Path("/")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
     public List<UserDto> list() {
         List<User> pojos = userService.getAll();
         return (List<UserDto>) conversionService.convert(pojos, collection(List.class, valueOf(User.class)),
@@ -62,7 +62,7 @@ public final class UserWebservice {
 
     @POST
     @Path("/")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes(APPLICATION_JSON)
     public void update(UserDto userDto) {
         User user = conversionService.convert(userDto, User.class);
         userService.update(user);

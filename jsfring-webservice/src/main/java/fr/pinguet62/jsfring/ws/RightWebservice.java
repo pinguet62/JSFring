@@ -1,6 +1,7 @@
 package fr.pinguet62.jsfring.ws;
 
 import static fr.pinguet62.jsfring.ws.RightWebservice.PATH;
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static org.springframework.core.convert.TypeDescriptor.collection;
 import static org.springframework.core.convert.TypeDescriptor.valueOf;
 
@@ -12,7 +13,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
@@ -34,7 +34,7 @@ public final class RightWebservice {
 
     @GET
     @Path("/{code}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
     public RightDto get(@PathParam("code") String code) {
         Right right = rightService.get(code);
         if (right == null)
@@ -44,7 +44,7 @@ public final class RightWebservice {
 
     @GET
     @Path("/")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
     public List<RightDto> list() {
         List<Right> pojos = rightService.getAll();
         return (List<RightDto>) conversionService.convert(pojos, collection(List.class, valueOf(Right.class)),
@@ -53,7 +53,7 @@ public final class RightWebservice {
 
     @POST
     @Path("/")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes(APPLICATION_JSON)
     public void update(RightDto rightDto) {
         Right right = conversionService.convert(rightDto, Right.class);
         rightService.update(right);

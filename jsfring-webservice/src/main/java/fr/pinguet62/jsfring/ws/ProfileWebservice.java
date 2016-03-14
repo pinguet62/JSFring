@@ -1,6 +1,7 @@
 package fr.pinguet62.jsfring.ws;
 
 import static fr.pinguet62.jsfring.ws.ProfileWebservice.PATH;
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static org.springframework.core.ResolvableType.forClassWithGenerics;
 import static org.springframework.core.convert.TypeDescriptor.collection;
 import static org.springframework.core.convert.TypeDescriptor.valueOf;
@@ -16,7 +17,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
@@ -43,7 +43,7 @@ public final class ProfileWebservice extends AbstractWebservice<Profile, Integer
 
     @PUT
     @Path("/")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes(APPLICATION_JSON)
     public void create(ProfileDto profileDto) {
         Profile profile = conversionService.convert(profileDto, Profile.class);
         profileService.create(profile);
@@ -62,7 +62,7 @@ public final class ProfileWebservice extends AbstractWebservice<Profile, Integer
      */
     @GET
     @Path("/find")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
     public PageDto<ProfileDto> find(@QueryParam("page") @DefaultValue("0") int page,
             @QueryParam("pageSize") @DefaultValue("20") int pageSize, @QueryParam("sortField") String sortField,
             @QueryParam("sortOrder") @DefaultValue(OrderConverter.ASC) String sortOrder) {
@@ -74,7 +74,7 @@ public final class ProfileWebservice extends AbstractWebservice<Profile, Integer
 
     @GET
     @Path("/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
     public ProfileDto get(@PathParam("id") int id) {
         Profile profile = profileService.get(id);
         if (profile == null)
@@ -84,7 +84,7 @@ public final class ProfileWebservice extends AbstractWebservice<Profile, Integer
 
     @GET
     @Path("/")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
     public List<ProfileDto> list() {
         List<Profile> pojos = profileService.getAll();
         return (List<ProfileDto>) conversionService.convert(pojos, collection(List.class, valueOf(Profile.class)),
@@ -93,7 +93,7 @@ public final class ProfileWebservice extends AbstractWebservice<Profile, Integer
 
     @POST
     @Path("/")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes(APPLICATION_JSON)
     public void update(ProfileDto profileDto) {
         Profile profile = conversionService.convert(profileDto, Profile.class);
         profileService.update(profile);
