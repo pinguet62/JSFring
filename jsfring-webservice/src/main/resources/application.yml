@@ -1,0 +1,7 @@
+security:
+  oauth2:
+    client:
+      clientId: clientId
+      clientSecret: clientSecret
+      authorized-grant-types: password
+      scope: read

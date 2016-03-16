@@ -4,7 +4,7 @@
  * @url The target sub-URL.
  */
 function initCrudService(crudService, url, $http) {
-	var baseUrl = 'http://jsfring-webservice.herokuapp.com'
+	var baseUrl = 'http://jsfring-webservice.herokuapp.com/rest'
 	
 	crudService.list = function(callback) {
 		$http
