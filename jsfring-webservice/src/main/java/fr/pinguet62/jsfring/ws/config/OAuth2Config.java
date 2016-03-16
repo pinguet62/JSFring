@@ -12,11 +12,11 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @Configuration
 @EnableAuthorizationServer
 @EnableResourceServer
+@EnableGlobalMethodSecurity(jsr250Enabled = true)
 public class OAuth2Config {
 
     /** Use custom {@link UserDetailsService}. */
     @Configuration
-    @EnableGlobalMethodSecurity(jsr250Enabled = true, prePostEnabled = true, securedEnabled = true, proxyTargetClass = true)
     public static class AuthenticationManagerConfiguration extends GlobalAuthenticationConfigurerAdapter {
 
         @Autowired
