@@ -4,6 +4,7 @@ import static fr.pinguet62.jsfring.util.MatcherUtils.equalToTruncated;
 import static fr.pinguet62.jsfring.util.MatcherUtils.equalWithoutOrderTo;
 import static fr.pinguet62.jsfring.util.MatcherUtils.mappedTo;
 import static fr.pinguet62.jsfring.util.MatcherUtils.matches;
+import static fr.pinguet62.jsfring.util.MatcherUtils.parameter;
 import static fr.pinguet62.jsfring.util.MatcherUtils.sorted;
 import static java.util.Arrays.asList;
 import static java.util.Calendar.DAY_OF_MONTH;
@@ -12,13 +13,16 @@ import static java.util.Calendar.MINUTE;
 import static java.util.Calendar.MONTH;
 import static java.util.Calendar.SECOND;
 import static java.util.Calendar.YEAR;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.everyItem;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
+import java.net.MalformedURLException;
 import java.util.Comparator;
 import java.util.Date;
 
@@ -77,6 +81,16 @@ public final class MatcherUtilsTest {
     public void test_matches() {
         assertThat("42", matches("[0-9]+"));
         assertThat("abc", not(matches("[0-9]+")));
+    }
+
+    @Test
+    public void test_parameter() throws MalformedURLException {
+        assertThat("param1=value1&param2=value2", parameter("param1", is(equalTo("value1"))));
+        assertThat("param1=value1&param2=value2", parameter("param2", is(equalTo("value2"))));
+
+        assertThat("param1=value1&param2=value2", parameter("param3", is(nullValue())));
+
+        assertThat("", parameter("param", is(nullValue())));
     }
 
     /** @see MatcherUtils#sorted(Comparator) */

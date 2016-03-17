@@ -3,5 +3,5 @@ security:
     client:
       clientId: clientId
       clientSecret: clientSecret
-      authorized-grant-types: password
+      authorized-grant-types: authorization_code, password, implicit, refresh_token
       scope: read

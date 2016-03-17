@@ -1,8 +1,11 @@
 package fr.pinguet62.jsfring.util;
 
 import static org.apache.commons.collections.CollectionUtils.isEqualCollection;
+import static org.apache.commons.io.Charsets.UTF_8;
 import static org.apache.commons.lang3.time.DateUtils.truncate;
+import static org.apache.http.client.utils.URLEncodedUtils.parse;
 
+import java.net.URL;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +14,7 @@ import java.util.function.Function;
 
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import org.apache.http.NameValuePair;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
@@ -132,6 +136,34 @@ public final class MatcherUtils {
             @Override
             protected boolean matchesSafely(String actual) {
                 return actual.matches(regex);
+            }
+        };
+    }
+
+    /**
+     * Check that {@link URL} parameter matches to a predicate.
+     *
+     * @param paramKey The key of parameter.
+     * @param paramValueMatcher The {@link Matcher} to apply on value of parameter.
+     * @return The built {@link Matcher}.
+     */
+    public static Matcher<String> parameter(String paramKey, Matcher<Object> paramValueMatcher) {
+        return new TypeSafeMatcher<String>() {
+
+            @Override
+            public void describeTo(Description description) {
+            }
+
+            /**
+             * @param query The {@link URL#getQuery()} to test.
+             * @see String#matches(String)
+             */
+            @Override
+            protected boolean matchesSafely(String query) {
+                List<NameValuePair> parameters = parse(query, UTF_8);
+                String paramValue = parameters.stream().filter(p -> p.getName().equals(paramKey)).findAny()
+                        .map(NameValuePair::getValue).orElse(null);
+                return paramValueMatcher.matches(paramValue);
             }
         };
     }
