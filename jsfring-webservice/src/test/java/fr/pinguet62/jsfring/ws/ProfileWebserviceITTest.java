@@ -61,7 +61,7 @@ public class ProfileWebserviceITTest {
     /** @see ProfileWebservice#list() */
     @Test
     public void test_list() {
-        List<ProfileDto> actual = newClient().target(BASE_URL).path(PATH + "/").request()
+        List<ProfileDto> actual = newClient().target(BASE_URL).path(PATH + "/rest/").request()
                 .get(new GenericType<List<ProfileDto>>() {});
 
         List<Profile> expected = profileDao.findAll();

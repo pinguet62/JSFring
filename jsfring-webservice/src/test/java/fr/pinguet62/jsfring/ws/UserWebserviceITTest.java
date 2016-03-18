@@ -3,6 +3,7 @@ package fr.pinguet62.jsfring.ws;
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
 import static fr.pinguet62.jsfring.ws.Config.BASE_URL;
 import static fr.pinguet62.jsfring.ws.UserWebservice.PATH;
+import static fr.pinguet62.jsfring.ws.config.JerseyConfig.CONTEXT_PATH;
 import static java.util.Calendar.SECOND;
 import static javax.ws.rs.client.ClientBuilder.newClient;
 import static org.apache.commons.lang3.time.DateUtils.truncate;
@@ -48,8 +49,8 @@ public class UserWebserviceITTest {
     public void test_get() {
         String login = userDao.findAll().get(0).getLogin();
 
-        UserDto actual = newClient().target(BASE_URL).path(PATH + "/{login}").resolveTemplate("login", login).request()
-                .get(UserDto.class);
+        UserDto actual = newClient().target(BASE_URL + CONTEXT_PATH).path(PATH + "/{login}")
+                .resolveTemplate("login", login).request().get(UserDto.class);
 
         User pojo = userDao.findOne(login);
         UserDto expected = new UserDto();
@@ -59,13 +60,15 @@ public class UserWebserviceITTest {
 
         assertThat(actual.getLogin(), is(equalTo(expected.getLogin())));
         assertThat(actual.getEmail(), is(equalTo(expected.getEmail())));
-        assertThat(truncate(actual.getLastConnection(), SECOND), is(equalTo(truncate(expected.getLastConnection(), SECOND))));
+        assertThat(truncate(actual.getLastConnection(), SECOND),
+                is(equalTo(truncate(expected.getLastConnection(), SECOND))));
     }
 
     /** @see UserWebservice#list() */
     @Test
     public void test_list() {
-        List<UserDto> actual = newClient().target(BASE_URL).path(PATH + "/").request().get(new GenericType<List<UserDto>>() {});
+        List<UserDto> actual = newClient().target(BASE_URL + CONTEXT_PATH).path(PATH + "/").request()
+                .get(new GenericType<List<UserDto>>() {});
 
         List<User> expected = userDao.findAll();
 

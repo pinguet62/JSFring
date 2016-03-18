@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.ws.config;
 
+import static fr.pinguet62.jsfring.ws.config.JerseyConfig.CONTEXT_PATH;
 import static java.util.stream.Collectors.joining;
 import static org.slf4j.LoggerFactory.getLogger;
 import static org.springframework.boot.autoconfigure.AutoConfigurationPackages.get;
@@ -24,8 +25,16 @@ import org.springframework.stereotype.Component;
 
 /** Register for Jersey. */
 @Component
-@ApplicationPath("/rest") // Because Spring-MVC is also mapping to root-context "/"
+@ApplicationPath(CONTEXT_PATH)
 public class JerseyConfig extends ResourceConfig {
+
+    /**
+     * The path of JAX-RS context.<br>
+     * Relative to application context.
+     * <p>
+     * Not root context {@code "/"}, because Spring-MVC is also mapping to this context.
+     */
+    public static final String CONTEXT_PATH = "/rest";
 
     private static final Logger LOGGER = getLogger(JerseyConfig.class);
 

@@ -3,6 +3,7 @@ package fr.pinguet62.jsfring.ws;
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
 import static fr.pinguet62.jsfring.ws.Config.BASE_URL;
 import static fr.pinguet62.jsfring.ws.RightWebservice.PATH;
+import static fr.pinguet62.jsfring.ws.config.JerseyConfig.CONTEXT_PATH;
 import static javax.ws.rs.client.ClientBuilder.newClient;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
@@ -46,8 +47,8 @@ public class RightWebserviceITTest {
     public void test_get() {
         String code = rightDao.findAll().get(0).getCode();
 
-        RightDto actual = newClient().target(BASE_URL).path(PATH + "/{code}").resolveTemplate("code", code).request()
-                .get(RightDto.class);
+        RightDto actual = newClient().target(BASE_URL + CONTEXT_PATH).path(PATH + "/{code}")
+                .resolveTemplate("code", code).request().get(RightDto.class);
 
         Right pojo = rightDao.findOne(code);
         RightDto expected = new RightDto();
@@ -61,7 +62,7 @@ public class RightWebserviceITTest {
     /** @see RightWebservice#list() */
     @Test
     public void test_list() {
-        List<RightDto> actual = newClient().target(BASE_URL).path(PATH + "/").request()
+        List<RightDto> actual = newClient().target(BASE_URL + CONTEXT_PATH).path(PATH + "/").request()
                 .get(new GenericType<List<RightDto>>() {});
 
         List<Right> expected = rightDao.findAll();

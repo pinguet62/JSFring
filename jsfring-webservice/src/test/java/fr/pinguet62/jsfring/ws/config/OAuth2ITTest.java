@@ -3,6 +3,7 @@ package fr.pinguet62.jsfring.ws.config;
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
 import static fr.pinguet62.jsfring.util.MatcherUtils.parameter;
 import static fr.pinguet62.jsfring.util.UrlUtils.formatAuthorization;
+import static fr.pinguet62.jsfring.ws.Config.BASE_URL;
 import static java.util.Arrays.asList;
 import static org.apache.commons.io.Charsets.UTF_8;
 import static org.apache.http.client.utils.URLEncodedUtils.format;
@@ -98,7 +99,7 @@ public class OAuth2ITTest {
     private URL test_authorize(String responseType) throws IOException {
         String authorization = "Basic " + formatAuthorization(user.getLogin(), user.getPassword());
         // @formatter:off
-        String url = "http://localhost:8080/oauth/authorize?"
+        String url = BASE_URL + "/oauth/authorize?"
                 + format(
                     asList(
                         new BasicNameValuePair("client_id", clientId),
