@@ -34,6 +34,7 @@ public final class UserDetailsImpl implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> grantedAuths = new HashSet<>();
+        grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER")); // Required by OAuth2
         for (Profile profile : user.getProfiles())
             for (Right right : profile.getRights())
                 grantedAuths.add(new SimpleGrantedAuthority(right.getCode()));
