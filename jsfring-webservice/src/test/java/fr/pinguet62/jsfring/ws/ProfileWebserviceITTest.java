@@ -50,8 +50,16 @@ public class ProfileWebserviceITTest {
     public void test_get() {
         int id = profileDao.findAll().get(0).getId();
 
-        ProfileDto actual = newClient().target(BASE_URL + CONTEXT_PATH).path(PATH + "/{id}").resolveTemplate("id", id)
-                .request().header("Authorization", helper.getAuthorization()).get(ProfileDto.class);
+        // @formatter:off
+        ProfileDto actual = newClient()
+            .target(BASE_URL)
+                .path(CONTEXT_PATH)
+                .path(PATH)
+                .path("/{id}").resolveTemplate("id", id)
+            .request()
+                .header("Authorization", helper.getAuthorization())
+            .get(ProfileDto.class);
+        // @formatter:on
 
         Profile pojo = profileDao.findOne(id);
         ProfileDto expected = new ProfileDto();
@@ -65,8 +73,16 @@ public class ProfileWebserviceITTest {
     /** @see ProfileWebservice#list() */
     @Test
     public void test_list() {
-        List<ProfileDto> actual = newClient().target(BASE_URL + CONTEXT_PATH).path(PATH + "/").request()
-                .header("Authorization", helper.getAuthorization()).get(new GenericType<List<ProfileDto>>() {});
+        // @formatter:off
+        List<ProfileDto> actual = newClient()
+            .target(BASE_URL)
+                .path(CONTEXT_PATH)
+                .path(PATH)
+                .path("/")
+            .request()
+                .header("Authorization", helper.getAuthorization())
+            .get(new GenericType<List<ProfileDto>>() {});
+        // @formatter:on
 
         List<Profile> expected = profileDao.findAll();
 

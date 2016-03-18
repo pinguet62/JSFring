@@ -52,9 +52,16 @@ public class UserWebserviceITTest {
     public void test_get() {
         String login = userDao.findAll().get(0).getLogin();
 
-        UserDto actual = newClient().target(BASE_URL + CONTEXT_PATH).path(PATH + "/{login}")
-                .resolveTemplate("login", login).request().header("Authorization", helper.getAuthorization())
-                .get(UserDto.class);
+        // @formatter:off
+        UserDto actual = newClient()
+            .target(BASE_URL)
+                .path(CONTEXT_PATH)
+                .path(PATH)
+                .path("/{login}").resolveTemplate("login", login)
+            .request()
+                .header("Authorization", helper.getAuthorization())
+            .get(UserDto.class);
+        // @formatter:on
 
         User pojo = userDao.findOne(login);
         UserDto expected = new UserDto();
@@ -71,8 +78,16 @@ public class UserWebserviceITTest {
     /** @see UserWebservice#list() */
     @Test
     public void test_list() {
-        List<UserDto> actual = newClient().target(BASE_URL + CONTEXT_PATH).path(PATH + "/").request()
-                .header("Authorization", helper.getAuthorization()).get(new GenericType<List<UserDto>>() {});
+        // @formatter:off
+        List<UserDto> actual = newClient()
+            .target(BASE_URL)
+                .path(CONTEXT_PATH)
+                .path(PATH)
+                .path("/")
+            .request()
+                .header("Authorization", helper.getAuthorization())
+            .get(new GenericType<List<UserDto>>() {});
+        // @formatter:on
 
         List<User> expected = userDao.findAll();
 

@@ -50,9 +50,16 @@ public class RightWebserviceITTest {
     public void test_get() {
         String code = rightDao.findAll().get(0).getCode();
 
-        RightDto actual = newClient().target(BASE_URL + CONTEXT_PATH).path(PATH + "/{code}")
-                .resolveTemplate("code", code).request().header("Authorization", helper.getAuthorization())
-                .get(RightDto.class);
+        // @formatter:off
+        RightDto actual = newClient()
+            .target(BASE_URL)
+                .path(CONTEXT_PATH)
+                .path(PATH)
+                .path("/{code}").resolveTemplate("code", code)
+            .request()
+                .header("Authorization", helper.getAuthorization())
+            .get(RightDto.class);
+        // @formatter:on
 
         Right pojo = rightDao.findOne(code);
         RightDto expected = new RightDto();
@@ -66,8 +73,16 @@ public class RightWebserviceITTest {
     /** @see RightWebservice#list() */
     @Test
     public void test_list() {
-        List<RightDto> actual = newClient().target(BASE_URL + CONTEXT_PATH).path(PATH + "/").request()
-                .header("Authorization", helper.getAuthorization()).get(new GenericType<List<RightDto>>() {});
+        // @formatter:off
+        List<RightDto> actual = newClient()
+            .target(BASE_URL)
+                .path(CONTEXT_PATH)
+                .path(PATH)
+                .path("/")
+            .request()
+                .header("Authorization", helper.getAuthorization())
+            .get(new GenericType<List<RightDto>>() {});
+        // @formatter:on
 
         List<Right> expected = rightDao.findAll();
 
