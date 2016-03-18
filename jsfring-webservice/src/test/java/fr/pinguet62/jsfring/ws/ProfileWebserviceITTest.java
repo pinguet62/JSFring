@@ -3,6 +3,7 @@ package fr.pinguet62.jsfring.ws;
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
 import static fr.pinguet62.jsfring.ws.Config.BASE_URL;
 import static fr.pinguet62.jsfring.ws.ProfileWebservice.PATH;
+import static fr.pinguet62.jsfring.ws.config.JerseyConfig.CONTEXT_PATH;
 import static javax.ws.rs.client.ClientBuilder.newClient;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
@@ -39,6 +40,9 @@ import fr.pinguet62.jsfring.ws.dto.ProfileDto;
 public class ProfileWebserviceITTest {
 
     @Inject
+    private Oauth2Helper helper;
+
+    @Inject
     private ProfileDao profileDao;
 
     /** @see ProfileWebservice#get(int) */
@@ -46,8 +50,8 @@ public class ProfileWebserviceITTest {
     public void test_get() {
         int id = profileDao.findAll().get(0).getId();
 
-        ProfileDto actual = newClient().target(BASE_URL).path(PATH + "/{id}").resolveTemplate("id", id).request()
-                .get(ProfileDto.class);
+        ProfileDto actual = newClient().target(BASE_URL + CONTEXT_PATH).path(PATH + "/{id}").resolveTemplate("id", id)
+                .request().header("Authorization", helper.getAuthorization()).get(ProfileDto.class);
 
         Profile pojo = profileDao.findOne(id);
         ProfileDto expected = new ProfileDto();
@@ -61,8 +65,8 @@ public class ProfileWebserviceITTest {
     /** @see ProfileWebservice#list() */
     @Test
     public void test_list() {
-        List<ProfileDto> actual = newClient().target(BASE_URL).path(PATH + "/rest/").request()
-                .get(new GenericType<List<ProfileDto>>() {});
+        List<ProfileDto> actual = newClient().target(BASE_URL + CONTEXT_PATH).path(PATH + "/").request()
+                .header("Authorization", helper.getAuthorization()).get(new GenericType<List<ProfileDto>>() {});
 
         List<Profile> expected = profileDao.findAll();
 

@@ -42,6 +42,9 @@ import fr.pinguet62.jsfring.ws.dto.UserDto;
 public class UserWebserviceITTest {
 
     @Inject
+    private Oauth2Helper helper;
+
+    @Inject
     private UserDao userDao;
 
     /** @see UserWebservice#get(int) */
@@ -50,7 +53,8 @@ public class UserWebserviceITTest {
         String login = userDao.findAll().get(0).getLogin();
 
         UserDto actual = newClient().target(BASE_URL + CONTEXT_PATH).path(PATH + "/{login}")
-                .resolveTemplate("login", login).request().get(UserDto.class);
+                .resolveTemplate("login", login).request().header("Authorization", helper.getAuthorization())
+                .get(UserDto.class);
 
         User pojo = userDao.findOne(login);
         UserDto expected = new UserDto();
@@ -68,7 +72,7 @@ public class UserWebserviceITTest {
     @Test
     public void test_list() {
         List<UserDto> actual = newClient().target(BASE_URL + CONTEXT_PATH).path(PATH + "/").request()
-                .get(new GenericType<List<UserDto>>() {});
+                .header("Authorization", helper.getAuthorization()).get(new GenericType<List<UserDto>>() {});
 
         List<User> expected = userDao.findAll();
 

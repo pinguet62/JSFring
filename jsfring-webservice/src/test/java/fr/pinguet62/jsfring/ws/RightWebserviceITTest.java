@@ -40,6 +40,9 @@ import fr.pinguet62.jsfring.ws.dto.RightDto;
 public class RightWebserviceITTest {
 
     @Inject
+    private Oauth2Helper helper;
+
+    @Inject
     private RightDao rightDao;
 
     /** @see RightWebservice#get(int) */
@@ -48,7 +51,8 @@ public class RightWebserviceITTest {
         String code = rightDao.findAll().get(0).getCode();
 
         RightDto actual = newClient().target(BASE_URL + CONTEXT_PATH).path(PATH + "/{code}")
-                .resolveTemplate("code", code).request().get(RightDto.class);
+                .resolveTemplate("code", code).request().header("Authorization", helper.getAuthorization())
+                .get(RightDto.class);
 
         Right pojo = rightDao.findOne(code);
         RightDto expected = new RightDto();
@@ -63,7 +67,7 @@ public class RightWebserviceITTest {
     @Test
     public void test_list() {
         List<RightDto> actual = newClient().target(BASE_URL + CONTEXT_PATH).path(PATH + "/").request()
-                .get(new GenericType<List<RightDto>>() {});
+                .header("Authorization", helper.getAuthorization()).get(new GenericType<List<RightDto>>() {});
 
         List<Right> expected = rightDao.findAll();
 
