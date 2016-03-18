@@ -257,6 +257,7 @@
 				<version>3.0.0</version>
 				<executions>
 					<execution>
+						<id>verify</id>
 						<phase>verify</phase>
 						<goals>
 							<goal>clean</goal>
@@ -274,6 +275,26 @@
 										<!-- Executables -->
 										<exclude>*.jar</exclude>
 										<exclude>*.war</exclude>
+									</excludes>
+								</fileset>
+							</filesets>
+						</configuration>
+					</execution>
+					<execution>
+						<id>install</id>
+						<phase>install</phase>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+						<configuration>
+							<excludeDefaultDirectories>true</excludeDefaultDirectories>
+							<filesets>
+								<fileset>
+									<directory>target</directory>
+									<excludes>
+										<exclude>jsfring-webservice-*.war</exclude>
+										<exclude>webapp-angularjs-*.war</exclude>
+										<exclude>webapp-jsf-*.war</exclude>
 									</excludes>
 								</fileset>
 							</filesets>
