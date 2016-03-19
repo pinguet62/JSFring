@@ -22,6 +22,7 @@ Layers :
 		[**JAX-RS**](https://jax-rs-spec.java.net)
 		* <img src="https://jersey.java.net/images/jersey_logo.png" height="25" />
 			[Jersey](https://jersey.java.net)
+	* <img src="http://oauth.net/images/oauth-2-sm.png" height="25" /> <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> [OAuth2](http://oauth.net/2)
 * Webapp:
 	* Java
 		* <img src="https://upload.wikimedia.org/wikipedia/en/thumb/7/75/20110510-jsf-logo.tiff/lossless-page1-320px-20110510-jsf-logo.tiff.png" height="25" /> **JSF**
@@ -72,8 +73,6 @@ Utils :
 	* [**JMeter**](http://jmeter.apache.org)
 * Logging
 	* <img src="http://logz.io/wp-content/uploads/2015/12/logstash-logo.png" height="25" /> [Logstash](https://www.elastic.co/products/logstash)
-* <img src="http://oauth.net/images/oauth-2-sm.png" height="25" />
-	<img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> [OAuth2](http://oauth.net/2)
 
 ### Version
 
