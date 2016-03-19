@@ -7,6 +7,15 @@
 	angular.module('jsangleApp')
 		.config(['$routeProvider', function($routeProvider) {
 			$routeProvider
+				// Login
+				.when('/login', {
+					template: '',
+					controller: 'loginController'
+				})
+				.when('/access_token=:access_token&token_type=:token_type&expires_in=:expires_in', {
+					template: '',
+					controller: 'loggedController'
+				})
 				// Admin
 				.when('/admin/right', {
 					templateUrl: 'views/crud.html',
