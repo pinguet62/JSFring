@@ -25,7 +25,7 @@
 		<module>jsfring-webapp-angularjs</module>
 		<module>jsfring-webapp-jsf</module>
 		<module>jsfring-webapp-jsf-htmlunit</module>
-		<module>jsfring-indexer-nosql</module>
+		<!-- <module>jsfring-indexer-nosql</module> -->
 	</modules>
 
 	<properties>
