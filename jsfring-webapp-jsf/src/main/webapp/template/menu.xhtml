@@ -24,18 +24,17 @@
 					value="#{msg['menubar.administration.rights']}" />
 			</p:submenu>
 			<p:submenu icon="ui-icon-document" label="#{msg['menubar.reports']}">
-				<p:menuitem outcome="/report/usersRights.xhtml"
+				<p:menuitem url="/report/usersRights.xhtml"
 					value="#{msg['menubar.reports.usersRights']}" />
-				<p:menuitem outcome="/report/parameters.xhtml"
+				<p:menuitem url="/report/parameters.xhtml"
 					value="#{msg['menubar.reports.parameters']}" />
 			</p:submenu>
 			<p:submenu label="Sample">
-				<p:menuitem outcome="/sample/filterPath.xhtml" value="Filter" />
+				<p:menuitem url="/sample/filterPath.xhtml" value="Filter" />
 				<p:submenu label="DataTable">
-					<p:menuitem outcome="profiles" value="Normal" />
-					<p:menuitem outcome="users" value="Lazy" />
-					<p:menuitem outcome="/test/dataTable_multiple.xhtml"
-						value="Multiple" />
+					<p:menuitem url="/profile/list.xhtml" value="Normal" />
+					<p:menuitem url="/user/list.xhtml" value="Lazy" />
+					<p:menuitem url="/test/dataTable_multiple.xhtml" value="Multiple" />
 				</p:submenu>
 				<p:menuitem url="/logs/logs.log" icon="ui-icon-script"
 					value="#{msg['menubar.administration.logs']}" />

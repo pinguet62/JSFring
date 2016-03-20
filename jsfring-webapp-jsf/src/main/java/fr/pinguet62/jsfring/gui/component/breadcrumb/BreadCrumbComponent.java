@@ -90,8 +90,7 @@ public class BreadCrumbComponent extends BreadCrumb {
     }
 
     /**
-     * Parse the {@link Menu} to generate the {@link MenuModel} used by
-     * {@link BreadCrumb}.
+     * Parse the {@link Menu} to generate the {@link MenuModel} used by {@link BreadCrumb}.
      */
     @Override
     public MenuModel getModel() {
@@ -103,8 +102,11 @@ public class BreadCrumbComponent extends BreadCrumb {
     }
 
     /**
-     * Parse the {@link Menu} to generate a {@link Map} who associate the
-     * <code>outcome</code> to the corresponding {@link MenuModel}.
+     * Parse the {@link Menu} to generate a {@link Map} who associate the <code>outcome</code> to the corresponding
+     * {@link MenuModel}.
+     * <p>
+     * If no {@code outcome} set, the breadcrumbs is not saved.<br>
+     * If many {@code outcome} is found, keep only the last.
      *
      * @return Association of <code>outcome</code> to {@link MenuModel}.
      */
@@ -116,8 +118,8 @@ public class BreadCrumbComponent extends BreadCrumb {
 
     /**
      * Initialize the {@link #breadcrumbs} by browsing the {@link Menubar}. <br>
-     * It's a recursive method because {@link MenuElement} are linked as a tree
-     * with composite pattern of {@link MenuItem} and {@link MenuGroup}.
+     * It's a recursive method because {@link MenuElement} are linked as a tree with composite pattern of
+     * {@link MenuItem} and {@link MenuGroup}.
      *
      * @param thread The current thread who is browsing the tree.
      * @throws IllegalArgumentException Unknown {@link MenuElement} type.
@@ -129,17 +131,20 @@ public class BreadCrumbComponent extends BreadCrumb {
             MenuItem lastItem = (MenuItem) last;
             // Build breadcrumb
             MenuModel breadcrumb = new DefaultMenuModel();
-            // - don't create double index MenuItem
             String outcome = lastItem.getOutcome();
+            if (outcome == null)
+                return;
+            // - don't create double index MenuItem
             MenuItem indexMenuItem = creatIndexMenuItem();
-            if (!indexMenuItem.getOutcome().equals(outcome))
+            if (!outcome.equals(indexMenuItem.getOutcome()))
                 breadcrumb.addElement(indexMenuItem);
             // - convert
             thread.stream().map(new MenuConverter()::apply).forEach(breadcrumb::addElement);
             // - save
             breadcrumbs.put(outcome, breadcrumb);
             LOGGER.trace("Breadcrumb: " + breadcrumb.getElements().stream().map(element -> (DefaultMenuItem) element)
-                    .map(item -> String.format("(\"%s\"/%s)", item.getTitle(), item.getOutcome())).collect(joining(" > ")));
+                    .map(item -> String.format("(\"%s\"/%s)", item.getTitle(), item.getOutcome()))
+                    .collect(joining(" > ")));
         }
         // Recursive
         else if (last instanceof MenuGroup) {
