@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>fr.pinguet62.jsfring</groupId>
 		<artifactId>jsfring</artifactId>
-		<version>1.0-SNAPSHOT</version>
+		<version>${global.version}</version>
 	</parent>
 
 	<artifactId>webapp-jsf</artifactId>
@@ -17,7 +17,6 @@
 	<url>http://jsfring-${project.artifactId}.herokuapp.com</url>
 
 	<properties>
-		<java.version>1.8</java.version>
 		<jsf.version>2.2.13</jsf.version>
 	</properties>
 
