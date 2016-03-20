@@ -80,7 +80,7 @@ All dependencies use the latest version.
 
 <img src="https://www.versioneye.com/assets/verisoneye-logo-small-09d4dc67649e8bb51adc2c37216a341f01306950d556f4024c82c302f259ebda.png" height="25" />
 [VersionEye](https://www.versioneye.com)
-[![Dependency Status](https://www.versioneye.com/user/projects/56b7dc23a70289000d663313/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56b7dc23a70289000d663313)
+[![Dependency Status](https://www.versioneye.com/user/projects/56eed7e4cc71800010c202bb/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56eed7e4cc71800010c202bb)
 
 ## Static analysis
 

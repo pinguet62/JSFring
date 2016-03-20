@@ -20,12 +20,12 @@
 		<module>jsfring-model</module>
 		<module>jsfring-dao</module>
 		<module>jsfring-service</module>
-		<!-- <module>jsfring-task</module> -->
+		<module>jsfring-task</module>
 		<module>jsfring-webservice</module>
 		<module>jsfring-webapp-angularjs</module>
 		<module>jsfring-webapp-jsf</module>
 		<module>jsfring-webapp-jsf-htmlunit</module>
-		<!-- <module>jsfring-indexer-nosql</module> -->
+		<module>jsfring-indexer-nosql</module>
 	</modules>
 
 	<properties>
@@ -130,7 +130,9 @@
 	<build>
 		<plugins>
 			<!-- VersionEye -->
-			<!-- Usage: mvn versioneye:create mvn versioneye:update -->
+			<!-- Usage: -->
+			<!-- mvn versioneye:create -->
+			<!-- mvn versioneye:update -->
 			<plugin>
 				<groupId>com.versioneye</groupId>
 				<artifactId>versioneye-maven-plugin</artifactId>
