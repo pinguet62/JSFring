@@ -28,9 +28,11 @@ after_success:
     
     # Coveralls.io: publish
     - mvn coveralls:report
-    
     # Codecov.io: publish
     - codecov
+    
+    # Site
+    mvn site site:deploy
 
 # Information about failure
 after_failure:
