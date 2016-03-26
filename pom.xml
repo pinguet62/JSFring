@@ -31,9 +31,12 @@
 	<properties>
 		<global.version>1.0-SNAPSHOT</global.version>
 		<java.version>1.8</java.version>
+		<!-- Dependencies -->
 		<poi.version>3.14</poi.version>
 		<querydsl.version>3.7.2</querydsl.version>
-		<sonar.host.url>http://localhost:9000/</sonar.host.url>
+		<!-- GitHub -->
+		<github.global.server>github</github.global.server>
+		<github.global.oauth2Token>${env.GITHUB_GLOBAL_OAUTH2TOKEN}</github.global.oauth2Token>
 	</properties>
 
 	<dependencies>
