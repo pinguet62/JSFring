@@ -45,8 +45,7 @@ import au.com.bytecode.opencsv.CSVReader;
 public final class FileFormatMatcher {
 
     /**
-     * @return The {@link Matcher} to check that the {@link InputStream} is a
-     *         CSV file.
+     * @return The {@link Matcher} to check that the {@link InputStream} is a CSV file.
      * @see CSVReader
      */
     public static Matcher<InputStream> isCSV() {
@@ -66,8 +65,7 @@ public final class FileFormatMatcher {
     }
 
     /**
-     * @return The {@link Matcher} to check that the {@link InputStream} is a
-     *         DOC file.
+     * @return The {@link Matcher} to check that the {@link InputStream} is a DOC file.
      * @see HWPFDocument
      */
     public static Matcher<InputStream> isDOC() {
@@ -88,8 +86,7 @@ public final class FileFormatMatcher {
     }
 
     /**
-     * @return The {@link Matcher} to check that the {@link InputStream} is a
-     *         DOCX file.
+     * @return The {@link Matcher} to check that the {@link InputStream} is a DOCX file.
      * @see XWPFDocument
      */
     public static Matcher<InputStream> isDOCX() {
@@ -110,8 +107,7 @@ public final class FileFormatMatcher {
     }
 
     /**
-     * @return The {@link Matcher} to check that the {@link InputStream} is a
-     *         HTML file.
+     * @return The {@link Matcher} to check that the {@link InputStream} is a HTML file.
      * @see Jsoup
      */
     public static Matcher<InputStream> isHTML() {
@@ -134,8 +130,7 @@ public final class FileFormatMatcher {
     }
 
     /**
-     * @return The {@link Matcher} to check that the {@link InputStream} is an
-     *         <i>image</i> file.
+     * @return The {@link Matcher} to check that the {@link InputStream} is an <i>image</i> file.
      * @see ImageIO
      */
     public static Matcher<InputStream> isImage() {
@@ -156,8 +151,7 @@ public final class FileFormatMatcher {
     }
 
     /**
-     * @return The {@link Matcher} to check that the {@link InputStream} is a
-     *         ODP file.
+     * @return The {@link Matcher} to check that the {@link InputStream} is a ODP file.
      * @see OdfPresentationDocument
      */
     public static Matcher<InputStream> isODP() {
@@ -178,8 +172,7 @@ public final class FileFormatMatcher {
     }
 
     /**
-     * @return The {@link Matcher} to check that the {@link InputStream} is a
-     *         ODS file.
+     * @return The {@link Matcher} to check that the {@link InputStream} is a ODS file.
      * @see OdfSpreadsheetDocument
      */
     public static Matcher<InputStream> isODS() {
@@ -200,8 +193,7 @@ public final class FileFormatMatcher {
     }
 
     /**
-     * @return The {@link Matcher} to check that the {@link InputStream} is a
-     *         ODT file.
+     * @return The {@link Matcher} to check that the {@link InputStream} is a ODT file.
      * @see OdfTextDocument
      */
     public static Matcher<InputStream> isODT() {
@@ -222,8 +214,7 @@ public final class FileFormatMatcher {
     }
 
     /**
-     * @return The {@link Matcher} to check that the {@link InputStream} is a
-     *         PDF file.
+     * @return The {@link Matcher} to check that the {@link InputStream} is a PDF file.
      * @see PdfReader
      */
     public static Matcher<InputStream> isPDF() {
@@ -244,8 +235,7 @@ public final class FileFormatMatcher {
     }
 
     /**
-     * @return The {@link Matcher} to check that the {@link InputStream} is a
-     *         PPT file.
+     * @return The {@link Matcher} to check that the {@link InputStream} is a PPT file.
      * @see HSLFSlideShow
      */
     public static Matcher<InputStream> isPPT() {
@@ -266,8 +256,7 @@ public final class FileFormatMatcher {
     }
 
     /**
-     * @return The {@link Matcher} to check that the {@link InputStream} is a
-     *         PPTX file.
+     * @return The {@link Matcher} to check that the {@link InputStream} is a PPTX file.
      * @see XMLSlideShow
      */
     public static Matcher<InputStream> isPPTX() {
@@ -288,8 +277,7 @@ public final class FileFormatMatcher {
     }
 
     /**
-     * @return The {@link Matcher} to check that the {@link InputStream} is a
-     *         RTF file.
+     * @return The {@link Matcher} to check that the {@link InputStream} is a RTF file.
      * @see RTFEditorKit
      */
     public static Matcher<InputStream> isRTF() {
@@ -312,8 +300,7 @@ public final class FileFormatMatcher {
     }
 
     /**
-     * @return The {@link Matcher} to check that the {@link InputStream} is a
-     *         TXT file.
+     * @return The {@link Matcher} to check that the {@link InputStream} is a TXT file.
      * @see Character#isISOControl(char)
      */
     public static Matcher<InputStream> isTXT() {
@@ -337,8 +324,7 @@ public final class FileFormatMatcher {
     }
 
     /**
-     * @return The {@link Matcher} to check that the {@link InputStream} is a
-     *         XLS file.
+     * @return The {@link Matcher} to check that the {@link InputStream} is a XLS file.
      * @see HSSFWorkbook
      */
     public static Matcher<InputStream> isXLS() {
@@ -359,8 +345,7 @@ public final class FileFormatMatcher {
     }
 
     /**
-     * @return The {@link Matcher} to check that the {@link InputStream} is a
-     *         XLSX file.
+     * @return The {@link Matcher} to check that the {@link InputStream} is a XLSX file.
      * @see XSSFWorkbook
      */
     public static Matcher<InputStream> isXLSX() {
@@ -381,8 +366,7 @@ public final class FileFormatMatcher {
     }
 
     /**
-     * @return The {@link Matcher} to check that the {@link InputStream} is a
-     *         XML file.
+     * @return The {@link Matcher} to check that the {@link InputStream} is a XML file.
      * @see DocumentBuilder
      */
     public static Matcher<InputStream> isXML() {
@@ -405,8 +389,7 @@ public final class FileFormatMatcher {
     }
 
     /**
-     * @return The {@link Matcher} to check that the {@link InputStream} is a
-     *         ZIP file.
+     * @return The {@link Matcher} to check that the {@link InputStream} is a ZIP file.
      * @see ZipInputStream
      */
     public static Matcher<InputStream> isZIP() {

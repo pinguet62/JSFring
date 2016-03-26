@@ -35,10 +35,8 @@ public final class MatcherUtils {
      */
     public static Matcher<Date> equalToTruncated(Date expected, int field) {
         return new TypeSafeMatcher<Date>() {
-
             @Override
-            public void describeTo(Description description) {
-            }
+            public void describeTo(Description description) {}
 
             /**
              * @param actual The {@link Date} to compare.
@@ -64,10 +62,8 @@ public final class MatcherUtils {
      */
     public static <T> Matcher<Iterable<T>> equalWithoutOrderTo(Iterable<T> expected) {
         return new TypeSafeMatcher<Iterable<T>>() {
-
             @Override
-            public void describeTo(Description description) {
-            }
+            public void describeTo(Description description) {}
 
             /**
              * @param actual The {@link Iterable} to check.
@@ -96,10 +92,8 @@ public final class MatcherUtils {
      */
     public static <S, M> Matcher<S> mappedTo(Function<S, M> mapper, Matcher<M> matcher) {
         return new TypeSafeMatcher<S>() {
-
             @Override
-            public void describeTo(Description description) {
-            }
+            public void describeTo(Description description) {}
 
             /**
              * Convert source object and apply {@link Matcher}.
@@ -124,10 +118,8 @@ public final class MatcherUtils {
      */
     public static Matcher<String> matches(String regex) {
         return new TypeSafeMatcher<String>() {
-
             @Override
-            public void describeTo(Description description) {
-            }
+            public void describeTo(Description description) {}
 
             /**
              * @param actual The {@link String} to test.
@@ -149,10 +141,8 @@ public final class MatcherUtils {
      */
     public static Matcher<String> parameter(String paramKey, Matcher<Object> paramValueMatcher) {
         return new TypeSafeMatcher<String>() {
-
             @Override
-            public void describeTo(Description description) {
-            }
+            public void describeTo(Description description) {}
 
             /**
              * @param query The {@link URL#getQuery()} to test.
@@ -177,10 +167,8 @@ public final class MatcherUtils {
      */
     public static <T> Matcher<List<T>> sorted(Comparator<T> comparator) {
         return new TypeSafeMatcher<List<T>>() {
-
             @Override
-            public void describeTo(Description description) {
-            }
+            public void describeTo(Description description) {}
 
             /**
              * @param values The {@link List} to check.
@@ -197,7 +185,6 @@ public final class MatcherUtils {
     }
 
     // Utils class
-    private MatcherUtils() {
-    }
+    private MatcherUtils() {}
 
 }
