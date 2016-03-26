@@ -31,8 +31,8 @@ after_success:
     # Codecov.io: publish
     - codecov
     
-    # Site
-    mvn site site:deploy
+    # Site: deploy to GitHub
+    - mvn site site:deploy
 
 # Information about failure
 after_failure:
