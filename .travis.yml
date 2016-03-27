@@ -32,7 +32,7 @@ after_success:
     - codecov
     
     # Site: deploy to GitHub
-    - mvn site site:deploy
+    - mvn site-deploy
 
 # Information about failure
 after_failure:
