@@ -11,8 +11,7 @@ import org.springframework.stereotype.Component;
  * Mock of {@link MailSender} for unit-test.
  * <p>
  * By default no {@link MailException} is thrown.<br>
- * If needed, this {@link MailException} on demand, by calling
- * {@link #mustThrow()}.
+ * If needed, throws {@link MailException} on demand, by calling {@link #mustThrow(boolean)}.
  *
  * @see MailSender
  */
@@ -38,7 +37,7 @@ public class MailSenderThrowableMock implements MailSender {
         send(new SimpleMailMessage[] { simpleMessage });
     }
 
-    /** @throws MailException If asked by {@link #mustThrow()}. */
+    /** @throws MailException If asked by {@link #mustThrow(boolean)}. */
     @Override
     public void send(SimpleMailMessage... simpleMessages) throws MailException {
         if (mustThrow)

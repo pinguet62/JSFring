@@ -29,7 +29,7 @@ public final class MatcherUtils {
      *
      * @param expected The {@link Date}.
      * @param field The field from the field {@code Calendar}.
-     * @return The {@link Matcher}.
+     * @return The built {@link Matcher}.
      * @see DateUtils#truncate(Date, int)
      * @see Date#equals(Object)
      */
@@ -58,7 +58,9 @@ public final class MatcherUtils {
     /**
      * Check That 2 {@link Iterable}s are {@link Object#equals(Object) equals}, without considering the order.
      *
+     * @param <T> The type of elements.
      * @param expected The expected {@link Iterable}.
+     * @return The built {@link Matcher}.
      */
     public static <T> Matcher<Iterable<T>> equalWithoutOrderTo(Iterable<T> expected) {
         return new TypeSafeMatcher<Iterable<T>>() {
@@ -81,14 +83,14 @@ public final class MatcherUtils {
     };
 
     /**
-     * {@link Matcher} used to {@link Function map} object to another type and apply another {@link Mapper} on converted
+     * {@link Matcher} used to {@link Function map} object to another type and apply another {@link Mapper} on mapped
      * value.
      *
      * @param <S> The source type.
      * @param <M> The mapped type.
      * @param mapper The {@link Function mapper}.
      * @param matcher The {@link Matcher} to apply on converted value.
-     * @return The {@link Matcher}.
+     * @return The built {@link Matcher}.
      */
     public static <S, M> Matcher<S> mappedTo(Function<S, M> mapper, Matcher<M> matcher) {
         return new TypeSafeMatcher<S>() {
@@ -113,7 +115,7 @@ public final class MatcherUtils {
      * Check that value {@link String#matches(String) matches to regex}.
      *
      * @param regex The regex.
-     * @return The {@link Matcher}.
+     * @return The built {@link Matcher}.
      * @see String#matches(String)
      */
     public static Matcher<String> matches(String regex) {
@@ -138,6 +140,7 @@ public final class MatcherUtils {
      * @param paramKey The key of parameter.
      * @param paramValueMatcher The {@link Matcher} to apply on value of parameter.
      * @return The built {@link Matcher}.
+     * @see String#matches(String)
      */
     public static Matcher<String> parameter(String paramKey, Matcher<Object> paramValueMatcher) {
         return new TypeSafeMatcher<String>() {
@@ -163,7 +166,8 @@ public final class MatcherUtils {
      *
      * @param <T> The type of elements.
      * @param comparator The {@link Comparator} used by algorithm.
-     * @return The {@link Matcher}.
+     * @return The built {@link Matcher}.
+     * @see Comparator#compare(Object, Object)
      */
     public static <T> Matcher<List<T>> sorted(Comparator<T> comparator) {
         return new TypeSafeMatcher<List<T>>() {
@@ -172,7 +176,9 @@ public final class MatcherUtils {
 
             /**
              * @param values The {@link List} to check.
+             * @return If {@link List} is correctly sorted.
              * @throws ClassCastException If the list contains elements that are not {@link Comparable}.
+             * @see Comparator#compare(Object, Object)
              */
             @Override
             protected boolean matchesSafely(List<T> values) {

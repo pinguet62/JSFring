@@ -35,7 +35,8 @@ public final class FilterConverterTest {
         FilterConverter filter = new FilterConverter(user);
         Predicate predicate = filter.apply(params);
 
-        Predicate expected = new BooleanBuilder().and(user.password.contains("ssw").and(user.email.contains("profile")));
+        Predicate expected = new BooleanBuilder()
+                .and(user.password.contains("ssw").and(user.email.contains("profile")));
         assertThat(expected, is(equalTo(predicate)));
     }
 

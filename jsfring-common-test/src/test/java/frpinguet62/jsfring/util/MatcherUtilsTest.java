@@ -26,6 +26,7 @@ import java.net.MalformedURLException;
 import java.util.Comparator;
 import java.util.Date;
 
+import org.hamcrest.Matcher;
 import org.junit.Test;
 
 import fr.pinguet62.jsfring.util.MatcherUtils;
@@ -83,6 +84,7 @@ public final class MatcherUtilsTest {
         assertThat("abc", not(matches("[0-9]+")));
     }
 
+    /** @see MatcherUtils#parameter(String, Matcher) */
     @Test
     public void test_parameter() throws MalformedURLException {
         assertThat("param1=value1&param2=value2", parameter("param1", is(equalTo("value1"))));

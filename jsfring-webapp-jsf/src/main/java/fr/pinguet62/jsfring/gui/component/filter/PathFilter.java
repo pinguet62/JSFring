@@ -15,8 +15,7 @@ import com.mysema.query.types.expr.SimpleExpression;
 import fr.pinguet62.jsfring.gui.component.filter.operator.Operator;
 
 /**
- * Class used to store the {@link Operator} and arguments of a filter on
- * {@link SimpleExpression}.
+ * Class used to store the {@link Operator} and arguments of a filter on {@link SimpleExpression}.
  *
  * @param <Exp> The type of {@link SimpleExpression} on which apply filter.
  * @param <T> The type of parameter of the {@link Operator}.
@@ -26,12 +25,7 @@ public abstract class PathFilter<Exp extends SimpleExpression<T>, T extends Seri
 
     private static final long serialVersionUID = 1;
 
-    /**
-     * The {@link Operator} of filter.
-     *
-     * @property.getter {@link #getOperator()}
-     * @property.setter {@link #setOperator(Operator)}
-     */
+    /** The {@link Operator} of filter. */
     private Operator<Exp, T> operator;
 
     /** The {@link SimpleExpression} on which apply filter. */
@@ -72,8 +66,7 @@ public abstract class PathFilter<Exp extends SimpleExpression<T>, T extends Seri
      * Generate the {@link Predicate} used to filter results.
      *
      * @return The {@link Predicate}.<br>
-     *         If {@link #operator} is {@code null}, then return an empty
-     *         {@link Predicate}.
+     *         If {@link #operator} is {@code null}, then return an empty {@link Predicate}.
      */
     @Override
     public Predicate get() {
@@ -118,9 +111,8 @@ public abstract class PathFilter<Exp extends SimpleExpression<T>, T extends Seri
     }
 
     /**
-     * Check that argument values are correct, according to
-     * {@link Operator#getNumberOfParameters() number of arguments} of
-     * {@link #operator}.
+     * Check that argument values are correct, according to {@link Operator#getNumberOfParameters() number of arguments}
+     * of {@link #operator}.
      */
     public boolean isValid() {
         if (operator == null)
@@ -171,8 +163,7 @@ public abstract class PathFilter<Exp extends SimpleExpression<T>, T extends Seri
 
     /**
      * {@link Stream} of used argument values.<br>
-     * The number of values depends of {@link Operator#getNumberOfParameters()
-     * number of arguments}.
+     * The number of values depends of {@link Operator#getNumberOfParameters() number of arguments}.
      */
     private Stream<T> values() {
         return of(value1, value2).limit(operator.getNumberOfParameters());

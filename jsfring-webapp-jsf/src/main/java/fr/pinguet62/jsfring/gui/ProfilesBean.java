@@ -29,12 +29,7 @@ public final class ProfilesBean extends AbstractCrudBean<Profile> {
     @Inject
     private transient ProfileService profileService;
 
-    /**
-     * The {@link Right} association (available/associated) of the {@link #getSelectedValue() selected profile}.
-     *
-     * @property.getter {@link #getRightsAssociation()}
-     * @property.setter {@link #setRightsAssociation(DualListModel)}
-     */
+    /** The {@link Right} association (available/associated) of the {@link #getSelectedValue() selected profile}. */
     private DualListModel<Right> rightsAssociation = new DualListModel<Right>();
 
     @Inject
@@ -61,7 +56,6 @@ public final class ProfilesBean extends AbstractCrudBean<Profile> {
         return newEntity;
     }
 
-    /** @property.attribute {@link #rightsAssociation} */
     public DualListModel<Right> getRightsAssociation() {
         return rightsAssociation;
     }
@@ -71,7 +65,6 @@ public final class ProfilesBean extends AbstractCrudBean<Profile> {
         return profileService;
     }
 
-    /** @property.attribute {@link #rightsAssociation} */
     public void setRightsAssociation(DualListModel<Right> rightsAssociation) {
         this.rightsAssociation = rightsAssociation;
     }

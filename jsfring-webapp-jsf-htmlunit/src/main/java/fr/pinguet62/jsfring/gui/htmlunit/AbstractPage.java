@@ -7,7 +7,6 @@ import static org.slf4j.LoggerFactory.getLogger;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -60,7 +59,7 @@ public class AbstractPage {
 
     private static final File TMP_FILE;
 
-    /** Initialize the {@link #OUTPUT_STREAM}. */
+    /** Initialize the {@link #TMP_FILE}. */
     static {
         TMP_FILE = new File("C:\\Users\\Pinguet62\\Downloads\\out.html");
         LOGGER.debug("Temporary file: {}", TMP_FILE);
@@ -74,12 +73,18 @@ public class AbstractPage {
         debug(page.asXml());
     }
 
-    public static void debug(String xml) {
-        // if (!LOGGER.isDebugEnabled())
-        // return;
+    /**
+     * Executed in {@link Logger#isDebugEnabled() DEBUG} level or less.<br>
+     * Write content to {@link #TMP_FILE temporary file}.
+     *
+     * @param content The content of file to write.
+     */
+    public static void debug(String content) {
+        if (!LOGGER.isDebugEnabled())
+            return;
 
         try {
-            IOUtils.write(xml, new FileOutputStream(TMP_FILE));
+            IOUtils.write(content, new FileOutputStream(TMP_FILE));
         } catch (IOException e) {
             throw new NavigatorException(e);
         }
@@ -134,9 +139,7 @@ public class AbstractPage {
 
     /**
      * To call after each page action.<br>
-     * Executed in {@link Logger#isDebugEnabled() debug level} or less.<br>
-     * {@link OutputStream#write(byte[]) write} {@link HtmlPage#asXml() content of current page} into
-     * {@link #OUTPUT_STREAM target Stream}.
+     *
      *
      * @param page The {@link HtmlPage HTML page} to write.
      */
@@ -152,8 +155,7 @@ public class AbstractPage {
      * @return The tag content.
      */
     private String getMessage(String xpath) {
-        @SuppressWarnings("unchecked")
-        List<HtmlSpan> spans = (List<HtmlSpan>) page.getByXPath(xpath);
+        @SuppressWarnings("unchecked") List<HtmlSpan> spans = (List<HtmlSpan>) page.getByXPath(xpath);
         if (spans.isEmpty())
             return null;
         if (spans.size() > 1)

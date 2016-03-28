@@ -18,6 +18,11 @@ public final class UrlUtilsTest {
         assertThat(formatAuthorization("username", "password"), is(equalTo("dXNlcm5hbWU6cGFzc3dvcmQ=")));
     }
 
+    /**
+     * Check that {@link NullPointerException} is thrown when at lest 1 argument is {@code null}.
+     *
+     * @see UrlUtils#formatAuthorization(String, String)
+     */
     @Test
     public void test_formatAuthorization_null() {
         try {

@@ -26,12 +26,7 @@ public final class UsersBean extends AbstractCrudBean<User> {
 
     private static final long serialVersionUID = 1;
 
-    /**
-     * The {@link Profile} association (available/associated) of the {@link #getSelectedValue() selected user}.
-     *
-     * @property.getter {@link #getProfilesAssociation()}
-     * @property.setter {@link #setProfilesAssociation(DualListModel)}
-     */
+    /** The {@link Profile} association (available/associated) of the {@link #getSelectedValue() selected user}. */
     private DualListModel<Profile> profilesAssociation;
 
     @Inject
@@ -60,7 +55,6 @@ public final class UsersBean extends AbstractCrudBean<User> {
         return newEntity;
     }
 
-    /** @property.attribute {@link #profilesAssociation} */
     public DualListModel<Profile> getProfilesAssociation() {
         return profilesAssociation;
     }
@@ -70,7 +64,6 @@ public final class UsersBean extends AbstractCrudBean<User> {
         return userService;
     }
 
-    /** @property.attribute {@link #profilesAssociation} */
     public void setProfilesAssociation(DualListModel<Profile> profilesAssociation) {
         this.profilesAssociation = profilesAssociation;
     }

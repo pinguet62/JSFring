@@ -142,12 +142,6 @@
 				</configuration>
 			</plugin>
 
-			<!-- Javadoc -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-			</plugin>
-
 			<!-- Unit test -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -313,6 +307,19 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<additionalparam>-Xdoclint:none</additionalparam>
+					<failOnError>false</failOnError>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
 
 	<name>JSFring</name>
 	<description>Full web application who integrated all Java EE frameworks: Spring, JPA, JSF, AngularJS, ...</description>

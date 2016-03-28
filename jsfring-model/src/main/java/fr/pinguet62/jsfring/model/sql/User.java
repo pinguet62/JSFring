@@ -24,7 +24,6 @@ import org.hibernate.validator.constraints.Length;
 @Table(name = "\"USER\"")
 public class User implements Serializable {
 
-    // visibility for unit-test
     /**
      * The email regex.
      *
@@ -37,7 +36,7 @@ public class User implements Serializable {
 
     /**
      * <b>Password constraints:</b><br>
-     * 6 characters, with at least: 1 letter & 1 special-character.
+     * 6 characters, with at least: 1 letter and 1 special-character.
      */
     public static final String PASSWORD_REGEX = ".*" + "(?=.{6,})" + "(?=.*[0-9].*)" + "(?=.*[^a-zA-Z0-9].*)" + ".*";
 
