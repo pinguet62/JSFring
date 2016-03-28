@@ -33,7 +33,7 @@ import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.CreatePopup;
 
 /**
  * @param <T> The {@link AbstractRow} type.
- * @see DataTableComponent
+ * @param <CP> The {@link CreatePopup} type.
  */
 public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> extends AbstractPage
         implements Iterable<T> {
@@ -57,9 +57,9 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
     }
 
     /**
-     * @param imageName The icon file path.<br>
+     * @param iconPath The icon file path.<br>
      *        Example: {@code "/img/foo.png"}.
-     * @return The download {@link InputStream}.
+     * @return The downloaded {@link InputStream}.
      */
     protected InputStream export(String iconPath) {
         HtmlImage icon = (HtmlImage) getDatatableFooter().getByXPath("./a/img[contains(@src, '" + iconPath + "')]")
@@ -98,7 +98,7 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
     }
 
     /**
-     * Iterate on each {@link HtmlSpan} and stop when {@code class="ui-state-active"}.
+     * Iterate on each {@link HtmlSpan} and stop when {@code class} attribute id {@code "ui-state-active"}.
      * <p>
      * Search paginator by <i>XPath</i>:
      * <ol>
@@ -107,10 +107,11 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
      * <li>Liste des pages: {@code span} avec une {@code class} de {@code "ui-paginator-pages"}</li>
      * <li>Page active: {@code span} avec une {@code class} de {@code "ui-state-active"}</li>
      * </ol>
+     *
+     * @return The {@link Iterator} on <i>paginator</i> button of current page.
      */
     protected Iterator<HtmlSpan> getCurrentPage() {
-        @SuppressWarnings("unchecked")
-        List<HtmlSpan> paginator = (List<HtmlSpan>) getDatatablePaginator()
+        @SuppressWarnings("unchecked") List<HtmlSpan> paginator = (List<HtmlSpan>) getDatatablePaginator()
                 .getByXPath("./span[@class='ui-paginator-pages']/span");
         Iterator<HtmlSpan> it;
         for (it = paginator.iterator(); it.hasNext(); it.next())
@@ -136,7 +137,11 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
         return (HtmlDivision) getDatatable().getByXPath("./div[contains(@class, 'ui-datatable-header')]").get(0);
     }
 
-    /** Get 2nd paginator, in footer. */
+    /**
+     * Get 2nd paginator, in footer.
+     *
+     * @return The {@link HtmlDivision} who contains the paginator buttons.
+     */
     protected HtmlDivision getDatatablePaginator() {
         return (HtmlDivision) getDatatable().getByXPath("./div[contains(@class, 'ui-paginator')][2]").get(0);
     }
@@ -144,7 +149,7 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
     /**
      * <code>&lt;div class="...ui-datatable-tablewrapper..."&gt;&lt;table&gt;</code>
      *
-     * @return The {@link HtmlTable} wrapped into {@link DataTableComponent}.
+     * @return The {@link HtmlTable}.
      */
     protected HtmlTable getDatatableTable() {
         return (HtmlTable) getDatatable().getByXPath("./div[@class='ui-datatable-tablewrapper']/table").get(0);
@@ -193,8 +198,8 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
      *         An empty {@link List} if empty datatable.
      */
     public List<T> getRows() {
-        @SuppressWarnings("unchecked")
-        List<HtmlTableRow> rows = (List<HtmlTableRow>) getDatatableTable().getByXPath("./tbody/tr");
+        @SuppressWarnings("unchecked") List<HtmlTableRow> rows = (List<HtmlTableRow>) getDatatableTable()
+                .getByXPath("./tbody/tr");
         if (rows.size() == 1 && rows.get(0).getAttribute("class").contains("ui-datatable-empty-message"))
             return new ArrayList<>();
         return rows.stream().map(getRowFactory()).collect(toList());
@@ -206,7 +211,11 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
         return dom.asText();
     }
 
-    /** Parse the {@code currentPageReportTemplate} attribute value. */
+    /**
+     * Parse the {@code currentPageReportTemplate} attribute value
+     *
+     * @return The total count of lines.
+     */
     public int getTotalCount() {
         HtmlSpan currentPageReportTemplate = (HtmlSpan) getDatatablePaginator()
                 .getByXPath("./span[contains(@class, 'ui-paginator-current')]").get(0);
@@ -235,15 +244,20 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
         }
     }
 
-    /** Check than a {@link HtmlSpan} exists after the current page. */
+    /**
+     * Check than a {@link HtmlSpan} exists after the current page.
+     * 
+     * @return If the current page has next page.
+     * @see Iterator#hasNext()
+     */
     public boolean hasNextPage() {
         return getCurrentPage().hasNext();
     }
 
     public boolean isCreateButtonVisible() {
         final String xpath = "./button[contains(@onclick, 'createDialog')]";
-        @SuppressWarnings("unchecked")
-        List<HtmlButton> buttons = (List<HtmlButton>) getDatatableHeader().getByXPath(xpath);
+        @SuppressWarnings("unchecked") List<HtmlButton> buttons = (List<HtmlButton>) getDatatableHeader()
+                .getByXPath(xpath);
         if (buttons.size() >= 2)
             throw new IllegalArgumentException("More than 1 tag found with XPath: " + xpath);
         return !buttons.isEmpty();

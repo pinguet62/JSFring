@@ -53,7 +53,9 @@ public final class DateUtils {
     }
 
     /**
-     * @param value
+     * Parse the formatted {@link Date}, with time or not.
+     *
+     * @param value The {@link String} value.
      * @return The {@link Date}.<br>
      *         {@code null} if empty value.
      * @throws IllegalArgumentException Invalid/Unknown date format.

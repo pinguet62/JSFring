@@ -7,7 +7,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
-/** @see ChangePasswordBean */
 public final class ChangePasswordPage extends AbstractPage {
 
     protected ChangePasswordPage(HtmlPage page) {
@@ -19,7 +18,8 @@ public final class ChangePasswordPage extends AbstractPage {
     }
 
     public void setActualPassword(String value) {
-        ((HtmlInput) getForm().getByXPath(".//input[contains(@id, 'currentPassword')]").get(0)).setValueAttribute(value);
+        ((HtmlInput) getForm().getByXPath(".//input[contains(@id, 'currentPassword')]").get(0))
+                .setValueAttribute(value);
     }
 
     public void setConfirmPassword(String value) {

@@ -42,59 +42,35 @@ public abstract class AbstractJasperReportBean implements Serializable {
     @Inject
     private transient DataSource dataSource;
 
-    /**
-     * @see #getStreamedContent(ExportType)
-     * @see ExportType#CSV
-     */
-    public StreamedContent getCsvFile() throws JRException, SQLException {
+    public StreamedContent getCsvFile() {
         return getStreamedContent(CSV);
     }
 
-    /**
-     * @see #getStreamedContent(ExportType)
-     * @see ExportType#DOCX
-     */
-    public StreamedContent getDocxFile() throws JRException, SQLException {
+    public StreamedContent getDocxFile() {
         return getStreamedContent(DOCX);
     }
 
-    /**
-     * @see #getStreamedContent(ExportType)
-     * @see ExportType#GRAPHICS_2D
-     */
-    public StreamedContent getGraphics2dFile() throws JRException, SQLException {
+    public StreamedContent getGraphics2dFile() {
         return getStreamedContent(GRAPHICS_2D);
     }
 
-    /**
-     * @see #getStreamedContent(ExportType)
-     * @see ExportType#HTML
-     */
-    public StreamedContent getHtmlFile() throws JRException, SQLException {
+    public StreamedContent getHtmlFile() {
         return getStreamedContent(HTML);
     }
 
-    /**
-     * @see #getStreamedContent(ExportType)
-     * @see ExportType#ODS
-     */
-    public StreamedContent getOdsFile() throws JRException, SQLException {
+    public StreamedContent getOdsFile() {
         return getStreamedContent(ODS);
     }
 
-    /**
-     * @see #getStreamedContent(ExportType)
-     * @see ExportType#ODT
-     */
-    public StreamedContent getOdtFile() throws JRException, SQLException {
+    public StreamedContent getOdtFile() {
         return getStreamedContent(ODT);
     }
 
     /**
      * Get the {@link Map} who contains the parameters for report.
      * <p>
-     * By default no parameter is required. But if the report contains
-     * parameters, this method must be {@link Override override}.
+     * By default no parameter is required. But if the report contains parameters, this method must be {@link Override
+     * override}.
      *
      * @return The {@link Map} of parameters.
      */
@@ -102,19 +78,11 @@ public abstract class AbstractJasperReportBean implements Serializable {
         return null;
     }
 
-    /**
-     * @see #getStreamedContent(ExportType)
-     * @see ExportType#PDF
-     */
-    public StreamedContent getPdfFile() throws JRException, SQLException {
+    public StreamedContent getPdfFile() {
         return getStreamedContent(PDF);
     }
 
-    /**
-     * @see #getStreamedContent(ExportType)
-     * @see ExportType#PPTX
-     */
-    public StreamedContent getPptxFile() throws JRException, SQLException {
+    public StreamedContent getPptxFile() {
         return getStreamedContent(PPTX);
     }
 
@@ -126,17 +94,12 @@ public abstract class AbstractJasperReportBean implements Serializable {
      */
     protected abstract String getReportPath();
 
-    /**
-     * @see #getStreamedContent(ExportType)
-     * @see ExportType#RTF
-     */
-    public StreamedContent getRtfFile() throws JRException, SQLException {
+    public StreamedContent getRtfFile() {
         return getStreamedContent(RTF);
     }
 
     /**
-     * Export the current report to {@link ExportType target format}.
-     * <p>
+     * Export the current report to {@link ExportType target format}.<br>
      * <ol>
      * <li>Compile and initialize the {@link JasperReport}</li>
      * <li>{@link JRAbstractExporter Export} the {@link JasperReport}</li>
@@ -145,57 +108,45 @@ public abstract class AbstractJasperReportBean implements Serializable {
      *
      * @param targetType The {@link ExportType}.
      * @return The {@link StreamedContent} used by PrimeFaces.
-     * @throws JRException Error during compilation or initialization of
-     *             {@link JasperReport}
-     * @throws SQLException Error with {@link DataSource} injection.
+     * @throws JasperReportRuntimeException Error rendering report.
      */
-    protected StreamedContent getStreamedContent(ExportType targetType) throws JRException, SQLException {
-        // Jasper: compile
-        JasperReport jasperReport = JasperCompileManager.compileReport(getClass().getResourceAsStream(getReportPath()));
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, getParameters(), dataSource.getConnection());
+    protected StreamedContent getStreamedContent(ExportType targetType) {
+        try {
+            // Jasper: compile
+            JasperReport jasperReport = JasperCompileManager
+                    .compileReport(getClass().getResourceAsStream(getReportPath()));
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, getParameters(),
+                    dataSource.getConnection());
 
-        // Jasper: export
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        JRAbstractExporter<?, ?, ? super GeneralExporterOutput, ?> exporter = targetType.getExporterFactory().get();
-        exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
-        exporter.setExporterOutput(new GeneralExporterOutput(outputStream));
-        exporter.exportReport();
-        byte[] bytes = outputStream.toByteArray();
+            // Jasper: export
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            JRAbstractExporter<?, ?, ? super GeneralExporterOutput, ?> exporter = targetType.getExporterFactory().get();
+            exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+            exporter.setExporterOutput(new GeneralExporterOutput(outputStream));
+            exporter.exportReport();
+            byte[] bytes = outputStream.toByteArray();
 
-        // PrimeFaces download
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(bytes);
-        return new DefaultStreamedContent(inputStream, targetType.getMime(), "report." + targetType.getExtension());
+            // PrimeFaces download
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(bytes);
+            return new DefaultStreamedContent(inputStream, targetType.getMime(), "report." + targetType.getExtension());
+        } catch (JRException | SQLException e) {
+            throw new JasperReportRuntimeException("", e);
+        }
     }
 
-    /**
-     * @see #getStreamedContent(ExportType)
-     * @see ExportType#TEXT
-     */
-    public StreamedContent getTextFile() throws JRException, SQLException {
+    public StreamedContent getTextFile() {
         return getStreamedContent(TEXT);
     }
 
-    /**
-     * @see #getStreamedContent(ExportType)
-     * @see ExportType#XLSX
-     */
-    public StreamedContent getXlsFile() throws JRException, SQLException {
+    public StreamedContent getXlsFile() {
         return getStreamedContent(XLS);
     }
 
-    /**
-     * @see #getStreamedContent(ExportType)
-     * @see ExportType#XLSX
-     */
-    public StreamedContent getXlsxFile() throws JRException, SQLException {
+    public StreamedContent getXlsxFile() {
         return getStreamedContent(XLSX);
     }
 
-    /**
-     * @see #getStreamedContent(ExportType)
-     * @see ExportType#XML
-     */
-    public StreamedContent getXmlFile() throws JRException, SQLException {
+    public StreamedContent getXmlFile() {
         return getStreamedContent(XML);
     }
 

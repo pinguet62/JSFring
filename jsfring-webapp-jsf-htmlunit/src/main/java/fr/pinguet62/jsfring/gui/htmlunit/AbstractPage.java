@@ -20,12 +20,12 @@ import org.springframework.ui.context.Theme;
 
 import com.gargoylesoftware.htmlunit.SgmlPage;
 import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlLink;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager;
 
+import fr.pinguet62.jsfring.gui.htmlunit.field.Field;
 import fr.pinguet62.jsfring.gui.htmlunit.filter.FilterPathPage;
 import fr.pinguet62.jsfring.gui.htmlunit.jasperreport.ParametersJasperReportPage;
 import fr.pinguet62.jsfring.gui.htmlunit.jasperreport.UsersRightsJasperReportPage;
@@ -33,6 +33,10 @@ import fr.pinguet62.jsfring.gui.htmlunit.profile.ProfilesPage;
 import fr.pinguet62.jsfring.gui.htmlunit.right.RightsPage;
 import fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage;
 
+/**
+ * Base class for all other pages.<br>
+ * Provides shared functionalities (like menus) and utilities (like debug and waiting method).
+ */
 public class AbstractPage {
 
     public static enum Delay {
@@ -65,10 +69,12 @@ public class AbstractPage {
         LOGGER.debug("Temporary file: {}", TMP_FILE);
     }
 
-    public static void debug(HtmlInput html) {
-        debug(html.getHtmlPageOrNull().asXml());
-    }
-
+    /**
+     * Static version of {@link #debug()} because popup and {@link Field components} behavior.
+     *
+     * @param page The {@link SgmlPage} to debug.
+     * @see SgmlPage#asXml()
+     */
     public static void debug(SgmlPage page) {
         debug(page.asXml());
     }
@@ -138,10 +144,9 @@ public class AbstractPage {
     }
 
     /**
-     * To call after each page action.<br>
-     *
-     *
-     * @param page The {@link HtmlPage HTML page} to write.
+     * Write content of current page.
+     * <p>
+     * To call after each page action.
      */
     protected void debug() {
         debug(page);
@@ -245,7 +250,7 @@ public class AbstractPage {
      * Wait end of JavaScript (and Ajax) actions.<br>
      * Continue after the delay.
      *
-     * @param ms The max time in millisecond.
+     * @param delay The {@link Delay} to wait.
      */
     public void waitJS(Delay delay) {
         LOGGER.debug("Wait JavaScript");

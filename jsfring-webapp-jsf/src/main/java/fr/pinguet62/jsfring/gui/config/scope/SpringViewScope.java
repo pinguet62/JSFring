@@ -10,12 +10,12 @@ import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.config.Scope;
 import org.springframework.context.annotation.Bean;
 
+// TODO Fix warning
 /**
  * JSF view {@link Scope} implementation for Spring.
  *
- * @see <a href=
- *      "https://cagataycivici.wordpress.com/2010/02/17/port-jsf-2-0s-viewscope-to-spring-3-0/"
- *      >Porting JSF 2.0’s ViewScope to Spring 3.0<a/>
+ * @see <a href= "https://cagataycivici.wordpress.com/2010/02/17/port-jsf-2-0s-viewscope-to-spring-3-0/" >Porting JSF
+ *      2.0’s ViewScope to Spring 3.0</a>
  */
 public final class SpringViewScope implements Scope {
 
@@ -23,9 +23,8 @@ public final class SpringViewScope implements Scope {
 
     /**
      * Get the {@link Bean} from its name.<br>
-     * Get the value into the {@link UIViewRoot#getViewMap() view map}. If it
-     * doesn't exist, the {@link Bean} is created, and stored into this
-     * {@link UIViewRoot#getViewMap() view map}.
+     * Get the value into the {@link UIViewRoot#getViewMap() view map}. If it doesn't exist, the {@link Bean} is
+     * created, and stored into this {@link UIViewRoot#getViewMap() view map}.
      */
     @Override
     public Object get(String name, ObjectFactory<?> objectFactory) {

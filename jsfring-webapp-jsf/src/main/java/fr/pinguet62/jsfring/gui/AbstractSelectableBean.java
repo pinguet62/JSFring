@@ -3,9 +3,12 @@ package fr.pinguet62.jsfring.gui;
 import java.io.Serializable;
 
 /**
- * {@link AbstractBean} with selection management.
+ * {@link AbstractBean} with single selection management.<br>
+ * <i>Multiple selection</i> is not supported.
  * <p>
- * <b>Multiple selection:</b> not supported.
+ * <code>&lt;f:setPropertyActionListener target="#{myBean.selectedValue}" value="..." /&gt;</code>
+ *
+ * @param <T> The type of objects to display.
  */
 public abstract class AbstractSelectableBean<T extends Serializable> extends AbstractBean<T> {
 
@@ -16,8 +19,8 @@ public abstract class AbstractSelectableBean<T extends Serializable> extends Abs
 
     /**
      * Get the selected value.
-     * <p>
-     * Used to access to row to managed.
+     *
+     * @return The current {@link #selectedValue value}.
      */
     public T getSelectedValue() {
         return selectedValue;
@@ -25,8 +28,8 @@ public abstract class AbstractSelectableBean<T extends Serializable> extends Abs
 
     /**
      * Set the selected value.
-     * <p>
-     * Call before each action on row to manage.
+     *
+     * @param selectedValue The new {@link #selectedValue value}.
      */
     public void setSelectedValue(T selectedValue) {
         this.selectedValue = selectedValue;

@@ -1,5 +1,7 @@
 package fr.pinguet62.jsfring.gui.i18n;
 
+import static org.springframework.web.context.support.WebApplicationContextUtils.getRequiredWebApplicationContext;
+
 import java.io.IOException;
 import java.util.Locale;
 
@@ -16,8 +18,7 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
- * Filter who intercepts GET parameters used to change user's {@link Locale}.
- * <br>
+ * Filter who intercepts GET parameters used to change user's {@link Locale}. <br>
  * {@link LangBean#setLocale(Locale) Set the locale} when the value is present.
  *
  * @see LangBean
@@ -64,7 +65,7 @@ public final class LangFilter implements Filter {
      */
     @Override
     public void init(FilterConfig config) throws ServletException {
-        factory = WebApplicationContextUtils.getRequiredWebApplicationContext(config.getServletContext());
+        factory = getRequiredWebApplicationContext(config.getServletContext());
     }
 
 }

@@ -83,7 +83,7 @@ public final class MatcherUtils {
     };
 
     /**
-     * {@link Matcher} used to {@link Function map} object to another type and apply another {@link Mapper} on mapped
+     * {@link Matcher} used to {@link Function map} object to another type and apply another {@link Matcher} on mapped
      * value.
      *
      * @param <S> The source type.

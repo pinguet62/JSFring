@@ -9,6 +9,8 @@ import static org.primefaces.util.Constants.ContextParams.THEME;
 
 import javax.faces.context.FacesContextFactory;
 import javax.faces.webapp.FacesServlet;
+import javax.servlet.Servlet;
+import javax.servlet.ServletContext;
 
 import org.springframework.boot.context.embedded.ServletContextInitializer;
 import org.springframework.boot.context.embedded.ServletListenerRegistrationBean;
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import com.sun.faces.config.ConfigureListener;
 
+/** Java {@code "web.xml"} configuration */
 @Configuration
 public class WebConfig {
 
@@ -40,7 +43,11 @@ public class WebConfig {
         }
     }
 
-    /** JSF registration: {@link Servlet} & page extension. */
+    /**
+     * JSF registration: {@link Servlet} and page extension.
+     *
+     * @return The built {@link ServletRegistrationBean}.
+     */
     @Bean
     public ServletRegistrationBean facesServletRegistration() {
         FacesServlet servlet = new FacesServlet();
@@ -53,6 +60,7 @@ public class WebConfig {
     /**
      * Configure {@link FacesContextFactory} for Spring-Boot.
      *
+     * @return The {@link ServletListenerRegistrationBean}.
      * @see FacesContextFactory
      */
     @Bean
@@ -60,7 +68,11 @@ public class WebConfig {
         return new ServletListenerRegistrationBean<ConfigureListener>(new ConfigureListener());
     }
 
-    /** Configure {@code <context-param>} key/values. */
+    /**
+     * Configure {@code <context-param>} key/values.
+     *
+     * @return The {@link ServletContextInitializer} who initialize the {@link ServletContext}.
+     */
     @Bean
     public ServletContextInitializer servletContextInitializer() {
         return servletContext -> {
@@ -68,7 +80,8 @@ public class WebConfig {
             // ProjectStage.Development.toString());
             servletContext.setInitParameter(FACELETS_SKIP_COMMENTS_PARAM_NAME, TRUE.toString());
             // TimeZone: getDefault() instead of "GMT"
-            servletContext.setInitParameter(DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE_PARAM_NAME, TRUE.toString());
+            servletContext.setInitParameter(DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE_PARAM_NAME,
+                    TRUE.toString());
 
             // JSF without "web.xml" and "faces-config.xml"
             servletContext.setInitParameter(ForceLoadFacesConfigFiles.getQualifiedName(), TRUE.toString());

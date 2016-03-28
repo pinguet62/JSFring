@@ -65,7 +65,11 @@ public final class UsersPage extends AbstractDatatablePage<UserRow, UserCreatePo
     }
 
     /**
+     * Test if the {@link Column} is visible.<br>
      * Check that {@link HtmlTableHeaderCell table header} {@code class} contains {@code "ui-helper-hidden"} value.
+     *
+     * @param column The {@link Column}.
+     * @return The result.
      */
     public boolean columnVisibile(Column column) {
         HtmlTableHeaderCell th = getDatatableTableHeader(column.getTitle());
@@ -119,8 +123,7 @@ public final class UsersPage extends AbstractDatatablePage<UserRow, UserCreatePo
             waitJS(SHORT);
             debug();
 
-            @SuppressWarnings("unchecked")
-            List<HtmlListItem> choices = (List<HtmlListItem>) page.getByXPath(
+            @SuppressWarnings("unchecked") List<HtmlListItem> choices = (List<HtmlListItem>) page.getByXPath(
                     "//div[contains(@class, 'ui-columntoggler')]/ul[contains(@class, 'ui-columntoggler-items')]/li[contains(@class, 'ui-columntoggler-item')]");
             HtmlListItem choice = choices.stream().filter(
                     li -> Column.fromTitle(((HtmlLabel) li.getByXPath("./label").get(0)).asText()).equals(column))
@@ -144,7 +147,7 @@ public final class UsersPage extends AbstractDatatablePage<UserRow, UserCreatePo
      * <p>
      * <code>&lt;span class="...ui-column-title..."&gt;</code>
      *
-     * @param title The column title.
+     * @param column The {@link Column}.
      */
     public void sortBy(Column column) {
         sortBy(column.getTitle());

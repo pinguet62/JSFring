@@ -10,27 +10,29 @@ public final class FilterPathPage extends AbstractPage {
         super(page);
     }
 
-    /** @param i The line index. */
+    /**
+     * Page contains several {@link FilterField}.<br>
+     * This method gets the {@link FilterField} from it's index.
+     *
+     * @param i The line index.
+     * @return The {@link FilterField}.
+     */
     public FilterField getFilterField(int i) {
         return new FilterField(page, i);
     }
 
-    /** @see FilterPathBean#getNumberFilterDefault() */
     public FilterField getNumberFilterDefault() {
         return getFilterField(2);
     }
 
-    /** @see FilterPathBean#getNumberFilterLongRange() */
     public FilterField getNumberFilterLongRange() {
         return getFilterField(3);
     }
 
-    /** @see FilterPathBean#getStringFilterDefault() */
     public FilterField getStringFilterDefault() {
         return getFilterField(0);
     }
 
-    /** @see FilterPathBean#getStringFilterRegex() */
     public FilterField getStringFilterRegex() {
         return getFilterField(1);
     }

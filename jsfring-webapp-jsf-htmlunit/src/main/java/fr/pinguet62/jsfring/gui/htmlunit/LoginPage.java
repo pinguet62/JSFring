@@ -2,14 +2,11 @@ package fr.pinguet62.jsfring.gui.htmlunit;
 
 import java.io.IOException;
 
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
-
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
-/** @see LoginBean */
 public final class LoginPage extends AbstractPage {
 
     protected LoginPage(HtmlPage page) {
@@ -19,8 +16,8 @@ public final class LoginPage extends AbstractPage {
     /**
      * Process to login.
      *
-     * @param login The {@link User#login}.
-     * @param password The {@link User#password}.
+     * @param login The login.
+     * @param password The password.
      * @return The target page.
      */
     public AbstractPage doLogin(String login, String password) {

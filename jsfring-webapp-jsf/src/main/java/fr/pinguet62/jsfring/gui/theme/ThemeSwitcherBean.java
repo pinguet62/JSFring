@@ -22,7 +22,11 @@ public final class ThemeSwitcherBean implements Serializable {
      */
     private Theme theme = fromKey("dark-hive");
 
-    /** Get the current {@link Theme}. */
+    /**
+     * Get the current {@link Theme}.
+     *
+     * @return {@link #theme}
+     */
     public Theme getTheme() {
         return theme;
     }
@@ -35,6 +39,7 @@ public final class ThemeSwitcherBean implements Serializable {
     /**
      * Set the new current {@link Theme}.
      *
+     * @param theme {@link #theme}
      * @throws NullPointerException If the parameter is {@code null}.
      */
     public void setTheme(Theme theme) {

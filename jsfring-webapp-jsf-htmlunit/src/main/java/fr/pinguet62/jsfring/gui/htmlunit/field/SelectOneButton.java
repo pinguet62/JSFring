@@ -17,7 +17,12 @@ public final class SelectOneButton<T> extends ReadWriteField<HtmlDivision, T> {
 
     private final Function<String, T> converter;
 
-    /** <code>&lt;div class="ui-selectonebutton..."&gt;</code> */
+    /**
+     * <code>&lt;div class="ui-selectonebutton..."&gt;</code>
+     *
+     * @param html The {@link HtmlDivision}.
+     * @param converter The {@link Function} used to convert label to value.
+     */
     public SelectOneButton(HtmlDivision html, Function<String, T> converter) {
         super(html);
         this.converter = converter;
@@ -31,8 +36,8 @@ public final class SelectOneButton<T> extends ReadWriteField<HtmlDivision, T> {
     /** Find {@link HtmlDivision} with {@code class="ui-state-active"}. */
     @Override
     public T getValue() {
-        Optional<HtmlDivision> find = getChoices().stream().filter(div -> div.getAttribute("class").contains("ui-state-active"))
-                .findAny();
+        Optional<HtmlDivision> find = getChoices().stream()
+                .filter(div -> div.getAttribute("class").contains("ui-state-active")).findAny();
         if (find.isPresent())
             return null;
         return converter.apply(find.get().asText());
@@ -41,8 +46,8 @@ public final class SelectOneButton<T> extends ReadWriteField<HtmlDivision, T> {
     @Override
     public void setValue(T value) {
         HtmlDivision button = getChoices().stream()
-                .filter(div -> converter
-                        .apply(((HtmlSpan) div.getByXPath("./span[contains(@class, 'ui-button-text')]").get(0)).asText())
+                .filter(div -> converter.apply(
+                        ((HtmlSpan) div.getByXPath("./span[contains(@class, 'ui-button-text')]").get(0)).asText())
                         .equals(value))
                 .findAny().get();
         try {

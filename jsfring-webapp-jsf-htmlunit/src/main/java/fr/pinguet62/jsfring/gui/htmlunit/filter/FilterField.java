@@ -6,8 +6,6 @@ import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.Delay.SHORT;
 import java.io.IOException;
 import java.util.List;
 
-import org.springframework.expression.spel.ast.Operator;
-
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -50,19 +48,22 @@ public class FilterField extends AbstractPage {
         return getColumn(4).getTextContent();
     }
 
-    /** Check the red border, with checking the {@code class} attribute. */
+    /**
+     * Test if the field is not valid.<br>
+     * Check the red border, by checking the {@code class} attribute.
+     * 
+     * @return The result.
+     */
     public boolean isError() {
         return getInputValues().stream().anyMatch(input -> input.getAttribute("class").contains("ui-state-error"));
     }
 
-    /**
-     * @param operator The {@link Class class} of {@link Operator}.
-     * @see OperatorConverter
-     */
+    /** @param operator The {@link Class class} of operator. */
     public void setOperator(Class<?> operator) {
         String value = operator == null ? "" : operator.getName();
         HtmlSelect select = (HtmlSelect) getColumn(2)
-                .getByXPath("./div/div[contains(@class, 'ui-selectonemenu')]/div[@class='ui-helper-hidden-accessible']/select")
+                .getByXPath(
+                        "./div/div[contains(@class, 'ui-selectonemenu')]/div[@class='ui-helper-hidden-accessible']/select")
                 .get(0);
         page = select.setSelectedAttribute(value, true);
         waitJS(SHORT);
@@ -70,10 +71,10 @@ public class FilterField extends AbstractPage {
     }
 
     /**
-     * If the {@link Operator} requires several arguments, the index is the
-     * index of argument.
+     * Set value to argument.
      *
-     * @param The argument index.
+     * @param index The argument index.
+     * @param value The argument value.
      */
     public void setValue(int index, String value) {
         page = (HtmlPage) getInputValues().get(index).setValueAttribute(value);

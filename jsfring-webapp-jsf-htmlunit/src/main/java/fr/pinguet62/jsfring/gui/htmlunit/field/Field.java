@@ -1,7 +1,6 @@
 package fr.pinguet62.jsfring.gui.htmlunit.field;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
 
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 
@@ -18,7 +17,6 @@ public abstract class Field<H extends HtmlElement, T> extends AbstractPage {
         this.html = html;
     }
 
-    /** Convert the {@link HtmlTableDataCell} to target value. */
     public abstract T getValue();
 
     public abstract boolean isReadonly();

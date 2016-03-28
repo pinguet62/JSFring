@@ -13,9 +13,9 @@ import javax.persistence.Entity;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.model.LazyDataModel;
 import org.slf4j.Logger;
+import org.springframework.data.domain.Pageable;
 
 import com.mysema.query.BooleanBuilder;
-import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.types.EntityPath;
 import com.mysema.query.types.OrderSpecifier;
 import com.mysema.query.types.Predicate;
@@ -28,8 +28,6 @@ import fr.pinguet62.jsfring.service.AbstractService;
  * Eager and lazy loading can be used simple by calling the corresponding method into xHTML view.
  *
  * @param <T> The type of objects to display.
- * @see AbstractService#getAll()
- * @see AbstractService#findPanginated(JPAQuery)
  */
 public abstract class AbstractBean<T extends Serializable> implements Serializable {
 
@@ -50,11 +48,12 @@ public abstract class AbstractBean<T extends Serializable> implements Serializab
             .createPath((Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
 
     /**
-     * Used for lazy loading.<br>
+     * Used for <b>lazy loading</b>.<br>
      * <code>&lt;p:dataTable lazy="true" value="#{myBean.lazyDataModel}" ...&gt;</code>
      * <p>
      * The pagination is managed by the {@link AbstractLazyDataModel data model} .
      *
+     * @return {@link #lazyDataModel}
      * @see AbstractLazyDataModel#load(int, int, String, org.primefaces.model.SortOrder, java.util.Map)
      */
     public LazyDataModel<T> getLazyDataModel() {
@@ -62,12 +61,12 @@ public abstract class AbstractBean<T extends Serializable> implements Serializab
     }
 
     /**
-     * Used for eager loading.<br>
+     * Used for <b>eager loading</b>.<br>
      * <code>&lt;p:dataTable value="#{myBean.list}" ...&gt;</code>
      * <p>
-     * Because the {@link DataTable} repeatedly calls this method, it's necessary to avoid multiple call in database.
-     * <br>
-     * So the {@link #list} is initialized at the first call (when is {@code null}) and used by next calls.
+     * <u>Cache:</u> because the {@link DataTable} repeatedly calls this method, the value is stored on {@link #list
+     * attribute} to avoid multiple call in database.<br>
+     * The {@link #list value} is initialized at the first call (when is {@code null}) and reused by next calls.
      *
      * @see AbstractService#findAll(Predicate)
      */
@@ -82,8 +81,9 @@ public abstract class AbstractBean<T extends Serializable> implements Serializab
     /**
      * The {@link OrderSpecifier} used to sort data.
      * <p>
-     * To add custom order, override this method and {@link List#add(Object) add} sort to {@code super} default
-     * implementation.
+     * <u>Default:</u> No order.<br>
+     * <u>Custom:</u> {@link Override} this method and {@link List#add(Object) add} {@link OrderSpecifier} to
+     * {@code super} default implementation.
      *
      * @return The built {@link OrderSpecifier}.
      */
@@ -112,14 +112,16 @@ public abstract class AbstractBean<T extends Serializable> implements Serializab
         return new BooleanBuilder();
     }
 
-    /** Get the {@link AbstractService service} used to load data. */
+    /**
+     * Get the {@link AbstractService service} used to load data.
+     *
+     * @return The {@link AbstractService}.
+     * @see AbstractService#getAll()
+     * @see AbstractService#findAll(Predicate, Pageable)
+     */
     public abstract AbstractService<T, ? extends Serializable> getService();
 
-    /**
-     * Refresh the database.
-     * <p>
-     * After this call, next {@link #getList()} will initialize data from database.
-     */
+    /** Refresh the content, by reseting cached {@link #list}. */
     protected void refresh() {
         LOGGER.trace("Eager loading: refresh");
         list = null;

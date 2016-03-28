@@ -14,17 +14,13 @@ import fr.pinguet62.jsfring.dao.sql.UserDao;
 import fr.pinguet62.jsfring.model.sql.User;
 
 /**
- * Implementation of {@link UserDetailsService}.
- * <p>
+ * Implementation of {@link UserDetailsService}.<br>
  * <ol>
  * <li>User fill <i>username</i> and <i>password</i></li>
- * <li>{@link DaoAuthenticationProvider} request {@link UserDetails} to
- * {@link UserDetailsService}</li>
- * <li>{@link UserDetailsService} retrieve user's informations in database, from
- * its <i>username</i></li>
- * <li>{@link DaoAuthenticationProvider} check user's <i>password</i> from the
- * {@link UserDetails#getPassword() database password} and other informations
- * </li>
+ * <li>{@link DaoAuthenticationProvider} request {@link UserDetails} to {@link UserDetailsService}</li>
+ * <li>{@link UserDetailsService} retrieve user's informations in database, from its <i>username</i></li>
+ * <li>{@link DaoAuthenticationProvider} check user's <i>password</i> from the {@link UserDetails#getPassword() database
+ * password} and other informations</li>
  * </ol>
  *
  * @see AuthenticationProvider
@@ -42,8 +38,7 @@ public final class UserDetailsServiceImpl implements UserDetailsService {
      *
      * @param login The {@link User#login user's login}.
      * @return The {@link UserDetails}.
-     * @throws UsernameNotFoundException If {@link User#getLogin()} is not
-     *             found.
+     * @throws UsernameNotFoundException If {@link User#getLogin()} is not found.
      * @see UserDetailsImpl
      */
     @Override

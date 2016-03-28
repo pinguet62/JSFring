@@ -113,6 +113,8 @@ public abstract class PathFilter<Exp extends SimpleExpression<T>, T extends Seri
     /**
      * Check that argument values are correct, according to {@link Operator#getNumberOfParameters() number of arguments}
      * of {@link #operator}.
+     * 
+     * @return The result.
      */
     public boolean isValid() {
         if (operator == null)

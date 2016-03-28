@@ -16,7 +16,11 @@ public final class SelectOneMenu extends ReadWriteField<HtmlDivision, String> {
 
     private final String id;
 
-    /** <code>&lt;div class="ui-selectonemenu..."&gt;</code> */
+    /**
+     * <code>&lt;div class="ui-selectonemenu..."&gt;</code>
+     *
+     * @param html The {@link HtmlDivision}.
+     */
     public SelectOneMenu(HtmlDivision html) {
         super(html);
         id = html.getId();

@@ -21,7 +21,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Inject
     private UserDetailsService userDetailsService;
 
-    /** @see UserDetailsService */
+    /** Use custom {@link UserDetailsService}. */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
@@ -29,36 +29,42 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // @formatter:off
         http
-                // form-login
-                .formLogin()//
-                .loginPage("/login.xhtml")//
-                .loginProcessingUrl(LOGIN_PROCESSING_URL)//
-                .failureUrl("/login.xhtml?error")//
+                // Login
+                .formLogin()
+                    .loginPage("/login.xhtml")
+                    .loginProcessingUrl(LOGIN_PROCESSING_URL)
+                    .failureUrl("/login.xhtml?error")
+
+            .and()
                 // remember-me
-                .and().rememberMe()//
-                .rememberMeParameter("remember-me_input")//
-                .tokenRepository(tokenRepository())//
-                .tokenValiditySeconds(5555)//
+                .rememberMe()
+                    .rememberMeParameter("remember-me_input")
+                    .tokenRepository(tokenRepository())
+                    .tokenValiditySeconds(5555)
+            .and()
                 // intercept-url
-                .and().authorizeRequests()//
-                .anyRequest().permitAll()//
-                .antMatchers("/test.xhtml").permitAll()// TODO test
-                .antMatchers("/login.xhtml").permitAll()//
-                .antMatchers("/right.xhtml").hasRole("RIGHT_RO")//
-                .antMatchers("/profiles.xhtml").hasRole("PROFILE_RO")//
-                .antMatchers("/user.xhtml").hasRole("USER_RO")//
-                .antMatchers("/index.xhtml").permitAll()//
-                // csrf
-                .and().csrf()//
-                .disable()// otherwise: error
-                ;
+                .authorizeRequests()
+                    .anyRequest().permitAll()
+                    .antMatchers("/test.xhtml").permitAll() // TODO Test: delete
+                    .antMatchers("/login.xhtml").permitAll()
+                    .antMatchers("/right.xhtml").hasRole("RIGHT_RO")
+                    .antMatchers("/profiles.xhtml").hasRole("PROFILE_RO")
+                    .antMatchers("/user.xhtml").hasRole("USER_RO")
+                    .antMatchers("/index.xhtml").permitAll()
+            .and()
+                // Cross-Site Request Forgery
+                .csrf()
+                    .disable() // otherwise: error
+        // @formatter:on
+        ;
     }
 
     /**
      * <b>Remember me</b> implementation.
      *
-     * @see PersistentTokenRepository
+     * @return The {@link PersistentTokenRepository}.
      */
     @Bean
     public PersistentTokenRepository tokenRepository() {

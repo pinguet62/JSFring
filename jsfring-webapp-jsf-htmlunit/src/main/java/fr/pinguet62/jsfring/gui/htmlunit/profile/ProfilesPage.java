@@ -13,7 +13,6 @@ import fr.pinguet62.jsfring.gui.htmlunit.NavigatorException;
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.AbstractDatatablePage;
 import fr.pinguet62.jsfring.gui.htmlunit.profile.popup.ProfileCreatePopup;
 
-/** @see ProfilesBean */
 public final class ProfilesPage extends AbstractDatatablePage<ProfileRow, ProfileCreatePopup> {
 
     public ProfilesPage(HtmlPage page) {

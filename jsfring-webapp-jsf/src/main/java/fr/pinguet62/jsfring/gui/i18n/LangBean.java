@@ -70,6 +70,8 @@ public final class LangBean implements Serializable {
      * <p>
      * If {@link FacesContext} is not {@code null}, then the new {@link Locale} will be
      * {@link UIViewRoot#setLocale(Locale) set to ViewRoot}.
+     *
+     * @param locale {@link #locale}
      */
     public void setLocale(Locale locale) {
         this.locale = locale;

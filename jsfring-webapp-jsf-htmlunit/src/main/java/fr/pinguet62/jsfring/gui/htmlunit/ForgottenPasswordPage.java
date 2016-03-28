@@ -11,7 +11,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import fr.pinguet62.jsfring.gui.htmlunit.field.InputText;
 import fr.pinguet62.jsfring.gui.htmlunit.field.ReadWriteField;
 
-/** @see ForgottenPasswordBean */
 public final class ForgottenPasswordPage extends AbstractPage {
 
     protected ForgottenPasswordPage(HtmlPage page) {

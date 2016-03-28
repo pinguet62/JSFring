@@ -28,9 +28,10 @@ import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.ShowPopup;
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.UpdatePopup;
 
 /**
- * Commons data for {@link DataTableComponent}.
+ * Row of datatable of {@link AbstractDatatablePage}.
  *
- * @see DataTableComponent
+ * @param <SP> The {@link ShowPopup} type.
+ * @param <UP> The {@link UpdatePopup} type.
  */
 public abstract class AbstractRow<SP, UP> extends AbstractPage {
 
@@ -48,7 +49,8 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
 
     /**
      * Click on "delete" action button.
-     *
+     * 
+     * @return The {@link ConfirmPopup}.
      * @throws UnsupportedOperationException "Delete" action not available.
      */
     public ConfirmPopup actionDelete() {
@@ -69,7 +71,8 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
 
     /**
      * Click on "show" action button.
-     *
+     * 
+     * @return The {@link ShowPopup}.
      * @throws UnsupportedOperationException "Show" action not available.
      */
     public SP actionShow() {
@@ -91,7 +94,8 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
 
     /**
      * Click on "update" action button.
-     *
+     * 
+     * @return The {@link UpdatePopup}.
      * @throws UnsupportedOperationException "Update" action not available.
      */
     public UP actionUpdate() {
@@ -120,11 +124,9 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
      * @throws NavigatorException More than 1 {@link HtmlButton} found.
      */
     private HtmlButton getActionButton(String xpath) {
-        @SuppressWarnings("unchecked")
-        List<HtmlTableCell> cells = (List<HtmlTableCell>) row.getByXPath("./td");
+        @SuppressWarnings("unchecked") List<HtmlTableCell> cells = (List<HtmlTableCell>) row.getByXPath("./td");
         HtmlTableDataCell actionsCell = (HtmlTableDataCell) cells.get(cells.size() - 1);
-        @SuppressWarnings("unchecked")
-        List<HtmlButton> elements = (List<HtmlButton>) actionsCell.getByXPath(xpath);
+        @SuppressWarnings("unchecked") List<HtmlButton> elements = (List<HtmlButton>) actionsCell.getByXPath(xpath);
         if (elements.size() > 1)
             throw new NavigatorException("More than 1 tag found with XPath: " + xpath);
         return elements.isEmpty() ? null : elements.get(0);

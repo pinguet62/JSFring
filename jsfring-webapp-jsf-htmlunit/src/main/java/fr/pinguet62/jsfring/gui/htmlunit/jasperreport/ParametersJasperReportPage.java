@@ -14,14 +14,16 @@ import fr.pinguet62.jsfring.gui.htmlunit.field.AutocompleteInputText;
 import fr.pinguet62.jsfring.gui.htmlunit.field.DatetimeInputText;
 import fr.pinguet62.jsfring.gui.htmlunit.field.InputText;
 
-/** @see ParametersJasperReportBean */
 public final class ParametersJasperReportPage extends AbstractJasperReportPage {
 
     public ParametersJasperReportPage(HtmlPage page) {
         super(page);
     }
 
-    /** @param row The param index. */
+    /**
+     * @param row The param index.
+     * @return The {@link HtmlTableDataCell} who contains the parameter field.
+     */
     private HtmlTableDataCell getParam(int row) {
         return (HtmlTableDataCell) page
                 .getByXPath(
