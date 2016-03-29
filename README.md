@@ -132,6 +132,10 @@ Multi web-application deployed on cloud... in continue!
 	* AngularJS: <img src="https://d3k90kvix375hb.cloudfront.net/assets/logo-purple.svg" height="25" /> [Heroku](https://www.heroku.com/home) [![Deploy](https://www.herokucdn.com/deploy/button.png)](http://jsfring-webapp-angularjs.herokuapp.com)
 * Webservice: <img src="https://d3k90kvix375hb.cloudfront.net/assets/logo-purple.svg" height="25" /> [Heroku](https://www.heroku.com/home) [![Deploy](https://www.herokucdn.com/deploy/button.png)](http://jsfring-webservice.herokuapp.com)
 
+## Documentation
+
+See [**Maven site**](http://pinguet62.github.io/JSFring)
+
 ## Licence
 
 <img src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png" height="25" />
