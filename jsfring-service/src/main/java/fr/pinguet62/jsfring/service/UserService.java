@@ -42,6 +42,10 @@ public class UserService extends AbstractService<User, String> {
     @Inject
     private MailSender mailSender;
 
+    public long count() {
+        return dao.count();
+    }
+
     /**
      * {@inheritDoc}
      * <p>

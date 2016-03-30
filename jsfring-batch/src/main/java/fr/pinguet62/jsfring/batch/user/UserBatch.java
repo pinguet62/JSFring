@@ -13,8 +13,9 @@ import org.springframework.context.annotation.Configuration;
 
 import fr.pinguet62.jsfring.model.sql.User;
 
+/** Batch who import {@link User} from CSV file. */
 @Configuration
-public class UserImportBatch {
+public class UserBatch {
 
     @Autowired
     private JobBuilderFactory jobBuilderFactory;

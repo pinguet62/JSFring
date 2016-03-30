@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class UserReader extends FlatFileItemReader<UserRow> {
 
     public UserReader() {
-        setResource(new ClassPathResource("input.csv")); // TODO test
+        setResource(new ClassPathResource("user.csv")); // TODO test
         setLineMapper(new DefaultLineMapper<UserRow>() {
             {
                 setLineTokenizer(new DelimitedLineTokenizer() {
