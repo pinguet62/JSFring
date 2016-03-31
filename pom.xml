@@ -281,8 +281,7 @@
 				<artifactId>maven-clean-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>verify</id>
-						<phase>verify</phase>
+						<phase>install</phase>
 						<goals>
 							<goal>clean</goal>
 						</goals>
@@ -297,8 +296,12 @@
 										<exclude>jacoco.exec</exclude>
 										<exclude>jacoco-it.exec</exclude>
 										<!-- Executables -->
-										<exclude>*.jar</exclude>
-										<exclude>*.war</exclude>
+										<exclude>task-${project.version}.jar</exclude>
+										<exclude>batch-${project.version}.jar</exclude>
+										<exclude>indexer-nosql-${project.version}.jar</exclude>
+										<exclude>webservice-${project.version}.war</exclude>
+										<exclude>webapp-angularjs-${project.version}.war</exclude>
+										<exclude>webapp-jsf-${project.version}.war</exclude>
 									</excludes>
 								</fileset>
 							</filesets>
