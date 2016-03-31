@@ -16,6 +16,12 @@
 	<description>Wrapper of HtmlUnit used to navigate on JSF webapp</description>
 
 	<dependencies>
+		<!-- Logging -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j2</artifactId>
+		</dependency>
+
 		<!-- HtmlUnit -->
 		<dependency>
 			<groupId>net.sourceforge.htmlunit</groupId>

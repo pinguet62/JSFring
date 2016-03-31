@@ -20,7 +20,12 @@ import java.io.InputStream;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.WebIntegrationTest;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.gui.htmlunit.jasperreport.AbstractJasperReportPage;
 import fr.pinguet62.jsfring.gui.htmlunit.jasperreport.UsersRightsJasperReportPage;
 import fr.pinguet62.jsfring.gui.jasperreport.sample.UsersRightsJasperReportBean;
@@ -30,6 +35,9 @@ import fr.pinguet62.jsfring.gui.jasperreport.sample.UsersRightsJasperReportBean;
  * @see ExportType
  * @see AbstractJasperReportPage
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringApplicationConfiguration(SpringBootConfig.class)
+@WebIntegrationTest
 public final class ExportJasperReportITTest {
 
     private UsersRightsJasperReportPage page;

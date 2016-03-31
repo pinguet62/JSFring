@@ -23,6 +23,22 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- ===== CDI ===== -->
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+		</dependency>
+
+		<!-- Logging -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j2</artifactId>
+		</dependency>
+
 		<!-- JPA 2.0 -->
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
@@ -43,7 +59,6 @@
 		<dependency>
 			<groupId>com.lowagie</groupId>
 			<artifactId>itext</artifactId>
-			<version>2.1.7</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
