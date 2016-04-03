@@ -1,12 +1,11 @@
 package fr.pinguet62.jsfring.batch;
 
-import javax.inject.Inject;
-
 import org.springframework.batch.core.configuration.annotation.AbstractBatchConfiguration;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.SimpleBatchConfiguration;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.repository.JobRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -20,18 +19,19 @@ import org.springframework.transaction.PlatformTransactionManager;
  * @see SimpleBatchConfiguration
  */
 @Configuration
-public class FixBatchAdminConfig {
+public class FixBatchAdminConfig extends SimpleBatchConfiguration {
 
-    @Inject
+    @Autowired
     private JobRepository jobRepository;
 
-    @Inject
+    @Autowired
     private PlatformTransactionManager transactionManager;
 
     /** @see AbstractBatchConfiguration#jobBuilders() */
+    @Override
     @Bean
     @Primary
-    public JobBuilderFactory jobBuilders() throws Exception {
+    public JobBuilderFactory jobBuilders() {
         return new JobBuilderFactory(jobRepository);
     }
 
@@ -40,9 +40,10 @@ public class FixBatchAdminConfig {
      *
      * @see AbstractBatchConfiguration#stepBuilders()
      */
+    @Override
     @Bean
     @Primary
-    public StepBuilderFactory stepBuilders() throws Exception {
+    public StepBuilderFactory stepBuilders() {
         return new StepBuilderFactory(jobRepository, transactionManager);
     }
 

@@ -22,6 +22,7 @@
 		<module>jsfring-service</module>
 		<module>jsfring-task</module>
 		<module>jsfring-batch</module>
+		<module>jsfring-batch-admin</module>
 		<module>jsfring-webservice</module>
 		<module>jsfring-webapp-angularjs</module>
 		<module>jsfring-webapp-jsf</module>

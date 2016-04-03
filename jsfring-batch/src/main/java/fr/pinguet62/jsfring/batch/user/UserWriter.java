@@ -15,8 +15,8 @@ public class UserWriter extends RepositoryItemWriter<User> {
         setMethodName("save");
     }
 
-    @Inject
     @Override
+    @Inject
     public void setRepository(CrudRepository<User, ?> repository) {
         super.setRepository(repository);
     }
