@@ -272,7 +272,7 @@
 										<exclude>jacoco-it.exec</exclude>
 										<!-- Executables -->
 										<exclude>task-${project.version}.jar</exclude>
-										<exclude>batch-${project.version}.jar</exclude>
+										<exclude>batch-admin-${project.version}.jar</exclude>
 										<exclude>indexer-nosql-${project.version}.jar</exclude>
 										<exclude>webservice-${project.version}.war</exclude>
 										<exclude>webapp-angularjs-${project.version}.war</exclude>
