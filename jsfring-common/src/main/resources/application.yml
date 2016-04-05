@@ -6,31 +6,3 @@ spring:
         # Disable proxies
         auto: false
         proxy-target-class: false
-    #data.mongodb.uri: external config
-    datasource:
-        #url: external config
-    jpa:
-        hibernate:
-            # Lower/underscore conversion of table/column name
-            naming-strategy: org.hibernate.cfg.DefaultNamingStrategy
-        properties:
-            hibernate:
-                default_schema: public
-                dialect: org.hibernate.dialect.PostgreSQL9Dialect
-                format_sql: true
-                #globally_quoted_identifiers: true
-                use_sql_comments: false
-                temp.use_jdbc_metadata_defaults: false
-    mail:
-        #host: external config
-        #password: external config
-        #port: external config
-        test-connection: true
-        #username: external config
-security:
-    oauth2:
-        client:
-            clientId: clientId
-            clientSecret: clientSecret
-            authorized-grant-types: authorization_code, password, implicit, refresh_token
-            scope: read
