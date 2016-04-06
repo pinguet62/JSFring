@@ -21,9 +21,11 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.poi.POIXMLException;
 import org.apache.poi.hslf.usermodel.HSLFSlideShow;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hwpf.HWPFDocument;
+import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -40,7 +42,6 @@ import com.lowagie.text.pdf.PdfReader;
 
 import au.com.bytecode.opencsv.CSVReader;
 
-// TODO Exception: catch(Exception) to high level Exception
 /** Utility class used to verify is the format file is correct. */
 public final class FileFormatMatcher {
 
@@ -78,7 +79,7 @@ public final class FileFormatMatcher {
                 try {
                     new HWPFDocument(is);
                     return true;
-                } catch (Exception e) {
+                } catch (IOException | IllegalArgumentException e) {
                     return false;
                 }
             }
@@ -96,10 +97,9 @@ public final class FileFormatMatcher {
 
             @Override
             protected boolean matchesSafely(InputStream is) {
-                try {
-                    new XWPFDocument(is);
+                try (XWPFDocument docx = new XWPFDocument(is)) {
                     return true;
-                } catch (Exception e) {
+                } catch (IOException | POIXMLException e) {
                     return false;
                 }
             }
@@ -161,8 +161,7 @@ public final class FileFormatMatcher {
 
             @Override
             protected boolean matchesSafely(InputStream is) {
-                try {
-                    OdfPresentationDocument.loadDocument(is);
+                try (OdfPresentationDocument odp = OdfPresentationDocument.loadDocument(is)) {
                     return true;
                 } catch (Exception e) {
                     return false;
@@ -182,8 +181,7 @@ public final class FileFormatMatcher {
 
             @Override
             protected boolean matchesSafely(InputStream is) {
-                try {
-                    OdfSpreadsheetDocument.loadDocument(is);
+                try (OdfSpreadsheetDocument ods = OdfSpreadsheetDocument.loadDocument(is)) {
                     return true;
                 } catch (Exception e) {
                     return false;
@@ -203,8 +201,7 @@ public final class FileFormatMatcher {
 
             @Override
             protected boolean matchesSafely(InputStream is) {
-                try {
-                    OdfTextDocument.loadDocument(is);
+                try (OdfTextDocument odt = OdfTextDocument.loadDocument(is)) {
                     return true;
                 } catch (Exception e) {
                     return false;
@@ -245,10 +242,9 @@ public final class FileFormatMatcher {
 
             @Override
             protected boolean matchesSafely(InputStream is) {
-                try {
-                    new HSLFSlideShow(is);
+                try (HSLFSlideShow ppt = new HSLFSlideShow(is)) {
                     return true;
-                } catch (Exception e) {
+                } catch (IOException | OfficeXmlFileException e) {
                     return false;
                 }
             }
@@ -266,10 +262,9 @@ public final class FileFormatMatcher {
 
             @Override
             protected boolean matchesSafely(InputStream is) {
-                try {
-                    new XMLSlideShow(is);
+                try (XMLSlideShow pptx = new XMLSlideShow(is)) {
                     return true;
-                } catch (Exception e) {
+                } catch (IOException | POIXMLException e) {
                     return false;
                 }
             }
@@ -334,10 +329,9 @@ public final class FileFormatMatcher {
 
             @Override
             protected boolean matchesSafely(InputStream is) {
-                try {
-                    new HSSFWorkbook(is);
+                try (HSSFWorkbook xls = new HSSFWorkbook(is)) {
                     return true;
-                } catch (Exception e) {
+                } catch (IOException | IllegalArgumentException e) {
                     return false;
                 }
             }
@@ -355,10 +349,9 @@ public final class FileFormatMatcher {
 
             @Override
             protected boolean matchesSafely(InputStream is) {
-                try {
-                    new XSSFWorkbook(is);
+                try (XSSFWorkbook xlsx = new XSSFWorkbook(is)) {
                     return true;
-                } catch (Exception e) {
+                } catch (IOException | POIXMLException e) {
                     return false;
                 }
             }
