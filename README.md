@@ -23,6 +23,7 @@ Layers :
 		* <img src="https://jersey.java.net/images/jersey_logo.png" height="25" />
 			[Jersey](https://jersey.java.net)
 	* <img src="http://oauth.net/images/oauth-2-sm.png" height="25" /> <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> [OAuth2](http://oauth.net/2)
+	* <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> [Spring security](http://projects.spring.io/spring-security)
 * Webapp:
 	* Java
 		* <img src="https://upload.wikimedia.org/wikipedia/en/thumb/7/75/20110510-jsf-logo.tiff/lossless-page1-320px-20110510-jsf-logo.tiff.png" height="25" /> **JSF**
@@ -37,6 +38,9 @@ Layers :
 			* <img src="https://angular-translate.github.io/img/logo/angular-translate-alternative/angular-translate_alternative_medium2.png" height="25" /> [Angular Translate](https://angular-translate.github.io)
 			* [ngDialog](http://ngmodules.org/modules/ngDialog)
 			* [UI Grid](http://ui-grid.info)
+* Batch:
+	* <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> [Spring batch](http://projects.spring.io/spring-batch)
+	* [Spring batch admin](http://docs.spring.io/spring-batch-admin)
 
 Transverse :
 * *Transverse*
@@ -130,6 +134,7 @@ Multi web-application deployed on cloud... in continue!
 * Webapp:
 	* JSF: <img src="https://d3k90kvix375hb.cloudfront.net/assets/logo-purple.svg" height="25" /> [Heroku](https://www.heroku.com/home) [![Deploy](https://www.herokucdn.com/deploy/button.png)](http://jsfring-webapp-jsf.herokuapp.com)
 	* AngularJS: <img src="https://d3k90kvix375hb.cloudfront.net/assets/logo-purple.svg" height="25" /> [Heroku](https://www.heroku.com/home) [![Deploy](https://www.herokucdn.com/deploy/button.png)](http://jsfring-webapp-angularjs.herokuapp.com)
+	* Batch-admin: <img src="https://d3k90kvix375hb.cloudfront.net/assets/logo-purple.svg" height="25" /> [Heroku](https://www.heroku.com/home) [![Deploy](https://www.herokucdn.com/deploy/button.png)](http://jsfring-batch-admin.herokuapp.com)
 * Webservice: <img src="https://d3k90kvix375hb.cloudfront.net/assets/logo-purple.svg" height="25" /> [Heroku](https://www.heroku.com/home) [![Deploy](https://www.herokucdn.com/deploy/button.png)](http://jsfring-webservice.herokuapp.com)
 
 ## Documentation
