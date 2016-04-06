@@ -5,11 +5,11 @@ import static java.lang.Character.isWhitespace;
 import static javax.imageio.ImageIO.read;
 import static javax.xml.parsers.DocumentBuilderFactory.newInstance;
 import static org.apache.commons.io.IOUtils.toByteArray;
-import static org.jsoup.Jsoup.parse;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.util.zip.ZipInputStream;
 
 import javax.imageio.ImageIO;
@@ -20,7 +20,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.poi.POIXMLException;
 import org.apache.poi.hslf.usermodel.HSLFSlideShow;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -36,6 +35,7 @@ import org.jsoup.Jsoup;
 import org.odftoolkit.odfdom.doc.OdfPresentationDocument;
 import org.odftoolkit.odfdom.doc.OdfSpreadsheetDocument;
 import org.odftoolkit.odfdom.doc.OdfTextDocument;
+import org.w3c.tidy.Tidy;
 import org.xml.sax.SAXException;
 
 import com.lowagie.text.pdf.PdfReader;
@@ -117,14 +117,9 @@ public final class FileFormatMatcher {
 
             @Override
             protected boolean matchesSafely(InputStream is) {
-                try {
-                    String html = IOUtils.toString(is);
-                    // TODO Jsoup doesn't throw Exception
-                    parse(html);
-                    return true;
-                } catch (IOException e) {
-                    return false;
-                }
+                Tidy tidy = new Tidy();
+                tidy.parse(is, new StringWriter());
+                return tidy.getParseErrors() == 0;
             }
         };
     }

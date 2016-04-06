@@ -74,15 +74,21 @@
 			<groupId>org.odftoolkit</groupId>
 			<artifactId>odfdom-java</artifactId>
 		</dependency>
+		<!-- PDF -->
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+		</dependency>
 		<!-- HTML -->
 		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
 		</dependency>
-		<!-- PDF -->
+		<!-- Html validator -->
 		<dependency>
-			<groupId>com.lowagie</groupId>
-			<artifactId>itext</artifactId>
+			<groupId>net.sf.jtidy</groupId>
+			<artifactId>jtidy</artifactId>
+			<version>r938</version>
 		</dependency>
 
 		<!-- ===== BdUnit ===== -->
