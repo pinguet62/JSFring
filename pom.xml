@@ -19,6 +19,7 @@
 		<module>jsfring-common-test</module>
 		<module>jsfring-model</module>
 		<module>jsfring-dao</module>
+		<!--<module>jsfring-indexer-nosql</module>-->
 		<module>jsfring-service</module>
 		<module>jsfring-task</module>
 		<module>jsfring-batch</module>
@@ -27,7 +28,6 @@
 		<module>jsfring-webapp-angularjs</module>
 		<module>jsfring-webapp-jsf</module>
 		<module>jsfring-webapp-jsf-htmlunit</module>
-		<!-- <module>jsfring-indexer-nosql</module> -->
 	</modules>
 
 	<properties>
@@ -271,9 +271,9 @@
 										<exclude>jacoco.exec</exclude>
 										<exclude>jacoco-it.exec</exclude>
 										<!-- Executables -->
+										<exclude>indexer-nosql-${project.version}.jar</exclude>
 										<exclude>task-${project.version}.jar</exclude>
 										<exclude>batch-admin-${project.version}.jar</exclude>
-										<exclude>indexer-nosql-${project.version}.jar</exclude>
 										<exclude>webservice-${project.version}.war</exclude>
 										<exclude>webapp-angularjs-${project.version}.war</exclude>
 										<exclude>webapp-jsf-${project.version}.war</exclude>
