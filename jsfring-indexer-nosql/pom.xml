@@ -19,14 +19,14 @@
 		<!-- Project -->
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>common-test</artifactId>
+			<artifactId>dao</artifactId>
 			<version>${project.version}</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>dao</artifactId>
+			<artifactId>common-test</artifactId>
 			<version>${project.version}</version>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>
