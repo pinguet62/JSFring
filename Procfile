@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -jar $JAR_FILE
+web: java $JAVA_OPTS -Dserver.port=$PORT -jar $JAR_FILE
