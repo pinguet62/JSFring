@@ -28,7 +28,7 @@ import org.springframework.data.repository.CrudRepository;
  */
 public class CrudRepositoryItemWriter<T> implements ItemWriter<T> {
 
-    private static final Logger LOGGER = getLogger(CrudRepositoryItemWriterTest.class);
+    private static final Logger LOGGER = getLogger(CrudRepositoryItemWriter.class);
 
     @Inject
     private CrudRepository<T, ?> repository;
