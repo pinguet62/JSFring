@@ -12,7 +12,7 @@
 	<artifactId>batch-admin</artifactId>
 	<packaging>war</packaging>
 
-	<name>Batch</name>
+	<name>Batch admin webapp</name>
 	<description>Batchs admin webapp</description>
 
 	<dependencies>
