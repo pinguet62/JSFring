@@ -11,9 +11,12 @@
 		<Root level="INFO">
 			<AppenderRef ref="Console" />
 		</Root>
+
+		<!-- HtmlUnit -->
 		<Logger name="com.gargoylesoftware.htmlunit" level="OFF">
 			<AppenderRef ref="Console" />
 		</Logger>
+		<!-- OpenDocument -->
 		<Logger name="org.odftoolkit.odfdom.pkg.OdfPackage" level="OFF">
 			<AppenderRef ref="Console" />
 		</Logger>

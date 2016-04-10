@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.gui.htmlunit;
 
+import static java.io.File.createTempFile;
 import static java.lang.Thread.sleep;
 import static java.util.stream.Collectors.joining;
 import static org.slf4j.LoggerFactory.getLogger;
@@ -65,7 +66,11 @@ public class AbstractPage {
 
     /** Initialize the {@link #TMP_FILE}. */
     static {
-        TMP_FILE = new File("C:\\Users\\Pinguet62\\Downloads\\out.html");
+        try {
+            TMP_FILE = createTempFile("jsfring-", null);
+        } catch (IOException e) {
+            throw new NavigatorException(e);
+        }
         LOGGER.debug("Temporary file: {}", TMP_FILE);
     }
 
@@ -109,10 +114,6 @@ public class AbstractPage {
     protected HtmlPage page;
 
     protected final WebClient webClient = new WebClient();
-
-    {
-        java.util.logging.Logger.getLogger("com.gargoylesoftware").setLevel(java.util.logging.Level.OFF);
-    }
 
     /**
      * Constructor used by classes that inherit.
