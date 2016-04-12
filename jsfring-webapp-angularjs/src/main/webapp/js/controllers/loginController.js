@@ -18,7 +18,7 @@
 				'client_id': 'clientId',
 				'response_type': 'token',
 				'scope': 'read',
-				'redirect_uri': 'http://localhost:8080'
+				'redirect_uri': window.location.protocol + "//" + window.location.host + window.location.pathname
 			})
 			var authorizeUrl = oauthUrl + '/oauth/authorize' + '?' + query
 			window.location.replace(authorizeUrl)
