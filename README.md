@@ -8,7 +8,7 @@ Integration of Spring into JSF project.
 
 Layers :
 * Data access
-	* <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> [**Spring Data**](http://projects.spring.io/spring-data)
+	* <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> <img src="https://www.javacodegeeks.com/wp-content/uploads/2014/07/spring-data-project.png" height="25" /> [**Spring Data**](http://projects.spring.io/spring-data)
 	* Databases :
 		* SQL
 			* **JPA**
@@ -23,12 +23,12 @@ Layers :
 		* <img src="https://jersey.java.net/images/jersey_logo.png" height="25" />
 			[Jersey](https://jersey.java.net)
 	* <img src="http://oauth.net/images/oauth-2-sm.png" height="25" /> <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> [OAuth2](http://oauth.net/2)
-	* <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> [Spring security](http://projects.spring.io/spring-security)
+	* <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> <img src="https://www.javacodegeeks.com/wp-content/uploads/2014/07/spring-security-project.png" height="25" /> [Spring security](http://projects.spring.io/spring-security)
 * Webapp:
 	* Java
 		* <img src="https://upload.wikimedia.org/wikipedia/en/thumb/7/75/20110510-jsf-logo.tiff/lossless-page1-320px-20110510-jsf-logo.tiff.png" height="25" /> **JSF**
 			* <img src="http://www.primefaces.org/images/logo.png" height="25" /> [**PrimeFaces**](http://primefaces.org)
-		* <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> [Spring security](http://projects.spring.io/spring-security)
+		* <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> <img src="https://www.javacodegeeks.com/wp-content/uploads/2014/07/spring-security-project.png" height="25" /> [Spring security](http://projects.spring.io/spring-security)
 			* Taglib (JSF integration)
 	* <img src="https://angularjs.org/img/AngularJS-large.png" height="25" /> [**AngularJS**](https://angularjs.org)
 		* <img src="http://www.webjars.org/assets/logo.png" height="25" /> [WebJars](http://www.webjars.org)
@@ -39,7 +39,7 @@ Layers :
 			* [ngDialog](http://ngmodules.org/modules/ngDialog)
 			* [UI Grid](http://ui-grid.info)
 * Batch:
-	* <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> [Spring batch](http://projects.spring.io/spring-batch)
+	* <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> <img src="https://www.javacodegeeks.com/wp-content/uploads/2014/07/spring-batch-project.png" height="25" /> [Spring batch](http://projects.spring.io/spring-batch)
 	* [Spring batch admin](http://docs.spring.io/spring-batch-admin)
 
 Transverse :
