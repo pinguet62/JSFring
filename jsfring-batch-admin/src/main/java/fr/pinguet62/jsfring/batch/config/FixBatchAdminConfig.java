@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.batch;
+package fr.pinguet62.jsfring.batch.config;
 
 import org.springframework.batch.core.configuration.annotation.AbstractBatchConfiguration;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -27,7 +27,11 @@ public class FixBatchAdminConfig extends SimpleBatchConfiguration {
     @Autowired
     private PlatformTransactionManager transactionManager;
 
-    /** @see AbstractBatchConfiguration#jobBuilders() */
+    /**
+     * {@link Override} default Spring-Boot application who fail during initialization.
+     * 
+     * @see AbstractBatchConfiguration#jobBuilders()
+     */
     @Override
     @Bean
     @Primary

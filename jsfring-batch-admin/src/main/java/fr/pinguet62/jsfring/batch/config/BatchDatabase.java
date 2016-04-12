@@ -1,6 +1,6 @@
-package fr.pinguet62.jsfring.batch;
+package fr.pinguet62.jsfring.batch.config;
 
-import static fr.pinguet62.jsfring.batch.BatchDatabase.DATABASE;
+import static fr.pinguet62.jsfring.batch.config.BatchDatabase.DATABASE;
 
 import java.util.Properties;
 

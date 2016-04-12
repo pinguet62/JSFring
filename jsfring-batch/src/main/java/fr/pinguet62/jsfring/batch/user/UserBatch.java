@@ -21,9 +21,6 @@ public class UserBatch {
     private JobBuilderFactory jobBuilderFactory;
 
     @Autowired
-    private JobExecutionListener listener;
-
-    @Autowired
     private UserProcessor processor;
 
     @Autowired
@@ -37,8 +34,16 @@ public class UserBatch {
 
     @Bean
     public Job importUserJob() {
-        return jobBuilderFactory.get("importUserJob").incrementer(new RunIdIncrementer()).listener(listener)
-                .flow(step()).end().build();
+        // @formatter:off
+        return jobBuilderFactory
+                .get("importUserJob")
+                .incrementer(new RunIdIncrementer())
+//                .listener(listener)
+//                .flow(step())
+//                .end()
+                .start(step())
+                .build();
+        // @formatter:on
     }
 
     @Bean
@@ -48,8 +53,15 @@ public class UserBatch {
 
     @Bean
     public Step step() {
-        return stepBuilderFactory.get("step1").<UserRow, User> chunk(10).reader(reader).processor(processor)
-                .writer(writer).build();
+        // @formatter:off
+        return stepBuilderFactory
+                .get("step1")
+                .<UserRow, User> chunk(10)
+                .reader(reader)
+                .processor(processor)
+                .writer(writer)
+                .build();
+        // @formatter:on
     }
 
 }

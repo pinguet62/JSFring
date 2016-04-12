@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.batch;
+package fr.pinguet62.jsfring.batch.config;
 
 import javax.sql.DataSource;
 
@@ -14,14 +14,8 @@ import org.springframework.context.annotation.ImportResource;
         "classpath:/org/springframework/batch/admin/web/resources/servlet-config.xml" })
 public class BatchAdminConfig {
 
-    // @Override
-    // @Autowired
-    // public void setDataSource(@Qualifier(DATABASE) DataSource dataSource) {
-    // super.setDataSource(dataSource);
-    // }
-
     @Bean
-    BatchConfigurer configurer(@Qualifier("batchDataSource") DataSource dataSource) {
+    public BatchConfigurer configurer(@Qualifier("batchDataSource") DataSource dataSource) {
         return new DefaultBatchConfigurer(dataSource);
     }
 
