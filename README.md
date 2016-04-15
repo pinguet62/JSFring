@@ -78,7 +78,7 @@ Utils :
 * Logging
 	* <img src="http://logz.io/wp-content/uploads/2015/12/logstash-logo.png" height="25" /> [Logstash](https://www.elastic.co/products/logstash)
 
-### Version
+## Continuous Updating
 
 All dependencies use the latest version.
 
@@ -104,7 +104,7 @@ Check that *source code* respect *best practices*:
 
 ## Build & Test
 
-### Continue Integration
+### Continuous Integration
 
 Build and run unit/integration tests, in continue!
 
