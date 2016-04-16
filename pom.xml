@@ -302,22 +302,6 @@
 		</plugins>
 	</reporting>
 
-	<!-- Fix: Maven WARNING dependencies download -->
-	<repositories>
-		<repository>
-			<id>gemfire</id>
-			<url>http://repo.spring.io/gemstone-release-cache</url>
-		</repository>
-		<repository>
-			<id>spring-libs-snapshot</id>
-			<url>http://repo.spring.io/libs-snapshot</url>
-		</repository>
-		<repository>
-			<id>jaspersoft</id>
-			<url>http://jaspersoft.artifactoryonline.com/jaspersoft/third-party-ce-artifacts</url>
-		</repository>
-	</repositories>
-
 	<scm>
 		<url>https://github.com/pinguet62/JSFring</url>
 	</scm>
