@@ -34,7 +34,7 @@ after_success:
     # Site: generate
     - mvn site
     # Site: deploy to GitHub pages
-    - mvn --non-recursive com.github.github:site-maven-plugin:site
+    # Disabled: - mvn --non-recursive com.github.github:site-maven-plugin:site
 
 # Information about failure
 after_failure:
