@@ -19,7 +19,7 @@
 		<module>jsfring-common-test</module>
 		<module>jsfring-model</module>
 		<module>jsfring-dao</module>
-		<!--<module>jsfring-indexer-nosql</module> -->
+		<!-- <module>jsfring-indexer-nosql</module> -->
 		<module>jsfring-service</module>
 		<module>jsfring-task</module>
 		<module>jsfring-batch</module>
@@ -116,6 +116,7 @@
 				<version>3.9.1</version>
 				<configuration>
 					<apiKey>46d9490ff8220b44cdd1</apiKey>
+					<ignoreDependencyManagement>true</ignoreDependencyManagement>
 				</configuration>
 			</plugin>
 
