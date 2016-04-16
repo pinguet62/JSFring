@@ -31,8 +31,10 @@ after_success:
     # Codecov.io: publish
     - codecov
     
-    # Site: generate + deploy to GitHub
-    - mvn site site:stage-deploy
+    # Site: generate
+    - mvn site
+    # Site: deploy to GitHub pages
+    - mvn --non-recursive com.github.github:site-maven-plugin:site
 
 # Information about failure
 after_failure:
