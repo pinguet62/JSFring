@@ -1,0 +1,12 @@
+{
+  "name": "jsangle",
+  "version": "0.0.0",
+  "description": "Description for angularjs",
+  "private": true,
+  "dependencies": {
+    "bower": "^1.6.3"
+  },
+  "engines": {
+    "node": "^4.3"
+  }
+}
