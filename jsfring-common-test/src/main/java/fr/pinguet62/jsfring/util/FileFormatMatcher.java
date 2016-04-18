@@ -6,6 +6,7 @@ import static javax.imageio.ImageIO.read;
 import static javax.xml.parsers.DocumentBuilderFactory.newInstance;
 import static org.apache.commons.io.IOUtils.toByteArray;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -24,6 +25,8 @@ import org.apache.poi.POIXMLException;
 import org.apache.poi.hslf.usermodel.HSLFSlideShow;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hwpf.HWPFDocument;
+import org.apache.poi.openxml4j.exceptions.NotOfficeXmlFileException;
+import org.apache.poi.poifs.filesystem.NotOLE2FileException;
 import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -37,6 +40,7 @@ import org.odftoolkit.odfdom.doc.OdfSpreadsheetDocument;
 import org.odftoolkit.odfdom.doc.OdfTextDocument;
 import org.w3c.tidy.Tidy;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 import com.lowagie.text.pdf.PdfReader;
 
@@ -99,8 +103,10 @@ public final class FileFormatMatcher {
             protected boolean matchesSafely(InputStream is) {
                 try (XWPFDocument docx = new XWPFDocument(is)) {
                     return true;
-                } catch (IOException | POIXMLException e) {
+                } catch (NotOfficeXmlFileException | POIXMLException e) {
                     return false;
+                } catch (IOException e) {
+                    throw new IllegalArgumentException(e);
                 }
             }
         };
@@ -158,8 +164,10 @@ public final class FileFormatMatcher {
             protected boolean matchesSafely(InputStream is) {
                 try (OdfPresentationDocument odp = OdfPresentationDocument.loadDocument(is)) {
                     return true;
-                } catch (Exception e) {
+                } catch (NullPointerException | IllegalArgumentException | ClassCastException e) {
                     return false;
+                } catch (Exception e) {
+                    throw new IllegalArgumentException(e);
                 }
             }
         };
@@ -178,8 +186,10 @@ public final class FileFormatMatcher {
             protected boolean matchesSafely(InputStream is) {
                 try (OdfSpreadsheetDocument ods = OdfSpreadsheetDocument.loadDocument(is)) {
                     return true;
-                } catch (Exception e) {
+                } catch (NullPointerException | IllegalArgumentException | ClassCastException e) {
                     return false;
+                } catch (Exception e) {
+                    throw new IllegalArgumentException(e);
                 }
             }
         };
@@ -198,8 +208,10 @@ public final class FileFormatMatcher {
             protected boolean matchesSafely(InputStream is) {
                 try (OdfTextDocument odt = OdfTextDocument.loadDocument(is)) {
                     return true;
-                } catch (Exception e) {
+                } catch (NullPointerException | IllegalArgumentException | ClassCastException e) {
                     return false;
+                } catch (Exception e) {
+                    throw new IllegalArgumentException(e);
                 }
             }
         };
@@ -239,8 +251,10 @@ public final class FileFormatMatcher {
             protected boolean matchesSafely(InputStream is) {
                 try (HSLFSlideShow ppt = new HSLFSlideShow(is)) {
                     return true;
-                } catch (IOException | OfficeXmlFileException e) {
+                } catch (OfficeXmlFileException | NotOLE2FileException | FileNotFoundException e) {
                     return false;
+                } catch (IOException ioException) {
+                    throw new IllegalArgumentException(ioException);
                 }
             }
         };
@@ -259,8 +273,10 @@ public final class FileFormatMatcher {
             protected boolean matchesSafely(InputStream is) {
                 try (XMLSlideShow pptx = new XMLSlideShow(is)) {
                     return true;
-                } catch (IOException | POIXMLException e) {
+                } catch (POIXMLException | NotOfficeXmlFileException e) {
                     return false;
+                } catch (IOException e) {
+                    throw new IllegalArgumentException(e);
                 }
             }
         };
@@ -282,8 +298,10 @@ public final class FileFormatMatcher {
                 try {
                     rtfParser.read(is, document, 0);
                     return true;
-                } catch (IOException | BadLocationException | NumberFormatException e) {
+                } catch (NumberFormatException | IOException e) {
                     return false;
+                } catch (BadLocationException e) {
+                    throw new IllegalArgumentException(e);
                 }
             }
         };
@@ -326,8 +344,10 @@ public final class FileFormatMatcher {
             protected boolean matchesSafely(InputStream is) {
                 try (HSSFWorkbook xls = new HSSFWorkbook(is)) {
                     return true;
-                } catch (IOException | IllegalArgumentException e) {
+                } catch (NotOLE2FileException | IllegalArgumentException e) {
                     return false;
+                } catch (IOException e) {
+                    throw new IllegalArgumentException(e);
                 }
             }
         };
@@ -346,11 +366,14 @@ public final class FileFormatMatcher {
             protected boolean matchesSafely(InputStream is) {
                 try (XSSFWorkbook xlsx = new XSSFWorkbook(is)) {
                     return true;
-                } catch (IOException | POIXMLException e) {
+                } catch (POIXMLException | NotOfficeXmlFileException e) {
                     return false;
+                } catch (IOException e) {
+                    throw new IllegalArgumentException(e);
                 }
             }
         };
+
     }
 
     /**
@@ -369,8 +392,10 @@ public final class FileFormatMatcher {
                     DocumentBuilder builder = factory.newDocumentBuilder();
                     builder.parse(is);
                     return true;
-                } catch (ParserConfigurationException | SAXException | IOException e) {
+                } catch (SAXParseException e) {
                     return false;
+                } catch (ParserConfigurationException | SAXException | IOException e) {
+                    throw new IllegalArgumentException(e);
                 }
             }
         };
@@ -387,7 +412,12 @@ public final class FileFormatMatcher {
 
             @Override
             protected boolean matchesSafely(InputStream is) {
-                new ZipInputStream(is);
+                ZipInputStream zipInputStream = new ZipInputStream(is);
+                try {
+                    while ((zipInputStream.getNextEntry()) != null) {}
+                } catch (IOException e) {
+                    return false;
+                }
                 return true;
             }
         };
