@@ -30,18 +30,16 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-
-			<plugin>
 				<groupId>com.github.eirslett</groupId>
 				<artifactId>frontend-maven-plugin</artifactId>
 				<version>1.0</version>
+				<configuration>
+					<workingDirectory>src/main/webapp/</workingDirectory>
+				</configuration>
 				<executions>
 					<execution>
 						<!-- Install Node.js -->
-						<id>install node and npm</id>
+						<id>node.js</id>
 						<phase>generate-resources</phase>
 						<goals>
 							<goal>install-node-and-npm</goal>
@@ -58,18 +56,27 @@
 						<goals>
 							<goal>npm</goal>
 						</goals>
-					</execution>
-					<execution>
-						<!-- Generate all Bower dependencies -->
-						<id>bower install</id>
-						<goals>
-							<goal>bower</goal>
-						</goals>
 						<configuration>
 							<arguments>install</arguments>
 						</configuration>
 					</execution>
+					<execution>
+						<!-- Run TypeScript compilation -->
+						<id>npm run tsc</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>run tsc</arguments>
+						</configuration>
+					</execution>
 				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
