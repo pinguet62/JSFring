@@ -31,7 +31,6 @@ Layers :
 		* <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> <img src="https://www.javacodegeeks.com/wp-content/uploads/2014/07/spring-security-project.png" height="25" /> [Spring security](http://projects.spring.io/spring-security)
 			* Taglib (JSF integration)
 	* <img src="https://angularjs.org/img/AngularJS-large.png" height="25" /> [**AngularJS**](https://angularjs.org)
-		* <img src="http://www.webjars.org/assets/logo.png" height="25" /> [WebJars](http://www.webjars.org)
 		* <img src="https://upload.wikimedia.org/wikipedia/fr/1/13/TwitterBootstrap.png" height="25" /> [**Bootstrap**](http://getbootstrap.com)
 		* AngularJS modules:
 			* <img src="http://angular-ui.github.io/bootstrap/assets/favicon.ico" height="25" /> [UI Bootstrap](https://angular-ui.github.io/bootstrap)
