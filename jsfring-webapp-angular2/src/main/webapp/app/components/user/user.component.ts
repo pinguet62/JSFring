@@ -14,12 +14,12 @@ import {User} from '../../dto/User';
 })
 export class UserComponent implements OnInit {
 
-    users: User[];
+    values: Array<User>;
 
-    constructor(private _userService: UserService) { }
+    constructor(private userService: UserService) { }
 
     ngOnInit() {
-        this.users = this._userService.getValues();
+        this.userService.findAll().subscribe(res => this.values = res);
     }
 
 }

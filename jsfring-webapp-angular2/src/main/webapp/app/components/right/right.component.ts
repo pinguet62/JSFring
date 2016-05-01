@@ -14,12 +14,12 @@ import {Right} from '../../dto/Right';
 })
 export class RightComponent implements OnInit {
 
-    rights: Right[];
+    values: Array<Right>;
 
-    constructor(private _rightService: RightService) { }
+    constructor(private rightService: RightService) { }
 
     ngOnInit() {
-        this.rights = this._rightService.getValues();
+        this.rightService.findAll().subscribe(res => this.values = res);
     }
 
 }

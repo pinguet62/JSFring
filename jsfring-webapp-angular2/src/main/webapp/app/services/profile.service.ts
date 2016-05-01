@@ -1,23 +1,16 @@
 import {Injectable} from 'angular2/core';
+import {Http} from 'angular2/src/http/http';
 
+import {CrudService} from './crud.service';
 import {Profile} from '../dto/Profile';
 
 @Injectable()
-export class ProfileService {
+export class ProfileService extends CrudService<Profile> {
 
-    getValues(): Array<Profile> { // Mocked
-        return [
-            {
-                id: 1,
-                title: 'Profile admin',
-                rights: ['RIGHT_RO', 'PROFILE_RO', 'PROFILE_RW']
-            },
-            {
-                id: 2,
-                title: 'User admin',
-                rights: ['PROFILE_RO', 'USER_RO', 'USER_RW']
-            }
-        ];
+    constructor(private http: Http) { super(http); }
+
+    getServiceSubUrl(): string {
+        return '/profile';
     }
 
 }

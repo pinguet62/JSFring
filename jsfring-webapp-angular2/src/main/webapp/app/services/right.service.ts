@@ -1,33 +1,16 @@
 import {Injectable} from 'angular2/core';
+import {Http} from 'angular2/src/http/http';
 
+import {CrudService} from './crud.service';
 import {Right} from '../dto/Right';
 
 @Injectable()
-export class RightService {
+export class RightService extends CrudService<Right> {
 
-    getValues(): Array<Right> { // Mocked
-        return [
-            {
-                code: 'RIGHT_RO',
-                title: 'Affichage des droits'
-            },
-            {
-                code: 'PROFILE_RO',
-                title: 'Affichage des profils'
-            },
-            {
-                code: 'PROFILE_RW',
-                title: 'Edition des profils'
-            },
-            {
-                code: 'USER_RO',
-                title: 'Affichage des utilisateurs'
-            },
-            {
-                code: 'USER_RW',
-                title: 'Edition des utilisateurs'
-            }
-        ];
+    constructor(private http: Http) { super(http); }
+
+    getServiceSubUrl(): string {
+        return '/right';
     }
 
 }

@@ -14,12 +14,12 @@ import {Profile} from '../../dto/Profile';
 })
 export class ProfileComponent implements OnInit {
 
-    profiles: Profile[];
+    values: Array<Profile>;
 
-    constructor(private _profileService: ProfileService) { }
+    constructor(private profileService: ProfileService) { }
 
     ngOnInit() {
-        this.profiles = this._profileService.getValues();
+        this.profileService.findAll().subscribe(res => this.values = res);
     }
 
 }

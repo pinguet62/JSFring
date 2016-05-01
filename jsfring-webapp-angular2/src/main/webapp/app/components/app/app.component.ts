@@ -23,7 +23,7 @@ import {UserComponent} from '../user/user.component';
         component: ProfileComponent
     },
     {
-        path: '/users',
+        path: '/Users',
         name: 'Users',
         component: UserComponent
     }
