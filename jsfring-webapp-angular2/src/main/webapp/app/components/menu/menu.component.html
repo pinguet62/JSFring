@@ -1,5 +1,16 @@
+<p-menubar>
 <ul>
-	<li><a [routerLink]="['Rights']">Rights</a></li>
-	<li><a [routerLink]="['Profiles']">Profiles</a></li>
-	<li><a [routerLink]="['Users']">Users</a></li>
+	<li><a data-icon="fa-home"><span>Index</span></a></li>
+	<li><a data-icon="fa-gear"><span>Administration</span></a>
+		<ul>
+			<li><a [routerLink]="['Users']" data-icon="fa-user"><span>Users</span></a></li>
+			<li><a [routerLink]="['Profiles']" data-icon="fa-flag"><span>Profiles</span></a></li>
+			<li><a [routerLink]="['Rights']" data-icon="fa-flag"><span>Rights</span></a></li>
+		</ul></li>
+	<li><a data-icon="fa-edit">Rapports</a>
+		<ul>
+			<li><a><span>Users's profiles</span></a></li>
+			<li><a><span>Parameters</span></a></li>
+		</ul></li>
 </ul>
+</p-menubar>
