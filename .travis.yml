@@ -13,28 +13,27 @@ before_install:
     # Disabled: - mvn versioneye:update
     
     # Codecov.io: install
-    - pip install --user codecov
+    # - pip install --user codecov
 
-# Default: 'mvn test -B'
+#install: # Default: `mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V`
+
 # Override: add integration-test Maven phase
-script:
+script: # Default: `mvn test -B`
     # Spring-Boot: external config: use "spring.application.json" command line argument
     - mvn -B -Dspring.application.json="$SPRING_APPLICATION_JSON" verify
+    
+    # Site: generate
+    # Disabled: - mvn site
 
 # Reporting
 after_success:
-    # JaCoCo: workaround: 'jacoco:report@post-integration-test' not working
+    # JaCoCo: workaround: Maven `jacoco:report@post-integration-test` goal not working
     - mvn verify -DskipTests -B
     
     # Coveralls.io: publish
     - mvn coveralls:report
     # Codecov.io: publish
     - codecov
-    
-    # Site: generate
-    - mvn site
-    # Site: deploy to GitHub pages
-    # Disabled: - mvn --non-recursive com.github.github:site-maven-plugin:site
 
 # Information about failure
 after_failure:
@@ -42,3 +41,14 @@ after_failure:
     - sudo free -m -t
     # show actions of the OOM killer
     - sudo dmesg
+
+# Deploy
+after_script:
+    # Heroku: each application
+    - mvn -DskipTests heroku:deploy -pl jsfring-batch-admin
+    - mvn -DskipTests heroku:deploy -pl jsfring-webservice
+    - mvn -DskipTests heroku:deploy -pl jsfring-webapp-angularjs
+    - mvn -DskipTests heroku:deploy -pl jsfring-webapp-jsf
+    
+    # Site: GitHub pages
+    # Disabled: - mvn --non-recursive com.github.github:site-maven-plugin:site

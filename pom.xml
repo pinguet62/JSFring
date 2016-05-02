@@ -11,7 +11,7 @@
 
 	<groupId>fr.pinguet62.jsfring</groupId>
 	<artifactId>jsfring</artifactId>
-	<version>${global.version}</version>
+	<version>1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<modules>
@@ -31,7 +31,6 @@
 	</modules>
 
 	<properties>
-		<global.version>1.0-SNAPSHOT</global.version>
 		<java.version>1.8</java.version>
 		<dependency.locations.enabled>false</dependency.locations.enabled>
 		<!-- Dependencies -->
@@ -253,39 +252,21 @@
 				</executions>
 			</plugin>
 
-			<!-- Heroku: reducing the Slug size -->
+			<!-- Usage: mvn heroku:deploy -pl %MODULE% -->
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-clean-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>install</phase>
-						<goals>
-							<goal>clean</goal>
-						</goals>
-						<configuration>
-							<excludeDefaultDirectories>true</excludeDefaultDirectories>
-							<filesets>
-								<fileset>
-									<directory>target</directory>
-									<excludes>
-										<!-- Reports -->
-										<exclude>site/**</exclude>
-										<exclude>jacoco.exec</exclude>
-										<exclude>jacoco-it.exec</exclude>
-										<!-- Executables -->
-										<exclude>indexer-nosql-${project.version}.jar</exclude>
-										<exclude>task-${project.version}.jar</exclude>
-										<exclude>batch-admin-${project.version}.war</exclude>
-										<exclude>webservice-${project.version}.war</exclude>
-										<exclude>webapp-angularjs-${project.version}.war</exclude>
-										<exclude>webapp-jsf-${project.version}.war</exclude>
-									</excludes>
-								</fileset>
-							</filesets>
-						</configuration>
-					</execution>
-				</executions>
+				<groupId>com.heroku.sdk</groupId>
+				<artifactId>heroku-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<configuration>
+					<includeTarget>false</includeTarget>
+					<includes>
+						<include>jsfring-${project.artifactId}/target/${project.artifactId}-${project.version}.${project.packaging}</include>
+					</includes>
+					<appName>jsfring-${project.artifactId}</appName>
+					<processTypes>
+						<web>java $JAVA_OPTS -Dserver.port=$PORT -jar target/${project.artifactId}-${project.version}.${project.packaging}</web>
+					</processTypes>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
