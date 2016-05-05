@@ -1,25 +1,20 @@
 import {Component, OnInit} from 'angular2/core';
 
-import {DataTable} from 'primeng/primeng';
-import {Column} from 'primeng/primeng';
+import {Column, InputText} from 'primeng/primeng';
+import {Datatable, DatatableColumns} from '../datatable/datatable'
 
 import {ProfileService} from '../../services/profile.service';
-import {Profile} from '../../dto/Profile';
 
 @Component({
     selector: 'profile',
     templateUrl: './app/components/profile/profile.component.html',
-    directives: [DataTable, Column],
+    directives: [Datatable, DatatableColumns, Column, InputText],
     providers: [ProfileService]
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent {
 
-    values: Array<Profile>;
+    selectedPRofil: any;
 
-    constructor(private profileService: ProfileService) { }
-
-    ngOnInit() {
-        this.profileService.findAll().subscribe(res => this.values = res);
-    }
+    constructor(public profileService: ProfileService) { }
 
 }

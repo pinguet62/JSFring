@@ -7,7 +7,7 @@ import {Right} from '../dto/Right';
 @Injectable()
 export class RightService extends CrudService<Right> {
 
-    constructor(private http: Http) { super(http); }
+    constructor(protected http: Http) { super(http); }
 
     getServiceSubUrl(): string {
         return '/right';

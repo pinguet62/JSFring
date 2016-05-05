@@ -1,4 +1,29 @@
-<p-dataTable [value]="values">
-	<p-column field="code" header="Code"></p-column>
-	<p-column field="title" header="Title"></p-column>
-</p-dataTable>
+<p62-datatable [service]="rightService" [(selectedValue)]="selectedRight">
+
+	<p62-datatable-columns>
+		<p-column field="code" header="Code"></p-column>
+		<p-column field="title" header="Title"></p-column>
+	</p62-datatable-columns>
+
+	<p62-datatable-dialog>
+		<div *ngIf="selectedRight" class="ui-grid ui-grid-responsive ui-fluid">
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-4">
+					<label for="code">Code</label>
+				</div>
+				<div class="ui-grid-col-8">
+					{{selectedRight.code}}
+				</div>
+			</div>
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-4">
+					<label for="title">Title</label>
+				</div>
+				<div class="ui-grid-col-8">
+					<input pInputText id="title" [(ngModel)]="selectedRight.title" />
+				</div>
+			</div>
+		</div>
+	</p62-datatable-dialog>
+
+</p62-datatable>

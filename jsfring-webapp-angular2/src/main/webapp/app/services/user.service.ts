@@ -7,7 +7,7 @@ import {User} from '../dto/User';
 @Injectable()
 export class UserService extends CrudService<User> {
 
-    constructor(private http: Http) { super(http); }
+    constructor(protected http: Http) { super(http); }
 
     getServiceSubUrl(): string {
         return '/user';

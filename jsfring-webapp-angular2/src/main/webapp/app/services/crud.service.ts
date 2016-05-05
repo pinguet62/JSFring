@@ -1,5 +1,6 @@
 import {Injectable} from 'angular2/core';
-import {Http} from 'angular2/src/http/http';
+import {Http, Headers, RequestOptionsArgs, RequestOptions} from 'angular2/http';
+import {Observable} from 'rxjs/Observable';
 
 export abstract class CrudService<T> {
 
@@ -7,11 +8,25 @@ export abstract class CrudService<T> {
 
     abstract getServiceSubUrl(): string;
 
-    constructor(private http: Http) { }
+    private options: RequestOptionsArgs = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
+
+    constructor(protected http: Http) { }
 
     findAll(): Observable<Array<T>> {
-        var targetUrl: string = this.baseUrl + this.getServiceSubUrl();
+        let targetUrl: string = this.baseUrl + this.getServiceSubUrl();
         return this.http.get(targetUrl).map(res => res.json());
+    }
+
+    create(value: T) {
+        let url: string = this.baseUrl + this.getServiceSubUrl();
+        let body: string = JSON.stringify(value);
+        this.http.put(url, body, this.options);
+    }
+
+    update(value: T) {
+        let url: string = this.baseUrl + this.getServiceSubUrl();
+        let body: string = JSON.stringify(value);
+        this.http.post(url, body, this.options).toPromise();
     }
 
 }

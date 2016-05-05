@@ -1,25 +1,20 @@
 import {Component, OnInit} from 'angular2/core';
 
-import {DataTable} from 'primeng/primeng';
-import {Column} from 'primeng/primeng';
+import {Column, InputText} from 'primeng/primeng';
+import {Datatable, DatatableColumns} from '../datatable/datatable'
 
 import {RightService} from '../../services/right.service';
-import {Right} from '../../dto/Right';
 
 @Component({
     selector: 'right',
     templateUrl: './app/components/right/right.component.html',
-    directives: [DataTable, Column],
+    directives: [Datatable, DatatableColumns, Column, InputText],
     providers: [RightService]
 })
-export class RightComponent implements OnInit {
+export class RightComponent {
 
-    values: Array<Right>;
+    selectedRight: any;
 
-    constructor(private rightService: RightService) { }
-
-    ngOnInit() {
-        this.rightService.findAll().subscribe(res => this.values = res);
-    }
+    constructor(public rightService: RightService) { }
 
 }

@@ -7,7 +7,7 @@ import {Profile} from '../dto/Profile';
 @Injectable()
 export class ProfileService extends CrudService<Profile> {
 
-    constructor(private http: Http) { super(http); }
+    constructor(protected http: Http) { super(http); }
 
     getServiceSubUrl(): string {
         return '/profile';
