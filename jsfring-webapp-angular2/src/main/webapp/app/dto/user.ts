@@ -5,6 +5,6 @@ export class User {
     email: string;
     active: boolean;
     lastConnection: Date;
-    profiles: number[];
+    profiles: Array<number>;
 
 }

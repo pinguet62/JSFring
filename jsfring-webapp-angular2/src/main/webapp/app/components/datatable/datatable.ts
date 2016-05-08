@@ -1,6 +1,8 @@
-import {Component, OnInit, Input, Output, EventEmitter, QueryList, ContentChild, ContentChildren} from 'angular2/core';
-import {DataTable, Column, Dialog, Button, Checkbox} from 'primeng/primeng';
-import {CrudService} from '../../services/crud.service';
+import { Component, ContentChild, ContentChildren, Input, QueryList, Output, EventEmitter, OnInit } from 'angular2/core';
+
+import { DataTable, Column, Dialog, Button, Checkbox } from 'primeng/primeng';
+
+import { CrudService } from '../../services/crud.service';
 
 /**
   * Contains list of {@link primeng/primeng/Column}s.<br>

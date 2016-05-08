@@ -1,9 +1,9 @@
-import {Component, OnInit} from 'angular2/core';
+import { Component } from 'angular2/core';
 
-import {Column, InputText} from 'primeng/primeng';
-import {Datatable, DatatableColumns} from '../datatable/datatable'
+import { Column, InputText } from 'primeng/primeng';
 
-import {ProfileService} from '../../services/profile.service';
+import { Datatable, DatatableColumns } from '../datatable/datatable'
+import { ProfileService } from '../../services/profile.service';
 
 @Component({
     selector: 'profile',

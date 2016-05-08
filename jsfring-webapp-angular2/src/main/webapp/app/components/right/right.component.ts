@@ -1,9 +1,9 @@
-import {Component, OnInit} from 'angular2/core';
+import { Component } from 'angular2/core';
 
-import {Column, InputText} from 'primeng/primeng';
-import {Datatable, DatatableColumns} from '../datatable/datatable'
+import { Column, InputText} from 'primeng/primeng';
 
-import {RightService} from '../../services/right.service';
+import { Datatable, DatatableColumns } from '../datatable/datatable'
+import { RightService } from '../../services/right.service';
 
 @Component({
     selector: 'right',

@@ -2,7 +2,7 @@
 	<p-column *ngFor="let column of datatableColumns.columns" [field]="column.field" [header]="column.header"></p-column>
 </p-dataTable>
 
-<p-dialog header="User" [(visible)]="displayDialog" [modal]="true">
+<p-dialog header="Show/Update/Create" [(visible)]="displayDialog" [modal]="true">
 	<ng-content select="p62-datatable-dialog"></ng-content>
 	<footer>
 		<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">

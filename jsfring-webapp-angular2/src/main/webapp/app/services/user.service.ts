@@ -1,8 +1,8 @@
-import {Injectable} from 'angular2/core';
-import {Http} from 'angular2/src/http/http';
+import { Injectable } from 'angular2/core';
+import { Http } from 'angular2/http';
 
-import {CrudService} from './crud.service';
-import {User} from '../dto/User';
+import { CrudService } from './crud.service';
+import { User } from '../dto/User';
 
 @Injectable()
 export class UserService extends CrudService<User> {

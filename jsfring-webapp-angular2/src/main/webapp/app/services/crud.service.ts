@@ -1,6 +1,6 @@
-import {Injectable} from 'angular2/core';
-import {Http, Headers, RequestOptionsArgs, RequestOptions} from 'angular2/http';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from 'angular2/core';
+import { Http, Headers, RequestOptionsArgs, RequestOptions } from 'angular2/http';
+import { Observable } from 'rxjs/Observable';
 
 export abstract class CrudService<T> {
 
