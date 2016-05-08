@@ -1,8 +1,8 @@
 <p62-datatable [service]="rightService" [(selectedValue)]="selectedRight">
 
 	<p62-datatable-columns>
-		<p-column field="code" header="Code"></p-column>
-		<p-column field="title" header="Title"></p-column>
+		<p-column field="code" header="Code" sortable="true" filter="true" filterMatchMode="contains"></p-column>
+		<p-column field="title" header="Title" sortable="true" filter="true" filterMatchMode="contains"></p-column>
 	</p62-datatable-columns>
 
 	<p62-datatable-dialog>

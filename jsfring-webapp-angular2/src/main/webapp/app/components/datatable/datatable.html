@@ -1,5 +1,10 @@
 <p-dataTable [value]="values" selectionMode="single" [(selection)]="selectedValue" (onRowSelect)="onRowSelect($event)">
-	<p-column *ngFor="let column of datatableColumns.columns" [field]="column.field" [header]="column.header"></p-column>
+	<p-column *ngFor="let column of datatableColumns.columns"
+			[field]="column.field"
+			[hidden]="column.hidden"
+			[sortable]="column.sortable"
+			[filter]="column.filter" [filterMatchMode]="column.filterMatchMode"
+			[header]="column.header" [footer]="column.footer"></p-column>
 </p-dataTable>
 
 <p-dialog header="Show/Update/Create" [(visible)]="displayDialog" [modal]="true">

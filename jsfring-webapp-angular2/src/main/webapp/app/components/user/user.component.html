@@ -1,11 +1,11 @@
 <p62-datatable [service]="userService" [(selectedValue)]="selectedUser">
 
 	<p62-datatable-columns>
-		<p-column field="login" header="Login"></p-column>
-		<p-column field="password" header="Password"></p-column>
-		<p-column field="email" header="Email"></p-column>
-		<p-column field="active" header="Active"></p-column>
-		<p-column field="lastConnection" header="Last connection"></p-column>
+		<p-column field="login" header="Login" sortable="true" filter="true" filterMatchMode="contains"></p-column>
+		<p-column field="password" header="Password" hidden="true" sortable="true" filter="true" filterMatchMode="contains"></p-column>
+		<p-column field="email" header="Email" sortable="true" filter="true" filterMatchMode="contains"></p-column>
+		<p-column field="active" header="Active" sortable="true"></p-column>
+		<p-column field="lastConnection" header="Last connection" sortable="true"></p-column>
 	</p62-datatable-columns>
 
 	<p62-datatable-dialog>

@@ -1,8 +1,8 @@
 <p62-datatable [service]="profileService" [(selectedValue)]="selectedProfile">
 
 	<p62-datatable-columns>
-		<p-column field="id" header="Id"></p-column>
-		<p-column field="title" header="Title"></p-column>
+		<p-column field="id" header="Id" sortable="true" filter="true" filterMatchMode="contains" hidden="true"></p-column>
+		<p-column field="title" header="Title" sortable="true" filter="true" filterMatchMode="contains"></p-column>
 	</p62-datatable-columns>
 
 	<p62-datatable-dialog>
