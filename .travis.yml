@@ -13,7 +13,7 @@ before_install:
     # Disabled: - mvn versioneye:update
     
     # Codecov.io: install
-    # - pip install --user codecov
+    - pip install --user codecov
 
 #install: # Default: `mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V`
 

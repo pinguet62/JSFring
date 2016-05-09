@@ -1,8 +1,8 @@
-package fr.pinguet62.jsfring.service.config;
+package fr.pinguet62.jsfring;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@PropertySource("application-service.properties")
-public class ServiceConfig {}
+@PropertySource("application-business.properties")
+public class BusinessConfig {}

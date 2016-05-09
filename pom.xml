@@ -17,17 +17,15 @@
 	<modules>
 		<module>jsfring-common</module>
 		<module>jsfring-common-test</module>
-		<module>jsfring-model</module>
-		<module>jsfring-dao</module>
-		<!-- <module>jsfring-indexer-nosql</module> -->
-		<module>jsfring-service</module>
+		<module>jsfring-business</module>
+		<module>jsfring-indexer-nosql</module>
 		<module>jsfring-task</module>
 		<module>jsfring-batch</module>
 		<module>jsfring-batch-admin</module>
 		<module>jsfring-webservice</module>
 		<module>jsfring-webapp-angularjs</module>
-		<module>jsfring-webapp-jsf</module>
 		<module>jsfring-webapp-jsf-htmlunit</module>
+		<module>jsfring-webapp-jsf</module>
 	</modules>
 
 	<properties>
@@ -252,6 +250,7 @@
 				</executions>
 			</plugin>
 
+			<!-- Prerequis: "HEROKU_API_KEY" env variable -->
 			<!-- Usage: mvn heroku:deploy -pl %MODULE% -->
 			<plugin>
 				<groupId>com.heroku.sdk</groupId>

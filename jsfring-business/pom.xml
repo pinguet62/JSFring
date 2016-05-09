@@ -9,11 +9,11 @@
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>model</artifactId>
+	<artifactId>business</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Model</name>
-	<description>Model layer: SQL &amp; NoSQL</description>
+	<name>Business</name>
+	<description>Business layer (model, DAO, service)</description>
 
 	<dependencies>
 		<!-- Project -->
@@ -29,6 +29,19 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- ===== Database ===== -->
+		<!-- JPA Driver -->
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+		</dependency>
+
+		<!-- ===== DAO ===== -->
 		<!-- JPA: Spring -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -39,7 +52,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
 		</dependency>
-
 		<!-- Bean validation -->
 		<dependency>
 			<groupId>javax.validation</groupId>
@@ -66,6 +78,12 @@
 			<groupId>com.mysema.querydsl</groupId>
 			<artifactId>querydsl-mongodb</artifactId>
 			<version>${querydsl.version}</version>
+		</dependency>
+
+		<!-- SMPT: Spring -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
 	</dependencies>
 
