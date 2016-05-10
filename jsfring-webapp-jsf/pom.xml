@@ -24,7 +24,7 @@
 		<!-- Project -->
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>service</artifactId>
+			<artifactId>business</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
