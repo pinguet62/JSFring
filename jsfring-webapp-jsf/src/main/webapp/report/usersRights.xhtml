@@ -43,14 +43,14 @@
 						</p:commandButton>
 						<p:commandButton ajax="false"
 							onclick="PrimeFaces.monitorDownload(startDownload, stopDownload);"
-							value="Graph 2D">
-							<p:fileDownload
-								value="#{usersRightsJasperReportBean.graphics2dFile}" />
+							value="HTML">
+							<p:fileDownload value="#{usersRightsJasperReportBean.htmlFile}" />
 						</p:commandButton>
 						<p:commandButton ajax="false"
 							onclick="PrimeFaces.monitorDownload(startDownload, stopDownload);"
-							value="HTML">
-							<p:fileDownload value="#{usersRightsJasperReportBean.htmlFile}" />
+							value="JSON">
+							<p:fileDownload
+								value="#{usersRightsJasperReportBean.jsonFile}" />
 						</p:commandButton>
 						<p:commandButton ajax="false"
 							onclick="PrimeFaces.monitorDownload(startDownload, stopDownload);"

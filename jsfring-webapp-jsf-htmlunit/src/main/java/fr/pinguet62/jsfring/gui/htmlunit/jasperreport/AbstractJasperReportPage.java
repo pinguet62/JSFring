@@ -46,12 +46,12 @@ public abstract class AbstractJasperReportPage extends AbstractPage {
         return export("DOCX");
     }
 
-    public InputStream exportGraphics2D() {
-        return export("Graph 2D");
-    }
-
     public InputStream exportHTML() {
         return export("HTML");
+    }
+
+    public InputStream exportJSON() {
+        return export("JSON");
     }
 
     public InputStream exportODS() {

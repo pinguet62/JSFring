@@ -2,8 +2,8 @@ package fr.pinguet62.jsfring.gui.jasperreport;
 
 import static fr.pinguet62.jsfring.gui.jasperreport.ExportType.CSV;
 import static fr.pinguet62.jsfring.gui.jasperreport.ExportType.DOCX;
-import static fr.pinguet62.jsfring.gui.jasperreport.ExportType.GRAPHICS_2D;
 import static fr.pinguet62.jsfring.gui.jasperreport.ExportType.HTML;
+import static fr.pinguet62.jsfring.gui.jasperreport.ExportType.JSON;
 import static fr.pinguet62.jsfring.gui.jasperreport.ExportType.ODS;
 import static fr.pinguet62.jsfring.gui.jasperreport.ExportType.ODT;
 import static fr.pinguet62.jsfring.gui.jasperreport.ExportType.PDF;
@@ -16,6 +16,7 @@ import static fr.pinguet62.jsfring.gui.jasperreport.ExportType.XML;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.Map;
@@ -50,12 +51,12 @@ public abstract class AbstractJasperReportBean implements Serializable {
         return getStreamedContent(DOCX);
     }
 
-    public StreamedContent getGraphics2dFile() {
-        return getStreamedContent(GRAPHICS_2D);
-    }
-
     public StreamedContent getHtmlFile() {
         return getStreamedContent(HTML);
+    }
+
+    public StreamedContent getJsonFile() {
+        return getStreamedContent(JSON);
     }
 
     public StreamedContent getOdsFile() {
@@ -119,18 +120,14 @@ public abstract class AbstractJasperReportBean implements Serializable {
                     dataSource.getConnection());
 
             // Jasper: export
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            JRAbstractExporter<?, ?, ? super GeneralExporterOutput, ?> exporter = targetType.getExporterFactory().get();
-            exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
-            exporter.setExporterOutput(new GeneralExporterOutput(outputStream));
-            exporter.exportReport();
+            ByteArrayOutputStream outputStream = targetType.export(new SimpleExporterInput(jasperPrint));
             byte[] bytes = outputStream.toByteArray();
 
             // PrimeFaces download
-            ByteArrayInputStream inputStream = new ByteArrayInputStream(bytes);
+            InputStream inputStream = new ByteArrayInputStream(bytes);
             return new DefaultStreamedContent(inputStream, targetType.getMime(), "report." + targetType.getExtension());
         } catch (JRException | SQLException e) {
-            throw new JasperReportRuntimeException("", e);
+            throw new JasperReportRuntimeException(e);
         }
     }
 

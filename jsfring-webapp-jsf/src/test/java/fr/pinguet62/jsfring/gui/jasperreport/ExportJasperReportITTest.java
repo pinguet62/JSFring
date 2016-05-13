@@ -68,16 +68,6 @@ public final class ExportJasperReportITTest {
     }
 
     /**
-     * @see ExportType#GRAPHICS_2D
-     * @see UsersRightsJasperReportBean#getGraphics2dFile()
-     */
-    @Test
-    public void test_graphics2d() {
-        InputStream is = page.exportGraphics2D();
-        assertThat(is, isImage());
-    }
-
-    /**
      * @see ExportType#HTML
      * @see UsersRightsJasperReportBean#getHtmlFile()
      */
@@ -85,6 +75,16 @@ public final class ExportJasperReportITTest {
     public void test_html() {
         InputStream is = page.exportHTML();
         assertThat(is, isHTML());
+    }
+
+    /**
+     * @see ExportType#GRAPHICS_2D
+     * @see UsersRightsJasperReportBean#getJsonFile()
+     */
+    @Test
+    public void test_json() {
+        InputStream is = page.exportJSON();
+        assertThat(is, isImage());
     }
 
     /**
