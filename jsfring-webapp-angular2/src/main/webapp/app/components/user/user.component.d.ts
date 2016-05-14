@@ -1,4 +1,4 @@
-import { OnInit } from 'angular2/core';
+import { OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../dto/User';
 export declare class UserComponent implements OnInit {

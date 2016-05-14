@@ -1,4 +1,4 @@
-import { Component, ContentChild, ContentChildren, Input, QueryList, Output, EventEmitter, OnInit } from 'angular2/core';
+import { Component, ContentChild, ContentChildren, Input, QueryList, Output, EventEmitter, OnInit } from '@angular/core';
 
 import { DataTable, Column, Dialog, Button, Checkbox } from 'primeng/primeng';
 

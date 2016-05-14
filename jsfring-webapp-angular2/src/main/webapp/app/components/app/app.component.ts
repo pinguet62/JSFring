@@ -1,5 +1,5 @@
-import { Component } from 'angular2/core';
-import { RouteConfig, ROUTER_DIRECTIVES } from 'angular2/router';
+import { Component } from '@angular/core';
+import { Routes, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router';
 
 import { OAuthRedirectComponent } from './../oauth-redirect.component';
 import { MenuComponent } from './../menu/menu.component';
@@ -8,11 +8,12 @@ import { ProfileComponent } from '../profile/profile.component';
 import { UserComponent } from '../user/user.component';
 
 @Component({
-    selector: 'app',
+    selector: 'p62-app',
     templateUrl: './app/components/app/app.component.html',
-    directives: [MenuComponent, ROUTER_DIRECTIVES]
+    directives: [MenuComponent, ROUTER_DIRECTIVES],
+    providers: [ROUTER_PROVIDERS]
 })
-@RouteConfig([
+@Routes([
     {
         // OAuth redirect after login
         // URL: %REDIRECT_URI%#access_token=:access_token&token_type=:token_type&expires_in=:expires_in'
@@ -22,17 +23,14 @@ import { UserComponent } from '../user/user.component';
     },
     {
         path: '/rights',
-        name: 'Rights',
         component: RightComponent
     },
     {
         path: '/profiles',
-        name: 'Profiles',
         component: ProfileComponent
     },
     {
         path: '/users',
-        name: 'Users',
         component: UserComponent
     }
 ])
