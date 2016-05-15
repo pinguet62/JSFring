@@ -7,9 +7,9 @@ import { URLSearchParams } from '@angular/http';
 export class OAuthRedirectComponent implements OnActivate {
 
     /**
-      * Parse the URL to extract fragment who contains OAuth login result.
-      * Store results on context.
-      */
+     * Parse the URL to extract fragment who contains OAuth login result.
+     * Store results on context.
+     */
     routerOnActivate(curr: RouteSegment, prev?: RouteSegment, currTree?: RouteTree, prevTree?: RouteTree): void {
         let fragment: string = window.location.href.split('#')[1];
         let paramParser: URLSearchParams = new URLSearchParams(fragment);

@@ -5,9 +5,9 @@ import { DataTable, Column, Dialog, Button, Checkbox } from 'primeng/primeng';
 import { CrudService } from '../../services/crud.service';
 
 /**
-  * Contains list of {@link primeng/primeng/Column}s.<br>
-  * No template: used to define the model of data to display.
-  */
+ * Contains list of {@link primeng/primeng/Column}s.<br>
+ * No template: used to define the model of data to display.
+ */
 @Component({
     selector: 'p62-datatable-columns',
     template: '',
