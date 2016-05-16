@@ -1,31 +1,11 @@
-import { Injectable, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-export class UserDetails { }
-
-@Injectable()
-export class SecurityService {
-
-    token: string;
-
-    userDetails: UserDetails;
-
-    constructor() { }
-
-    isAuthenticated(): boolean {
-        return this.userDetails !== null;
-    }
-
-    getRoles(): Array<string> {
-        return ['role1', 'role2'];
-    }
-
-}
+import { SecurityService } from './security.service';
 
 /** Proxy component used to render sub-components based on user's roles. */
 @Component({
     selector: 'p62-authorize',
-    template: '<ng-content *ngIf="isAuthorized()"></ng-content>',
-    providers: [SecurityService]
+    template: '<ng-content *ngIf="isAuthorized()"></ng-content>'
 })
 export class AuthorizeComponent {
 

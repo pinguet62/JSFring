@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { OnActivate, RouteSegment, RouteTree } from '@angular/router';
 import { URLSearchParams } from '@angular/http';
 
-import { SecurityService } from './security.component';
+import { SecurityService } from './security.service';
 
 /** Interceptor for OAuth 2 redirection. */
 @Component({

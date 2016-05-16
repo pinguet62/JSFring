@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { Routes, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router';
+import { ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Routes } from '@angular/router';
 
-import { OAuthRedirectComponent } from './../oauth-redirect.component';
-import { IndexComponent } from './../index.component';
-import { MenuComponent } from './../menu/menu.component';
-import { RightComponent } from '../right/right.component';
-import { ProfileComponent } from '../profile/profile.component';
-import { UserComponent } from '../user/user.component';
+import { MenuComponent } from './menu/menu.component';
+import { OAuthRedirectComponent } from './security/oauth-redirect.component';
+import { IndexComponent } from './index.component';
+import { RightComponent } from './right/right.component';
+import { ProfileComponent } from './profile/profile.component';
+import { UserComponent } from './user/user.component';
 
 @Component({
     selector: 'p62-app',
-    templateUrl: './app/components/app/app.component.html',
+    templateUrl: './app/app.component.html',
     directives: [MenuComponent, ROUTER_DIRECTIVES],
     providers: [ROUTER_PROVIDERS]
 })

@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 
 import { Column, InputText, Checkbox } from 'primeng/primeng';
 
-import { Datatable, DatatableColumns } from '../datatable/datatable'
-import { UserService } from '../../services/user.service';
+import { DatatableComponent, DatatableColumnsComponent } from '../shared/datatable.component'
+import { UserService } from './user.service';
 
 @Component({
     selector: 'user',
-    templateUrl: './app/components/user/user.component.html',
-    directives: [Datatable, DatatableColumns, Column, InputText, Checkbox],
+    templateUrl: './app/user/user.component.html',
+    directives: [Column, DatatableComponent, DatatableColumnsComponent, InputText],
     providers: [UserService]
 })
 export class UserComponent {

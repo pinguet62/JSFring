@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
+import { ROUTER_DIRECTIVES } from '@angular/router'; // TODO: check if necessary
 import { URLSearchParams } from '@angular/http';
 
 import { Menubar } from 'primeng/primeng';
 
 @Component({
     selector: 'p62-menu',
-    templateUrl: './app/components/menu/menu.component.html',
+    templateUrl: './app/menu/menu.component.html',
     directives: [Menubar, ROUTER_DIRECTIVES]
 })
 export class MenuComponent {

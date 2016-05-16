@@ -1,19 +1,15 @@
-import { Component, ContentChild, ContentChildren, Input, QueryList, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, ContentChild, ContentChildren, Input, Output, EventEmitter, OnInit, QueryList } from '@angular/core';
 
-import { DataTable, Column, Dialog, Button, Checkbox } from 'primeng/primeng';
+import { Button, Checkbox, Column, DataTable, Dialog } from 'primeng/primeng';
 
-import { CrudService } from '../../services/crud.service';
+import { CrudService } from './crud.service';
 
-/**
- * Contains list of {@link primeng/primeng/Column}s.<br>
- * No template: used to define the model of data to display.
- */
 @Component({
     selector: 'p62-datatable-columns',
     template: '',
     directives: [Column]
 })
-export class DatatableColumns {
+export class DatatableColumnsComponent {
 
     @ContentChildren(Column) columns: QueryList<Column>;
 
@@ -28,12 +24,12 @@ export class DatatableColumns {
  */
 @Component({
     selector: 'p62-datatable',
-    templateUrl: './app/components/datatable/datatable.html',
-    directives: [DatatableColumns, DataTable, Column, Dialog, Button]
+    templateUrl: './app/shared/datatable.component.html',
+    directives: [Button, Column, DataTable, DatatableColumnsComponent, Dialog]
 })
-export class Datatable {
+export class DatatableComponent {
 
-    @ContentChild(DatatableColumns) datatableColumns: DatatableColumns;
+    @ContentChild(DatatableColumnsComponent) datatableColumns: DatatableColumnsComponent;
 
     /** {@link CrudService} used to CRUD operations: list, create, update and delete items. */
     @Input() service: CrudService<any>;

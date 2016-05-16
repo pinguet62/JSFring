@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 
 import { Column, InputText} from 'primeng/primeng';
 
-import { Datatable, DatatableColumns } from '../datatable/datatable'
-import { RightService } from '../../services/right.service';
+import { DatatableComponent, DatatableColumnsComponent } from '../shared/datatable.component'
+import { RightService } from './right.service';
 
 @Component({
     selector: 'right',
-    templateUrl: './app/components/right/right.component.html',
-    directives: [Datatable, DatatableColumns, Column, InputText],
+    templateUrl: './app/right/right.component.html',
+    directives: [Column, DatatableComponent, DatatableColumnsComponent, InputText],
     providers: [RightService]
 })
 export class RightComponent {

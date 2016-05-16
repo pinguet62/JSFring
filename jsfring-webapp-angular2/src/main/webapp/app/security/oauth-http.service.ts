@@ -1,12 +1,13 @@
 import { Observable } from 'rxjs/Observable';
 
 import { Injectable } from '@angular/core';
-import { Http, RequestOptions, RequestOptionsArgs, Response, Headers } from '@angular/http';
+import { Headers, Http, RequestOptions, RequestOptionsArgs, Response } from '@angular/http';
 
-import { SecurityService } from './components/security.component';
+import { SecurityService } from './security.service';
 
+/** Proxy of {@link Http}, who add OAuth 2 {@code "Authorization"} header to each requests. */
 @Injectable()
-export class OAuthHttpClient {
+export class OAuthHttp {
 
     constructor(protected http: Http, private securityService: SecurityService) { }
 

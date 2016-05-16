@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { RequestOptions, RequestOptionsArgs, Headers } from '@angular/http';
 
-import { OAuthHttpClient } from './../OAuthHttpClient';
+import { OAuthHttp } from '../security/oauth-http.service';
 
 export abstract class CrudService<T> {
 
@@ -13,7 +13,7 @@ export abstract class CrudService<T> {
 
     private options: RequestOptionsArgs = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
 
-    constructor(protected http: OAuthHttpClient) { }
+    constructor(protected http: OAuthHttp) { }
 
     findAll(): Observable<Array<T>> {
         let targetUrl: string = this.baseUrl + this.getServiceSubUrl();
