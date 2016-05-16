@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Routes, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router';
 
 import { OAuthRedirectComponent } from './../oauth-redirect.component';
+import { IndexComponent } from './../index.component';
 import { MenuComponent } from './../menu/menu.component';
 import { RightComponent } from '../right/right.component';
 import { ProfileComponent } from '../profile/profile.component';
@@ -14,6 +15,10 @@ import { UserComponent } from '../user/user.component';
     providers: [ROUTER_PROVIDERS]
 })
 @Routes([
+    {
+        path: '/',
+        component: IndexComponent
+    },
     {
         // OAuth redirect after login
         // URL: %REDIRECT_URI%#access_token=:access_token&token_type=:token_type&expires_in=:expires_in'

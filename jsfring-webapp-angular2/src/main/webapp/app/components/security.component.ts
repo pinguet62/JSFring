@@ -5,7 +5,11 @@ export class UserDetails { }
 @Injectable()
 export class SecurityService {
 
+    token: string;
+
     userDetails: UserDetails;
+
+    constructor() { }
 
     isAuthenticated(): boolean {
         return this.userDetails !== null;

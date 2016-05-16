@@ -1,16 +1,19 @@
-import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptionsArgs, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+
+import { Injectable } from '@angular/core';
+import { RequestOptions, RequestOptionsArgs, Headers } from '@angular/http';
+
+import { OAuthHttpClient } from './../OAuthHttpClient';
 
 export abstract class CrudService<T> {
 
-    private baseUrl: string = 'http://localhost:8080/rest';
+    private baseUrl: string = 'http://jsfring-webservice.herokuapp.com/rest';
 
     abstract getServiceSubUrl(): string;
 
     private options: RequestOptionsArgs = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
 
-    constructor(protected http: Http) { }
+    constructor(protected http: OAuthHttpClient) { }
 
     findAll(): Observable<Array<T>> {
         let targetUrl: string = this.baseUrl + this.getServiceSubUrl();

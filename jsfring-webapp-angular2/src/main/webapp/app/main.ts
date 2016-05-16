@@ -6,9 +6,13 @@ import { HTTP_PROVIDERS } from '@angular/http';
 import 'rxjs/Rx'; // Observable methods
 
 import { AppComponent } from './components/app/app.component';
+import { SecurityService } from './components/security.component';
+import { OAuthHttpClient } from './OAuthHttpClient';
 
 bootstrap(AppComponent, [
     ROUTER_PROVIDERS,
     provide(APP_BASE_HREF, { useValue: '/' }),
-    HTTP_PROVIDERS
+    HTTP_PROVIDERS,
+    SecurityService,
+    OAuthHttpClient
 ]);
