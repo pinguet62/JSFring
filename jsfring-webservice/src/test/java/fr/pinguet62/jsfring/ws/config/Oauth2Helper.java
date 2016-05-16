@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.ws;
+package fr.pinguet62.jsfring.ws.config;
 
 import static fr.pinguet62.jsfring.util.UrlUtils.formatAuthorization;
 import static fr.pinguet62.jsfring.ws.Config.BASE_URL;
@@ -15,6 +15,9 @@ import fr.pinguet62.jsfring.model.sql.User;
 
 @Component
 public class Oauth2Helper {
+
+    /** Key of {@code Authorization} header. */
+    public static final String HEADER_AUTHORIZATION = "Authorization";
 
     @Value("${security.oauth2.client.clientId}")
     private String clientId;
@@ -50,7 +53,7 @@ public class Oauth2Helper {
                 .queryParam("username", user.getLogin())
                 .queryParam("password", user.getPassword())
             .request()
-                .header("Authorization", authorization)
+                .header(HEADER_AUTHORIZATION, authorization)
             .post(null, String.class);
         // @formatter:on
         return (String) new BasicJsonParser().parseMap(response).get("access_token");

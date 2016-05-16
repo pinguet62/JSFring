@@ -1,0 +1,18 @@
+<p-dataTable [value]="values" selectionMode="single" [(selection)]="selectedValue" (onRowSelect)="onRowSelect($event)">
+	<p-column *ngFor="let column of datatableColumns.columns"
+			[field]="column.field"
+			[hidden]="column.hidden"
+			[sortable]="column.sortable"
+			[filter]="column.filter" [filterMatchMode]="column.filterMatchMode"
+			[header]="column.header" [footer]="column.footer"></p-column>
+</p-dataTable>
+
+<p-dialog header="Show/Update/Create" [(visible)]="displayDialog" [modal]="true">
+	<ng-content select="p62-datatable-dialog"></ng-content>
+	<footer>
+		<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+			<button pButton type="button" (click)="save()" icon="fa-check" label="Save"></button>
+			<button pButton type="button" (click)="delete()" icon="fa-close" label="Delete"></button>
+		</div>
+	</footer>
+</p-dialog>

@@ -1,0 +1,29 @@
+<p62-datatable [service]="profileService" [(selectedValue)]="selectedProfile">
+
+	<p62-datatable-columns>
+		<p-column field="id" header="Id" sortable="true" filter="true" filterMatchMode="contains" hidden="true"></p-column>
+		<p-column field="title" header="Title" sortable="true" filter="true" filterMatchMode="contains"></p-column>
+	</p62-datatable-columns>
+
+	<p62-datatable-dialog>
+		<div *ngIf="selectedProfile" class="ui-grid ui-grid-responsive ui-fluid">
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-4">
+					<label for="id">Id</label>
+				</div>
+				<div class="ui-grid-col-8">
+					{{selectedProfile.id}}
+				</div>
+			</div>
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-4">
+					<label for="title">Title</label>
+				</div>
+				<div class="ui-grid-col-8">
+					<input pInputText id="title" [(ngModel)]="selectedProfile.title" />
+				</div>
+			</div>
+		</div>
+	</p62-datatable-dialog>
+
+</p62-datatable>
