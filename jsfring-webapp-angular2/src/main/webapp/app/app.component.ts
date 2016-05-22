@@ -1,6 +1,12 @@
 import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Routes } from '@angular/router';
 
+import { MdButton } from '@angular2-material/button';
+import { MdIcon, MdIconRegistry } from '@angular2-material/icon';
+import { MdList, MdListItem } from '@angular2-material/list';
+import { MdSidenav, MdSidenavLayout } from '@angular2-material/sidenav';
+import { MdToolbar } from '@angular2-material/toolbar';
+
 import { MenuComponent } from './menu/menu.component';
 import { OAuthRedirectComponent } from './security/oauth-redirect.component';
 import { IndexComponent } from './index.component';
@@ -11,7 +17,8 @@ import { UserComponent } from './user/user.component';
 @Component({
     selector: 'p62-app',
     templateUrl: './app/app.component.html',
-    directives: [MenuComponent, ROUTER_DIRECTIVES],
+    directives: [MenuComponent, ROUTER_DIRECTIVES, MdButton, MdIcon, MdList, MdListItem, MdSidenav, MdSidenavLayout, MdToolbar],
+	viewProviders: [MdIconRegistry],
     providers: [ROUTER_PROVIDERS]
 })
 @Routes([

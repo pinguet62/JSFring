@@ -258,12 +258,16 @@
 				<groupId>com.heroku.sdk</groupId>
 				<artifactId>heroku-maven-plugin</artifactId>
 				<version>1.0.0</version>
+				<!-- Spring Boot: default configuration (override or non-Spring-Boot projects) -->
 				<configuration>
 					<includeTarget>false</includeTarget>
 					<includes>
 						<include>jsfring-${project.artifactId}/target/${project.artifactId}-${project.version}.${project.packaging}</include>
 					</includes>
 					<appName>jsfring-${project.artifactId}</appName>
+					<buildpacks>
+						<buildpack>https://github.com/heroku/heroku-buildpack-java</buildpack>
+					</buildpacks>
 					<processTypes>
 						<web>java $JAVA_OPTS -Dserver.port=$PORT -jar target/${project.artifactId}-${project.version}.${project.packaging}</web>
 					</processTypes>

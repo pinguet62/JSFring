@@ -8,7 +8,7 @@ Integration of Spring into JSF project.
 
 Layers :
 * Data access
-	* <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> <img src="https://www.javacodegeeks.com/wp-content/uploads/2014/07/spring-data-project.png" height="25" /> [**Spring Data**](http://projects.spring.io/spring-data)
+	* <img src="https://www.javacodegeeks.com/wp-content/uploads/2014/07/spring-data-project.png" height="25" /> [**Spring Data**](http://projects.spring.io/spring-data) by <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" />
 	* Databases :
 		* SQL
 			* **JPA**
@@ -22,13 +22,13 @@ Layers :
 		[**JAX-RS**](https://jax-rs-spec.java.net)
 		* <img src="https://jersey.java.net/images/jersey_logo.png" height="25" />
 			[Jersey](https://jersey.java.net)
-	* <img src="http://oauth.net/images/oauth-2-sm.png" height="25" /> <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> [OAuth2](http://oauth.net/2)
-	* <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> <img src="https://www.javacodegeeks.com/wp-content/uploads/2014/07/spring-security-project.png" height="25" /> [Spring security](http://projects.spring.io/spring-security)
+	* <img src="http://oauth.net/images/oauth-2-sm.png" height="25" /> [OAuth2](http://oauth.net/2) by <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" />
+	* <img src="https://www.javacodegeeks.com/wp-content/uploads/2014/07/spring-security-project.png" height="25" /> [Spring security](http://projects.spring.io/spring-security) by <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" />
 * Webapp:
 	* Java
 		* <img src="https://upload.wikimedia.org/wikipedia/en/thumb/7/75/20110510-jsf-logo.tiff/lossless-page1-320px-20110510-jsf-logo.tiff.png" height="25" /> **JSF**
 			* <img src="http://www.primefaces.org/images/logo.png" height="25" /> [**PrimeFaces**](http://primefaces.org)
-		* <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> <img src="https://www.javacodegeeks.com/wp-content/uploads/2014/07/spring-security-project.png" height="25" /> [Spring security](http://projects.spring.io/spring-security)
+		* <img src="https://www.javacodegeeks.com/wp-content/uploads/2014/07/spring-security-project.png" height="25" /> [Spring security](http://projects.spring.io/spring-security) by <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" />
 			* Taglib (JSF integration)
 	* <img src="https://angularjs.org/img/AngularJS-large.png" height="25" /> [**AngularJS**](https://angularjs.org)
 		* <img src="https://upload.wikimedia.org/wikipedia/fr/1/13/TwitterBootstrap.png" height="25" /> [**Bootstrap**](http://getbootstrap.com)
@@ -37,8 +37,10 @@ Layers :
 			* <img src="https://angular-translate.github.io/img/logo/angular-translate-alternative/angular-translate_alternative_medium2.png" height="25" /> [Angular Translate](https://angular-translate.github.io)
 			* [ngDialog](http://ngmodules.org/modules/ngDialog)
 			* [UI Grid](http://ui-grid.info)
+	* <img src="https://angular.io/resources/images/logos/angular2/angular.svg" height="25" /> [**Angular**](https://angular.io)
+		* <img src="http://www.primefaces.org/primeng/showcase/resources/images/primeng.svg" height="25" /> [Primeng](http://www.primefaces.org/primeng)
 * Batch:
-	* <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> <img src="https://www.javacodegeeks.com/wp-content/uploads/2014/07/spring-batch-project.png" height="25" /> [Spring batch](http://projects.spring.io/spring-batch)
+	* <img src="https://www.javacodegeeks.com/wp-content/uploads/2014/07/spring-batch-project.png" height="25" /> [Spring batch](http://projects.spring.io/spring-batch) by <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" />
 	* [Spring batch admin](http://docs.spring.io/spring-batch-admin)
 
 Transverse :
@@ -47,7 +49,7 @@ Transverse :
 	* **Java EE**
 		* [CDI](https://docs.oracle.com/javaee/7/tutorial/cdi-basic.htm) (Contexts and Dependency Injection)
 	* <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> [**Spring framework**](http://projects.spring.io/spring-framework)
-		* <img src="http://g00glen00b.be/wp-content/uploads/2012/08/spring-boot-logo.png" height="25" /> [Spring Boot](http://projects.spring.io/spring-boot)
+		* <img src="http://g00glen00b.be/wp-content/uploads/2012/08/spring-boot-logo.png" height="25" /> [Spring Boot](http://projects.spring.io/spring-boot) by <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" />
 		* [Caching Data](https://spring.io/guides/gs/caching)
 		* [Scheduling Tasks](https://spring.io/guides/gs/scheduling-tasks)
 * Tests:
@@ -133,6 +135,7 @@ Multi web-application deployed on cloud... in continue!
 * Webapp:
 	* JSF: <img src="https://d3k90kvix375hb.cloudfront.net/assets/logo-purple.svg" height="25" /> [Heroku](https://www.heroku.com/home) [![Deploy](https://www.herokucdn.com/deploy/button.png)](http://jsfring-webapp-jsf.herokuapp.com)
 	* AngularJS: <img src="https://d3k90kvix375hb.cloudfront.net/assets/logo-purple.svg" height="25" /> [Heroku](https://www.heroku.com/home) [![Deploy](https://www.herokucdn.com/deploy/button.png)](http://jsfring-webapp-angularjs.herokuapp.com)
+	* Angular 2: <img src="https://d3k90kvix375hb.cloudfront.net/assets/logo-purple.svg" height="25" /> [Heroku](https://www.heroku.com/home) [![Deploy](https://www.herokucdn.com/deploy/button.png)](http://jsfring-webapp-angular2.herokuapp.com)
 	* Batch-admin: <img src="https://d3k90kvix375hb.cloudfront.net/assets/logo-purple.svg" height="25" /> [Heroku](https://www.heroku.com/home) [![Deploy](https://www.herokucdn.com/deploy/button.png)](http://jsfring-batch-admin.herokuapp.com)
 * Webservice: <img src="https://d3k90kvix375hb.cloudfront.net/assets/logo-purple.svg" height="25" /> [Heroku](https://www.heroku.com/home) [![Deploy](https://www.herokucdn.com/deploy/button.png)](http://jsfring-webservice.herokuapp.com)
 
