@@ -16,60 +16,31 @@
 	<description>AngularJS web application, using Webjars</description>
 	<url>http://jsfring-${project.artifactId}.herokuapp.com</url>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>com.github.eirslett</groupId>
-				<artifactId>frontend-maven-plugin</artifactId>
-				<version>1.0</version>
-				<executions>
-					<execution>
-						<!-- Install Node.js -->
-						<id>install node and npm</id>
-						<phase>generate-resources</phase>
-						<goals>
-							<goal>install-node-and-npm</goal>
-						</goals>
-						<configuration>
-							<nodeVersion>v0.10.26</nodeVersion>
-							<npmVersion>1.4.3</npmVersion>
-						</configuration>
-					</execution>
-					<execution>
-						<!-- Generate all Node.js dependencies -->
-						<id>npm install</id>
-						<phase>generate-resources</phase>
-						<goals>
-							<goal>npm</goal>
-						</goals>
-					</execution>
-					<execution>
-						<!-- Generate all Bower dependencies -->
-						<id>bower install</id>
-						<goals>
-							<goal>bower</goal>
-						</goals>
-						<configuration>
-							<arguments>install</arguments>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+				<groupId>com.heroku.sdk</groupId>
+				<artifactId>heroku-maven-plugin</artifactId>
+				<configuration>
+					<includeTarget>false</includeTarget>
+					<includes>
+						<include>jsfring-${project.artifactId}/target/${project.artifactId}-${project.version}</include>
+					</includes>
+					<appName>jsfring-${project.artifactId}</appName>
+					<buildpacks>
+						<!-- Non-root "package.json" support -->
+						<buildpack>https://github.com/pinguet62/heroku-buildpack-nodejs</buildpack>
+					</buildpacks>
+					<configVars>
+						<!-- Install "devDependencies" dependencies -->
+						<!-- See: https://devcenter.heroku.com/articles/nodejs-support#devdependencies -->
+						<NPM_CONFIG_PRODUCTION>false</NPM_CONFIG_PRODUCTION>
+					</configVars>
+					<processTypes>
+						<!-- "prefix": non-root "package.json" support -->
+						<web>npm run heroku --prefix target/${project.artifactId}-${project.version}</web>
+					</processTypes>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
