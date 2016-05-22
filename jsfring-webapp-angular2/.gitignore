@@ -1,6 +1,4 @@
-**/node_modules/
+src/main/webapp/node_modules/
+src/main/webapp/typings/
 src/main/webapp/app/**/*.js
-**/*.js.map
-
-node/
-typings/
+src/main/webapp/app/**/*.js.map

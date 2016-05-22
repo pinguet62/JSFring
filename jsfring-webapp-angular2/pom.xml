@@ -21,7 +21,6 @@
 			<plugin>
 				<groupId>com.heroku.sdk</groupId>
 				<artifactId>heroku-maven-plugin</artifactId>
-				<version>1.0.0</version>
 				<configuration>
 					<includeTarget>false</includeTarget>
 					<includes>
