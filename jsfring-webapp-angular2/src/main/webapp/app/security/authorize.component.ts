@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input} from "@angular/core";
 
-import { SecurityService } from './security.service';
+import {SecurityService} from "./security.service";
 
 /** Proxy component used to render sub-components based on user's roles. */
 @Component({
     selector: 'p62-authorize',
-    template: '<ng-content *ngIf="isAuthorized()"></ng-content>'
+    template: `<ng-content *ngIf="isAuthorized()"></ng-content>`
 })
 export class AuthorizeComponent {
 
@@ -18,7 +18,7 @@ export class AuthorizeComponent {
     /** A comma-separated list of user roles. */
     @Input() areNotGranted: string = '';
 
-    constructor(private securityService: SecurityService) { }
+    constructor(private securityService: SecurityService) {}
 
     /**
      * Split role list, using comma separator.

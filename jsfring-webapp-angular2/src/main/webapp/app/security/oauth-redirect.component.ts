@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
-import { OnActivate, RouteSegment, RouteTree } from '@angular/router';
-import { URLSearchParams } from '@angular/http';
+import {Component} from "@angular/core";
+import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/router";
+import {URLSearchParams} from "@angular/http";
 
-import { SecurityService } from './security.service';
+import {SecurityService} from "./security.service";
 
 /** Interceptor for OAuth 2 redirection. */
 @Component({
     template: ''
 })
-export class OAuthRedirectComponent implements OnActivate {
+export class OAuthRedirectComponent implements CanActivate {
 
     constructor(private securityService: SecurityService) { }
 
@@ -16,7 +16,7 @@ export class OAuthRedirectComponent implements OnActivate {
      * Parse the URL to extract fragment who contains OAuth login result.
      * Store results on context.
      */
-    routerOnActivate(curr: RouteSegment, prev?: RouteSegment, currTree?: RouteTree, prevTree?: RouteTree): void {
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         let fragment: string = window.location.href.split('#')[1];
         let paramParser: URLSearchParams = new URLSearchParams(fragment);
 
@@ -25,6 +25,8 @@ export class OAuthRedirectComponent implements OnActivate {
         let expires_in: number = +paramParser.get('expires_in');
 
         this.securityService.token = access_token;
+
+        return true;
     }
 
 }

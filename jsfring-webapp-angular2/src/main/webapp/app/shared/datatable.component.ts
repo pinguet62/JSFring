@@ -1,13 +1,17 @@
-import { Component, ContentChild, ContentChildren, Input, Output, EventEmitter, OnInit, QueryList } from '@angular/core';
+import {Component, ContentChild, ContentChildren, Input, Output, EventEmitter, OnInit, QueryList} from "@angular/core";
+import {Button, Checkbox, Column} from "primeng/primeng";
 
-import { Button, Checkbox, Column, DataTable, Dialog } from 'primeng/primeng';
+import {CrudService} from "./crud.service";
 
-import { CrudService } from './crud.service';
+@Component({
+    selector: 'p62-datatable-dialog',
+    template: '<ng-content></ng-content>'
+})
+export class DatatableDialogComponent {}
 
 @Component({
     selector: 'p62-datatable-columns',
-    template: '',
-    directives: [Column]
+    template: ''
 })
 export class DatatableColumnsComponent {
 
@@ -24,8 +28,26 @@ export class DatatableColumnsComponent {
  */
 @Component({
     selector: 'p62-datatable',
-    templateUrl: './app/shared/datatable.component.html',
-    directives: [Button, Column, DataTable, DatatableColumnsComponent, Dialog]
+    template: `
+        <p-dataTable [value]="values" selectionMode="single" [(selection)]="selectedValue" (onRowSelect)="onRowSelect($event.data)">
+            <p-column *ngFor="let column of datatableColumns.columns"
+                     [field]="column.field"
+                     [hidden]="column.hidden"
+                     [sortable]="column.sortable"
+                     [filter]="column.filter" [filterMatchMode]="column.filterMatchMode"
+                     [header]="column.header" [footer]="column.footer"></p-column>
+        </p-dataTable>
+        
+        <!-- TODO modal & z-index -->
+        <p-dialog header="Show/Update/Create" [(visible)]="displayDialog" [modal]="false">
+            <ng-content select="p62-datatable-dialog"></ng-content>
+            <footer>
+                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                    <button pButton type="button" (click)="save()" icon="fa-check" label="Save"></button>
+                    <button pButton type="button" (click)="delete()" icon="fa-close" label="Delete"></button>
+                </div>
+            </footer>
+        </p-dialog>`
 })
 export class DatatableComponent {
 
@@ -53,9 +75,9 @@ export class DatatableComponent {
         this.service.findAll().subscribe(res => this.values = res);
     }
 
-    onRowSelect(event) {
-        this.selectedValueChange.emit(event.data);
-        this.selectedValue = this.clone(event.data);
+    onRowSelect(value: any) {
+        this.selectedValueChange.emit(value);
+        this.selectedValue = this.clone(value);
         this.displayDialog = true;
     }
 
@@ -91,11 +113,9 @@ export class DatatableComponent {
         this.refresh();
     }
 
-    /**
-     * Click on "Delete" button of Dialog.
-     */
+    /** Click on "Delete" button of Dialog. */
     delete() {
-        //        this.service.delete(this.selectedValue);
+        // this.service.delete(this.selectedValue);
         this.displayDialog = false;
         this.refresh();
     }

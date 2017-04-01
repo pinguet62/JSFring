@@ -1,38 +1,37 @@
 <html>
-<head>
-<script>
-	document.write('<base href="' + document.location + '" />');
-</script>
-<title>JSFring</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="styles.css">
+    <head>
+        <base href="/">
 
-<!-- 1. Load libraries -->
-<!-- Polyfill(s) for older browsers -->
-<script src="node_modules/es6-shim/es6-shim.min.js"></script>
+        <title>JSFring</title>
 
-<script src="node_modules/zone.js/dist/zone.js"></script>
-<script src="node_modules/reflect-metadata/Reflect.js"></script>
-<script src="node_modules/systemjs/dist/system.src.js"></script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- PrimeNG -->
-<link rel="stylesheet" type="text/css" href="node_modules/primeui/themes/delta/theme.css" />
-<link rel="stylesheet" type="text/css" href="node_modules/primeui/primeui-ng-all.min.css" />
-<script src="node_modules/primeui/primeui-ng-all.min.js"></script>
-<!-- Material2 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- Polyfill(s) for older browsers -->
+        <script src="../node_modules/core-js/client/shim.min.js"></script>
 
-<!-- 2. Configure SystemJS -->
-<script src="systemjs.config.js"></script>
-<script>
-      System.import('app').catch(function(err){ console.error(err); });
-    </script>
-</head>
+        <script src="../node_modules/zone.js/dist/zone.js"></script>
+        <script src="../node_modules/reflect-metadata/Reflect.js"></script>
 
-<!-- 3. Display the application -->
-<body>
-	<p62-app>Loading...</p62-app>
-</body>
+        <script src="../node_modules/systemjs/dist/system.src.js"></script>
+
+        <!-- SystemJS -->
+        <script src="systemjs.config.js"></script>
+        <script>
+            System.import('app').catch(function(err){ console.error(err); });
+        </script>
+
+        <link rel="stylesheet" href="styles.css">
+        <!-- PrimeNG -->
+        <link rel="stylesheet" type="text/css" href="/node_modules/primeng/resources/themes/omega/theme.css" />
+        <link rel="stylesheet" type="text/css" href="/node_modules/primeng/resources/primeng.min.css" />
+        <!-- Material2 -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="../node_modules/@angular/material/core/theming/prebuilt/indigo-pink.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <p62-app>Loading...</p62-app>
+    </body>
 </html>

@@ -1,62 +1,38 @@
-(function(global) {
-	// Map relative paths to URLs
-	// Example:
-	// * for:               import { ... } from '@angular/foo';
-	// * will be mapped to: import { ... } from 'node_modules/@angular/foo';
-	var mapping = {
-		'app':                        'app', // 'dist',
-		'rxjs':                       'node_modules/rxjs',
-		'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api',
-		'@angular':                   'node_modules/@angular',
-		'@angular2-material':         'node_modules/@angular2-material',
-		'primeng':                    'node_modules/primeng'
-	};
-
-	// Packages to load by the System loader
-	var packages = {
-		'app':                         { defaultExtension: 'js', main: 'main.js' },
-		'rxjs':                        { defaultExtension: 'js' },
-		'angular2-in-memory-web-api':  { defaultExtension: 'js' },
-		'primeng':                     { defaultExtension: 'js' }
-	};
-
-	// Angular
-	[
-		'common',
-		'compiler',
-		'core',
-		'http',
-		'platform-browser',
-		'platform-browser-dynamic',
-		'router',
-		'router-deprecated',
-		'testing',
-		'upgrade',
-	].forEach(function(name) {
-		packages['@angular/'+name] = { main: 'index.js', defaultExtension: 'js' };
-	});
-
-	// Material2
-	[
-		'button',
-		'card',
-		'checkbox',
-		'core',
-		'icon',
-		'input',
-		'list',
-		'progress-circle',
-		'progress-bar',
-		'radio',
-		'sidenav',
-		'toolbar',
-	].forEach(function(name) {
-		packages['@angular2-material/'+name] = { main: name+'.js', defaultExtension: 'js', format: 'cjs' };
-	});
-
-	// Configuration
+(function (global) {
 	System.config({
-		map: mapping,
-		packages: packages
+		paths: {
+			'npm:': 'node_modules/'
+		},
+		map: {
+			'app': 'app',
+			// Angular
+			'@angular/core': 'npm:@angular/core/bundles/core.umd.js',
+			'@angular/common': 'npm:@angular/common/bundles/common.umd.js',
+			'@angular/compiler': 'npm:@angular/compiler/bundles/compiler.umd.js',
+			'@angular/platform-browser': 'npm:@angular/platform-browser/bundles/platform-browser.umd.js',
+            '@angular/platform-browser/animations': 'npm:@angular/platform-browser/bundles/platform-browser-animations.umd.js',
+			'@angular/platform-browser-dynamic': 'npm:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
+			'@angular/http': 'npm:@angular/http/bundles/http.umd.js',
+			'@angular/router': 'npm:@angular/router/bundles/router.umd.js',
+			'@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
+            '@angular/animations': 'npm:@angular/animations/bundles/animations.umd.js',
+            '@angular/animations/browser':'node_modules/@angular/animations/bundles/animations-browser.umd.js',
+			// Material
+			'rxjs': 'npm:rxjs',
+			'@angular/material': 'npm:@angular/material/bundles/material.umd.js',
+			'primeng': 'npm:primeng'
+		},
+		packages: {
+			app: {
+				main: 'main.js',
+				defaultExtension: 'js'
+			},
+			rxjs: {
+				defaultExtension: 'js'
+			},
+			primeng: {
+				defaultExtension: 'js'
+			}
+		}
 	});
 })(this);

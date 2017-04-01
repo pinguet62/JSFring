@@ -1,15 +1,20 @@
-import { Observable } from 'rxjs/Observable';
+import {Observable} from "rxjs/Observable";
 
-import { Injectable } from '@angular/core';
-import { Headers, Http, RequestOptions, RequestOptionsArgs, Response } from '@angular/http';
+import {Injectable} from "@angular/core";
+import {Headers, Http, RequestOptions, RequestOptionsArgs, Response} from "@angular/http";
 
-import { SecurityService } from './security.service';
+import {SecurityService} from "./security.service";
+import {UnauthorizedObservable} from "./unauthorized-observable";
 
 /** Proxy of {@link Http}, who add OAuth 2 {@code "Authorization"} header to each requests. */
 @Injectable()
 export class OAuthHttp {
 
-    constructor(protected http: Http, private securityService: SecurityService) { }
+    constructor(
+        protected http: Http,
+        private securityService: SecurityService,
+        private unauthorizedObservable: UnauthorizedObservable
+    ) {}
 
     /**
      * Add "Authorization" key to header, if not present.
@@ -31,7 +36,11 @@ export class OAuthHttp {
 
     get(url: string, options?: RequestOptionsArgs): Observable<Response> {
         options = this.addAuthorizationHeader(options);
-        return this.http.get(url, options);
+        let response: Observable<Response> = this.http.get(url, options);
+        response.subscribe(
+            r => {},
+            e => this.unauthorizedObservable.observable.emit(e));
+        return response;
     }
 
     post(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {

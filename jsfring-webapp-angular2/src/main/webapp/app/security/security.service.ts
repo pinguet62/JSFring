@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from "@angular/core";
 
-/** Store informations about user's security information. */
+/** Store information about user's security information. */
 @Injectable()
 export class SecurityService {
 
