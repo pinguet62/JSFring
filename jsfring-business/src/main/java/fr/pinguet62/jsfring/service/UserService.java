@@ -64,8 +64,10 @@ public class UserService extends AbstractService<User, String> {
     /**
      * Reset the password of {@code User} and sent these informations to email.
      *
-     * @param email The user's email.
-     * @throws IllegalArgumentException Email unknown.
+     * @param email
+     *            The user's email.
+     * @throws IllegalArgumentException
+     *             Email unknown.
      */
     @Transactional
     public void forgottenPassword(String email) {
@@ -89,9 +91,12 @@ public class UserService extends AbstractService<User, String> {
     /**
      * Update the {@link User#password user's password}.
      *
-     * @param login The {@link User#login user's login}.
-     * @param password The new {@link User#password user's password}.
-     * @throws IllegalArgumentException User not found.
+     * @param login
+     *            The {@link User#login user's login}.
+     * @param password
+     *            The new {@link User#password user's password}.
+     * @throws IllegalArgumentException
+     *             User not found.
      */
     @Transactional
     public void updatePassword(String login, String password) {

@@ -14,8 +14,8 @@ import fr.pinguet62.jsfring.gui.htmlunit.NavigatorException;
 public interface SubmitPopup extends Popup {
 
     default void submit() {
-        HtmlButton submit = (HtmlButton) getDialog()
-                .getByXPath("./div[contains(@class, 'ui-dialog-content')]/form/button").get(0);
+        HtmlButton submit = (HtmlButton) getDialog().getByXPath("./div[contains(@class, 'ui-dialog-content')]/form/button")
+                .get(0);
         try {
             HtmlPage page = submit.click();
             waitJS(LONG);

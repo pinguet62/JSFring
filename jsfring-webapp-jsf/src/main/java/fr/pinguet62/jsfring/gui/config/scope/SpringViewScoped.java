@@ -9,4 +9,5 @@ import org.springframework.context.annotation.Scope;
  * @see ViewScoped
  */
 @Scope(SpringViewScope.NAME)
-public @interface SpringViewScoped {}
+public @interface SpringViewScoped {
+}

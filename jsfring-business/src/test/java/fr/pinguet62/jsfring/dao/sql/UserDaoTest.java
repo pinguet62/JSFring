@@ -22,7 +22,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
@@ -37,12 +36,12 @@ import fr.pinguet62.jsfring.model.sql.User;
 
 /** @see UserDao */
 @RunWith(SpringRunner.class)
-@SpringBootTest
-@ContextConfiguration(classes = SpringBootConfig.class)
-@DatabaseSetup(DATASET)
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class,
-        TransactionalTestExecutionListener.class })
+@SpringBootTest(classes = SpringBootConfig.class)
 @Transactional
+// DbUnit
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class,
+    TransactionalTestExecutionListener.class })
+@DatabaseSetup(DATASET)
 public class UserDaoTest {
 
     @Inject
@@ -55,7 +54,8 @@ public class UserDaoTest {
             try {
                 userDao.disableInactiveUsers(arg);
                 fail();
-            } catch (IllegalArgumentException | InvalidDataAccessApiUsageException e) {}
+            } catch (IllegalArgumentException | InvalidDataAccessApiUsageException e) {
+            }
     }
 
     /**

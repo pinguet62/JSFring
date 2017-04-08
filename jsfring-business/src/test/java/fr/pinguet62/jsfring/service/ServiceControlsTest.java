@@ -20,7 +20,6 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.stereotype.Service;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
@@ -35,16 +34,17 @@ import fr.pinguet62.jsfring.model.sql.Profile;
 import fr.pinguet62.jsfring.service.TestService.RollbackMeIMFamousException;
 import fr.pinguet62.jsfring.test.TestRuntimeException;
 
+
 /**
  * Tests that the controls of {@link AbstractService} are correct.
  * <p>
  * {@link TestService} contains the specifics {@link Service}s.
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest
-@ContextConfiguration(classes = SpringBootConfig.class)
-@DatabaseSetup(DATASET)
+@SpringBootTest(classes = SpringBootConfig.class)
+// DbUnit
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
+@DatabaseSetup(DATASET)
 public class ServiceControlsTest {
 
     @Inject
@@ -54,8 +54,8 @@ public class ServiceControlsTest {
     private TestService testService;
 
     /**
-     * When a table is locked by a modifications of a {@link Service}, other {@link Service} <b>cannot modify</b> it in
-     * same time.
+     * When a table is locked by a modifications of a {@link Service}, other {@link Service} <b>cannot modify</b> it in same
+     * time.
      */
     // TODO fix integration: @Test
     public void test_concurrence_modificationLockedByOtherModification() {
@@ -85,8 +85,8 @@ public class ServiceControlsTest {
     }
 
     /**
-     * {@link Transactional#readOnly() Read-only} {@link Service} cannot modify database, event if {@link Service} try
-     * to modify the database.
+     * {@link Transactional#readOnly() Read-only} {@link Service} cannot modify database, event if {@link Service} try to modify
+     * the database.
      *
      * @see TestService#modificationIntoReadonlyService()
      */
@@ -141,14 +141,18 @@ class TestService {
      * <li>The concurrent {@link Thread} can continue his action</li>
      * </ol>
      *
-     * @param actionBefore Parallel action to execute between transaction beginning and locking action.
-     * @param lockFct Action to execute during the service, to lock the table.
-     * @param actionAfter Parallel action to execute between locking action and end of transaction.
-     * @param maxWait The max time to {@link Thread#join(long) wait} the end of 2nd parallel action.<br>
-     *        For <i>non-locking action</i> the value must be {@code 0} to wait for the end. For <i>locking action</i>
-     *        the value must be positive.
-     * @throws AssertionError If the {@link Thread 2nd action} is joined after this delay, then the test
-     *         {@link Assert#fail() fail}.
+     * @param actionBefore
+     *            Parallel action to execute between transaction beginning and locking action.
+     * @param lockFct
+     *            Action to execute during the service, to lock the table.
+     * @param actionAfter
+     *            Parallel action to execute between locking action and end of transaction.
+     * @param maxWait
+     *            The max time to {@link Thread#join(long) wait} the end of 2nd parallel action.<br>
+     *            For <i>non-locking action</i> the value must be {@code 0} to wait for the end. For <i>locking action</i> the
+     *            value must be positive.
+     * @throws AssertionError
+     *             If the {@link Thread 2nd action} is joined after this delay, then the test {@link Assert#fail() fail}.
      */
     @Transactional
     public void concurrence(Thread actionBefore, Runnable lockFct, Thread actionAfter, int maxWait) {
@@ -211,7 +215,8 @@ class TestService {
      * <li>Throw an {@link TestRuntimeException}</li>
      * </ul>
      *
-     * @throws RollbackMeIMFamousException Always thrown.
+     * @throws RollbackMeIMFamousException
+     *             Always thrown.
      * @see ServiceControlsTest#test_rollbackWhenError()
      */
     @Transactional

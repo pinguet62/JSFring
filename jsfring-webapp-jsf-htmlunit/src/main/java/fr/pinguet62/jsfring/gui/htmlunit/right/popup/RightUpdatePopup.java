@@ -14,8 +14,7 @@ public final class RightUpdatePopup extends AbstractRightPopup implements Update
     }
 
     public ReadWriteField<?, String> getTitle() {
-        return new InputText(
-                (HtmlInput) getFieldTableCell(1).getByXPath("./input[contains(@class, 'ui-inputtext')]").get(0));
+        return new InputText((HtmlInput) getFieldTableCell(1).getByXPath("./input[contains(@class, 'ui-inputtext')]").get(0));
     }
 
 }

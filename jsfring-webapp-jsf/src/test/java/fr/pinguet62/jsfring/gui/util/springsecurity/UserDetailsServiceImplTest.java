@@ -35,8 +35,9 @@ import fr.pinguet62.jsfring.service.UserService;
 /** @see UserDetailsServiceImpl */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringBootConfig.class)
-@DatabaseSetup(DATASET)
+//DbUnit
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
+@DatabaseSetup(DATASET)
 public class UserDetailsServiceImplTest {
 
     @Inject

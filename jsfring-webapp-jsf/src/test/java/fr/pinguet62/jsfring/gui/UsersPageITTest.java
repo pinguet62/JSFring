@@ -42,8 +42,9 @@ import fr.pinguet62.jsfring.model.sql.User;
 /** @see UsersPage */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringBootConfig.class, webEnvironment = DEFINED_PORT)
-@DatabaseSetup(DATASET)
+// DbUnit
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
+@DatabaseSetup(DATASET)
 public class UsersPageITTest {
 
     private UsersPage page;

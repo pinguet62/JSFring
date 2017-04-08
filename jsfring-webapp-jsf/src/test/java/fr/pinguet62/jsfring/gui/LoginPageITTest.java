@@ -33,8 +33,9 @@ import fr.pinguet62.jsfring.model.sql.User;
 /** @see LoginPage */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringBootConfig.class, webEnvironment = DEFINED_PORT)
-@DatabaseSetup(DATASET)
+//DbUnit
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
+@DatabaseSetup(DATASET)
 public class LoginPageITTest {
 
     @Inject

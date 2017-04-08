@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
 
-	<Appenders>
-		<Console name="CONSOLE" target="SYSTEM_OUT">
-			<PatternLayout pattern="%d [%-5p] (%F:%M:%L) %m%n" />
-		</Console>
-	</Appenders>
+    <Appenders>
+        <Console name="CONSOLE" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d [%-5p] (%F:%M:%L) %m%n" />
+        </Console>
+    </Appenders>
 
-	<Loggers>
-		<Root level="info">
-			<AppenderRef ref="CONSOLE" />
-		</Root>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="CONSOLE" />
+        </Root>
 
-		<!-- HtmlUnit -->
-		<Logger name="com.gargoylesoftware.htmlunit" level="off" />
-		<!-- OpenDocument -->
-		<Logger name="org.odftoolkit.odfdom.pkg.OdfPackage" level="off" />
-	</Loggers>
+        <!-- HtmlUnit -->
+        <Logger name="com.gargoylesoftware.htmlunit" level="off" />
+        <!-- OpenDocument -->
+        <Logger name="org.odftoolkit.odfdom.pkg.OdfPackage" level="off" />
+    </Loggers>
 
 </Configuration>

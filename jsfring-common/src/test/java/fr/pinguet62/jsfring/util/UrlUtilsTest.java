@@ -28,17 +28,20 @@ public final class UrlUtilsTest {
         try {
             formatAuthorization(null, "bar");
             fail();
-        } catch (NullPointerException e) {}
+        } catch (NullPointerException e) {
+        }
 
         try {
             formatAuthorization("foo", null);
             fail();
-        } catch (NullPointerException e) {}
+        } catch (NullPointerException e) {
+        }
 
         try {
             formatAuthorization(null, null);
             fail();
-        } catch (NullPointerException e) {}
+        } catch (NullPointerException e) {
+        }
     }
 
 }

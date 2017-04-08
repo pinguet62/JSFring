@@ -19,7 +19,6 @@ import javax.sql.DataSource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
@@ -38,12 +37,12 @@ import fr.pinguet62.jsfring.model.sql.Right;
 
 /** Simple tests for JPA relationships. */
 @RunWith(SpringRunner.class)
-@SpringBootTest
-@ContextConfiguration(classes = SpringBootConfig.class)
-@DatabaseSetup(DATASET)
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, TransactionalTestExecutionListener.class,
-        DbUnitTestExecutionListener.class })
+@SpringBootTest(classes = SpringBootConfig.class)
 @Transactional
+// DbUnit
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class,
+    TransactionalTestExecutionListener.class })
+@DatabaseSetup(DATASET)
 public class JpaTest {
 
     @Inject
@@ -56,8 +55,8 @@ public class JpaTest {
     private RightDao rightDao;
 
     /**
-     * When another existing element is {@link List#add(Object) added} to relationship, the {@link List} of entities
-     * must be updated.
+     * When another existing element is {@link List#add(Object) added} to relationship, the {@link List} of entities must be
+     * updated.
      *
      * @see ManyToMany
      */
@@ -113,8 +112,8 @@ public class JpaTest {
             assertTrue(
                     // Native
                     e instanceof EntityNotFoundException
-                            // Spring Wrapper
-                            || e.getCause() instanceof EntityNotFoundException);
+                    // Spring Wrapper
+                    || e.getCause() instanceof EntityNotFoundException);
         }
     }
 

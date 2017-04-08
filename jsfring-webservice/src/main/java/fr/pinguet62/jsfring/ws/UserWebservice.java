@@ -1,6 +1,7 @@
 package fr.pinguet62.jsfring.ws;
 
 import static fr.pinguet62.jsfring.ws.UserWebservice.PATH;
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static org.springframework.core.convert.TypeDescriptor.collection;
 import static org.springframework.core.convert.TypeDescriptor.valueOf;
 
@@ -13,7 +14,6 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import static javax.ws.rs.core.MediaType.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;

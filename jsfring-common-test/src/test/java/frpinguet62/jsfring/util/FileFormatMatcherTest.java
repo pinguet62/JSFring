@@ -41,7 +41,8 @@ public final class FileFormatMatcherTest {
     /**
      * Get the resource file test from extension.
      *
-     * @param filename The extension, without {@code ""}.
+     * @param filename
+     *            The extension, without {@code ""}.
      * @return The {@link InputStream} of resource.
      */
     private InputStream getFileAsStream(String extension) {

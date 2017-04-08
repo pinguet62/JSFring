@@ -16,8 +16,8 @@ import com.querydsl.core.types.dsl.SimpleExpression;
 import fr.pinguet62.jsfring.util.reflection.PropertyResolver;
 
 /**
- * Convert a {@link Map} who associate the property and the value, to the {@link Predicate} used to filter a
- * {@link QueryBase query}.
+ * Convert a {@link Map} who associate the property and the value, to the {@link Predicate} used to filter a {@link QueryBase
+ * query}.
  * <p>
  * Filtered field must be a {@link ComparableExpressionBase}.
  * <p>
@@ -29,9 +29,8 @@ public final class FilterConverter implements Function<Map<String, Object>, Pred
     private final EntityPath<?> meta;
 
     /**
-     * Constructor.
-     *
-     * @param meta The meta-object.
+     * @param meta
+     *            The meta-object.
      */
     public FilterConverter(EntityPath<?> meta) {
         this.meta = meta;
@@ -40,10 +39,13 @@ public final class FilterConverter implements Function<Map<String, Object>, Pred
     /**
      * Apply the filter: get the {@link Predicate}.
      *
-     * @param filters The association of property/value.
+     * @param filters
+     *            The association of property/value.
      * @return The {@link Predicate} built with different filters.
-     * @throws NullPointerException If {@code filters} is {@code null}.
-     * @throws ClassCastException The target field is not a {@link ComparableExpressionBase}, so doen't support filter.
+     * @throws NullPointerException
+     *             If {@code filters} is {@code null}.
+     * @throws ClassCastException
+     *             The target field is not a {@link ComparableExpressionBase}, so doen't support filter.
      * @see PropertyResolver Transform property name to {@link SimpleExpression} .
      */
     @Override

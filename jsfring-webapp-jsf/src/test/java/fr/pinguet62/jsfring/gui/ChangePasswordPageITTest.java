@@ -42,9 +42,10 @@ import fr.pinguet62.jsfring.util.PasswordGenerator;
 @SpringRequestScoped
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringBootConfig.class, webEnvironment = DEFINED_PORT)
-@DatabaseSetup(DATASET)
+// DbUnit
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class,
-        WithSecurityContextTestExecutionListener.class })
+    WithSecurityContextTestExecutionListener.class })
+@DatabaseSetup(DATASET)
 public class ChangePasswordPageITTest {
 
     private ChangePasswordPage page;

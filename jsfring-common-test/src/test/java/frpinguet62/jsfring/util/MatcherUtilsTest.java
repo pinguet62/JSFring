@@ -40,13 +40,10 @@ public final class MatcherUtilsTest {
     public void test_equalToTruncated() {
         assertThat(new Date(2016, 1, 2, 10, 20, 30), is(equalToTruncated(new Date(2016, 1, 2, 10, 29, 39), YEAR)));
         assertThat(new Date(2016, 1, 2, 10, 20, 30), is(equalToTruncated(new Date(2016, 1, 2, 10, 29, 39), MONTH)));
-        assertThat(new Date(2016, 1, 2, 10, 20, 30),
-                is(equalToTruncated(new Date(2016, 1, 2, 10, 29, 39), DAY_OF_MONTH)));
+        assertThat(new Date(2016, 1, 2, 10, 20, 30), is(equalToTruncated(new Date(2016, 1, 2, 10, 29, 39), DAY_OF_MONTH)));
         assertThat(new Date(2016, 1, 2, 10, 20, 30), is(not(equalToTruncated(new Date(2016, 1, 2, 19, 29, 39), HOUR))));
-        assertThat(new Date(2016, 1, 2, 10, 20, 30),
-                is(not(equalToTruncated(new Date(2016, 1, 2, 19, 29, 39), MINUTE))));
-        assertThat(new Date(2016, 1, 2, 10, 20, 30),
-                is(not(equalToTruncated(new Date(2016, 1, 2, 19, 29, 39), SECOND))));
+        assertThat(new Date(2016, 1, 2, 10, 20, 30), is(not(equalToTruncated(new Date(2016, 1, 2, 19, 29, 39), MINUTE))));
+        assertThat(new Date(2016, 1, 2, 10, 20, 30), is(not(equalToTruncated(new Date(2016, 1, 2, 19, 29, 39), SECOND))));
     }
 
     /** @see MatcherUtils#equalToTruncated(Date, int) */
@@ -58,7 +55,8 @@ public final class MatcherUtilsTest {
         try {
             tests.forEach(Runnable::run);
             fail();
-        } catch (AssertionError e) {}
+        } catch (AssertionError e) {
+        }
     }
 
     /** @see MatcherUtils#equalWithoutOrderTo(Iterable) */

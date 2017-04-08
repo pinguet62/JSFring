@@ -49,7 +49,7 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
 
     /**
      * Click on "delete" action button.
-     * 
+     *
      * @return The {@link ConfirmPopup}.
      * @throws UnsupportedOperationException "Delete" action not available.
      */
@@ -71,7 +71,7 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
 
     /**
      * Click on "show" action button.
-     * 
+     *
      * @return The {@link ShowPopup}.
      * @throws UnsupportedOperationException "Show" action not available.
      */
@@ -94,7 +94,7 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
 
     /**
      * Click on "update" action button.
-     * 
+     *
      * @return The {@link UpdatePopup}.
      * @throws UnsupportedOperationException "Update" action not available.
      */

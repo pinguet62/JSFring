@@ -35,11 +35,12 @@ public class OAuth2Config {
 
     /**
      * @see <a href=
-     *      "https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-1.5-Release-Notes#oauth-2-resource-filter">
-     *      Spring-Boot 1.5 Release notes</a>
+     *      "https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-1.5-Release-Notes#oauth-2-resource-filter"> Spring-
+     *      Boot 1.5 Release notes</a>
      */
     @Component
     @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
-    public static class MyWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {}
+    public static class MyWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
+    }
 
 }

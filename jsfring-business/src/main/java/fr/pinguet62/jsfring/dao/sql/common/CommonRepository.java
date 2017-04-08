@@ -17,7 +17,7 @@ import com.querydsl.jpa.impl.JPAQuery;
  * <p>
  * Extension of {@link JpaRepository} and {@link QueryDslPredicateExecutor}, with custom shared methods.
  */
-@NoRepositoryBean // Required: "No managed bean Object"
+@NoRepositoryBean
 public interface CommonRepository<T, ID extends Serializable> extends JpaRepository<T, ID>, QueryDslPredicateExecutor<T> {
 
     /**
@@ -27,7 +27,8 @@ public interface CommonRepository<T, ID extends Serializable> extends JpaReposit
      * <li>{@link OrderSpecifier} for sorting</li>
      * </ul>
      *
-     * @param query The {@link JPAQuery}.
+     * @param query
+     *            The {@link JPAQuery}.
      * @return The objects found.
      */
     List<T> find(JPAQuery<T> query);

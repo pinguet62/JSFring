@@ -70,8 +70,10 @@ public final class ChangePasswordBean implements Serializable {
     /**
      * Display message.
      *
-     * @param severity The {@link FacesMessage} severity.
-     * @param code Code of i18n message.
+     * @param severity
+     *            The {@link FacesMessage} severity.
+     * @param code
+     *            Code of i18n message.
      */
     private void showMessage(Severity severity, String code) {
         Locale locale = getCurrentInstance().getViewRoot().getLocale();

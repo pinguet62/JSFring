@@ -17,7 +17,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.stereotype.Component;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
@@ -32,14 +31,15 @@ import fr.pinguet62.jsfring.model.sql.Profile;
 
 /** @see CrudRepositoryItemWriter */
 @RunWith(SpringRunner.class)
-@SpringBootTest
-@ContextConfiguration(classes = { SpringBootConfig.class, ProfileCrudRepositoryItemWriter.class })
-@DatabaseSetup(DATASET)
+@SpringBootTest(classes = { SpringBootConfig.class, ProfileCrudRepositoryItemWriter.class })
+// DbUnit
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
+@DatabaseSetup(DATASET)
 public class CrudRepositoryItemWriterTest {
 
     @Component
-    public static class ProfileCrudRepositoryItemWriter extends CrudRepositoryItemWriter<Profile> {}
+    public static class ProfileCrudRepositoryItemWriter extends CrudRepositoryItemWriter<Profile> {
+    }
 
     @Inject
     private ProfileDao dao;

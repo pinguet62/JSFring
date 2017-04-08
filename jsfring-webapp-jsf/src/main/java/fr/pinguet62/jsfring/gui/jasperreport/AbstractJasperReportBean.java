@@ -70,8 +70,8 @@ public abstract class AbstractJasperReportBean implements Serializable {
     /**
      * Get the {@link Map} who contains the parameters for report.
      * <p>
-     * By default no parameter is required. But if the report contains parameters, this method must be {@link Override
-     * override}.
+     * By default no parameter is required. But if the report contains parameters, this method must be {@link Override override}
+     * .
      *
      * @return The {@link Map} of parameters.
      */
@@ -107,17 +107,17 @@ public abstract class AbstractJasperReportBean implements Serializable {
      * <li>Generate {@link StreamedContent} for PrimeFaces file download</li>
      * </ol>
      *
-     * @param targetType The {@link ExportType}.
+     * @param targetType
+     *            The {@link ExportType}.
      * @return The {@link StreamedContent} used by PrimeFaces.
-     * @throws JasperReportRuntimeException Error rendering report.
+     * @throws JasperReportRuntimeException
+     *             Error rendering report.
      */
     protected StreamedContent getStreamedContent(ExportType targetType) {
         try {
             // Jasper: compile
-            JasperReport jasperReport = JasperCompileManager
-                    .compileReport(getClass().getResourceAsStream(getReportPath()));
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, getParameters(),
-                    dataSource.getConnection());
+            JasperReport jasperReport = JasperCompileManager.compileReport(getClass().getResourceAsStream(getReportPath()));
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, getParameters(), dataSource.getConnection());
 
             // Jasper: export
             ByteArrayOutputStream outputStream = targetType.export(new SimpleExporterInput(jasperPrint));

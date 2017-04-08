@@ -1,11 +1,11 @@
 package fr.pinguet62.jsfring.util.querydsl;
 
 import static java.lang.Class.forName;
+import static java.lang.reflect.Modifier.isStatic;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -13,7 +13,7 @@ import javax.persistence.Entity;
 import com.querydsl.core.types.EntityPath;
 import com.querydsl.core.types.dsl.EntityPathBase;
 
-public final class ReflectionUtil {
+public class ReflectionUtils {
 
     /**
      * Get the default meta-object of {@link Entity} class.
@@ -25,11 +25,15 @@ public final class ReflectionUtil {
      * For example if the name is {@code mypackage.MyClass}, the meta-class must be {@code mypackage.QMyClass}.</li>
      * </ul>
      *
-     * @param <T> The {@link Entity} type.
-     * @param entityType The {@link Entity} type.
+     * @param <T>
+     *            The {@link Entity} type.
+     * @param entityType
+     *            The {@link Entity} type.
      * @return The {@link EntityPathBase} corresponding.
-     * @throws UnsupportedOperationException Meta-class not found from {@link Entity}.
-     * @throws UnsupportedOperationException Error during getting default meta-instance.
+     * @throws UnsupportedOperationException
+     *             Meta-class not found from {@link Entity}.
+     * @throws UnsupportedOperationException
+     *             Error during getting default meta-instance.
      */
     @SuppressWarnings("unchecked")
     public static <T> EntityPath<T> getDefaultMetaObject(Class<T> entityType) {
@@ -46,7 +50,7 @@ public final class ReflectionUtil {
 
         // Field
         List<Field> fields = asList(metaObjectType.getDeclaredFields()).stream()
-                .filter(/* Static */attr -> Modifier.isStatic(attr.getModifiers()))
+                .filter(/* Static */attr -> isStatic(attr.getModifiers()))
                 .filter(/* Same type */attr -> attr.getType().equals(metaObjectType)).collect(toList());
         if (fields.isEmpty())
             throw new IllegalArgumentException("Field not found.");
@@ -60,8 +64,5 @@ public final class ReflectionUtil {
             throw new UnsupportedOperationException("Error during getting default meta-instance", exception);
         }
     }
-
-    /** Private constructor: not instantiable. */
-    private ReflectionUtil() {}
 
 }

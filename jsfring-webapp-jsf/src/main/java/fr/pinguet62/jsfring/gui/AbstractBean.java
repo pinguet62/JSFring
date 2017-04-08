@@ -27,7 +27,8 @@ import fr.pinguet62.jsfring.service.AbstractService;
  * <p>
  * Eager and lazy loading can be used simple by calling the corresponding method into xHTML view.
  *
- * @param <T> The type of objects to display.
+ * @param <T>
+ *            The type of objects to display.
  */
 public abstract class AbstractBean<T extends Serializable> implements Serializable {
 
@@ -45,7 +46,7 @@ public abstract class AbstractBean<T extends Serializable> implements Serializab
     /** The {@link EntityPath} of target {@link Entity}. */
     @SuppressWarnings("unchecked")
     private final EntityPath<T> path = INSTANCE
-            .createPath((Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
+    .createPath((Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
 
     /**
      * Used for <b>lazy loading</b>.<br>
@@ -64,8 +65,8 @@ public abstract class AbstractBean<T extends Serializable> implements Serializab
      * Used for <b>eager loading</b>.<br>
      * <code>&lt;p:dataTable value="#{myBean.list}" ...&gt;</code>
      * <p>
-     * <u>Cache:</u> because the {@link DataTable} repeatedly calls this method, the value is stored on {@link #list
-     * attribute} to avoid multiple call in database.<br>
+     * <u>Cache:</u> because the {@link DataTable} repeatedly calls this method, the value is stored on {@link #list attribute}
+     * to avoid multiple call in database.<br>
      * The {@link #list value} is initialized at the first call (when is {@code null}) and reused by next calls.
      *
      * @see AbstractService#findAll(Predicate)
@@ -82,8 +83,8 @@ public abstract class AbstractBean<T extends Serializable> implements Serializab
      * The {@link OrderSpecifier} used to sort data.
      * <p>
      * <u>Default:</u> No order.<br>
-     * <u>Custom:</u> {@link Override} this method and {@link List#add(Object) add} {@link OrderSpecifier} to
-     * {@code super} default implementation.
+     * <u>Custom:</u> {@link Override} this method and {@link List#add(Object) add} {@link OrderSpecifier} to {@code super}
+     * default implementation.
      *
      * @return The built {@link OrderSpecifier}.
      */
@@ -103,8 +104,8 @@ public abstract class AbstractBean<T extends Serializable> implements Serializab
     /**
      * The {@link Predicate} used to filter data.
      * <p>
-     * To add custom criteria, override this method and {@link BooleanBuilder#and(Predicate) apply} criteria to
-     * {@code super} default implementation.
+     * To add custom criteria, override this method and {@link BooleanBuilder#and(Predicate) apply} criteria to {@code super}
+     * default implementation.
      *
      * @return The built {@link Predicate}.
      */

@@ -21,7 +21,8 @@ import fr.pinguet62.jsfring.model.sql.User;
 
 @Retention(RUNTIME)
 @WithSecurityContext(factory = WithAnyUserSecurityContextFactory.class)
-public @interface WithAnyUser {}
+public @interface WithAnyUser {
+}
 
 @Component
 class WithAnyUserSecurityContextFactory implements WithSecurityContextFactory<WithAnyUser> {

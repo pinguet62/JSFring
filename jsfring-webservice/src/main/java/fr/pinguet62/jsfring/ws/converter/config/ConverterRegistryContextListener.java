@@ -34,7 +34,7 @@ public class ConverterRegistryContextListener implements ApplicationListener<Con
 
     /**
      * Store {@link Converter} into {@link GenericConversionService}.
-     * 
+     *
      * @see GenericConversionService#addConverter(Converter)
      */
     @Override

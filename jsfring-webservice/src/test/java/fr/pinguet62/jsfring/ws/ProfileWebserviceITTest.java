@@ -10,6 +10,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
 
 import java.util.List;
 
@@ -19,7 +20,6 @@ import javax.ws.rs.core.GenericType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
@@ -35,9 +35,10 @@ import fr.pinguet62.jsfring.ws.dto.ProfileDto;
 
 /** @see ProfileWebservice */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = SpringBootConfig.class, webEnvironment = WebEnvironment.DEFINED_PORT)
-@DatabaseSetup(DATASET)
+@SpringBootTest(classes = SpringBootConfig.class, webEnvironment = DEFINED_PORT)
+// DbUnit
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
+@DatabaseSetup(DATASET)
 public class ProfileWebserviceITTest {
 
     @Inject

@@ -31,8 +31,7 @@ public final class PathFilterComponent extends UIInput implements NamingContaine
     private InputText value1InputText, value2InputText;
 
     /**
-     * Bloc of code, skipped in the method
-     * {@link UIInput#processValidators(FacesContext)}, because of
+     * Bloc of code, skipped in the method {@link UIInput#processValidators(FacesContext)}, because of
      * {@link #setImmediate(boolean)}.
      * <p>
      * This code must be executed after child validations.
@@ -129,8 +128,7 @@ public final class PathFilterComponent extends UIInput implements NamingContaine
     }
 
     /**
-     * Set {@link Converter} and {@link Validator} of current component to
-     * {@link InputText} children.
+     * Set {@link Converter} and {@link Validator} of current component to {@link InputText} children.
      */
     private void initConverterAndValidators() {
         for (InputText inputText : asList(value1InputText, value2InputText)) {
@@ -144,8 +142,7 @@ public final class PathFilterComponent extends UIInput implements NamingContaine
     }
 
     /**
-     * Validate the components instead of {@link Operator} value. The validation
-     * of no-required {@link InputText} are skipped.
+     * Validate the components instead of {@link Operator} value. The validation of no-required {@link InputText} are skipped.
      */
     @Override
     public void processValidators(FacesContext context) {
@@ -180,6 +177,7 @@ public final class PathFilterComponent extends UIInput implements NamingContaine
      * @see UIInput#validateValue(FacesContext, Object)
      */
     @Override
-    protected void validateValue(FacesContext context, Object newValue) {}
+    protected void validateValue(FacesContext context, Object newValue) {
+    }
 
 }

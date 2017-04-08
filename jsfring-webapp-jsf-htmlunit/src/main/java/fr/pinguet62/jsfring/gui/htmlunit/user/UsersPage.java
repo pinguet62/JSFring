@@ -31,8 +31,7 @@ public final class UsersPage extends AbstractDatatablePage<UserRow, UserCreatePo
 
     public static enum Column {
 
-        ACTIONS(5, "Actions"), ACTIVE(3, "Active"), EMAIL(2, "Email"), LAST_CONNECTION(4, "Last connection"), LOGIN(1,
-                "Login");
+        ACTIONS(5, "Actions"), ACTIVE(3, "Active"), EMAIL(2, "Email"), LAST_CONNECTION(4, "Last connection"), LOGIN(1, "Login");
 
         public static Column fromTitle(String title) {
             for (Column column : values())
@@ -68,7 +67,8 @@ public final class UsersPage extends AbstractDatatablePage<UserRow, UserCreatePo
      * Test if the {@link Column} is visible.<br>
      * Check that {@link HtmlTableHeaderCell table header} {@code class} contains {@code "ui-helper-hidden"} value.
      *
-     * @param column The {@link Column}.
+     * @param column
+     *            The {@link Column}.
      * @return The result.
      */
     public boolean columnVisibile(Column column) {
@@ -79,16 +79,16 @@ public final class UsersPage extends AbstractDatatablePage<UserRow, UserCreatePo
     public void filterByActive(ActiveFilter value) {
         // TODO common abstract parent method
         HtmlDivision div = (HtmlDivision) getDatatableTableHeader(ACTIVE.getTitle())
-                .getByXPath(
-                        "./div[contains(@class, 'ui-column-customfilter')]/div[contains(@class, 'ui-selectonebutton')]")
+                .getByXPath("./div[contains(@class, 'ui-column-customfilter')]/div[contains(@class, 'ui-selectonebutton')]")
                 .get(0);
         SelectOneButton<ActiveFilter> selectOneButton = new SelectOneButton<ActiveFilter>(div, ActiveFilter::valueOf);
         selectOneButton.setValue(value);
     }
 
     /**
-     * @param value The value to set.<br>
-     *        {@code null} to reset filter.
+     * @param value
+     *            The value to set.<br>
+     *            {@code null} to reset filter.
      */
     public void filterLogin(String value) {
         HtmlInput input = (HtmlInput) getDatatableTableHeader(LOGIN.getTitle())
@@ -115,18 +115,18 @@ public final class UsersPage extends AbstractDatatablePage<UserRow, UserCreatePo
     // TODO test
     public void hideOrShowColumn(Column column) {
         try {
-            HtmlButton toggler = (HtmlButton) getDatatableHeader().getByXPath("./button[contains(@id, 'toggler')]")
-                    .get(0);
+            HtmlButton toggler = (HtmlButton) getDatatableHeader().getByXPath("./button[contains(@id, 'toggler')]").get(0);
 
             // Show Toogler
             page = toggler.click();
             waitJS(SHORT);
             debug();
 
-            @SuppressWarnings("unchecked") List<HtmlListItem> choices = (List<HtmlListItem>) page.getByXPath(
+            @SuppressWarnings("unchecked")
+            List<HtmlListItem> choices = (List<HtmlListItem>) page.getByXPath(
                     "//div[contains(@class, 'ui-columntoggler')]/ul[contains(@class, 'ui-columntoggler-items')]/li[contains(@class, 'ui-columntoggler-item')]");
-            HtmlListItem choice = choices.stream().filter(
-                    li -> Column.fromTitle(((HtmlLabel) li.getByXPath("./label").get(0)).asText()).equals(column))
+            HtmlListItem choice = choices.stream()
+                    .filter(li -> Column.fromTitle(((HtmlLabel) li.getByXPath("./label").get(0)).asText()).equals(column))
                     .findAny().get();
             choice.click();
             page = ((HtmlDivision) choice.getByXPath("./div[contains(@class, 'ui-chkbox')]").get(0)).click();
@@ -147,7 +147,8 @@ public final class UsersPage extends AbstractDatatablePage<UserRow, UserCreatePo
      * <p>
      * <code>&lt;span class="...ui-column-title..."&gt;</code>
      *
-     * @param column The {@link Column}.
+     * @param column
+     *            The {@link Column}.
      */
     public void sortBy(Column column) {
         sortBy(column.getTitle());

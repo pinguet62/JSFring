@@ -58,11 +58,9 @@ public final class UserTest {
         // < 6 character
         assertThat(forAllCombinaisonOf("a", "b", "c", "1", "$"), everyItem(not(matches(PASSWORD_REGEX))));
         // 0 letter
-        assertThat(forAllCombinaisonOf("a", "b", "c", "d", "e", "f", "$", "#", "~"),
-                everyItem(not(matches(PASSWORD_REGEX))));
+        assertThat(forAllCombinaisonOf("a", "b", "c", "d", "e", "f", "$", "#", "~"), everyItem(not(matches(PASSWORD_REGEX))));
         // 0 special
-        assertThat(forAllCombinaisonOf("1", "2", "3", "a", "b", "c", "d", "e", "f"),
-                everyItem(not(matches(PASSWORD_REGEX))));
+        assertThat(forAllCombinaisonOf("1", "2", "3", "a", "b", "c", "d", "e", "f"), everyItem(not(matches(PASSWORD_REGEX))));
     }
 
     /** @see User#PASSWORD_REGEX */
@@ -71,8 +69,7 @@ public final class UserTest {
         // 1 letter + 1 special + 6 character
         assertThat(forAllCombinaisonOf("5", "$", "a", "b", "c", "d", "e", "f"), everyItem(matches(PASSWORD_REGEX)));
         // >1 letter + >1 special + >6 character
-        assertThat(forAllCombinaisonOf("5", "6", "$", "^", "a", "b", "c", "d", "e", "f"),
-                everyItem(matches(PASSWORD_REGEX)));
+        assertThat(forAllCombinaisonOf("5", "6", "$", "^", "a", "b", "c", "d", "e", "f"), everyItem(matches(PASSWORD_REGEX)));
     }
 
 }

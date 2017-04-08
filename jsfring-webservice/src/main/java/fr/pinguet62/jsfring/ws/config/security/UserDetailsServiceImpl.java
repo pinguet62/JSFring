@@ -37,9 +37,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      * The login process.<br>
      * Reset {@link User#lastConnection} after connection.
      *
-     * @param login The {@link User#login user's login}.
+     * @param login
+     *            The {@link User#login user's login}.
      * @return The {@link UserDetails}.
-     * @throws UsernameNotFoundException If {@link User} is not found.
+     * @throws UsernameNotFoundException
+     *             If {@link User} is not found.
      * @see UserDetailsImpl
      */
     @Override

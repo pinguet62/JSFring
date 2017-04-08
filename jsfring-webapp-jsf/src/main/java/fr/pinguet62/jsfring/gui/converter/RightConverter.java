@@ -11,8 +11,7 @@ import fr.pinguet62.jsfring.model.sql.Right;
 import fr.pinguet62.jsfring.service.RightService;
 
 /**
- * Convert {@link Right} to {@link String} value, and conversely, from the
- * primary key.
+ * Convert {@link Right} to {@link String} value, and conversely, from the primary key.
  */
 @Named
 @FacesConverter("rightConverter")
@@ -22,22 +21,22 @@ public final class RightConverter implements Converter {
     private RightService rightService;
 
     /**
-     * @param code The {@link Right#code code}.
+     * @param code
+     *            The {@link Right#code code}.
      * @return The {@link Right}.
      */
     @Override
-    public Object getAsObject(FacesContext context, UIComponent component,
-            String code) {
+    public Object getAsObject(FacesContext context, UIComponent component, String code) {
         return rightService.get(code);
     }
 
     /**
-     * @param object The {@link Right}.
+     * @param object
+     *            The {@link Right}.
      * @return The {@link Right#code code}.
      */
     @Override
-    public String getAsString(FacesContext context, UIComponent component,
-            Object object) {
+    public String getAsString(FacesContext context, UIComponent component, Object object) {
         Right right = (Right) object;
         return right.getCode();
     }

@@ -10,8 +10,8 @@ import fr.pinguet62.jsfring.dao.sql.UserDao;
 import fr.pinguet62.jsfring.model.sql.User;
 
 /**
- * {@link ItemProcessor} who convert, input {@link UserRow}, to {@link User} initialized for {@link UserDao#save(User)
- * database insert}.
+ * {@link ItemProcessor} who convert, input {@link UserRow}, to {@link User} initialized for {@link UserDao#save(User) database
+ * insert}.
  */
 @Component
 public class UserProcessor implements ItemProcessor<UserRow, User> {

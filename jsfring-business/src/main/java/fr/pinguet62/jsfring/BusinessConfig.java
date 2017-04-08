@@ -5,4 +5,5 @@ import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 @PropertySource("classpath:/application-business.properties")
-public class BusinessConfig {}
+public class BusinessConfig {
+}

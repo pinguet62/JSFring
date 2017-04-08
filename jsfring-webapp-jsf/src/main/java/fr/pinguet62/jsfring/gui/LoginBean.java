@@ -56,8 +56,7 @@ public final class LoginBean implements Serializable {
     @PostConstruct
     public void init() {
         if (error != null)
-            getCurrentInstance().addMessage(null,
-                    new FacesMessage(SEVERITY_ERROR, "Username or password invalid.", null));
+            getCurrentInstance().addMessage(null, new FacesMessage(SEVERITY_ERROR, "Username or password invalid.", null));
     }
 
     public boolean isRememberMe() {
@@ -68,13 +67,14 @@ public final class LoginBean implements Serializable {
      * Redirect the request to the default Spring-Security {@code login-processing-url}.<br>
      * Spring-Security will manage the authentication.
      *
-     * @throws ServletException Error with {@link RequestDispatcher#forward(ServletRequest, ServletResponse) forward}.
-     * @throws IOException Error with {@link RequestDispatcher#forward(ServletRequest, ServletResponse) forward}.
+     * @throws ServletException
+     *             Error with {@link RequestDispatcher#forward(ServletRequest, ServletResponse) forward}.
+     * @throws IOException
+     *             Error with {@link RequestDispatcher#forward(ServletRequest, ServletResponse) forward}.
      */
     public void login() throws ServletException, IOException {
         ExternalContext context = getCurrentInstance().getExternalContext();
-        RequestDispatcher dispatcher = ((ServletRequest) context.getRequest())
-                .getRequestDispatcher(LOGIN_PROCESSING_URL);
+        RequestDispatcher dispatcher = ((ServletRequest) context.getRequest()).getRequestDispatcher(LOGIN_PROCESSING_URL);
         dispatcher.forward((ServletRequest) context.getRequest(), (ServletResponse) context.getResponse());
         getCurrentInstance().responseComplete();
     }

@@ -7,4 +7,5 @@ import fr.pinguet62.jsfring.model.sql.Profile;
 
 /** @see Profile */
 @Repository
-public interface ProfileDao extends CommonRepository<Profile, Integer> {}
+public interface ProfileDao extends CommonRepository<Profile, Integer> {
+}

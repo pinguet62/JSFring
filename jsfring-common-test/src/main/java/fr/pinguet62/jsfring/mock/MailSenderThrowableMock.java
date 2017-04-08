@@ -25,7 +25,8 @@ public class MailSenderThrowableMock implements MailSender {
     /**
      * The next send will fail.
      *
-     * @param mustThrow If next call must fail.
+     * @param mustThrow
+     *            If next call must fail.
      */
     public void mustThrow(boolean mustThrow) {
         this.mustThrow = mustThrow;
@@ -37,7 +38,10 @@ public class MailSenderThrowableMock implements MailSender {
         send(new SimpleMailMessage[] { simpleMessage });
     }
 
-    /** @throws MailException If asked by {@link #mustThrow(boolean)}. */
+    /**
+     * @throws MailException
+     *             If asked by {@link #mustThrow(boolean)}.
+     */
     @Override
     public void send(SimpleMailMessage... simpleMessages) throws MailException {
         if (mustThrow)

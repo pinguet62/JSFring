@@ -20,10 +20,12 @@ import fr.pinguet62.jsfring.dao.sql.common.CommonRepository;
  * <p>
  * <u>Cache:</u> To enable caching, {@link Override} method and use {@link Cache} methods.
  *
- * @param <T> The type of objects.
- * @param <ID> The Primary key type.<br>
- *        To be managed by {@link Cache}, {@link Object#hashCode()} and {@link Object#equals(Object)} methods must be
- *        {@link Override overridden}.
+ * @param <T>
+ *            The type of objects.
+ * @param <ID>
+ *            The Primary key type.<br>
+ *            To be managed by {@link Cache}, {@link Object#hashCode()} and {@link Object#equals(Object)} methods must be
+ *            {@link Override overridden}.
  */
 public abstract class AbstractService<T extends Serializable, ID extends Serializable> {
 
@@ -34,7 +36,8 @@ public abstract class AbstractService<T extends Serializable, ID extends Seriali
     /**
      * Create new object.
      *
-     * @param object The object.
+     * @param object
+     *            The object.
      * @return The created object.
      * @see CommonRepository#save(Object)
      */
@@ -46,7 +49,8 @@ public abstract class AbstractService<T extends Serializable, ID extends Seriali
     /**
      * Delete the object.
      *
-     * @param object The object to delete.
+     * @param object
+     *            The object to delete.
      * @see CommonRepository#delete(Object)
      */
     @Transactional
@@ -57,7 +61,8 @@ public abstract class AbstractService<T extends Serializable, ID extends Seriali
     /**
      * Find list of objects.
      *
-     * @param predicate The {@link Predicate}.
+     * @param predicate
+     *            The {@link Predicate}.
      * @return The objects found.
      * @see CommonRepository#findAll(Predicate)
      */
@@ -69,8 +74,10 @@ public abstract class AbstractService<T extends Serializable, ID extends Seriali
     /**
      * Find paginated results.
      *
-     * @param predicate The {@link Predicate} used to filter results.
-     * @param pageable The {@link Pageable} used to define current pagination, and sort results.
+     * @param predicate
+     *            The {@link Predicate} used to filter results.
+     * @param pageable
+     *            The {@link Pageable} used to define current pagination, and sort results.
      * @return The {@link Page paginated results}.
      * @see CommonRepository#findAll(Predicate, Pageable)
      */
@@ -82,7 +89,8 @@ public abstract class AbstractService<T extends Serializable, ID extends Seriali
     /**
      * Get the object by id.
      *
-     * @param id The id.
+     * @param id
+     *            The id.
      * @return The object, {@code null} if not found.
      * @see CrudRepository#findOne(Serializable)
      */
@@ -105,7 +113,8 @@ public abstract class AbstractService<T extends Serializable, ID extends Seriali
     /**
      * Update an object.
      *
-     * @param object The object to update.
+     * @param object
+     *            The object to update.
      * @return The updated object.
      * @see CommonRepository#save(Object)
      */

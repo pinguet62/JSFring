@@ -123,7 +123,8 @@ public final class FilterConverterTest {
                 params.put(right.profiles.toString(), "foo");
                 new FilterConverter(right).apply(params);
                 fail();
-            } catch (ClassCastException e) {}
+            } catch (ClassCastException e) {
+            }
         }
         {
             QProfile profile = QProfile.profile;
@@ -132,13 +133,15 @@ public final class FilterConverterTest {
                 params.put(profile.rights.toString(), "foo");
                 new FilterConverter(profile).apply(params);
                 fail();
-            } catch (ClassCastException e) {}
+            } catch (ClassCastException e) {
+            }
             try {
                 Map<String, Object> params = new HashMap<>();
                 params.put(profile.users.toString(), "foo");
                 new FilterConverter(profile).apply(params);
                 fail();
-            } catch (ClassCastException e) {}
+            } catch (ClassCastException e) {
+            }
         }
         {
             QUser user = QUser.user;
@@ -147,7 +150,8 @@ public final class FilterConverterTest {
                 params.put(user.profiles.toString(), "foo");
                 new FilterConverter(user).apply(params);
                 fail();
-            } catch (ClassCastException e) {}
+            } catch (ClassCastException e) {
+            }
         }
     }
 

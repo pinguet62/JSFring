@@ -17,8 +17,10 @@ import fr.pinguet62.jsfring.gui.component.filter.operator.Operator;
 /**
  * Class used to store the {@link Operator} and arguments of a filter on {@link SimpleExpression}.
  *
- * @param <Exp> The type of {@link SimpleExpression} on which apply filter.
- * @param <T> The type of parameter of the {@link Operator}.
+ * @param <Exp>
+ *            The type of {@link SimpleExpression} on which apply filter.
+ * @param <T>
+ *            The type of parameter of the {@link Operator}.
  */
 public abstract class PathFilter<Exp extends SimpleExpression<T>, T extends Serializable>
         implements Supplier<Predicate>, Serializable {
@@ -38,7 +40,10 @@ public abstract class PathFilter<Exp extends SimpleExpression<T>, T extends Seri
      */
     private T value1, value2;
 
-    /** @param path The {@link #path}. */
+    /**
+     * @param path
+     *            The {@link #path}.
+     */
     public PathFilter(Exp path) {
         this.path = path;
     }
@@ -111,8 +116,8 @@ public abstract class PathFilter<Exp extends SimpleExpression<T>, T extends Seri
     }
 
     /**
-     * Check that argument values are correct, according to {@link Operator#getNumberOfParameters() number of arguments}
-     * of {@link #operator}.
+     * Check that argument values are correct, according to {@link Operator#getNumberOfParameters() number of arguments} of
+     * {@link #operator}.
      *
      * @return The result.
      */

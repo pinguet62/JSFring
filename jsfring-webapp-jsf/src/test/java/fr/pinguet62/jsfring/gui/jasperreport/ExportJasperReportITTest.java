@@ -1,6 +1,7 @@
 package fr.pinguet62.jsfring.gui.jasperreport;
 
 import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.get;
+import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
 import static fr.pinguet62.jsfring.util.FileFormatMatcher.isCSV;
 import static fr.pinguet62.jsfring.util.FileFormatMatcher.isDOCX;
 import static fr.pinguet62.jsfring.util.FileFormatMatcher.isHTML;
@@ -23,7 +24,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.gui.htmlunit.jasperreport.AbstractJasperReportPage;
@@ -37,6 +43,9 @@ import fr.pinguet62.jsfring.gui.jasperreport.sample.UsersRightsJasperReportBean;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringBootConfig.class, webEnvironment = DEFINED_PORT)
+//DbUnit
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
+@DatabaseSetup(DATASET)
 public final class ExportJasperReportITTest {
 
     private UsersRightsJasperReportPage page;

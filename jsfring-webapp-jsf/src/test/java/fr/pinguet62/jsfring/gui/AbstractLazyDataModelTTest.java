@@ -45,8 +45,9 @@ import fr.pinguet62.jsfring.service.RightService;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringBootConfig.class, webEnvironment = DEFINED_PORT)
-@DatabaseSetup(DATASET)
+//DbUnit
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
+@DatabaseSetup(DATASET)
 public class AbstractLazyDataModelTTest {
 
     private static final String COLUMN = QRight.right_.code.toString().split("\\.")[1];

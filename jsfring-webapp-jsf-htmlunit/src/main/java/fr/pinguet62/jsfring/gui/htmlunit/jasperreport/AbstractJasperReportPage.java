@@ -12,7 +12,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.NavigatorException;
 
-/* @see AbstractJasperReportBean */
+/** @see AbstractJasperReportBean */
 public abstract class AbstractJasperReportPage extends AbstractPage {
 
     public AbstractJasperReportPage(HtmlPage page) {
@@ -22,11 +22,13 @@ public abstract class AbstractJasperReportPage extends AbstractPage {
     /**
      * Into the {@link Panel} footer, find the {@link HtmlButton} from title.
      *
-     * @param buttonTitle The {@link HtmlButton} label.
+     * @param buttonTitle
+     *            The {@link HtmlButton} label.
      * @return The {@link InputStream} returned after export button click.
      */
     protected InputStream export(String buttonTitle) {
-        @SuppressWarnings("unchecked") List<HtmlButton> buttons = (List<HtmlButton>) page.getByXPath(
+        @SuppressWarnings("unchecked")
+        List<HtmlButton> buttons = (List<HtmlButton>) page.getByXPath(
                 "//div[contains(@class, 'ui-layout-center')]//form//div[contains(@class, 'ui-panel-footer')]//button");
         HtmlButton exporter = buttons.stream()
                 .filter(button -> ((HtmlSpan) button.getByXPath("./span").get(0)).getTextContent().equals(buttonTitle))

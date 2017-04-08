@@ -54,7 +54,8 @@ public final class FileFormatMatcher {
     public static Matcher<InputStream> isCSV() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
-            public void describeTo(Description description) {}
+            public void describeTo(Description description) {
+            }
 
             @Override
             protected boolean matchesSafely(InputStream is) {
@@ -74,7 +75,8 @@ public final class FileFormatMatcher {
     public static Matcher<InputStream> isDOC() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
-            public void describeTo(Description description) {}
+            public void describeTo(Description description) {
+            }
 
             @Override
             protected boolean matchesSafely(InputStream is) {
@@ -95,7 +97,8 @@ public final class FileFormatMatcher {
     public static Matcher<InputStream> isDOCX() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
-            public void describeTo(Description description) {}
+            public void describeTo(Description description) {
+            }
 
             @Override
             protected boolean matchesSafely(InputStream is) {
@@ -117,7 +120,8 @@ public final class FileFormatMatcher {
     public static Matcher<InputStream> isHTML() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
-            public void describeTo(Description description) {}
+            public void describeTo(Description description) {
+            }
 
             @Override
             protected boolean matchesSafely(InputStream is) {
@@ -135,7 +139,8 @@ public final class FileFormatMatcher {
     public static Matcher<InputStream> isImage() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
-            public void describeTo(Description description) {}
+            public void describeTo(Description description) {
+            }
 
             @Override
             protected boolean matchesSafely(InputStream is) {
@@ -156,7 +161,8 @@ public final class FileFormatMatcher {
     public static Matcher<InputStream> isODP() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
-            public void describeTo(Description description) {}
+            public void describeTo(Description description) {
+            }
 
             @Override
             protected boolean matchesSafely(InputStream is) {
@@ -178,7 +184,8 @@ public final class FileFormatMatcher {
     public static Matcher<InputStream> isODS() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
-            public void describeTo(Description description) {}
+            public void describeTo(Description description) {
+            }
 
             @Override
             protected boolean matchesSafely(InputStream is) {
@@ -200,7 +207,8 @@ public final class FileFormatMatcher {
     public static Matcher<InputStream> isODT() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
-            public void describeTo(Description description) {}
+            public void describeTo(Description description) {
+            }
 
             @Override
             protected boolean matchesSafely(InputStream is) {
@@ -222,7 +230,8 @@ public final class FileFormatMatcher {
     public static Matcher<InputStream> isPDF() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
-            public void describeTo(Description description) {}
+            public void describeTo(Description description) {
+            }
 
             @Override
             protected boolean matchesSafely(InputStream is) {
@@ -243,7 +252,8 @@ public final class FileFormatMatcher {
     public static Matcher<InputStream> isPPT() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
-            public void describeTo(Description description) {}
+            public void describeTo(Description description) {
+            }
 
             @Override
             protected boolean matchesSafely(InputStream is) {
@@ -265,7 +275,8 @@ public final class FileFormatMatcher {
     public static Matcher<InputStream> isPPTX() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
-            public void describeTo(Description description) {}
+            public void describeTo(Description description) {
+            }
 
             @Override
             protected boolean matchesSafely(InputStream is) {
@@ -287,7 +298,8 @@ public final class FileFormatMatcher {
     public static Matcher<InputStream> isRTF() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
-            public void describeTo(Description description) {}
+            public void describeTo(Description description) {
+            }
 
             @Override
             protected boolean matchesSafely(InputStream is) {
@@ -312,7 +324,8 @@ public final class FileFormatMatcher {
     public static Matcher<InputStream> isTXT() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
-            public void describeTo(Description description) {}
+            public void describeTo(Description description) {
+            }
 
             @Override
             protected boolean matchesSafely(InputStream is) {
@@ -336,7 +349,8 @@ public final class FileFormatMatcher {
     public static Matcher<InputStream> isXLS() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
-            public void describeTo(Description description) {}
+            public void describeTo(Description description) {
+            }
 
             @Override
             protected boolean matchesSafely(InputStream is) {
@@ -358,7 +372,8 @@ public final class FileFormatMatcher {
     public static Matcher<InputStream> isXLSX() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
-            public void describeTo(Description description) {}
+            public void describeTo(Description description) {
+            }
 
             @Override
             protected boolean matchesSafely(InputStream is) {
@@ -381,7 +396,8 @@ public final class FileFormatMatcher {
     public static Matcher<InputStream> isXML() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
-            public void describeTo(Description description) {}
+            public void describeTo(Description description) {
+            }
 
             @Override
             protected boolean matchesSafely(InputStream is) {
@@ -406,13 +422,15 @@ public final class FileFormatMatcher {
     public static Matcher<InputStream> isZIP() {
         return new TypeSafeMatcher<InputStream>() {
             @Override
-            public void describeTo(Description description) {}
+            public void describeTo(Description description) {
+            }
 
             @Override
             protected boolean matchesSafely(InputStream is) {
                 ZipInputStream zipInputStream = new ZipInputStream(is);
                 try {
-                    while ((zipInputStream.getNextEntry()) != null) {}
+                    while ((zipInputStream.getNextEntry()) != null) {
+                    }
                 } catch (IOException e) {
                     return false;
                 }
@@ -422,6 +440,7 @@ public final class FileFormatMatcher {
     }
 
     // Util
-    private FileFormatMatcher() {}
+    private FileFormatMatcher() {
+    }
 
 }

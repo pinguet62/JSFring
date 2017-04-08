@@ -24,13 +24,11 @@ public final class UserUpdatePopup extends AbstractUserPopup implements UpdatePo
     }
 
     public ReadWriteField<?, Boolean> getActive() {
-        return new CheckBox(
-                (HtmlDivision) getFieldTableCell(2).getByXPath("./div[contains(@class, 'ui-chkbox')]").get(0));
+        return new CheckBox((HtmlDivision) getFieldTableCell(2).getByXPath("./div[contains(@class, 'ui-chkbox')]").get(0));
     }
 
     public ReadWriteField<?, String> getEmail() {
-        return new InputText(
-                (HtmlInput) getFieldTableCell(1).getByXPath("./input[contains(@class, 'ui-inputtext')]").get(0));
+        return new InputText((HtmlInput) getFieldTableCell(1).getByXPath("./input[contains(@class, 'ui-inputtext')]").get(0));
     }
 
     public Field<?, Date> getLastConnection() {

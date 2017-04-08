@@ -17,7 +17,6 @@ import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
@@ -26,8 +25,7 @@ import fr.pinguet62.jsfring.ws.dto.PageDto;
 
 /** @see PageGenericConverter */
 @RunWith(SpringRunner.class)
-@SpringBootTest
-@ContextConfiguration(classes = SpringBootConfig.class)
+@SpringBootTest(classes = SpringBootConfig.class)
 public class PageGenericConverterTest {
 
     @Inject
@@ -75,8 +73,10 @@ public class PageGenericConverterTest {
     @Test(expected = ConversionFailedException.class)
     public void test_typeConverting_unknownConverter() {
         // Types
-        class SrcType {}
-        class TgtType {}
+        class SrcType {
+        }
+        class TgtType {
+        }
         assertThat(conversionService.canConvert(SrcType.class, TgtType.class), is(false));
 
         Page<SrcType> source = new PageImpl<>(asList(new SrcType(), new SrcType()), null, 10);

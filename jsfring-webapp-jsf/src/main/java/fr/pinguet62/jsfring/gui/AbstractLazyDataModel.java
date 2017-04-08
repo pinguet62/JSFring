@@ -24,10 +24,11 @@ import fr.pinguet62.jsfring.util.reflection.PropertyResolver;
 
 // TODO Order: getOrderSpecifiers() not used
 /**
- * Abstract {@link LazyDataModel} who implements default {@link #load(int, int, String, SortOrder, Map) loading method}
- * for lazy-loading and pagination.
+ * Abstract {@link LazyDataModel} who implements default {@link #load(int, int, String, SortOrder, Map) loading method} for
+ * lazy-loading and pagination.
  *
- * @param <T> The type of objects to display.
+ * @param <T>
+ *            The type of objects to display.
  */
 public class AbstractLazyDataModel<T extends Serializable> extends LazyDataModel<T> {
 
@@ -42,7 +43,10 @@ public class AbstractLazyDataModel<T extends Serializable> extends LazyDataModel
      */
     private final AbstractBean<T> bean;
 
-    /** @param bean {@link #bean} */
+    /**
+     * @param bean
+     *            {@link #bean}
+     */
     public AbstractLazyDataModel(AbstractBean<T> bean) {
         this.bean = bean;
     }
@@ -50,22 +54,26 @@ public class AbstractLazyDataModel<T extends Serializable> extends LazyDataModel
     /**
      * Load a paginated list of elements.
      * <p>
-     * Get the current {@link AbstractBean#getPredicate() predicates} and {@link AbstractBean#getOrderSpecifiers()
-     * orders}, then add pagination and datatable filter and sorting.
+     * Get the current {@link AbstractBean#getPredicate() predicates} and {@link AbstractBean#getOrderSpecifiers() orders}, then
+     * add pagination and datatable filter and sorting.
      * <p>
-     * For filtering, the field name doesn't contains the object name on with EL expression will be resolved. For
-     * example if the EL expression in xHTML is <code>"#&#123;right.code&#125;"</code>, so the field name will be
-     * {@code "code"}.
+     * For filtering, the field name doesn't contains the object name on with EL expression will be resolved. For example if the
+     * EL expression in xHTML is <code>"#&#123;right.code&#125;"</code>, so the field name will be {@code "code"}.
      *
-     * @param firstIndex Index of first element in current page to load.<br>
-     *        Filter element (first page, first row) has an index of {@code 0}.
-     * @param pageSize The number of result per page.
-     * @param sortField The field name on which filter.<br>
-     *        Default: {@code null}.
-     * @param sortOrder The order of sort.<br>
-     *        Default: {@link SortOrder#ASCENDING}.
-     * @param filters Association of field names to value set by user to filter results.<br>
-     *        Default: an empty {@link Map}.
+     * @param firstIndex
+     *            Index of first element in current page to load.<br>
+     *            Filter element (first page, first row) has an index of {@code 0}.
+     * @param pageSize
+     *            The number of result per page.
+     * @param sortField
+     *            The field name on which filter.<br>
+     *            Default: {@code null}.
+     * @param sortOrder
+     *            The order of sort.<br>
+     *            Default: {@link SortOrder#ASCENDING}.
+     * @param filters
+     *            Association of field names to value set by user to filter results.<br>
+     *            Default: an empty {@link Map}.
      * @see AbstractService#findAll(Predicate, Pageable)
      */
     @Override

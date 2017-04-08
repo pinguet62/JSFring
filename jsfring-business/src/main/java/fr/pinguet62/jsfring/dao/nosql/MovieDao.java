@@ -9,4 +9,5 @@ import fr.pinguet62.jsfring.model.nosql.Movie;
 
 /** @see Movie */
 @Repository
-public interface MovieDao extends MongoRepository<Movie, ObjectId>, QueryDslPredicateExecutor<Movie> {}
+public interface MovieDao extends MongoRepository<Movie, ObjectId>, QueryDslPredicateExecutor<Movie> {
+}

@@ -9,4 +9,5 @@ import fr.pinguet62.jsfring.model.nosql.Person;
 
 /** @see Person */
 @Repository
-public interface PersonDao extends MongoRepository<Person, ObjectId>, QueryDslPredicateExecutor<Person> {}
+public interface PersonDao extends MongoRepository<Person, ObjectId>, QueryDslPredicateExecutor<Person> {
+}

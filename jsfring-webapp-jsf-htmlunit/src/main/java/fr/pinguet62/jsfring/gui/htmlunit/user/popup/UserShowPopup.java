@@ -33,8 +33,7 @@ public final class UserShowPopup extends AbstractUserPopup implements ShowPopup 
     }
 
     public Field<?, List<String>> getProfiles() {
-        return new ListField(
-                (HtmlDivision) getFieldTableCell(4).getByXPath("./div[contains(@class, 'ui-datalist')]").get(0));
+        return new ListField((HtmlDivision) getFieldTableCell(4).getByXPath("./div[contains(@class, 'ui-datalist')]").get(0));
     }
 
     public Field<?, ?> isActive() {

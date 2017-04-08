@@ -26,7 +26,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
@@ -48,12 +47,12 @@ import fr.pinguet62.jsfring.util.PasswordGenerator;
 
 /** @see CommonRepository */
 @RunWith(SpringRunner.class)
-@SpringBootTest
-@ContextConfiguration(classes = SpringBootConfig.class)
-@DatabaseSetup(DATASET)
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, TransactionalTestExecutionListener.class,
-        DbUnitTestExecutionListener.class })
+@SpringBootTest(classes = SpringBootConfig.class)
 @Transactional
+// DbUnit
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class,
+    TransactionalTestExecutionListener.class })
+@DatabaseSetup(DATASET)
 public class CommonRepositoryTest {
 
     @Inject
@@ -166,7 +165,8 @@ public class CommonRepositoryTest {
         try {
             profileDao.getOne(id).getTitle(); // fail
             fail();
-        } catch (EntityNotFoundException e) {}
+        } catch (EntityNotFoundException e) {
+        }
     }
 
     /** @see CrudRepository#save(Object) */

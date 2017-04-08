@@ -6,4 +6,5 @@ import fr.pinguet62.jsfring.batch.CrudRepositoryItemWriter;
 import fr.pinguet62.jsfring.model.sql.User;
 
 @Component
-public class UserWriter extends CrudRepositoryItemWriter<User> {}
+public class UserWriter extends CrudRepositoryItemWriter<User> {
+}

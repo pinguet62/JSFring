@@ -263,8 +263,10 @@ public enum ExportType {
     private final String mime;
 
     /**
-     * @param mime The mime content type.
-     * @param extension The {@link #extension}.
+     * @param mime
+     *            The mime content type.
+     * @param extension
+     *            The {@link #extension}.
      */
     private ExportType(String mime, String extension) {
         this.extension = extension;
@@ -274,9 +276,11 @@ public enum ExportType {
     /**
      * Visitor method who export the report to {@link OutputStreamt}.
      *
-     * @param The {@link ExporterInput} to export.
+     * @param The
+     *            {@link ExporterInput} to export.
      * @return The {@link OutputStream}.
-     * @throws JRException When an error occurs during export.
+     * @throws JRException
+     *             When an error occurs during export.
      */
     public abstract ByteArrayOutputStream export(ExporterInput exporterInput) throws JRException;
 

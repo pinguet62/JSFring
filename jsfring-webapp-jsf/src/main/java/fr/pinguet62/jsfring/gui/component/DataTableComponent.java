@@ -16,8 +16,8 @@ public final class DataTableComponent extends DataTable {
      * <code>&#60;p62:dataTable var="foo"&#62;</code></li>
      * <li>and used in the <code> &#60;composite:insertChildren&#62;</code> like:<br>
      * <code>&#60;p:column&#62;#&#123;foo&#125;&#60;/p:column&#62;</code></li>
-     * <li>Into custom component, it's not possible to access to this variable because the component doesn't know its
-     * name: <code>#&#123;foo&#125;</code></li>
+     * <li>Into custom component, it's not possible to access to this variable because the component doesn't know its name:
+     * <code>#&#123;foo&#125;</code></li>
      * </ul>
      * To fix the problem:
      * <ol>

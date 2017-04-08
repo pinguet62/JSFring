@@ -21,7 +21,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.convert.ConversionService;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
@@ -32,8 +31,7 @@ import fr.pinguet62.jsfring.ws.dto.ProfileDto;
 
 /** @see ProfileFromDtoConverter */
 @RunWith(SpringRunner.class)
-@SpringBootTest
-@ContextConfiguration(classes = SpringBootConfig.class)
+@SpringBootTest(classes = SpringBootConfig.class)
 public class ProfileFromDtoConverterTest {
 
     @Inject

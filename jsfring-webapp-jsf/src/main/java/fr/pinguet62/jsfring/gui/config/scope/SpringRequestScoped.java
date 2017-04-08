@@ -10,4 +10,5 @@ import org.springframework.web.context.WebApplicationContext;
  * @see RequestScoped
  */
 @Scope(WebApplicationContext.SCOPE_REQUEST)
-public @interface SpringRequestScoped {}
+public @interface SpringRequestScoped {
+}

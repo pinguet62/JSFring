@@ -8,7 +8,8 @@ import java.io.Serializable;
  * <p>
  * <code>&lt;f:setPropertyActionListener target="#{myBean.selectedValue}" value="..." /&gt;</code>
  *
- * @param <T> The type of objects to display.
+ * @param <T>
+ *            The type of objects to display.
  */
 public abstract class AbstractSelectableBean<T extends Serializable> extends AbstractBean<T> {
 
@@ -29,7 +30,8 @@ public abstract class AbstractSelectableBean<T extends Serializable> extends Abs
     /**
      * Set the selected value.
      *
-     * @param selectedValue The new {@link #selectedValue value}.
+     * @param selectedValue
+     *            The new {@link #selectedValue value}.
      */
     public void setSelectedValue(T selectedValue) {
         this.selectedValue = selectedValue;

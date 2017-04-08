@@ -22,11 +22,14 @@ public final class OrderConverter implements Function<SortOrder, Function<Compar
     /**
      * Apply the order: get the {@link OrderSpecifier}.
      *
-     * @param order The {@link SortOrder} (from PrimeFaces).
+     * @param order
+     *            The {@link SortOrder} (from PrimeFaces).
      * @return The {@link OrderSpecifier}.<br>
      *         {@code null} if the order is {@link SortOrder#UNSORTED}.
-     * @throws NullPointerException If {@code property} or {@code order} is {@code null}.
-     * @throws ClassCastException The target field is not a {@link ComparableExpressionBase}, so doen't support filter.
+     * @throws NullPointerException
+     *             If {@code property} or {@code order} is {@code null}.
+     * @throws ClassCastException
+     *             The target field is not a {@link ComparableExpressionBase}, so doen't support filter.
      * @see PropertyResolver Transform property name to {@link SimpleExpression} .
      */
     @Override

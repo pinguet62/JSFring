@@ -39,8 +39,10 @@ public final class ThemeSwitcherBean implements Serializable {
     /**
      * Set the new current {@link Theme}.
      *
-     * @param theme {@link #theme}
-     * @throws NullPointerException If the parameter is {@code null}.
+     * @param theme
+     *            {@link #theme}
+     * @throws NullPointerException
+     *             If the parameter is {@code null}.
      */
     public void setTheme(Theme theme) {
         requireNonNull(theme);

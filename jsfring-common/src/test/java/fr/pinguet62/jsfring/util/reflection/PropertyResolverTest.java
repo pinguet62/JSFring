@@ -19,8 +19,7 @@ import fr.pinguet62.jsfring.util.querydsl.model.QUser;
 public final class PropertyResolverTest {
 
     /**
-     * An {@link IllegalArgumentException} must be thrown because the attribute
-     * doesn't exist.
+     * An {@link IllegalArgumentException} must be thrown because the attribute doesn't exist.
      */
     @Test
     public void test_apply_propertyNotFound() {
@@ -31,7 +30,8 @@ public final class PropertyResolverTest {
             try {
                 converter.apply(property);
                 fail(property);
-            } catch (IllegalArgumentException exception) {}
+            } catch (IllegalArgumentException exception) {
+            }
     }
 
     /** Multi-property. */

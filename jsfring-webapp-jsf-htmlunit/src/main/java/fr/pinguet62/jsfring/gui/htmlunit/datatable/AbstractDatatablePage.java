@@ -32,19 +32,19 @@ import fr.pinguet62.jsfring.gui.htmlunit.NavigatorException;
 import fr.pinguet62.jsfring.gui.htmlunit.datatable.popup.CreatePopup;
 
 /**
- * @param <T> The {@link AbstractRow} type.
- * @param <CP> The {@link CreatePopup} type.
+ * @param <T>
+ *            The {@link AbstractRow} type.
+ * @param <CP>
+ *            The {@link CreatePopup} type.
  */
-public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> extends AbstractPage
-        implements Iterable<T> {
+public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> extends AbstractPage implements Iterable<T> {
 
     protected AbstractDatatablePage(HtmlPage page) {
         super(page);
     }
 
     public CP actionCreate() {
-        HtmlButton button = (HtmlButton) getDatatableHeader().getByXPath("./button[contains(@onclick, 'createDialog')]")
-                .get(0);
+        HtmlButton button = (HtmlButton) getDatatableHeader().getByXPath("./button[contains(@onclick, 'createDialog')]").get(0);
         try {
             HtmlPage page = button.click();
             waitJS(MEDIUM);
@@ -57,13 +57,13 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
     }
 
     /**
-     * @param iconPath The icon file path.<br>
-     *        Example: {@code "/img/foo.png"}.
+     * @param iconPath
+     *            The icon file path.<br>
+     *            Example: {@code "/img/foo.png"}.
      * @return The downloaded {@link InputStream}.
      */
     protected InputStream export(String iconPath) {
-        HtmlImage icon = (HtmlImage) getDatatableFooter().getByXPath("./a/img[contains(@src, '" + iconPath + "')]")
-                .get(0);
+        HtmlImage icon = (HtmlImage) getDatatableFooter().getByXPath("./a/img[contains(@src, '" + iconPath + "')]").get(0);
         HtmlAnchor link = (HtmlAnchor) icon.getParentNode();
         try {
             return link.click().getWebResponse().getContentAsStream();
@@ -111,8 +111,9 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
      * @return The {@link Iterator} on <i>paginator</i> button of current page.
      */
     protected Iterator<HtmlSpan> getCurrentPage() {
-        @SuppressWarnings("unchecked") List<HtmlSpan> paginator = (List<HtmlSpan>) getDatatablePaginator()
-                .getByXPath("./span[@class='ui-paginator-pages']/span");
+        @SuppressWarnings("unchecked")
+        List<HtmlSpan> paginator = (List<HtmlSpan>) getDatatablePaginator()
+        .getByXPath("./span[@class='ui-paginator-pages']/span");
         Iterator<HtmlSpan> it;
         for (it = paginator.iterator(); it.hasNext(); it.next())
             if (it.next().getAttribute("class").contains("ui-state-active"))
@@ -156,13 +157,13 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
     }
 
     /**
-     * @param title The column title.
+     * @param title
+     *            The column title.
      * @return The {@link HtmlTableHeaderCell}.
      */
     protected HtmlTableHeaderCell getDatatableTableHeader(String title) {
-        Optional<HtmlTableHeaderCell> find = getDatatableTableHeaders().stream()
-                .filter(th -> ((HtmlSpan) th.getByXPath("./span[contains(@class, 'ui-column-title')]").get(0)).asText()
-                        .equals(title))
+        Optional<HtmlTableHeaderCell> find = getDatatableTableHeaders().stream().filter(
+                th -> ((HtmlSpan) th.getByXPath("./span[contains(@class, 'ui-column-title')]").get(0)).asText().equals(title))
                 .findAny();
         return find.isPresent() ? find.get() : null;
     }
@@ -198,8 +199,8 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
      *         An empty {@link List} if empty datatable.
      */
     public List<T> getRows() {
-        @SuppressWarnings("unchecked") List<HtmlTableRow> rows = (List<HtmlTableRow>) getDatatableTable()
-                .getByXPath("./tbody/tr");
+        @SuppressWarnings("unchecked")
+        List<HtmlTableRow> rows = (List<HtmlTableRow>) getDatatableTable().getByXPath("./tbody/tr");
         if (rows.size() == 1 && rows.get(0).getAttribute("class").contains("ui-datatable-empty-message"))
             return new ArrayList<>();
         return rows.stream().map(getRowFactory()).collect(toList());
@@ -227,7 +228,10 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
         return parseInt(total);
     }
 
-    /** @throws NavigatorException No next page. See {@link #hasNextPage()}. */
+    /**
+     * @throws NavigatorException
+     *             No next page. See {@link #hasNextPage()}.
+     */
     public void gotoNextPage() {
         Iterator<HtmlSpan> current = getCurrentPage();
 
@@ -246,7 +250,7 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
 
     /**
      * Check than a {@link HtmlSpan} exists after the current page.
-     * 
+     *
      * @return If the current page has next page.
      * @see Iterator#hasNext()
      */
@@ -256,8 +260,8 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
 
     public boolean isCreateButtonVisible() {
         final String xpath = "./button[contains(@onclick, 'createDialog')]";
-        @SuppressWarnings("unchecked") List<HtmlButton> buttons = (List<HtmlButton>) getDatatableHeader()
-                .getByXPath(xpath);
+        @SuppressWarnings("unchecked")
+        List<HtmlButton> buttons = (List<HtmlButton>) getDatatableHeader().getByXPath(xpath);
         if (buttons.size() >= 2)
             throw new IllegalArgumentException("More than 1 tag found with XPath: " + xpath);
         return !buttons.isEmpty();
@@ -273,7 +277,8 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
      * <p>
      * <code>&lt;span class="...ui-column-title..."&gt;</code>
      *
-     * @param title The column title.
+     * @param title
+     *            The column title.
      */
     protected void sortBy(String title) {
         HtmlTableHeaderCell header = getDatatableTableHeader(title);

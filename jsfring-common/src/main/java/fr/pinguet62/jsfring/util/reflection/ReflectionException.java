@@ -1,8 +1,7 @@
 package fr.pinguet62.jsfring.util.reflection;
 
 /**
- * {@link Exception} thrown when an problem occurs during reflection
- * reading/writing values.
+ * {@link Exception} thrown when an problem occurs during reflection reading/writing values.
  */
 public final class ReflectionException extends RuntimeException {
 

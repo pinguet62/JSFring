@@ -8,11 +8,9 @@ import java.util.function.Function;
 /**
  * Get the target attribute value by reflection.
  * <p>
- * Resolve the target value by calling the <i>attribute</i> calls (not by
- * <i>getter</i> method)
+ * Resolve the target value by calling the <i>attribute</i> calls (not by <i>getter</i> method)
  * <p>
- * Example: from {@code myObj} object and {@code "myObj.anAttr1.otherAttr"}
- * property, the method will return the result of
+ * Example: from {@code myObj} object and {@code "myObj.anAttr1.otherAttr"} property, the method will return the result of
  * {@code myObj.anAttr1.otherAttr} call.
  */
 public final class PropertyResolver implements Function<String, Object> {
@@ -23,7 +21,8 @@ public final class PropertyResolver implements Function<String, Object> {
     /**
      * Constructor.
      *
-     * @param obj The source object.
+     * @param obj
+     *            The source object.
      */
     public PropertyResolver(Object obj) {
         this.obj = obj;
@@ -32,11 +31,13 @@ public final class PropertyResolver implements Function<String, Object> {
     /**
      * Apply the conversion: get the target attribute value.
      *
-     * @param property The {@link String} property.
+     * @param property
+     *            The {@link String} property.
      * @return The {@link Object}.
-     * @throws IllegalArgumentException Invalid property value: invalid field
-     *             name, space, invalid character, ...
-     * @throws NullPointerException The property is {@code null}.
+     * @throws IllegalArgumentException
+     *             Invalid property value: invalid field name, space, invalid character, ...
+     * @throws NullPointerException
+     *             The property is {@code null}.
      */
     @Override
     public Object apply(String property) {

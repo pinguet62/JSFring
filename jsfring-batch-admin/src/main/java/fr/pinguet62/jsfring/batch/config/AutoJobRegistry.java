@@ -26,9 +26,9 @@ import org.springframework.context.annotation.Configuration;
  * registered with {@link AutomaticJobRegistrar}. Java configured {@link Job}s are not automatically registered.<br>
  * <p>
  * Permit to activate {@link JobInfo#isLaunchable()} for <b>all</b> {@link Job}s of classpath.<br>
- * To activate {@link JobInfo#isLaunchable() launchable} jobs case by case, it's necessary to use other solution:
- * activate {@link EnableBatchProcessing#modular()} and define {@link ApplicationContextFactory} for each
- * {@link JobInfo#isLaunchable() launchable job}.
+ * To activate {@link JobInfo#isLaunchable() launchable} jobs case by case, it's necessary to use other solution: activate
+ * {@link EnableBatchProcessing#modular()} and define {@link ApplicationContextFactory} for each {@link JobInfo#isLaunchable()
+ * launchable job}.
  *
  * @see JobRegistry#register(JobFactory)
  * @see AutomaticJobRegistrar

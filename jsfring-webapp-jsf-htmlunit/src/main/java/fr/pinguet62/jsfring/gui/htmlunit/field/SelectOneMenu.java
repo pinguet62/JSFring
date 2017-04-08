@@ -19,7 +19,8 @@ public final class SelectOneMenu extends ReadWriteField<HtmlDivision, String> {
     /**
      * <code>&lt;div class="ui-selectonemenu..."&gt;</code>
      *
-     * @param html The {@link HtmlDivision}.
+     * @param html
+     *            The {@link HtmlDivision}.
      */
     public SelectOneMenu(HtmlDivision html) {
         super(html);
@@ -43,7 +44,10 @@ public final class SelectOneMenu extends ReadWriteField<HtmlDivision, String> {
         return getItems().stream().filter(i -> i.isSelected()).findFirst().get().getKey();
     }
 
-    /** @param key The key of {@link HtmlOption}. */
+    /**
+     * @param key
+     *            The key of {@link HtmlOption}.
+     */
     @Override
     public void setValue(String key) {
         KeyLabelIndex item = getItems().stream().filter(i -> i.getKey().equals(key)).findFirst().get();

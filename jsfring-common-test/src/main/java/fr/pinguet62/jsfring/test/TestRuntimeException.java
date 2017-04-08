@@ -10,12 +10,14 @@ public class TestRuntimeException extends RuntimeException {
      *
      * @see RuntimeException#RuntimeException()
      */
-    public TestRuntimeException() {}
+    public TestRuntimeException() {
+    }
 
     /**
      * Constructor with message.
      *
-     * @param message The detail message.
+     * @param message
+     *            The detail message.
      * @see RuntimeException#RuntimeException(String)
      */
     public TestRuntimeException(String message) {
@@ -25,7 +27,8 @@ public class TestRuntimeException extends RuntimeException {
     /**
      * Constructor with cause.
      *
-     * @param cause The {@link Exception#getCause()}.
+     * @param cause
+     *            The {@link Exception#getCause()}.
      * @see RuntimeException#RuntimeException(Throwable)
      */
     public TestRuntimeException(Throwable cause) {

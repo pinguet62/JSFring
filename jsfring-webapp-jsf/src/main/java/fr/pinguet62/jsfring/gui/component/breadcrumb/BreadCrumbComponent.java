@@ -118,11 +118,13 @@ public class BreadCrumbComponent extends BreadCrumb {
 
     /**
      * Initialize the {@link #breadcrumbs} by browsing the {@link Menubar}. <br>
-     * It's a recursive method because {@link MenuElement} are linked as a tree with composite pattern of
-     * {@link MenuItem} and {@link MenuGroup}.
+     * It's a recursive method because {@link MenuElement} are linked as a tree with composite pattern of {@link MenuItem} and
+     * {@link MenuGroup}.
      *
-     * @param thread The current thread who is browsing the tree.
-     * @throws IllegalArgumentException Unknown {@link MenuElement} type.
+     * @param thread
+     *            The current thread who is browsing the tree.
+     * @throws IllegalArgumentException
+     *             Unknown {@link MenuElement} type.
      */
     private void parseMenuElement(Deque<MenuElement> thread) {
         MenuElement last = thread.getLast();
@@ -143,8 +145,7 @@ public class BreadCrumbComponent extends BreadCrumb {
             // - save
             breadcrumbs.put(outcome, breadcrumb);
             LOGGER.trace("Breadcrumb: " + breadcrumb.getElements().stream().map(element -> (DefaultMenuItem) element)
-                    .map(item -> String.format("(\"%s\"/%s)", item.getTitle(), item.getOutcome()))
-                    .collect(joining(" > ")));
+                    .map(item -> String.format("(\"%s\"/%s)", item.getTitle(), item.getOutcome())).collect(joining(" > ")));
         }
         // Recursive
         else if (last instanceof MenuGroup) {

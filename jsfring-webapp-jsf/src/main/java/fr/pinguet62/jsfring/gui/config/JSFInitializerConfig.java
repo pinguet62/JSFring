@@ -31,14 +31,13 @@ import com.sun.faces.config.FacesInitializer;
 /**
  * Fix for JSF with Spring Boot.
  * <p>
- * JSF relies on classpath scanning to get components and things registered. But embedded Tomcat of Spring Boot does not
- * run {@link ServletContainerInitializer} instances off the classpath, and these components are not registered and JSF
- * doesn't work with Spring Boot. So this {@link ServletContextInitializer} forces the scanning.
+ * JSF relies on classpath scanning to get components and things registered. But embedded Tomcat of Spring Boot does not run
+ * {@link ServletContainerInitializer} instances off the classpath, and these components are not registered and JSF doesn't work
+ * with Spring Boot. So this {@link ServletContextInitializer} forces the scanning.
  * <p>
- * This {@link ServletContextInitializer} is to, first, get all annotations that {@link ServletContextInitializer} can
- * handle. Theses annotations are values of {@link HandlesTypes} of {@link FacesInitializer}. Then Spring scans all
- * annotated classes of classpath. Finally, these classes are given to {@link FacesInitializer} instance to continue
- * initialization.
+ * This {@link ServletContextInitializer} is to, first, get all annotations that {@link ServletContextInitializer} can handle.
+ * Theses annotations are values of {@link HandlesTypes} of {@link FacesInitializer}. Then Spring scans all annotated classes of
+ * classpath. Finally, these classes are given to {@link FacesInitializer} instance to continue initialization.
  * <p>
  * The scanned package is defined by {@link AutoConfigurationPackages#get(BeanFactory)}, so it is the sub-packages of
  * {@link SpringBootApplication} location.
@@ -57,10 +56,11 @@ public class JSFInitializerConfig implements ServletContextInitializer {
     /**
      * Build the {@link ClassPathScanningCandidateComponentProvider scanner} to filter classes of classpath.
      * <p>
-     * Get the {@link HandlesTypes} used into {@link ServletContainerInitializer} class, and list all declared
-     * annotation of {@link HandlesTypes#value()}.
+     * Get the {@link HandlesTypes} used into {@link ServletContainerInitializer} class, and list all declared annotation of
+     * {@link HandlesTypes#value()}.
      *
-     * @param initializerClass The {@link ServletContainerInitializer} on witch find {@link HandlesTypes}.
+     * @param initializerClass
+     *            The {@link ServletContainerInitializer} on witch find {@link HandlesTypes}.
      * @return The built {@link ClassPathScanningCandidateComponentProvider scanner}.
      */
     @SuppressWarnings("unchecked")
@@ -81,8 +81,10 @@ public class JSFInitializerConfig implements ServletContextInitializer {
     /**
      * Use the scanner to find all classes of each package.
      *
-     * @param scanner The {@link ClassPathScanningCandidateComponentProvider scanner} to find classes of classpath.
-     * @param basePackagesToScan The packages to scan.
+     * @param scanner
+     *            The {@link ClassPathScanningCandidateComponentProvider scanner} to find classes of classpath.
+     * @param basePackagesToScan
+     *            The packages to scan.
      */
     private Set<Class<?>> findAnnotatedClasses(ClassPathScanningCandidateComponentProvider scanner,
             List<String> basePackagesToScan) {

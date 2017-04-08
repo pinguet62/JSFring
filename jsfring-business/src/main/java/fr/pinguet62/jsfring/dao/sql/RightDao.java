@@ -7,4 +7,5 @@ import fr.pinguet62.jsfring.model.sql.Right;
 
 /** @see Right */
 @Repository
-public interface RightDao extends CommonRepository<Right, String> {}
+public interface RightDao extends CommonRepository<Right, String> {
+}

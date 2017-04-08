@@ -51,8 +51,10 @@ class UserDaoImpl implements UserDaoCustom {
      * <p>
      * Reset the {@link EntityManager} before call, to impact calling methods.
      *
-     * @param numberOfDays Number of days (positive).
-     * @throws IllegalArgumentException Zero or negative number of days.
+     * @param numberOfDays
+     *            Number of days (positive).
+     * @throws IllegalArgumentException
+     *             Zero or negative number of days.
      */
     @Override
     public void disableInactiveUsers(int numberOfDays) {
@@ -73,7 +75,8 @@ class UserDaoImpl implements UserDaoCustom {
     /**
      * Reset the {@link User#lastConnection last connection date} to the current day.
      *
-     * @param user The {@link User} to update.
+     * @param user
+     *            The {@link User} to update.
      */
     @Override
     public void resetLastConnectionDate(User user) {
@@ -85,8 +88,10 @@ class UserDaoImpl implements UserDaoCustom {
     /**
      * Update the {@link User#password password}.
      *
-     * @param user The {@link User} to update.
-     * @param password The new {@link User#password user's password}.
+     * @param user
+     *            The {@link User} to update.
+     * @param password
+     *            The new {@link User#password user's password}.
      */
     @Override
     public void updatePassword(User user, String password) {

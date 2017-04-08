@@ -13,8 +13,7 @@ import fr.pinguet62.jsfring.model.sql.Profile;
 import fr.pinguet62.jsfring.service.ProfileService;
 
 /**
- * Convert {@link Profile} to {@link String} value, and conversely, from the
- * primary key.
+ * Convert {@link Profile} to {@link String} value, and conversely, from the primary key.
  */
 @Named
 @FacesConverter("profileConverter")
@@ -24,7 +23,8 @@ public class ProfileConverter implements Converter {
     private ProfileService profileService;
 
     /**
-     * @param id The {@link Profile#id id} as {@link String}.
+     * @param id
+     *            The {@link Profile#id id} as {@link String}.
      * @return The {@link Profile}.
      */
     @Override
@@ -33,7 +33,8 @@ public class ProfileConverter implements Converter {
     }
 
     /**
-     * @param object The {@link Profile}.
+     * @param object
+     *            The {@link Profile}.
      * @return The {@link Profile#id id} as {@link String}.
      */
     @Override

@@ -22,7 +22,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.convert.ConversionService;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
@@ -33,8 +32,7 @@ import fr.pinguet62.jsfring.ws.dto.UserDto;
 
 /** @see UserFromDtoConverter */
 @RunWith(SpringRunner.class)
-@SpringBootTest
-@ContextConfiguration(classes = SpringBootConfig.class)
+@SpringBootTest(classes = SpringBootConfig.class)
 public class UserFromDtoConverterTest {
 
     @Inject
@@ -80,8 +78,8 @@ public class UserFromDtoConverterTest {
     }
 
     /**
-     * If {@link UserDto#getProfiles()} is {@link Collection#isEmpty() empty}, the converted {@link User#getProfiles()}
-     * must also be {@link Collection#isEmpty() empty}.
+     * If {@link UserDto#getProfiles()} is {@link Collection#isEmpty() empty}, the converted {@link User#getProfiles()} must
+     * also be {@link Collection#isEmpty() empty}.
      */
     @Test
     public void test_convert_profiles_empty() {
@@ -94,8 +92,7 @@ public class UserFromDtoConverterTest {
     }
 
     /**
-     * If {@link UserDto#getProfiles()} is {@code null}, the converted {@link User#getProfiles()} must also be
-     * {@code null}.
+     * If {@link UserDto#getProfiles()} is {@code null}, the converted {@link User#getProfiles()} must also be {@code null}.
      */
     @Test
     public void test_convert_profiles_null() {

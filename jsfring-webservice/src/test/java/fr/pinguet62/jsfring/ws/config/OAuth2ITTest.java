@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.ws.config;
 
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
 import static fr.pinguet62.jsfring.util.MatcherUtils.parameter;
 import static fr.pinguet62.jsfring.util.UrlUtils.formatAuthorization;
@@ -55,9 +56,10 @@ import fr.pinguet62.jsfring.dao.sql.UserDao;
 import fr.pinguet62.jsfring.model.sql.User;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = SpringBootConfig.class, webEnvironment = WebEnvironment.DEFINED_PORT)
-@DatabaseSetup(DATASET)
+@SpringBootTest(classes = SpringBootConfig.class, webEnvironment = DEFINED_PORT)
+// DbUnit
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
+@DatabaseSetup(DATASET)
 public class OAuth2ITTest {
 
     @Value("${security.oauth2.client.clientId}")

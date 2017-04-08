@@ -38,9 +38,9 @@ public class UserBatch {
         return jobBuilderFactory
                 .get("importUserJob")
                 .incrementer(new RunIdIncrementer())
-//                .listener(listener)
-//                .flow(step())
-//                .end()
+                // .listener(listener)
+                // .flow(step())
+                // .end()
                 .start(step())
                 .build();
         // @formatter:on

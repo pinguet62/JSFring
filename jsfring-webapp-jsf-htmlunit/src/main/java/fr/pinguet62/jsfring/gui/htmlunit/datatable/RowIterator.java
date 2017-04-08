@@ -2,10 +2,7 @@ package fr.pinguet62.jsfring.gui.htmlunit.datatable;
 
 import java.util.Iterator;
 
-/**
- * {@link Iterator} to iterate on each {@link AbstractRow row} of each page of
- * {@link AbstractDatatablePage datatable}.
- */
+/** {@link Iterator} to iterate on each {@link AbstractRow row} of each page of {@link AbstractDatatablePage datatable}. */
 public final class RowIterator<T extends AbstractRow<?, ?>, CP> implements Iterator<T> {
 
     private final AbstractDatatablePage<T, CP> datatable;

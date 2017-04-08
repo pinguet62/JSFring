@@ -19,12 +19,12 @@ public final class ChangePasswordPage extends AbstractPage {
 
     public void setActualPassword(String value) {
         ((HtmlInput) getForm().getByXPath(".//input[contains(@id, 'currentPassword')]").get(0))
-                .setValueAttribute(value);
+        .setValueAttribute(value);
     }
 
     public void setConfirmPassword(String value) {
         ((HtmlInput) getForm().getByXPath(".//input[contains(@id, 'newPasswordConfirmation')]").get(0))
-                .setValueAttribute(value);
+        .setValueAttribute(value);
     }
 
     public void setNewPassword(String value) {

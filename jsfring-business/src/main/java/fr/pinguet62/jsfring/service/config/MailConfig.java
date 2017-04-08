@@ -13,8 +13,12 @@ public class MailConfig {
 
         mailMessage.setFrom("sender@gmail.com");
         mailMessage.setSubject("[JSFring] Reset password");
-        mailMessage.setText(
-                "<![CDATA[\n                Hello\n                \n                Login: %s\n                New password: %s\n                ]]>");
+        mailMessage.setText("<![CDATA[\n" //
+                + "                Hello\n" //
+                + "                \n" //
+                + "                Login: %s\n" //
+                + "                New password: %s\n" //
+                + "                ]]>");
 
         return mailMessage;
     }

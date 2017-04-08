@@ -24,8 +24,7 @@ import fr.pinguet62.jsfring.ws.dto.PageDto;
  * {@link GenericConverter} from {@link Page} to {@link PageDto}.
  * <p>
  * Each value of {@link Page} are converted using corresponding converter.<br>
- * For example, to convert {@code Page<String>} to {@code Page<Integer>}, the
- * {@code Converter<String, Integer>} must exists.
+ * For example, to convert {@code Page<String>} to {@code Page<Integer>}, the {@code Converter<String, Integer>} must exists.
  */
 @Component
 public class PageGenericConverter implements GenericConverter {

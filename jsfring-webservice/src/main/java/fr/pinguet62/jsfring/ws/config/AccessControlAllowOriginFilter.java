@@ -29,7 +29,8 @@ import org.springframework.stereotype.Component;
 public class AccessControlAllowOriginFilter implements Filter {
 
     @Override
-    public void destroy() {}
+    public void destroy() {
+    }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -47,6 +48,7 @@ public class AccessControlAllowOriginFilter implements Filter {
     }
 
     @Override
-    public void init(FilterConfig filterConfig) {}
+    public void init(FilterConfig filterConfig) {
+    }
 
 }

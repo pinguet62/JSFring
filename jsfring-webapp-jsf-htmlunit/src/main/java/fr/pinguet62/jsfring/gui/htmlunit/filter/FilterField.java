@@ -51,7 +51,7 @@ public class FilterField extends AbstractPage {
     /**
      * Test if the field is not valid.<br>
      * Check the red border, by checking the {@code class} attribute.
-     * 
+     *
      * @return The result.
      */
     public boolean isError() {

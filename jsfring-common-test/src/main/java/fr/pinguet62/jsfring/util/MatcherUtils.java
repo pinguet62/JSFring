@@ -27,8 +27,10 @@ public final class MatcherUtils {
     /**
      * Check that the {@link Date} is equals to another with a delta.
      *
-     * @param expected The {@link Date}.
-     * @param field The field from the field {@code Calendar}.
+     * @param expected
+     *            The {@link Date}.
+     * @param field
+     *            The field from the field {@code Calendar}.
      * @return The built {@link Matcher}.
      * @see DateUtils#truncate(Date, int)
      * @see Date#equals(Object)
@@ -36,10 +38,12 @@ public final class MatcherUtils {
     public static Matcher<Date> equalToTruncated(Date expected, int field) {
         return new TypeSafeMatcher<Date>() {
             @Override
-            public void describeTo(Description description) {}
+            public void describeTo(Description description) {
+            }
 
             /**
-             * @param actual The {@link Date} to compare.
+             * @param actual
+             *            The {@link Date} to compare.
              * @see Date#truncate(Date, int)
              * @see Date#equals(Object)
              */
@@ -58,17 +62,21 @@ public final class MatcherUtils {
     /**
      * Check That 2 {@link Iterable}s are {@link Object#equals(Object) equals}, without considering the order.
      *
-     * @param <T> The type of elements.
-     * @param expected The expected {@link Iterable}.
+     * @param <T>
+     *            The type of elements.
+     * @param expected
+     *            The expected {@link Iterable}.
      * @return The built {@link Matcher}.
      */
     public static <T> Matcher<Iterable<T>> equalWithoutOrderTo(Iterable<T> expected) {
         return new TypeSafeMatcher<Iterable<T>>() {
             @Override
-            public void describeTo(Description description) {}
+            public void describeTo(Description description) {
+            }
 
             /**
-             * @param actual The {@link Iterable} to check.
+             * @param actual
+             *            The {@link Iterable} to check.
              * @see ListUtils#intersection(List, List)
              */
             @Override
@@ -83,24 +91,29 @@ public final class MatcherUtils {
     };
 
     /**
-     * {@link Matcher} used to {@link Function map} object to another type and apply another {@link Matcher} on mapped
-     * value.
+     * {@link Matcher} used to {@link Function map} object to another type and apply another {@link Matcher} on mapped value.
      *
-     * @param <S> The source type.
-     * @param <M> The mapped type.
-     * @param mapper The {@link Function mapper}.
-     * @param matcher The {@link Matcher} to apply on converted value.
+     * @param <S>
+     *            The source type.
+     * @param <M>
+     *            The mapped type.
+     * @param mapper
+     *            The {@link Function mapper}.
+     * @param matcher
+     *            The {@link Matcher} to apply on converted value.
      * @return The built {@link Matcher}.
      */
     public static <S, M> Matcher<S> mappedTo(Function<S, M> mapper, Matcher<M> matcher) {
         return new TypeSafeMatcher<S>() {
             @Override
-            public void describeTo(Description description) {}
+            public void describeTo(Description description) {
+            }
 
             /**
              * Convert source object and apply {@link Matcher}.
              *
-             * @param actual The source object.
+             * @param actual
+             *            The source object.
              * @see Matcher#matches(Object)
              */
             @Override
@@ -114,17 +127,20 @@ public final class MatcherUtils {
     /**
      * Check that value {@link String#matches(String) matches to regex}.
      *
-     * @param regex The regex.
+     * @param regex
+     *            The regex.
      * @return The built {@link Matcher}.
      * @see String#matches(String)
      */
     public static Matcher<String> matches(String regex) {
         return new TypeSafeMatcher<String>() {
             @Override
-            public void describeTo(Description description) {}
+            public void describeTo(Description description) {
+            }
 
             /**
-             * @param actual The {@link String} to test.
+             * @param actual
+             *            The {@link String} to test.
              * @see String#matches(String)
              */
             @Override
@@ -137,18 +153,22 @@ public final class MatcherUtils {
     /**
      * Check that {@link URL} parameter matches to a predicate.
      *
-     * @param paramKey The key of parameter.
-     * @param paramValueMatcher The {@link Matcher} to apply on value of parameter.
+     * @param paramKey
+     *            The key of parameter.
+     * @param paramValueMatcher
+     *            The {@link Matcher} to apply on value of parameter.
      * @return The built {@link Matcher}.
      * @see String#matches(String)
      */
     public static Matcher<String> parameter(String paramKey, Matcher<Object> paramValueMatcher) {
         return new TypeSafeMatcher<String>() {
             @Override
-            public void describeTo(Description description) {}
+            public void describeTo(Description description) {
+            }
 
             /**
-             * @param query The {@link URL#getQuery()} to test.
+             * @param query
+             *            The {@link URL#getQuery()} to test.
              * @see String#matches(String)
              */
             @Override
@@ -164,20 +184,25 @@ public final class MatcherUtils {
     /**
      * Check that {@link List} is sorted.
      *
-     * @param <T> The type of elements.
-     * @param comparator The {@link Comparator} used by algorithm.
+     * @param <T>
+     *            The type of elements.
+     * @param comparator
+     *            The {@link Comparator} used by algorithm.
      * @return The built {@link Matcher}.
      * @see Comparator#compare(Object, Object)
      */
     public static <T> Matcher<List<T>> sorted(Comparator<T> comparator) {
         return new TypeSafeMatcher<List<T>>() {
             @Override
-            public void describeTo(Description description) {}
+            public void describeTo(Description description) {
+            }
 
             /**
-             * @param values The {@link List} to check.
+             * @param values
+             *            The {@link List} to check.
              * @return If {@link List} is correctly sorted.
-             * @throws ClassCastException If the list contains elements that are not {@link Comparable}.
+             * @throws ClassCastException
+             *             If the list contains elements that are not {@link Comparable}.
              * @see Comparator#compare(Object, Object)
              */
             @Override
@@ -191,6 +216,7 @@ public final class MatcherUtils {
     }
 
     // Utils class
-    private MatcherUtils() {}
+    private MatcherUtils() {
+    }
 
 }

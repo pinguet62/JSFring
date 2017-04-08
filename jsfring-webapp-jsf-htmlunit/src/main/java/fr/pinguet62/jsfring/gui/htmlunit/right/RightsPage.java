@@ -1,6 +1,5 @@
 package fr.pinguet62.jsfring.gui.htmlunit.right;
 
-import java.util.Iterator;
 import java.util.function.Function;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -15,13 +14,13 @@ public final class RightsPage extends AbstractDatatablePage<RightRow, Void> {
     }
 
     @Override
-    protected Function<HtmlTableRow, RightRow> getRowFactory() {
-        return RightRow::new;
+    protected Function<HtmlPage, Void> getPopupCreateFactory() {
+        throw new UnsupportedOperationException("Cannot create new Right.");
     }
 
     @Override
-    protected Function<HtmlPage, Void> getPopupCreateFactory() {
-        throw new UnsupportedOperationException("Cannot create new Right.");
+    protected Function<HtmlTableRow, RightRow> getRowFactory() {
+        return RightRow::new;
     }
 
 }
