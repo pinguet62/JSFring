@@ -15,11 +15,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.data.querydsl.QSort;
 
-import com.mysema.query.BooleanBuilder;
-import com.mysema.query.types.EntityPath;
-import com.mysema.query.types.OrderSpecifier;
-import com.mysema.query.types.Predicate;
-import com.mysema.query.types.expr.ComparableExpressionBase;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.EntityPath;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.ComparableExpressionBase;
 
 import fr.pinguet62.jsfring.service.AbstractService;
 import fr.pinguet62.jsfring.util.reflection.PropertyResolver;
@@ -34,7 +34,7 @@ public abstract class AbstractWebservice<T extends Serializable, PK extends Seri
      * @param service The {@link AbstractService}.
      * @param path The {@link EntityPath} of target {@link Entity}s.
      * @param pageIndex The current page.<br>
-     *            The first index is 0.
+     *        The first index is 0.
      * @param pageSize The page size.
      * @param sortField The {@link ComparableExpressionBase path} on which sort.
      * @param sortOrder The sort order.
@@ -48,8 +48,7 @@ public abstract class AbstractWebservice<T extends Serializable, PK extends Seri
         // Sorting
         if (sortField != null) {
             ComparableExpressionBase<?> field = (ComparableExpressionBase<?>) new PropertyResolver(path).apply(sortField);
-            @SuppressWarnings("unchecked")
-            Function<ComparableExpressionBase<?>, OrderSpecifier<?>> orderer = (Function<ComparableExpressionBase<?>, OrderSpecifier<?>>) conversionService
+            @SuppressWarnings("unchecked") Function<ComparableExpressionBase<?>, OrderSpecifier<?>> orderer = (Function<ComparableExpressionBase<?>, OrderSpecifier<?>>) conversionService
                     .convert(sortOrder, valueOf(String.class), new GenericTypeDescriptor(
                             forClassWithGenerics(Function.class, ComparableExpressionBase.class, OrderSpecifier.class)));
             OrderSpecifier<?> order = orderer.apply(field);

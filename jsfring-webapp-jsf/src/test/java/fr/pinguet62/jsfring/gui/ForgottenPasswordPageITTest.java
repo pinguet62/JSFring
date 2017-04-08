@@ -7,30 +7,30 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
 
 import javax.inject.Inject;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.boot.test.WebIntegrationTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.mysema.query.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAQuery;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.dao.sql.UserDao;
 import fr.pinguet62.jsfring.gui.htmlunit.ForgottenPasswordPage;
 import fr.pinguet62.jsfring.model.sql.QUser;
+import fr.pinguet62.jsfring.model.sql.User;
 
 /** @see ForgottenPasswordPage */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(SpringBootConfig.class)
-@WebIntegrationTest
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = SpringBootConfig.class, webEnvironment = DEFINED_PORT)
 @DatabaseSetup(DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 public class ForgottenPasswordPageITTest {
@@ -55,7 +55,7 @@ public class ForgottenPasswordPageITTest {
     @Test
     public void test_forgottenPassword_unknown() {
         String email = "unknown";
-        assertThat(userDao.find(new JPAQuery().from(QUser.user).where(QUser.user.email.eq(email))), is(empty()));
+        assertThat(userDao.find(new JPAQuery<User>().from(QUser.user).where(QUser.user.email.eq(email))), is(empty()));
 
         ForgottenPasswordPage forgottenPasswordPage = get().gotoLoginPage().gotoForgottenPasswordPage();
 

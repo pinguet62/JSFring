@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.primefaces.component.selectonemenu.SelectOneMenu;
 
-import com.mysema.query.types.Predicate;
-import com.mysema.query.types.expr.BooleanExpression;
-import com.mysema.query.types.expr.SimpleExpression;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.SimpleExpression;
 
 import fr.pinguet62.jsfring.gui.component.filter.OperatorConverter;
 

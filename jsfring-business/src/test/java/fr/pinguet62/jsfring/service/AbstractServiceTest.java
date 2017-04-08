@@ -14,9 +14,10 @@ import javax.inject.Inject;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
@@ -28,8 +29,9 @@ import fr.pinguet62.jsfring.model.sql.User;
 import fr.pinguet62.jsfring.util.PasswordGenerator;
 
 /** @see AbstractService */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(SpringBootConfig.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@ContextConfiguration(classes = SpringBootConfig.class)
 @DatabaseSetup(DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 public class AbstractServiceTest {
@@ -53,8 +55,8 @@ public class AbstractServiceTest {
         }
         {
             int initialCount = userService.getAll().size();
-            userService.create(new User("new login", new PasswordGenerator().get(), "foo@hostname.domain",
-                    new Random().nextBoolean()));
+            userService.create(
+                    new User("new login", new PasswordGenerator().get(), "foo@hostname.domain", new Random().nextBoolean()));
             assertThat(userService.getAll(), hasSize(initialCount + 1));
         }
     }

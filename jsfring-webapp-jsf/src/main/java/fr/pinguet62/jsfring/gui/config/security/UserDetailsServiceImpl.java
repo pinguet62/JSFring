@@ -27,7 +27,7 @@ import fr.pinguet62.jsfring.model.sql.User;
  * @see UserDetailsService
  */
 @Service("userDetailsService")
-public final class UserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Inject
     private UserDao userDao;

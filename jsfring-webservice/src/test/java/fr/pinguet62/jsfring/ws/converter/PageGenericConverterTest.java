@@ -10,22 +10,24 @@ import javax.inject.Inject;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.util.spring.GenericTypeDescriptor;
 import fr.pinguet62.jsfring.ws.dto.PageDto;
 
 /** @see PageGenericConverter */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(SpringBootConfig.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@ContextConfiguration(classes = SpringBootConfig.class)
 public class PageGenericConverterTest {
 
     @Inject
@@ -47,8 +49,7 @@ public class PageGenericConverterTest {
     }
 
     /**
-     * For the conversion from {@code Source<A>} to {@code Target<B>}, 2
-     * {@link Converter} must be used:
+     * For the conversion from {@code Source<A>} to {@code Target<B>}, 2 {@link Converter} must be used:
      * <ul>
      * <li>From: {@code Source} to {@code Target}</li>
      * <li>From: {@code A} to {@code B}</li>

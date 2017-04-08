@@ -39,7 +39,7 @@ public class Application implements CommandLineRunner {
 
     /** Convert {@link Long} to {@link ObjectId}. */
     private static ObjectId format(long code) {
-        return new ObjectId(0, 0, (int) code);
+        return new ObjectId(0, 0, (short) 0, (int) code);
     }
 
     public static void main(String[] args) throws Exception {

@@ -11,16 +11,16 @@ import javax.inject.Inject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.boot.test.WebIntegrationTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(SpringBootConfig.class)
-@WebIntegrationTest
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@ContextConfiguration(classes = SpringBootConfig.class)
 public class LangFilterITTest {
 
     @Inject
@@ -38,8 +38,8 @@ public class LangFilterITTest {
         String initialLangKey = navigator.gotoMyAccountPage().getLangSwitcher().getValue();
         String initialTitle = navigator.gotoRightsPage().getTitle();
 
-        String newLangKey = langBean.getSupportedLocales().stream()
-                .filter(loc -> !loc.getLanguage().equals(initialLangKey)).findAny().get().getLanguage();
+        String newLangKey = langBean.getSupportedLocales().stream().filter(loc -> !loc.getLanguage().equals(initialLangKey))
+                .findAny().get().getLanguage();
         String subUrl = String.format("/index.xhtml?%s=%s", LangFilter.PARAMETER, newLangKey);
         navigator.gotoUrl(subUrl);
 

@@ -20,10 +20,10 @@ import javax.ws.rs.core.GenericType;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.boot.test.WebIntegrationTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
@@ -36,9 +36,8 @@ import fr.pinguet62.jsfring.ws.config.Oauth2Helper;
 import fr.pinguet62.jsfring.ws.dto.UserDto;
 
 /** @see UserWebservice */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(SpringBootConfig.class)
-@WebIntegrationTest
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = SpringBootConfig.class, webEnvironment = WebEnvironment.DEFINED_PORT)
 @DatabaseSetup(DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 public class UserWebserviceITTest {
@@ -73,8 +72,7 @@ public class UserWebserviceITTest {
 
         assertThat(actual.getLogin(), is(equalTo(expected.getLogin())));
         assertThat(actual.getEmail(), is(equalTo(expected.getEmail())));
-        assertThat(truncate(actual.getLastConnection(), SECOND),
-                is(equalTo(truncate(expected.getLastConnection(), SECOND))));
+        assertThat(truncate(actual.getLastConnection(), SECOND), is(equalTo(truncate(expected.getLastConnection(), SECOND))));
     }
 
     /** @see UserWebservice#list() */

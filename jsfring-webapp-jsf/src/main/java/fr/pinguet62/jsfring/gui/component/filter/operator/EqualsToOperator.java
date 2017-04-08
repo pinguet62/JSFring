@@ -1,12 +1,11 @@
 package fr.pinguet62.jsfring.gui.component.filter.operator;
 
-import com.mysema.query.BooleanBuilder;
-import com.mysema.query.types.Predicate;
-import com.mysema.query.types.expr.SimpleExpression;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.SimpleExpression;
 
 /**
- * This implementation requires {@link SimpleExpression path} type, because it
- * can be applied on several types.
+ * This implementation requires {@link SimpleExpression path} type, because it can be applied on several types.
  */
 public final class EqualsToOperator<Exp extends SimpleExpression<T>, T> implements Operator<Exp, T> {
 

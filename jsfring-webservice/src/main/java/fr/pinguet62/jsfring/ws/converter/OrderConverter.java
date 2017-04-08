@@ -5,13 +5,14 @@ import java.util.function.Function;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import com.mysema.query.types.OrderSpecifier;
-import com.mysema.query.types.expr.ComparableExpressionBase;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.dsl.ComparableExpressionBase;
 
 @Component
 public class OrderConverter implements Converter<String, Function<ComparableExpressionBase<?>, OrderSpecifier<?>>> {
 
     public static final String ASC = "asc";
+
     public static final String DESC = "desc";
 
     @Override

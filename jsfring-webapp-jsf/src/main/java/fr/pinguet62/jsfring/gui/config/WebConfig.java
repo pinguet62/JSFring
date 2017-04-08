@@ -12,9 +12,9 @@ import javax.faces.webapp.FacesServlet;
 import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
 
-import org.springframework.boot.context.embedded.ServletContextInitializer;
-import org.springframework.boot.context.embedded.ServletListenerRegistrationBean;
-import org.springframework.boot.context.embedded.ServletRegistrationBean;
+import org.springframework.boot.web.servlet.ServletContextInitializer;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -80,8 +80,7 @@ public class WebConfig {
             // ProjectStage.Development.toString());
             servletContext.setInitParameter(FACELETS_SKIP_COMMENTS_PARAM_NAME, TRUE.toString());
             // TimeZone: getDefault() instead of "GMT"
-            servletContext.setInitParameter(DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE_PARAM_NAME,
-                    TRUE.toString());
+            servletContext.setInitParameter(DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE_PARAM_NAME, TRUE.toString());
 
             // JSF without "web.xml" and "faces-config.xml"
             servletContext.setInitParameter(ForceLoadFacesConfigFiles.getQualifiedName(), TRUE.toString());

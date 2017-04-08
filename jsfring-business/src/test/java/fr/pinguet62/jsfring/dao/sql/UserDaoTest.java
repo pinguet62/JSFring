@@ -5,6 +5,7 @@ import static java.util.Arrays.asList;
 import static java.util.Calendar.DATE;
 import static java.util.Calendar.DAY_OF_MONTH;
 import static java.util.Calendar.getInstance;
+import static java.util.Objects.nonNull;
 import static org.exparity.hamcrest.date.DateMatchers.before;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -19,10 +20,11 @@ import javax.inject.Inject;
 import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,8 +36,9 @@ import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.model.sql.User;
 
 /** @see UserDao */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(SpringBootConfig.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@ContextConfiguration(classes = SpringBootConfig.class)
 @DatabaseSetup(DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class,
         TransactionalTestExecutionListener.class })
@@ -132,7 +135,8 @@ public class UserDaoTest {
     @Test
     public void test_resetLastConnectionDate() {
         Date today = DateUtils.truncate(new Date(), DAY_OF_MONTH);
-        String login = userDao.findAll().get(0).getLogin();
+        String login = userDao.findAll().stream().filter(u -> nonNull(u.getLastConnection())).map(User::getLogin).findAny()
+                .get();
 
         // Initial state
         User user = userDao.findOne(login);

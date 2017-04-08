@@ -49,9 +49,8 @@
 
 		<!-- Querydsl -->
 		<dependency>
-			<groupId>com.mysema.querydsl</groupId>
+			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-core</artifactId>
-			<version>${querydsl.version}</version>
 			<scope>compile</scope>
 		</dependency>
 

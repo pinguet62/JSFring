@@ -15,17 +15,17 @@ import javax.inject.Inject;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.mysema.query.BooleanBuilder;
+import com.querydsl.core.BooleanBuilder;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.gui.config.security.UserDetailsServiceImpl;
@@ -33,8 +33,8 @@ import fr.pinguet62.jsfring.model.sql.User;
 import fr.pinguet62.jsfring.service.UserService;
 
 /** @see UserDetailsServiceImpl */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(SpringBootConfig.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = SpringBootConfig.class)
 @DatabaseSetup(DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 public class UserDetailsServiceImplTest {
@@ -46,8 +46,7 @@ public class UserDetailsServiceImplTest {
     private UserService userService;
 
     /**
-     * Check that {@link User#lastConnection last connection date} was updated
-     * to current time.
+     * Check that {@link User#lastConnection last connection date} was updated to current time.
      *
      * @see UserDetailsServiceImpl#loadUserByUsername(String)
      */

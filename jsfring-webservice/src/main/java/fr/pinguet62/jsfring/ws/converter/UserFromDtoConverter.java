@@ -8,7 +8,7 @@ import javax.inject.Inject;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import com.mysema.query.types.Predicate;
+import com.querydsl.core.types.Predicate;
 
 import fr.pinguet62.jsfring.model.sql.Profile;
 import fr.pinguet62.jsfring.model.sql.QProfile;

@@ -32,7 +32,7 @@
 		<dependency>
 			<groupId>com.moviejukebox</groupId>
 			<artifactId>allocine-api</artifactId>
-			<version>1.5</version>
+			<version>1.6</version>
 		</dependency>
 	</dependencies>
 

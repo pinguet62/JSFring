@@ -8,11 +8,9 @@ import javax.persistence.EntityManager;
 
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.QueryDslJpaRepository;
-import org.springframework.data.querydsl.SimpleEntityPathResolver;
 import org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport;
 
-import com.mysema.query.jpa.impl.JPAQuery;
-import com.mysema.query.types.EntityPath;
+import com.querydsl.jpa.impl.JPAQuery;
 
 /**
  * Implementation of shared methods of {@link CommonRepository}.
@@ -25,8 +23,6 @@ public class CommonRepositoryImpl<T, ID extends Serializable> extends QueryDslJp
 
     private final EntityManager entityManager;
 
-    private final EntityPath<T> entityPath;
-
     /**
      * Required by Spring Data.
      *
@@ -37,13 +33,12 @@ public class CommonRepositoryImpl<T, ID extends Serializable> extends QueryDslJp
     public CommonRepositoryImpl(JpaEntityInformation<T, ID> entityInformation, EntityManager entityManager) {
         super(entityInformation, entityManager);
         this.entityManager = entityManager;
-        this.entityPath = SimpleEntityPathResolver.INSTANCE.createPath(entityInformation.getJavaType());
     }
 
     @Override
-    public List<T> find(JPAQuery query) {
-        JPAQuery emQuery = query.clone(entityManager);
-        return emQuery.list(entityPath);
+    public List<T> find(JPAQuery<T> query) {
+        JPAQuery<T> emQuery = query.clone(entityManager);
+        return emQuery.fetch();
     }
 
 }

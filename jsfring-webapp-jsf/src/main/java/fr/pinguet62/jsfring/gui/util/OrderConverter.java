@@ -4,10 +4,10 @@ import java.util.function.Function;
 
 import org.primefaces.model.SortOrder;
 
-import com.mysema.query.types.OrderSpecifier;
-import com.mysema.query.types.expr.ComparableExpressionBase;
-import com.mysema.query.types.expr.SimpleExpression;
-import com.mysema.query.types.path.EntityPathBase;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.dsl.ComparableExpressionBase;
+import com.querydsl.core.types.dsl.EntityPathBase;
+import com.querydsl.core.types.dsl.SimpleExpression;
 
 import fr.pinguet62.jsfring.util.reflection.PropertyResolver;
 
@@ -17,8 +17,7 @@ import fr.pinguet62.jsfring.util.reflection.PropertyResolver;
  * <p>
  * Ordered field must be a {@link ComparableExpressionBase}.
  */
-public final class OrderConverter
-        implements Function<SortOrder, Function<ComparableExpressionBase<?>, OrderSpecifier<?>>> {
+public final class OrderConverter implements Function<SortOrder, Function<ComparableExpressionBase<?>, OrderSpecifier<?>>> {
 
     /**
      * Apply the order: get the {@link OrderSpecifier}.

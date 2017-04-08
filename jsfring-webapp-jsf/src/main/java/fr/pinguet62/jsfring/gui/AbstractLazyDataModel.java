@@ -12,10 +12,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.data.querydsl.QSort;
 
-import com.mysema.query.types.EntityPath;
-import com.mysema.query.types.OrderSpecifier;
-import com.mysema.query.types.Predicate;
-import com.mysema.query.types.expr.ComparableExpressionBase;
+import com.querydsl.core.types.EntityPath;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.ComparableExpressionBase;
 
 import fr.pinguet62.jsfring.gui.util.OrderConverter;
 import fr.pinguet62.jsfring.service.AbstractService;
@@ -69,8 +69,7 @@ public class AbstractLazyDataModel<T extends Serializable> extends LazyDataModel
      * @see AbstractService#findAll(Predicate, Pageable)
      */
     @Override
-    public List<T> load(int firstIndex, int pageSize, String sortField, SortOrder sortOrder,
-            Map<String, Object> filters) {
+    public List<T> load(int firstIndex, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
         EntityPath<T> path = bean.getPath();
 
         // Pagination
@@ -78,10 +77,8 @@ public class AbstractLazyDataModel<T extends Serializable> extends LazyDataModel
         // Order
         QSort sort = null;
         if (sortField != null) {
-            ComparableExpressionBase<?> field = (ComparableExpressionBase<?>) new PropertyResolver(path)
-                    .apply(sortField);
-            Function<ComparableExpressionBase<?>, OrderSpecifier<?>> orderApplier = new OrderConverter()
-                    .apply(sortOrder);
+            ComparableExpressionBase<?> field = (ComparableExpressionBase<?>) new PropertyResolver(path).apply(sortField);
+            Function<ComparableExpressionBase<?>, OrderSpecifier<?>> orderApplier = new OrderConverter().apply(sortOrder);
             OrderSpecifier<?> orderSpecifier = orderApplier.apply(field);
             sort = new QSort(orderSpecifier);
         }

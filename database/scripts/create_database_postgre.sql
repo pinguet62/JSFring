@@ -34,7 +34,7 @@ drop table PROFILES_RIGHTS;
 
 drop index RIGHT_PK;
 
-drop table "RIGHT";
+drop table "right";
 
 drop index SEE_ALSO2_FK;
 
@@ -46,7 +46,7 @@ drop table SEE_ALSO;
 
 drop index USER_PK;
 
-drop table "USER";
+drop table "user";
 
 drop index USERS_PROFILES2_FK;
 
@@ -149,8 +149,8 @@ ID
 /*==============================================================*/
 create table PROFILES_RIGHTS (
    PROFILE              INT4                 not null,
-   "RIGHT"              VARCHAR(30)          not null,
-   constraint PK_PROFILES_RIGHTS primary key (PROFILE, "RIGHT")
+   "right"              VARCHAR(30)          not null,
+   constraint PK_PROFILES_RIGHTS primary key (PROFILE, "right")
 );
 
 comment on table PROFILES_RIGHTS is
@@ -159,7 +159,7 @@ comment on table PROFILES_RIGHTS is
 comment on column PROFILES_RIGHTS.PROFILE is
 'A technical ID.';
 
-comment on column PROFILES_RIGHTS."RIGHT" is
+comment on column PROFILES_RIGHTS."right" is
 'The key used in application to identify a restricted functionality.';
 
 /*==============================================================*/
@@ -167,7 +167,7 @@ comment on column PROFILES_RIGHTS."RIGHT" is
 /*==============================================================*/
 create unique index PROFILES_RIGHTS_PK on PROFILES_RIGHTS (
 PROFILE,
-"RIGHT"
+"right"
 );
 
 /*==============================================================*/
@@ -181,28 +181,28 @@ PROFILE
 /* Index : PROFILES_RIGHTS2_FK                                  */
 /*==============================================================*/
 create  index PROFILES_RIGHTS2_FK on PROFILES_RIGHTS (
-"RIGHT"
+"right"
 );
 
 /*==============================================================*/
-/* Table : "RIGHT"                                              */
+/* Table : "right"                                              */
 /*==============================================================*/
-create table "RIGHT" (
+create table "right" (
    CODE                 VARCHAR(30)          not null,
    TITLE                VARCHAR(50)          not null,
    constraint PK_RIGHT primary key (CODE)
 );
 
-comment on column "RIGHT".CODE is
+comment on column "right".CODE is
 'The key used in application to identify a restricted functionality.';
 
-comment on column "RIGHT".TITLE is
+comment on column "right".TITLE is
 'Description of the right.';
 
 /*==============================================================*/
 /* Index : RIGHT_PK                                             */
 /*==============================================================*/
-create unique index RIGHT_PK on "RIGHT" (
+create unique index RIGHT_PK on "right" (
 CODE
 );
 
@@ -238,38 +238,38 @@ ID
 );
 
 /*==============================================================*/
-/* Table : "USER"                                               */
+/* Table : "user"                                               */
 /*==============================================================*/
-create table "USER" (
+create table "user" (
    LOGIN                VARCHAR(30)          not null,
    PASSWORD             VARCHAR(30)          not null,
    EMAIL                VARCHAR(255)         not null,
-   LAST_CONNECTION      DATE                 not null,
-   ACTIVE               BOOL                 not null default 1,
+   LAST_CONNECTION      TIMESTAMP            not null,
+   ACTIVE               BOOL                 not null default true,
    constraint PK_USER primary key (LOGIN),
    constraint AK_EMAIL_USER unique (EMAIL)
 );
 
-comment on table "USER" is
+comment on table "user" is
 'Informations about a user.';
 
-comment on column "USER".LOGIN is
+comment on column "user".LOGIN is
 'Used for webapp login.';
 
-comment on column "USER".PASSWORD is
+comment on column "user".PASSWORD is
 'Used for webapp login.';
 
-comment on column "USER".EMAIL is
+comment on column "user".EMAIL is
 'Used to send the new password to used, when he forgot it.';
 
-comment on column "USER".LAST_CONNECTION is
+comment on column "user".LAST_CONNECTION is
 'Used to know if the account is yet used.
 Updated after each login.';
 
 /*==============================================================*/
 /* Index : USER_PK                                              */
 /*==============================================================*/
-create unique index USER_PK on "USER" (
+create unique index USER_PK on "user" (
 LOGIN
 );
 
@@ -277,15 +277,15 @@ LOGIN
 /* Table : USERS_PROFILES                                       */
 /*==============================================================*/
 create table USERS_PROFILES (
-   "USER"               VARCHAR(30)          not null,
+   "user"               VARCHAR(30)          not null,
    PROFILE              INT4                 not null,
-   constraint PK_USERS_PROFILES primary key ("USER", PROFILE)
+   constraint PK_USERS_PROFILES primary key ("user", PROFILE)
 );
 
 comment on table USERS_PROFILES is
 'Association of User/Profile.';
 
-comment on column USERS_PROFILES."USER" is
+comment on column USERS_PROFILES."user" is
 'Used for webapp login.';
 
 comment on column USERS_PROFILES.PROFILE is
@@ -295,7 +295,7 @@ comment on column USERS_PROFILES.PROFILE is
 /* Index : USERS_PROFILES_PK                                    */
 /*==============================================================*/
 create unique index USERS_PROFILES_PK on USERS_PROFILES (
-"USER",
+"user",
 PROFILE
 );
 
@@ -303,7 +303,7 @@ PROFILE
 /* Index : USERS_PROFILES_FK                                    */
 /*==============================================================*/
 create  index USERS_PROFILES_FK on USERS_PROFILES (
-"USER"
+"user"
 );
 
 /*==============================================================*/
@@ -329,8 +329,8 @@ alter table PROFILES_RIGHTS
       on delete restrict on update restrict;
 
 alter table PROFILES_RIGHTS
-   add constraint FK_PROFILES_PROFILES__RIGHT foreign key ("RIGHT")
-      references "RIGHT" (CODE)
+   add constraint FK_PROFILES_PROFILES__RIGHT foreign key ("right")
+      references "right" (CODE)
       on delete restrict on update restrict;
 
 alter table SEE_ALSO
@@ -344,8 +344,8 @@ alter table SEE_ALSO
       on delete restrict on update restrict;
 
 alter table USERS_PROFILES
-   add constraint FK_USERS_PR_USERS_PRO_USER foreign key ("USER")
-      references "USER" (LOGIN)
+   add constraint FK_USERS_PR_USERS_PRO_USER foreign key ("user")
+      references "user" (LOGIN)
       on delete restrict on update restrict;
 
 alter table USERS_PROFILES

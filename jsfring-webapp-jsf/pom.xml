@@ -17,7 +17,7 @@
 	<url>http://jsfring-${project.artifactId}.herokuapp.com</url>
 
 	<properties>
-		<jsf.version>2.2.13</jsf.version>
+		<jsf.version>2.2.14</jsf.version>
 	</properties>
 
 	<dependencies>
@@ -44,7 +44,7 @@
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
-			<version>6.2.2</version>
+			<version>6.4.0</version>
 		</dependency>
 
 		<!-- ===== Webapp ===== -->
@@ -92,7 +92,7 @@
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
-			<version>5.3</version>
+			<version>6.0</version>
 		</dependency>
 		<dependency>
 			<!-- Themes -->

@@ -8,9 +8,9 @@ import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import com.mysema.query.BooleanBuilder;
-import com.mysema.query.types.Predicate;
-import com.mysema.query.types.expr.SimpleExpression;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.SimpleExpression;
 
 import fr.pinguet62.jsfring.gui.component.filter.operator.Operator;
 
@@ -113,7 +113,7 @@ public abstract class PathFilter<Exp extends SimpleExpression<T>, T extends Seri
     /**
      * Check that argument values are correct, according to {@link Operator#getNumberOfParameters() number of arguments}
      * of {@link #operator}.
-     * 
+     *
      * @return The result.
      */
     public boolean isValid() {

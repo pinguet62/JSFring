@@ -22,7 +22,7 @@
 		<parameterDescription><![CDATA[Parameter of type "java.util.List"]]></parameterDescription>
 	</parameter>
 	<queryString>
-		<![CDATA[select 1]]>
+		<![CDATA[VALUES (CURRENT_TIMESTAMP)]]>
 	</queryString>
 	<title>
 		<band height="20" splitType="Stretch">

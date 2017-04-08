@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Repository;
 
-import com.mysema.query.jpa.impl.JPAUpdateClause;
+import com.querydsl.jpa.impl.JPAUpdateClause;
 
 import fr.pinguet62.jsfring.dao.sql.common.CommonRepository;
 import fr.pinguet62.jsfring.model.sql.QUser;
@@ -46,8 +46,7 @@ class UserDaoImpl implements UserDaoCustom {
     protected EntityManager em;
 
     /**
-     * Disable all users who have not connected since {@code numberOfDays} days.
-     * <br>
+     * Disable all users who have not connected since {@code numberOfDays} days. <br>
      * Ignore never connected {@link User}s.
      * <p>
      * Reset the {@link EntityManager} before call, to impact calling methods.
@@ -72,8 +71,7 @@ class UserDaoImpl implements UserDaoCustom {
     }
 
     /**
-     * Reset the {@link User#lastConnection last connection date} to the current
-     * day.
+     * Reset the {@link User#lastConnection last connection date} to the current day.
      *
      * @param user The {@link User} to update.
      */

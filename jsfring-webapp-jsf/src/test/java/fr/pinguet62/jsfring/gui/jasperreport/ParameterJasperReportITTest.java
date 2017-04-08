@@ -4,6 +4,7 @@ import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.get;
 import static java.util.Arrays.asList;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertThat;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,18 +16,16 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.boot.test.WebIntegrationTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.gui.htmlunit.jasperreport.ParametersJasperReportPage;
 import fr.pinguet62.jsfring.gui.jasperreport.sample.ParametersJasperReportBean;
 
 /** @see ParametersJasperReportBean */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(SpringBootConfig.class)
-@WebIntegrationTest
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = SpringBootConfig.class, webEnvironment = DEFINED_PORT)
 public class ParameterJasperReportITTest {
 
     private ParametersJasperReportPage page;

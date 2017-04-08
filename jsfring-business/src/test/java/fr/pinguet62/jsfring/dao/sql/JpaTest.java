@@ -14,19 +14,21 @@ import javax.inject.Inject;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import javax.sql.DataSource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.mysema.query.types.Predicate;
+import com.querydsl.core.types.Predicate;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.model.sql.Profile;
@@ -35,13 +37,17 @@ import fr.pinguet62.jsfring.model.sql.QRight;
 import fr.pinguet62.jsfring.model.sql.Right;
 
 /** Simple tests for JPA relationships. */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(SpringBootConfig.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@ContextConfiguration(classes = SpringBootConfig.class)
 @DatabaseSetup(DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class })
 @Transactional
 public class JpaTest {
+
+    @Inject
+    private DataSource ds;
 
     @Inject
     private ProfileDao profileDao;
@@ -50,13 +56,14 @@ public class JpaTest {
     private RightDao rightDao;
 
     /**
-     * When another existing element is {@link List#add(Object) added} to
-     * relationship, the {@link List} of entities must be updated.
+     * When another existing element is {@link List#add(Object) added} to relationship, the {@link List} of entities
+     * must be updated.
      *
      * @see ManyToMany
      */
     @Test
     public void test_add_existing() {
+        System.out.println(ds);
         final int id = profileDao.findAll().get(0).getId();
 
         // Initial state
@@ -79,8 +86,7 @@ public class JpaTest {
     }
 
     /**
-     * When new element is {@link List#add(Object) added} to relationship, the
-     * update must fail.
+     * When new element is {@link List#add(Object) added} to relationship, the update must fail.
      *
      * @see ManyToMany
      * @see EntityNotFoundException
@@ -113,8 +119,7 @@ public class JpaTest {
     }
 
     /**
-     * The access to relationship must fetch the {@link List} of associated
-     * entities.
+     * The access to relationship must fetch the {@link List} of associated entities.
      *
      * @see ManyToMany#fetch()
      * @see FetchType#LAZY
@@ -126,8 +131,7 @@ public class JpaTest {
     }
 
     /**
-     * When associated element is {@link List#remove(Object) removed} from
-     * relationship, the relation is updated.
+     * When associated element is {@link List#remove(Object) removed} from relationship, the relation is updated.
      *
      * @see ManyToMany
      */

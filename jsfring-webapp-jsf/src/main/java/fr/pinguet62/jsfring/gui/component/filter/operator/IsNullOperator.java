@@ -1,7 +1,7 @@
 package fr.pinguet62.jsfring.gui.component.filter.operator;
 
-import com.mysema.query.types.Predicate;
-import com.mysema.query.types.expr.SimpleExpression;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.SimpleExpression;
 
 public final class IsNullOperator<Exp extends SimpleExpression<T>, T> implements Operator<Exp, T> {
 

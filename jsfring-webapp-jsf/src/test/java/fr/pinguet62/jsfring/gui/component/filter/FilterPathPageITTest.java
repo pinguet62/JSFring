@@ -1,11 +1,11 @@
 package fr.pinguet62.jsfring.gui.component.filter;
 
-import static fr.pinguet62.jsfring.gui.sample.FilterPathBean.EXPRESSION_NUMBER;
+import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.get;
 import static fr.pinguet62.jsfring.gui.sample.FilterPathBean.EXPRESSION_STRING;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
-import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.*;
+
 import java.util.Arrays;
 import java.util.function.Function;
 
@@ -16,25 +16,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.boot.test.WebIntegrationTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestContextManager;
 
-import com.mysema.query.BooleanBuilder;
-import com.mysema.query.types.Predicate;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Predicate;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.gui.component.filter.operator.BetweenOperator;
-import fr.pinguet62.jsfring.gui.component.filter.operator.ContainsOperator;
-import fr.pinguet62.jsfring.gui.component.filter.operator.EndsWithOperator;
 import fr.pinguet62.jsfring.gui.component.filter.operator.EqualsToOperator;
-import fr.pinguet62.jsfring.gui.component.filter.operator.GreaterThanOperator;
 import fr.pinguet62.jsfring.gui.component.filter.operator.IsNullOperator;
-import fr.pinguet62.jsfring.gui.component.filter.operator.LessThanOperator;
-import fr.pinguet62.jsfring.gui.component.filter.operator.LikeOperator;
 import fr.pinguet62.jsfring.gui.component.filter.operator.Operator;
-import fr.pinguet62.jsfring.gui.component.filter.operator.StartsWithOperator;
-import fr.pinguet62.jsfring.gui.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.gui.htmlunit.filter.FilterField;
 import fr.pinguet62.jsfring.gui.htmlunit.filter.FilterPathPage;
 import fr.pinguet62.jsfring.gui.sample.FilterPathBean;
@@ -48,8 +40,8 @@ import fr.pinguet62.jsfring.gui.sample.FilterPathBean;
  * @see LongRangeValidator
  */
 @RunWith(Parameterized.class)
-@SpringApplicationConfiguration(SpringBootConfig.class)
-@WebIntegrationTest
+@SpringBootTest
+@ContextConfiguration(classes = SpringBootConfig.class)
 public class FilterPathPageITTest {
 
     // Because lambda cannot be used into inline array

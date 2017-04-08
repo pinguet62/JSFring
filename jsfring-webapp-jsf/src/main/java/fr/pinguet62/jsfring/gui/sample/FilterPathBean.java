@@ -6,9 +6,9 @@ import javax.faces.validator.LongRangeValidator;
 import javax.faces.validator.RegexValidator;
 import javax.inject.Named;
 
-import com.mysema.query.types.expr.NumberExpression;
-import com.mysema.query.types.expr.StringExpression;
-import com.mysema.query.types.path.StringPath;
+import com.querydsl.core.types.dsl.NumberExpression;
+import com.querydsl.core.types.dsl.StringExpression;
+import com.querydsl.core.types.dsl.StringPath;
 
 import fr.pinguet62.jsfring.gui.component.filter.NumberPathFilter;
 import fr.pinguet62.jsfring.gui.component.filter.StringPathFilter;
@@ -21,6 +21,7 @@ import fr.pinguet62.jsfring.model.sql.User;
 public final class FilterPathBean implements Serializable {
 
     public static final NumberExpression<Integer> EXPRESSION_NUMBER = QUser.user.email.length();
+
     public static final StringPath EXPRESSION_STRING = QUser.user.login;
 
     private static final long serialVersionUID = 1;

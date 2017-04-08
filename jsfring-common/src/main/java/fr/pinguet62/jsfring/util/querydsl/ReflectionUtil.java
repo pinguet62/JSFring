@@ -10,8 +10,8 @@ import java.util.List;
 
 import javax.persistence.Entity;
 
-import com.mysema.query.types.EntityPath;
-import com.mysema.query.types.path.EntityPathBase;
+import com.querydsl.core.types.EntityPath;
+import com.querydsl.core.types.dsl.EntityPathBase;
 
 public final class ReflectionUtil {
 
@@ -21,19 +21,15 @@ public final class ReflectionUtil {
      * The meta-classes must be generated with default options:
      * <ul>
      * <li>The same package that the {@link Entity} type;</li>
-     * <li>The name of meta-class must be have the default target name,
-     * beginning by {@code Q}.<br>
-     * For example if the name is {@code mypackage.MyClass}, the meta-class must
-     * be {@code mypackage.QMyClass}.</li>
+     * <li>The name of meta-class must be have the default target name, beginning by {@code Q}.<br>
+     * For example if the name is {@code mypackage.MyClass}, the meta-class must be {@code mypackage.QMyClass}.</li>
      * </ul>
      *
      * @param <T> The {@link Entity} type.
      * @param entityType The {@link Entity} type.
      * @return The {@link EntityPathBase} corresponding.
-     * @throws UnsupportedOperationException Meta-class not found from
-     *             {@link Entity}.
-     * @throws UnsupportedOperationException Error during getting default
-     *             meta-instance.
+     * @throws UnsupportedOperationException Meta-class not found from {@link Entity}.
+     * @throws UnsupportedOperationException Error during getting default meta-instance.
      */
     @SuppressWarnings("unchecked")
     public static <T> EntityPath<T> getDefaultMetaObject(Class<T> entityType) {

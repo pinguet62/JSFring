@@ -1,8 +1,8 @@
-package fr.pinguet62.jsfring.ws.config;
+package fr.pinguet62.jsfring.test;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@PropertySource("classpath:/application-webservice.properties")
-public class WebserviceConfig {}
+@PropertySource("classpath:/application-common-test.properties")
+public class CommonTestConfig {}

@@ -25,7 +25,6 @@ import org.apache.poi.POIXMLException;
 import org.apache.poi.hslf.usermodel.HSLFSlideShow;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hwpf.HWPFDocument;
-import org.apache.poi.openxml4j.exceptions.NotOfficeXmlFileException;
 import org.apache.poi.poifs.filesystem.NotOLE2FileException;
 import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
@@ -43,8 +42,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 import com.lowagie.text.pdf.PdfReader;
-
-import au.com.bytecode.opencsv.CSVReader;
+import com.opencsv.CSVReader;
 
 /** Utility class used to verify is the format file is correct. */
 public final class FileFormatMatcher {
@@ -103,7 +101,7 @@ public final class FileFormatMatcher {
             protected boolean matchesSafely(InputStream is) {
                 try (XWPFDocument docx = new XWPFDocument(is)) {
                     return true;
-                } catch (NotOfficeXmlFileException | POIXMLException e) {
+                } catch (POIXMLException e) {
                     return false;
                 } catch (IOException e) {
                     throw new IllegalArgumentException(e);
@@ -273,7 +271,7 @@ public final class FileFormatMatcher {
             protected boolean matchesSafely(InputStream is) {
                 try (XMLSlideShow pptx = new XMLSlideShow(is)) {
                     return true;
-                } catch (POIXMLException | NotOfficeXmlFileException e) {
+                } catch (POIXMLException e) {
                     return false;
                 } catch (IOException e) {
                     throw new IllegalArgumentException(e);
@@ -366,7 +364,7 @@ public final class FileFormatMatcher {
             protected boolean matchesSafely(InputStream is) {
                 try (XSSFWorkbook xlsx = new XSSFWorkbook(is)) {
                     return true;
-                } catch (POIXMLException | NotOfficeXmlFileException e) {
+                } catch (POIXMLException e) {
                     return false;
                 } catch (IOException e) {
                     throw new IllegalArgumentException(e);

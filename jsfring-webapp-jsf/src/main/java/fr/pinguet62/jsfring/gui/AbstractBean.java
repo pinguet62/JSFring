@@ -15,10 +15,10 @@ import org.primefaces.model.LazyDataModel;
 import org.slf4j.Logger;
 import org.springframework.data.domain.Pageable;
 
-import com.mysema.query.BooleanBuilder;
-import com.mysema.query.types.EntityPath;
-import com.mysema.query.types.OrderSpecifier;
-import com.mysema.query.types.Predicate;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.EntityPath;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Predicate;
 
 import fr.pinguet62.jsfring.service.AbstractService;
 

@@ -1,22 +1,22 @@
 package fr.pinguet62.jsfring.util.querydsl.model;
 
-import static com.mysema.query.types.PathMetadataFactory.*;
+import static com.querydsl.core.types.PathMetadataFactory.*;
 
-import com.mysema.query.types.path.*;
+import com.querydsl.core.types.dsl.*;
 
-import com.mysema.query.types.PathMetadata;
+import com.querydsl.core.types.PathMetadata;
 import javax.annotation.Generated;
-import com.mysema.query.types.Path;
-import com.mysema.query.types.path.PathInits;
+import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
  * QRight is a Querydsl query type for Right
  */
-@Generated("com.mysema.query.codegen.EntitySerializer")
+@Generated("com.querydsl.codegen.EntitySerializer")
 public class QRight extends EntityPathBase<Right> {
 
-    private static final long serialVersionUID = -34028972L;
+    private static final long serialVersionUID = -199528908L;
 
     public static final QRight right_ = new QRight("right_");
 
@@ -34,7 +34,7 @@ public class QRight extends EntityPathBase<Right> {
         super(path.getType(), path.getMetadata());
     }
 
-    public QRight(PathMetadata<?> metadata) {
+    public QRight(PathMetadata metadata) {
         super(Right.class, metadata);
     }
 

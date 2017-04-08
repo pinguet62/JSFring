@@ -14,7 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.mysema.query.annotations.Config;
+import com.querydsl.core.annotations.Config;
 
 // Querydsl
 @Config(defaultVariableName = "right_")

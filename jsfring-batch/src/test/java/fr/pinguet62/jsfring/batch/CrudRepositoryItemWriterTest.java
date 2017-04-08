@@ -15,28 +15,31 @@ import javax.persistence.Entity;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.stereotype.Component;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
+import fr.pinguet62.jsfring.batch.CrudRepositoryItemWriterTest.ProfileCrudRepositoryItemWriter;
 import fr.pinguet62.jsfring.dao.sql.ProfileDao;
 import fr.pinguet62.jsfring.model.sql.Profile;
 
 /** @see CrudRepositoryItemWriter */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(SpringBootConfig.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@ContextConfiguration(classes = { SpringBootConfig.class, ProfileCrudRepositoryItemWriter.class })
 @DatabaseSetup(DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 public class CrudRepositoryItemWriterTest {
 
     @Component
-    private static class ProfileCrudRepositoryItemWriter extends CrudRepositoryItemWriter<Profile> {}
+    public static class ProfileCrudRepositoryItemWriter extends CrudRepositoryItemWriter<Profile> {}
 
     @Inject
     private ProfileDao dao;

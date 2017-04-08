@@ -13,8 +13,8 @@ import java.util.function.Function;
 import org.junit.Test;
 import org.primefaces.model.SortOrder;
 
-import com.mysema.query.types.OrderSpecifier;
-import com.mysema.query.types.expr.ComparableExpressionBase;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.dsl.ComparableExpressionBase;
 
 import fr.pinguet62.jsfring.model.sql.QProfile;
 import fr.pinguet62.jsfring.model.sql.QRight;

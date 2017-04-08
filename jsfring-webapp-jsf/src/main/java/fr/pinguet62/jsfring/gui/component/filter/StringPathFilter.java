@@ -5,7 +5,7 @@ import static java.util.Arrays.asList;
 import java.io.Serializable;
 import java.util.List;
 
-import com.mysema.query.types.expr.StringExpression;
+import com.querydsl.core.types.dsl.StringExpression;
 
 import fr.pinguet62.jsfring.gui.component.filter.operator.ContainsOperator;
 import fr.pinguet62.jsfring.gui.component.filter.operator.EndsWithOperator;

@@ -22,20 +22,21 @@ import javax.persistence.GeneratedValue;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.mysema.query.jpa.impl.JPAQuery;
-import com.mysema.query.types.Predicate;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.jpa.impl.JPAQuery;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.dao.sql.common.CommonRepository;
@@ -46,8 +47,9 @@ import fr.pinguet62.jsfring.model.sql.User;
 import fr.pinguet62.jsfring.util.PasswordGenerator;
 
 /** @see CommonRepository */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(SpringBootConfig.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@ContextConfiguration(classes = SpringBootConfig.class)
 @DatabaseSetup(DATASET)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class })
@@ -98,7 +100,7 @@ public class CommonRepositoryTest {
         final String keyword = "PROFILE";
 
         QRight r = QRight.right_;
-        JPAQuery query = new JPAQuery().from(r).where(r.code.contains(keyword));
+        JPAQuery<Right> query = new JPAQuery<Right>().from(r).where(r.code.contains(keyword));
         List<Right> rights = rightDao.find(query);
 
         assertThat(rights, everyItem(mappedTo(Right::getCode, containsString(keyword))));
@@ -177,8 +179,8 @@ public class CommonRepositoryTest {
         }
         {
             long count = userDao.count();
-            userDao.save(new User("new login", new PasswordGenerator().get(), "foo@hostname.domain",
-                    new Random().nextBoolean()));
+            userDao.save(
+                    new User("new login", new PasswordGenerator().get(), "foo@hostname.domain", new Random().nextBoolean()));
             assertThat(userDao.count(), is(equalTo(count + 1)));
         }
     }

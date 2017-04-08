@@ -8,9 +8,9 @@ import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.stereotype.Repository;
 
-import com.mysema.query.jpa.impl.JPAQuery;
-import com.mysema.query.types.OrderSpecifier;
-import com.mysema.query.types.Predicate;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.jpa.impl.JPAQuery;
 
 /**
  * Common methods for {@link Repository}s.
@@ -18,8 +18,7 @@ import com.mysema.query.types.Predicate;
  * Extension of {@link JpaRepository} and {@link QueryDslPredicateExecutor}, with custom shared methods.
  */
 @NoRepositoryBean // Required: "No managed bean Object"
-public interface CommonRepository<T, ID extends Serializable>
-        extends JpaRepository<T, ID>, QueryDslPredicateExecutor<T> {
+public interface CommonRepository<T, ID extends Serializable> extends JpaRepository<T, ID>, QueryDslPredicateExecutor<T> {
 
     /**
      * Find all objects who match to the {@link JPAQuery}:
@@ -31,7 +30,7 @@ public interface CommonRepository<T, ID extends Serializable>
      * @param query The {@link JPAQuery}.
      * @return The objects found.
      */
-    List<T> find(JPAQuery query);
+    List<T> find(JPAQuery<T> query);
 
     @Override // Iterable to List
     List<T> findAll(OrderSpecifier<?>... orders);

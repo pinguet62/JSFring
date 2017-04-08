@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import fr.pinguet62.jsfring.SpringBootConfig;
 
 @Configuration
-@PropertySource("application-task.properties")
+@PropertySource("classpath:/application-task.properties")
 @EnableScheduling
 public class Application {
 

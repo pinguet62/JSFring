@@ -224,14 +224,14 @@
 	<subDataset name="Dataset1" uuid="2b420449-e163-4f6b-bf32-8c2560c94303">
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PostgreSQL local"/>
 		<queryString>
-			<![CDATA[select "USER".login, profile.title, "RIGHT".code
-from public."USER" "USER"
-left join public.users_profiles on users_profiles."USER" = "USER".login
-left join public.profile  profile on profile.id = users_profiles.profile
-left join public.profiles_rights on profiles_rights.profile = profile.id
-left join public."RIGHT" as "RIGHT" on "RIGHT".code = profiles_rights."RIGHT"
-group by "USER".login, profile.title, "RIGHT".code
-order by "USER".login, profile.title, "RIGHT".code]]>
+			<![CDATA[select u.login, p.title, r.code
+from public."user" as u
+left join public.users_profiles on users_profiles."user" = u.login
+left join public.profile as p on p.id = users_profiles.profile
+left join public.profiles_rights on profiles_rights.profile = p.id
+left join public."right" as r on r.code = profiles_rights."right"
+group by u.login, p.title, r.code
+order by u.login, p.title, r.code]]>
 		</queryString>
 		<field name="login" class="java.lang.String"/>
 		<field name="title" class="java.lang.String"/>
@@ -250,12 +250,12 @@ order by "USER".login, profile.title, "RIGHT".code]]>
 		</group>
 	</subDataset>
 	<queryString>
-		<![CDATA[select "USER".login, profile.title, "RIGHT".code
-from public."USER" "USER"
-left join public.users_profiles on users_profiles."USER" = "USER".login
-left join public.profile  profile on profile.id = users_profiles.profile
-left join public.profiles_rights on profiles_rights.profile = profile.id
-left join public."RIGHT" as "RIGHT" on "RIGHT".code = profiles_rights."RIGHT"]]>
+		<![CDATA[select u.login, p.title, r.code
+from public."user" as u
+left join public.users_profiles on users_profiles."user" = u.login
+left join public.profile as p on p.id = users_profiles.profile
+left join public.profiles_rights on profiles_rights.profile = p.id
+left join public."right" as r on r.code = profiles_rights."right"]]>
 	</queryString>
 	<field name="login" class="java.lang.String"/>
 	<field name="title" class="java.lang.String"/>

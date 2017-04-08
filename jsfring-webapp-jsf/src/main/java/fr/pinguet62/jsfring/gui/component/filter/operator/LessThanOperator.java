@@ -1,8 +1,8 @@
 package fr.pinguet62.jsfring.gui.component.filter.operator;
 
-import com.mysema.query.BooleanBuilder;
-import com.mysema.query.types.Predicate;
-import com.mysema.query.types.expr.NumberExpression;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.NumberExpression;
 
 public final class LessThanOperator<T extends Number & Comparable<?>> implements NumberOperator<T> {
 

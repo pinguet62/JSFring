@@ -1,8 +1,8 @@
 package fr.pinguet62.jsfring.gui.component.filter.operator;
 
-import com.mysema.query.BooleanBuilder;
-import com.mysema.query.types.Predicate;
-import com.mysema.query.types.expr.StringExpression;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.StringExpression;
 
 public final class ContainsOperator implements StringOperator {
 
