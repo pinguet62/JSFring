@@ -1,5 +1,7 @@
 package fr.pinguet62.jsfring.batch.user;
 
+import static java.util.Objects.requireNonNull;
+
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.batch.core.Step;
@@ -7,7 +9,6 @@ import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.listener.CompositeJobExecutionListener;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,20 +18,24 @@ import fr.pinguet62.jsfring.model.sql.User;
 @Configuration
 public class UserBatch {
 
-    @Autowired
-    private JobBuilderFactory jobBuilderFactory;
+    private final JobBuilderFactory jobBuilderFactory;
 
-    @Autowired
-    private UserProcessor processor;
+    private final UserProcessor processor;
 
-    @Autowired
-    private UserReader reader;
+    private final UserReader reader;
 
-    @Autowired
-    public StepBuilderFactory stepBuilderFactory;
+    public final StepBuilderFactory stepBuilderFactory;
 
-    @Autowired
-    private UserWriter writer;
+    private final UserWriter writer;
+
+    public UserBatch(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory, UserReader reader,
+            UserProcessor processor, UserWriter writer) {
+        this.jobBuilderFactory = requireNonNull(jobBuilderFactory);
+        this.stepBuilderFactory = requireNonNull(stepBuilderFactory);
+        this.reader = requireNonNull(reader);
+        this.processor = requireNonNull(processor);
+        this.writer = requireNonNull(writer);
+    }
 
     @Bean
     public Job importUserJob() {

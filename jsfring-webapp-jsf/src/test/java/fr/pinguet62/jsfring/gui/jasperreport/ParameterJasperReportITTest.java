@@ -58,11 +58,11 @@ public class ParameterJasperReportITTest {
     /** @see List */
     @Test
     public void test_list() throws IOException {
-        page.setList(asList("avion", "vélo"));
+        page.setList(asList("avion", "velo"));
         InputStream is = page.exportTEXT();
         String content = IOUtils.toString(is);
         assertThat(content, containsString("avion"));
-        assertThat(content, containsString("vélo"));
+        assertThat(content, containsString("velo"));
     }
 
     /** @see String */

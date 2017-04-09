@@ -9,14 +9,19 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import fr.pinguet62.jsfring.dao.sql.ProfileDao;
 import fr.pinguet62.jsfring.model.sql.Profile;
 
 /** The service for {@link Profile}. */
 @Service
 public class ProfileService extends AbstractService<Profile, Integer> {
 
-    @Override
+    public ProfileService(ProfileDao dao) {
+        super(dao);
+    }
+
     @CacheEvict(value = PROFILE_CACHE, allEntries = true)
+    @Override
     @Transactional
     public Profile create(Profile object) {
         return dao.save(object);

@@ -23,15 +23,19 @@ import fr.pinguet62.jsfring.model.sql.User;
 /** @see User */
 @Repository
 public interface UserDao extends CommonRepository<User, String>, UserDaoCustom {
+
     User findByEmail(String email);
+
 }
 
 interface UserDaoCustom {
+
     void disableInactiveUsers(int numberOfDays);
 
     void resetLastConnectionDate(User user);
 
     void updatePassword(User user, String password);
+
 }
 
 class UserDaoImpl implements UserDaoCustom {

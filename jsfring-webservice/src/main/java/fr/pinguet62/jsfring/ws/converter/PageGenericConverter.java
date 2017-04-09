@@ -1,6 +1,7 @@
 package fr.pinguet62.jsfring.ws.converter;
 
 import static java.util.Collections.singleton;
+import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toList;
 import static org.springframework.core.convert.TypeDescriptor.valueOf;
 
@@ -8,8 +9,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.StreamSupport;
-
-import javax.inject.Inject;
 
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.Converter;
@@ -29,8 +28,11 @@ import fr.pinguet62.jsfring.ws.dto.PageDto;
 @Component
 public class PageGenericConverter implements GenericConverter {
 
-    @Inject
-    private GenericConversionService conversionService;
+    private final GenericConversionService conversionService;
+
+    public PageGenericConverter(GenericConversionService conversionService) {
+        this.conversionService = requireNonNull(conversionService);
+    }
 
     @Override
     public Object convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {

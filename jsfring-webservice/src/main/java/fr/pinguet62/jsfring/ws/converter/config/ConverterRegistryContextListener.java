@@ -1,5 +1,7 @@
 package fr.pinguet62.jsfring.ws.converter.config;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -21,16 +23,17 @@ import org.springframework.core.convert.support.GenericConversionService;
 @Configuration
 public class ConverterRegistryContextListener implements ApplicationListener<ContextRefreshedEvent> {
 
-    @Inject
-    private GenericConversionService conversionService;
+    private final GenericConversionService conversionService;
 
     /** The {@link Converter}s of classpath. */
-    @Inject
     private Set<Converter<?, ?>> converters;
 
     /** The {@link GenericConverter}s of classpath. */
-    @Inject
     private Set<GenericConverter> genericConverters;
+
+    public ConverterRegistryContextListener(GenericConversionService conversionService) {
+        this.conversionService = requireNonNull(conversionService);
+    }
 
     /**
      * Store {@link Converter} into {@link GenericConversionService}.
@@ -39,10 +42,22 @@ public class ConverterRegistryContextListener implements ApplicationListener<Con
      */
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        for (Converter<?, ?> converter : converters)
-            conversionService.addConverter(converter);
-        for (GenericConverter converter : genericConverters)
-            conversionService.addConverter(converter);
+        if (converters != null)
+            for (Converter<?, ?> converter : converters)
+                conversionService.addConverter(converter);
+        if (genericConverters != null)
+            for (GenericConverter converter : genericConverters)
+                conversionService.addConverter(converter);
+    }
+
+    @Inject
+    public void setConverters(Set<Converter<?, ?>> converters) {
+        this.converters = converters;
+    }
+
+    @Inject
+    public void setGenericConverters(Set<GenericConverter> genericConverters) {
+        this.genericConverters = genericConverters;
     }
 
 }

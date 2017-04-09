@@ -12,8 +12,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.stereotype.Component;
 
 /** Webservice for OAuth additional utilities. */
+@Component
 @Path(PATH)
 public class OAuthWebservice {
 

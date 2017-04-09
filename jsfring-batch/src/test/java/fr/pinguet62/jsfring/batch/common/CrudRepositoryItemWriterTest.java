@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.batch;
+package fr.pinguet62.jsfring.batch.common;
 
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
 import static java.util.Arrays.asList;
@@ -16,6 +16,7 @@ import javax.persistence.Entity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -25,7 +26,7 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.batch.CrudRepositoryItemWriterTest.ProfileCrudRepositoryItemWriter;
+import fr.pinguet62.jsfring.batch.common.CrudRepositoryItemWriterTest.ProfileCrudRepositoryItemWriter;
 import fr.pinguet62.jsfring.dao.sql.ProfileDao;
 import fr.pinguet62.jsfring.model.sql.Profile;
 
@@ -39,6 +40,9 @@ public class CrudRepositoryItemWriterTest {
 
     @Component
     public static class ProfileCrudRepositoryItemWriter extends CrudRepositoryItemWriter<Profile> {
+        public ProfileCrudRepositoryItemWriter(CrudRepository<Profile, ?> repository) {
+            super(repository);
+        }
     }
 
     @Inject

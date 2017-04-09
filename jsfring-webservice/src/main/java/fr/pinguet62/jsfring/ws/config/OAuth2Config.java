@@ -1,6 +1,7 @@
 package fr.pinguet62.jsfring.ws.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import static java.util.Objects.requireNonNull;
+
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -23,8 +24,11 @@ public class OAuth2Config {
     @Configuration
     public static class AuthenticationManagerConfiguration extends GlobalAuthenticationConfigurerAdapter {
 
-        @Autowired
-        private UserDetailsService userDetailsService;
+        private final UserDetailsService userDetailsService;
+
+        public AuthenticationManagerConfiguration(UserDetailsService userDetailsService) {
+            this.userDetailsService = requireNonNull(userDetailsService);
+        }
 
         @Override
         public void init(AuthenticationManagerBuilder auth) throws Exception {

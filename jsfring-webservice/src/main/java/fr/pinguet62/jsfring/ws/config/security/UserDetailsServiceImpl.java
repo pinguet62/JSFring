@@ -1,6 +1,6 @@
 package fr.pinguet62.jsfring.ws.config.security;
 
-import javax.inject.Inject;
+import static java.util.Objects.requireNonNull;
 
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -30,8 +30,11 @@ import fr.pinguet62.jsfring.model.sql.User;
 @Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    @Inject
-    private UserDao userDao;
+    private final UserDao userDao;
+
+    public UserDetailsServiceImpl(UserDao userDao) {
+        this.userDao = requireNonNull(userDao);
+    }
 
     /**
      * The login process.<br>

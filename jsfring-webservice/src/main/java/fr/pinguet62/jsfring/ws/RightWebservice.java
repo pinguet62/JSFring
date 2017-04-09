@@ -1,6 +1,7 @@
 package fr.pinguet62.jsfring.ws;
 
 import static fr.pinguet62.jsfring.ws.RightWebservice.PATH;
+import static java.util.Objects.requireNonNull;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static org.springframework.core.convert.TypeDescriptor.collection;
 import static org.springframework.core.convert.TypeDescriptor.valueOf;
@@ -14,23 +15,27 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.stereotype.Component;
 
 import fr.pinguet62.jsfring.model.sql.Right;
 import fr.pinguet62.jsfring.service.RightService;
 import fr.pinguet62.jsfring.ws.dto.RightDto;
 
+@Component
 @Path(PATH)
 public final class RightWebservice {
 
     public static final String PATH = "/right";
 
-    @Autowired
-    private ConversionService conversionService;
+    private final ConversionService conversionService;
 
-    @Autowired
-    private RightService rightService;
+    private final RightService rightService;
+
+    public RightWebservice(ConversionService conversionService, RightService rightService) {
+        this.conversionService = requireNonNull(conversionService);
+        this.rightService = requireNonNull(rightService);
+    }
 
     @GET
     @Path("/{code}")

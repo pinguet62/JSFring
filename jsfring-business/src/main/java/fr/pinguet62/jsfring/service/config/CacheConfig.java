@@ -1,6 +1,6 @@
 package fr.pinguet62.jsfring.service.config;
 
-import java.util.Arrays;
+import static java.util.Arrays.asList;
 
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
@@ -15,13 +15,11 @@ public class CacheConfig {
 
     public static final String PROFILE_CACHE = "profile";
 
-    public static final String RIGHT_CACHE = "right";
-
     @Bean
     public CacheManager cacheManager() {
         SimpleCacheManager cacheManager = new SimpleCacheManager();
 
-        cacheManager.setCaches(Arrays.asList(new ConcurrentMapCache(RIGHT_CACHE), new ConcurrentMapCache(PROFILE_CACHE)));
+        cacheManager.setCaches(asList(new ConcurrentMapCache(PROFILE_CACHE)));
 
         return cacheManager;
     }

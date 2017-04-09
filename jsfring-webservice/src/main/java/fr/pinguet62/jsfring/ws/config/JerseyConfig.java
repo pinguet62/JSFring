@@ -1,6 +1,7 @@
 package fr.pinguet62.jsfring.ws.config;
 
 import static fr.pinguet62.jsfring.ws.config.JerseyConfig.CONTEXT_PATH;
+import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.joining;
 import static org.slf4j.LoggerFactory.getLogger;
 import static org.springframework.boot.autoconfigure.AutoConfigurationPackages.get;
@@ -17,7 +18,6 @@ import javax.ws.rs.ext.Provider;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
@@ -38,8 +38,11 @@ public class JerseyConfig extends ResourceConfig {
 
     private static final Logger LOGGER = getLogger(JerseyConfig.class);
 
-    @Autowired
-    private BeanFactory beanFactory;
+    private final BeanFactory beanFactory;
+
+    public JerseyConfig(BeanFactory beanFactory) {
+        this.beanFactory = requireNonNull(beanFactory);
+    }
 
     /**
      * Define the package to scan, who contains JAX-RS annotated classes.

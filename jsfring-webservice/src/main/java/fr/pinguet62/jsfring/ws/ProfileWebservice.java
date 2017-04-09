@@ -1,6 +1,7 @@
 package fr.pinguet62.jsfring.ws;
 
 import static fr.pinguet62.jsfring.ws.ProfileWebservice.PATH;
+import static java.util.Objects.requireNonNull;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static org.springframework.core.ResolvableType.forClassWithGenerics;
 import static org.springframework.core.convert.TypeDescriptor.collection;
@@ -18,9 +19,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Component;
 
 import fr.pinguet62.jsfring.model.sql.Profile;
 import fr.pinguet62.jsfring.model.sql.QProfile;
@@ -30,16 +31,21 @@ import fr.pinguet62.jsfring.ws.converter.OrderConverter;
 import fr.pinguet62.jsfring.ws.dto.PageDto;
 import fr.pinguet62.jsfring.ws.dto.ProfileDto;
 
+@Component
 @Path(PATH)
 public final class ProfileWebservice extends AbstractWebservice<Profile, Integer> {
 
     public static final String PATH = "/profile";
 
-    @Autowired
-    private ConversionService conversionService;
+    private final ConversionService conversionService;
 
-    @Autowired
-    private ProfileService profileService;
+    private final ProfileService profileService;
+
+    public ProfileWebservice(ConversionService conversionService, ProfileService profileService) {
+        super(conversionService);
+        this.conversionService = requireNonNull(conversionService);
+        this.profileService = requireNonNull(profileService);
+    }
 
     @PUT
     @Path("/")
@@ -50,12 +56,16 @@ public final class ProfileWebservice extends AbstractWebservice<Profile, Integer
     }
 
     /**
-     * @param page The page index.<br>
+     * @param page
+     *            The page index.<br>
      *            Default: the first page is {@code 0}.
-     * @param pageSize The page size.
-     * @param sortField The field to sort.<br>
+     * @param pageSize
+     *            The page size.
+     * @param sortField
+     *            The field to sort.<br>
      *            Default: {@code null} for default order.
-     * @param sortOrder The sort order.<br>
+     * @param sortOrder
+     *            The sort order.<br>
      *            Default: ascending.<br>
      *            Not used if no field to sort.
      * @return The found results.

@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.indexer.nosql;
 
+import static java.util.Objects.requireNonNull;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 import org.apache.http.HttpHost;
@@ -21,11 +22,14 @@ public class AllocineApiBean {
 
     private static final String secret = "29d185d98c984a359e6e6f26a0474269";
 
-    @Value("${http.proxyHost:}")
-    private String proxyHost;
+    private final String proxyHost;
 
-    @Value("${http.proxyPort:}")
-    private Integer proxyPort;
+    private final Integer proxyPort;
+
+    public AllocineApiBean(@Value("${http.proxyHost:}") String proxyHost, @Value("${http.proxyPort:}") Integer proxyPort) {
+        this.proxyHost = requireNonNull(proxyHost);
+        this.proxyPort = requireNonNull(proxyPort);
+    }
 
     @Bean
     public AllocineApi allocineApi() throws Exception {

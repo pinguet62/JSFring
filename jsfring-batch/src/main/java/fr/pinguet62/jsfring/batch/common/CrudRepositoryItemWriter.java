@@ -1,10 +1,9 @@
-package fr.pinguet62.jsfring.batch;
+package fr.pinguet62.jsfring.batch.common;
 
+import static java.util.Objects.requireNonNull;
 import static org.slf4j.LoggerFactory.getLogger;
 
 import java.util.List;
-
-import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.springframework.batch.item.ItemWriter;
@@ -30,12 +29,15 @@ public class CrudRepositoryItemWriter<T> implements ItemWriter<T> {
 
     private static final Logger LOGGER = getLogger(CrudRepositoryItemWriter.class);
 
-    @Inject
-    private CrudRepository<T, ?> repository;
+    private final CrudRepository<T, ?> repository;
+
+    public CrudRepositoryItemWriter(CrudRepository<T, ?> repository) {
+        this.repository = requireNonNull(repository);
+    }
 
     @Override
     public void write(List<? extends T> items) throws Exception {
-        LOGGER.debug("Writing to the repository with {0} items.", items.size());
+        LOGGER.debug("Writing to the repository with {0} items", items.size());
         for (T object : items)
             repository.save(object);
     }

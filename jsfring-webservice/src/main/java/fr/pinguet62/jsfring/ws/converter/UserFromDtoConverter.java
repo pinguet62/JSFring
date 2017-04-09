@@ -1,9 +1,9 @@
 package fr.pinguet62.jsfring.ws.converter;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.HashSet;
 import java.util.List;
-
-import javax.inject.Inject;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -19,8 +19,11 @@ import fr.pinguet62.jsfring.ws.dto.UserDto;
 @Component
 public final class UserFromDtoConverter implements Converter<UserDto, User> {
 
-    @Inject
-    private ProfileService profileService;
+    private final ProfileService profileService;
+
+    public UserFromDtoConverter(ProfileService profileService) {
+        this.profileService = requireNonNull(profileService);
+    }
 
     @Override
     public User convert(UserDto dto) {

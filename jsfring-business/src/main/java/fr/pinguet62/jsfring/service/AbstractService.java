@@ -1,9 +1,9 @@
 package fr.pinguet62.jsfring.service;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.Serializable;
 import java.util.List;
-
-import javax.inject.Inject;
 
 import org.springframework.cache.Cache;
 import org.springframework.data.domain.Page;
@@ -30,8 +30,11 @@ import fr.pinguet62.jsfring.dao.sql.common.CommonRepository;
 public abstract class AbstractService<T extends Serializable, ID extends Serializable> {
 
     /** The {@link CommonRepository}. */
-    @Inject
-    protected CommonRepository<T, ID> dao;
+    protected final CommonRepository<T, ID> dao;
+
+    protected AbstractService(CommonRepository<T, ID> dao) {
+        this.dao = requireNonNull(dao);
+    }
 
     /**
      * Create new object.

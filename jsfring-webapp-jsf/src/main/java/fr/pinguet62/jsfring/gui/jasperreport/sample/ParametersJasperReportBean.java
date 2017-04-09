@@ -28,9 +28,9 @@ public final class ParametersJasperReportBean extends AbstractJasperReportBean {
     private String stringParam;
 
     public List<String> complete(String query) {
-        List<String> values = asList("Avion", "Ballon", "Cadeau", "Dauphin", "Eléphant", "Fusée", "Gateau", "Hibou", "Ile",
+        List<String> values = asList("Avion", "Ballon", "Cadeau", "Dauphin", "Elephant", "Fusee", "Gateau", "Hibou", "Ile",
                 "Jouet", "Kangourou", "Lune", "Maman", "Nuage", "Orange", "Papa", "Quille", "Roue", "Soleil", "Tortue",
-                "Uniforme", "Vélo", "Wagon", "Xylophono", "Yoyo", "Zèbre");
+                "Uniforme", "Velo", "Wagon", "Xylophono", "Yoyo", "Zebre");
         return values.stream().map(String::toLowerCase).filter(it -> it.contains(query.toLowerCase())).collect(toList());
     }
 

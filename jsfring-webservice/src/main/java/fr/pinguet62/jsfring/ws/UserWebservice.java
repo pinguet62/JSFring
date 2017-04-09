@@ -1,6 +1,7 @@
 package fr.pinguet62.jsfring.ws;
 
 import static fr.pinguet62.jsfring.ws.UserWebservice.PATH;
+import static java.util.Objects.requireNonNull;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static org.springframework.core.convert.TypeDescriptor.collection;
 import static org.springframework.core.convert.TypeDescriptor.valueOf;
@@ -15,23 +16,27 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.stereotype.Component;
 
 import fr.pinguet62.jsfring.model.sql.User;
 import fr.pinguet62.jsfring.service.UserService;
 import fr.pinguet62.jsfring.ws.dto.UserDto;
 
+@Component
 @Path(PATH)
 public final class UserWebservice {
 
     public static final String PATH = "/user";
 
-    @Autowired
-    private ConversionService conversionService;
+    private final ConversionService conversionService;
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public UserWebservice(ConversionService conversionService, UserService userService) {
+        this.conversionService = requireNonNull(conversionService);
+        this.userService = requireNonNull(userService);
+    }
 
     @PUT
     @Path("/")

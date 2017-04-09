@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.service;
 
+import static java.util.Objects.requireNonNull;
 import static org.slf4j.LoggerFactory.getLogger;
 
 import java.util.Date;
@@ -33,14 +34,18 @@ public class UserService extends AbstractService<User, String> {
         return new PasswordGenerator().get();
     }
 
-    @Inject
-    private UserDao dao;
+    private final UserDao dao;
 
     @Inject
     private SimpleMailMessage forgottenPasswordMessage;
 
     @Inject
     private MailSender mailSender;
+
+    public UserService(UserDao dao) {
+        super(dao);
+        this.dao = requireNonNull(dao);
+    }
 
     public long count() {
         return dao.count();
