@@ -124,7 +124,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.19.1</version>
 				<configuration>
 					<argLine>${surefireArgLine}</argLine>
 					<excludes>
@@ -268,7 +267,7 @@
 					</includes>
 					<appName>jsfring-${project.artifactId}</appName>
 					<buildpacks>
-						<buildpack>https://github.com/heroku/heroku-buildpack-java</buildpack>
+						<!-- No <buildpack> because already built by Travis CI -->
 					</buildpacks>
 					<processTypes>
 						<web>java $JAVA_OPTS -Dserver.port=$PORT -jar target/${project.artifactId}-${project.version}.${project.packaging}</web>
