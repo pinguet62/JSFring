@@ -23,8 +23,8 @@
 		<module>jsfring-batch</module>
 		<module>jsfring-batch-admin</module>
 		<module>jsfring-webservice</module>
-		<!--<module>jsfring-webapp-angularjs</module>-->
-		<!--<module>jsfring-webapp-angular2</module>-->
+		<module>jsfring-webapp-angularjs</module>
+		<module>jsfring-webapp-angular2</module>
 		<module>jsfring-webapp-jsf-htmlunit</module>
 		<module>jsfring-webapp-jsf</module>
 	</modules>
