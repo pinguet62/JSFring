@@ -3,9 +3,9 @@ package fr.pinguet62.jsfring.ws.config;
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
 import static fr.pinguet62.jsfring.util.MatcherUtils.parameter;
 import static fr.pinguet62.jsfring.util.UrlUtils.formatAuthorization;
-import static fr.pinguet62.jsfring.ws.Config.BASE_URL;
+import static fr.pinguet62.jsfring.ws.config.JaxrsClientConfig.BASE_URL;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Arrays.asList;
-import static org.apache.commons.io.Charsets.UTF_8;
 import static org.apache.http.client.utils.URLEncodedUtils.format;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
@@ -17,6 +17,14 @@ import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.Matchers.startsWith;
 import static org.junit.Assert.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
+import static org.springframework.security.oauth2.common.OAuth2AccessToken.ACCESS_TOKEN;
+import static org.springframework.security.oauth2.common.OAuth2AccessToken.EXPIRES_IN;
+import static org.springframework.security.oauth2.common.OAuth2AccessToken.REFRESH_TOKEN;
+import static org.springframework.security.oauth2.common.OAuth2AccessToken.TOKEN_TYPE;
+import static org.springframework.security.oauth2.common.util.OAuth2Utils.CLIENT_ID;
+import static org.springframework.security.oauth2.common.util.OAuth2Utils.GRANT_TYPE;
+import static org.springframework.security.oauth2.common.util.OAuth2Utils.REDIRECT_URI;
+import static org.springframework.security.oauth2.common.util.OAuth2Utils.RESPONSE_TYPE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -34,6 +42,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.security.oauth2.common.util.OAuth2Utils;
 import org.springframework.security.oauth2.provider.endpoint.AuthorizationEndpoint;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
 import org.springframework.test.context.TestExecutionListeners;
@@ -96,34 +106,40 @@ public class OAuth2ITTest {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).addFilter(springSecurityFilterChain).build();
     }
 
+    /**
+     * Call the OAuth2 server with specific {@code "response_type"}, click on submit button.
+     * 
+     * @return The target url.
+     */
     private URL test_authorize(String responseType) throws IOException {
         String authorization = "Basic " + formatAuthorization(user.getLogin(), user.getPassword());
         // @formatter:off
         String url = BASE_URL + "/oauth/authorize?"
                 + format(
                         asList(
-                                new BasicNameValuePair("client_id", clientId),
-                                new BasicNameValuePair("response_type", responseType),
-                                new BasicNameValuePair("scope", "read"), // TODO injection config
-                                new BasicNameValuePair("redirect_uri", redirectUri)),
+                                new BasicNameValuePair(CLIENT_ID, clientId),
+                                new BasicNameValuePair(RESPONSE_TYPE, responseType),
+                                new BasicNameValuePair(OAuth2Utils.SCOPE, "read"),
+                                new BasicNameValuePair(REDIRECT_URI, redirectUri)),
                         UTF_8);
         // @formatter:on
 
-        WebClient webClient = new WebClient();
-        webClient.addRequestHeader("Authorization", authorization);
-        HtmlPage page = webClient.getPage(url);
+        try (WebClient webClient = new WebClient()) {
+            webClient.addRequestHeader("Authorization", authorization);
+            HtmlPage page = webClient.getPage(url);
 
-        // TODO Disable Authorization cache
-        if (!page.getUrl().toString().startsWith(redirectUri)) {
-            assertThat(page.getUrl().toString(), containsString("/oauth/authorize"));
+            // TODO Disable Authorization cache
+            if (!page.getUrl().toString().startsWith(redirectUri)) {
+                assertThat(page.getUrl().toString(), containsString("/oauth/authorize"));
 
-            HtmlInput approuve = page.getFirstByXPath("/html/body/form/ul/li/div/input[@value='true']");
-            approuve.click();
-            HtmlInput submit = page.getFirstByXPath("/html/body/form/label/input[@type='submit']");
-            page = submit.click();
+                HtmlInput approuve = page.getFirstByXPath("/html/body/form/ul/li/div/input[@value='true']");
+                approuve.click();
+                HtmlInput submit = page.getFirstByXPath("/html/body/form/label/input[@type='submit']");
+                page = submit.click();
+            }
+
+            return page.getUrl();
         }
-
-        return page.getUrl();
     }
 
     /**
@@ -177,7 +193,6 @@ public class OAuth2ITTest {
      * <li><u>Parameter:</u> {@code "expires_in"}</li>
      * </ul>
      *
-     *
      * @see AuthorizationEndpoint
      */
     @Test
@@ -185,9 +200,9 @@ public class OAuth2ITTest {
         URL targetUrl = test_authorize("token");
         assertThat(targetUrl.toString(), startsWith(redirectUri));
         String fragment = targetUrl.toURI().getFragment();
-        assertThat(fragment, parameter("access_token", is(not(nullValue()))));
-        assertThat(fragment, parameter("token_type", is(equalTo("bearer"))));
-        assertThat(fragment, parameter("expires_in", is(not(nullValue()))));
+        assertThat(fragment, parameter(ACCESS_TOKEN, is(not(nullValue()))));
+        assertThat(fragment, parameter(TOKEN_TYPE, is(equalTo("bearer"))));
+        assertThat(fragment, parameter(EXPIRES_IN, is(not(nullValue()))));
     }
 
     /**
@@ -222,17 +237,17 @@ public class OAuth2ITTest {
                 mockMvc.perform(
                         post("/oauth/token")
                             .header("Authorization", authorization)
-                            .param("grant_type", "password")
+                            .param(GRANT_TYPE, "password")
                             .param("username", user.getLogin())
                             .param("password", user.getPassword()))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.access_token", is(notNullValue())))
-                .andExpect(jsonPath("$.token_type", is(equalTo("bearer"))))
-                .andExpect(jsonPath("$.expires_in", is(greaterThan(4000))))
-                .andExpect(jsonPath("$.scope", is(notNullValue())));
+                .andExpect(jsonPath("$." + ACCESS_TOKEN, is(notNullValue())))
+                .andExpect(jsonPath("$." + TOKEN_TYPE, is(equalTo("bearer"))))
+                .andExpect(jsonPath("$." + EXPIRES_IN, is(greaterThan(4000))))
+                .andExpect(jsonPath("$." + OAuth2AccessToken.SCOPE, is(notNullValue())));
         // @formatter:on
-        if (grantTypes.contains("refresh_token"))
-            result.andExpect(jsonPath("$.refresh_token", is(notNullValue())));
+        if (grantTypes.contains(REFRESH_TOKEN))
+            result.andExpect(jsonPath("$." + REFRESH_TOKEN, is(notNullValue())));
     }
 
 }

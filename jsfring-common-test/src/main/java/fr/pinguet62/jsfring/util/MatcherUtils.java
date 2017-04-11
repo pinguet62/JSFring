@@ -1,7 +1,7 @@
 package fr.pinguet62.jsfring.util;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.apache.commons.collections.CollectionUtils.isEqualCollection;
-import static org.apache.commons.io.Charsets.UTF_8;
 import static org.apache.commons.lang3.time.DateUtils.truncate;
 import static org.apache.http.client.utils.URLEncodedUtils.parse;
 

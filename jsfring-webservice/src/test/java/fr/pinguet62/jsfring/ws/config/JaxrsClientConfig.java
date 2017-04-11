@@ -1,6 +1,5 @@
 package fr.pinguet62.jsfring.ws.config;
 
-import static fr.pinguet62.jsfring.ws.Config.BASE_URL;
 import static fr.pinguet62.jsfring.ws.config.Oauth2Helper.HEADER_AUTHORIZATION;
 import static javax.ws.rs.client.ClientBuilder.newClient;
 
@@ -14,6 +13,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class JaxrsClientConfig {
+
+    public static final String BASE_URL = "http://localhost:8080";
 
     @Inject
     private Oauth2Helper helper;

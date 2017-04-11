@@ -1,6 +1,7 @@
 package fr.pinguet62.jsfring.gui.jasperreport;
 
 import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.get;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Arrays.asList;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertThat;
@@ -42,7 +43,7 @@ public class ParameterJasperReportITTest {
 
         page.setDate(date);
         InputStream is = page.exportTEXT();
-        String content = IOUtils.toString(is);
+        String content = IOUtils.toString(is, UTF_8);
         assertThat(content, containsString(new SimpleDateFormat("dd/MM/yy hh:mm").format(date)));
     }
 
@@ -51,7 +52,7 @@ public class ParameterJasperReportITTest {
     public void test_integer() throws IOException {
         page.setInteger(42);
         InputStream is = page.exportTEXT();
-        String content = IOUtils.toString(is);
+        String content = IOUtils.toString(is, UTF_8);
         assertThat(content, containsString("42"));
     }
 
@@ -60,7 +61,7 @@ public class ParameterJasperReportITTest {
     public void test_list() throws IOException {
         page.setList(asList("avion", "velo"));
         InputStream is = page.exportTEXT();
-        String content = IOUtils.toString(is);
+        String content = IOUtils.toString(is, UTF_8);
         assertThat(content, containsString("avion"));
         assertThat(content, containsString("velo"));
     }
@@ -70,7 +71,7 @@ public class ParameterJasperReportITTest {
     public void test_string() throws IOException {
         page.setString("foo");
         InputStream is = page.exportTEXT();
-        String content = IOUtils.toString(is);
+        String content = IOUtils.toString(is, UTF_8);
         assertThat(content, containsString("foo"));
     }
 

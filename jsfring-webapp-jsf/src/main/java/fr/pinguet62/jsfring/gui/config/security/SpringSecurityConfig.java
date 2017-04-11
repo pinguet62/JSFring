@@ -47,7 +47,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 // intercept-url
                 .authorizeRequests()
                     .anyRequest().permitAll()
-                    .antMatchers("/test.xhtml").permitAll() // TODO Test: delete
                     .antMatchers("/login.xhtml").permitAll()
                     .antMatchers("/right.xhtml").hasRole("RIGHT_RO")
                     .antMatchers("/profiles.xhtml").hasRole("PROFILE_RO")

@@ -15,7 +15,6 @@ import static org.junit.Assert.fail;
 import javax.inject.Inject;
 import javax.validation.constraints.Pattern;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -126,7 +125,6 @@ public class UserServiceTest {
      *
      * @see UserService#updatePassword(String, String)
      */
-    @Ignore // TODO Fix Bean validation
     @Test(expected = RuntimeException.class)
     public void test_updatePassword_invalidNewPassword() {
         String login = "super admin";

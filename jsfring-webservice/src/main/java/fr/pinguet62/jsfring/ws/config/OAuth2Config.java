@@ -1,8 +1,8 @@
 package fr.pinguet62.jsfring.ws.config;
 
 import static java.util.Objects.requireNonNull;
+import static org.springframework.boot.autoconfigure.security.SecurityProperties.ACCESS_OVERRIDE_ORDER;
 
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -46,7 +46,7 @@ public class OAuth2Config {
      *      Boot 1.5 Release notes</a>
      */
     @Component
-    @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
+    @Order(ACCESS_OVERRIDE_ORDER)
     public static class MyWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
     }
 

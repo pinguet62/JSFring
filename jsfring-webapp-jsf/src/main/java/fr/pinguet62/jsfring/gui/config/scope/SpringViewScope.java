@@ -10,7 +10,6 @@ import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.config.Scope;
 import org.springframework.context.annotation.Bean;
 
-// TODO Fix warning
 /**
  * JSF view {@link Scope} implementation for Spring.
  *
@@ -44,9 +43,9 @@ public final class SpringViewScope implements Scope {
     }
 
     /**
-     * {@inheritDoc}
-     * <p>
      * Not supported.
+     * <p>
+     * {@inheritDoc}
      */
     @Override
     public void registerDestructionCallback(String name, Runnable callback) {
