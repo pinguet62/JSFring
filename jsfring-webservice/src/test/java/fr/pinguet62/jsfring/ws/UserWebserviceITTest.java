@@ -1,12 +1,8 @@
 package fr.pinguet62.jsfring.ws;
 
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
-import static fr.pinguet62.jsfring.ws.Config.BASE_URL;
 import static fr.pinguet62.jsfring.ws.UserWebservice.PATH;
-import static fr.pinguet62.jsfring.ws.config.JerseyConfig.CONTEXT_PATH;
-import static fr.pinguet62.jsfring.ws.config.Oauth2Helper.HEADER_AUTHORIZATION;
 import static java.util.Calendar.SECOND;
-import static javax.ws.rs.client.ClientBuilder.newClient;
 import static org.apache.commons.lang3.time.DateUtils.truncate;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
@@ -17,6 +13,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 
 import org.junit.Test;
@@ -32,7 +29,6 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.dao.sql.UserDao;
 import fr.pinguet62.jsfring.model.sql.User;
-import fr.pinguet62.jsfring.ws.config.Oauth2Helper;
 import fr.pinguet62.jsfring.ws.dto.UserDto;
 
 /** @see UserWebservice */
@@ -44,7 +40,7 @@ import fr.pinguet62.jsfring.ws.dto.UserDto;
 public class UserWebserviceITTest {
 
     @Inject
-    private Oauth2Helper helper;
+    private WebTarget restClient;
 
     @Inject
     private UserDao userDao;
@@ -55,14 +51,12 @@ public class UserWebserviceITTest {
         String login = userDao.findAll().get(0).getLogin();
 
         // @formatter:off
-        UserDto actual = newClient()
-            .target(BASE_URL)
-                .path(CONTEXT_PATH)
-                .path(PATH)
-                .path("/{login}").resolveTemplate("login", login)
-            .request()
-                .header(HEADER_AUTHORIZATION, helper.getAuthorization())
-            .get(UserDto.class);
+        UserDto actual =
+                restClient
+                    .path(PATH)
+                    .path("/{login}").resolveTemplate("login", login)
+                .request()
+                .get(UserDto.class);
         // @formatter:on
 
         User pojo = userDao.findOne(login);
@@ -80,14 +74,12 @@ public class UserWebserviceITTest {
     @Test
     public void test_list() {
         // @formatter:off
-        List<UserDto> actual = newClient()
-            .target(BASE_URL)
-                .path(CONTEXT_PATH)
-                .path(PATH)
-                .path("/")
-            .request()
-                .header(HEADER_AUTHORIZATION, helper.getAuthorization())
-            .get(new GenericType<List<UserDto>>() {});
+        List<UserDto> actual =
+                restClient
+                    .path(PATH)
+                    .path("/")
+                .request()
+                .get(new GenericType<List<UserDto>>() {});
         // @formatter:on
 
         List<User> expected = userDao.findAll();

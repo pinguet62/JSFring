@@ -18,12 +18,9 @@ Layers :
 			* <img src="https://www.mongodb.org/assets/global/mongodb-logo-web-tagline-99280fe76cc002a93d023901c1a05df8b621f1c893084a580dee83de9be96630.png" height="25" /> [MongoDB](https://www.mongodb.org)
 	* <img src="http://devrates.com/project/logo/337129" height="25" /> [Querydsl](http://www.querydsl.com)
 * Webservice:
-	* <img src="http://www.mkyong.com/wp-content/uploads/2011/07/jaxrs-tutorials.gif" height="25" />
-		[**JAX-RS**](https://jax-rs-spec.java.net)
-		* <img src="https://jersey.java.net/images/jersey_logo.png" height="25" />
-			[Jersey](https://jersey.java.net)
-	* <img src="http://oauth.net/images/oauth-2-sm.png" height="25" /> [OAuth2](http://oauth.net/2) by <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" />
+	* <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> [**Spring MVC**](https://spring.io/guides/gs/serving-web-content/) by <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" />
 	* <img src="https://www.javacodegeeks.com/wp-content/uploads/2014/07/spring-security-project.png" height="25" /> [Spring security](http://projects.spring.io/spring-security) by <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" />
+	* <img src="http://oauth.net/images/oauth-2-sm.png" height="25" /> [OAuth2](http://oauth.net/2) by <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" />
 * Webapp:
 	* Java
 		* <img src="https://upload.wikimedia.org/wikipedia/en/thumb/7/75/20110510-jsf-logo.tiff/lossless-page1-320px-20110510-jsf-logo.tiff.png" height="25" /> **JSF**

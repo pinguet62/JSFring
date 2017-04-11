@@ -38,6 +38,9 @@ public class OAuth2Config {
     }
 
     /**
+     * Explicit declaration of {@link WebSecurityConfigurerAdapter} with specific {@link Order}, to declare OAuth security
+     * before other components.
+     *
      * @see <a href=
      *      "https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-1.5-Release-Notes#oauth-2-resource-filter"> Spring-
      *      Boot 1.5 Release notes</a>

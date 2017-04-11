@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import fr.pinguet62.jsfring.dao.sql.UserDao;
 import fr.pinguet62.jsfring.model.sql.User;
 
+/** Client used to get OAuth2 token. */
 @Component
 public class Oauth2Helper {
 
@@ -48,13 +49,13 @@ public class Oauth2Helper {
         User user = userDao.findAll().get(0);
         // @formatter:off
         String response = newClient().target(BASE_URL)
-            .path("/oauth/token")
-                .queryParam("grant_type", "password")
-                .queryParam("username", user.getLogin())
-                .queryParam("password", user.getPassword())
-            .request()
-                .header(HEADER_AUTHORIZATION, authorization)
-            .post(null, String.class);
+                .path("/oauth/token")
+                    .queryParam("grant_type", "password")
+                    .queryParam("username", user.getLogin())
+                    .queryParam("password", user.getPassword())
+                .request()
+                    .header(HEADER_AUTHORIZATION, authorization)
+                .post(null, String.class);
         // @formatter:on
         return (String) new BasicJsonParser().parseMap(response).get("access_token");
     }

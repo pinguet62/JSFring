@@ -1,11 +1,7 @@
 package fr.pinguet62.jsfring.ws;
 
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
-import static fr.pinguet62.jsfring.ws.Config.BASE_URL;
 import static fr.pinguet62.jsfring.ws.ProfileWebservice.PATH;
-import static fr.pinguet62.jsfring.ws.config.JerseyConfig.CONTEXT_PATH;
-import static fr.pinguet62.jsfring.ws.config.Oauth2Helper.HEADER_AUTHORIZATION;
-import static javax.ws.rs.client.ClientBuilder.newClient;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -15,6 +11,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 
 import org.junit.Test;
@@ -30,7 +27,6 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.dao.sql.ProfileDao;
 import fr.pinguet62.jsfring.model.sql.Profile;
-import fr.pinguet62.jsfring.ws.config.Oauth2Helper;
 import fr.pinguet62.jsfring.ws.dto.ProfileDto;
 
 /** @see ProfileWebservice */
@@ -42,10 +38,10 @@ import fr.pinguet62.jsfring.ws.dto.ProfileDto;
 public class ProfileWebserviceITTest {
 
     @Inject
-    private Oauth2Helper helper;
+    private ProfileDao profileDao;
 
     @Inject
-    private ProfileDao profileDao;
+    private WebTarget restClient;
 
     /** @see ProfileWebservice#get(int) */
     @Test
@@ -53,14 +49,12 @@ public class ProfileWebserviceITTest {
         int id = profileDao.findAll().get(0).getId();
 
         // @formatter:off
-        ProfileDto actual = newClient()
-            .target(BASE_URL)
-                .path(CONTEXT_PATH)
-                .path(PATH)
-                .path("/{id}").resolveTemplate("id", id)
-            .request()
-                .header(HEADER_AUTHORIZATION, helper.getAuthorization())
-            .get(ProfileDto.class);
+        ProfileDto actual =
+                restClient
+                    .path(PATH)
+                    .path("/{id}").resolveTemplate("id", id)
+                .request()
+                .get(ProfileDto.class);
         // @formatter:on
 
         Profile pojo = profileDao.findOne(id);
@@ -76,14 +70,12 @@ public class ProfileWebserviceITTest {
     @Test
     public void test_list() {
         // @formatter:off
-        List<ProfileDto> actual = newClient()
-            .target(BASE_URL)
-                .path(CONTEXT_PATH)
-                .path(PATH)
-                .path("/")
-            .request()
-                .header(HEADER_AUTHORIZATION, helper.getAuthorization())
-            .get(new GenericType<List<ProfileDto>>() {});
+        List<ProfileDto> actual =
+                restClient
+                    .path(PATH)
+                    .path("/")
+                .request()
+                .get(new GenericType<List<ProfileDto>>() {});
         // @formatter:on
 
         List<Profile> expected = profileDao.findAll();

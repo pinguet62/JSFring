@@ -1,6 +1,5 @@
 package fr.pinguet62.jsfring.ws.config;
 
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
 import static fr.pinguet62.jsfring.util.MatcherUtils.parameter;
 import static fr.pinguet62.jsfring.util.UrlUtils.formatAuthorization;
@@ -17,6 +16,7 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.Matchers.startsWith;
 import static org.junit.Assert.assertThat;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -34,7 +34,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.security.oauth2.provider.endpoint.AuthorizationEndpoint;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
 import org.springframework.test.context.TestExecutionListeners;
@@ -55,6 +54,7 @@ import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.dao.sql.UserDao;
 import fr.pinguet62.jsfring.model.sql.User;
 
+/** Test several scenarios of OAuth2 server. */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringBootConfig.class, webEnvironment = DEFINED_PORT)
 // DbUnit
@@ -101,12 +101,12 @@ public class OAuth2ITTest {
         // @formatter:off
         String url = BASE_URL + "/oauth/authorize?"
                 + format(
-                    asList(
-                        new BasicNameValuePair("client_id", clientId),
-                        new BasicNameValuePair("response_type", responseType),
-                        new BasicNameValuePair("scope", "read"), // TODO injection config
-                        new BasicNameValuePair("redirect_uri", redirectUri)),
-                    UTF_8);
+                        asList(
+                                new BasicNameValuePair("client_id", clientId),
+                                new BasicNameValuePair("response_type", responseType),
+                                new BasicNameValuePair("scope", "read"), // TODO injection config
+                                new BasicNameValuePair("redirect_uri", redirectUri)),
+                        UTF_8);
         // @formatter:on
 
         WebClient webClient = new WebClient();
@@ -219,17 +219,17 @@ public class OAuth2ITTest {
         String authorization = "Basic " + formatAuthorization(clientId, clientSecret);
         // @formatter:off
         ResultActions result =
-            mockMvc.perform(
-                post("/oauth/token")
-                    .header("Authorization", authorization)
-                    .param("grant_type", "password")
-                    .param("username", user.getLogin())
-                    .param("password", user.getPassword()))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.access_token", is(notNullValue())))
-            .andExpect(jsonPath("$.token_type", is(equalTo("bearer"))))
-            .andExpect(jsonPath("$.expires_in", is(greaterThan(4000))))
-            .andExpect(jsonPath("$.scope", is(notNullValue())));
+                mockMvc.perform(
+                        post("/oauth/token")
+                            .header("Authorization", authorization)
+                            .param("grant_type", "password")
+                            .param("username", user.getLogin())
+                            .param("password", user.getPassword()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.access_token", is(notNullValue())))
+                .andExpect(jsonPath("$.token_type", is(equalTo("bearer"))))
+                .andExpect(jsonPath("$.expires_in", is(greaterThan(4000))))
+                .andExpect(jsonPath("$.scope", is(notNullValue())));
         // @formatter:on
         if (grantTypes.contains("refresh_token"))
             result.andExpect(jsonPath("$.refresh_token", is(notNullValue())));

@@ -5,7 +5,7 @@ import * as Rx from "rxjs/Rx";
 
 export abstract class CrudService<T> {
 
-    private baseUrl: string = 'http://localhost:8080/rest';
+    private baseUrl: string = 'http://jsfring-webservice.herokuapp.com';
 
     private options: RequestOptionsArgs = { headers: new Headers({ 'Content-Type': 'application/json' }) };
 
