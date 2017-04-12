@@ -20,11 +20,10 @@ public class UserProcessor implements ItemProcessor<UserRow, User> {
 
     @Override
     public User process(UserRow input) throws Exception {
-        LOGGER.debug("process: " + input.getLogin());
+        LOGGER.debug("process: " + input.getEmail());
         User output = new User();
-        output.setLogin(input.getLogin());
-        output.setPassword(input.getPassword());
         output.setEmail(input.getEmail());
+        output.setPassword(input.getPassword());
         output.setActive(true);
         return output;
     }

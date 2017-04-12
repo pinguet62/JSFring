@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-    <right Code="RIGHT_RO" Title="Affichage des droits" />
-    <right Code="PROFILE_RO" Title="Affichage des profils" />
-    <right Code="PROFILE_RW" Title="Edition des profils" />
-    <right Code="USER_RO" Title="Affichage des utilisateurs" />
-    <right Code="USER_RW" Title="Edition des utilisateurs" />
+    <right code="RIGHT_RO" title="Affichage des droits" />
+    <right code="PROFILE_RO" title="Affichage des profils" />
+    <right code="PROFILE_RW" title="Edition des profils" />
+    <right code="USER_RO" title="Affichage des utilisateurs" />
+    <right code="USER_RW" title="Edition des utilisateurs" />
 
 
     <PROFILE Id="1" Title="Profile admin" />
-    <PROFILES_RIGHTS Profile="1" Right="RIGHT_RO" />
-    <PROFILES_RIGHTS Profile="1" Right="PROFILE_RO" />
-    <PROFILES_RIGHTS Profile="1" Right="PROFILE_RW" />
+    <PROFILES_RIGHTS profile="1" right="RIGHT_RO" />
+    <PROFILES_RIGHTS profile="1" right="PROFILE_RO" />
+    <PROFILES_RIGHTS profile="1" right="PROFILE_RW" />
 
     <PROFILE Id="2" Title="User admin" />
-    <PROFILES_RIGHTS Profile="2" Right="PROFILE_RO" />
-    <PROFILES_RIGHTS Profile="2" Right="USER_RO" />
-    <PROFILES_RIGHTS Profile="2" Right="USER_RW" />
+    <PROFILES_RIGHTS profile="2" right="PROFILE_RO" />
+    <PROFILES_RIGHTS profile="2" right="USER_RO" />
+    <PROFILES_RIGHTS profile="2" right="USER_RW" />
 
 
-    <user Login="super admin" Password="Azerty1!" Email="admin@domain.fr" Active="true" last_connection="2015-11-14 13:45:41" />
-    <USERS_PROFILES User="super admin" Profile="1" />
-    <USERS_PROFILES User="super admin" Profile="2" />
+    <user email="root@admin.fr" password="Azerty1!" active="true" last_connection="2015-11-14 13:45:41" />
+    <USERS_PROFILES user="root@admin.fr" profile="1" />
+    <USERS_PROFILES user="root@admin.fr" profile="2" />
 
-    <user Login="admin profile" Password="Azerty1!" Email="admin_profile@domain.fr" Active="true" />
-    <USERS_PROFILES User="admin profile" Profile="1" />
+    <user email="profile@admin.fr" password="Azerty1!" active="true" />
+    <USERS_PROFILES user="profile@admin.fr" profile="1" />
 
-    <user Login="admin user" Password="Azerty1!" Email="admin_user@domain.fr" Active="true" />
-    <USERS_PROFILES User="admin user" Profile="2" />
+    <user email="user@admin.fr" password="Azerty1!" active="true" />
+    <USERS_PROFILES user="user@admin.fr" profile="2" />
 
 </dataset>

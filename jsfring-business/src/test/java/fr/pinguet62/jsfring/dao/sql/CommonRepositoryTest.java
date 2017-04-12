@@ -147,8 +147,7 @@ public class CommonRepositoryTest {
             assertThat(profileDao.getOne(2).getTitle(), is(equalTo("User admin")));
         }
         {
-            assertThat(userDao.getOne("super admin").getPassword(), is(equalTo("Azerty1!")));
-            assertThat(userDao.getOne("admin profile").getEmail(), is(equalTo("admin_profile@domain.fr")));
+            assertThat(userDao.getOne("root@admin.fr").getPassword(), is(equalTo("Azerty1!")));
         }
     }
 
@@ -180,7 +179,7 @@ public class CommonRepositoryTest {
         {
             long count = userDao.count();
             userDao.save(
-                    new User("new login", new PasswordGenerator().get(), "foo@hostname.domain", new Random().nextBoolean()));
+                    new User("foo@bar.fr", new PasswordGenerator().get(), new Random().nextBoolean()));
             assertThat(userDao.count(), is(equalTo(count + 1)));
         }
     }

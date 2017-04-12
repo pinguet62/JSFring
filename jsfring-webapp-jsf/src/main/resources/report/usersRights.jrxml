@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.1.1  -->
-<!-- 2015-09-30T22:07:56 -->
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-04-12T08:52:50 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sBlank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="81ca2506-2bba-4205-90de-71b6b8354fcd">
 	<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 	<property name="net.sf.jasperreports.export.text.character.height" value="20"/>
@@ -224,23 +224,23 @@
 	<subDataset name="Dataset1" uuid="2b420449-e163-4f6b-bf32-8c2560c94303">
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PostgreSQL local"/>
 		<queryString>
-			<![CDATA[select u.login, p.title, r.code
+			<![CDATA[select u.email, p.title, r.code
 from public."user" as u
-left join public.users_profiles on users_profiles."user" = u.login
+left join public.users_profiles on users_profiles."user" = u.email
 left join public.profile as p on p.id = users_profiles.profile
 left join public.profiles_rights on profiles_rights.profile = p.id
 left join public."right" as r on r.code = profiles_rights."right"
-group by u.login, p.title, r.code
-order by u.login, p.title, r.code]]>
+group by u.email, p.title, r.code
+order by u.email, p.title, r.code]]>
 		</queryString>
-		<field name="login" class="java.lang.String"/>
+		<field name="email" class="java.lang.String"/>
 		<field name="title" class="java.lang.String"/>
 		<field name="code" class="java.lang.String"/>
-		<sortField name="login"/>
+		<sortField name="email"/>
 		<sortField name="title"/>
 		<sortField name="code"/>
-		<group name="login">
-			<groupExpression><![CDATA[$F{login}]]></groupExpression>
+		<group name="email">
+			<groupExpression><![CDATA[$F{email}]]></groupExpression>
 		</group>
 		<group name="title">
 			<groupExpression><![CDATA[$F{title}]]></groupExpression>
@@ -250,14 +250,14 @@ order by u.login, p.title, r.code]]>
 		</group>
 	</subDataset>
 	<queryString>
-		<![CDATA[select u.login, p.title, r.code
+		<![CDATA[select u.email, p.title, r.code
 from public."user" as u
-left join public.users_profiles on users_profiles."user" = u.login
+left join public.users_profiles on users_profiles."user" = u.email
 left join public.profile as p on p.id = users_profiles.profile
 left join public.profiles_rights on profiles_rights.profile = p.id
 left join public."right" as r on r.code = profiles_rights."right"]]>
 	</queryString>
-	<field name="login" class="java.lang.String"/>
+	<field name="email" class="java.lang.String"/>
 	<field name="title" class="java.lang.String"/>
 	<field name="code" class="java.lang.String"/>
 	<title>
@@ -281,16 +281,16 @@ left join public."right" as r on r.code = profiles_rights."right"]]>
 						</datasetRun>
 					</dataset>
 				</crosstabDataset>
-				<rowGroup name="login1" width="60" headerPosition="Middle">
+				<rowGroup name="email1" width="60" headerPosition="Middle">
 					<bucket class="java.lang.String">
-						<bucketExpression><![CDATA[$F{login}]]></bucketExpression>
+						<bucketExpression><![CDATA[$F{email}]]></bucketExpression>
 					</bucket>
 					<crosstabRowHeader>
 						<cellContents mode="Opaque" style="Crosstab 5_CH">
 							<textField>
 								<reportElement x="0" y="0" width="60" height="20" uuid="d7150175-d900-413c-b3f0-de48bdc4eeb6"/>
 								<textElement verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$V{login1}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$V{email1}]]></textFieldExpression>
 							</textField>
 						</cellContents>
 					</crosstabRowHeader>
@@ -342,7 +342,7 @@ left join public."right" as r on r.code = profiles_rights."right"]]>
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell width="60" height="20" rowTotalGroup="login1">
+				<crosstabCell width="60" height="20" rowTotalGroup="email1">
 					<cellContents mode="Opaque" style="Crosstab 5_CT">
 						<textField>
 							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="569f2559-6666-472d-a43e-80e0a58a39c7"/>

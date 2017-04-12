@@ -1,7 +1,6 @@
 export class User {
-    login: string;
-    password: string;
     email: string;
+    password: string;
     active: boolean;
     lastConnection: Date;
     profiles: Array<number>;

@@ -21,23 +21,19 @@ public final class UserShowPopup extends AbstractUserPopup implements ShowPopup 
     }
 
     public Field<?, ?> getEmail() {
-        return new StringOutputText((HtmlSpan) getFieldTableCell(1).getByXPath("./span").get(0));
-    }
-
-    public Field<?, Date> getLastConnection() {
-        return new DateOutputText((HtmlSpan) getFieldTableCell(3).getByXPath("./span").get(0));
-    }
-
-    public Field<?, String> getLogin() {
         return new StringOutputText((HtmlSpan) getFieldTableCell(0).getByXPath("./span").get(0));
     }
 
+    public Field<?, Date> getLastConnection() {
+        return new DateOutputText((HtmlSpan) getFieldTableCell(2).getByXPath("./span").get(0));
+    }
+
     public Field<?, List<String>> getProfiles() {
-        return new ListField((HtmlDivision) getFieldTableCell(4).getByXPath("./div[contains(@class, 'ui-datalist')]").get(0));
+        return new ListField((HtmlDivision) getFieldTableCell(3).getByXPath("./div[contains(@class, 'ui-datalist')]").get(0));
     }
 
     public Field<?, ?> isActive() {
-        return new BooleanOutputText((HtmlSpan) getFieldTableCell(2).getByXPath("./span").get(0));
+        return new BooleanOutputText((HtmlSpan) getFieldTableCell(1).getByXPath("./span").get(0));
     }
 
 }

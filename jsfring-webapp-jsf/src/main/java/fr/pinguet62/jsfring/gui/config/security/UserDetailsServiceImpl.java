@@ -36,17 +36,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      * The login process.<br>
      * Reset {@link User#lastConnection} after connection.
      *
-     * @param login
-     *            The {@link User#login user's login}.
+     * @param email
+     *            The {@link User#email user's login}.
      * @return The {@link UserDetails}.
      * @throws UsernameNotFoundException
-     *             If {@link User#getLogin()} is not found.
+     *             If {@link User#getEmail()} is not found.
      * @see UserDetailsImpl
      */
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        User user = userDao.findOne(login);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userDao.findOne(email);
 
         if (user == null)
             throw new UsernameNotFoundException(null);

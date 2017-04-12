@@ -53,28 +53,28 @@ public class UserDetailsServiceImplTest {
      */
     @Test
     public void test_login() {
-        String login = userService.findAll(new BooleanBuilder()).get(0).getLogin();
+        String email = userService.findAll(new BooleanBuilder()).get(0).getEmail();
 
         // login
-        UserDetails userDetails = userDetailsService.loadUserByUsername(login);
+        UserDetails userDetails = userDetailsService.loadUserByUsername(email);
         assertThat(userDetails, is(not(nullValue())));
 
         // Test: last connection date
-        Date lastConnection = userService.get(login).getLastConnection();
+        Date lastConnection = userService.get(email).getLastConnection();
         assertThat(lastConnection, within(30, SECONDS, now()));
     }
 
     /**
-     * When the {@link User#login} is unknown, the login fails.
+     * When the {@link User#email} is unknown, the login fails.
      *
      * @see UserDetailsServiceImpl#loadUserByUsername(String)
      */
     @Test(expected = UsernameNotFoundException.class)
     public void test_login_unknownLogin() {
-        String login = "unknown login";
-        assertThat(userService.get(login), is(nullValue()));
+        String email = "unknown login";
+        assertThat(userService.get(email), is(nullValue()));
 
-        userDetailsService.loadUserByUsername(login);
+        userDetailsService.loadUserByUsername(email);
     }
 
 }

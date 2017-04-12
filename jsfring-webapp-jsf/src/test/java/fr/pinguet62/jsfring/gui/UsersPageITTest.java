@@ -63,23 +63,20 @@ public class UsersPageITTest {
     @Test
     public void test_action_create() {
         // Data
-        String login = randomUUID().toString().substring(0, 20);
-        String email = "ramdon@domail.org";
+        String email = randomUUID().toString().substring(0, 10) + "@email.fr";
         boolean active = new Random().nextBoolean();
         List<Profile> profiles = profileDao.findAll().stream().limit(2).collect(toList());
 
         // Fill fields
         UserCreatePopup popup = page.actionCreate();
-        popup.getLogin().setValue(login);
         popup.getEmail().setValue(email);
         popup.getActive().setValue(active);
         popup.getProfiles().setValue(profiles.stream().map(Profile::getTitle).collect(toList()));
         popup.submit();
 
         // Check
-        User user = userDao.findOne(login);
+        User user = userDao.findOne(email);
         assertThat(user, is(not(nullValue())));
-        assertThat(user.getLogin(), is(equalTo(login)));
         assertThat(user.getEmail(), is(equalTo(email)));
         assertThat(user.getActive(), is(equalTo(active)));
         assertThat(user.getProfiles(), is(equalWithoutOrderTo(profiles)));
@@ -89,7 +86,6 @@ public class UsersPageITTest {
     public void test_action_create_field_readonly() {
         UserCreatePopup popup = page.actionCreate();
 
-        assertThat(popup.getLogin().isReadonly(), is(false));
         assertThat(popup.getEmail().isReadonly(), is(false));
         assertThat(popup.getActive().isReadonly(), is(false));
         assertThat(popup.getProfiles().isReadonly(), is(false));
@@ -108,7 +104,6 @@ public class UsersPageITTest {
     @Test
     public void test_action_show_field_readonly() {
         UserShowPopup popup = page.iterator().next().actionShow();
-        assertThat(popup.getLogin().isReadonly(), is(true));
         assertThat(popup.getEmail().isReadonly(), is(true));
         assertThat(popup.isActive().isReadonly(), is(true));
         assertThat(popup.getLastConnection().isReadonly(), is(true));
@@ -120,8 +115,7 @@ public class UsersPageITTest {
         UserRow row = page.iterator().next();
         UserShowPopup popup = row.actionShow();
 
-        User user = userDao.findOne(row.getLogin());
-        assertThat(popup.getLogin().getValue(), is(equalTo(user.getLogin())));
+        User user = userDao.findOne(row.getEmail());
         assertThat(popup.getEmail().getValue(), is(equalTo(user.getEmail())));
         assertThat(popup.isActive().getValue(), is(equalTo(user.getActive())));
         if (user.getLastConnection() == null)
@@ -138,20 +132,17 @@ public class UsersPageITTest {
         UserUpdatePopup popup = row.actionUpdate();
 
         // Data
-        String login = row.getLogin();
-        String email = "ramdon@domail.org";
+        String email = row.getEmail();
         boolean active = !row.isActive();
         List<Profile> profiles = profileDao.findAll().stream().limit(2).collect(toList());
 
         // Fill fields
-        popup.getEmail().setValue(email);
         popup.getActive().setValue(active);
         popup.getProfiles().setValue(profiles.stream().map(Profile::getTitle).collect(toList()));
         popup.submit();
 
         // Check
-        User user = userDao.findOne(login);
-        assertThat(user.getLogin(), is(equalTo(login)));
+        User user = userDao.findOne(email);
         assertThat(user.getEmail(), is(equalTo(email)));
         assertThat(user.getActive(), is(equalTo(active)));
         assertThat(user.getProfiles(), is(equalWithoutOrderTo(profiles)));
@@ -161,8 +152,7 @@ public class UsersPageITTest {
     public void test_action_update_field_readonly() {
         UserUpdatePopup popup = page.iterator().next().actionUpdate();
 
-        assertThat(popup.getLogin().isReadonly(), is(true));
-        assertThat(popup.getEmail().isReadonly(), is(false));
+        assertThat(popup.getEmail().isReadonly(), is(true));
         assertThat(popup.getActive().isReadonly(), is(false));
         assertThat(popup.getLastConnection().isReadonly(), is(true));
         assertThat(popup.getProfiles().isReadonly(), is(false));
@@ -173,8 +163,7 @@ public class UsersPageITTest {
         UserRow row = page.iterator().next();
         UserUpdatePopup popup = row.actionUpdate();
 
-        User user = userDao.findOne(row.getLogin());
-        assertThat(popup.getLogin().getValue(), is(equalTo(user.getLogin())));
+        User user = userDao.findOne(row.getEmail());
         assertThat(popup.getEmail().getValue(), is(equalTo(user.getEmail())));
         assertThat(popup.getActive().getValue(), is(equalTo(user.getActive())));
         if (user.getLastConnection() == null)

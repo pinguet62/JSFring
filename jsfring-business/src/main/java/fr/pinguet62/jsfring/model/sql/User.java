@@ -18,8 +18,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.validation.constraints.Pattern;
 
-import org.hibernate.validator.constraints.Length;
-
 @Entity
 @Table(name = "\"USER\"")
 public class User implements Serializable {
@@ -51,19 +49,13 @@ public class User implements Serializable {
     // Validation
     @Pattern(regexp = EMAIL_REGEX, message = EMAIL_VALIDATION_MESSAGE)
     // JPA
+    @Id
     @Column(name = "EMAIL", nullable = false, length = 255)
     private String email;
 
     @Temporal(TIMESTAMP)
     @Column(name = "last_connection", nullable = true)
     private Date lastConnection;
-
-    // Validation
-    @Length(min = 5, max = 30)
-    // JPA
-    @Id
-    @Column(name = "LOGIN", unique = true, nullable = false, length = 30)
-    private String login;
 
     // Validation
     @Pattern(regexp = PASSWORD_REGEX)
@@ -81,27 +73,25 @@ public class User implements Serializable {
         // No action
     }
 
-    public User(String login) {
-        this.login = login;
+    public User(String email) {
+        this.email = email;
     }
 
-    public User(String login, String password, String email, Boolean active) {
-        this.login = login;
-        this.password = password;
+    public User(String email, String password, Boolean active) {
         this.email = email;
+        this.password = password;
         this.active = active;
     }
 
-    public User(String login, String password, String email, Boolean active, Set<Profile> profiles) {
-        this.login = login;
-        this.password = password;
+    public User(String email, String password, Boolean active, Set<Profile> profiles) {
         this.email = email;
+        this.password = password;
         this.active = active;
         this.profiles = profiles;
     }
 
     /**
-     * Test equality of object by comparing their {@link #login}.
+     * Test equality of object by comparing their {@link #email}.
      *
      * @see Object#equals(Object)
      */
@@ -112,7 +102,7 @@ public class User implements Serializable {
         if (!obj.getClass().equals(User.class))
             return false;
         User other = (User) obj;
-        return Objects.equals(login, other.login);
+        return Objects.equals(email, other.email);
     }
 
     public Boolean getActive() {
@@ -127,10 +117,6 @@ public class User implements Serializable {
         return lastConnection;
     }
 
-    public String getLogin() {
-        return login;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -140,13 +126,13 @@ public class User implements Serializable {
     }
 
     /**
-     * Get the {@link Object#hashCode() hash} of {@link #login}.
+     * Get the {@link Object#hashCode() hash} of {@link #email}.
      *
      * @see Object#hashCode()
      */
     @Override
     public int hashCode() {
-        return Objects.hash(login);
+        return Objects.hash(email);
     }
 
     public void setActive(Boolean active) {
@@ -159,10 +145,6 @@ public class User implements Serializable {
 
     public void setLastConnection(Date lastConnection) {
         this.lastConnection = lastConnection;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
     }
 
     public void setPassword(String password) {

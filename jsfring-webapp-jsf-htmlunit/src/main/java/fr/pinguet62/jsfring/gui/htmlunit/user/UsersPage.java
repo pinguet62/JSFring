@@ -3,7 +3,7 @@ package fr.pinguet62.jsfring.gui.htmlunit.user;
 import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.Delay.MEDIUM;
 import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.Delay.SHORT;
 import static fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column.ACTIVE;
-import static fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column.LOGIN;
+import static fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column.EMAIL;
 
 import java.io.IOException;
 import java.util.List;
@@ -31,7 +31,7 @@ public final class UsersPage extends AbstractDatatablePage<UserRow, UserCreatePo
 
     public static enum Column {
 
-        ACTIONS(5, "Actions"), ACTIVE(3, "Active"), EMAIL(2, "Email"), LAST_CONNECTION(4, "Last connection"), LOGIN(1, "Login");
+        ACTIONS(4, "Actions"), ACTIVE(2, "Active"), EMAIL(1, "Email"), LAST_CONNECTION(3, "Last connection");
 
         public static Column fromTitle(String title) {
             for (Column column : values())
@@ -90,8 +90,8 @@ public final class UsersPage extends AbstractDatatablePage<UserRow, UserCreatePo
      *            The value to set.<br>
      *            {@code null} to reset filter.
      */
-    public void filterLogin(String value) {
-        HtmlInput input = (HtmlInput) getDatatableTableHeader(LOGIN.getTitle())
+    public void filterEmail(String value) {
+        HtmlInput input = (HtmlInput) getDatatableTableHeader(EMAIL.getTitle())
                 .getByXPath("./input[contains(@class, 'ui-column-filter')]").get(0);
         try {
             input.type(value);

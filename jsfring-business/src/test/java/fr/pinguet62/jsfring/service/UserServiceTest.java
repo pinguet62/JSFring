@@ -50,14 +50,14 @@ public class UserServiceTest {
     /** @see UserService#forgottenPassword(String) */
     @Test
     public void test_forgottenPassword() {
-        final String login = service.getAll().get(0).getLogin();
+        final String email = service.getAll().get(0).getEmail();
 
-        User user = service.get(login);
+        User user = service.get(email);
         final String initialPassword = user.getPassword();
 
         service.forgottenPassword(user.getEmail());
 
-        User user2 = service.get(login);
+        User user2 = service.get(email);
         assertThat(user2.getPassword(), is(not(equalTo(initialPassword))));
     }
 
@@ -69,10 +69,10 @@ public class UserServiceTest {
      */
     @Test
     public void test_forgottenPassword_smtpError() {
-        final String login = service.getAll().get(0).getLogin();
+        final String email = service.getAll().get(0).getEmail();
 
         // Before
-        User user = service.get(login);
+        User user = service.get(email);
         final String initialPassword = user.getPassword();
 
         mailSender.mustThrow(true);
@@ -85,7 +85,7 @@ public class UserServiceTest {
         }
 
         // After
-        assertThat(service.get(login).getPassword(), is(equalTo(initialPassword)));
+        assertThat(service.get(email).getPassword(), is(equalTo(initialPassword)));
     }
 
     /**
@@ -112,12 +112,12 @@ public class UserServiceTest {
     /** @see UserService#updatePassword(String, String) */
     @Test
     public void test_updatePassword() {
-        String login = "super admin";
+        String email = "root@admin.fr";
         String newPassword = new PasswordGenerator().get();
-        assertThat(service.get(login).getPassword(), is(not(equalTo(newPassword))));
+        assertThat(service.get(email).getPassword(), is(not(equalTo(newPassword))));
 
-        service.updatePassword(login, newPassword);
-        assertThat(service.get(login).getPassword(), is(equalTo(newPassword)));
+        service.updatePassword(email, newPassword);
+        assertThat(service.get(email).getPassword(), is(equalTo(newPassword)));
     }
 
     /**
@@ -127,25 +127,25 @@ public class UserServiceTest {
      */
     @Test(expected = RuntimeException.class)
     public void test_updatePassword_invalidNewPassword() {
-        String login = "super admin";
+        String email = "root@admin.fr";
         String newPassword = "bad";
-        assertThat(service.get(login).getPassword(), is(not(equalTo(newPassword))));
+        assertThat(service.get(email).getPassword(), is(not(equalTo(newPassword))));
         assertThat(newPassword, not(matches(PASSWORD_REGEX)));
 
-        service.updatePassword(login, newPassword);
+        service.updatePassword(email, newPassword);
     }
 
     /**
-     * When the new {@link User#login} is unknown, an error occurs.
+     * When the new {@link User#email} is unknown, an error occurs.
      *
      * @see UserService#updatePassword(String, String)
      */
     @Test(expected = IllegalArgumentException.class)
-    public void test_updatePassword_unknownLogin() {
-        String login = "unknown";
-        assertThat(service.get(login), is(nullValue()));
+    public void test_updatePassword_unknownEmail() {
+        String email = "unknown";
+        assertThat(service.get(email), is(nullValue()));
 
-        service.updatePassword(login, new PasswordGenerator().get());
+        service.updatePassword(email, new PasswordGenerator().get());
     }
 
 }

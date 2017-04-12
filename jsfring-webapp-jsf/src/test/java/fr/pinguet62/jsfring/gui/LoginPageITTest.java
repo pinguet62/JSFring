@@ -47,7 +47,7 @@ public class LoginPageITTest {
         User user = userDao.findAll().get(0);
 
         LoginPage loginPage = get().gotoLoginPage();
-        AbstractPage afterLogin = loginPage.doLogin(user.getLogin(), user.getPassword());
+        AbstractPage afterLogin = loginPage.doLogin(user.getEmail(), user.getPassword());
 
         assertThat(afterLogin, is(instanceOf(IndexPage.class)));
     }
@@ -66,7 +66,7 @@ public class LoginPageITTest {
         assertThat(user.getPassword(), is(not(equalTo(invalidPassword))));
 
         LoginPage loginPage = get().gotoLoginPage();
-        AbstractPage afterLogin = loginPage.doLogin(user.getLogin(), invalidPassword);
+        AbstractPage afterLogin = loginPage.doLogin(user.getEmail(), invalidPassword);
 
         assertThat(afterLogin, is(instanceOf(LoginPage.class)));
         assertThat(loginPage.getMessageError(), is(not(nullValue())));

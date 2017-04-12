@@ -37,7 +37,7 @@ class WithAnyUserSecurityContextFactory implements WithSecurityContextFactory<Wi
     public SecurityContext createSecurityContext(WithAnyUser annotation) {
         User user = userDao.findAll().get(0);
 
-        UserDetails principal = userDetailsService.loadUserByUsername(user.getLogin());
+        UserDetails principal = userDetailsService.loadUserByUsername(user.getEmail());
         Authentication authentication = new UsernamePasswordAuthenticationToken(principal, principal.getPassword(),
                 principal.getAuthorities());
 

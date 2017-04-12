@@ -29,7 +29,6 @@ public final class UserFromDtoConverter implements Converter<UserDto, User> {
     public User convert(UserDto dto) {
         User user = new User();
 
-        user.setLogin(dto.getLogin());
         user.setEmail(dto.getEmail());
         user.setActive(dto.getActive());
         user.setLastConnection(dto.getLastConnection());

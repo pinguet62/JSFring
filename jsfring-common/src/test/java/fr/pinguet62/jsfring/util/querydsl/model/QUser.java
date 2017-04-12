@@ -26,8 +26,6 @@ public class QUser extends EntityPathBase<User> {
 
     public final DateTimePath<java.util.Date> lastConnection = createDateTime("lastConnection", java.util.Date.class);
 
-    public final StringPath login = createString("login");
-
     public final StringPath password = createString("password");
 
     public final SetPath<Profile, QProfile> profiles = this.<Profile, QProfile>createSet("profiles", Profile.class, QProfile.class, PathInits.DIRECT2);

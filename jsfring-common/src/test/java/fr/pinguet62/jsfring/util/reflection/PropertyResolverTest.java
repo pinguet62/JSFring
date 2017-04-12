@@ -68,9 +68,8 @@ public final class PropertyResolverTest {
         }
         {
             QUser user = QUser.user;
-            assertThat(new PropertyResolver(user).apply(user.login.toString()), is(equalTo(user.login)));
-            assertThat(new PropertyResolver(user).apply(user.password.toString()), is(equalTo(user.password)));
             assertThat(new PropertyResolver(user).apply(user.email.toString()), is(equalTo(user.email)));
+            assertThat(new PropertyResolver(user).apply(user.password.toString()), is(equalTo(user.password)));
             assertThat(new PropertyResolver(user).apply(user.lastConnection.toString()), is(equalTo(user.lastConnection)));
         }
     }

@@ -54,8 +54,7 @@ public class AbstractServiceTest {
         }
         {
             int initialCount = userService.getAll().size();
-            userService.create(
-                    new User("new login", new PasswordGenerator().get(), "foo@hostname.domain", new Random().nextBoolean()));
+            userService.create(new User("foo@bar.org", new PasswordGenerator().get(), new Random().nextBoolean()));
             assertThat(userService.getAll(), hasSize(initialCount + 1));
         }
     }
@@ -82,8 +81,7 @@ public class AbstractServiceTest {
             assertThat(profileService.get(2).getTitle(), is(equalTo("User admin")));
         }
         {
-            assertThat(userService.get("super admin").getPassword(), is(equalTo("Azerty1!")));
-            assertThat(userService.get("admin profile").getEmail(), is(equalTo("admin_profile@domain.fr")));
+            assertThat(userService.get("root@admin.fr").getPassword(), is(equalTo("Azerty1!")));
         }
     }
 

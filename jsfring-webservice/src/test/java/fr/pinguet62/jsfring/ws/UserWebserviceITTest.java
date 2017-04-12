@@ -48,24 +48,22 @@ public class UserWebserviceITTest {
     /** @see UserWebservice#get(int) */
     @Test
     public void test_get() {
-        String login = userDao.findAll().get(0).getLogin();
+        String email = userDao.findAll().get(0).getEmail();
 
         // @formatter:off
         UserDto actual =
                 restClient
                     .path(PATH)
-                    .path("/{login}").resolveTemplate("login", login)
+                    .path("/{email}").resolveTemplate("email", email)
                 .request()
                 .get(UserDto.class);
         // @formatter:on
 
-        User pojo = userDao.findOne(login);
+        User pojo = userDao.findOne(email);
         UserDto expected = new UserDto();
-        expected.setLogin(pojo.getLogin());
         expected.setEmail(pojo.getEmail());
         expected.setLastConnection(pojo.getLastConnection());
 
-        assertThat(actual.getLogin(), is(equalTo(expected.getLogin())));
         assertThat(actual.getEmail(), is(equalTo(expected.getEmail())));
         assertThat(truncate(actual.getLastConnection(), SECOND), is(equalTo(truncate(expected.getLastConnection(), SECOND))));
     }

@@ -22,7 +22,7 @@ public final class FilterPathBean implements Serializable {
 
     public static final NumberExpression<Integer> EXPRESSION_NUMBER = QUser.user.email.length();
 
-    public static final StringPath EXPRESSION_STRING = QUser.user.login;
+    public static final StringPath EXPRESSION_STRING = QUser.user.email;
 
     private static final long serialVersionUID = 1;
 
@@ -39,11 +39,11 @@ public final class FilterPathBean implements Serializable {
      */
     private NumberPathFilter<Integer> numberFilterLongRange = new NumberPathFilter<Integer>(EXPRESSION_NUMBER);
 
-    /** @see User#login */
+    /** @see User#email */
     private StringPathFilter stringFilterDefault = new StringPathFilter(EXPRESSION_STRING);
 
     /**
-     * @see User#login
+     * @see User#email
      * @see RegexValidator
      */
     private StringPathFilter stringFilterRegex = new StringPathFilter(EXPRESSION_STRING);

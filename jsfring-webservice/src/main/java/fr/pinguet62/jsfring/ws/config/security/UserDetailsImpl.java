@@ -47,10 +47,10 @@ public final class UserDetailsImpl implements UserDetails {
         return user.getPassword();
     }
 
-    /** @return {@link User#getLogin()} */
+    /** @return {@link User#getEmail()} */
     @Override
     public String getUsername() {
-        return user.getLogin();
+        return user.getEmail();
     }
 
     /**

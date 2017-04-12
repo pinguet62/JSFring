@@ -60,7 +60,7 @@ public class ChangePasswordPageITTest {
     }
 
     private User getUser() {
-        return userService.findAll(QUser.user.login.eq(getCurrent().getUsername())).get(0);
+        return userService.findAll(QUser.user.email.eq(getCurrent().getUsername())).get(0);
     }
 
     @Test
@@ -76,7 +76,7 @@ public class ChangePasswordPageITTest {
         // Checks
         assertThat(page.getMessageInfo(), is(not(nullValue())));
         assertThat(page.getMessageError(), is(nullValue()));
-        assertThat(userService.get(getUser().getLogin()).getPassword(), is(equalTo(newPassword)));
+        assertThat(userService.get(getUser().getEmail()).getPassword(), is(equalTo(newPassword)));
     }
 
     /** The confirm password doesn't match to the new password. */

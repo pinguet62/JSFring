@@ -47,8 +47,8 @@ public final class OrderConverterTest {
         {
             QUser user = QUser.user;
 
-            assertThat(ascOrderApplier.apply(user.login), is(equalTo(user.login.asc())));
-            assertThat(descOrderApplier.apply(user.login), is(equalTo(user.login.desc())));
+            assertThat(ascOrderApplier.apply(user.email), is(equalTo(user.email.asc())));
+            assertThat(descOrderApplier.apply(user.email), is(equalTo(user.email.desc())));
         }
     }
 

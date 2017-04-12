@@ -88,24 +88,24 @@ public class UserService extends AbstractService<User, String> {
         // Send email
         SimpleMailMessage message = new SimpleMailMessage(forgottenPasswordMessage);
         message.setTo(user.getEmail());
-        message.setText(String.format(forgottenPasswordMessage.getText(), user.getLogin(), user.getPassword()));
+        message.setText(String.format(forgottenPasswordMessage.getText(), user.getEmail(), user.getPassword()));
         mailSender.send(message);
-        LOGGER.info("New password sent to {} user's email", user.getLogin());
+        LOGGER.info("New password sent to {} user's email", user.getEmail());
     }
 
     /**
      * Update the {@link User#password user's password}.
      *
-     * @param login
-     *            The {@link User#login user's login}.
+     * @param email
+     *            The {@link User#email user's email}.
      * @param password
      *            The new {@link User#password user's password}.
      * @throws IllegalArgumentException
      *             User not found.
      */
     @Transactional
-    public void updatePassword(String login, String password) {
-        User user = dao.findOne(login);
+    public void updatePassword(String email, String password) {
+        User user = dao.findOne(email);
         if (user == null)
             throw new IllegalArgumentException("User not found");
 

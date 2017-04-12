@@ -17,11 +17,6 @@
 				createView="/user/create.xhtml" showView="/user/show.xhtml"
 				updateView="/user/update.xhtml" deletable="true">
 
-				<p:column headerText="#{msg['user.login']}" sortBy="#{user.login}"
-					filterBy="#{user.login}">
-					<h:outputText value="#{user.login}" />
-				</p:column>
-
 				<p:column headerText="#{msg['user.email']}" sortBy="#{user.email}"
 					filterBy="#{user.email}">
 					<h:outputText value="#{user.email}" />

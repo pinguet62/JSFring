@@ -112,7 +112,7 @@ public class OAuth2ITTest {
      * @return The target url.
      */
     private URL test_authorize(String responseType) throws IOException {
-        String authorization = "Basic " + formatAuthorization(user.getLogin(), user.getPassword());
+        String authorization = "Basic " + formatAuthorization(user.getEmail(), user.getPassword());
         // @formatter:off
         String url = BASE_URL + "/oauth/authorize?"
                 + format(
@@ -238,7 +238,7 @@ public class OAuth2ITTest {
                         post("/oauth/token")
                             .header("Authorization", authorization)
                             .param(GRANT_TYPE, "password")
-                            .param("username", user.getLogin())
+                            .param("username", user.getEmail())
                             .param("password", user.getPassword()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$." + ACCESS_TOKEN, is(notNullValue())))

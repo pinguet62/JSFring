@@ -19,19 +19,15 @@ public final class UserCreatePopup extends AbstractUserPopup implements CreatePo
     }
 
     public ReadWriteField<?, Boolean> getActive() {
-        return new CheckBox((HtmlDivision) getFieldTableCell(2).getByXPath("./div[contains(@class, 'ui-chkbox')]").get(0));
+        return new CheckBox((HtmlDivision) getFieldTableCell(1).getByXPath("./div[contains(@class, 'ui-chkbox')]").get(0));
     }
 
     public ReadWriteField<?, String> getEmail() {
-        return new InputText((HtmlInput) getFieldTableCell(1).getByXPath("./input[contains(@class, 'ui-inputtext')]").get(0));
-    }
-
-    public ReadWriteField<?, String> getLogin() {
         return new InputText((HtmlInput) getFieldTableCell(0).getByXPath("./input[contains(@class, 'ui-inputtext')]").get(0));
     }
 
     public ReadWriteField<?, List<String>> getProfiles() {
-        return new PickList((HtmlDivision) getFieldTableCell(3).getByXPath("./div").get(0));
+        return new PickList((HtmlDivision) getFieldTableCell(2).getByXPath("./div").get(0));
     }
 
 }

@@ -44,13 +44,11 @@ public class UserFromDtoConverterTest {
     /** Check simple fields. */
     @Test
     public void test_convert() {
-        String login = randomUUID().toString();
         String email = randomUUID().toString();
         Date lastConnection = new Date((long) (MAX_VALUE * random()));
         boolean active = random() < 0.5;
 
         UserDto dto = new UserDto();
-        dto.setLogin(login);
         dto.setEmail(email);
         dto.setLastConnection(lastConnection);
         dto.setActive(active);
@@ -58,7 +56,6 @@ public class UserFromDtoConverterTest {
         User entity = conversionService.convert(dto, User.class);
 
         assertThat(entity, is(not(nullValue())));
-        assertThat(entity.getLogin(), is(equalTo(login)));
         assertThat(entity.getEmail(), is(equalTo(email)));
         assertThat(entity.getLastConnection(), is(equalTo(lastConnection)));
         assertThat(entity.getActive(), is(active));
@@ -91,9 +88,7 @@ public class UserFromDtoConverterTest {
         assertThat(entity.getProfiles(), is(empty()));
     }
 
-    /**
-     * If {@link UserDto#getProfiles()} is {@code null}, the converted {@link User#getProfiles()} must also be {@code null}.
-     */
+    /** If {@link UserDto#getProfiles()} is {@code null}, the converted {@link User#getProfiles()} must also be {@code null}. */
     @Test
     public void test_convert_profiles_null() {
         UserDto dto = new UserDto();

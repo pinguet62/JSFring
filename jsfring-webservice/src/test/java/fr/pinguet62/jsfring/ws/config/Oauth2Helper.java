@@ -52,7 +52,7 @@ public class Oauth2Helper {
         String response = newClient().target(BASE_URL)
                 .path("/oauth/token")
                     .queryParam(GRANT_TYPE, "password")
-                    .queryParam("username", user.getLogin())
+                    .queryParam("username", user.getEmail())
                     .queryParam("password", user.getPassword())
                 .request()
                     .header(HEADER_AUTHORIZATION, authorization)

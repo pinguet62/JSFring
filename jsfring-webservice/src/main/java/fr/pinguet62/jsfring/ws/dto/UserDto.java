@@ -14,8 +14,6 @@ public final class UserDto {
 
     private Date lastConnection;
 
-    private String login;
-
     private Set<Integer> profiles;
 
     public Boolean getActive() {
@@ -28,10 +26,6 @@ public final class UserDto {
 
     public Date getLastConnection() {
         return lastConnection;
-    }
-
-    public String getLogin() {
-        return login;
     }
 
     public Set<Integer> getProfiles() {
@@ -48,10 +42,6 @@ public final class UserDto {
 
     public void setLastConnection(Date lastConnection) {
         this.lastConnection = lastConnection;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
     }
 
     public void setProfiles(Set<Integer> profiles) {

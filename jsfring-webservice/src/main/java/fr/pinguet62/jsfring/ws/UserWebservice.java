@@ -40,9 +40,9 @@ public final class UserWebservice {
         userService.create(user);
     }
 
-    @GetMapping("/{login}")
-    public UserDto get(@PathVariable String login) {
-        User user = userService.get(login);
+    @GetMapping("/{email:.+}")
+    public UserDto get(@PathVariable String email) {
+        User user = userService.get(email);
         if (user == null)
             return null;
         return conversionService.convert(user, UserDto.class);

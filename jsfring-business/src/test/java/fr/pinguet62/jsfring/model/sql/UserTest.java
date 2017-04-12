@@ -44,11 +44,11 @@ public final class UserTest {
     @Test
     public void test_equals() {
         assertThat(new User(), is(equalTo(new User())));
-        assertThat(new User("same login"), is(equalTo(new User("same login"))));
-        assertThat(new User("same login", null, null, null), is(equalTo(new User("same login", null, null, null))));
-        assertThat(new User("same login", "AAA", "BBB", true), is(equalTo(new User("same login", "111", "222", true))));
+        assertThat(new User("same@email.fr"), is(equalTo(new User("same@email.fr"))));
+        assertThat(new User("same@email.fr", null, null, null), is(equalTo(new User("same@email.fr", null, null, null))));
+        assertThat(new User("same@email.fr", "AAA", true), is(equalTo(new User("same@email.fr", "111", true))));
 
-        assertThat(new User("an id", null, null, null), is(not(equalTo(new User("other value", null, null, null)))));
+        assertThat(new User("an@email.fr", null, null, null), is(not(equalTo(new User("another@email.fr", null, null, null)))));
         assertThat(new User(), is(not(equalTo("other type"))));
     }
 

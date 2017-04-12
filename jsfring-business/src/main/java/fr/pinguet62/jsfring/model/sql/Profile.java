@@ -1,7 +1,6 @@
 package fr.pinguet62.jsfring.model.sql;
 
 import static javax.persistence.FetchType.EAGER;
-import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
@@ -37,12 +36,12 @@ public class Profile implements Serializable {
     private Set<Right> rights;
 
     // Validation
-    @Length(min = 5, max = 30)
+    @Length(min = 1, max = 255)
     // JPA
-    @Column(name = "TITLE", nullable = false, length = 30)
+    @Column(name = "TITLE", nullable = false, length = 255)
     private String title;
 
-    @ManyToMany(fetch = LAZY)
+    @ManyToMany
     @JoinTable(name = "users_profiles", joinColumns = {
             @JoinColumn(name = "profile", nullable = false, updatable = false) }, inverseJoinColumns = {
                     @JoinColumn(name = "\"USER\"", nullable = false, updatable = false) })

@@ -14,7 +14,6 @@
 			
 			// Column titles
 			$scope.gridOptions.columnDefs = [
-				{ field: 'login', displayName: $translate.instant('user.login') },
 				{ field: 'email', displayName: $translate.instant('user.email') },
 				{ field: 'active', displayName: $translate.instant('user.active') },
 				{ field: 'lastConnection', displayName: $translate.instant('user.lastConnection') },

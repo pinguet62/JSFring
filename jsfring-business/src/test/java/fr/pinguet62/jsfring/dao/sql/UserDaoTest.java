@@ -65,7 +65,7 @@ public class UserDaoTest {
      */
     @Test
     public void test_disableInactiveUsers_neverConnected() {
-        final String id = userDao.findAll().get(0).getLogin();
+        final String id = userDao.findAll().get(0).getEmail();
 
         // Initial state
         User user = userDao.getOne(id);
@@ -87,7 +87,7 @@ public class UserDaoTest {
     @Test
     public void test_disableInactiveUsers_old() {
         final int nbOfDays = 5;
-        final String id = userDao.findAll().get(0).getLogin();
+        final String id = userDao.findAll().get(0).getEmail();
 
         // Initial state
         User user = userDao.getOne(id);
@@ -111,7 +111,7 @@ public class UserDaoTest {
     @Test
     public void test_disableInactiveUsers_recent() {
         final int nbOfDays = 5;
-        final String id = userDao.findAll().get(0).getLogin();
+        final String id = userDao.findAll().get(0).getEmail();
 
         // Initial state
         User user = userDao.getOne(id);
@@ -135,18 +135,18 @@ public class UserDaoTest {
     @Test
     public void test_resetLastConnectionDate() {
         Date today = DateUtils.truncate(new Date(), DAY_OF_MONTH);
-        String login = userDao.findAll().stream().filter(u -> nonNull(u.getLastConnection())).map(User::getLogin).findAny()
+        String email = userDao.findAll().stream().filter(u -> nonNull(u.getLastConnection())).map(User::getEmail).findAny()
                 .get();
 
         // Initial state
-        User user = userDao.findOne(login);
+        User user = userDao.findOne(email);
         Date lastConnectionBefore = user.getLastConnection();
         assertThat(lastConnectionBefore, is(before(today)));
 
         userDao.resetLastConnectionDate(user);
 
         // Test
-        Date lastConnectionAfter = DateUtils.truncate(userDao.findOne(login).getLastConnection(), DAY_OF_MONTH);
+        Date lastConnectionAfter = DateUtils.truncate(userDao.findOne(email).getLastConnection(), DAY_OF_MONTH);
         assertThat(lastConnectionAfter, is(equalTo(today)));
     }
 

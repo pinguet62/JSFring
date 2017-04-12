@@ -84,7 +84,7 @@ class UserDaoImpl implements UserDaoCustom {
      */
     @Override
     public void resetLastConnectionDate(User user) {
-        LOGGER.debug("Last connection date reset for user: {}", user.getLogin());
+        LOGGER.debug("Last connection date reset for user: {}", user.getEmail());
         user.setLastConnection(new Date());
         dao.save(user);
     }
@@ -99,7 +99,7 @@ class UserDaoImpl implements UserDaoCustom {
      */
     @Override
     public void updatePassword(User user, String password) {
-        LOGGER.debug("Password updated for user: {}", user.getLogin());
+        LOGGER.debug("Password updated for user: {}", user.getEmail());
         user.setPassword(password);
         dao.save(user);
     }

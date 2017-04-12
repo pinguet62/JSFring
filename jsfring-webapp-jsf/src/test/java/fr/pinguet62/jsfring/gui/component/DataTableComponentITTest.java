@@ -2,7 +2,6 @@ package fr.pinguet62.jsfring.gui.component;
 
 import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.get;
 import static fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column.EMAIL;
-import static fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column.LOGIN;
 import static fr.pinguet62.jsfring.gui.htmlunit.user.UsersPage.Column.values;
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
 import static fr.pinguet62.jsfring.util.FileFormatMatcher.isCSV;
@@ -135,14 +134,14 @@ public final class DataTableComponentITTest {
 
         // row to delete
         UserRow row = usersPage.getRows().get(0);
-        final String key = row.getLogin();
+        final String key = row.getEmail();
         row.actionDelete().confirm();
 
         // After
         assertThat(userDao.count(), is(equalTo(initialDbCount - 1)));
         assertThat(usersPage.getTotalCount(), is(equalTo(initialDatatableCount - 1)));
         for (UserRow r : usersPage)
-            assertThat(r.getLogin(), is(not(equalTo(key))));
+            assertThat(r.getEmail(), is(not(equalTo(key))));
     }
 
     /**
@@ -177,18 +176,15 @@ public final class DataTableComponentITTest {
      */
     @Test
     public void test_action_show() {
-        List<User> users = userDao.findAll().stream().sorted(comparing(User::getLogin)).collect(toList());
+        List<User> users = userDao.findAll().stream().sorted(comparing(User::getEmail)).collect(toList());
 
         UsersPage page = get().gotoUsersPage();
-        page.sortBy(LOGIN);
+        page.sortBy(EMAIL);
 
         int i = 0;
         for (UserRow row : page) {
             User user = users.get(i);
             UserShowPopup popup = row.actionShow();
-
-            assertThat(popup.getLogin().isReadonly(), is(true));
-            assertThat(popup.getLogin().getValue(), is(equalTo(user.getLogin())));
 
             assertThat(popup.getEmail().isReadonly(), is(true));
             assertThat(popup.getEmail().getValue(), is(equalTo(user.getEmail())));
@@ -224,24 +220,22 @@ public final class DataTableComponentITTest {
      */
     @Test
     public void test_action_update_submit_modification() {
-        final UsersPage page = get().gotoUsersPage();
-
-        final String newEmail = "new@value.ap";
-
+        UsersPage page = get().gotoUsersPage();
         UserRow row = page.getRows().get(0);
-        final String login = row.getLogin();
-        assertThat(row.getEmail(), is(not(equalTo(newEmail))));
+        String email = row.getEmail();
+        boolean newValue = !userDao.findOne(email).getActive();
+        assertThat(row.isActive(), is(not(equalTo(newValue))));
 
         // Action
         UserUpdatePopup updatePopup = row.actionUpdate();
-        updatePopup.getEmail().setValue(newEmail);
+        updatePopup.getActive().setValue(newValue);
         updatePopup.submit();
 
         // Before
-        page.filterLogin(login); // because updated value is placed at the end
+        page.filterEmail(email); // because updated value is placed at the end
         assertThat(page.getTotalCount(), is(equalTo(1)));
-        assertThat(page.getRows().get(0).getEmail(), is(equalTo(newEmail)));
-        assertThat(userDao.findOne(login).getEmail(), is(equalTo(newEmail)));
+        assertThat(page.getRows().get(0).isActive(), is(equalTo(newValue)));
+        assertThat(userDao.findOne(email).getActive(), is(equalTo(newValue)));
     }
 
     /**
@@ -254,7 +248,6 @@ public final class DataTableComponentITTest {
 
         // Before
         User userBefore = userDao.findAll().get(idx);
-        final String login = userBefore.getLogin();
         final String email = userBefore.getEmail();
         final boolean active = userBefore.getActive();
         final Date lastConnection = userBefore.getLastConnection();
@@ -266,13 +259,11 @@ public final class DataTableComponentITTest {
         // After
         // - check row
         UserRow rowAfter = page.getRows().get(idx);
-        assertThat(rowAfter.getLogin(), is(equalTo(login)));
         assertThat(rowAfter.getEmail(), is(equalTo(email)));
         assertThat(rowAfter.isActive(), is(equalTo(active)));
         // assertThat(rowAfter.getLastConnection(), is(equalToTruncated(lastConnection, SECOND))); // TODO fix timestamp
         // - check database value
         User userAfter = userDao.findAll().get(idx);
-        assertThat(userAfter.getLogin(), is(equalTo(login)));
         assertThat(userAfter.getEmail(), is(equalTo(email)));
         assertThat(userAfter.getActive(), is(equalTo(active)));
         assertThat(userAfter.getLastConnection(), is(equalTo(lastConnection)));
@@ -289,20 +280,17 @@ public final class DataTableComponentITTest {
      */
     @Test
     public void test_action_update_values() {
-        List<User> users = userDao.findAll().stream().sorted(comparing(User::getLogin)).collect(toList());
+        List<User> users = userDao.findAll().stream().sorted(comparing(User::getEmail)).collect(toList());
 
         UsersPage page = get().gotoUsersPage();
-        page.sortBy(LOGIN);
+        page.sortBy(EMAIL);
 
         int i = 0;
         for (UserRow row : page) {
             User user = users.get(i);
             UserUpdatePopup popup = row.actionUpdate();
 
-            assertThat(popup.getLogin().isReadonly(), is(true));
-            assertThat(popup.getLogin().getValue(), is(equalTo(user.getLogin())));
-
-            assertThat(popup.getEmail().isReadonly(), is(false));
+            assertThat(popup.getEmail().isReadonly(), is(true));
             assertThat(popup.getEmail().getValue(), is(equalTo(user.getEmail())));
 
             assertThat(popup.getActive().isReadonly(), is(false));
@@ -358,16 +346,15 @@ public final class DataTableComponentITTest {
      */
     @Test
     public void test_content() {
-        List<User> users = userDao.findAll().stream().sorted(comparing(User::getLogin)).collect(toList());
+        List<User> users = userDao.findAll().stream().sorted(comparing(User::getEmail)).collect(toList());
 
         UsersPage page = get().gotoUsersPage();
-        page.sortBy(LOGIN);
+        page.sortBy(EMAIL);
 
         int i = 0;
         for (UserRow row : page) {
             User user = users.get(i);
 
-            assertThat(row.getLogin(), is(equalTo(user.getLogin())));
             assertThat(row.getEmail(), is(equalTo(user.getEmail())));
             assertThat(row.isActive(), is(equalTo(user.getActive())));
             if (user.getLastConnection() == null)
@@ -448,25 +435,25 @@ public final class DataTableComponentITTest {
         assertThat(usersPage.getTotalCount(), is(equalTo(3)));
     }
 
-    /** @see UsersPage#filterLogin(String) */
+    /** @see UsersPage#filterEmail(String) */
     @Test
     public void test_filter_default() {
         final String value = "super";
         QUser u = QUser.user;
-        List<String> logins = userDao.find(new JPAQuery<User>().from(u).where(u.login.contains(value))).stream()
-                .map(User::getLogin).sorted().collect(toList());
+        List<String> emails = userDao.find(new JPAQuery<User>().from(u).where(u.email.contains(value))).stream()
+                .map(User::getEmail).sorted().collect(toList());
 
         // Action
         UsersPage page = get().gotoUsersPage();
-        page.filterLogin(value);
+        page.filterEmail(value);
 
         // Test
         // - number of results
-        assertThat(page.getTotalCount(), is(equalTo(logins.size())));
+        assertThat(page.getTotalCount(), is(equalTo(emails.size())));
         // - check order
         int i = 0;
         for (UserRow row : page) {
-            assertThat(row.getLogin(), is(equalTo(logins.get(i))));
+            assertThat(row.getEmail(), is(equalTo(emails.get(i))));
             i++;
         }
     }
@@ -496,19 +483,6 @@ public final class DataTableComponentITTest {
 
         for (int i = 0; i < 2; i++)
             assertThat(rows.get(i).getEmail(), is(equalTo(emails.get(i))));
-    }
-
-    /** @see UsersPage#sortByLogin() */
-    @Test
-    public void test_sort_login() {
-        List<String> logins = userDao.findAll().stream().map(User::getLogin).sorted().collect(toList());
-
-        UsersPage usersPage = get().gotoUsersPage();
-        usersPage.sortBy(LOGIN);
-        List<UserRow> rows = usersPage.getRows();
-
-        for (int i = 0; i < 2; i++)
-            assertThat(rows.get(i).getLogin(), is(equalTo(logins.get(i))));
     }
 
 }
