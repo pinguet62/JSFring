@@ -15,6 +15,7 @@
 	<packaging>pom</packaging>
 
 	<modules>
+		<module>jsfring-database</module>
 		<module>jsfring-common</module>
 		<module>jsfring-common-test</module>
 		<module>jsfring-business</module>

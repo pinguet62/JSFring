@@ -1,0 +1,5 @@
+# Auto-generated file. Crushed during build.
+databaseChangeLog:
+  - include: { file: src/main/resources/changelogs/00-schema-initial.yaml }
+  - include: { file: src/main/resources/changelogs/01-data-initial.yaml }
+  - include: { file: src/main/resources/changelogs/02-data-test.yaml }

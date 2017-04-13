@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-04-12T08:52:50 -->
+<!-- 2017-04-14T22:18:58 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sBlank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="81ca2506-2bba-4205-90de-71b6b8354fcd">
 	<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 	<property name="net.sf.jasperreports.export.text.character.height" value="20"/>
@@ -226,7 +226,7 @@
 		<queryString>
 			<![CDATA[select u.email, p.title, r.code
 from public."user" as u
-left join public.users_profiles on users_profiles."user" = u.email
+left join public.users_profiles on users_profiles.user = u.email
 left join public.profile as p on p.id = users_profiles.profile
 left join public.profiles_rights on profiles_rights.profile = p.id
 left join public."right" as r on r.code = profiles_rights."right"
@@ -252,7 +252,7 @@ order by u.email, p.title, r.code]]>
 	<queryString>
 		<![CDATA[select u.email, p.title, r.code
 from public."user" as u
-left join public.users_profiles on users_profiles."user" = u.email
+left join public.users_profiles on users_profiles.user = u.email
 left join public.profile as p on p.id = users_profiles.profile
 left join public.profiles_rights on profiles_rights.profile = p.id
 left join public."right" as r on r.code = profiles_rights."right"]]>

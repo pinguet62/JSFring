@@ -26,7 +26,7 @@ public class Profile implements Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "ID", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private Integer id;
 
     @ManyToMany(fetch = EAGER)
@@ -38,13 +38,13 @@ public class Profile implements Serializable {
     // Validation
     @Length(min = 1, max = 255)
     // JPA
-    @Column(name = "TITLE", nullable = false, length = 255)
+    @Column(nullable = false, length = 255)
     private String title;
 
     @ManyToMany
     @JoinTable(name = "users_profiles", joinColumns = {
             @JoinColumn(name = "profile", nullable = false, updatable = false) }, inverseJoinColumns = {
-                    @JoinColumn(name = "\"USER\"", nullable = false, updatable = false) })
+                    @JoinColumn(name = "user", nullable = false, updatable = false) })
     private Set<User> users;
 
     public Profile() {

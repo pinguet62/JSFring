@@ -11,8 +11,6 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -43,30 +41,26 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 1;
 
-    @Column(name = "ACTIVE", nullable = false)
+    @Column(nullable = false)
     private Boolean active;
 
     // Validation
     @Pattern(regexp = EMAIL_REGEX, message = EMAIL_VALIDATION_MESSAGE)
     // JPA
     @Id
-    @Column(name = "EMAIL", nullable = false, length = 255)
+    @Column(nullable = false)
     private String email;
 
     @Temporal(TIMESTAMP)
-    @Column(name = "last_connection", nullable = true)
     private Date lastConnection;
 
     // Validation
     @Pattern(regexp = PASSWORD_REGEX)
     // JPA
-    @Column(name = "PASSWORD", nullable = false, length = 30)
+    @Column(nullable = false, length = 65)
     private String password;
 
-    @ManyToMany(fetch = EAGER)
-    @JoinTable(name = "users_profiles", joinColumns = {
-            @JoinColumn(name = "\"USER\"", nullable = false, updatable = false) }, inverseJoinColumns = {
-                    @JoinColumn(name = "profile", nullable = false, updatable = false) })
+    @ManyToMany(mappedBy = "users", fetch = EAGER)
     private Set<Profile> profiles;
 
     public User() {

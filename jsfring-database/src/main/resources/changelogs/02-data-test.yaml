@@ -1,0 +1,150 @@
+databaseChangeLog:
+-   changeSet:
+        id: 03-data-test
+        author: Pinguet62
+        comment: Initial data for testing
+        changes:
+        -   insert:
+                tableName: profile
+                columns:
+                -   column:
+                        name: title
+                        value: Profile admin
+        -   insert:
+                tableName: profiles_rights
+                columns:
+                -   column:
+                        name: profile
+                        value: 1
+                -   column:
+                        name: right
+                        value: RIGHT_RO
+        -   insert:
+                tableName: profiles_rights
+                columns:
+                -   column:
+                        name: profile
+                        value: 1
+                -   column:
+                        name: right
+                        value: PROFILE_RO
+        -   insert:
+                tableName: profiles_rights
+                columns:
+                -   column:
+                        name: profile
+                        value: 1
+                -   column:
+                        name: right
+                        value: PROFILE_RW
+        -   insert:
+                tableName: profile
+                columns:
+                -   column:
+                        name: title
+                        value: User admin
+        -   insert:
+                tableName: profiles_rights
+                columns:
+                -   column:
+                        name: profile
+                        value: 2
+                -   column:
+                        name: right
+                        value: PROFILE_RO
+        -   insert:
+                tableName: profiles_rights
+                columns:
+                -   column:
+                        name: profile
+                        value: 2
+                -   column:
+                        name: right
+                        value: USER_RO
+        -   insert:
+                tableName: profiles_rights
+                columns:
+                -   column:
+                        name: profile
+                        value: 2
+                -   column:
+                        name: right
+                        value: USER_RW
+        -   insert:
+                tableName: user
+                columns:
+                -   column:
+                        name: email
+                        value: root@admin.fr
+                -   column:
+                        name: password
+                        value: Azerty1!
+                -   column:
+                        name: active
+                        valueBoolean: true
+                -   column:
+                        name: last_connection
+                        valueDate: '2017-04-12T15:30:47'
+        -   insert:
+                tableName: users_profiles
+                columns:
+                -   column:
+                        name: user
+                        value: root@admin.fr
+                -   column:
+                        name: profile
+                        value: 1
+        -   insert:
+                tableName: user
+                columns:
+                -   column:
+                        name: email
+                        value: profile@admin.fr
+                -   column:
+                        name: password
+                        value: Azerty1!
+                -   column:
+                        name: active
+                        value: true
+        -   insert:
+                tableName: users_profiles
+                columns:
+                -   column:
+                        name: user
+                        value: profile@admin.fr
+                -   column:
+                        name: profile
+                        value: 1
+        -   insert:
+                tableName: users_profiles
+                columns:
+                -   column:
+                        name: user
+                        value: profile@admin.fr
+                -   column:
+                        name: profile
+                        value: 2
+        -   insert:
+                tableName: user
+                columns:
+                -   column:
+                        name: email
+                        value: user@admin.fr
+                -   column:
+                        name: password
+                        value: Azerty1!
+                -   column:
+                        name: active
+                        value: false
+                -   column:
+                        name: last_connection
+                        valueDate: '2017-04-12T15:30:47'
+        -   insert:
+                tableName: users_profiles
+                columns:
+                -   column:
+                        name: user
+                        value: user@admin.fr
+                -   column:
+                        name: profile
+                        value: 2

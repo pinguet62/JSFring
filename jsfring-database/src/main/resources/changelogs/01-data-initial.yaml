@@ -1,0 +1,51 @@
+databaseChangeLog:
+-   changeSet:
+        id: 02-data-initial
+        author: Pinguet62
+        comment: Required initial data (roles for security)
+        changes:
+        -   insert:
+                tableName: right
+                columns:
+                -   column:
+                        name: code
+                        value: RIGHT_RO
+                -   column:
+                        name: title
+                        value: Affichage des droits
+        -   insert:
+                tableName: right
+                columns:
+                -   column:
+                        name: code
+                        value: PROFILE_RO
+                -   column:
+                        name: title
+                        value: Affichage des profils
+        -   insert:
+                tableName: right
+                columns:
+                -   column:
+                        name: code
+                        value: PROFILE_RW
+                -   column:
+                        name: title
+                        value: Edition des profils
+        -   insert:
+                tableName: right
+                columns:
+                -   column:
+                        name: code
+                        value: USER_RO
+                -   column:
+                        name: title
+                        value: Affichage des utilisateurs
+        -   insert:
+                tableName: right
+                columns:
+                -   column:
+                        name: code
+                        value: USER_RW
+                -   column:
+                        name: title
+                        value: Edition des utilisateurs

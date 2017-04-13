@@ -44,6 +44,9 @@ after_failure:
 
 # Deploy
 after_script:
+    # Database upgrade
+    - mvn liquibase:update -pl jsfring-database
+    
     # Heroku: each application
     - mvn -DskipTests heroku:deploy -pl jsfring-batch-admin
     - mvn -DskipTests heroku:deploy -pl jsfring-webservice

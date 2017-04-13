@@ -11,9 +11,10 @@ Layers :
 	* <img src="https://www.javacodegeeks.com/wp-content/uploads/2014/07/spring-data-project.png" height="25" /> [**Spring Data**](http://projects.spring.io/spring-data) by <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" />
 	* Databases :
 		* SQL
+			* <img src="http://blog.soat.fr/wp-content/uploads/2015/10/lb-square.jpg" height="25" /> [Liquibase](http://www.liquibase.org)
+			* <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/langfr-540px-Postgresql_elephant.svg.png" height="25" /> [PostgreSQL](http://www.postgresql.org)
 			* **JPA**
 				* <img src="http://static.jboss.org/hibernate/images/hibernate_logo_whitebkg_200px.png" height="25" /> [Hibernate](http://hibernate.org)
-			* <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/langfr-540px-Postgresql_elephant.svg.png" height="25" /> [PostgreSQL](http://www.postgresql.org)
 		* NoSQL
 			* <img src="https://www.mongodb.org/assets/global/mongodb-logo-web-tagline-99280fe76cc002a93d023901c1a05df8b621f1c893084a580dee83de9be96630.png" height="25" /> [MongoDB](https://www.mongodb.org)
 	* <img src="http://devrates.com/project/logo/337129" height="25" /> [Querydsl](http://www.querydsl.com)

@@ -20,8 +20,7 @@ public class DbUnitConfig {
     @Bean
     public DatabaseConfigBean dbUnitDatabaseConfig() {
         DatabaseConfigBean databaseConfigBean = new DatabaseConfigBean();
-        // databaseConfigBean.setDatatypeFactory(new PostgresqlDataTypeFactory());
-        databaseConfigBean.setCaseSensitiveTableNames(true);
+        databaseConfigBean.setCaseSensitiveTableNames(true); // Because of reserved keyword
         databaseConfigBean.setEscapePattern("\"?\"");
         return databaseConfigBean;
     }
@@ -30,7 +29,6 @@ public class DbUnitConfig {
     public DatabaseDataSourceConnectionFactoryBean dbUnitDatabaseConnection() {
         DatabaseDataSourceConnectionFactoryBean databaseDataSourceConnectionFactoryBean = new DatabaseDataSourceConnectionFactoryBean();
         databaseDataSourceConnectionFactoryBean.setDataSource(dataSource);
-        // databaseDataSourceConnectionFactoryBean.setSchema("public");
         databaseDataSourceConnectionFactoryBean.setDatabaseConfig(dbUnitDatabaseConfig());
         return databaseDataSourceConnectionFactoryBean;
     }

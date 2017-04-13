@@ -7,8 +7,6 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -24,16 +22,13 @@ public class Right implements Serializable {
     private static final long serialVersionUID = 1;
 
     @Id
-    @Column(name = "CODE", unique = true, nullable = false, length = 63)
+    @Column(unique = true, nullable = false, length = 63)
     private String code;
 
-    @ManyToMany
-    @JoinTable(name = "profiles_rights", joinColumns = {
-            @JoinColumn(name = "\"RIGHT\"", nullable = false, updatable = false) }, inverseJoinColumns = {
-                    @JoinColumn(name = "profile", nullable = false, updatable = false) })
+    @ManyToMany(mappedBy = "rights")
     private Set<Profile> profiles;
 
-    @Column(name = "TITLE", nullable = false, length = 255)
+    @Column(nullable = false)
     private String title;
 
     public Right() {
