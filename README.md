@@ -119,7 +119,6 @@ Measure the degree to which the source code of a program is *tested*.
 [Coveralls](https://coveralls.io)
 [![Coverage Status](https://coveralls.io/repos/github/pinguet62/JSFring/badge.svg?branch=master)](https://coveralls.io/github/pinguet62/JSFring?branch=master)
 
-
 <img src="https://avatars2.githubusercontent.com/u/8226205?v=3&s=200" height="25" />
 [Codecov](https://codecov.io)
 [![codecov.io](https://codecov.io/github/pinguet62/JSFring/coverage.svg?branch=master)](https://codecov.io/github/pinguet62/JSFring?branch=master)
@@ -132,10 +131,10 @@ Multi web-application deployed on cloud... in continue!
 
 * Webapp:
 	* JSF: <img src="https://www-assets3.herokucdn.com/assets/logo-purple-08fb38cebb99e3aac5202df018eb337c5be74d5214768c90a8198c97420e4201.svg" height="25" /> [Heroku](https://www.heroku.com/home) [![Heroku](https://heroku-badge.herokuapp.com/?app=jsfring-webapp-jsf)](https://jsfring-webapp-jsf.herokuapp.com)
-	* AngularJS: <img src="https://www-assets3.herokucdn.com/assets/logo-purple-08fb38cebb99e3aac5202df018eb337c5be74d5214768c90a8198c97420e4201.svg" height="25" /> [![Heroku](https://heroku-badge.herokuapp.com/?app=jsfring-webapp-angularjs)](https://jsfring-webapp-angularjs.herokuapp.com)
-	* Angular 2: <img src="https://www-assets3.herokucdn.com/assets/logo-purple-08fb38cebb99e3aac5202df018eb337c5be74d5214768c90a8198c97420e4201.svg" height="25" /> [![Heroku](https://heroku-badge.herokuapp.com/?app=jsfring-webapp-angular2)](https://jsfring-webapp-angular2.herokuapp.com)
-	* Batch-admin: <img src="https://www-assets3.herokucdn.com/assets/logo-purple-08fb38cebb99e3aac5202df018eb337c5be74d5214768c90a8198c97420e4201.svg" height="25" /> [![Heroku](https://heroku-badge.herokuapp.com/?app=jsfring-batch-admin)](https://jsfring-batch-admin.herokuapp.com)
-* Webservice: <img src="https://www-assets3.herokucdn.com/assets/logo-purple-08fb38cebb99e3aac5202df018eb337c5be74d5214768c90a8198c97420e4201.svg" height="25" /> [![Heroku](https://heroku-badge.herokuapp.com/?app=jsfring-webservice)](https://jsfring-webservice.herokuapp.com)
+	* AngularJS: <img src="https://www-assets3.herokucdn.com/assets/logo-purple-08fb38cebb99e3aac5202df018eb337c5be74d5214768c90a8198c97420e4201.svg" height="25" /> [Heroku](https://www.heroku.com/home) [![Heroku](https://heroku-badge.herokuapp.com/?app=jsfring-webapp-angularjs)](https://jsfring-webapp-angularjs.herokuapp.com)
+	* Angular 2: <img src="https://www-assets3.herokucdn.com/assets/logo-purple-08fb38cebb99e3aac5202df018eb337c5be74d5214768c90a8198c97420e4201.svg" height="25" /> [Heroku](https://www.heroku.com/home) [![Heroku](https://heroku-badge.herokuapp.com/?app=jsfring-webapp-angular2)](https://jsfring-webapp-angular2.herokuapp.com)
+	* Batch-admin: <img src="https://www-assets3.herokucdn.com/assets/logo-purple-08fb38cebb99e3aac5202df018eb337c5be74d5214768c90a8198c97420e4201.svg" height="25" /> [Heroku](https://www.heroku.com/home) [![Heroku](https://heroku-badge.herokuapp.com/?app=jsfring-batch-admin)](https://jsfring-batch-admin.herokuapp.com)
+* Webservice: <img src="https://www-assets3.herokucdn.com/assets/logo-purple-08fb38cebb99e3aac5202df018eb337c5be74d5214768c90a8198c97420e4201.svg" height="25" /> [Heroku](https://www.heroku.com/home) [![Heroku](https://heroku-badge.herokuapp.com/?app=jsfring-webservice)](https://jsfring-webservice.herokuapp.com)
 
 ## Documentation
 
