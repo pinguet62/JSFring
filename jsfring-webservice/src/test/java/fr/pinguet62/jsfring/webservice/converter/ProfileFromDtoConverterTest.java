@@ -10,6 +10,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -32,7 +33,7 @@ import fr.pinguet62.jsfring.webserivce.dto.ProfileDto;
 
 /** @see ProfileFromDtoConverter */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = SpringBootConfig.class)
+@SpringBootTest(classes = SpringBootConfig.class, webEnvironment = DEFINED_PORT)
 public class ProfileFromDtoConverterTest {
 
     @Inject
@@ -72,8 +73,8 @@ public class ProfileFromDtoConverterTest {
     }
 
     /**
-     * If {@link ProfileDto#getRights()} is {@link Collection#isEmpty() empty}, the converted
-     * {@link Profile#getRights()} must also be {@link Collection#isEmpty() empty}
+     * If {@link ProfileDto#getRights()} is {@link Collection#isEmpty() empty}, the converted {@link Profile#getRights()} must
+     * also be {@link Collection#isEmpty() empty}
      */
     @Test
     public void test_convert_rights_empty() {
@@ -86,8 +87,7 @@ public class ProfileFromDtoConverterTest {
     }
 
     /**
-     * If {@link ProfileDto#getRights()} is {@code null}, the converted {@link Profile#getRights()} must also be
-     * {@code null}.
+     * If {@link ProfileDto#getRights()} is {@code null}, the converted {@link Profile#getRights()} must also be {@code null}.
      */
     @Test
     public void test_convert_rights_null() {

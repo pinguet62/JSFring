@@ -15,11 +15,12 @@ before_install:
     - mvn versions:display-plugin-updates
     - mvn versions:display-property-updates
 
-#install: # Default: `mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V`
+install: # Default: `mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V`
+    # Disabled
 
 # Override: add integration-test Maven phase
 script: # Default: `mvn test -B`
-    - mvn -B verify
+    - mvn -B package
     
     # Documentation: generate site
     # Disabled: - mvn site

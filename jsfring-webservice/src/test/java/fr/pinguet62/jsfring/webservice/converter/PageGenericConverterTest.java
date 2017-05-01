@@ -4,6 +4,7 @@ import static java.util.Arrays.asList;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
 import static org.springframework.core.ResolvableType.forClassWithGenerics;
 
 import javax.inject.Inject;
@@ -26,7 +27,7 @@ import fr.pinguet62.jsfring.webserivce.dto.PageDto;
 
 /** @see PageGenericConverter */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = SpringBootConfig.class)
+@SpringBootTest(classes = SpringBootConfig.class, webEnvironment = DEFINED_PORT)
 public class PageGenericConverterTest {
 
     @Inject

@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
 
 import javax.inject.Inject;
 
@@ -22,7 +23,7 @@ import fr.pinguet62.jsfring.webserivce.dto.RightDto;
 
 /** @see RightFromDtoConverter */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = SpringBootConfig.class)
+@SpringBootTest(classes = SpringBootConfig.class, webEnvironment = DEFINED_PORT)
 public class RightFromDtoConverterTest {
 
     @Inject

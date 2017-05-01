@@ -10,6 +10,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
 
 import java.util.Collection;
 import java.util.Date;
@@ -33,7 +34,7 @@ import fr.pinguet62.jsfring.webserivce.dto.UserDto;
 
 /** @see UserFromDtoConverter */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = SpringBootConfig.class)
+@SpringBootTest(classes = SpringBootConfig.class, webEnvironment = DEFINED_PORT)
 public class UserFromDtoConverterTest {
 
     @Inject
