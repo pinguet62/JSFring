@@ -106,68 +106,36 @@
 
 	<build>
 		<plugins>
-            <plugin>
-	            <!-- https://www.VersionEye.com -->
-	            <!-- Usage: -->
-	            <!-- mvn versioneye:create -->
-	            <!-- mvn versioneye:update -->
-                <groupId>com.versioneye</groupId>
-                <artifactId>versioneye-maven-plugin</artifactId>
-                <version>3.11.2</version>
-                <configuration>
-                    <apiKey>73246844526169383da8</apiKey>
-                    <ignoreDependencyManagement>true</ignoreDependencyManagement>
-                </configuration>
-            </plugin>
-            <plugin>
-                <!-- Usage: -->
-                <!-- mvn versions:display-dependency-updates -->
-                <!-- mvn versions:display-plugin-updates -->
-                <!-- mvn versions:display-property-updates -->
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>versions-maven-plugin</artifactId>
-                <version>2.3</version>
-                <configuration>
-                    <processParent>false</processParent>
-                    <processDependencyManagement>false</processDependencyManagement>
-                </configuration>
-            </plugin>
-
-			<!-- Unit test -->
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
+				<!-- https://www.VersionEye.com -->
+				<!-- Usage: -->
+				<!-- mvn versioneye:create -->
+				<!-- mvn versioneye:update -->
+				<groupId>com.versioneye</groupId>
+				<artifactId>versioneye-maven-plugin</artifactId>
+				<version>3.11.2</version>
 				<configuration>
-					<argLine>${surefireArgLine}</argLine>
-					<excludes>
-						<exclude>**/*ITTest.java</exclude>
-					</excludes>
+					<apiKey>73246844526169383da8</apiKey>
+					<ignoreDependencyManagement>true</ignoreDependencyManagement>
+				</configuration>
+			</plugin>
+			<plugin>
+				<!-- Usage: -->
+				<!-- mvn versions:display-dependency-updates -->
+				<!-- mvn versions:display-plugin-updates -->
+				<!-- mvn versions:display-property-updates -->
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<processParent>false</processParent>
+					<processDependencyManagement>false</processDependencyManagement>
 				</configuration>
 			</plugin>
 
-			<!-- Integration test -->
+			<!-- Code Coverage -->
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-failsafe-plugin</artifactId>
-				<configuration>
-					<argLine>${failsafeArgLine}</argLine>
-					<includes>
-						<include>**/*ITTest.java</include>
-					</includes>
-				</configuration>
-				<executions>
-					<execution>
-						<id>integration-test</id>
-						<goals>
-							<goal>integration-test</goal>
-							<goal>verify</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-			<!-- Code Coverage: Agent -->
-			<plugin>
+				<!-- Agent -->
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.7.9</version>
@@ -182,68 +150,34 @@
 					</excludes>
 				</configuration>
 				<executions>
-					<!-- Unit test -->
 					<execution>
-						<id>pre-unit-test</id>
-						<!-- Default: <phase>initialize</phase> -->
 						<goals>
 							<goal>prepare-agent</goal>
 						</goals>
-						<configuration>
-							<destFile>${session.executionRootDirectory}/target/jacoco.exec</destFile>
-							<propertyName>surefireArgLine</propertyName>
-						</configuration>
 					</execution>
 					<execution>
-						<id>post-unit-test</id>
-						<phase>test</phase>
+						<id>report</id>
+						<phase>prepare-package</phase>
 						<goals>
 							<goal>report</goal>
 						</goals>
-						<configuration>
-							<dataFile>${session.executionRootDirectory}/target/jacoco.exec</dataFile>
-							<outputDirectory>${project.reporting.outputDirectory}/jacoco</outputDirectory>
-						</configuration>
-					</execution>
-					<!-- Integration test -->
-					<execution>
-						<id>pre-integration-test</id>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-						<configuration>
-							<destFile>${session.executionRootDirectory}/target/jacoco-it.exec</destFile>
-							<propertyName>failsafeArgLine</propertyName>
-						</configuration>
-					</execution>
-					<execution>
-						<id>post-integration-test</id>
-						<phase>post-integration-test</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-						<configuration>
-							<dataFile>${session.executionRootDirectory}/target/jacoco-it.exec</dataFile>
-							<outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory>
-						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-
-			<!-- Code Coverage: Coveralls -->
 			<plugin>
+				<!-- Reporting -->
+				<!-- https://coveralls.io -->
 				<groupId>org.eluder.coveralls</groupId>
 				<artifactId>coveralls-maven-plugin</artifactId>
 				<version>4.3.0</version>
 			</plugin>
 
-			<!-- Site -->
+			<!-- Documentation: site -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
 				<configuration>
-					<!-- Deployed by com.github.github:site-maven-plugin:site -->
+					<!-- See com.github.github:site-maven-plugin:site -->
 					<skipDeploy>true</skipDeploy>
 				</configuration>
 			</plugin>

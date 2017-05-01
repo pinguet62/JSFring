@@ -19,17 +19,13 @@ before_install:
 
 # Override: add integration-test Maven phase
 script: # Default: `mvn test -B`
-    # Spring-Boot: external config: use "spring.application.json" command line argument
-    - mvn -B -Dspring.application.json="$SPRING_APPLICATION_JSON" verify
+    - mvn -B verify
     
     # Documentation: generate site
     # Disabled: - mvn site
 
 # Reporting
 after_success:
-    # JaCoCo: workaround: Maven `jacoco:report@post-integration-test` goal not working
-    - mvn verify -DskipTests -B
-    
     # Coveralls.io: publish
     - mvn coveralls:report
     # Codecov.io: publish
