@@ -23,9 +23,9 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
+import fr.pinguet62.jsfring.common.PasswordGenerator;
 import fr.pinguet62.jsfring.model.sql.Profile;
 import fr.pinguet62.jsfring.model.sql.User;
-import fr.pinguet62.jsfring.util.PasswordGenerator;
 
 /** @see AbstractService */
 @RunWith(SpringRunner.class)

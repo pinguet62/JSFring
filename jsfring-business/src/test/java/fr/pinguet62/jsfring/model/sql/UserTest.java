@@ -16,7 +16,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import fr.pinguet62.jsfring.util.Combinator;
+import fr.pinguet62.jsfring.common.Combinator;
 
 /** @see User */
 public final class UserTest {

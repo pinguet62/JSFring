@@ -9,7 +9,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:composite="http://java.sun.com/jsf/composite">
 
-<composite:interface componentType="fr.pinguet62.jsfring.gui.component.DataTableComponent"
+<composite:interface componentType="fr.pinguet62.jsfring.webapp.jsf.component.DataTableComponent"
 	shortDescription="PrimeFaces DataTable for CRUD operations.">
 	<composite:attribute name="lazy" type="java.lang.Boolean"
 		default="false" shortDescription="If loading must be lazy." />
@@ -21,7 +21,7 @@
 
 	<!-- CRUD operations -->
 	<composite:attribute name="bean"
-		type="fr.pinguet62.jsfring.gui.AbstractBean"
+		type="fr.pinguet62.jsfring.webapp.jsf.AbstractBean"
 		shortDescription="The Bean used for CRUD operations." required="true" />
 	<composite:attribute name="createView"
 		shortDescription="View for creation. Use 'selectedValue' as for current value." />

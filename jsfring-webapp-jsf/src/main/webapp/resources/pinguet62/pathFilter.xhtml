@@ -9,11 +9,11 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:composite="http://java.sun.com/jsf/composite">
 
-<composite:interface componentType="fr.pinguet62.jsfring.gui.component.filter.PathFilterComponent">
+<composite:interface componentType="fr.pinguet62.jsfring.webapp.jsf.component.filter.PathFilterComponent">
 	<composite:attribute name="title" type="java.lang.String"
 		shortDescription="The label title." />
 	<composite:attribute name="value"
-		type="fr.pinguet62.jsfring.gui.component.filter.NumberPathFilter" />
+		type="fr.pinguet62.jsfring.webapp.jsf.component.filter.NumberPathFilter" />
 </composite:interface>
 
 <composite:implementation>
@@ -27,7 +27,7 @@
 
 		<p:selectOneMenu binding="#{cc.operatorSelectOneMenu}"
 			value="#{cc.operator}"
-			converter="fr.pinguet62.jsfring.gui.component.filter.OperatorConverter"
+			converter="fr.pinguet62.jsfring.webapp.jsf.component.filter.OperatorConverter"
 			style="display: inline-block; vertical-align: middle;">
 			<f:selectItem itemValue="#{null}" itemLabel="" />
 			<f:selectItems value="#{cc.value.operators}" var="op"

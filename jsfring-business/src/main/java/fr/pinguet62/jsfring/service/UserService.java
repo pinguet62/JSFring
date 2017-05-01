@@ -13,9 +13,9 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import fr.pinguet62.jsfring.common.PasswordGenerator;
 import fr.pinguet62.jsfring.dao.sql.UserDao;
 import fr.pinguet62.jsfring.model.sql.User;
-import fr.pinguet62.jsfring.util.PasswordGenerator;
 
 /** The service for {@link User}. */
 @Service

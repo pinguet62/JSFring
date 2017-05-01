@@ -38,12 +38,12 @@ import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
+import fr.pinguet62.jsfring.common.PasswordGenerator;
 import fr.pinguet62.jsfring.dao.sql.common.CommonRepository;
 import fr.pinguet62.jsfring.model.sql.Profile;
 import fr.pinguet62.jsfring.model.sql.QRight;
 import fr.pinguet62.jsfring.model.sql.Right;
 import fr.pinguet62.jsfring.model.sql.User;
-import fr.pinguet62.jsfring.util.PasswordGenerator;
 
 /** @see CommonRepository */
 @RunWith(SpringRunner.class)
