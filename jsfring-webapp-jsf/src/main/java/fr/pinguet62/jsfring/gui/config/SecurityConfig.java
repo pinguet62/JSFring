@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.gui.config.security;
+package fr.pinguet62.jsfring.gui.config;
 
 import javax.inject.Inject;
 
@@ -14,7 +14,7 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 
 @Configuration
 @EnableWebSecurity
-public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static final String LOGIN_PROCESSING_URL = "/j_spring_security_check";
 

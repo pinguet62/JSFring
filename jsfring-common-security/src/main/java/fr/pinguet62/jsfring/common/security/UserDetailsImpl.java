@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.ws.config.security;
+package fr.pinguet62.jsfring.common.security;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -12,7 +12,6 @@ import fr.pinguet62.jsfring.model.sql.Profile;
 import fr.pinguet62.jsfring.model.sql.Right;
 import fr.pinguet62.jsfring.model.sql.User;
 
-// TODO Move to common project
 /**
  * Simple implementation of {@link UserDetails} wrapping {@link User}.
  *

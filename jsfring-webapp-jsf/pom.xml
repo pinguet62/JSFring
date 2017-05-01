@@ -21,12 +21,17 @@
 	</properties>
 
 	<dependencies>
-		<!-- Project -->
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>business</artifactId>
-			<version>${project.version}</version>
-		</dependency>
+		<!-- ===== Project ===== -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>business</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>common-security</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>common-test</artifactId>
@@ -38,13 +43,6 @@
 			<artifactId>webapp-jsf-htmlunit</artifactId>
 			<version>${project.version}</version>
 			<scope>test</scope>
-		</dependency>
-
-		<!-- Jasper Reports -->
-		<dependency>
-			<groupId>net.sf.jasperreports</groupId>
-			<artifactId>jasperreports</artifactId>
-			<version>6.4.0</version>
 		</dependency>
 
 		<!-- ===== Webapp ===== -->
@@ -92,7 +90,7 @@
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
-			<version>6.0</version>
+			<version>6.1</version>
 		</dependency>
 		<dependency>
 			<!-- Themes -->
@@ -131,6 +129,13 @@
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 		</dependency>
+
+        <!-- Jasper Reports -->
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>6.4.0</version>
+        </dependency>
 
 		<!-- ===== Test ===== -->
 		<dependency>

@@ -16,7 +16,7 @@
 	<description>Scheduled jobs</description>
 
 	<dependencies>
-		<!-- Project -->
+		<!-- ===== Project ===== -->
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>business</artifactId>

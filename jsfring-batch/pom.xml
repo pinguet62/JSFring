@@ -16,7 +16,7 @@
 	<description>Batchs scripts</description>
 
 	<dependencies>
-		<!-- Project -->
+		<!-- ===== Project ===== -->
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>business</artifactId>
@@ -29,6 +29,7 @@
 			<scope>test</scope>
 		</dependency>
 
+        <!-- ===== Batch ===== -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-batch</artifactId>

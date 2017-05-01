@@ -9,11 +9,11 @@ env:
         - export JAVA_OPTS=-Xmx1g
 
 before_install:
-    # VersionEye
+    # Versionning
     # Disabled: - mvn versioneye:update
-    
-    # Codecov.io: install
-    - pip install --user codecov
+    - mvn versions:display-dependency-updates
+    - mvn versions:display-plugin-updates
+    - mvn versions:display-property-updates
 
 #install: # Default: `mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V`
 
@@ -22,7 +22,7 @@ script: # Default: `mvn test -B`
     # Spring-Boot: external config: use "spring.application.json" command line argument
     - mvn -B -Dspring.application.json="$SPRING_APPLICATION_JSON" verify
     
-    # Site: generate
+    # Documentation: generate site
     # Disabled: - mvn site
 
 # Reporting
@@ -33,7 +33,7 @@ after_success:
     # Coveralls.io: publish
     - mvn coveralls:report
     # Codecov.io: publish
-    - codecov
+    - bash <(curl -s https://codecov.io/bash)
 
 # Information about failure
 after_failure:
@@ -44,15 +44,15 @@ after_failure:
 
 # Deploy
 after_script:
-    # Database upgrade
+    # Documentation: GitHub pages site
+    # Disabled: - mvn --non-recursive com.github.github:site-maven-plugin:site
+    
+    # Database: Liquibase upgrade
     - mvn liquibase:update -pl jsfring-database
     
-    # Heroku: each application
+    # Application: Heroku
     - mvn -DskipTests heroku:deploy -pl jsfring-batch-admin
     - mvn -DskipTests heroku:deploy -pl jsfring-webservice
     - mvn -DskipTests heroku:deploy -pl jsfring-webapp-angularjs
     - mvn -DskipTests heroku:deploy -pl jsfring-webapp-angular2
     - mvn -DskipTests heroku:deploy -pl jsfring-webapp-jsf
-    
-    # Site: GitHub pages
-    # Disabled: - mvn --non-recursive com.github.github:site-maven-plugin:site

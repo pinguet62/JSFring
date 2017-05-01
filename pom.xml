@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.2.RELEASE</version>
+		<version>1.5.3.RELEASE</version>
 	</parent>
 
 	<groupId>fr.pinguet62.jsfring</groupId>
@@ -18,6 +18,7 @@
 		<module>jsfring-database</module>
 		<module>jsfring-common</module>
 		<module>jsfring-common-test</module>
+		<module>jsfring-common-security</module>
 		<module>jsfring-business</module>
 		<module>jsfring-indexer-nosql</module>
 		<module>jsfring-task</module>
@@ -35,8 +36,6 @@
 		<dependency.locations.enabled>false</dependency.locations.enabled>
 		<!-- Dependencies -->
 		<poi.version>3.14</poi.version>
-		<!-- TODO: Migrate groupId to com.querydsl -->
-		<!-- <querydsl.version>3.7.3</querydsl.version> -->
 	</properties>
 
 	<dependencies>
@@ -107,19 +106,32 @@
 
 	<build>
 		<plugins>
-			<!-- VersionEye -->
-			<!-- Usage: -->
-			<!-- mvn versioneye:create -->
-			<!-- mvn versioneye:update -->
-			<plugin>
-				<groupId>com.versioneye</groupId>
-				<artifactId>versioneye-maven-plugin</artifactId>
-				<version>3.11.2</version>
-				<configuration>
-					<apiKey>46d9490ff8220b44cdd1</apiKey>
-					<ignoreDependencyManagement>true</ignoreDependencyManagement>
-				</configuration>
-			</plugin>
+            <plugin>
+	            <!-- https://www.VersionEye.com -->
+	            <!-- Usage: -->
+	            <!-- mvn versioneye:create -->
+	            <!-- mvn versioneye:update -->
+                <groupId>com.versioneye</groupId>
+                <artifactId>versioneye-maven-plugin</artifactId>
+                <version>3.11.2</version>
+                <configuration>
+                    <apiKey>73246844526169383da8</apiKey>
+                    <ignoreDependencyManagement>true</ignoreDependencyManagement>
+                </configuration>
+            </plugin>
+            <plugin>
+                <!-- Usage: -->
+                <!-- mvn versions:display-dependency-updates -->
+                <!-- mvn versions:display-plugin-updates -->
+                <!-- mvn versions:display-property-updates -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <processParent>false</processParent>
+                    <processDependencyManagement>false</processDependencyManagement>
+                </configuration>
+            </plugin>
 
 			<!-- Unit test -->
 			<plugin>

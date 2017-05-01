@@ -16,7 +16,7 @@
 	<description>Business layer (model, DAO, service)</description>
 
 	<dependencies>
-		<!-- Project -->
+		<!-- ===== Project ===== -->
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>common</artifactId>
@@ -62,11 +62,10 @@
 			<version>2.2.1-b05</version>
 		</dependency>
 
-		<!-- Search query -->
+		<!-- ===== Search query ===== -->
 		<dependency>
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-apt</artifactId>
-			<!-- TODO check <scope>provided</scope> -->
 		</dependency>
 		<dependency>
 			<groupId>com.querydsl</groupId>

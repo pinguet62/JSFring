@@ -16,7 +16,7 @@
 	<description>Populate database from Allocine.fr</description>
 
 	<dependencies>
-		<!-- Project -->
+		<!-- ===== Project ===== -->
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>business</artifactId>

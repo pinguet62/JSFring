@@ -1,6 +1,6 @@
 package fr.pinguet62.jsfring.gui;
 
-import static fr.pinguet62.jsfring.gui.config.security.UserDetailsUtils.getCurrent;
+import static fr.pinguet62.jsfring.common.security.UserDetailsUtils.getCurrent;
 import static fr.pinguet62.jsfring.gui.htmlunit.AbstractPage.get;
 import static fr.pinguet62.jsfring.model.sql.User.PASSWORD_REGEX;
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;

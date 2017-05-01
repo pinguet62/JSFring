@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.gui.config.security;
+package fr.pinguet62.jsfring.common.security;
 
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -6,7 +6,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public final class UserDetailsUtils {
+public  class UserDetailsUtils {
 
     /**
      * Get the current logged {@link UserDetails}.
@@ -24,8 +24,5 @@ public final class UserDetailsUtils {
         return (UserDetails) authentication.getPrincipal();
     }
 
-    // Util
-    private UserDetailsUtils() {
-    }
 
 }

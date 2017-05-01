@@ -1,6 +1,6 @@
-package fr.pinguet62.jsfring.gui.config.security;
+package fr.pinguet62.jsfring.common.security;
 
-import javax.inject.Inject;
+import static java.util.Objects.requireNonNull;
 
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import fr.pinguet62.jsfring.dao.sql.UserDao;
 import fr.pinguet62.jsfring.model.sql.User;
 
+// TODO Move to common project
 /**
  * Implementation of {@link UserDetailsService}.<br>
  * <ol>
@@ -29,24 +30,27 @@ import fr.pinguet62.jsfring.model.sql.User;
 @Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    @Inject
-    private UserDao userDao;
+    private final UserDao userDao;
+
+    public UserDetailsServiceImpl(UserDao userDao) {
+        this.userDao = requireNonNull(userDao);
+    }
 
     /**
      * The login process.<br>
      * Reset {@link User#lastConnection} after connection.
      *
-     * @param email
-     *            The {@link User#email user's login}.
+     * @param login
+     *            The {@link User#login user's login}.
      * @return The {@link UserDetails}.
      * @throws UsernameNotFoundException
-     *             If {@link User#getEmail()} is not found.
+     *             If {@link User} is not found.
      * @see UserDetailsImpl
      */
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userDao.findOne(email);
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+        User user = userDao.findOne(login);
 
         if (user == null)
             throw new UsernameNotFoundException(null);

@@ -1,7 +1,7 @@
 package fr.pinguet62.jsfring.ws;
 
+import static fr.pinguet62.jsfring.common.security.UserDetailsUtils.getCurrent;
 import static fr.pinguet62.jsfring.ws.OAuthWebservice.PATH;
-import static fr.pinguet62.jsfring.ws.config.security.UserDetailsUtils.getCurrent;
 import static java.util.stream.Collectors.toList;
 
 import java.util.List;
