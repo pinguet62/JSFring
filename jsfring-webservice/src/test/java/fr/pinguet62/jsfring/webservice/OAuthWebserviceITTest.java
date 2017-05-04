@@ -1,8 +1,8 @@
 package fr.pinguet62.jsfring.webservice;
 
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
-import static fr.pinguet62.jsfring.webserivce.OAuthWebservice.AUTORITIES_PATH;
-import static fr.pinguet62.jsfring.webserivce.OAuthWebservice.PATH;
+import static fr.pinguet62.jsfring.webservice.OAuthWebservice.AUTORITIES_PATH;
+import static fr.pinguet62.jsfring.webservice.OAuthWebservice.PATH;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
@@ -26,7 +26,7 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.webserivce.OAuthWebservice;
+import fr.pinguet62.jsfring.webservice.OAuthWebservice;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringBootConfig.class, webEnvironment = DEFINED_PORT)

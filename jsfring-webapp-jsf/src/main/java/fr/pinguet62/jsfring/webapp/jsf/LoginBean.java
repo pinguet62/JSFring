@@ -1,6 +1,6 @@
 package fr.pinguet62.jsfring.webapp.jsf;
 
-import static fr.pinguet62.jsfring.webapp.jsf.config.SecurityConfig.LOGIN_PROCESSING_URL;
+import static fr.pinguet62.jsfring.webapp.jsf.config.WebSecurityConfig.LOGIN_PROCESSING_URL;
 import static javax.faces.application.FacesMessage.SEVERITY_ERROR;
 import static javax.faces.context.FacesContext.getCurrentInstance;
 

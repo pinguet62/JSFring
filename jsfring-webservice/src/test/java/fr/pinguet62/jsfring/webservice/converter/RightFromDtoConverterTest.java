@@ -18,8 +18,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.model.sql.Right;
-import fr.pinguet62.jsfring.webserivce.converter.RightFromDtoConverter;
-import fr.pinguet62.jsfring.webserivce.dto.RightDto;
+import fr.pinguet62.jsfring.webservice.converter.RightFromDtoConverter;
+import fr.pinguet62.jsfring.webservice.dto.RightDto;
 
 /** @see RightFromDtoConverter */
 @RunWith(SpringRunner.class)

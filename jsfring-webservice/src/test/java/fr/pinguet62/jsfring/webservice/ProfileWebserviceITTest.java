@@ -1,7 +1,7 @@
 package fr.pinguet62.jsfring.webservice;
 
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
-import static fr.pinguet62.jsfring.webserivce.ProfileWebservice.PATH;
+import static fr.pinguet62.jsfring.webservice.ProfileWebservice.PATH;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -27,8 +27,8 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.dao.sql.ProfileDao;
 import fr.pinguet62.jsfring.model.sql.Profile;
-import fr.pinguet62.jsfring.webserivce.ProfileWebservice;
-import fr.pinguet62.jsfring.webserivce.dto.ProfileDto;
+import fr.pinguet62.jsfring.webservice.ProfileWebservice;
+import fr.pinguet62.jsfring.webservice.dto.ProfileDto;
 
 /** @see ProfileWebservice */
 @RunWith(SpringRunner.class)

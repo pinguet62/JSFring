@@ -1,6 +1,6 @@
 package fr.pinguet62.jsfring.webapp.jsf;
 
-import static fr.pinguet62.jsfring.common.security.UserDetailsUtils.getCurrent;
+import static fr.pinguet62.jsfring.common.security.userdetails.UserDetailsUtils.getCurrent;
 import static fr.pinguet62.jsfring.model.sql.User.PASSWORD_REGEX;
 import static fr.pinguet62.jsfring.model.sql.User.PASSWORD_VALIDATION_MESSAGE;
 import static javax.faces.application.FacesMessage.SEVERITY_ERROR;

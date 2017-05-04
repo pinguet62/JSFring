@@ -28,8 +28,8 @@ import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.dao.sql.RightDao;
 import fr.pinguet62.jsfring.model.sql.Profile;
 import fr.pinguet62.jsfring.model.sql.Right;
-import fr.pinguet62.jsfring.webserivce.converter.ProfileFromDtoConverter;
-import fr.pinguet62.jsfring.webserivce.dto.ProfileDto;
+import fr.pinguet62.jsfring.webservice.converter.ProfileFromDtoConverter;
+import fr.pinguet62.jsfring.webservice.dto.ProfileDto;
 
 /** @see ProfileFromDtoConverter */
 @RunWith(SpringRunner.class)

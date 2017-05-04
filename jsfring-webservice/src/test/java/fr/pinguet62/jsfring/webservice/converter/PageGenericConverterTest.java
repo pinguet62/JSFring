@@ -22,8 +22,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.common.spring.GenericTypeDescriptor;
-import fr.pinguet62.jsfring.webserivce.converter.PageGenericConverter;
-import fr.pinguet62.jsfring.webserivce.dto.PageDto;
+import fr.pinguet62.jsfring.webservice.converter.PageGenericConverter;
+import fr.pinguet62.jsfring.webservice.dto.PageDto;
 
 /** @see PageGenericConverter */
 @RunWith(SpringRunner.class)

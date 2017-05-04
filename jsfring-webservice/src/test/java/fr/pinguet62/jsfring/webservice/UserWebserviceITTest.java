@@ -1,7 +1,7 @@
 package fr.pinguet62.jsfring.webservice;
 
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
-import static fr.pinguet62.jsfring.webserivce.UserWebservice.PATH;
+import static fr.pinguet62.jsfring.webservice.UserWebservice.PATH;
 import static java.util.Calendar.SECOND;
 import static org.apache.commons.lang3.time.DateUtils.truncate;
 import static org.hamcrest.Matchers.equalTo;
@@ -29,8 +29,8 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.dao.sql.UserDao;
 import fr.pinguet62.jsfring.model.sql.User;
-import fr.pinguet62.jsfring.webserivce.UserWebservice;
-import fr.pinguet62.jsfring.webserivce.dto.UserDto;
+import fr.pinguet62.jsfring.webservice.UserWebservice;
+import fr.pinguet62.jsfring.webservice.dto.UserDto;
 
 /** @see UserWebservice */
 @RunWith(SpringRunner.class)

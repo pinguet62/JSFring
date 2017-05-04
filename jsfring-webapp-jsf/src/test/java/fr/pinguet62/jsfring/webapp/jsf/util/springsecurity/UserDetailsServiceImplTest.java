@@ -28,7 +28,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.querydsl.core.BooleanBuilder;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.common.security.UserDetailsServiceImpl;
+import fr.pinguet62.jsfring.common.security.userdetails.UserDetailsServiceImpl;
 import fr.pinguet62.jsfring.model.sql.User;
 import fr.pinguet62.jsfring.service.UserService;
 

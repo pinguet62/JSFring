@@ -97,35 +97,37 @@ public class OAuth2ITTest {
     private WebApplicationContext webApplicationContext;
 
     @Before
-    public void before() {
-        user = userDao.findAll().get(0);
+    public void initMock() {
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).addFilter(springSecurityFilterChain).build();
     }
 
     @Before
-    public void setup() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).addFilter(springSecurityFilterChain).build();
+    public void initUser() {
+        user = userDao.findAll().get(0);
     }
 
     /**
      * Call the OAuth2 server with specific {@code "response_type"}, click on submit button.
-     * 
+     *
      * @return The target url.
      */
     private URL test_authorize(String responseType) throws IOException {
-        String authorization = "Basic " + formatAuthorization(user.getEmail(), user.getPassword());
-        // @formatter:off
-        String url = BASE_URL + "/oauth/authorize?"
-                + format(
-                        asList(
-                                new BasicNameValuePair(CLIENT_ID, clientId),
-                                new BasicNameValuePair(RESPONSE_TYPE, responseType),
-                                new BasicNameValuePair(OAuth2Utils.SCOPE, "read"),
-                                new BasicNameValuePair(REDIRECT_URI, redirectUri)),
-                        UTF_8);
-        // @formatter:on
-
         try (WebClient webClient = new WebClient()) {
+            // Auto-fill native dialog (not supported by HtmlUnit)
+            String authorization = "Basic " + formatAuthorization(user.getEmail(), user.getPassword());
             webClient.addRequestHeader("Authorization", authorization);
+
+            // @formatter:off
+            String url = BASE_URL + "/oauth/authorize?"
+                    + format(
+                            asList(
+                                    new BasicNameValuePair(CLIENT_ID, clientId),
+                                    new BasicNameValuePair(RESPONSE_TYPE, responseType),
+                                    new BasicNameValuePair(OAuth2Utils.SCOPE, "read"),
+                                    new BasicNameValuePair(REDIRECT_URI, redirectUri)),
+                            UTF_8);
+            // @formatter:on
+
             HtmlPage page = webClient.getPage(url);
 
             // TODO Disable Authorization cache
@@ -153,9 +155,8 @@ public class OAuth2ITTest {
      * <li><u>Parameter:</u> {@code "scope"} = {@code "read"}</li>
      * <li><u>Parameter:</u> {@code "redirect_uri"}</li>
      * </ul>
-     *
+     * <p>
      * <b>Response:</b> values in {@link URI#getQuery() URL query}:
-     *
      * <ul>
      * <li><u>Parameter:</u> {@code "code"}</li>
      * </ul>
@@ -172,9 +173,8 @@ public class OAuth2ITTest {
 
     /**
      * Use {@code "token"} response type, who requires <i>grant type</i> {@code "implicit"}.
-     *
+     * <p>
      * <b>Request:</b>
-     *
      * <ul>
      * <li><u>URL:</u> {@code "/oauth/authorize"}</li>
      * <li><u>Method:</u> {@code GET}</li>
@@ -184,9 +184,8 @@ public class OAuth2ITTest {
      * <li><u>Parameter:</u> {@code "scope"} = {@code "read"}</li>
      * <li><u>Parameter:</u> {@code "redirect_uri"}</li>
      * </ul>
-     *
+     * <p>
      * <b>Response:</b> values in {@link URI#getFragment() URL fragment}:
-     *
      * <ul>
      * <li><u>Parameter:</u> {@code "access_token"}</li>
      * <li><u>Parameter:</u> {@code "token_type"} = {@code "bearer"}</li>
@@ -207,7 +206,6 @@ public class OAuth2ITTest {
 
     /**
      * <b>Request:</b>
-     *
      * <ul>
      * <li><u>URL:</u> {@code "/oauth/token"}</li>
      * <li><u>Method:</u> {@code POST}</li>
@@ -216,9 +214,8 @@ public class OAuth2ITTest {
      * <li><u>Parameter:</u> {@code "username"}</li>
      * <li><u>Parameter:</u> {@code "password"}</li>
      * </ul>
-     *
+     * <p>
      * <b>Response:</b> JSON with values:
-     *
      * <ul>
      * <li><u>Value:</u> {@code "access_token"}</li>
      * <li><u>Value:</u> {@code "token_type"} = {@code "bearer"}</li>
@@ -236,10 +233,10 @@ public class OAuth2ITTest {
         ResultActions result =
                 mockMvc.perform(
                         post("/oauth/token")
-                            .header("Authorization", authorization)
-                            .param(GRANT_TYPE, "password")
-                            .param("username", user.getEmail())
-                            .param("password", user.getPassword()))
+                        .header("Authorization", authorization)
+                        .param(GRANT_TYPE, "password")
+                        .param("username", user.getEmail())
+                        .param("password", user.getPassword()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$." + ACCESS_TOKEN, is(notNullValue())))
                 .andExpect(jsonPath("$." + TOKEN_TYPE, is(equalTo("bearer"))))
