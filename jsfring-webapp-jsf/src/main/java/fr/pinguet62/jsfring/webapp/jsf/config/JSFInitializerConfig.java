@@ -1,6 +1,5 @@
 package fr.pinguet62.jsfring.webapp.jsf.config;
 
-import static org.slf4j.LoggerFactory.getLogger;
 import static org.springframework.boot.autoconfigure.AutoConfigurationPackages.get;
 import static org.springframework.util.ClassUtils.resolveClassName;
 
@@ -15,7 +14,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.HandlesTypes;
 
-import org.slf4j.Logger;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackages;
@@ -27,6 +25,8 @@ import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.core.type.filter.AssignableTypeFilter;
 
 import com.sun.faces.config.FacesInitializer;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Fix for JSF with Spring Boot.
@@ -45,10 +45,9 @@ import com.sun.faces.config.FacesInitializer;
  * @see <a href="https://github.com/spring-projects/spring-boot/issues/3216"> Spring-Boot issue #3216</a>
  * @see FacesInitializer
  */
+@Slf4j
 @Configuration
 public class JSFInitializerConfig implements ServletContextInitializer {
-
-    private static final Logger LOGGER = getLogger(JSFInitializerConfig.class);
 
     @Inject
     private BeanFactory beanFactory;
@@ -69,10 +68,10 @@ public class JSFInitializerConfig implements ServletContextInitializer {
         ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
         for (Class<?> class1 : initializerClass.getAnnotation(HandlesTypes.class).value())
             if (class1.isAnnotation()) {
-                LOGGER.debug("Filtering on annotation {}", class1);
+                log.debug("Filtering on annotation {}", class1);
                 scanner.addIncludeFilter(new AnnotationTypeFilter((Class<? extends Annotation>) class1));
             } else {
-                LOGGER.debug("Filtering on parent class or interface {}", class1);
+                log.debug("Filtering on parent class or interface {}", class1);
                 scanner.addIncludeFilter(new AssignableTypeFilter(class1));
             }
         return scanner;
@@ -90,7 +89,7 @@ public class JSFInitializerConfig implements ServletContextInitializer {
             List<String> basePackagesToScan) {
         Set<Class<?>> annotatedClasses = new HashSet<>();
         for (String basePackage : basePackagesToScan) {
-            LOGGER.debug("Scanning under {}", basePackage);
+            log.debug("Scanning under {}", basePackage);
             for (BeanDefinition bd : scanner.findCandidateComponents(basePackage))
                 annotatedClasses.add(resolveClassName(bd.getBeanClassName(), getClass().getClassLoader()));
         }

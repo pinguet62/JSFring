@@ -11,7 +11,7 @@ export abstract class CrudService<T> {
 
     abstract getServiceSubUrl(): string;
 
-    constructor(protected http: OAuthHttp) { }
+    constructor(protected http: OAuthHttp) {}
 
     findAll(): Observable<T[]> {
         let targetUrl: string = this.baseUrl + this.getServiceSubUrl();

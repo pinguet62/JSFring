@@ -19,6 +19,8 @@ import javax.servlet.ServletResponse;
 import org.springframework.beans.factory.annotation.Value;
 
 import fr.pinguet62.jsfring.webapp.jsf.config.scope.SpringRequestScoped;
+import lombok.Getter;
+import lombok.Setter;
 
 /** Bean for user login. */
 @Named
@@ -28,27 +30,22 @@ public final class LoginBean implements Serializable {
     private static final long serialVersionUID = 1;
 
     /** Contains the error message returned by Spring Security in the URL. */
-    // TODO CDI
+    @Getter
+    @Setter
     @Value("#{request.getParameter('error')}")
     private String error;
 
+    @Getter
+    @Setter
     private String password;
 
+    @Getter
+    @Setter
     private boolean rememberMe;
 
+    @Getter
+    @Setter
     private String username;
-
-    public String getError() {
-        return error;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getUsername() {
-        return username;
-    }
 
     /**
      * If the URL is the redirect of Spring authentication fail: show a message.
@@ -57,10 +54,6 @@ public final class LoginBean implements Serializable {
     public void init() {
         if (error != null)
             getCurrentInstance().addMessage(null, new FacesMessage(SEVERITY_ERROR, "Username or password invalid.", null));
-    }
-
-    public boolean isRememberMe() {
-        return rememberMe;
     }
 
     /**
@@ -77,22 +70,6 @@ public final class LoginBean implements Serializable {
         RequestDispatcher dispatcher = ((ServletRequest) context.getRequest()).getRequestDispatcher(LOGIN_PROCESSING_URL);
         dispatcher.forward((ServletRequest) context.getRequest(), (ServletResponse) context.getResponse());
         getCurrentInstance().responseComplete();
-    }
-
-    public void setError(String error) {
-        this.error = error;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setRememberMe(boolean rememberMe) {
-        this.rememberMe = rememberMe;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
 }

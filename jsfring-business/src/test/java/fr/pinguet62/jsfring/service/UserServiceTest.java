@@ -75,13 +75,13 @@ public class UserServiceTest {
         User user = service.get(email);
         final String initialPassword = user.getPassword();
 
-        mailSender.mustThrow(true);
+        mailSender.setMustThrow(true);
         try {
             // Case
             service.forgottenPassword(user.getEmail());
             fail();
         } catch (RuntimeException e) {} finally {
-            mailSender.mustThrow(false);
+            mailSender.setMustThrow(false);
         }
 
         // After

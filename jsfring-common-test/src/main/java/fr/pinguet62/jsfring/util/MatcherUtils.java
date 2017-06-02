@@ -21,8 +21,11 @@ import org.hamcrest.TypeSafeMatcher;
 
 import com.google.common.collect.Lists;
 
+import lombok.experimental.UtilityClass;
+
 /** Utility class with simple {@link Matcher}s. */
-public final class MatcherUtils {
+@UtilityClass
+public class MatcherUtils {
 
     /**
      * Check that the {@link Date} is equals to another with a delta.
@@ -35,7 +38,7 @@ public final class MatcherUtils {
      * @see DateUtils#truncate(Date, int)
      * @see Date#equals(Object)
      */
-    public static Matcher<Date> equalToTruncated(Date expected, int field) {
+    public Matcher<Date> equalToTruncated(Date expected, int field) {
         return new TypeSafeMatcher<Date>() {
             @Override
             public void describeTo(Description description) {
@@ -68,7 +71,7 @@ public final class MatcherUtils {
      *            The expected {@link Iterable}.
      * @return The built {@link Matcher}.
      */
-    public static <T> Matcher<Iterable<T>> equalWithoutOrderTo(Iterable<T> expected) {
+    public <T> Matcher<Iterable<T>> equalWithoutOrderTo(Iterable<T> expected) {
         return new TypeSafeMatcher<Iterable<T>>() {
             @Override
             public void describeTo(Description description) {
@@ -103,7 +106,7 @@ public final class MatcherUtils {
      *            The {@link Matcher} to apply on converted value.
      * @return The built {@link Matcher}.
      */
-    public static <S, M> Matcher<S> mappedTo(Function<S, M> mapper, Matcher<M> matcher) {
+    public <S, M> Matcher<S> mappedTo(Function<S, M> mapper, Matcher<M> matcher) {
         return new TypeSafeMatcher<S>() {
             @Override
             public void describeTo(Description description) {
@@ -132,7 +135,7 @@ public final class MatcherUtils {
      * @return The built {@link Matcher}.
      * @see String#matches(String)
      */
-    public static Matcher<String> matches(String regex) {
+    public Matcher<String> matches(String regex) {
         return new TypeSafeMatcher<String>() {
             @Override
             public void describeTo(Description description) {
@@ -160,7 +163,7 @@ public final class MatcherUtils {
      * @return The built {@link Matcher}.
      * @see String#matches(String)
      */
-    public static Matcher<String> parameter(String paramKey, Matcher<Object> paramValueMatcher) {
+    public Matcher<String> parameter(String paramKey, Matcher<Object> paramValueMatcher) {
         return new TypeSafeMatcher<String>() {
             @Override
             public void describeTo(Description description) {
@@ -191,7 +194,7 @@ public final class MatcherUtils {
      * @return The built {@link Matcher}.
      * @see Comparator#compare(Object, Object)
      */
-    public static <T> Matcher<List<T>> sorted(Comparator<T> comparator) {
+    public <T> Matcher<List<T>> sorted(Comparator<T> comparator) {
         return new TypeSafeMatcher<List<T>>() {
             @Override
             public void describeTo(Description description) {
@@ -213,10 +216,6 @@ public final class MatcherUtils {
                 return true;
             }
         };
-    }
-
-    // Utils class
-    private MatcherUtils() {
     }
 
 }

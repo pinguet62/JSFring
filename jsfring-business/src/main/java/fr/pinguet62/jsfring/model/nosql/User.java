@@ -4,6 +4,9 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import lombok.Data;
+
+@Data
 @Document
 public class User {
 
@@ -11,26 +14,5 @@ public class User {
     private ObjectId id;
 
     private String pseudo;
-
-    public ObjectId getId() {
-        return id;
-    }
-
-    public String getPseudo() {
-        return pseudo;
-    }
-
-    public void setId(ObjectId id) {
-        this.id = id;
-    }
-
-    public void setPseudo(String pseudo) {
-        this.pseudo = pseudo;
-    }
-
-    @Override
-    public String toString() {
-        return getClass().getName() + ": [pseudo=\"" + pseudo + "\"]";
-    }
 
 }

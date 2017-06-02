@@ -49,12 +49,13 @@ public class AbstractServiceTest {
     public void test_create() {
         {
             int initialCount = profileService.getAll().size();
-            profileService.create(new Profile("new profile"));
+            profileService.create(Profile.builder().title("new profile").build());
             assertThat(profileService.getAll(), hasSize(initialCount + 1));
         }
         {
             int initialCount = userService.getAll().size();
-            userService.create(new User("foo@bar.org", new PasswordGenerator().get(), new Random().nextBoolean()));
+            userService.create(User.builder().email("foo@bar.org").password(new PasswordGenerator().get())
+                    .active(new Random().nextBoolean()).build());
             assertThat(userService.getAll(), hasSize(initialCount + 1));
         }
     }

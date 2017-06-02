@@ -12,7 +12,6 @@ import {AppComponent} from "./app.component";
 import {SecurityModule} from "./security/security-module";
 import {DatatableComponent, DatatableColumnsComponent, DatatableDialogComponent} from "./shared/datatable.component";
 import {IndexComponent} from "./index.component";
-import {MenuComponent} from "./menu.component";
 import {UserComponent} from "./user/user.component";
 import {ProfileComponent} from "./profile/profile.component";
 import {RightComponent} from "./right/right.component";
@@ -31,7 +30,7 @@ import {RightService} from "./right/right.service";
     declarations: [
         AppComponent,
         DatatableComponent, DatatableColumnsComponent, DatatableDialogComponent,
-        IndexComponent, MenuComponent,
+        IndexComponent,
         UserComponent, ProfileComponent, RightComponent
     ],
     bootstrap: [AppComponent],

@@ -4,11 +4,14 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
+import lombok.Data;
+
 /**
  * DTO for {@link Page paginated results}.
  *
  * @see Page
  */
+@Data
 public final class PageDto<T> {
 
     private List<T> results;
@@ -17,22 +20,6 @@ public final class PageDto<T> {
 
     public PageDto(List<T> results, long total) {
         this.results = results;
-        this.total = total;
-    }
-
-    public List<T> getResults() {
-        return results;
-    }
-
-    public long getTotal() {
-        return total;
-    }
-
-    public void setResults(List<T> results) {
-        this.results = results;
-    }
-
-    public void setTotal(long total) {
         this.total = total;
     }
 

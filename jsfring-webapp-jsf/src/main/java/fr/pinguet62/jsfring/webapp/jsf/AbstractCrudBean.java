@@ -3,7 +3,6 @@ package fr.pinguet62.jsfring.webapp.jsf;
 import static javax.faces.application.FacesMessage.SEVERITY_ERROR;
 import static javax.faces.application.FacesMessage.SEVERITY_INFO;
 import static javax.faces.context.FacesContext.getCurrentInstance;
-import static org.slf4j.LoggerFactory.getLogger;
 
 import java.io.Serializable;
 
@@ -11,9 +10,9 @@ import javax.faces.application.FacesMessage;
 
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.model.LazyDataModel;
-import org.slf4j.Logger;
 
 import fr.pinguet62.jsfring.service.AbstractService;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * {@link AbstractSelectableBean} with CRUD operations on selected value.
@@ -29,9 +28,8 @@ import fr.pinguet62.jsfring.service.AbstractService;
  * @see AbstractService#update(Serializable)
  * @see AbstractService#delete(Serializable)
  */
+@Slf4j
 public abstract class AbstractCrudBean<T extends Serializable> extends AbstractSelectableBean<T> {
-
-    private static final Logger LOGGER = getLogger(AbstractCrudBean.class);
 
     private static final long serialVersionUID = 1;
 
@@ -53,7 +51,7 @@ public abstract class AbstractCrudBean<T extends Serializable> extends AbstractS
             getCurrentInstance().addMessage(null, new FacesMessage(SEVERITY_INFO, "New element created with success", null));
             refresh();
         } catch (RuntimeException e) {
-            LOGGER.warn("Error during creation", e);
+            log.warn("Error during creation", e);
             getCurrentInstance().addMessage(null, new FacesMessage(SEVERITY_ERROR, "Error during creation", null));
         }
     }
@@ -73,7 +71,7 @@ public abstract class AbstractCrudBean<T extends Serializable> extends AbstractS
             postDelete();
             refresh();
         } catch (RuntimeException e) {
-            LOGGER.warn("Error during deletion", e);
+            log.warn("Error during deletion", e);
             getCurrentInstance().addMessage(null, new FacesMessage(SEVERITY_ERROR, "Error during deletion", null));
         }
     }
@@ -126,7 +124,7 @@ public abstract class AbstractCrudBean<T extends Serializable> extends AbstractS
             getCurrentInstance().addMessage(null, new FacesMessage(SEVERITY_INFO, "Element updated with success", null));
             refresh();
         } catch (RuntimeException e) {
-            LOGGER.warn("Error during updating", e);
+            log.warn("Error during updating", e);
             getCurrentInstance().addMessage(null, new FacesMessage(SEVERITY_ERROR, "Error during updating", null));
         }
     }

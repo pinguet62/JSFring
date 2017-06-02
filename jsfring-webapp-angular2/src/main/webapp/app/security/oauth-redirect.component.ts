@@ -24,7 +24,9 @@ export class OAuthRedirectComponent implements CanActivate {
         let token_type: string = paramParser.get('token_type');
         let expires_in: number = +paramParser.get('expires_in');
 
+        console.log(route.fragment);
         this.securityService.token = access_token;
+        this.securityService.onConnect.emit(null);
 
         return true;
     }

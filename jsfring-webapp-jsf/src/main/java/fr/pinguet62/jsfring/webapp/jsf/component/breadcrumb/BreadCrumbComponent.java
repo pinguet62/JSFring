@@ -3,7 +3,6 @@ package fr.pinguet62.jsfring.webapp.jsf.component.breadcrumb;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.joining;
 import static javax.faces.context.FacesContext.getCurrentInstance;
-import static org.slf4j.LoggerFactory.getLogger;
 
 import java.util.Deque;
 import java.util.HashMap;
@@ -27,16 +26,16 @@ import org.primefaces.model.menu.MenuElement;
 import org.primefaces.model.menu.MenuGroup;
 import org.primefaces.model.menu.MenuItem;
 import org.primefaces.model.menu.MenuModel;
-import org.slf4j.Logger;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @FacesComponent("fr.pinguet62.jsfring.webapp.jsf.component.breadcrumb.BreadCrumbComponent")
 public class BreadCrumbComponent extends BreadCrumb {
 
     private static enum PropertyKeys {
         index, menu;
     }
-
-    private static final Logger LOGGER = getLogger(BreadCrumbComponent.class);
 
     /** The association of <b>outcome</b> to its {@link BreadCrumb}. */
     protected final Map<String, MenuModel> breadcrumbs = new HashMap<>();
@@ -144,7 +143,7 @@ public class BreadCrumbComponent extends BreadCrumb {
             thread.stream().map(new MenuConverter()::apply).forEach(breadcrumb::addElement);
             // - save
             breadcrumbs.put(outcome, breadcrumb);
-            LOGGER.trace("Breadcrumb: " + breadcrumb.getElements().stream().map(element -> (DefaultMenuItem) element)
+            log.trace("Breadcrumb: " + breadcrumb.getElements().stream().map(element -> (DefaultMenuItem) element)
                     .map(item -> String.format("(\"%s\"/%s)", item.getTitle(), item.getOutcome())).collect(joining(" > ")));
         }
         // Recursive
@@ -167,11 +166,6 @@ public class BreadCrumbComponent extends BreadCrumb {
 
     public void setMenu(String menu) {
         getStateHelper().put(PropertyKeys.menu, menu);
-    }
-
-    @Override
-    public void setModel(MenuModel model) {
-        super.setModel(model);
     }
 
 }

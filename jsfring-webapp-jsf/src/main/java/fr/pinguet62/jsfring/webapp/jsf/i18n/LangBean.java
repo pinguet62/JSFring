@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.webapp.jsf.i18n;
 
+import static java.util.Optional.ofNullable;
 import static javax.faces.context.FacesContext.getCurrentInstance;
 import static org.apache.commons.collections.IteratorUtils.toList;
 import static org.springframework.web.context.WebApplicationContext.SCOPE_SESSION;
@@ -7,7 +8,6 @@ import static org.springframework.web.context.WebApplicationContext.SCOPE_SESSIO
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Locale;
-import java.util.Optional;
 
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
@@ -33,7 +33,7 @@ public final class LangBean implements Serializable {
 
     /** @return {@link Locale#getLanguage()} */
     public String getLanguage() {
-        return Optional.ofNullable(getLocale()).map(Locale::getLanguage).orElse(null);
+        return ofNullable(getLocale()).map(Locale::getLanguage).orElse(null);
     }
 
     /**

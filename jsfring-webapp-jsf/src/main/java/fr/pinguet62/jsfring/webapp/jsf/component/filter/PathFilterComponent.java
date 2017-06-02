@@ -21,13 +21,23 @@ import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
 
 import fr.pinguet62.jsfring.webapp.jsf.component.filter.operator.Operator;
+import lombok.Getter;
+import lombok.Setter;
 
 /** {@link UIComponent} who manage the {@link PathFilter}. */
 @FacesComponent("fr.pinguet62.jsfring.webapp.jsf.component.filter.PathFilterComponent")
 public final class PathFilterComponent extends UIInput implements NamingContainer {
 
+    private static enum PropertyKeys {
+        operator;
+    }
+
+    @Getter
+    @Setter
     private SelectOneMenu operatorSelectOneMenu;
 
+    @Getter
+    @Setter
     private InputText value1InputText, value2InputText;
 
     /**
@@ -96,11 +106,7 @@ public final class PathFilterComponent extends UIInput implements NamingContaine
     }
 
     public Operator<?, ?> getOperator() {
-        return (Operator<?, ?>) getStateHelper().get("operator");
-    }
-
-    public SelectOneMenu getOperatorSelectOneMenu() {
-        return operatorSelectOneMenu;
+        return (Operator<?, ?>) getStateHelper().get(PropertyKeys.operator);
     }
 
     /**
@@ -117,14 +123,6 @@ public final class PathFilterComponent extends UIInput implements NamingContaine
     @Override
     public PathFilter<?, ?> getValue() {
         return (PathFilter<?, ?>) super.getValue();
-    }
-
-    public InputText getValue1InputText() {
-        return value1InputText;
-    }
-
-    public InputText getValue2InputText() {
-        return value2InputText;
     }
 
     /**
@@ -156,19 +154,7 @@ public final class PathFilterComponent extends UIInput implements NamingContaine
     }
 
     public void setOperator(Operator<?, ?> operator) {
-        getStateHelper().put("operator", operator);
-    }
-
-    public void setOperatorSelectOneMenu(SelectOneMenu operatorSelectOneMenu) {
-        this.operatorSelectOneMenu = operatorSelectOneMenu;
-    }
-
-    public void setValue1InputText(InputText value1InputText) {
-        this.value1InputText = value1InputText;
-    }
-
-    public void setValue2InputText(InputText value2InputText) {
-        this.value2InputText = value2InputText;
+        getStateHelper().put(PropertyKeys.operator, operator);
     }
 
     /**

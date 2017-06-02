@@ -6,6 +6,9 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
+import lombok.Data;
+
+@Data
 public class Comment {
 
     private String content;
@@ -19,45 +22,5 @@ public class Comment {
 
     @DBRef
     private User user;
-
-    public String getContent() {
-        return content;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public ObjectId getId() {
-        return id;
-    }
-
-    public int getRating() {
-        return rating;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public void setId(ObjectId id) {
-        this.id = id;
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
-
-    public void setUser(User author) {
-        this.user = author;
-    }
 
 }

@@ -3,6 +3,7 @@ package fr.pinguet62.jsfring.webapp.jsf.jasperreport;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 
+import lombok.Getter;
 import net.sf.jasperreports.engine.JRAbstractExporter;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.export.HtmlExporter;
@@ -256,10 +257,15 @@ public enum ExportType {
         }
     };
 
-    /** Extension of file type. */
+    /**
+     * Extension of file type.<br>
+     * Doesn't contains the {@code .} character.
+     */
+    @Getter
     private final String extension;
 
     /** The mime content type. */
+    @Getter
     private final String mime;
 
     /**
@@ -283,24 +289,5 @@ public enum ExportType {
      *             When an error occurs during export.
      */
     public abstract ByteArrayOutputStream export(ExporterInput exporterInput) throws JRException;
-
-    /**
-     * Get the extension of file type.<br>
-     * Doesn't contains the {@code .} character.
-     *
-     * @return The {@link #extension}.
-     */
-    public String getExtension() {
-        return extension;
-    }
-
-    /**
-     * Get the mime content type.
-     *
-     * @return The {@link #mime}.
-     */
-    public String getMime() {
-        return mime;
-    }
 
 }

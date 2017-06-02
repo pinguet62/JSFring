@@ -2,7 +2,6 @@ package fr.pinguet62.jsfring.dao.sql;
 
 import static java.util.Calendar.DAY_OF_YEAR;
 import static java.util.Calendar.getInstance;
-import static org.slf4j.LoggerFactory.getLogger;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -11,7 +10,6 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.slf4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import com.querydsl.jpa.impl.JPAUpdateClause;
@@ -19,6 +17,7 @@ import com.querydsl.jpa.impl.JPAUpdateClause;
 import fr.pinguet62.jsfring.dao.sql.common.CommonRepository;
 import fr.pinguet62.jsfring.model.sql.QUser;
 import fr.pinguet62.jsfring.model.sql.User;
+import lombok.extern.slf4j.Slf4j;
 
 /** @see User */
 @Repository
@@ -38,9 +37,8 @@ interface UserDaoCustom {
 
 }
 
+@Slf4j
 class UserDaoImpl implements UserDaoCustom {
-
-    private static final Logger LOGGER = getLogger(UserDaoImpl.class);
 
     @Inject
     private UserDao dao;
@@ -73,7 +71,7 @@ class UserDaoImpl implements UserDaoCustom {
 
         QUser u = QUser.user;
         long nb = new JPAUpdateClause(em, u).where(u.lastConnection.before(lastAccepted)).set(u.active, false).execute();
-        LOGGER.info("Number of users disabled: {}", nb);
+        log.info("Number of users disabled: {}", nb);
     }
 
     /**
@@ -84,7 +82,7 @@ class UserDaoImpl implements UserDaoCustom {
      */
     @Override
     public void resetLastConnectionDate(User user) {
-        LOGGER.debug("Last connection date reset for user: {}", user.getEmail());
+        log.debug("Last connection date reset for user: {}", user.getEmail());
         user.setLastConnection(new Date());
         dao.save(user);
     }
@@ -99,7 +97,7 @@ class UserDaoImpl implements UserDaoCustom {
      */
     @Override
     public void updatePassword(User user, String password) {
-        LOGGER.debug("Password updated for user: {}", user.getEmail());
+        log.debug("Password updated for user: {}", user.getEmail());
         user.setPassword(password);
         dao.save(user);
     }

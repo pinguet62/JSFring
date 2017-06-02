@@ -3,7 +3,6 @@ package fr.pinguet62.jsfring.webapp.jsf.htmlunit;
 import static java.io.File.createTempFile;
 import static java.lang.Thread.sleep;
 import static java.util.stream.Collectors.joining;
-import static org.slf4j.LoggerFactory.getLogger;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -33,11 +32,13 @@ import fr.pinguet62.jsfring.webapp.jsf.htmlunit.jasperreport.UsersRightsJasperRe
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.profile.ProfilesPage;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.right.RightsPage;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.user.UsersPage;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Base class for all other pages.<br>
  * Provides shared functionalities (like menus) and utilities (like debug and waiting method).
  */
+@Slf4j
 public class AbstractPage {
 
     public static enum Delay {
@@ -60,8 +61,6 @@ public class AbstractPage {
         }
     }
 
-    private static final Logger LOGGER = getLogger(AbstractPage.class);
-
     private static final File TMP_FILE;
 
     /** Initialize the {@link #TMP_FILE}. */
@@ -71,7 +70,7 @@ public class AbstractPage {
         } catch (IOException e) {
             throw new NavigatorException(e);
         }
-        LOGGER.debug("Temporary file: {}", TMP_FILE);
+        log.debug("Temporary file: {}", TMP_FILE);
     }
 
     /**
@@ -91,7 +90,7 @@ public class AbstractPage {
      * @param content The content of file to write.
      */
     public static void debug(String content) {
-        if (!LOGGER.isDebugEnabled())
+        if (!log.isDebugEnabled())
             return;
 
         try {
@@ -254,12 +253,12 @@ public class AbstractPage {
      * @param delay The {@link Delay} to wait.
      */
     public void waitJS(Delay delay) {
-        LOGGER.debug("Wait JavaScript");
+        log.debug("Wait JavaScript");
         final int period = 200 /* ms */;
         JavaScriptJobManager manager = page.getEnclosingWindow().getJobManager();
         for (int t = 0; manager.getJobCount() > 0 && t < delay.getMs(); t += period)
             try {
-                LOGGER.trace("Wait " + t + "ms");
+                log.trace("Wait " + t + "ms");
                 sleep(period);
             } catch (InterruptedException e) {
                 throw new NavigatorException(e);

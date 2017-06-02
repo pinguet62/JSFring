@@ -8,10 +8,8 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import fr.pinguet62.jsfring.common.UrlUtils;
-
 /** @see UrlUtils */
-public final class UrlUtilsTest {
+public class UrlUtilsTest {
 
     /** @see UrlUtils#formatAuthorization(String, String) */
     @Test

@@ -2,6 +2,7 @@ package fr.pinguet62.jsfring.model.sql;
 
 import static fr.pinguet62.jsfring.model.sql.User.EMAIL_REGEX;
 import static fr.pinguet62.jsfring.model.sql.User.PASSWORD_REGEX;
+import static fr.pinguet62.jsfring.model.sql.User.builder;
 import static fr.pinguet62.jsfring.util.MatcherUtils.matches;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.joining;
@@ -43,13 +44,14 @@ public final class UserTest {
     /** @see User#equals(Object) */
     @Test
     public void test_equals() {
-        assertThat(new User(), is(equalTo(new User())));
-        assertThat(new User("same@email.fr"), is(equalTo(new User("same@email.fr"))));
-        assertThat(new User("same@email.fr", null, null, null), is(equalTo(new User("same@email.fr", null, null, null))));
-        assertThat(new User("same@email.fr", "AAA", true), is(equalTo(new User("same@email.fr", "111", true))));
+        assertThat(builder().build(), is(equalTo(builder().build())));
+        assertThat(builder().email("same@email.fr").build(), is(equalTo(builder().email("same@email.fr").build())));
+        assertThat(builder().email("same@email.fr").build(), is(equalTo(builder().email("same@email.fr").build())));
+        assertThat(builder().email("same@email.fr").password("AAA").active(true).build(),
+                is(equalTo(builder().email("same@email.fr").password("111").active(true).build())));
 
-        assertThat(new User("an@email.fr", null, null, null), is(not(equalTo(new User("another@email.fr", null, null, null)))));
-        assertThat(new User(), is(not(equalTo("other type"))));
+        assertThat(builder().email("an@email.fr").build(), is(not(equalTo(builder().email("another@email.fr").build()))));
+        assertThat(builder().build(), is(not(equalTo("other type"))));
     }
 
     /** @see User#PASSWORD_REGEX */

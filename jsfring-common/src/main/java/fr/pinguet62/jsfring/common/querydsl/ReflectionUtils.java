@@ -13,6 +13,9 @@ import javax.persistence.Entity;
 import com.querydsl.core.types.EntityPath;
 import com.querydsl.core.types.dsl.EntityPathBase;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class ReflectionUtils {
 
     /**
@@ -36,7 +39,7 @@ public class ReflectionUtils {
      *             Error during getting default meta-instance.
      */
     @SuppressWarnings("unchecked")
-    public static <T> EntityPath<T> getDefaultMetaObject(Class<T> entityType) {
+    public <T> EntityPath<T> getDefaultMetaObject(Class<T> entityType) {
         // Target class
         String metaObjectTypeName = entityType.getName();
         metaObjectTypeName = new StringBuffer(metaObjectTypeName).insert(metaObjectTypeName.lastIndexOf('.') + 1, 'Q')

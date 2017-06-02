@@ -16,6 +16,8 @@ import org.springframework.context.MessageSource;
 import fr.pinguet62.jsfring.model.sql.User;
 import fr.pinguet62.jsfring.service.UserService;
 import fr.pinguet62.jsfring.webapp.jsf.config.scope.SpringViewScoped;
+import lombok.Getter;
+import lombok.Setter;
 
 /** Page to reset its {@link User#password} after an oversight. */
 @Named
@@ -25,6 +27,8 @@ public final class ForgottenPasswordBean implements Serializable {
     private static final long serialVersionUID = 1;
 
     /** The {@link User#email user's email}. */
+    @Getter
+    @Setter
     private String email;
 
     @Inject
@@ -32,10 +36,6 @@ public final class ForgottenPasswordBean implements Serializable {
 
     @Inject
     private transient UserService userService;
-
-    public String getEmail() {
-        return email;
-    }
 
     /**
      * Reset the password.
@@ -53,10 +53,6 @@ public final class ForgottenPasswordBean implements Serializable {
             String message = messageSource.getMessage("forgottenPassword.messages.emailUnknown", null, locale);
             getCurrentInstance().addMessage(null, new FacesMessage(SEVERITY_ERROR, message, null));
         }
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
 }

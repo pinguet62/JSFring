@@ -5,7 +5,6 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -16,6 +15,17 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.validation.constraints.Pattern;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+@Data
+@EqualsAndHashCode(of = "email")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "\"USER\"")
 public class User implements Serializable {
@@ -44,9 +54,7 @@ public class User implements Serializable {
     @Column(nullable = false)
     private Boolean active;
 
-    // Validation
     @Pattern(regexp = EMAIL_REGEX, message = EMAIL_VALIDATION_MESSAGE)
-    // JPA
     @Id
     @Column(nullable = false)
     private String email;
@@ -54,99 +62,11 @@ public class User implements Serializable {
     @Temporal(TIMESTAMP)
     private Date lastConnection;
 
-    // Validation
     @Pattern(regexp = PASSWORD_REGEX)
-    // JPA
     @Column(nullable = false, length = 65)
     private String password;
 
     @ManyToMany(mappedBy = "users", fetch = EAGER)
     private Set<Profile> profiles;
-
-    public User() {
-        // No action
-    }
-
-    public User(String email) {
-        this.email = email;
-    }
-
-    public User(String email, String password, Boolean active) {
-        this.email = email;
-        this.password = password;
-        this.active = active;
-    }
-
-    public User(String email, String password, Boolean active, Set<Profile> profiles) {
-        this.email = email;
-        this.password = password;
-        this.active = active;
-        this.profiles = profiles;
-    }
-
-    /**
-     * Test equality of object by comparing their {@link #email}.
-     *
-     * @see Object#equals(Object)
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null)
-            return false;
-        if (!obj.getClass().equals(User.class))
-            return false;
-        User other = (User) obj;
-        return Objects.equals(email, other.email);
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public Date getLastConnection() {
-        return lastConnection;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public Set<Profile> getProfiles() {
-        return profiles;
-    }
-
-    /**
-     * Get the {@link Object#hashCode() hash} of {@link #email}.
-     *
-     * @see Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(email);
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setLastConnection(Date lastConnection) {
-        this.lastConnection = lastConnection;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setProfiles(Set<Profile> profiles) {
-        this.profiles = profiles;
-    }
 
 }

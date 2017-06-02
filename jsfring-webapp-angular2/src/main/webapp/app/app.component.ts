@@ -1,4 +1,5 @@
 import {Component} from "@angular/core";
+import {URLSearchParams} from "@angular/http";
 
 import {UnauthorizedObservable} from "./security/unauthorized-observable";
 
@@ -17,6 +18,10 @@ import {UnauthorizedObservable} from "./security/unauthorized-observable";
             <!-- Current user -->
             <span style="flex: 1 1 auto"></span>
             <md-menu #connectedUserMenu="mdMenu">
+                <button md-menu-item (click)="login()">
+                    <md-icon>account_circle</md-icon>
+                    <span>Login</span>
+                </button>
                 <button md-menu-item>
                     <md-icon>account_circle</md-icon>
                     <span>My acount</span>
@@ -64,6 +69,23 @@ export class AppComponent {
 
     constructor(private unauthorizedObservable: UnauthorizedObservable) {
         unauthorizedObservable.observable.subscribe((x: any) => console.log("toto: " + x));
+    }
+
+    login(): void {
+        let loginRoute: string = '/oauth';
+
+        let paramBuilder: URLSearchParams = new URLSearchParams();
+        paramBuilder.append('client_id', 'clientId');
+        paramBuilder.append('response_type', 'token');
+        paramBuilder.append('scope', 'read');
+        paramBuilder.append('redirect_uri', window.location.protocol + "//" + window.location.host + loginRoute);
+
+        let oauthServer: string = 'http://jsfring-webservice.herokuapp.com';
+        let oauthPath: string = '/oauth/authorize';
+        let params: string = paramBuilder.toString();
+        let authorizeUrl: string = oauthServer + oauthPath + '?' + params;
+
+        window.location.replace(authorizeUrl); // let popup: Window = window.open(authorizeUrl, 'Login', 'location=1');
     }
 
 }

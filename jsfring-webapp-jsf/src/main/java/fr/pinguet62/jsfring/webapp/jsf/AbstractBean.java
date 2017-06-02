@@ -1,6 +1,5 @@
 package fr.pinguet62.jsfring.webapp.jsf;
 
-import static org.slf4j.LoggerFactory.getLogger;
 import static org.springframework.data.querydsl.SimpleEntityPathResolver.INSTANCE;
 
 import java.io.Serializable;
@@ -12,7 +11,6 @@ import javax.persistence.Entity;
 
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.model.LazyDataModel;
-import org.slf4j.Logger;
 import org.springframework.data.domain.Pageable;
 
 import com.querydsl.core.BooleanBuilder;
@@ -21,6 +19,7 @@ import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 
 import fr.pinguet62.jsfring.service.AbstractService;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Abstract class used to display results in {@link DataTable}.
@@ -30,9 +29,8 @@ import fr.pinguet62.jsfring.service.AbstractService;
  * @param <T>
  *            The type of objects to display.
  */
+@Slf4j
 public abstract class AbstractBean<T extends Serializable> implements Serializable {
-
-    private static final Logger LOGGER = getLogger(AbstractBean.class);
 
     private static final long serialVersionUID = 1;
 
@@ -46,7 +44,7 @@ public abstract class AbstractBean<T extends Serializable> implements Serializab
     /** The {@link EntityPath} of target {@link Entity}. */
     @SuppressWarnings("unchecked")
     private final EntityPath<T> path = INSTANCE
-    .createPath((Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
+            .createPath((Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
 
     /**
      * Used for <b>lazy loading</b>.<br>
@@ -73,7 +71,7 @@ public abstract class AbstractBean<T extends Serializable> implements Serializab
      */
     public Iterable<T> getList() {
         if (list == null) {
-            LOGGER.debug("Eager loading: initialization");
+            log.debug("Eager loading: initialization");
             list = getService().findAll(getPredicate());
         }
         return list;
@@ -124,7 +122,7 @@ public abstract class AbstractBean<T extends Serializable> implements Serializab
 
     /** Refresh the content, by reseting cached {@link #list}. */
     protected void refresh() {
-        LOGGER.trace("Eager loading: refresh");
+        log.trace("Eager loading: refresh");
         list = null;
     }
 

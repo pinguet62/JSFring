@@ -7,6 +7,8 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Component;
 
+import lombok.Setter;
+
 /**
  * Mock of {@link MailSender} for unit-test.
  * <p>
@@ -20,17 +22,8 @@ import org.springframework.stereotype.Component;
 public class MailSenderThrowableMock implements MailSender {
 
     /** Define if the next sending must fail. */
+    @Setter
     private boolean mustThrow = false;
-
-    /**
-     * The next send will fail.
-     *
-     * @param mustThrow
-     *            If next call must fail.
-     */
-    public void mustThrow(boolean mustThrow) {
-        this.mustThrow = mustThrow;
-    }
 
     /** @see #send(SimpleMailMessage...) */
     @Override

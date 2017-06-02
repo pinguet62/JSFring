@@ -32,7 +32,7 @@ import org.junit.Test;
 import fr.pinguet62.jsfring.util.MatcherUtils;
 
 /** @see MatcherUtils */
-public final class MatcherUtilsTest {
+public class MatcherUtilsTest {
 
     /** @see MatcherUtils#equalToTruncated(Date, int) */
     @SuppressWarnings("deprecation")

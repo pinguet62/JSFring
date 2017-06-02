@@ -1,7 +1,6 @@
 package fr.pinguet62.jsfring.indexer.nosql;
 
 import static java.lang.String.valueOf;
-import static org.slf4j.LoggerFactory.getLogger;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,7 +9,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.bson.types.ObjectId;
-import org.slf4j.Logger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.stereotype.Component;
@@ -31,11 +29,11 @@ import fr.pinguet62.jsfring.model.nosql.Comment;
 import fr.pinguet62.jsfring.model.nosql.Movie;
 import fr.pinguet62.jsfring.model.nosql.Person;
 import fr.pinguet62.jsfring.model.nosql.User;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 public class Application implements CommandLineRunner {
-
-    private static final Logger LOGGER = getLogger(Application.class);
 
     /** Convert {@link Long} to {@link ObjectId}. */
     private static ObjectId format(long code) {
@@ -64,7 +62,7 @@ public class Application implements CommandLineRunner {
         if (movie != null)
             return movie;
 
-        LOGGER.info("Init {}: {}", Movie.class.getSimpleName(), code);
+        log.info("Init {}: {}", Movie.class.getSimpleName(), code);
         MovieInfos movieDto = api.getMovieInfos(valueOf(code));
         movie = new Movie();
         movie.setId(format(movieDto.getCode()));
@@ -103,7 +101,7 @@ public class Application implements CommandLineRunner {
         if (person != null)
             return null;
 
-        LOGGER.info("Init {}: {}", Person.class.getSimpleName(), code);
+        log.info("Init {}: {}", Person.class.getSimpleName(), code);
         PersonInfos personDto = api.getPersonInfos(String.valueOf(code));
         person = new Person();
         person.setId(format(personDto.getCode()));
@@ -120,7 +118,7 @@ public class Application implements CommandLineRunner {
         if (user != null)
             return user;
 
-        LOGGER.info("Init {}: {}", User.class.getSimpleName(), pseudo);
+        log.info("Init {}: {}", User.class.getSimpleName(), pseudo);
         user = new User();
         user.setPseudo(pseudo);
 

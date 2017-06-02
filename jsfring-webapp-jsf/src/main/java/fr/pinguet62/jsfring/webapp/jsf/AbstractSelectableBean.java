@@ -2,6 +2,9 @@ package fr.pinguet62.jsfring.webapp.jsf;
 
 import java.io.Serializable;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * {@link AbstractBean} with single selection management.<br>
  * <i>Multiple selection</i> is not supported.
@@ -16,25 +19,8 @@ public abstract class AbstractSelectableBean<T extends Serializable> extends Abs
     private static final long serialVersionUID = 1;
 
     /** The selected value. */
+    @Getter
+    @Setter
     private T selectedValue;
-
-    /**
-     * Get the selected value.
-     *
-     * @return The current {@link #selectedValue value}.
-     */
-    public T getSelectedValue() {
-        return selectedValue;
-    }
-
-    /**
-     * Set the selected value.
-     *
-     * @param selectedValue
-     *            The new {@link #selectedValue value}.
-     */
-    public void setSelectedValue(T selectedValue) {
-        this.selectedValue = selectedValue;
-    }
 
 }

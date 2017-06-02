@@ -173,13 +173,13 @@ public class CommonRepositoryTest {
     public void test_save_create() {
         {
             long count = profileDao.count();
-            profileDao.save(new Profile("new profile"));
+            profileDao.save(Profile.builder().title("new profile").build());
             assertThat(profileDao.count(), is(equalTo(count + 1)));
         }
         {
             long count = userDao.count();
-            userDao.save(
-                    new User("foo@bar.fr", new PasswordGenerator().get(), new Random().nextBoolean()));
+            userDao.save(User.builder().email("foo@bar.fr").password(new PasswordGenerator().get())
+                    .active(new Random().nextBoolean()).build());
             assertThat(userDao.count(), is(equalTo(count + 1)));
         }
     }
@@ -192,7 +192,7 @@ public class CommonRepositoryTest {
      */
     @Test
     public void test_save_create_autoIncrement() {
-        profileDao.save(new Profile("new profile"));
+        profileDao.save(Profile.builder().title("new profile").build());
     }
 
     /**

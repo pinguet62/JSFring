@@ -11,7 +11,7 @@ public class CacheMockConfig {
 
     @Bean
     @Primary // Mock
-    public CacheManager r() {
+    public CacheManager cacheManagerMock() {
         return new NoOpCacheManager();
     }
 

@@ -1,13 +1,10 @@
 package fr.pinguet62.jsfring.batch.admin.config;
 
-import static org.slf4j.LoggerFactory.getLogger;
-
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-import org.slf4j.Logger;
 import org.springframework.batch.admin.web.JobInfo;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.configuration.DuplicateJobException;
@@ -18,6 +15,8 @@ import org.springframework.batch.core.configuration.support.ApplicationContextFa
 import org.springframework.batch.core.configuration.support.AutomaticJobRegistrar;
 import org.springframework.batch.core.configuration.support.ReferenceJobFactory;
 import org.springframework.context.annotation.Configuration;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * {@link JobRegistry#register(JobFactory) Registar} all {@link Job}s.
@@ -33,10 +32,9 @@ import org.springframework.context.annotation.Configuration;
  * @see JobRegistry#register(JobFactory)
  * @see AutomaticJobRegistrar
  */
+@Slf4j
 @Configuration
 public class AutoJobRegistry {
-
-    private static final Logger LOGGER = getLogger(AutoJobRegistry.class);
 
     @Inject
     private JobRegistry jobRegistry;
@@ -52,7 +50,7 @@ public class AutoJobRegistry {
             try {
                 jobRegistry.register(jobFactory);
             } catch (DuplicateJobException e) {
-                LOGGER.error("Error registering job: " + job.getName(), e);
+                log.error("Error registering job: " + job.getName(), e);
             }
         }
     }

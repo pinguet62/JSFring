@@ -20,7 +20,7 @@ import fr.pinguet62.jsfring.util.querydsl.model.Right;
 import fr.pinguet62.jsfring.util.querydsl.model.User;
 
 /** @see ReflectionUtils */
-public final class ReflectionUtilTest {
+public class ReflectionUtilTest {
 
     /** @see ReflectionUtils#getDefaultMetaObject(Class) */
     @Test

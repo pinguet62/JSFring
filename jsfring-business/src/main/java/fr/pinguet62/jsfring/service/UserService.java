@@ -1,13 +1,11 @@
 package fr.pinguet62.jsfring.service;
 
 import static java.util.Objects.requireNonNull;
-import static org.slf4j.LoggerFactory.getLogger;
 
 import java.util.Date;
 
 import javax.inject.Inject;
 
-import org.slf4j.Logger;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
@@ -16,12 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 import fr.pinguet62.jsfring.common.PasswordGenerator;
 import fr.pinguet62.jsfring.dao.sql.UserDao;
 import fr.pinguet62.jsfring.model.sql.User;
+import lombok.extern.slf4j.Slf4j;
 
 /** The service for {@link User}. */
+@Slf4j
 @Service
 public class UserService extends AbstractService<User, String> {
-
-    private static final Logger LOGGER = getLogger(UserService.class);
 
     /**
      * Generate random {@link User#password}.
@@ -90,7 +88,7 @@ public class UserService extends AbstractService<User, String> {
         message.setTo(user.getEmail());
         message.setText(String.format(forgottenPasswordMessage.getText(), user.getEmail(), user.getPassword()));
         mailSender.send(message);
-        LOGGER.info("New password sent to {} user's email", user.getEmail());
+        log.info("New password sent to {} user's email", user.getEmail());
     }
 
     /**

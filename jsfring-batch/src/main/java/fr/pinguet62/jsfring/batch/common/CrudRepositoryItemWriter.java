@@ -1,14 +1,14 @@
 package fr.pinguet62.jsfring.batch.common;
 
 import static java.util.Objects.requireNonNull;
-import static org.slf4j.LoggerFactory.getLogger;
 
 import java.util.List;
 
-import org.slf4j.Logger;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.data.RepositoryItemWriter;
 import org.springframework.data.repository.CrudRepository;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * An {@link ItemWriter} using {@link CrudRepository} to {@link CrudRepository#save(Object) create or update} items.
@@ -25,9 +25,8 @@ import org.springframework.data.repository.CrudRepository;
  * @see CrudRepository#save(Object)
  * @see RepositoryItemWriter
  */
+@Slf4j
 public class CrudRepositoryItemWriter<T> implements ItemWriter<T> {
-
-    private static final Logger LOGGER = getLogger(CrudRepositoryItemWriter.class);
 
     private final CrudRepository<T, ?> repository;
 
@@ -37,7 +36,7 @@ public class CrudRepositoryItemWriter<T> implements ItemWriter<T> {
 
     @Override
     public void write(List<? extends T> items) throws Exception {
-        LOGGER.debug("Writing to the repository with {0} items", items.size());
+        log.debug("Writing to the repository with {0} items", items.size());
         for (T object : items)
             repository.save(object);
     }

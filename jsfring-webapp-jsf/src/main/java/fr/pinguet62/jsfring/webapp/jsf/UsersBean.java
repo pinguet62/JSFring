@@ -18,6 +18,8 @@ import fr.pinguet62.jsfring.service.AbstractService;
 import fr.pinguet62.jsfring.service.ProfileService;
 import fr.pinguet62.jsfring.service.UserService;
 import fr.pinguet62.jsfring.webapp.jsf.config.scope.SpringViewScoped;
+import lombok.Getter;
+import lombok.Setter;
 
 /** @see User */
 @Named
@@ -27,6 +29,8 @@ public final class UsersBean extends AbstractCrudBean<User> {
     private static final long serialVersionUID = 1;
 
     /** The {@link Profile} association (available/associated) of the {@link #getSelectedValue() selected user}. */
+    @Getter
+    @Setter
     private DualListModel<Profile> profilesAssociation;
 
     @Inject
@@ -55,17 +59,9 @@ public final class UsersBean extends AbstractCrudBean<User> {
         return newEntity;
     }
 
-    public DualListModel<Profile> getProfilesAssociation() {
-        return profilesAssociation;
-    }
-
     @Override
     public AbstractService<User, ? extends Serializable> getService() {
         return userService;
-    }
-
-    public void setProfilesAssociation(DualListModel<Profile> profilesAssociation) {
-        this.profilesAssociation = profilesAssociation;
     }
 
     /**

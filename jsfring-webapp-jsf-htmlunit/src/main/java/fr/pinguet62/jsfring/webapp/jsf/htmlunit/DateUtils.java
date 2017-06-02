@@ -15,7 +15,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public final class DateUtils {
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
+public class DateUtils {
 
     public static final DateFormat DATE_FORMATTER = new SimpleDateFormat("MM/dd/yyyy");
 
@@ -27,7 +30,7 @@ public final class DateUtils {
      * @param day The day of month: from {@code 1} to {@code 28} or {@code 31}.
      * @return The {@link Date}.
      */
-    public static Date getDate(int year, int month, int day) {
+    public Date getDate(int year, int month, int day) {
         return getDatetime(year, month, day, 0, 0, 0);
     }
 
@@ -40,7 +43,7 @@ public final class DateUtils {
      * @param second The second: from {@code 0} to {@code 59}.
      * @return The {@link Date}.
      */
-    public static Date getDatetime(int year, int month, int day, int hour, int minute, int second) {
+    public Date getDatetime(int year, int month, int day, int hour, int minute, int second) {
         Calendar calendar = getInstance();
         calendar.clear();
         calendar.set(YEAR, year);
@@ -60,7 +63,7 @@ public final class DateUtils {
      *         {@code null} if empty value.
      * @throws IllegalArgumentException Invalid/Unknown date format.
      */
-    public static Date parseDateOrDateTime(String value) {
+    public Date parseDateOrDateTime(String value) {
         if (isBlank(value))
             return null;
 
@@ -75,8 +78,5 @@ public final class DateUtils {
             throw new IllegalArgumentException("Invalid date format: " + value, e);
         }
     }
-
-    // Util class
-    private DateUtils() {}
 
 }

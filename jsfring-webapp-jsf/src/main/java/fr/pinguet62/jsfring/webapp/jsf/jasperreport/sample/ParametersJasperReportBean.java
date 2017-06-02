@@ -12,6 +12,8 @@ import javax.inject.Named;
 
 import fr.pinguet62.jsfring.webapp.jsf.config.scope.SpringViewScoped;
 import fr.pinguet62.jsfring.webapp.jsf.jasperreport.AbstractJasperReportBean;
+import lombok.Getter;
+import lombok.Setter;
 
 @Named
 @SpringViewScoped
@@ -19,12 +21,20 @@ public final class ParametersJasperReportBean extends AbstractJasperReportBean {
 
     private static final long serialVersionUID = 1;
 
+    @Getter
+    @Setter
     private Date dateParam;
 
+    @Getter
+    @Setter
     private Integer integerParam;
 
+    @Getter
+    @Setter
     private List<String> listParam;
 
+    @Getter
+    @Setter
     private String stringParam;
 
     public List<String> complete(String query) {
@@ -32,18 +42,6 @@ public final class ParametersJasperReportBean extends AbstractJasperReportBean {
                 "Jouet", "Kangourou", "Lune", "Maman", "Nuage", "Orange", "Papa", "Quille", "Roue", "Soleil", "Tortue",
                 "Uniforme", "Velo", "Wagon", "Xylophono", "Yoyo", "Zebre");
         return values.stream().map(String::toLowerCase).filter(it -> it.contains(query.toLowerCase())).collect(toList());
-    }
-
-    public Date getDateParam() {
-        return dateParam;
-    }
-
-    public Integer getIntegerParam() {
-        return integerParam;
-    }
-
-    public List<String> getListParam() {
-        return listParam;
     }
 
     @Override
@@ -59,26 +57,6 @@ public final class ParametersJasperReportBean extends AbstractJasperReportBean {
     @Override
     protected String getReportPath() {
         return "/report/parameters.jrxml";
-    }
-
-    public String getStringParam() {
-        return stringParam;
-    }
-
-    public void setDateParam(Date dateParam) {
-        this.dateParam = dateParam;
-    }
-
-    public void setIntegerParam(Integer integerParam) {
-        this.integerParam = integerParam;
-    }
-
-    public void setListParam(List<String> listParam) {
-        this.listParam = listParam;
-    }
-
-    public void setStringParam(String stringParam) {
-        this.stringParam = stringParam;
     }
 
 }

@@ -1,5 +1,7 @@
 package fr.pinguet62.jsfring.webapp.jsf.theme;
 
+import lombok.Getter;
+
 public enum Theme {
 
     AFTERDARK("afterdark", "Afterdark", "afterdark.png"),
@@ -58,29 +60,20 @@ public enum Theme {
     }
 
     /** The path of image. */
+    @Getter
     private final String image;
 
     /** The unique key used by PrimeFaces. */
+    @Getter
     private final String key;
 
+    @Getter
     private final String name;
 
     private Theme(String key, String name, String image) {
         this.key = key;
         this.name = name;
         this.image = image;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public String getName() {
-        return name;
     }
 
     @Override

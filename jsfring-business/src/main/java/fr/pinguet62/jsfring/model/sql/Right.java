@@ -1,7 +1,6 @@
 package fr.pinguet62.jsfring.model.sql;
 
 import java.io.Serializable;
-import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -12,11 +11,20 @@ import javax.persistence.Table;
 
 import com.querydsl.core.annotations.Config;
 
-// Querydsl
-@Config(defaultVariableName = "right_")
-// JPA
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+@Data
+@EqualsAndHashCode(of = "code")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "\"RIGHT\"")
+@Config(defaultVariableName = "right_")
 public class Right implements Serializable {
 
     private static final long serialVersionUID = 1;
@@ -30,73 +38,5 @@ public class Right implements Serializable {
 
     @Column(nullable = false)
     private String title;
-
-    public Right() {
-        // No action
-    }
-
-    public Right(String code) {
-        this.code = code;
-    }
-
-    public Right(String code, String title) {
-        this.code = code;
-        this.title = title;
-    }
-
-    public Right(String code, String title, Set<Profile> profiles) {
-        this.code = code;
-        this.title = title;
-        this.profiles = profiles;
-    }
-
-    /**
-     * Test equality of object by comparing their {@link #code}.
-     *
-     * @see Object#equals(Object)
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null)
-            return false;
-        if (!obj.getClass().equals(Right.class))
-            return false;
-        Right other = (Right) obj;
-        return Objects.equals(code, other.code);
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public Set<Profile> getProfiles() {
-        return profiles;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    /**
-     * Get the {@link Object#hashCode() hash} of {@link #code}.
-     *
-     * @see Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(code);
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public void setProfiles(Set<Profile> profiles) {
-        this.profiles = profiles;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
 }

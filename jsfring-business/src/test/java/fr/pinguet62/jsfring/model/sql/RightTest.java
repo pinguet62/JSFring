@@ -1,5 +1,6 @@
 package fr.pinguet62.jsfring.model.sql;
 
+import static fr.pinguet62.jsfring.model.sql.Right.builder;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
@@ -13,12 +14,13 @@ public final class RightTest {
     /** @see Right#equals(Object) */
     @Test
     public void test_equals() {
-        assertThat(new Right(), is(equalTo(new Right())));
-        assertThat(new Right("same code"), is(equalTo(new Right("same code"))));
-        assertThat(new Right("same code", "AAA"), is(equalTo(new Right("same code", "111"))));
+        assertThat(builder().build(), is(equalTo(builder().build())));
+        assertThat(builder().code("same code").build(), is(equalTo(builder().code("same code").build())));
+        assertThat(builder().code("same code").title("AAA").build(),
+                is(equalTo(builder().code("same code").title("111").build())));
 
-        assertThat(new Right("a code"), is(not(equalTo(new Right("other value")))));
-        assertThat(new Right(), is(not(equalTo("other type"))));
+        assertThat(builder().code("a code").build(), is(not(equalTo(builder().code("other value").build()))));
+        assertThat(builder().build(), is(not(equalTo("other type"))));
     }
 
 }

@@ -6,6 +6,9 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class UserDetailsUtils {
 
     /**
@@ -13,7 +16,7 @@ public class UserDetailsUtils {
      *
      * @return The {@link UserDetails}.
      */
-    public static UserDetails getCurrent() {
+    public UserDetails getCurrent() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         if (securityContext == null)
             return null;

@@ -8,6 +8,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import lombok.Data;
+
+@Data
 @Document
 public final class Movie {
 
@@ -24,58 +27,5 @@ public final class Movie {
     private String synopsis;
 
     private String title;
-
-    public List<Casting> getCastings() {
-        return castings;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public ObjectId getId() {
-        return id;
-    }
-
-    public Date getReleaseDate() {
-        return releaseDate;
-    }
-
-    public String getSynopsis() {
-        return synopsis;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setCastings(List<Casting> castings) {
-        this.castings = castings;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
-
-    public void setId(ObjectId id) {
-        this.id = id;
-    }
-
-    public void setReleaseDate(Date releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
-    public void setSynopsis(String synopsis) {
-        this.synopsis = synopsis;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    @Override
-    public String toString() {
-        return getClass().getName() + ": [title=\"" + title + "\"]";
-    }
 
 }

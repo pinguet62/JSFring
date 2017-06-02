@@ -22,6 +22,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import fr.pinguet62.jsfring.model.sql.User;
 import fr.pinguet62.jsfring.service.UserService;
 import fr.pinguet62.jsfring.webapp.jsf.config.scope.SpringViewScoped;
+import lombok.Getter;
+import lombok.Setter;
 
 /** Page to change its {@link User#password}. */
 @Named
@@ -30,42 +32,24 @@ public final class ChangePasswordBean implements Serializable {
 
     private static final long serialVersionUID = 1;
 
+    @Getter
+    @Setter
     private String currentPassword;
 
     @Inject
     private transient MessageSource messageSource;
 
+    @Getter
+    @Setter
     @Pattern(regexp = PASSWORD_REGEX, message = PASSWORD_VALIDATION_MESSAGE)
     private String newPassword;
 
+    @Getter
+    @Setter
     private String newPasswordConfirmation;
 
     @Inject
     private transient UserService userService;
-
-    public String getCurrentPassword() {
-        return currentPassword;
-    }
-
-    public String getNewPassword() {
-        return newPassword;
-    }
-
-    public String getNewPasswordConfirmation() {
-        return newPasswordConfirmation;
-    }
-
-    public void setCurrentPassword(String currentPassword) {
-        this.currentPassword = currentPassword;
-    }
-
-    public void setNewPassword(String newPassword) {
-        this.newPassword = newPassword;
-    }
-
-    public void setNewPasswordConfirmation(String newPasswordConfirmation) {
-        this.newPasswordConfirmation = newPasswordConfirmation;
-    }
 
     /**
      * Display message.

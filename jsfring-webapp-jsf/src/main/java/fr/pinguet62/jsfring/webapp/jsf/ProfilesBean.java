@@ -18,6 +18,8 @@ import fr.pinguet62.jsfring.service.AbstractService;
 import fr.pinguet62.jsfring.service.ProfileService;
 import fr.pinguet62.jsfring.service.RightService;
 import fr.pinguet62.jsfring.webapp.jsf.config.scope.SpringViewScoped;
+import lombok.Getter;
+import lombok.Setter;
 
 /** @see Profile */
 @Named
@@ -30,6 +32,8 @@ public final class ProfilesBean extends AbstractCrudBean<Profile> {
     private transient ProfileService profileService;
 
     /** The {@link Right} association (available/associated) of the {@link #getSelectedValue() selected profile}. */
+    @Getter
+    @Setter
     private DualListModel<Right> rightsAssociation = new DualListModel<Right>();
 
     @Inject
@@ -56,17 +60,9 @@ public final class ProfilesBean extends AbstractCrudBean<Profile> {
         return newEntity;
     }
 
-    public DualListModel<Right> getRightsAssociation() {
-        return rightsAssociation;
-    }
-
     @Override
     public AbstractService<Profile, ? extends Serializable> getService() {
         return profileService;
-    }
-
-    public void setRightsAssociation(DualListModel<Right> rightsAssociation) {
-        this.rightsAssociation = rightsAssociation;
     }
 
     /**

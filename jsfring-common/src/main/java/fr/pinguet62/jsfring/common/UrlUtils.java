@@ -3,6 +3,9 @@ package fr.pinguet62.jsfring.common;
 import java.util.Base64;
 import java.util.Objects;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class UrlUtils {
 
     /**
@@ -12,7 +15,7 @@ public class UrlUtils {
      * @return The Base64 encoded value.<br>
      *         End with {@code "=="}.
      */
-    public static String formatAuthorization(String username, String password) {
+    public String formatAuthorization(String username, String password) {
         Objects.requireNonNull(username);
         Objects.requireNonNull(password);
         return new String(Base64.getEncoder().encode((username + ":" + password).getBytes()));
