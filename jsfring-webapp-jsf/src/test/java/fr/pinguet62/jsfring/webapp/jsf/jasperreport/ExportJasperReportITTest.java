@@ -34,8 +34,6 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.jasperreport.AbstractJasperReportPage;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.jasperreport.UsersRightsJasperReportPage;
-import fr.pinguet62.jsfring.webapp.jsf.jasperreport.AbstractJasperReportBean;
-import fr.pinguet62.jsfring.webapp.jsf.jasperreport.ExportType;
 import fr.pinguet62.jsfring.webapp.jsf.jasperreport.sample.UsersRightsJasperReportBean;
 
 /**
