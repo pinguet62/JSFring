@@ -7,10 +7,12 @@ import static java.util.stream.Stream.generate;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import javax.inject.Inject;
 import javax.validation.constraints.Pattern;
@@ -19,30 +21,26 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.TransactionSystemException;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.common.PasswordGenerator;
-import fr.pinguet62.jsfring.mock.MailSenderThrowableMock;
+import fr.pinguet62.jsfring.dao.sql.UserDao;
 import fr.pinguet62.jsfring.model.sql.User;
 
 /** @see UserService */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringBootConfig.class)
-@Transactional
-//DbUnit
+// DbUnit
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup(DATASET)
 public class UserServiceTest {
-
-    @Inject
-    private MailSenderThrowableMock mailSender;
 
     @Inject
     private UserService service;
@@ -50,42 +48,21 @@ public class UserServiceTest {
     /** @see UserService#forgottenPassword(String) */
     @Test
     public void test_forgottenPassword() {
-        final String email = service.getAll().get(0).getEmail();
+        String email = "sample@domain.org";
+        String initialPassword = "initial";
 
-        User user = service.get(email);
-        final String initialPassword = user.getPassword();
+        UserDao dao = mock(UserDao.class);
+        MailSender mailSender = mock(MailSender.class);
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        UserService service = new UserService(dao, mailSender, mailMessage);
 
-        service.forgottenPassword(user.getEmail());
+        when(dao.findByEmail(email)).thenReturn(User.builder().email(email).password(initialPassword).build());
+        mailMessage.setText("%s, %s");
 
-        User user2 = service.get(email);
-        assertThat(user2.getPassword(), is(not(equalTo(initialPassword))));
-    }
+        service.forgottenPassword(email);
 
-    /**
-     * If an error occurs during {@link MailSender#send(org.springframework.mail.SimpleMailMessage...) mail sending},
-     * the password must not be updated.
-     *
-     * @see UserService#forgottenPassword(String)
-     */
-    @Test
-    public void test_forgottenPassword_smtpError() {
-        final String email = service.getAll().get(0).getEmail();
-
-        // Before
-        User user = service.get(email);
-        final String initialPassword = user.getPassword();
-
-        mailSender.setMustThrow(true);
-        try {
-            // Case
-            service.forgottenPassword(user.getEmail());
-            fail();
-        } catch (RuntimeException e) {} finally {
-            mailSender.setMustThrow(false);
-        }
-
-        // After
-        assertThat(service.get(email).getPassword(), is(equalTo(initialPassword)));
+        verify(dao).save(argThat(u -> !u.getPassword().equals(initialPassword))); // saved with new password
+        verify(mailSender).send(argThat((SimpleMailMessage m) -> m.getTo()[0].equals(email))); // email sent
     }
 
     /**
@@ -95,7 +72,14 @@ public class UserServiceTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public void test_forgottenPassword_unknownEmail() {
-        service.forgottenPassword("toto");
+        String email = "sample@domain.org";
+
+        UserDao dao = mock(UserDao.class);
+        UserService service = new UserService(dao, mock(MailSender.class), mock(SimpleMailMessage.class));
+
+        when(dao.findByEmail(email)).thenReturn(null);
+
+        service.forgottenPassword(email); // IllegalArgumentException
     }
 
     /**
@@ -112,12 +96,17 @@ public class UserServiceTest {
     /** @see UserService#updatePassword(String, String) */
     @Test
     public void test_updatePassword() {
-        String email = "root@admin.fr";
-        String newPassword = new PasswordGenerator().get();
-        assertThat(service.get(email).getPassword(), is(not(equalTo(newPassword))));
+        String email = "sample@domain.org";
+        String newPassword = "newPassword";
+
+        UserDao dao = mock(UserDao.class);
+        UserService service = new UserService(dao, mock(MailSender.class), mock(SimpleMailMessage.class));
+
+        when(dao.findByEmail(email)).thenReturn(User.builder().email(email).build());
 
         service.updatePassword(email, newPassword);
-        assertThat(service.get(email).getPassword(), is(equalTo(newPassword)));
+
+        verify(dao).save(argThat(u -> u.getPassword().equals(newPassword)));
     }
 
     /**
@@ -125,14 +114,19 @@ public class UserServiceTest {
      *
      * @see UserService#updatePassword(String, String)
      */
-    @Test(expected = RuntimeException.class)
+    @Test(expected = TransactionSystemException.class)
     public void test_updatePassword_invalidNewPassword() {
-        String email = "root@admin.fr";
+        User user = service.getAll().get(0);
+        String email = user.getEmail();
+
+        String initialPassword = user.getPassword();
+        assertThat(initialPassword, matches(PASSWORD_REGEX));
+
         String newPassword = "bad";
         assertThat(service.get(email).getPassword(), is(not(equalTo(newPassword))));
         assertThat(newPassword, not(matches(PASSWORD_REGEX)));
 
-        service.updatePassword(email, newPassword);
+        service.updatePassword(email, newPassword); // TransactionSystemException
     }
 
     /**
@@ -142,10 +136,14 @@ public class UserServiceTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public void test_updatePassword_unknownEmail() {
-        String email = "unknown";
-        assertThat(service.get(email), is(nullValue()));
+        String email = "sample@domain.org";
 
-        service.updatePassword(email, new PasswordGenerator().get());
+        UserDao dao = mock(UserDao.class);
+        UserService service = new UserService(dao, mock(MailSender.class), mock(SimpleMailMessage.class));
+
+        when(dao.findByEmail(email)).thenReturn(null);
+
+        service.updatePassword(email, "newPassword"); // IllegalArgumentException
     }
 
 }

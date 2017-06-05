@@ -1,10 +1,9 @@
 package fr.pinguet62.jsfring.service;
 
+import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Date;
-
-import javax.inject.Inject;
 
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
@@ -34,15 +33,15 @@ public class UserService extends AbstractService<User, String> {
 
     private final UserDao dao;
 
-    @Inject
-    private SimpleMailMessage forgottenPasswordMessage;
+    private final SimpleMailMessage forgottenPasswordMessage;
 
-    @Inject
-    private MailSender mailSender;
+    private final MailSender mailSender;
 
-    public UserService(UserDao dao) {
+    public UserService(UserDao dao, MailSender mailSender, SimpleMailMessage forgottenPasswordMessage) {
         super(dao);
         this.dao = requireNonNull(dao);
+        this.mailSender = requireNonNull(mailSender);
+        this.forgottenPasswordMessage = requireNonNull(forgottenPasswordMessage);
     }
 
     public long count() {
@@ -86,7 +85,7 @@ public class UserService extends AbstractService<User, String> {
         // Send email
         SimpleMailMessage message = new SimpleMailMessage(forgottenPasswordMessage);
         message.setTo(user.getEmail());
-        message.setText(String.format(forgottenPasswordMessage.getText(), user.getEmail(), user.getPassword()));
+        message.setText(format(forgottenPasswordMessage.getText(), user.getEmail(), user.getPassword()));
         mailSender.send(message);
         log.info("New password sent to {} user's email", user.getEmail());
     }
@@ -103,11 +102,14 @@ public class UserService extends AbstractService<User, String> {
      */
     @Transactional
     public void updatePassword(String email, String password) {
-        User user = dao.findOne(email);
+        User user = dao.findByEmail(email);
         if (user == null)
             throw new IllegalArgumentException("User not found");
 
-        dao.updatePassword(user, password);
+        log.debug("Password updated for user: {}", email);
+        user.setPassword(password);
+        dao.save(user);
+
     }
 
 }
