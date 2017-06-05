@@ -2,6 +2,8 @@ package fr.pinguet62.jsfring.common.security.userdetails;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Optional;
+
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -40,8 +42,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      * The login process.<br>
      * Reset {@link User#lastConnection} after connection.
      *
-     * @param login
-     *            The {@link User#login user's login}.
+     * @param id
+     *            The {@link User#email user's login}.
      * @return The {@link UserDetails}.
      * @throws UsernameNotFoundException
      *             If {@link User} is not found.
@@ -49,11 +51,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      */
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        User user = userDao.findOne(login);
-
-        if (user == null)
-            throw new UsernameNotFoundException(null);
+    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
+        Optional<User> userOp = userDao.findById(id);
+        User user = userOp.orElseThrow(() -> new UsernameNotFoundException("No user with username: " + id));
 
         userDao.resetLastConnectionDate(user);
 

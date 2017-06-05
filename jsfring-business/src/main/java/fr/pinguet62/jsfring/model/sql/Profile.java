@@ -40,9 +40,7 @@ public class Profile implements Serializable {
     private Integer id;
 
     @ManyToMany(fetch = EAGER)
-    @JoinTable(name = "profiles_rights", joinColumns = {
-            @JoinColumn(name = "profile", nullable = false, updatable = false) }, inverseJoinColumns = {
-                    @JoinColumn(name = "\"RIGHT\"", nullable = false, updatable = false) })
+    @JoinTable(name = "profiles_rights", joinColumns = @JoinColumn(name = "profile", nullable = false, updatable = false), inverseJoinColumns = @JoinColumn(name = "\"RIGHT\"", nullable = false, updatable = false))
     private Set<Right> rights;
 
     // Validation
@@ -52,9 +50,7 @@ public class Profile implements Serializable {
     private String title;
 
     @ManyToMany
-    @JoinTable(name = "users_profiles", joinColumns = {
-            @JoinColumn(name = "profile", nullable = false, updatable = false) }, inverseJoinColumns = {
-                    @JoinColumn(name = "user", nullable = false, updatable = false) })
+    @JoinTable(name = "users_profiles", joinColumns = @JoinColumn(name = "profile", nullable = false, updatable = false), inverseJoinColumns = @JoinColumn(name = "\"USER\"", nullable = false, updatable = false))
     private Set<User> users;
 
 }

@@ -100,7 +100,7 @@ public class UserDaoTest {
         userDao.disableInactiveUsers(nbOfDays);
 
         // Check
-        assertThat(userDao.findOne(id).getActive(), is(false));
+        assertThat(userDao.findById(id).get().getActive(), is(false));
     }
 
     /**
@@ -124,7 +124,7 @@ public class UserDaoTest {
         userDao.disableInactiveUsers(nbOfDays);
 
         // Check
-        assertThat(userDao.findOne(id).getActive(), is(true));
+        assertThat(userDao.findById(id).get().getActive(), is(true));
     }
 
     /**
@@ -139,14 +139,14 @@ public class UserDaoTest {
                 .get();
 
         // Initial state
-        User user = userDao.findOne(email);
+        User user = userDao.findById(email).get();
         Date lastConnectionBefore = user.getLastConnection();
         assertThat(lastConnectionBefore, is(before(today)));
 
         userDao.resetLastConnectionDate(user);
 
         // Test
-        Date lastConnectionAfter = DateUtils.truncate(userDao.findOne(email).getLastConnection(), DAY_OF_MONTH);
+        Date lastConnectionAfter = DateUtils.truncate(userDao.findById(email).get().getLastConnection(), DAY_OF_MONTH);
         assertThat(lastConnectionAfter, is(equalTo(today)));
     }
 

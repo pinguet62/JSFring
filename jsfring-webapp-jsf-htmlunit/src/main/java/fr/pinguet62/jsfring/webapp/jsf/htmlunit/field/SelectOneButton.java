@@ -33,9 +33,8 @@ public final class SelectOneButton<T> extends ReadWriteField<HtmlDivision, T> {
         this.converter = converter;
     }
 
-    @SuppressWarnings("unchecked")
     private List<HtmlDivision> getChoices() {
-        return (List<HtmlDivision>) html.getByXPath("./div[contains(@class, 'ui-button')]");
+        return html.getByXPath("./div[contains(@class, 'ui-button')]");
     }
 
     /** Find {@link HtmlDivision} with {@code class="ui-state-active"}. */

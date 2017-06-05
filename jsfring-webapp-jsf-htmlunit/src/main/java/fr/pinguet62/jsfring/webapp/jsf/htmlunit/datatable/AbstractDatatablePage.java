@@ -111,9 +111,7 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
      * @return The {@link Iterator} on <i>paginator</i> button of current page.
      */
     protected Iterator<HtmlSpan> getCurrentPage() {
-        @SuppressWarnings("unchecked")
-        List<HtmlSpan> paginator = (List<HtmlSpan>) getDatatablePaginator()
-        .getByXPath("./span[@class='ui-paginator-pages']/span");
+        List<HtmlSpan> paginator = getDatatablePaginator().getByXPath("./span[@class='ui-paginator-pages']/span");
         Iterator<HtmlSpan> it;
         for (it = paginator.iterator(); it.hasNext(); it.next())
             if (it.next().getAttribute("class").contains("ui-state-active"))
@@ -173,9 +171,8 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
      *
      * @return The {@link HtmlTableHeaderCell}s.
      */
-    @SuppressWarnings("unchecked")
     protected List<HtmlTableHeaderCell> getDatatableTableHeaders() {
-        return (List<HtmlTableHeaderCell>) getDatatableTable().getByXPath("./thead/tr/th");
+        return getDatatableTable().getByXPath("./thead/tr/th");
     }
 
     /**
@@ -199,8 +196,7 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
      *         An empty {@link List} if empty datatable.
      */
     public List<T> getRows() {
-        @SuppressWarnings("unchecked")
-        List<HtmlTableRow> rows = (List<HtmlTableRow>) getDatatableTable().getByXPath("./tbody/tr");
+        List<HtmlTableRow> rows = getDatatableTable().getByXPath("./tbody/tr");
         if (rows.size() == 1 && rows.get(0).getAttribute("class").contains("ui-datatable-empty-message"))
             return new ArrayList<>();
         return rows.stream().map(getRowFactory()).collect(toList());
@@ -259,9 +255,8 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
     }
 
     public boolean isCreateButtonVisible() {
-        final String xpath = "./button[contains(@onclick, 'createDialog')]";
-        @SuppressWarnings("unchecked")
-        List<HtmlButton> buttons = (List<HtmlButton>) getDatatableHeader().getByXPath(xpath);
+        String xpath = "./button[contains(@onclick, 'createDialog')]";
+        List<HtmlButton> buttons = getDatatableHeader().getByXPath(xpath);
         if (buttons.size() >= 2)
             throw new IllegalArgumentException("More than 1 tag found with XPath: " + xpath);
         return !buttons.isEmpty();

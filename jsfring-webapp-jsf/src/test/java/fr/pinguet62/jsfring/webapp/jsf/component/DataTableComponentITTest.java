@@ -55,7 +55,6 @@ import fr.pinguet62.jsfring.model.sql.User;
 import fr.pinguet62.jsfring.webapp.jsf.AbstractBean;
 import fr.pinguet62.jsfring.webapp.jsf.AbstractCrudBean;
 import fr.pinguet62.jsfring.webapp.jsf.AbstractSelectableBean;
-import fr.pinguet62.jsfring.webapp.jsf.component.DataTableComponent;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.AbstractDatatablePage;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.AbstractRow;
@@ -224,7 +223,7 @@ public final class DataTableComponentITTest {
         UsersPage page = get().gotoUsersPage();
         UserRow row = page.getRows().get(0);
         String email = row.getEmail();
-        boolean newValue = !userDao.findOne(email).getActive();
+        boolean newValue = !userDao.findById(email).get().getActive();
         assertThat(row.isActive(), is(not(equalTo(newValue))));
 
         // Action
@@ -236,7 +235,7 @@ public final class DataTableComponentITTest {
         page.filterEmail(email); // because updated value is placed at the end
         assertThat(page.getTotalCount(), is(equalTo(1)));
         assertThat(page.getRows().get(0).isActive(), is(equalTo(newValue)));
-        assertThat(userDao.findOne(email).getActive(), is(equalTo(newValue)));
+        assertThat(userDao.findById(email).get().getActive(), is(equalTo(newValue)));
     }
 
     /**

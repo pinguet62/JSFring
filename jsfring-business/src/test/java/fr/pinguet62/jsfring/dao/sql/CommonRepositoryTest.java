@@ -24,7 +24,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.querydsl.QueryDslPredicateExecutor;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -113,7 +113,7 @@ public class CommonRepositoryTest {
         assertThat(userDao.findAll(), hasSize(3));
     }
 
-    /** @see QueryDslPredicateExecutor#findAll(Predicate) */
+    /** @see QuerydslPredicateExecutor#findAll(Predicate) */
     @Test
     public void test_findAll_Predicate() {
         final String keyword = "PROFILE";
@@ -124,7 +124,7 @@ public class CommonRepositoryTest {
         assertThat(rights, everyItem(mappedTo(Right::getCode, containsString(keyword))));
     }
 
-    /** @see QueryDslPredicateExecutor#findAll(Predicate) */
+    /** @see QuerydslPredicateExecutor#findAll(Predicate) */
     @Test
     public void test_findAll_Predicate_notFound() {
         List<Right> rights = rightDao.findAll(QRight.right_.code.contains("#$!@"));
@@ -159,7 +159,7 @@ public class CommonRepositoryTest {
     @Test
     public void test_getOne_notExisting() {
         final int id = -1;
-        assertThat(profileDao.exists(id), is(false));
+        assertThat(profileDao.existsById(id), is(false));
 
         try {
             profileDao.getOne(id).getTitle(); // fail

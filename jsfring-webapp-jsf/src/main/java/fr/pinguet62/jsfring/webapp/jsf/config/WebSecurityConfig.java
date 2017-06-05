@@ -31,31 +31,30 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // @formatter:off
         http
-                // Login
-                .formLogin()
-                    .loginPage("/login.xhtml")
-                    .loginProcessingUrl(LOGIN_PROCESSING_URL)
-                    .failureUrl("/login.xhtml?error")
-
-            .and()
-                // remember-me
-                .rememberMe()
-                    .rememberMeParameter("remember-me_input")
-                    .tokenRepository(tokenRepository())
-                    .tokenValiditySeconds(5555)
-            .and()
-                // intercept-url
-                .authorizeRequests()
-                    .anyRequest().permitAll()
-                    .antMatchers("/login.xhtml").permitAll()
-                    .antMatchers("/right.xhtml").hasRole("RIGHT_RO")
-                    .antMatchers("/profiles.xhtml").hasRole("PROFILE_RO")
-                    .antMatchers("/user.xhtml").hasRole("USER_RO")
-                    .antMatchers("/index.xhtml").permitAll()
-            .and()
-                // Cross-Site Request Forgery
-                .csrf()
-                    .disable() // otherwise: error
+            // Login
+            .formLogin()
+                .loginPage("/login.xhtml")
+                .loginProcessingUrl(LOGIN_PROCESSING_URL)
+                .failureUrl("/login.xhtml?error")
+                .permitAll()
+        .and()
+            // remember-me
+            .rememberMe()
+                .rememberMeParameter("remember-me_input")
+                .tokenRepository(tokenRepository())
+                .tokenValiditySeconds(5555)
+        .and()
+            // intercept-url
+            .authorizeRequests()
+                .antMatchers("/javax.faces.resource/**").permitAll()
+                .antMatchers("/right.xhtml").hasRole("RIGHT_RO")
+                .antMatchers("/profiles.xhtml").hasRole("PROFILE_RO")
+                .antMatchers("/user.xhtml").hasRole("USER_RO")
+                .anyRequest().permitAll() // TODO test
+        .and()
+            // Cross-Site Request Forgery
+            .csrf()
+                .disable()
         // @formatter:on
         ;
     }

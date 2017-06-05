@@ -20,9 +20,8 @@ public final class AutocompleteInputText extends ReadWriteField<HtmlDivision, Li
     }
 
     /** Get the {@link HtmlListItem} containing values. */
-    @SuppressWarnings("unchecked")
     private List<HtmlListItem> getTokens() {
-        return (List<HtmlListItem>) html.getByXPath(
+        return html.getByXPath(
                 "./ul[contains(@class, 'ui-autocomplete-multiple-container')]/li[contains(@class, 'ui-autocomplete-token')]");
     }
 
@@ -37,8 +36,8 @@ public final class AutocompleteInputText extends ReadWriteField<HtmlDivision, Li
     // TODO reset initial values
     // TODO multiple auto-complete fields
     /**
-     * @throws IllegalArgumentException If more than 1 item found into
-     *             auto-complete list.
+     * @throws IllegalArgumentException
+     *             If more than 1 item found into auto-complete list.
      */
     @Override
     public void setValue(List<String> values) {
@@ -61,8 +60,7 @@ public final class AutocompleteInputText extends ReadWriteField<HtmlDivision, Li
                 debug();
 
                 // Autocomplete
-                @SuppressWarnings("unchecked")
-                List<HtmlListItem> lis = (List<HtmlListItem>) page.getByXPath(
+                List<HtmlListItem> lis = page.getByXPath(
                         "//div[contains(@class, 'ui-autocomplete-panel')]/ul[contains(@class, 'ui-autocomplete-list')]/li");
                 if (lis.size() > 1)
                     throw new IllegalArgumentException("More than 1 result found into auto-complemente results");

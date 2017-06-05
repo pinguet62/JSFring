@@ -3,6 +3,7 @@ package fr.pinguet62.jsfring.webapp.jsf;
 import static fr.pinguet62.jsfring.webapp.jsf.config.WebSecurityConfig.LOGIN_PROCESSING_URL;
 import static javax.faces.application.FacesMessage.SEVERITY_ERROR;
 import static javax.faces.context.FacesContext.getCurrentInstance;
+import static org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter.ERROR_PARAMETER_NAME;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -32,7 +33,7 @@ public final class LoginBean implements Serializable {
     /** Contains the error message returned by Spring Security in the URL. */
     @Getter
     @Setter
-    @Value("#{request.getParameter('error')}")
+    @Value("#{request.getParameter('" + ERROR_PARAMETER_NAME + "')}")
     private String error;
 
     @Getter

@@ -100,7 +100,7 @@ public class JpaTest {
 
         // Create new & Not associated
         String code = randomUUID().toString().substring(0, 4);
-        assertThat(rightDao.exists(code), is(false));
+        assertThat(rightDao.existsById(code), is(false));
         Right newRight = Right.builder().code(code).build();
 
         // Associate

@@ -7,7 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
-import org.springframework.data.jpa.repository.support.QueryDslJpaRepository;
+import org.springframework.data.jpa.repository.support.QuerydslJpaRepository;
+import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport;
 
 import com.querydsl.jpa.impl.JPAQuery;
@@ -20,8 +21,9 @@ import com.querydsl.jpa.impl.JPAQuery;
  * @param <ID>
  *            The type of {@link Entity} id.
  */
-public class CommonRepositoryImpl<T, ID extends Serializable> extends QueryDslJpaRepository<T, ID>
-implements CommonRepository<T, ID> {
+@NoRepositoryBean
+public class CommonRepositoryImpl<T, ID extends Serializable> extends QuerydslJpaRepository<T, ID>
+        implements CommonRepository<T, ID> {
 
     private final EntityManager entityManager;
 

@@ -122,8 +122,7 @@ public final class UsersPage extends AbstractDatatablePage<UserRow, UserCreatePo
             waitJS(SHORT);
             debug();
 
-            @SuppressWarnings("unchecked")
-            List<HtmlListItem> choices = (List<HtmlListItem>) page.getByXPath(
+            List<HtmlListItem> choices = page.getByXPath(
                     "//div[contains(@class, 'ui-columntoggler')]/ul[contains(@class, 'ui-columntoggler-items')]/li[contains(@class, 'ui-columntoggler-item')]");
             HtmlListItem choice = choices.stream()
                     .filter(li -> Column.fromTitle(((HtmlLabel) li.getByXPath("./label").get(0)).asText()).equals(column))

@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
 import static org.springframework.core.ResolvableType.forClassWithGenerics;
+import static org.springframework.data.domain.Pageable.unpaged;
 
 import javax.inject.Inject;
 
@@ -22,7 +23,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.common.spring.GenericTypeDescriptor;
-import fr.pinguet62.jsfring.webservice.converter.PageGenericConverter;
 import fr.pinguet62.jsfring.webservice.dto.PageDto;
 
 /** @see PageGenericConverter */
@@ -35,7 +35,7 @@ public class PageGenericConverterTest {
 
     @Test
     public void test_sameType() {
-        Page<String> source = new PageImpl<>(asList("1", "2", "3"), null, 10);
+        Page<String> source = new PageImpl<>(asList("1", "2", "3"), unpaged(), 10);
 
         TypeDescriptor srcType = new GenericTypeDescriptor(forClassWithGenerics(Page.class, String.class));
         TypeDescriptor tgtType = new GenericTypeDescriptor(forClassWithGenerics(PageDto.class, String.class));
@@ -59,7 +59,7 @@ public class PageGenericConverterTest {
     public void test_typeConverting() {
         assertThat(conversionService.canConvert(String.class, Integer.class), is(true));
 
-        Page<String> source = new PageImpl<>(asList("1", "2", "3"), null, 10);
+        Page<String> source = new PageImpl<>(asList("1", "2", "3"), unpaged(), 10);
 
         TypeDescriptor srcType = new GenericTypeDescriptor(forClassWithGenerics(Page.class, String.class));
         TypeDescriptor tgtType = new GenericTypeDescriptor(forClassWithGenerics(PageDto.class, Integer.class));
@@ -81,7 +81,7 @@ public class PageGenericConverterTest {
         }
         assertThat(conversionService.canConvert(SrcType.class, TgtType.class), is(false));
 
-        Page<SrcType> source = new PageImpl<>(asList(new SrcType(), new SrcType()), null, 10);
+        Page<SrcType> source = new PageImpl<>(asList(new SrcType(), new SrcType()), unpaged(), 10);
 
         TypeDescriptor srcType = new GenericTypeDescriptor(forClassWithGenerics(Page.class, SrcType.class));
         TypeDescriptor tgtType = new GenericTypeDescriptor(forClassWithGenerics(PageDto.class, TgtType.class));

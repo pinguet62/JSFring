@@ -69,7 +69,7 @@ public final class RightsPageITTest {
     public void test_action_show_field_value() {
         RightRow row = page.iterator().next();
         RightShowPopup popup = row.actionShow();
-        Right right = rightDao.findOne(QRight.right_.code.eq(row.getCode()));
+        Right right = rightDao.findOne(QRight.right_.code.eq(row.getCode())).get();
 
         assertThat(popup.getCode().getValue(), is(equalTo(right.getCode())));
         assertThat(popup.getTitle().getValue(), is(equalTo(right.getTitle())));
@@ -87,7 +87,7 @@ public final class RightsPageITTest {
     public void test_action_update_field_value() {
         RightRow row = page.iterator().next();
         RightUpdatePopup popup = row.actionUpdate();
-        Right right = rightDao.findOne(QRight.right_.code.eq(row.getCode()));
+        Right right = rightDao.findOne(QRight.right_.code.eq(row.getCode())).get();
 
         assertThat(popup.getCode().getValue(), is(equalTo(right.getCode())));
         assertThat(popup.getTitle().getValue(), is(equalTo(right.getTitle())));

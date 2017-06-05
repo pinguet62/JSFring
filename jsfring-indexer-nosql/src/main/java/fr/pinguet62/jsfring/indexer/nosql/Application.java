@@ -5,6 +5,7 @@ import static java.lang.String.valueOf;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.inject.Inject;
 
@@ -58,13 +59,13 @@ public class Application implements CommandLineRunner {
 
     /** @see Movie */
     private Movie createMoveIfNotExists(long code) throws Exception {
-        Movie movie = movieDao.findOne(format(code));
-        if (movie != null)
-            return movie;
+        Optional<Movie> foundMovie = movieDao.findById(format(code));
+        if (foundMovie.isPresent())
+            return foundMovie.get();
 
         log.info("Init {}: {}", Movie.class.getSimpleName(), code);
         MovieInfos movieDto = api.getMovieInfos(valueOf(code));
-        movie = new Movie();
+        Movie movie = new Movie();
         movie.setId(format(movieDto.getCode()));
         movie.setReleaseDate(
                 movieDto.getReleaseDate() == null ? null : new SimpleDateFormat("yyyy-MM-dd").parse(movieDto.getReleaseDate()));
@@ -97,13 +98,13 @@ public class Application implements CommandLineRunner {
 
     /** @see Person */
     private Person getOrCreatePerson(long code) throws Exception {
-        Person person = personDao.findOne(format(code));
-        if (person != null)
-            return null;
+        Optional<Person> existingPerson = personDao.findById(format(code));
+        if (existingPerson.isPresent())
+            return existingPerson.get();
 
         log.info("Init {}: {}", Person.class.getSimpleName(), code);
         PersonInfos personDto = api.getPersonInfos(String.valueOf(code));
-        person = new Person();
+        Person person = new Person();
         person.setId(format(personDto.getCode()));
         person.setName(personDto.getFullName());
 

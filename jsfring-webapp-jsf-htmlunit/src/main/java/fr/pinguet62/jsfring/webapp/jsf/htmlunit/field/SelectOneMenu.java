@@ -28,7 +28,7 @@ public final class SelectOneMenu extends ReadWriteField<HtmlDivision, String> {
     }
 
     private List<KeyLabelIndex> getItems() {
-        List<HtmlOption> options = (List<HtmlOption>) page.getByXPath("//select[@id='" + id + "_input']/option");
+        List<HtmlOption> options = page.getByXPath("//select[@id='" + id + "_input']/option");
         List<KeyLabelIndex> items = new ArrayList<>();
         int index = 0;
         for (HtmlOption option : options) {

@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.3.RELEASE</version>
+		<version>2.0.0.M2</version>
 	</parent>
 
 	<groupId>fr.pinguet62.jsfring</groupId>
@@ -25,8 +25,7 @@
 		<module>jsfring-batch</module>
 		<module>jsfring-batch-admin</module>
 		<module>jsfring-webservice</module>
-		<module>jsfring-webapp-angularjs</module>
-		<module>jsfring-webapp-angular2</module>
+		<!-- <module>jsfring-webapp-angularjs</module> <module>jsfring-webapp-angular2</module> -->
 		<module>jsfring-webapp-jsf-htmlunit</module>
 		<module>jsfring-webapp-jsf</module>
 	</modules>
@@ -228,6 +227,44 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<!-- TODO Remove after Spring RELEASE -->
+	<repositories>
+		<repository>
+			<id>spring-snapshots</id>
+			<name>Spring Snapshots</name>
+			<url>https://repo.spring.io/snapshot</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+        <pluginRepository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>https://repo.spring.io/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+	</pluginRepositories>
 
 	<reporting>
 		<plugins>

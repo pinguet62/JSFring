@@ -8,6 +8,8 @@ import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
+import java.util.Optional;
+
 import javax.inject.Inject;
 
 import org.bson.types.ObjectId;
@@ -17,7 +19,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.support.QueryDslMongoRepository;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
@@ -78,8 +79,8 @@ public class NoSQLRepositoryTest {
     public void test_oneToMany() {
         ObjectId id = movieDao.findAll().get(0).getId();
 
-        Movie movie = movieDao.findOne(id);
-        assertThat(movie.getComments().get(0).getUser().getPseudo(), is(notNullValue()));
+        Optional<Movie> movie = movieDao.findById(id);
+        assertThat(movie.get().getComments().get(0).getUser().getPseudo(), is(notNullValue()));
     }
 
 }

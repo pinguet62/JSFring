@@ -105,7 +105,7 @@ public class CrudRepositoryItemWriterTest {
         writer.write(items);
 
         assertThat(dao.count(), is(equalTo(initialCount))); // no new
-        assertThat(dao.findOne(entity.getId()).getTitle(), is(equalTo(newValue))); // updated
+        assertThat(dao.findById(entity.getId()).get().getTitle(), is(equalTo(newValue))); // updated
     }
 
 }

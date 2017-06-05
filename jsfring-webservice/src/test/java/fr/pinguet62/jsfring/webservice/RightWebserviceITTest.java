@@ -57,7 +57,7 @@ public class RightWebserviceITTest {
                 .get(RightDto.class);
         // @formatter:on
 
-        Right pojo = rightDao.findOne(code);
+        Right pojo = rightDao.findById(code).get();
         RightDto expected = new RightDto();
         expected.setCode(pojo.getCode());
         expected.setTitle(pojo.getTitle());

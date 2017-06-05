@@ -103,7 +103,7 @@ public final class ProfilesPageITTest {
     @Test
     public void test_action_show_field_value() {
         ProfileRow row = page.iterator().next();
-        Profile profile = profileDao.findOne(QProfile.profile.title.eq(row.getTitle()));
+        Profile profile = profileDao.findOne(QProfile.profile.title.eq(row.getTitle())).get();
 
         ProfileShowPopup popup = row.actionShow();
         assertThat(popup.getTitle().getValue(), is(equalTo(profile.getTitle())));
@@ -117,7 +117,7 @@ public final class ProfilesPageITTest {
         ProfileUpdatePopup popup = row.actionUpdate();
 
         // Data
-        int id = profileDao.findOne(QProfile.profile.title.eq(row.getTitle())).getId();
+        int id = profileDao.findOne(QProfile.profile.title.eq(row.getTitle())).get().getId();
         String title = randomUUID().toString().substring(0, 29);
         List<Right> rights = rightDao.findAll().stream().limit(2).collect(toList());
 
@@ -127,7 +127,7 @@ public final class ProfilesPageITTest {
         popup.submit();
 
         // Check
-        Profile profile = profileDao.findOne(id);
+        Profile profile = profileDao.findById(id).get();
         assertThat(profile.getTitle(), is(equalTo(title)));
         assertThat(profile.getRights(), is(equalWithoutOrderTo(rights)));
     }
@@ -142,7 +142,7 @@ public final class ProfilesPageITTest {
     @Test
     public void test_action_update_field_value() {
         ProfileRow row = page.iterator().next();
-        Profile profile = profileDao.findOne(QProfile.profile.title.eq(row.getTitle()));
+        Profile profile = profileDao.findOne(QProfile.profile.title.eq(row.getTitle())).get();
 
         ProfileUpdatePopup popup = row.actionUpdate();
         assertThat(popup.getTitle().getValue(), is(equalTo(profile.getTitle())));

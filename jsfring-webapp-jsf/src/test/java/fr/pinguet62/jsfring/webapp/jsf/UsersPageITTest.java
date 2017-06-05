@@ -75,7 +75,7 @@ public class UsersPageITTest {
         popup.submit();
 
         // Check
-        User user = userDao.findOne(email);
+        User user = userDao.findById(email).get();
         assertThat(user, is(not(nullValue())));
         assertThat(user.getEmail(), is(equalTo(email)));
         assertThat(user.getActive(), is(equalTo(active)));
@@ -115,7 +115,7 @@ public class UsersPageITTest {
         UserRow row = page.iterator().next();
         UserShowPopup popup = row.actionShow();
 
-        User user = userDao.findOne(row.getEmail());
+        User user = userDao.findById(row.getEmail()).get();
         assertThat(popup.getEmail().getValue(), is(equalTo(user.getEmail())));
         assertThat(popup.isActive().getValue(), is(equalTo(user.getActive())));
         if (user.getLastConnection() == null)
@@ -142,7 +142,7 @@ public class UsersPageITTest {
         popup.submit();
 
         // Check
-        User user = userDao.findOne(email);
+        User user = userDao.findById(email).get();
         assertThat(user.getEmail(), is(equalTo(email)));
         assertThat(user.getActive(), is(equalTo(active)));
         assertThat(user.getProfiles(), is(equalWithoutOrderTo(profiles)));
@@ -163,7 +163,7 @@ public class UsersPageITTest {
         UserRow row = page.iterator().next();
         UserUpdatePopup popup = row.actionUpdate();
 
-        User user = userDao.findOne(row.getEmail());
+        User user = userDao.findById(row.getEmail()).get();
         assertThat(popup.getEmail().getValue(), is(equalTo(user.getEmail())));
         assertThat(popup.getActive().getValue(), is(equalTo(user.getActive())));
         if (user.getLastConnection() == null)

@@ -33,8 +33,6 @@ interface UserDaoCustom {
 
     void resetLastConnectionDate(User user);
 
-    void updatePassword(User user, String password);
-
 }
 
 @Slf4j
@@ -84,21 +82,6 @@ class UserDaoImpl implements UserDaoCustom {
     public void resetLastConnectionDate(User user) {
         log.debug("Last connection date reset for user: {}", user.getEmail());
         user.setLastConnection(new Date());
-        dao.save(user);
-    }
-
-    /**
-     * Update the {@link User#password password}.
-     *
-     * @param user
-     *            The {@link User} to update.
-     * @param password
-     *            The new {@link User#password user's password}.
-     */
-    @Override
-    public void updatePassword(User user, String password) {
-        log.debug("Password updated for user: {}", user.getEmail());
-        user.setPassword(password);
         dao.save(user);
     }
 

@@ -5,6 +5,7 @@ import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.joining;
 
 import java.lang.annotation.Retention;
+import java.util.Optional;
 
 import javax.inject.Inject;
 
@@ -44,10 +45,9 @@ class WithUserHavingRolesSecurityContextFactory implements WithSecurityContextFa
 
     @Override
     public SecurityContext createSecurityContext(WithUserHavingRoles annotation) {
-        User user = userDao.findOne(QUser.user.email.eq("root@admin.fr"));
-        if (user == null)
-            throw new TestRuntimeException(
-                    "No suitable user found having these rights: " + stream(annotation.value()).collect(joining(", ")));
+        Optional<User> userOp = userDao.findOne(QUser.user.email.eq("root@admin.fr"));
+        User user = userOp.orElseThrow(() -> new TestRuntimeException(
+                "No suitable user found having these rights: " + stream(annotation.value()).collect(joining(", "))));
 
         UserDetails principal = userDetailsService.loadUserByUsername(user.getEmail());
         Authentication authentication = new UsernamePasswordAuthenticationToken(principal, principal.getPassword(),

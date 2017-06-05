@@ -30,8 +30,10 @@ import fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.popup.UpdatePopup;
 /**
  * Row of datatable of {@link AbstractDatatablePage}.
  *
- * @param <SP> The {@link ShowPopup} type.
- * @param <UP> The {@link UpdatePopup} type.
+ * @param <SP>
+ *            The {@link ShowPopup} type.
+ * @param <UP>
+ *            The {@link UpdatePopup} type.
  */
 public abstract class AbstractRow<SP, UP> extends AbstractPage {
 
@@ -40,7 +42,8 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
     /**
      * Initialize the "actions" cell.
      *
-     * @param row The {@link HtmlTableRow table row}.
+     * @param row
+     *            The {@link HtmlTableRow table row}.
      */
     protected AbstractRow(HtmlTableRow row) {
         super(row.getHtmlPageOrNull());
@@ -51,7 +54,8 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
      * Click on "delete" action button.
      *
      * @return The {@link ConfirmPopup}.
-     * @throws UnsupportedOperationException "Delete" action not available.
+     * @throws UnsupportedOperationException
+     *             "Delete" action not available.
      */
     public ConfirmPopup actionDelete() {
         HtmlButton button = getActionButtonDelete();
@@ -73,7 +77,8 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
      * Click on "show" action button.
      *
      * @return The {@link ShowPopup}.
-     * @throws UnsupportedOperationException "Show" action not available.
+     * @throws UnsupportedOperationException
+     *             "Show" action not available.
      */
     public SP actionShow() {
         HtmlButton button = getActionButtonShow();
@@ -96,7 +101,8 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
      * Click on "update" action button.
      *
      * @return The {@link UpdatePopup}.
-     * @throws UnsupportedOperationException "Update" action not available.
+     * @throws UnsupportedOperationException
+     *             "Update" action not available.
      */
     public UP actionUpdate() {
         HtmlButton button = getActionButtonUpdate();
@@ -118,15 +124,17 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
     /**
      * Find action {@link HtmlButton button}, in action column, by XPath.
      *
-     * @param xpath The XPath to find {@link HtmlButton}.
+     * @param xpath
+     *            The XPath to find {@link HtmlButton}.
      * @return The {@link HtmlButton}.<br>
      *         {@code null} if not found.
-     * @throws NavigatorException More than 1 {@link HtmlButton} found.
+     * @throws NavigatorException
+     *             More than 1 {@link HtmlButton} found.
      */
     private HtmlButton getActionButton(String xpath) {
-        @SuppressWarnings("unchecked") List<HtmlTableCell> cells = (List<HtmlTableCell>) row.getByXPath("./td");
+        List<HtmlTableCell> cells = row.getByXPath("./td");
         HtmlTableDataCell actionsCell = (HtmlTableDataCell) cells.get(cells.size() - 1);
-        @SuppressWarnings("unchecked") List<HtmlButton> elements = (List<HtmlButton>) actionsCell.getByXPath(xpath);
+        List<HtmlButton> elements = actionsCell.getByXPath(xpath);
         if (elements.size() > 1)
             throw new NavigatorException("More than 1 tag found with XPath: " + xpath);
         return elements.isEmpty() ? null : elements.get(0);
@@ -148,10 +156,12 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
     /**
      * Get the {@link Boolean}.
      *
-     * @param column The column index.
+     * @param column
+     *            The column index.
      * @return The {@link Boolean}.<br>
      *         {@code null} if empty cell.
-     * @throws NavigatorException Unknown boolean format.
+     * @throws NavigatorException
+     *             Unknown boolean format.
      */
     protected Boolean getBoolean(int column) {
         String content = getString(column);
@@ -169,7 +179,8 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
     /**
      * Get the {@link Date}.
      *
-     * @param column The column index.
+     * @param column
+     *            The column index.
      * @return The {@link Date}.
      * @see DateUtils#parseDateOrDateTime(String)
      */
@@ -194,7 +205,8 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
     /**
      * Get the {@link String}.
      *
-     * @param column The column index.
+     * @param column
+     *            The column index.
      * @return The {@link String}.<br>
      *         {@code null} if empty cell.
      */

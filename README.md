@@ -81,8 +81,8 @@ Utils :
 
 All dependencies use the latest version.
 
-<img src="https://www.versioneye.com/assets/verisoneye-logo-small-09d4dc67649e8bb51adc2c37216a341f01306950d556f4024c82c302f259ebda.png" height="25" />
-[VersionEye](https://www.versioneye.com)
+<img src="https://www.versioneye.com/assets/verisoneye-logo-small-09d4dc67649e8bb51adc2c37216a341f01306950d556f4024c82c302f259ebda.png" height="25" /> 
+[VersionEye](https://www.versioneye.com) 
 [![Dependency Status](https://www.versioneye.com/user/projects/57361dfdebad9c00123cc180/badge.svg?style=flat)](https://www.versioneye.com/user/projects/57361dfdebad9c00123cc180)
 
 ## Static analysis
@@ -97,8 +97,8 @@ Check that *source code* respect *best practices*:
 * code duplication
 * ...
 
-<img src="https://www.codacy.com/versioned/images/favicon.png" height="25" />
-[Codacy](https://www.codacy.com)
+<img src="https://www.codacy.com/versioned/images/favicon.png" height="25" /> 
+[Codacy](https://www.codacy.com) 
 [![Codacy Badge](https://api.codacy.com/project/badge/9ea574afb85b496294af3b6057e278aa)](https://www.codacy.com/app/pinguet62/JSFring)
 
 ## Build & Test
@@ -107,20 +107,20 @@ Check that *source code* respect *best practices*:
 
 Build and run unit/integration tests, in continue!
 
-<img src="http://img.photobucket.com/albums/v330/pretendercrazy/travis-an_zpsb8ef2f7e.gif" height="25" />
-[Travis CI](https://travis-ci.org)
+<img src="http://img.photobucket.com/albums/v330/pretendercrazy/travis-an_zpsb8ef2f7e.gif" height="25" /> 
+[Travis CI](https://travis-ci.org) 
 [![Build Status](https://travis-ci.org/pinguet62/JSFring.svg?branch=master)](https://travis-ci.org/pinguet62/JSFring)
 
 ### Code coverage
 
 Measure the degree to which the source code of a program is *tested*.
 
-<img src="https://coveralls.io/favicon.png" height="25" />
-[Coveralls](https://coveralls.io)
+<img src="https://coveralls.io/favicon.png" height="25" /> 
+[Coveralls](https://coveralls.io) 
 [![Coverage Status](https://coveralls.io/repos/github/pinguet62/JSFring/badge.svg?branch=master)](https://coveralls.io/github/pinguet62/JSFring?branch=master)
 
-<img src="https://avatars2.githubusercontent.com/u/8226205?v=3&s=200" height="25" />
-[Codecov](https://codecov.io)
+<img src="https://avatars2.githubusercontent.com/u/8226205?v=3&s=200" height="25" /> 
+[Codecov](https://codecov.io) 
 [![codecov.io](https://codecov.io/github/pinguet62/JSFring/coverage.svg?branch=master)](https://codecov.io/github/pinguet62/JSFring?branch=master)
 
 ## Install & Runtime

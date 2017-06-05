@@ -25,7 +25,10 @@ public class FilterField extends AbstractPage {
         this.index = index;
     }
 
-    /** @param i The column index. */
+    /**
+     * @param i
+     *            The column index.
+     */
     private HtmlTableDataCell getColumn(int i) {
         return (HtmlTableDataCell) getFilter().getByXPath("./td").get(i);
     }
@@ -35,9 +38,8 @@ public class FilterField extends AbstractPage {
     }
 
     // FIXME "div/label/span" instead of "div/span" after submit
-    @SuppressWarnings("unchecked")
     private List<HtmlInput> getInputValues() {
-        return (List<HtmlInput>) getColumn(2).getByXPath("./div//span/input[contains(@class, 'ui-inputtext')]");
+        return getColumn(2).getByXPath("./div//span/input[contains(@class, 'ui-inputtext')]");
     }
 
     public int getNumberOfArguments() {
@@ -58,12 +60,14 @@ public class FilterField extends AbstractPage {
         return getInputValues().stream().anyMatch(input -> input.getAttribute("class").contains("ui-state-error"));
     }
 
-    /** @param operator The {@link Class class} of operator. */
+    /**
+     * @param operator
+     *            The {@link Class class} of operator.
+     */
     public void setOperator(Class<?> operator) {
         String value = operator == null ? "" : operator.getName();
         HtmlSelect select = (HtmlSelect) getColumn(2)
-                .getByXPath(
-                        "./div/div[contains(@class, 'ui-selectonemenu')]/div[@class='ui-helper-hidden-accessible']/select")
+                .getByXPath("./div/div[contains(@class, 'ui-selectonemenu')]/div[@class='ui-helper-hidden-accessible']/select")
                 .get(0);
         page = select.setSelectedAttribute(value, true);
         waitJS(SHORT);
@@ -73,11 +77,13 @@ public class FilterField extends AbstractPage {
     /**
      * Set value to argument.
      *
-     * @param index The argument index.
-     * @param value The argument value.
+     * @param index
+     *            The argument index.
+     * @param value
+     *            The argument value.
      */
     public void setValue(int index, String value) {
-        page = (HtmlPage) getInputValues().get(index).setValueAttribute(value);
+        getInputValues().get(index).setValueAttribute(value);
         debug();
     }
 

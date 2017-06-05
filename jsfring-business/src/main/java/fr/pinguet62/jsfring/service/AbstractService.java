@@ -95,11 +95,11 @@ public abstract class AbstractService<T extends Serializable, ID extends Seriali
      * @param id
      *            The id.
      * @return The object, {@code null} if not found.
-     * @see CrudRepository#findOne(Serializable)
+     * @see CrudRepository#findById(Object)
      */
     @Transactional(readOnly = true)
     public T get(ID id) {
-        return dao.findOne(id);
+        return dao.findById(id).orElse(null);
     }
 
     /**

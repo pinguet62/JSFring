@@ -2,6 +2,7 @@ package fr.pinguet62.jsfring.webapp.jsf.htmlunit;
 
 import static java.io.File.createTempFile;
 import static java.lang.Thread.sleep;
+import static java.nio.charset.Charset.defaultCharset;
 import static java.util.stream.Collectors.joining;
 
 import java.io.File;
@@ -76,7 +77,8 @@ public class AbstractPage {
     /**
      * Static version of {@link #debug()} because popup and {@link Field components} behavior.
      *
-     * @param page The {@link SgmlPage} to debug.
+     * @param page
+     *            The {@link SgmlPage} to debug.
      * @see SgmlPage#asXml()
      */
     public static void debug(SgmlPage page) {
@@ -87,14 +89,15 @@ public class AbstractPage {
      * Executed in {@link Logger#isDebugEnabled() DEBUG} level or less.<br>
      * Write content to {@link #TMP_FILE temporary file}.
      *
-     * @param content The content of file to write.
+     * @param content
+     *            The content of file to write.
      */
     public static void debug(String content) {
         if (!log.isDebugEnabled())
             return;
 
         try {
-            IOUtils.write(content, new FileOutputStream(TMP_FILE));
+            IOUtils.write(content, new FileOutputStream(TMP_FILE), defaultCharset());
         } catch (IOException e) {
             throw new NavigatorException(e);
         }
@@ -117,7 +120,8 @@ public class AbstractPage {
     /**
      * Constructor used by classes that inherit.
      *
-     * @param page The {@link HtmlPage HTML page} once on the target page.
+     * @param page
+     *            The {@link HtmlPage HTML page} once on the target page.
      */
     protected AbstractPage(HtmlPage page) {
         this.page = page;
@@ -129,7 +133,8 @@ public class AbstractPage {
      * Check only the current language.<br>
      * A missing i18n message is formatted as {@code "???key???"}.
      *
-     * @throws NavigatorException Missing i18n message.
+     * @throws NavigatorException
+     *             Missing i18n message.
      */
     private void checkI18n() {
         if (page == null)
@@ -155,12 +160,13 @@ public class AbstractPage {
     /**
      * Get the <code>&lt;p:messages/&gt;</code> content.
      *
-     * @param xpath The XPath to find the tag.<br>
-     *        Depends on message level.
+     * @param xpath
+     *            The XPath to find the tag.<br>
+     *            Depends on message level.
      * @return The tag content.
      */
     private String getMessage(String xpath) {
-        @SuppressWarnings("unchecked") List<HtmlSpan> spans = (List<HtmlSpan>) page.getByXPath(xpath);
+        List<HtmlSpan> spans = page.getByXPath(xpath);
         if (spans.isEmpty())
             return null;
         if (spans.size() > 1)
@@ -250,7 +256,8 @@ public class AbstractPage {
      * Wait end of JavaScript (and Ajax) actions.<br>
      * Continue after the delay.
      *
-     * @param delay The {@link Delay} to wait.
+     * @param delay
+     *            The {@link Delay} to wait.
      */
     public void waitJS(Delay delay) {
         log.debug("Wait JavaScript");

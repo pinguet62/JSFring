@@ -60,7 +60,7 @@ public class UserWebserviceITTest {
                 .get(UserDto.class);
         // @formatter:on
 
-        User pojo = userDao.findOne(email);
+        User pojo = userDao.findById(email).get();
         UserDto expected = new UserDto();
         expected.setEmail(pojo.getEmail());
         expected.setLastConnection(pojo.getLastConnection());

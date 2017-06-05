@@ -43,20 +43,20 @@ public final class PickList extends ReadWriteField<HtmlDivision, List<String>> {
     }
 
     /**
-     * @param classValue The {@code "class"} tag attribute used to determinate what type of action is.
+     * @param classValue
+     *            The {@code "class"} tag attribute used to determinate what type of action is.
      */
     private HtmlButton getActionButton(String classValue) {
         return (HtmlButton) html
-                .getByXPath("./div[@class='ui-picklist-buttons']/div/button[contains(@class, '" + classValue + "')]")
-                .get(0);
+                .getByXPath("./div[@class='ui-picklist-buttons']/div/button[contains(@class, '" + classValue + "')]").get(0);
     }
 
     /**
-     * @param classValue The {@code "class"} tag attribute used to determinate if it's the source or target list.
+     * @param classValue
+     *            The {@code "class"} tag attribute used to determinate if it's the source or target list.
      */
-    @SuppressWarnings("unchecked")
     private List<HtmlListItem> getList(String classValue) {
-        return (List<HtmlListItem>) html.getByXPath("./div/ul[contains(@class, '" + classValue + "')]/li");
+        return html.getByXPath("./div/ul[contains(@class, '" + classValue + "')]/li");
     }
 
     private List<HtmlListItem> getSource() {

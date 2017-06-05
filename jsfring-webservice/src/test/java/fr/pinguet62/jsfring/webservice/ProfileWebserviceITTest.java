@@ -58,7 +58,7 @@ public class ProfileWebserviceITTest {
                 .get(ProfileDto.class);
         // @formatter:on
 
-        Profile pojo = profileDao.findOne(id);
+        Profile pojo = profileDao.findById(id).get();
         ProfileDto expected = new ProfileDto();
         expected.setId(pojo.getId());
         expected.setTitle(pojo.getTitle());

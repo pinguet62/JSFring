@@ -27,8 +27,7 @@ public abstract class AbstractJasperReportPage extends AbstractPage {
      * @return The {@link InputStream} returned after export button click.
      */
     protected InputStream export(String buttonTitle) {
-        @SuppressWarnings("unchecked")
-        List<HtmlButton> buttons = (List<HtmlButton>) page.getByXPath(
+        List<HtmlButton> buttons = page.getByXPath(
                 "//div[contains(@class, 'ui-layout-center')]//form//div[contains(@class, 'ui-panel-footer')]//button");
         HtmlButton exporter = buttons.stream()
                 .filter(button -> ((HtmlSpan) button.getByXPath("./span").get(0)).getTextContent().equals(buttonTitle))

@@ -10,6 +10,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -66,7 +68,8 @@ public class User implements Serializable {
     @Column(nullable = false, length = 65)
     private String password;
 
-    @ManyToMany(mappedBy = "users", fetch = EAGER)
+    @ManyToMany(fetch = EAGER)
+    @JoinTable(name = "users_profiles", joinColumns = @JoinColumn(name = "\"USER\"", nullable = false, updatable = false), inverseJoinColumns = @JoinColumn(name = "profile", nullable = false, updatable = false))
     private Set<Profile> profiles;
 
 }
