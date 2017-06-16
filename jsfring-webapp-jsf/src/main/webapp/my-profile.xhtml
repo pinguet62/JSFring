@@ -31,7 +31,7 @@
 				<h:outputLabel for="lang" value="Language" />
 				<p:selectOneMenu id="lang" value="#{langBean.locale}"
 					converter="localeConverter">
-					<p:ajax event="change" />
+					<p:ajax event="change" update="@all" />
 					<f:selectItems value="#{langBean.supportedLocales}" />
 				</p:selectOneMenu>
 			</p:panelGrid>

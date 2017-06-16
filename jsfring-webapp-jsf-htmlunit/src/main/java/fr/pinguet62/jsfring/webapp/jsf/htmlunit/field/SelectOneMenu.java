@@ -55,9 +55,9 @@ public final class SelectOneMenu extends ReadWriteField<HtmlDivision, String> {
 
         HtmlElement tr = (HtmlElement) page.getElementById(id + "_" + index);
         try {
-            tr.click();
+            page = tr.click();
             waitJS(SHORT);
-            debug();
+            debug(page);
         } catch (IOException e) {
             throw new NavigatorException(e);
         }
