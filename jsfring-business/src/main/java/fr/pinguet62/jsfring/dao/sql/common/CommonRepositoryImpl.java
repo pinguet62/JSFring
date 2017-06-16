@@ -1,7 +1,6 @@
 package fr.pinguet62.jsfring.dao.sql.common;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -10,8 +9,6 @@ import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.QuerydslJpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport;
-
-import com.querydsl.jpa.impl.JPAQuery;
 
 /**
  * Implementation of shared methods of {@link CommonRepository}.
@@ -23,9 +20,7 @@ import com.querydsl.jpa.impl.JPAQuery;
  */
 @NoRepositoryBean
 public class CommonRepositoryImpl<T, ID extends Serializable> extends QuerydslJpaRepository<T, ID>
-        implements CommonRepository<T, ID> {
-
-    private final EntityManager entityManager;
+implements CommonRepository<T, ID> {
 
     /**
      * Required by Spring Data.
@@ -38,13 +33,6 @@ public class CommonRepositoryImpl<T, ID extends Serializable> extends QuerydslJp
      */
     public CommonRepositoryImpl(JpaEntityInformation<T, ID> entityInformation, EntityManager entityManager) {
         super(entityInformation, entityManager);
-        this.entityManager = entityManager;
-    }
-
-    @Override
-    public List<T> find(JPAQuery<T> query) {
-        JPAQuery<T> emQuery = query.clone(entityManager);
-        return emQuery.fetch();
     }
 
 }

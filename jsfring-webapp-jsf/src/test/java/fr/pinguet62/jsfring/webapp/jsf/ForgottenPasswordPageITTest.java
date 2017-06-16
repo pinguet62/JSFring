@@ -20,12 +20,10 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.querydsl.jpa.impl.JPAQuery;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.dao.sql.UserDao;
 import fr.pinguet62.jsfring.model.sql.QUser;
-import fr.pinguet62.jsfring.model.sql.User;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.ForgottenPasswordPage;
 
 /** @see ForgottenPasswordPage */
@@ -56,7 +54,7 @@ public class ForgottenPasswordPageITTest {
     @Test
     public void test_forgottenPassword_unknown() {
         String email = "unknown";
-        assertThat(userDao.find(new JPAQuery<User>().from(QUser.user).where(QUser.user.email.eq(email))), is(empty()));
+        assertThat(userDao.findAll(QUser.user.email.eq(email)), is(empty()));
 
         ForgottenPasswordPage forgottenPasswordPage = get().gotoLoginPage().gotoForgottenPasswordPage();
 

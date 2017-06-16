@@ -35,7 +35,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.querydsl.core.types.Predicate;
-import com.querydsl.jpa.impl.JPAQuery;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.common.PasswordGenerator;
@@ -91,18 +90,6 @@ public class CommonRepositoryTest {
         assertThat(profileDao.count(), is(equalTo(0L)));
         // already empty
         profileDao.deleteAll();
-    }
-
-    /** @see CommonRepository#find(JPAQuery) */
-    @Test
-    public void test_find_JPAQuery() {
-        final String keyword = "PROFILE";
-
-        QRight r = QRight.right_;
-        JPAQuery<Right> query = new JPAQuery<Right>().from(r).where(r.code.contains(keyword));
-        List<Right> rights = rightDao.find(query);
-
-        assertThat(rights, everyItem(mappedTo(Right::getCode, containsString(keyword))));
     }
 
     /** @see JpaRepository#findAll() */

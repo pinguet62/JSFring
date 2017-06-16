@@ -18,7 +18,7 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.sun.faces.config.ConfigureListener;
 
@@ -36,7 +36,7 @@ public class WebConfig {
      * </code>
      */
     @Configuration
-    public static class IndexConfig extends WebMvcConfigurerAdapter {
+    public static class IndexConfig implements WebMvcConfigurer {
         @Override
         public void addViewControllers(ViewControllerRegistry registry) {
             registry.addViewController("/").setViewName("index.xhtml");
@@ -49,10 +49,10 @@ public class WebConfig {
      * @return The built {@link ServletRegistrationBean}.
      */
     @Bean
-    public ServletRegistrationBean facesServletRegistration() {
+    public ServletRegistrationBean<Servlet> facesServletRegistration() {
         FacesServlet servlet = new FacesServlet();
         String extension = "*" + DEFAULT_FACELETS_SUFFIX;
-        ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(servlet, extension);
+        ServletRegistrationBean<Servlet> servletRegistrationBean = new ServletRegistrationBean<>(servlet, extension);
         servletRegistrationBean.setLoadOnStartup(1);
         return servletRegistrationBean;
     }

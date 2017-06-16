@@ -43,7 +43,6 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.opencsv.CSVReader;
-import com.querydsl.jpa.impl.JPAQuery;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.dao.sql.ProfileDao;
@@ -439,8 +438,7 @@ public final class DataTableComponentITTest {
     @Test
     public void test_filter_default() {
         final String value = "super";
-        QUser u = QUser.user;
-        List<String> emails = userDao.find(new JPAQuery<User>().from(u).where(u.email.contains(value))).stream()
+        List<String> emails = userDao.findAll(QUser.user.email.contains(value)).stream()
                 .map(User::getEmail).sorted().collect(toList());
 
         // Action
