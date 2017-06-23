@@ -26,7 +26,7 @@
 						<p:inputText id="integerParam"
 							value="#{parametersJasperReportBean.integerParam}" />
 
-						<h:outputLabel for="dateParam" value="java.util.Date" />
+						<h:outputLabel for="dateParam" value="java.time.LocalDateTime" />
 						<p:calendar id="dateParam"
 							value="#{parametersJasperReportBean.dateParam}" mask="true"
 							pattern="#{msg['converter.datetime']}" />

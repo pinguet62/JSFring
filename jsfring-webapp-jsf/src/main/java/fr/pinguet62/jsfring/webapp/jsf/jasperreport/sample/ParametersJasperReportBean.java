@@ -3,7 +3,7 @@ package fr.pinguet62.jsfring.webapp.jsf.jasperreport.sample;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +23,7 @@ public final class ParametersJasperReportBean extends AbstractJasperReportBean {
 
     @Getter
     @Setter
-    private Date dateParam;
+    private LocalDateTime dateParam;
 
     @Getter
     @Setter

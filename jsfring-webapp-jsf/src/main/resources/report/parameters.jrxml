@@ -15,8 +15,8 @@
 	<parameter name="integerParam" class="java.lang.Integer">
 		<parameterDescription><![CDATA[Parameter of type "java.lang.Integer"]]></parameterDescription>
 	</parameter>
-	<parameter name="dateParam" class="java.util.Date">
-		<parameterDescription><![CDATA[Parameter of type "java.util.Date"]]></parameterDescription>
+	<parameter name="dateParam" class="java.time.LocalDateTime">
+		<parameterDescription><![CDATA[Parameter of type "java.time.LocalDateTime"]]></parameterDescription>
 	</parameter>
 	<parameter name="listParam" class="java.util.List" nestedType="java.lang.String">
 		<parameterDescription><![CDATA[Parameter of type "java.util.List"]]></parameterDescription>
@@ -60,7 +60,7 @@
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle"/>
-				<text><![CDATA[java.util.Date]]></text>
+				<text><![CDATA[java.time.LocalDateTime]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="100" y="60" width="100" height="20" uuid="052b84b3-0746-4db6-9737-c4932de28831">

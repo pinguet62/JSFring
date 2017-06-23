@@ -1,20 +1,24 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit.field;
 
-import java.util.Date;
+import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.DateUtils.DATETIME_FORMATTER;
+import static org.apache.commons.lang3.StringUtils.isBlank;
+
+import java.time.LocalDateTime;
 
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.DateUtils;
-
-public final class DateOutputText extends OutputText<Date> {
+public final class DateOutputText extends OutputText<LocalDateTime> {
 
     public DateOutputText(HtmlSpan span) {
         super(span);
     }
 
     @Override
-    public Date getValue() {
-        return DateUtils.parseDateOrDateTime(html.asText());
+    public LocalDateTime getValue() {
+        String value = html.asText();
+        if (isBlank(value))
+            return null;
+        return LocalDateTime.parse(value, DATETIME_FORMATTER);
     }
 
 }

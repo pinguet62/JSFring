@@ -2,7 +2,7 @@ package fr.pinguet62.jsfring.webapp.jsf.htmlunit.jasperreport;
 
 import static java.lang.String.valueOf;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
@@ -31,7 +31,7 @@ public final class ParametersJasperReportPage extends AbstractJasperReportPage {
                 .get(row);
     }
 
-    public void setDate(Date value) {
+    public void setDate(LocalDateTime value) {
         HtmlInput input = (HtmlInput) getParam(2).getByXPath("./span/input").get(0);
         new DatetimeInputText(input).setValue(value);
     }

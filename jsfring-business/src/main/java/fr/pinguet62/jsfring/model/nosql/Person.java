@@ -1,6 +1,6 @@
 package fr.pinguet62.jsfring.model.nosql;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -14,7 +14,7 @@ public class Person {
 
     private String biography;
 
-    private Date birthDate;
+    private LocalDateTime birthDate;
 
     @Id
     private ObjectId id;

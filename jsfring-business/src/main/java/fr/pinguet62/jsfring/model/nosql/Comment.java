@@ -1,6 +1,6 @@
 package fr.pinguet62.jsfring.model.nosql;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -13,7 +13,7 @@ public class Comment {
 
     private String content;
 
-    private Date date;
+    private LocalDateTime date;
 
     @Id
     private ObjectId id;

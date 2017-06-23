@@ -1,6 +1,6 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit.user;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.function.Function;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -20,7 +20,7 @@ public final class UserRow extends AbstractRow<UserShowPopup, UserUpdatePopup> {
         return getString(0);
     }
 
-    public Date getLastConnection() {
+    public LocalDateTime getLastConnection() {
         return getDate(2);
     }
 

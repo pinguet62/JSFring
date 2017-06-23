@@ -1,9 +1,8 @@
 package fr.pinguet62.jsfring.service;
 
 import static java.lang.String.format;
+import static java.time.LocalDateTime.now;
 import static java.util.Objects.requireNonNull;
-
-import java.util.Date;
 
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
@@ -58,7 +57,7 @@ public class UserService extends AbstractService<User, String> {
     public User create(User object) {
         // Generate password
         object.setPassword(randomPassword());
-        object.setLastConnection(new Date());
+        object.setLastConnection(now());
 
         return super.create(object);
     }
@@ -109,7 +108,6 @@ public class UserService extends AbstractService<User, String> {
         log.debug("Password updated for user: {}", email);
         user.setPassword(password);
         dao.save(user);
-
     }
 
 }

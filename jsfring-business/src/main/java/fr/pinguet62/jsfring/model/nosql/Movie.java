@@ -1,6 +1,6 @@
 package fr.pinguet62.jsfring.model.nosql;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -22,7 +22,7 @@ public final class Movie {
     @Id
     private ObjectId id;
 
-    private Date releaseDate;
+    private LocalDateTime releaseDate;
 
     private String synopsis;
 

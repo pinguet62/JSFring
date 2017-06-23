@@ -1,7 +1,7 @@
 package fr.pinguet62.jsfring.webservice.converter;
 
-import static java.lang.Long.MAX_VALUE;
 import static java.lang.Math.random;
+import static java.time.LocalDateTime.of;
 import static java.util.UUID.randomUUID;
 import static java.util.stream.Collectors.toSet;
 import static org.hamcrest.Matchers.empty;
@@ -12,8 +12,8 @@ import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,7 +29,6 @@ import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.dao.sql.ProfileDao;
 import fr.pinguet62.jsfring.model.sql.Profile;
 import fr.pinguet62.jsfring.model.sql.User;
-import fr.pinguet62.jsfring.webservice.converter.UserFromDtoConverter;
 import fr.pinguet62.jsfring.webservice.dto.UserDto;
 
 /** @see UserFromDtoConverter */
@@ -47,7 +46,7 @@ public class UserFromDtoConverterTest {
     @Test
     public void test_convert() {
         String email = randomUUID().toString();
-        Date lastConnection = new Date((long) (MAX_VALUE * random()));
+        LocalDateTime lastConnection = of(2017, 12, 25, 23, 5, 44, 145);
         boolean active = random() < 0.5;
 
         UserDto dto = new UserDto();

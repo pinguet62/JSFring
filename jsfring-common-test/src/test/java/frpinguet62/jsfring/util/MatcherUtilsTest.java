@@ -6,13 +6,13 @@ import static fr.pinguet62.jsfring.util.MatcherUtils.mappedTo;
 import static fr.pinguet62.jsfring.util.MatcherUtils.matches;
 import static fr.pinguet62.jsfring.util.MatcherUtils.parameter;
 import static fr.pinguet62.jsfring.util.MatcherUtils.sorted;
+import static java.time.LocalDateTime.now;
+import static java.time.LocalDateTime.of;
+import static java.time.temporal.ChronoUnit.DAYS;
+import static java.time.temporal.ChronoUnit.HOURS;
+import static java.time.temporal.ChronoUnit.MINUTES;
+import static java.time.temporal.ChronoUnit.SECONDS;
 import static java.util.Arrays.asList;
-import static java.util.Calendar.DAY_OF_MONTH;
-import static java.util.Calendar.HOUR;
-import static java.util.Calendar.MINUTE;
-import static java.util.Calendar.MONTH;
-import static java.util.Calendar.SECOND;
-import static java.util.Calendar.YEAR;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.everyItem;
 import static org.hamcrest.Matchers.greaterThan;
@@ -23,8 +23,9 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
 import java.net.MalformedURLException;
+import java.time.LocalDateTime;
+import java.time.temporal.TemporalUnit;
 import java.util.Comparator;
-import java.util.Date;
 
 import org.hamcrest.Matcher;
 import org.junit.Test;
@@ -34,24 +35,24 @@ import fr.pinguet62.jsfring.util.MatcherUtils;
 /** @see MatcherUtils */
 public class MatcherUtilsTest {
 
-    /** @see MatcherUtils#equalToTruncated(Date, int) */
-    @SuppressWarnings("deprecation")
+    /** @see MatcherUtils#equalToTruncated(LocalDateTime, TemporalUnit) */
     @Test
     public void test_equalToTruncated() {
-        assertThat(new Date(2016, 1, 2, 10, 20, 30), is(equalToTruncated(new Date(2016, 1, 2, 10, 29, 39), YEAR)));
-        assertThat(new Date(2016, 1, 2, 10, 20, 30), is(equalToTruncated(new Date(2016, 1, 2, 10, 29, 39), MONTH)));
-        assertThat(new Date(2016, 1, 2, 10, 20, 30), is(equalToTruncated(new Date(2016, 1, 2, 10, 29, 39), DAY_OF_MONTH)));
-        assertThat(new Date(2016, 1, 2, 10, 20, 30), is(not(equalToTruncated(new Date(2016, 1, 2, 19, 29, 39), HOUR))));
-        assertThat(new Date(2016, 1, 2, 10, 20, 30), is(not(equalToTruncated(new Date(2016, 1, 2, 19, 29, 39), MINUTE))));
-        assertThat(new Date(2016, 1, 2, 10, 20, 30), is(not(equalToTruncated(new Date(2016, 1, 2, 19, 29, 39), SECOND))));
+        // assertThat(of(2016, 1, 2, 10, 20, 30), is(equalToTruncated(of(2016, 1, 2, 10, 29, 39), YEARS)));
+        // assertThat(of(2016, 1, 2, 10, 20, 30), is(equalToTruncated(of(2016, 1, 2, 10, 29, 39), MONTHS)));
+        assertThat(of(2016, 1, 2, 10, 20, 30), is(equalToTruncated(of(2016, 1, 2, 10, 29, 39), DAYS)));
+        assertThat(of(2016, 1, 2, 10, 20, 30), is(not(equalToTruncated(of(2016, 1, 2, 19, 29, 39), HOURS))));
+        assertThat(of(2016, 1, 2, 10, 20, 30), is(not(equalToTruncated(of(2016, 1, 2, 19, 29, 39), MINUTES))));
+        assertThat(of(2016, 1, 2, 10, 20, 30), is(not(equalToTruncated(of(2016, 1, 2, 19, 29, 39), SECONDS))));
     }
 
-    /** @see MatcherUtils#equalToTruncated(Date, int) */
+    /** @see MatcherUtils#equalToTruncated(LocalDateTime, TemporalUnit) */
     @Test
     public void test_equalToTruncated_null() {
-        Iterable<Runnable> tests = asList(
-                () -> assertThat("expected==null", new Date(), is(not(equalToTruncated(null, SECOND)))),
-                () -> assertThat("actual==null", new Date(), is(not(equalToTruncated(null, SECOND)))));
+        Iterable<Runnable> tests = asList(//
+                () -> assertThat("expected==null", now(), is(not(equalToTruncated(null, SECONDS)))), //
+                () -> assertThat("actual==null", now(), is(not(equalToTruncated(null, SECONDS)))) //
+                );
         try {
             tests.forEach(Runnable::run);
             fail();

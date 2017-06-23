@@ -1,15 +1,15 @@
 package fr.pinguet62.jsfring.webapp.jsf.util.springsecurity;
 
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
-import static java.time.LocalDate.now;
+import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
-import static org.exparity.hamcrest.date.DateMatchers.within;
+import static org.exparity.hamcrest.date.LocalDateTimeMatchers.within;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.inject.Inject;
 
@@ -60,7 +60,7 @@ public class UserDetailsServiceImplTest {
         assertThat(userDetails, is(not(nullValue())));
 
         // Test: last connection date
-        Date lastConnection = userService.get(email).getLastConnection();
+        LocalDateTime lastConnection = userService.get(email).getLastConnection();
         assertThat(lastConnection, within(30, SECONDS, now()));
     }
 

@@ -1,8 +1,9 @@
 package fr.pinguet62.jsfring.indexer.nosql;
 
 import static java.lang.String.valueOf;
+import static java.time.format.DateTimeFormatter.ofPattern;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -67,8 +68,8 @@ public class Application implements CommandLineRunner {
         MovieInfos movieDto = api.getMovieInfos(valueOf(code));
         Movie movie = new Movie();
         movie.setId(format(movieDto.getCode()));
-        movie.setReleaseDate(
-                movieDto.getReleaseDate() == null ? null : new SimpleDateFormat("yyyy-MM-dd").parse(movieDto.getReleaseDate()));
+        movie.setReleaseDate(movieDto.getReleaseDate() == null ? null
+                : LocalDateTime.parse(movieDto.getReleaseDate(), ofPattern("yyyy-MM-dd")));
         movie.setSynopsis(movieDto.getSynopsis());
         movie.setTitle(movieDto.getTitle());
 

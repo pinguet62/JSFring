@@ -2,6 +2,7 @@ package fr.pinguet62.jsfring.webapp.jsf.jasperreport;
 
 import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.get;
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static java.time.LocalDateTime.now;
 import static java.util.Arrays.asList;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertThat;
@@ -10,7 +11,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
@@ -39,7 +40,7 @@ public class ParameterJasperReportITTest {
     /** @see Date */
     // TODO Fix @Test
     public void test_date() throws IOException {
-        Date date = new Date();
+        LocalDateTime date = now();
 
         page.setDate(date);
         InputStream is = page.exportTEXT();

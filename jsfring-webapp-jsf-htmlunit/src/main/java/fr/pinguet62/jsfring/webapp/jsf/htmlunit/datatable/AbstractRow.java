@@ -2,13 +2,15 @@ package fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable;
 
 import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.Delay.MEDIUM;
 import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.Delay.SHORT;
+import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.DateUtils.DATETIME_FORMATTER;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 import java.io.IOException;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.StreamSupport;
@@ -177,15 +179,18 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
     }
 
     /**
-     * Get the {@link Date}.
+     * Get the {@link LocalDateTime}.
      *
      * @param column
      *            The column index.
-     * @return The {@link Date}.
+     * @return The {@link LocalDateTime}.
      * @see DateUtils#parseDateOrDateTime(String)
      */
-    protected Date getDate(int column) {
-        return DateUtils.parseDateOrDateTime(getString(column));
+    protected LocalDateTime getDate(int column) {
+        String value = getString(column);
+        if (isBlank(value))
+            return null;
+        return LocalDateTime.parse(value, DATETIME_FORMATTER);
     }
 
     /**

@@ -1,6 +1,6 @@
 package fr.pinguet62.jsfring.webservice.dto;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 import fr.pinguet62.jsfring.model.sql.User;
@@ -14,7 +14,7 @@ public final class UserDto {
 
     private String email;
 
-    private Date lastConnection;
+    private LocalDateTime lastConnection;
 
     private Set<Integer> profiles;
 

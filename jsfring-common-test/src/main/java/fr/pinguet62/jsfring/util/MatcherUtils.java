@@ -2,18 +2,17 @@ package fr.pinguet62.jsfring.util;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.apache.commons.collections.CollectionUtils.isEqualCollection;
-import static org.apache.commons.lang3.time.DateUtils.truncate;
 import static org.apache.http.client.utils.URLEncodedUtils.parse;
 
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.temporal.TemporalUnit;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 
 import org.apache.commons.collections.ListUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.apache.http.NameValuePair;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -28,36 +27,32 @@ import lombok.experimental.UtilityClass;
 public class MatcherUtils {
 
     /**
-     * Check that the {@link Date} is equals to another with a delta.
+     * Check that the {@link LocalDateTime} is equals to another with a delta.
      *
      * @param expected
-     *            The {@link Date}.
+     *            The {@link LocalDateTime}.
      * @param field
      *            The field from the field {@code Calendar}.
      * @return The built {@link Matcher}.
-     * @see DateUtils#truncate(Date, int)
-     * @see Date#equals(Object)
      */
-    public Matcher<Date> equalToTruncated(Date expected, int field) {
-        return new TypeSafeMatcher<Date>() {
+    public Matcher<LocalDateTime> equalToTruncated(LocalDateTime expected, TemporalUnit unit) {
+        return new TypeSafeMatcher<LocalDateTime>() {
             @Override
             public void describeTo(Description description) {
             }
 
             /**
              * @param actual
-             *            The {@link Date} to compare.
-             * @see Date#truncate(Date, int)
-             * @see Date#equals(Object)
+             *            The {@link LocalDateTime} to compare.
              */
             @Override
-            protected boolean matchesSafely(Date actual) {
+            protected boolean matchesSafely(LocalDateTime actual) {
                 if (expected == null && actual == null)
                     return true;
                 else if (expected == null || actual == null)
                     return false;
                 else
-                    return Objects.equals(truncate(actual, field), truncate(expected, field));
+                    return Objects.equals(actual.truncatedTo(unit), expected.truncatedTo(unit));
             }
         };
     };

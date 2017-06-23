@@ -1,10 +1,9 @@
 package fr.pinguet62.jsfring.model.sql;
 
 import static javax.persistence.FetchType.EAGER;
-import static javax.persistence.TemporalType.TIMESTAMP;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -14,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
 import javax.validation.constraints.Pattern;
 
 import lombok.AllArgsConstructor;
@@ -61,8 +59,7 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String email;
 
-    @Temporal(TIMESTAMP)
-    private Date lastConnection;
+    private LocalDateTime lastConnection;
 
     @Pattern(regexp = PASSWORD_REGEX)
     @Column(nullable = false, length = 65)

@@ -16,7 +16,7 @@ import fr.pinguet62.jsfring.model.sql.User;
 
 /** Batch who import {@link User} from CSV file. */
 @Configuration
-public class UserBatch {
+public class UserBatchConfig {
 
     private final JobBuilderFactory jobBuilderFactory;
 
@@ -28,7 +28,7 @@ public class UserBatch {
 
     private final UserWriter writer;
 
-    public UserBatch(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory, UserReader reader,
+    public UserBatchConfig(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory, UserReader reader,
             UserProcessor processor, UserWriter writer) {
         this.jobBuilderFactory = requireNonNull(jobBuilderFactory);
         this.stepBuilderFactory = requireNonNull(stepBuilderFactory);

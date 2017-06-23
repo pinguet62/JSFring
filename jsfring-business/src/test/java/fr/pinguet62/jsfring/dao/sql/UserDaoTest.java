@@ -1,23 +1,20 @@
 package fr.pinguet62.jsfring.dao.sql;
 
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
+import static java.time.LocalDateTime.now;
+import static java.time.temporal.ChronoUnit.SECONDS;
 import static java.util.Arrays.asList;
-import static java.util.Calendar.DATE;
-import static java.util.Calendar.DAY_OF_MONTH;
-import static java.util.Calendar.getInstance;
 import static java.util.Objects.nonNull;
-import static org.exparity.hamcrest.date.DateMatchers.before;
-import static org.hamcrest.Matchers.equalTo;
+import static org.exparity.hamcrest.date.LocalDateTimeMatchers.before;
+import static org.exparity.hamcrest.date.LocalDateTimeMatchers.within;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.inject.Inject;
 
-import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -92,9 +89,7 @@ public class UserDaoTest {
         // Initial state
         User user = userDao.getOne(id);
         user.setActive(true);
-        Calendar calendar = getInstance();
-        calendar.add(DATE, -nbOfDays - 5);
-        user.setLastConnection(calendar.getTime());
+        user.setLastConnection(now().minusDays(nbOfDays).minusDays(5));
         userDao.saveAndFlush(user);
 
         userDao.disableInactiveUsers(nbOfDays);
@@ -116,9 +111,7 @@ public class UserDaoTest {
         // Initial state
         User user = userDao.getOne(id);
         user.setActive(true);
-        Calendar calendar = getInstance();
-        calendar.add(DATE, -nbOfDays + 2);
-        user.setLastConnection(calendar.getTime());
+        user.setLastConnection(now().minusDays(nbOfDays).plusDays(5));
         userDao.saveAndFlush(user);
 
         userDao.disableInactiveUsers(nbOfDays);
@@ -134,20 +127,19 @@ public class UserDaoTest {
      */
     @Test
     public void test_resetLastConnectionDate() {
-        Date today = DateUtils.truncate(new Date(), DAY_OF_MONTH);
         String email = userDao.findAll().stream().filter(u -> nonNull(u.getLastConnection())).map(User::getEmail).findAny()
                 .get();
 
         // Initial state
         User user = userDao.findById(email).get();
-        Date lastConnectionBefore = user.getLastConnection();
-        assertThat(lastConnectionBefore, is(before(today)));
+        LocalDateTime lastConnectionBefore = user.getLastConnection();
+        assertThat(lastConnectionBefore, is(before(now())));
 
         userDao.resetLastConnectionDate(user);
 
         // Test
-        Date lastConnectionAfter = DateUtils.truncate(userDao.findById(email).get().getLastConnection(), DAY_OF_MONTH);
-        assertThat(lastConnectionAfter, is(equalTo(today)));
+        LocalDateTime lastConnectionAfter = userDao.findById(email).get().getLastConnection();
+        assertThat(lastConnectionAfter, is(within(1, SECONDS, now())));
     }
 
 }

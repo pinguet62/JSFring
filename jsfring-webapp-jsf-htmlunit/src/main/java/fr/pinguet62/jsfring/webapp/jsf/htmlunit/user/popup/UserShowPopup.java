@@ -1,6 +1,6 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit.user.popup;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
@@ -24,7 +24,7 @@ public final class UserShowPopup extends AbstractUserPopup implements ShowPopup 
         return new StringOutputText((HtmlSpan) getFieldTableCell(0).getByXPath("./span").get(0));
     }
 
-    public Field<?, Date> getLastConnection() {
+    public Field<?, LocalDateTime> getLastConnection() {
         return new DateOutputText((HtmlSpan) getFieldTableCell(2).getByXPath("./span").get(0));
     }
 

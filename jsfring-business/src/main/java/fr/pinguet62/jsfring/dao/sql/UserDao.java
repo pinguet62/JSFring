@@ -1,10 +1,8 @@
 package fr.pinguet62.jsfring.dao.sql;
 
-import static java.util.Calendar.DAY_OF_YEAR;
-import static java.util.Calendar.getInstance;
+import static java.time.LocalDateTime.now;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -61,9 +59,7 @@ class UserDaoImpl implements UserDaoCustom {
         if (numberOfDays <= 0)
             throw new IllegalArgumentException("The number of days must be a positive value.");
 
-        Calendar c = getInstance();
-        c.add(DAY_OF_YEAR, -1 * numberOfDays);
-        Date lastAccepted = c.getTime();
+        LocalDateTime lastAccepted = now().minusDays(numberOfDays);
 
         em.clear(); // because first-level cache is not updated by this method
 
@@ -81,7 +77,7 @@ class UserDaoImpl implements UserDaoCustom {
     @Override
     public void resetLastConnectionDate(User user) {
         log.debug("Last connection date reset for user: {}", user.getEmail());
-        user.setLastConnection(new Date());
+        user.setLastConnection(now());
         dao.save(user);
     }
 

@@ -11,7 +11,7 @@ import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.get;
 import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.user.UsersPage.Column.EMAIL;
 import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.user.UsersPage.Column.values;
 import static java.lang.Integer.compare;
-import static java.util.Calendar.SECOND;
+import static java.time.temporal.ChronoUnit.SECONDS;
 import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.toList;
 import static org.hamcrest.Matchers.equalTo;
@@ -26,7 +26,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -195,7 +195,7 @@ public final class DataTableComponentITTest {
             if (user.getLastConnection() == null)
                 assertThat(popup.getLastConnection().getValue(), is(nullValue()));
             else
-                assertThat(popup.getLastConnection().getValue(), is(equalToTruncated(user.getLastConnection(), SECOND)));
+                assertThat(popup.getLastConnection().getValue(), is(equalToTruncated(user.getLastConnection(), SECONDS)));
 
             assertThat(popup.getProfiles().isReadonly(), is(true));
             assertThat(popup.getProfiles().getValue(),
@@ -249,7 +249,7 @@ public final class DataTableComponentITTest {
         User userBefore = userDao.findAll().get(idx);
         final String email = userBefore.getEmail();
         final boolean active = userBefore.getActive();
-        final Date lastConnection = userBefore.getLastConnection();
+        final LocalDateTime lastConnection = userBefore.getLastConnection();
         final Set<Profile> profiles = userBefore.getProfiles();
 
         // Action
@@ -299,7 +299,7 @@ public final class DataTableComponentITTest {
             if (user.getLastConnection() == null)
                 assertThat(popup.getLastConnection().getValue(), is(nullValue()));
             else
-                assertThat(popup.getLastConnection().getValue(), is(equalToTruncated(user.getLastConnection(), SECOND)));
+                assertThat(popup.getLastConnection().getValue(), is(equalToTruncated(user.getLastConnection(), SECONDS)));
 
             assertThat(popup.getProfiles().isReadonly(), is(false));
             assertThat(popup.getProfiles().getValue(),
@@ -359,7 +359,7 @@ public final class DataTableComponentITTest {
             if (user.getLastConnection() == null)
                 assertThat(row.getLastConnection(), is(nullValue()));
             else
-                assertThat(row.getLastConnection(), is(equalToTruncated(user.getLastConnection(), SECOND)));
+                assertThat(row.getLastConnection(), is(equalToTruncated(user.getLastConnection(), SECONDS)));
 
             i++;
         }
