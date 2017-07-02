@@ -3,7 +3,7 @@ package fr.pinguet62.jsfring.webservice.config;
 import static fr.pinguet62.jsfring.common.UrlUtils.formatAuthorization;
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
 import static fr.pinguet62.jsfring.util.MatcherUtils.parameter;
-import static fr.pinguet62.jsfring.webservice.config.JaxrsClientConfig.BASE_URL;
+import static fr.pinguet62.jsfring.webservice.config.RestTemplateConfig.BASE_URL;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Arrays.asList;
 import static org.apache.http.client.utils.URLEncodedUtils.format;

@@ -1,11 +1,11 @@
 package fr.pinguet62.jsfring.webservice;
 
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
+import static fr.pinguet62.jsfring.util.MatcherUtils.equalToTruncated;
 import static fr.pinguet62.jsfring.webservice.UserWebservice.PATH;
-import static java.util.Calendar.SECOND;
-import static org.apache.commons.lang3.time.DateUtils.truncate;
+import static java.time.temporal.ChronoUnit.SECONDS;
+import static org.hamcrest.Matchers.arrayWithSize;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
@@ -13,8 +13,6 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.GenericType;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,14 +20,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.web.client.RestTemplate;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.dao.sql.UserDao;
+import fr.pinguet62.jsfring.model.sql.QUser;
 import fr.pinguet62.jsfring.model.sql.User;
-import fr.pinguet62.jsfring.webservice.UserWebservice;
 import fr.pinguet62.jsfring.webservice.dto.UserDto;
 
 /** @see UserWebservice */
@@ -41,49 +40,32 @@ import fr.pinguet62.jsfring.webservice.dto.UserDto;
 public class UserWebserviceITTest {
 
     @Inject
-    private WebTarget restClient;
+    private UserDao userDao;
 
     @Inject
-    private UserDao userDao;
+    private RestTemplate authenticatedRestTemplate;
 
     /** @see UserWebservice#get(int) */
     @Test
     public void test_get() {
-        String email = userDao.findAll().get(0).getEmail();
+        String email = userDao.findOne(QUser.user.lastConnection.isNotNull()).get().getEmail();
 
-        // @formatter:off
-        UserDto actual =
-                restClient
-                    .path(PATH)
-                    .path("/{email}").resolveTemplate("email", email)
-                .request()
-                .get(UserDto.class);
-        // @formatter:on
+        UserDto actual = authenticatedRestTemplate.getForObject(PATH + "/{email}", UserDto.class, email);
 
-        User pojo = userDao.findById(email).get();
-        UserDto expected = new UserDto();
-        expected.setEmail(pojo.getEmail());
-        expected.setLastConnection(pojo.getLastConnection());
+        User expected = userDao.findById(email).get();
 
         assertThat(actual.getEmail(), is(equalTo(expected.getEmail())));
-        assertThat(truncate(actual.getLastConnection(), SECOND), is(equalTo(truncate(expected.getLastConnection(), SECOND))));
+        assertThat(actual.getLastConnection(), is(equalToTruncated(expected.getLastConnection(), SECONDS)));
     }
 
     /** @see UserWebservice#list() */
     @Test
     public void test_list() {
-        // @formatter:off
-        List<UserDto> actual =
-                restClient
-                    .path(PATH)
-                    .path("/")
-                .request()
-                .get(new GenericType<List<UserDto>>() {});
-        // @formatter:on
+        UserDto[] actual = authenticatedRestTemplate.getForObject(PATH, UserDto[].class);
 
         List<User> expected = userDao.findAll();
 
-        assertThat(actual, hasSize(expected.size()));
+        assertThat(actual, arrayWithSize(expected.size()));
     }
 
 }

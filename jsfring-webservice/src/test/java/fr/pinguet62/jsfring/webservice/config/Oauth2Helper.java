@@ -1,15 +1,21 @@
 package fr.pinguet62.jsfring.webservice.config;
 
 import static fr.pinguet62.jsfring.common.UrlUtils.formatAuthorization;
-import static fr.pinguet62.jsfring.webservice.config.JaxrsClientConfig.BASE_URL;
-import static javax.ws.rs.client.ClientBuilder.newClient;
+import static fr.pinguet62.jsfring.webservice.config.RestTemplateConfig.BASE_URL;
+import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.security.oauth2.common.OAuth2AccessToken.ACCESS_TOKEN;
 import static org.springframework.security.oauth2.common.OAuth2AccessToken.BEARER_TYPE;
-import static org.springframework.security.oauth2.common.util.OAuth2Utils.*;
+import static org.springframework.security.oauth2.common.util.OAuth2Utils.GRANT_TYPE;
+import static org.springframework.web.util.UriComponentsBuilder.fromHttpUrl;
+
 import javax.inject.Inject;
-import static org.springframework.security.oauth2.common.OAuth2AccessToken.*;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.json.BasicJsonParser;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 import fr.pinguet62.jsfring.dao.sql.UserDao;
 import fr.pinguet62.jsfring.model.sql.User;
@@ -43,22 +49,31 @@ public class Oauth2Helper {
      * Request OAuth server to get new token.<br>
      * Choose any {@link User}.
      *
-     * @return The token.
+     * @return The OAuth2 token.
      */
     public String getToken() {
+        // OAuth2 authorization
         String authorization = "Basic " + formatAuthorization(clientId, clientSecret);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(HEADER_AUTHORIZATION, authorization);
+
         User user = userDao.findAll().get(0);
+
         // @formatter:off
-        String response = newClient().target(BASE_URL)
-                .path("/oauth/token")
-                    .queryParam(GRANT_TYPE, "password")
-                    .queryParam("username", user.getEmail())
-                    .queryParam("password", user.getPassword())
-                .request()
-                    .header(HEADER_AUTHORIZATION, authorization)
-                .post(null, String.class);
+        HttpEntity<String> response = new RestTemplate()
+                .exchange(
+                        fromHttpUrl(BASE_URL)
+                            .path("/oauth/token")
+                            .queryParam(GRANT_TYPE, "password")
+                            .queryParam("username", user.getEmail())
+                            .queryParam("password", user.getPassword())
+                            .build().encode().toUri(),
+                        POST,
+                        new HttpEntity<>(headers),
+                        String.class
+                    );
         // @formatter:on
-        return (String) new BasicJsonParser().parseMap(response).get(ACCESS_TOKEN);
+        return (String) new BasicJsonParser().parseMap(response.getBody()).get(ACCESS_TOKEN);
     }
 
 }
