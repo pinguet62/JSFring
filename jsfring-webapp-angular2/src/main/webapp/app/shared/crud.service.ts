@@ -3,9 +3,11 @@ import {Observable} from "rxjs/Observable";
 import {OAuthHttp} from "../security/oauth-http.service";
 import * as Rx from "rxjs/Rx";
 
+import {environment} from '../environment';
+
 export abstract class CrudService<T> {
 
-    private baseUrl: string = 'http://jsfring-webservice.herokuapp.com';
+    private baseUrl: string = environment.api;
 
     private options: RequestOptionsArgs = { headers: new Headers({ 'Content-Type': 'application/json' }) };
 

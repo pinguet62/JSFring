@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {URLSearchParams} from "@angular/http";
 
+import {environment} from './environment';
 import {UnauthorizedObservable} from "./security/unauthorized-observable";
 
 @Component({
@@ -80,10 +81,9 @@ export class AppComponent {
         paramBuilder.append('scope', 'read');
         paramBuilder.append('redirect_uri', window.location.protocol + "//" + window.location.host + loginRoute);
 
-        let oauthServer: string = 'http://jsfring-webservice.herokuapp.com';
         let oauthPath: string = '/oauth/authorize';
         let params: string = paramBuilder.toString();
-        let authorizeUrl: string = oauthServer + oauthPath + '?' + params;
+        let authorizeUrl: string = environment.api + oauthPath + '?' + params;
 
         window.location.replace(authorizeUrl); // let popup: Window = window.open(authorizeUrl, 'Login', 'location=1');
     }
