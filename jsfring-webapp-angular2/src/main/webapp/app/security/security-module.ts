@@ -4,9 +4,8 @@ import {CommonModule} from "@angular/common";
 import {AuthorizeComponent} from "./authorize.component";
 import {OAuthRedirectComponent} from "./oauth-redirect.component";
 
-import {OAuthHttp, OAuthRequestOptions} from "./oauth-http.service";
+import {OAuthRequestOptions} from "./oauth-request-options.service";
 import {SecurityService} from "./security.service";
-import {UnauthorizedObservable} from "./unauthorized-observable";
 
 import {RequestOptions} from "@angular/http";
 
@@ -14,7 +13,7 @@ import {RequestOptions} from "@angular/http";
     imports: [CommonModule],
     declarations: [AuthorizeComponent, OAuthRedirectComponent],
     exports: [AuthorizeComponent, OAuthRedirectComponent],
-    providers: [OAuthHttp, SecurityService, UnauthorizedObservable,
+    providers: [SecurityService,
         {provide: RequestOptions, useClass: OAuthRequestOptions}
     ]
 })

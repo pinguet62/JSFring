@@ -1,6 +1,5 @@
-import {RequestOptionsArgs, Headers} from "@angular/http";
+import {Http, RequestOptionsArgs, Headers} from "@angular/http";
 import {Observable} from "rxjs/Observable";
-import {OAuthHttp} from "../security/oauth-http.service";
 import * as Rx from "rxjs/Rx";
 
 import {environment} from '../environment';
@@ -13,7 +12,7 @@ export abstract class CrudService<T> {
 
     abstract getServiceSubUrl(): string;
 
-    constructor(protected http: OAuthHttp) {}
+    constructor(protected http: Http) {}
 
     findAll(): Observable<T[]> {
         let targetUrl: string = this.baseUrl + this.getServiceSubUrl();

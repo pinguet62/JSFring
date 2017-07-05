@@ -8,6 +8,7 @@ export class SecurityService {
     roles: Array<string>;
 
     public onConnect: EventEmitter<any> = new EventEmitter<any>();
+    public unauthorized: EventEmitter<any> = new EventEmitter<any>();
 
     isAuthenticated(): boolean {
         return this.token != null;

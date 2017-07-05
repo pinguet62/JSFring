@@ -1,14 +1,14 @@
 import {Injectable} from "@angular/core";
+import {Http} from "@angular/http";
 import {Observable} from "rxjs";
 
 import {CrudService} from "../shared/crud.service";
-import {OAuthHttp} from "../security/oauth-http.service";
 import {User} from "./user.model";
 
 @Injectable()
 export class UserService extends CrudService<User> {
 
-    constructor(protected http: OAuthHttp) {
+    constructor(protected http: Http) {
         super(http);
     }
 

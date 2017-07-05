@@ -1,13 +1,13 @@
 import {Injectable} from "@angular/core";
+import {Http} from "@angular/http";
 
 import {CrudService} from "../shared/crud.service";
-import {OAuthHttp} from "../security/oauth-http.service";
 import {Profile} from "./profile.model";
 
 @Injectable()
 export class ProfileService extends CrudService<Profile> {
 
-    constructor(protected http: OAuthHttp) {
+    constructor(protected http: Http) {
         super(http);
     }
 

@@ -2,7 +2,7 @@ import {Component} from "@angular/core";
 import {URLSearchParams} from "@angular/http";
 
 import {environment} from './environment';
-import {UnauthorizedObservable} from "./security/unauthorized-observable";
+import {SecurityService} from "./security/security.service";
 
 @Component({
     selector: 'p62-app',
@@ -18,11 +18,11 @@ import {UnauthorizedObservable} from "./security/unauthorized-observable";
             
             <!-- Current user -->
             <span style="flex: 1 1 auto"></span>
-            <md-menu #connectedUserMenu="mdMenu">
-                <button md-menu-item (click)="login()">
-                    <md-icon>account_circle</md-icon>
-                    <span>Login</span>
-                </button>
+            <div *ngIf="!securityService.isAuthenticated(); then notAuthenticatedBlock else authenticatedBlock"></div>
+            <ng-template #notAuthenticatedBlock>
+                <button md-raised-button color="accent" (click)="login()">Login</button>
+            </ng-template>
+            <md-menu #authenticatedMenu="mdMenu">
                 <button md-menu-item>
                     <md-icon>account_circle</md-icon>
                     <span>My acount</span>
@@ -36,9 +36,11 @@ import {UnauthorizedObservable} from "./security/unauthorized-observable";
                     <span>Logout</span>
                 </button>
             </md-menu>
-            <button md-icon-button [mdMenuTriggerFor]="connectedUserMenu">
-                <md-icon>more_vert</md-icon>
-            </button>
+            <ng-template #authenticatedBlock>
+                <button md-icon-button [mdMenuTriggerFor]="authenticatedMenu">
+                    <md-icon>account_circle</md-icon>
+                </button>
+            </ng-template>
         </md-toolbar>
         
         <md-sidenav-container>
@@ -68,8 +70,8 @@ import {UnauthorizedObservable} from "./security/unauthorized-observable";
 })
 export class AppComponent {
 
-    constructor(private unauthorizedObservable: UnauthorizedObservable) {
-        unauthorizedObservable.observable.subscribe((x: any) => console.log("toto: " + x));
+    constructor(private securityService: SecurityService) {
+        securityService.unauthorized.subscribe((x: any) => console.log("toto: " + x));
     }
 
     login(): void {

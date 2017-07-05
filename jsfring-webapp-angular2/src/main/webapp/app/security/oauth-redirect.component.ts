@@ -1,34 +1,32 @@
 import {Component} from "@angular/core";
-import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/router";
+import {Router} from "@angular/router";
 import {URLSearchParams} from "@angular/http";
 
 import {SecurityService} from "./security.service";
 
-/** Interceptor for OAuth 2 redirection. */
+/**
+ * Interceptor for OAuth 2 redirection.<br>
+ * Redirect to '/index' after completion.
+ */
 @Component({
     template: ''
 })
-export class OAuthRedirectComponent implements CanActivate {
+export class OAuthRedirectComponent {
 
-    constructor(private securityService: SecurityService) { }
-
-    /**
-     * Parse the URL to extract fragment who contains OAuth login result.
-     * Store results on context.
-     */
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    constructor(securityService: SecurityService, router: Router) {
+        console.log("Parsing URL to get OAuth information: " + window.location.href);
         let fragment: string = window.location.href.split('#')[1];
         let paramParser: URLSearchParams = new URLSearchParams(fragment);
-
         let access_token: string = paramParser.get('access_token');
         let token_type: string = paramParser.get('token_type');
         let expires_in: number = +paramParser.get('expires_in');
 
-        console.log(route.fragment);
-        this.securityService.token = access_token;
-        this.securityService.onConnect.emit(null);
+        console.log("OAuth token: " + access_token);
+        securityService.token = access_token;
+        securityService.onConnect.emit(null);
 
-        return true;
+        console.log("Redirect to index");
+        router.navigate(['/']);
     }
 
 }
