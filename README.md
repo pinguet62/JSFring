@@ -81,9 +81,15 @@ Utils :
 
 All dependencies use the latest version.
 
-<img src="https://www.versioneye.com/assets/verisoneye-logo-small-09d4dc67649e8bb51adc2c37216a341f01306950d556f4024c82c302f259ebda.png" height="25" /> 
-[VersionEye](https://www.versioneye.com) 
-[![Dependency Status](https://www.versioneye.com/user/projects/57361dfdebad9c00123cc180/badge.svg?style=flat)](https://www.versioneye.com/user/projects/57361dfdebad9c00123cc180)
+<img src="https://libraries.io/assets/logo-ff2b4e24d68406c7bddf1bea8d15a9f3f06623bc47933cda0c7dc22828dd4a6a.svg" height="25" /> 
+[Libraries.io](https://libraries.io) 
+[![Libraries.io for GitHub](https://img.shields.io/librariesio/github/pinguet62/jsfring.svg)](https://libraries.io/github/pinguet62/jsfring)
+
+## Security & vulnerabilities
+
+<img src="https://res.cloudinary.com/snyk/image/upload/v1468845259/logo/snyk-dog.svg" height="25" /> 
+[Snyk](https://snyk.io) 
+[![Known Vulnerabilities](https://snyk.io/test/github/pinguet62/jsfring/badge.svg)](https://snyk.io/test/github/pinguet62/jsfring)
 
 ## Static analysis
 
