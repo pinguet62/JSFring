@@ -10,10 +10,12 @@ import static org.springframework.web.util.UriComponentsBuilder.fromHttpUrl;
 
 import javax.inject.Inject;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.json.BasicJsonParser;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -27,11 +29,8 @@ public class Oauth2Helper {
     /** Key of {@code Authorization} header. */
     public static final String HEADER_AUTHORIZATION = "Authorization";
 
-    @Value("${security.oauth2.client.clientId}")
-    private String clientId;
-
-    @Value("${security.oauth2.client.clientSecret}")
-    private String clientSecret;
+    @Autowired
+    private ClientDetails details;
 
     @Inject
     private UserDao userDao;
@@ -53,7 +52,7 @@ public class Oauth2Helper {
      */
     public String getToken() {
         // OAuth2 authorization
-        String authorization = "Basic " + formatAuthorization(clientId, clientSecret);
+        String authorization = "Basic " + formatAuthorization(details.getClientId(), details.getClientSecret().replace("{noop}", ""));
         HttpHeaders headers = new HttpHeaders();
         headers.set(HEADER_AUTHORIZATION, authorization);
 
@@ -66,7 +65,7 @@ public class Oauth2Helper {
                             .path("/oauth/token")
                             .queryParam(GRANT_TYPE, "password")
                             .queryParam("username", user.getEmail())
-                            .queryParam("password", user.getPassword())
+                            .queryParam("password", user.getPassword().replace("{noop}", ""))
                             .build().encode().toUri(),
                         POST,
                         new HttpEntity<>(headers),

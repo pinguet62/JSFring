@@ -19,14 +19,14 @@
     <PROFILES_RIGHTS profile="2" right="USER_RW" />
 
 
-    <user email="root@admin.fr" password="Azerty1!" active="true" last_connection="2015-11-14 13:45:41" />
+    <user email="root@admin.fr" password="{noop}Azerty1!" active="true" last_connection="2015-11-14 13:45:41" />
     <USERS_PROFILES user="root@admin.fr" profile="1" />
     <USERS_PROFILES user="root@admin.fr" profile="2" />
 
-    <user email="profile@admin.fr" password="Azerty1!" active="true" />
+    <user email="profile@admin.fr" password="{noop}Azerty1!" active="true" />
     <USERS_PROFILES user="profile@admin.fr" profile="1" />
 
-    <user email="user@admin.fr" password="Azerty1!" active="true" />
+    <user email="user@admin.fr" password="{noop}Azerty1!" active="true" />
     <USERS_PROFILES user="user@admin.fr" profile="2" />
 
 </dataset>

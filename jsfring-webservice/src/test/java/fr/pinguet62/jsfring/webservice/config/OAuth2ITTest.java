@@ -40,10 +40,12 @@ import org.apache.http.message.BasicNameValuePair;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.util.OAuth2Utils;
+import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.endpoint.AuthorizationEndpoint;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
 import org.springframework.test.context.TestExecutionListeners;
@@ -72,14 +74,8 @@ import fr.pinguet62.jsfring.model.sql.User;
 @DatabaseSetup(DATASET)
 public class OAuth2ITTest {
 
-    @Value("${security.oauth2.client.clientId}")
-    private String clientId;
-
-    @Value("${security.oauth2.client.clientSecret}")
-    private String clientSecret;
-
-    @Value("${security.oauth2.client.authorized-grant-types}")
-    private String grantTypes;
+    @Autowired
+    private ClientDetails details;
 
     private MockMvc mockMvc;
 
@@ -114,14 +110,14 @@ public class OAuth2ITTest {
     private URL test_authorize(String responseType) throws IOException {
         try (WebClient webClient = new WebClient()) {
             // Auto-fill native dialog (not supported by HtmlUnit)
-            String authorization = "Basic " + formatAuthorization(user.getEmail(), user.getPassword());
+            String authorization = "Basic " + formatAuthorization(user.getEmail(), user.getPassword().replace("{noop}", ""));
             webClient.addRequestHeader("Authorization", authorization);
 
             // @formatter:off
             String url = BASE_URL + "/oauth/authorize?"
                     + format(
                             asList(
-                                    new BasicNameValuePair(CLIENT_ID, clientId),
+                                    new BasicNameValuePair(CLIENT_ID, details.getClientId()),
                                     new BasicNameValuePair(RESPONSE_TYPE, responseType),
                                     new BasicNameValuePair(OAuth2Utils.SCOPE, "read"),
                                     new BasicNameValuePair(REDIRECT_URI, redirectUri)),
@@ -228,7 +224,7 @@ public class OAuth2ITTest {
      */
     @Test
     public void test_oauthToken() throws Exception {
-        String authorization = "Basic " + formatAuthorization(clientId, clientSecret);
+        String authorization = "Basic " + formatAuthorization(details.getClientId(), details.getClientSecret().replace("{noop}", ""));
         // @formatter:off
         ResultActions result =
                 mockMvc.perform(
@@ -236,14 +232,14 @@ public class OAuth2ITTest {
                         .header("Authorization", authorization)
                         .param(GRANT_TYPE, "password")
                         .param("username", user.getEmail())
-                        .param("password", user.getPassword()))
+                        .param("password", user.getPassword().replace("{noop}", "")))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$." + ACCESS_TOKEN, is(notNullValue())))
                 .andExpect(jsonPath("$." + TOKEN_TYPE, is(equalTo("bearer"))))
                 .andExpect(jsonPath("$." + EXPIRES_IN, is(greaterThan(4000))))
                 .andExpect(jsonPath("$." + OAuth2AccessToken.SCOPE, is(notNullValue())));
         // @formatter:on
-        if (grantTypes.contains(REFRESH_TOKEN))
+        if (details.getAuthorizedGrantTypes().contains(REFRESH_TOKEN))
             result.andExpect(jsonPath("$." + REFRESH_TOKEN, is(notNullValue())));
     }
 

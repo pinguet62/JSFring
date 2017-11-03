@@ -52,11 +52,7 @@
 				<artifactId>liquibase-maven-plugin</artifactId>
 				<version>3.5.3</version>
 				<configuration>
-					<driver>org.postgresql.Driver</driver>
-					<url>jdbc:postgresql://ec2-184-73-165-195.compute-1.amazonaws.com:5432/d54utom7qlqe15?ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory
-					</url>
-					<username>lveshvmnnklrze</username>
-					<password>v0hrZTKbqmS4PvwRKAQd9Q_L5f</password>
+					<url>jdbc:postgresql://ec2-184-73-165-195.compute-1.amazonaws.com:5432/d54utom7qlqe15?user=lveshvmnnklrze&amp;password=v0hrZTKbqmS4PvwRKAQd9Q_L5f&amp;ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory</url>
 					<changeLogFile>src/main/resources/changelog-master.yaml</changeLogFile>
 					<promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
 				</configuration>

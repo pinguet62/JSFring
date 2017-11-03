@@ -82,7 +82,7 @@ public class AbstractServiceTest {
             assertThat(profileService.get(2).getTitle(), is(equalTo("User admin")));
         }
         {
-            assertThat(userService.get("root@admin.fr").getPassword(), is(equalTo("Azerty1!")));
+            assertThat(userService.get("root@admin.fr").getPassword(), is(equalTo("{noop}Azerty1!")));
         }
     }
 

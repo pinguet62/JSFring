@@ -2,9 +2,12 @@ package fr.pinguet62.jsfring.webservice.config;
 
 import static java.util.Objects.requireNonNull;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -12,11 +15,11 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @Configuration
 @EnableAuthorizationServer
 @EnableResourceServer
+@Order(-20) // before basic authentication filter
 public class OAuth2Config {
 
-    /** Use custom {@link UserDetailsService}. */
     @Configuration
-    public static class AuthenticationManagerConfiguration extends GlobalAuthenticationConfigurerAdapter {
+    public static class AuthenticationManagerConfiguration extends WebSecurityConfigurerAdapter {
 
         private final UserDetailsService userDetailsService;
 
@@ -24,9 +27,19 @@ public class OAuth2Config {
             this.userDetailsService = requireNonNull(userDetailsService);
         }
 
+        /** Use custom {@link UserDetailsService}. */
         @Override
-        public void init(AuthenticationManagerBuilder auth) throws Exception {
+        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
             auth.userDetailsService(userDetailsService);
+        }
+
+        /**
+         * Fix (temporary?) removed OAuth2 auto-configuration.
+         */
+        @Bean
+        @Override
+        protected AuthenticationManager authenticationManager() throws Exception {
+            return super.authenticationManager();
         }
 
     }

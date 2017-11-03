@@ -17,6 +17,7 @@ import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -45,6 +46,13 @@ public class WebConfig {
 
     /**
      * JSF registration: {@link Servlet} and page extension.
+     * <p>
+     * <code>
+     * &lt;servlet-mapping&gt;<br>
+     * &nbsp;&nbsp;&nbsp;&nbsp;&lt;servlet-name&gt;Faces Servlet&lt;/servlet-name&gt;<br>
+     * &nbsp;&nbsp;&nbsp;&nbsp;&lt;url-pattern&gt;*.xhtml&lt;/url-pattern&gt;<br>
+     * &lt;/servlet-mapping&gt;
+     * </code>
      *
      * @return The built {@link ServletRegistrationBean}.
      */
@@ -79,7 +87,7 @@ public class WebConfig {
             // servletContext.setInitParameter(ProjectStage.PROJECT_STAGE_PARAM_NAME,
             // ProjectStage.Development.toString());
             servletContext.setInitParameter(FACELETS_SKIP_COMMENTS_PARAM_NAME, TRUE.toString());
-            // TimeZone: getDefault() instead of "GMT"
+            // TimeZone: getDefault() instead of "GMT"
             servletContext.setInitParameter(DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE_PARAM_NAME, TRUE.toString());
 
             // JSF without "web.xml" and "faces-config.xml"

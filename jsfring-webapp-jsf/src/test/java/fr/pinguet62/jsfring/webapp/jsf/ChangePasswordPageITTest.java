@@ -100,7 +100,7 @@ public class ChangePasswordPageITTest {
     @WithAnyUser
     public void test_invalidCurrent() {
         String currentPassword = randomUUID().toString();
-        assertThat(currentPassword, not(matches(getUser().getPassword())));
+        assertThat(currentPassword, not(equalTo(getUser().getPassword())));
 
         String newPassword = new PasswordGenerator().get();
 

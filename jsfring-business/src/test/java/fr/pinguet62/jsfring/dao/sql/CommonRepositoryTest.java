@@ -134,7 +134,7 @@ public class CommonRepositoryTest {
             assertThat(profileDao.getOne(2).getTitle(), is(equalTo("User admin")));
         }
         {
-            assertThat(userDao.getOne("root@admin.fr").getPassword(), is(equalTo("Azerty1!")));
+            assertThat(userDao.getOne("root@admin.fr").getPassword(), is(equalTo("{noop}Azerty1!")));
         }
     }
 

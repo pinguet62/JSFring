@@ -25,6 +25,7 @@ import org.apache.poi.POIXMLException;
 import org.apache.poi.hslf.usermodel.HSLFSlideShow;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hwpf.HWPFDocument;
+import org.apache.poi.openxml4j.exceptions.NotOfficeXmlFileException;
 import org.apache.poi.poifs.filesystem.NotOLE2FileException;
 import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
@@ -104,7 +105,7 @@ public final class FileFormatMatcher {
             protected boolean matchesSafely(InputStream is) {
                 try (XWPFDocument docx = new XWPFDocument(is)) {
                     return true;
-                } catch (POIXMLException e) {
+                } catch (POIXMLException | NotOfficeXmlFileException e) {
                     return false;
                 } catch (IOException e) {
                     throw new IllegalArgumentException(e);
@@ -282,7 +283,7 @@ public final class FileFormatMatcher {
             protected boolean matchesSafely(InputStream is) {
                 try (XMLSlideShow pptx = new XMLSlideShow(is)) {
                     return true;
-                } catch (POIXMLException e) {
+                } catch (POIXMLException | NotOfficeXmlFileException e) {
                     return false;
                 } catch (IOException e) {
                     throw new IllegalArgumentException(e);
@@ -379,7 +380,7 @@ public final class FileFormatMatcher {
             protected boolean matchesSafely(InputStream is) {
                 try (XSSFWorkbook xlsx = new XSSFWorkbook(is)) {
                     return true;
-                } catch (POIXMLException e) {
+                } catch (POIXMLException | NotOfficeXmlFileException e) {
                     return false;
                 } catch (IOException e) {
                     throw new IllegalArgumentException(e);

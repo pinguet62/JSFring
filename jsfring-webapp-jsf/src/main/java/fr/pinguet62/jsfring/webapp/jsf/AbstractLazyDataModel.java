@@ -22,6 +22,8 @@ import fr.pinguet62.jsfring.common.reflection.PropertyResolver;
 import fr.pinguet62.jsfring.service.AbstractService;
 import fr.pinguet62.jsfring.webapp.jsf.util.OrderConverter;
 
+import static org.springframework.data.querydsl.QSort.unsorted;
+
 // TODO Order: getOrderSpecifiers() not used
 /**
  * Abstract {@link LazyDataModel} who implements default {@link #load(int, int, String, SortOrder, Map) loading method} for
@@ -83,7 +85,7 @@ public class AbstractLazyDataModel<T extends Serializable> extends LazyDataModel
         // Pagination
         int pageIndex = firstIndex / pageSize;
         // Order
-        QSort sort = null;
+        QSort sort = unsorted();
         if (sortField != null) {
             ComparableExpressionBase<?> field = (ComparableExpressionBase<?>) new PropertyResolver(path).apply(sortField);
             Function<ComparableExpressionBase<?>, OrderSpecifier<?>> orderApplier = new OrderConverter().apply(sortOrder);

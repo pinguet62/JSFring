@@ -110,7 +110,7 @@ public class AbstractPage {
     private static String getUrl(String subUrl) {
         if (subUrl == null)
             subUrl = "";
-        return "http://localhost:8080/" + subUrl;
+        return "http://localhost:8080" + subUrl;
     }
 
     protected HtmlPage page;
