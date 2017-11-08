@@ -1,20 +1,20 @@
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
 
 import {AuthorizeComponent} from "./authorize.component";
 import {OAuthRedirectComponent} from "./oauth-redirect.component";
-
-import {OAuthRequestOptions} from "./oauth-request-options.service";
 import {SecurityService} from "./security.service";
-
-import {RequestOptions} from "@angular/http";
+import {OAuthHeaderHttpClientInterceptor} from "./oauth-header-http-client.http-interceptor";
 
 @NgModule({
     imports: [CommonModule],
     declarations: [AuthorizeComponent, OAuthRedirectComponent],
     exports: [AuthorizeComponent, OAuthRedirectComponent],
-    providers: [SecurityService,
-        {provide: RequestOptions, useClass: OAuthRequestOptions}
+    providers: [
+        SecurityService,
+        {provide: HTTP_INTERCEPTORS, useClass: OAuthHeaderHttpClientInterceptor, multi: true}
     ]
 })
-export class SecurityModule {}
+export class SecurityModule {
+}

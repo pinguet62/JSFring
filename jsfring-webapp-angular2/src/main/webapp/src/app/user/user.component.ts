@@ -16,11 +16,11 @@ import {UserService} from "./user.service";
         
             <p62-datatable-dialog>
                 <ng-template [ngIf]="selectedUser">
-                    <md-input-container>
-                        <input mdInput placeholder="Email" [(value)]="selectedUser.email" disabled>
-                    </md-input-container>
+                    <mat-input-container>
+                        <input matInput placeholder="Email" [(value)]="selectedUser.email" disabled>
+                    </mat-input-container>
                     <br>
-                    <md-checkbox [(ngModel)]="selectedUser.active">Active</md-checkbox>
+                    <mat-checkbox [(ngModel)]="selectedUser.active">Active</mat-checkbox>
                     <br>
                     <span>Last connection</span>
                     <p-calendar [(ngModel)]="selectedUser.lastConnection" showTime="showTime"></p-calendar>

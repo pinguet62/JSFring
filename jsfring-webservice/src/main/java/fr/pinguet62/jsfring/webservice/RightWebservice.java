@@ -8,11 +8,7 @@ import static org.springframework.core.convert.TypeDescriptor.valueOf;
 import java.util.List;
 
 import org.springframework.core.convert.ConversionService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import fr.pinguet62.jsfring.model.sql.Right;
 import fr.pinguet62.jsfring.service.RightService;
@@ -49,7 +45,7 @@ public final class RightWebservice {
     }
 
     @PostMapping
-    public void update(RightDto rightDto) {
+    public void update(@RequestBody RightDto rightDto) {
         Right right = conversionService.convert(rightDto, Right.class);
         rightService.update(right);
     }

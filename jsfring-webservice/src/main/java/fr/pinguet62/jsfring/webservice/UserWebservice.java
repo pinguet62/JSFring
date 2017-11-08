@@ -8,12 +8,7 @@ import static org.springframework.core.convert.TypeDescriptor.valueOf;
 import java.util.List;
 
 import org.springframework.core.convert.ConversionService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import fr.pinguet62.jsfring.model.sql.User;
 import fr.pinguet62.jsfring.service.UserService;
@@ -35,7 +30,7 @@ public final class UserWebservice {
     }
 
     @PutMapping
-    public void create(UserDto userDto) {
+    public void create(@RequestBody UserDto userDto) {
         User user = conversionService.convert(userDto, User.class);
         userService.create(user);
     }
@@ -56,7 +51,7 @@ public final class UserWebservice {
     }
 
     @PostMapping
-    public void update(UserDto userDto) {
+    public void update(@RequestBody UserDto userDto) {
         User user = conversionService.convert(userDto, User.class);
         userService.update(user);
     }

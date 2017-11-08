@@ -39,13 +39,12 @@ export class DatatableColumnsComponent {
         </p-dataTable>
         
         <!-- TODO modal & z-index -->
-        <p-dialog header="Show/Update/Create" [(visible)]="displayDialog" [modal]="false">
+        <!-- TODO width & responsive -->
+        <p-dialog header="Show/Update/Create" [(visible)]="displayDialog" [modal]="true" [width]="500" [responsive]="true">
             <ng-content select="p62-datatable-dialog"></ng-content>
             <footer>
-                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                    <button pButton type="button" (click)="save()" icon="fa-check" label="Save"></button>
-                    <button pButton type="button" (click)="delete()" icon="fa-close" label="Delete"></button>
-                </div>
+                <button pButton type="button" (click)="save()" icon="fa-check" label="Save"></button>
+                <button pButton type="button" (click)="delete()" icon="fa-close" label="Delete"></button>
             </footer>
         </p-dialog>`
 })
@@ -102,22 +101,19 @@ export class DatatableComponent {
     }
 
     private create() {
-        this.service.create(this.selectedValue);
+        this.service.create(this.selectedValue).subscribe(_ => this.refresh());
         this.displayDialog = false;
-        this.refresh();
     }
 
     private update() {
-        this.service.update(this.selectedValue);
+        this.service.update(this.selectedValue).subscribe(_ => this.refresh());
         this.displayDialog = false;
-        this.refresh();
     }
 
     /** Click on "Delete" button of Dialog. */
     delete() {
-        // this.service.delete(this.selectedValue);
+        this.service.delete(this.selectedValue).subscribe(_ => this.refresh());
         this.displayDialog = false;
-        this.refresh();
     }
 
 }

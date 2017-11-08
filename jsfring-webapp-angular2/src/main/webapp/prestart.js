@@ -1,15 +1,16 @@
-/** Generate "./app/environment.ts" file from environment variables. */
+/** Generate configuration file from environment variables. */
 
-var constantes = [
-    { name: 'api', key: 'jsfring.angular.url'},
+const constantes = [
+    { configKey: 'api', envName: 'jsfring.angular.url'},
 ];
 
-var lines = [];
+let lines = [];
 lines.push('export const environment = {  \n');
 for (let constant of constantes)
-    lines.push('    ' + constant.name + ': \'' + process.env[constant.key] + '\',\n');
+    lines.push('    ' + constant.configKey + ': \'' + process.env[constant.envName] + '\',\n');
+lines.push('    production: false\n');
 lines.push('};');
-var content = lines.join("");
+let content = lines.join("");
 
-var fs = require('fs');
-fs.writeFile('app/environment.ts', content);
+let fs = require('fs');
+fs.writeFile('./src/environments/environment.ts', content);

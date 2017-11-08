@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http} from "@angular/http";
+import {HttpClient} from "@angular/common/http";
 
 import {CrudService} from "../shared/crud.service";
 import {Profile} from "./profile.model";
@@ -7,12 +7,16 @@ import {Profile} from "./profile.model";
 @Injectable()
 export class ProfileService extends CrudService<Profile> {
 
-    constructor(protected http: Http) {
+    constructor(protected http: HttpClient) {
         super(http);
     }
 
-    getServiceSubUrl(): string {
+    protected getServiceSubUrl(): string {
         return '/profile';
+    }
+
+    protected getId(value: Profile): string {
+        return value.id.toString();
     }
 
 }

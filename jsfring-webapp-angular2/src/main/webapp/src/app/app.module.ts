@@ -2,11 +2,12 @@ import {NgModule} from "@angular/core";
 import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {RouterModule} from "@angular/router";
-
-import {MaterialModule} from "@angular/material";
+import {MatAutocompleteModule, MatButtonModule, MatCheckboxModule, MatDialogModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatSelectModule, MatSidenavModule, MatTableModule, MatToolbarModule} from "@angular/material";
 import {MenubarModule, DataTableModule, InputTextModule, ButtonModule, SliderModule, DialogModule, CheckboxModule, CalendarModule} from "primeng/primeng";
 
+import {ContentTypeHeaderHttpClientInterceptor} from './content-type-header-http-client.http-interceptor';
 import {routes} from "./app.routing";
 import {AppComponent} from "./app.component";
 import {SecurityModule} from "./security/security-module";
@@ -23,7 +24,8 @@ import {RightService} from "./right/right.service";
     imports: [
         BrowserModule, BrowserAnimationsModule,
         FormsModule, ReactiveFormsModule,
-        MaterialModule.forRoot(),
+        HttpClientModule,
+        MatAutocompleteModule, MatButtonModule, MatCheckboxModule, MatDialogModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatSelectModule, MatSidenavModule, MatTableModule, MatToolbarModule,
         MenubarModule, DataTableModule, InputTextModule, ButtonModule, SliderModule, DialogModule, CheckboxModule, CalendarModule,
         RouterModule.forRoot(routes), SecurityModule
     ],
@@ -34,6 +36,9 @@ import {RightService} from "./right/right.service";
         UserComponent, ProfileComponent, RightComponent
     ],
     bootstrap: [AppComponent],
-    providers: [UserService, ProfileService, RightService]
+    providers: [
+        {provide: HTTP_INTERCEPTORS, useClass: ContentTypeHeaderHttpClientInterceptor, multi: true},
+        UserService, ProfileService, RightService
+    ]
 })
 export class AppModule {}

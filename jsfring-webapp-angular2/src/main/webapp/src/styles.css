@@ -1,0 +1,6 @@
+/*Material*/
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
+/*PrimeNG*/
+@import "~primeng/resources/themes/omega/theme.css";
+@import "~font-awesome/css/font-awesome.min.css";

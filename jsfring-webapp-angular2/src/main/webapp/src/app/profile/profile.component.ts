@@ -17,13 +17,13 @@ import {ProfileService} from "./profile.service";
         
             <p62-datatable-dialog>
                 <ng-template [ngIf]="selectedProfile">
-                    <md-input-container>
-                        <input mdInput placeholder="Id" [(value)]="selectedProfile.id" disabled>
-                    </md-input-container>
+                    <mat-input-container>
+                        <input matInput placeholder="Id" [(value)]="selectedProfile.id" disabled>
+                    </mat-input-container>
                     <br>
-                    <md-input-container>
-                        <input mdInput placeholder="Title" [(value)]="selectedProfile.title">
-                    </md-input-container>
+                    <mat-input-container>
+                        <input matInput placeholder="Title" [(value)]="selectedProfile.title">
+                    </mat-input-container>
                 </ng-template>
             </p62-datatable-dialog>
         

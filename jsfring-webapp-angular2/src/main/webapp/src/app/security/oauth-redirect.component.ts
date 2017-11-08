@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {Router} from "@angular/router";
-import {URLSearchParams} from "@angular/http";
+import {HttpParams} from "@angular/common/http";
 
 import {SecurityService} from "./security.service";
 
@@ -16,7 +16,7 @@ export class OAuthRedirectComponent {
     constructor(securityService: SecurityService, router: Router) {
         console.log("Parsing URL to get OAuth information: " + window.location.href);
         let fragment: string = window.location.href.split('#')[1];
-        let paramParser: URLSearchParams = new URLSearchParams(fragment);
+        let paramParser: HttpParams = new HttpParams({fromString: fragment});
         let access_token: string = paramParser.get('access_token');
         let token_type: string = paramParser.get('token_type');
         let expires_in: number = +paramParser.get('expires_in');

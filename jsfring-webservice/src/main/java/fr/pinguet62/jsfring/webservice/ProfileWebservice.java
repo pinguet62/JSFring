@@ -11,13 +11,7 @@ import java.util.List;
 
 import org.springframework.core.convert.ConversionService;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import fr.pinguet62.jsfring.common.spring.GenericTypeDescriptor;
 import fr.pinguet62.jsfring.model.sql.Profile;
@@ -43,7 +37,7 @@ public final class ProfileWebservice extends AbstractWebservice<Profile, Integer
     }
 
     @PutMapping
-    public void create(ProfileDto profileDto) {
+    public void create(@RequestBody ProfileDto profileDto) {
         Profile profile = conversionService.convert(profileDto, Profile.class);
         profileService.create(profile);
     }
@@ -90,7 +84,7 @@ public final class ProfileWebservice extends AbstractWebservice<Profile, Integer
     }
 
     @PostMapping
-    public void update(ProfileDto profileDto) {
+    public void update(@RequestBody ProfileDto profileDto) {
         Profile profile = conversionService.convert(profileDto, Profile.class);
         profileService.update(profile);
     }
