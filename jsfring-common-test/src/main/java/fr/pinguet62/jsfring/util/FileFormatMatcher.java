@@ -1,26 +1,7 @@
 package fr.pinguet62.jsfring.util;
 
-import static java.lang.Character.isISOControl;
-import static java.lang.Character.isWhitespace;
-import static javax.imageio.ImageIO.read;
-import static javax.xml.parsers.DocumentBuilderFactory.newInstance;
-import static org.apache.commons.io.IOUtils.toByteArray;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringWriter;
-import java.util.zip.ZipInputStream;
-
-import javax.imageio.ImageIO;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
-import javax.swing.text.rtf.RTFEditorKit;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
+import com.lowagie.text.pdf.PdfReader;
+import com.opencsv.CSVReader;
 import org.apache.poi.POIXMLException;
 import org.apache.poi.hslf.usermodel.HSLFSlideShow;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -42,10 +23,25 @@ import org.w3c.tidy.Tidy;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
-import com.lowagie.text.pdf.PdfReader;
-import com.opencsv.CSVReader;
+import javax.imageio.ImageIO;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.rtf.RTFEditorKit;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.*;
+import java.util.zip.ZipInputStream;
 
-/** Utility class used to verify is the format file is correct. */
+import static java.lang.Character.isISOControl;
+import static java.lang.Character.isWhitespace;
+import static javax.imageio.ImageIO.read;
+import static javax.xml.parsers.DocumentBuilderFactory.newInstance;
+import static org.apache.commons.io.IOUtils.toByteArray;
+
+/**
+ * Utility class used to verify is the format file is correct.
+ */
 public final class FileFormatMatcher {
 
     /**

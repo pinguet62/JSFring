@@ -48,7 +48,7 @@ export class DatatableColumnsComponent {
             </footer>
         </p-dialog>`
 })
-export class DatatableComponent {
+export class DatatableComponent implements OnInit {
 
     @ContentChild(DatatableColumnsComponent) datatableColumns: DatatableColumnsComponent;
 

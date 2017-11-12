@@ -1,18 +1,13 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit.user.popup;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
-
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.popup.ShowPopup;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.field.BooleanOutputText;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.field.DateOutputText;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.field.Field;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.field.ListField;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.field.StringOutputText;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.field.*;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 public final class UserShowPopup extends AbstractUserPopup implements ShowPopup {
 

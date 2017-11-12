@@ -1,5 +1,22 @@
 package fr.pinguet62.jsfring.dao.sql;
 
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import fr.pinguet62.jsfring.SpringBootConfig;
+import fr.pinguet62.jsfring.model.sql.User;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.SECONDS;
@@ -11,40 +28,23 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
-import java.time.LocalDateTime;
-
-import javax.inject.Inject;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
-
-import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.model.sql.User;
-
-/** @see UserDao */
+/**
+ * @see UserDao
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringBootConfig.class)
 @Transactional
 // DbUnit
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class,
-    TransactionalTestExecutionListener.class })
+@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
 @DatabaseSetup(DATASET)
 public class UserDaoTest {
 
-    @Inject
+    @Autowired
     private UserDao userDao;
 
-    /** @see UserDao#disableInactiveUsers(int) */
+    /**
+     * @see UserDao#disableInactiveUsers(int)
+     */
     @Test
     public void test_disableInactiveUsers_illegalArgument() {
         for (Integer arg : asList(-1, 0))
@@ -127,8 +127,7 @@ public class UserDaoTest {
      */
     @Test
     public void test_resetLastConnectionDate() {
-        String email = userDao.findAll().stream().filter(u -> nonNull(u.getLastConnection())).map(User::getEmail).findAny()
-                .get();
+        String email = userDao.findAll().stream().filter(u -> nonNull(u.getLastConnection())).map(User::getEmail).findAny().get();
 
         // Initial state
         User user = userDao.findById(email).get();

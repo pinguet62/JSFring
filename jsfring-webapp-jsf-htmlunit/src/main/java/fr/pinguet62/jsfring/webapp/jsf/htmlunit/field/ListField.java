@@ -1,12 +1,12 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit.field;
 
-import static java.util.stream.Collectors.toList;
-
-import java.util.List;
-
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlListItem;
+
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 public final class ListField extends ReadOnlyField<HtmlDivision, List<String>> {
 
@@ -14,7 +14,9 @@ public final class ListField extends ReadOnlyField<HtmlDivision, List<String>> {
         super(div);
     }
 
-    /** @return The {@link HtmlListItem} label. */
+    /**
+     * @return The {@link HtmlListItem} label.
+     */
     @Override
     public List<String> getValue() {
         List<HtmlListItem> lis = html

@@ -1,10 +1,13 @@
 package fr.pinguet62.jsfring.webapp.jsf;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-
+import com.querydsl.core.types.EntityPath;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.ComparableExpressionBase;
+import fr.pinguet62.jsfring.common.querydsl.FilterConverter;
+import fr.pinguet62.jsfring.common.reflection.PropertyResolver;
+import fr.pinguet62.jsfring.service.AbstractService;
+import fr.pinguet62.jsfring.webapp.jsf.util.OrderConverter;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import org.springframework.data.domain.Page;
@@ -12,25 +15,20 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.data.querydsl.QSort;
 
-import com.querydsl.core.types.EntityPath;
-import com.querydsl.core.types.OrderSpecifier;
-import com.querydsl.core.types.Predicate;
-import com.querydsl.core.types.dsl.ComparableExpressionBase;
-
-import fr.pinguet62.jsfring.common.querydsl.FilterConverter;
-import fr.pinguet62.jsfring.common.reflection.PropertyResolver;
-import fr.pinguet62.jsfring.service.AbstractService;
-import fr.pinguet62.jsfring.webapp.jsf.util.OrderConverter;
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 
 import static org.springframework.data.querydsl.QSort.unsorted;
 
 // TODO Order: getOrderSpecifiers() not used
+
 /**
  * Abstract {@link LazyDataModel} who implements default {@link #load(int, int, String, SortOrder, Map) loading method} for
  * lazy-loading and pagination.
  *
- * @param <T>
- *            The type of objects to display.
+ * @param <T> The type of objects to display.
  */
 public class AbstractLazyDataModel<T extends Serializable> extends LazyDataModel<T> {
 
@@ -46,8 +44,7 @@ public class AbstractLazyDataModel<T extends Serializable> extends LazyDataModel
     private final AbstractBean<T> bean;
 
     /**
-     * @param bean
-     *            {@link #bean}
+     * @param bean {@link #bean}
      */
     public AbstractLazyDataModel(AbstractBean<T> bean) {
         this.bean = bean;
@@ -62,20 +59,15 @@ public class AbstractLazyDataModel<T extends Serializable> extends LazyDataModel
      * For filtering, the field name doesn't contains the object name on with EL expression will be resolved. For example if the
      * EL expression in xHTML is <code>"#&#123;right.code&#125;"</code>, so the field name will be {@code "code"}.
      *
-     * @param firstIndex
-     *            Index of first element in current page to load.<br>
-     *            Filter element (first page, first row) has an index of {@code 0}.
-     * @param pageSize
-     *            The number of result per page.
-     * @param sortField
-     *            The field name on which filter.<br>
-     *            Default: {@code null}.
-     * @param sortOrder
-     *            The order of sort.<br>
-     *            Default: {@link SortOrder#ASCENDING}.
-     * @param filters
-     *            Association of field names to value set by user to filter results.<br>
-     *            Default: an empty {@link Map}.
+     * @param firstIndex Index of first element in current page to load.<br>
+     *                   Filter element (first page, first row) has an index of {@code 0}.
+     * @param pageSize   The number of result per page.
+     * @param sortField  The field name on which filter.<br>
+     *                   Default: {@code null}.
+     * @param sortOrder  The order of sort.<br>
+     *                   Default: {@link SortOrder#ASCENDING}.
+     * @param filters    Association of field names to value set by user to filter results.<br>
+     *                   Default: an empty {@link Map}.
      * @see AbstractService#findAll(Predicate, Pageable)
      */
     @Override

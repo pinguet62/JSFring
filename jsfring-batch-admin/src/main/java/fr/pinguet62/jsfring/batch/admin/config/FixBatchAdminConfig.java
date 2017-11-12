@@ -29,7 +29,7 @@ public class FixBatchAdminConfig extends SimpleBatchConfiguration {
 
     /**
      * {@link Override} default Spring-Boot application who fail during initialization.
-     * 
+     *
      * @see AbstractBatchConfiguration#jobBuilders()
      */
     @Override

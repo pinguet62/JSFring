@@ -1,10 +1,10 @@
 package fr.pinguet62.jsfring.webapp.jsf.component;
 
+import org.primefaces.component.datatable.DataTable;
+
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.ExternalContext;
-
-import org.primefaces.component.datatable.DataTable;
 
 @FacesComponent("fr.pinguet62.jsfring.webapp.jsf.component.DataTableComponent")
 public final class DataTableComponent extends DataTable {

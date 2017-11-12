@@ -1,29 +1,23 @@
 package fr.pinguet62.jsfring.webservice.config;
 
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.joining;
 import static javax.servlet.http.HttpServletResponse.SC_OK;
 import static org.springframework.core.Ordered.HIGHEST_PRECEDENCE;
-import static org.springframework.http.HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS;
-import static org.springframework.http.HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS;
-import static org.springframework.http.HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN;
+import static org.springframework.http.HttpHeaders.*;
 import static org.springframework.http.HttpMethod.values;
 
-import java.io.IOException;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
-
-/** Configure the {@code "Access-Control-Allow-Origin"}. */
+/**
+ * Configure the {@code "Access-Control-Allow-Origin"}.
+ */
 @Component
 @Order(HIGHEST_PRECEDENCE)
 public class AccessControlAllowOriginFilter implements Filter {

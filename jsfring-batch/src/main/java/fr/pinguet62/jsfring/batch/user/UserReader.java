@@ -16,7 +16,7 @@ public class UserReader extends FlatFileItemReader<UserRow> {
             {
                 setLineTokenizer(new DelimitedLineTokenizer() {
                     {
-                        setNames(new String[] { "email", "password" });
+                        setNames(new String[]{"email", "password"});
                     }
                 });
                 setFieldSetMapper(new BeanWrapperFieldSetMapper<UserRow>() {

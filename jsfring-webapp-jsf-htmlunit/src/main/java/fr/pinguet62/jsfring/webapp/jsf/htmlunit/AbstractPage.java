@@ -1,9 +1,22 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit;
 
-import static java.io.File.createTempFile;
-import static java.lang.Thread.sleep;
-import static java.nio.charset.Charset.defaultCharset;
-import static java.util.stream.Collectors.joining;
+import com.gargoylesoftware.htmlunit.SgmlPage;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlLink;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlSpan;
+import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.field.Field;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.filter.FilterPathPage;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.jasperreport.ParametersJasperReportPage;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.jasperreport.UsersRightsJasperReportPage;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.profile.ProfilesPage;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.right.RightsPage;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.user.UsersPage;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.springframework.ui.context.Theme;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -15,25 +28,10 @@ import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.springframework.ui.context.Theme;
-
-import com.gargoylesoftware.htmlunit.SgmlPage;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlLink;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSpan;
-import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager;
-
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.field.Field;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.filter.FilterPathPage;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.jasperreport.ParametersJasperReportPage;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.jasperreport.UsersRightsJasperReportPage;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.profile.ProfilesPage;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.right.RightsPage;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.user.UsersPage;
-import lombok.extern.slf4j.Slf4j;
+import static java.io.File.createTempFile;
+import static java.lang.Thread.sleep;
+import static java.nio.charset.Charset.defaultCharset;
+import static java.util.stream.Collectors.joining;
 
 /**
  * Base class for all other pages.<br>
@@ -42,18 +40,24 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AbstractPage {
 
-    public static enum Delay {
+    public enum Delay {
 
-        /** To use for long actions, when there are server treatments. */
+        /**
+         * To use for long actions, when there are server treatments.
+         */
         LONG(7_000),
-        /** To use for short server treatment. Example: database reading. */
+        /**
+         * To use for short server treatment. Example: database reading.
+         */
         MEDIUM(4_000),
-        /** To use for simple actions, without server treatments. */
+        /**
+         * To use for simple actions, without server treatments.
+         */
         SHORT(2_000);
 
         private final long ms;
 
-        private Delay(long ms) {
+        Delay(long ms) {
             this.ms = ms;
         }
 
@@ -77,8 +81,7 @@ public class AbstractPage {
     /**
      * Static version of {@link #debug()} because popup and {@link Field components} behavior.
      *
-     * @param page
-     *            The {@link SgmlPage} to debug.
+     * @param page The {@link SgmlPage} to debug.
      * @see SgmlPage#asXml()
      */
     public static void debug(SgmlPage page) {
@@ -89,8 +92,7 @@ public class AbstractPage {
      * Executed in {@link Logger#isDebugEnabled() DEBUG} level or less.<br>
      * Write content to {@link #TMP_FILE temporary file}.
      *
-     * @param content
-     *            The content of file to write.
+     * @param content The content of file to write.
      */
     public static void debug(String content) {
         if (!log.isDebugEnabled())
@@ -120,8 +122,7 @@ public class AbstractPage {
     /**
      * Constructor used by classes that inherit.
      *
-     * @param page
-     *            The {@link HtmlPage HTML page} once on the target page.
+     * @param page The {@link HtmlPage HTML page} once on the target page.
      */
     protected AbstractPage(HtmlPage page) {
         this.page = page;
@@ -133,8 +134,7 @@ public class AbstractPage {
      * Check only the current language.<br>
      * A missing i18n message is formatted as {@code "???key???"}.
      *
-     * @throws NavigatorException
-     *             Missing i18n message.
+     * @throws NavigatorException Missing i18n message.
      */
     private void checkI18n() {
         if (page == null)
@@ -160,9 +160,8 @@ public class AbstractPage {
     /**
      * Get the <code>&lt;p:messages/&gt;</code> content.
      *
-     * @param xpath
-     *            The XPath to find the tag.<br>
-     *            Depends on message level.
+     * @param xpath The XPath to find the tag.<br>
+     *              Depends on message level.
      * @return The tag content.
      */
     private String getMessage(String xpath) {
@@ -256,8 +255,7 @@ public class AbstractPage {
      * Wait end of JavaScript (and Ajax) actions.<br>
      * Continue after the delay.
      *
-     * @param delay
-     *            The {@link Delay} to wait.
+     * @param delay The {@link Delay} to wait.
      */
     public void waitJS(Delay delay) {
         log.debug("Wait JavaScript");

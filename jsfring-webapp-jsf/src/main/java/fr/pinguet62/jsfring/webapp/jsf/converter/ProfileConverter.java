@@ -1,30 +1,29 @@
 package fr.pinguet62.jsfring.webapp.jsf.converter;
 
-import static java.lang.Integer.parseInt;
+import fr.pinguet62.jsfring.model.sql.Profile;
+import fr.pinguet62.jsfring.service.ProfileService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.inject.Inject;
-import javax.inject.Named;
 
-import fr.pinguet62.jsfring.model.sql.Profile;
-import fr.pinguet62.jsfring.service.ProfileService;
+import static java.lang.Integer.parseInt;
 
 /**
  * Convert {@link Profile} to {@link String} value, and conversely, from the primary key.
  */
-@Named
+@Component
 @FacesConverter("profileConverter")
 public class ProfileConverter implements Converter {
 
-    @Inject
+    @Autowired
     private ProfileService profileService;
 
     /**
-     * @param id
-     *            The {@link Profile#id id} as {@link String}.
+     * @param id The {@link Profile#id id} as {@link String}.
      * @return The {@link Profile}.
      */
     @Override
@@ -33,8 +32,7 @@ public class ProfileConverter implements Converter {
     }
 
     /**
-     * @param object
-     *            The {@link Profile}.
+     * @param object The {@link Profile}.
      * @return The {@link Profile#id id} as {@link String}.
      */
     @Override

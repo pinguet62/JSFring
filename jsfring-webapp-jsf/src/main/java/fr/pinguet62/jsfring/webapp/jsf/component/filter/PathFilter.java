@@ -1,6 +1,9 @@
 package fr.pinguet62.jsfring.webapp.jsf.component.filter;
 
-import static java.util.stream.Stream.of;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.SimpleExpression;
+import fr.pinguet62.jsfring.webapp.jsf.component.filter.operator.Operator;
 
 import java.io.Serializable;
 import java.util.List;
@@ -8,29 +11,27 @@ import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.Predicate;
-import com.querydsl.core.types.dsl.SimpleExpression;
-
-import fr.pinguet62.jsfring.webapp.jsf.component.filter.operator.Operator;
+import static java.util.stream.Stream.of;
 
 /**
  * Class used to store the {@link Operator} and arguments of a filter on {@link SimpleExpression}.
  *
- * @param <Exp>
- *            The type of {@link SimpleExpression} on which apply filter.
- * @param <T>
- *            The type of parameter of the {@link Operator}.
+ * @param <Exp> The type of {@link SimpleExpression} on which apply filter.
+ * @param <T>   The type of parameter of the {@link Operator}.
  */
 public abstract class PathFilter<Exp extends SimpleExpression<T>, T extends Serializable>
         implements Supplier<Predicate>, Serializable {
 
     private static final long serialVersionUID = 1;
 
-    /** The {@link Operator} of filter. */
+    /**
+     * The {@link Operator} of filter.
+     */
     private Operator<Exp, T> operator;
 
-    /** The {@link SimpleExpression} on which apply filter. */
+    /**
+     * The {@link SimpleExpression} on which apply filter.
+     */
     private final Exp path;
 
     /**
@@ -41,8 +42,7 @@ public abstract class PathFilter<Exp extends SimpleExpression<T>, T extends Seri
     private T value1, value2;
 
     /**
-     * @param path
-     *            The {@link #path}.
+     * @param path The {@link #path}.
      */
     public PathFilter(Exp path) {
         this.path = path;
@@ -63,15 +63,17 @@ public abstract class PathFilter<Exp extends SimpleExpression<T>, T extends Seri
         if (!(obj instanceof PathFilter))
             return false;
         PathFilter<Exp, T> other = (PathFilter<Exp, T>) obj;
-        return Objects.equals(path, other.path) && Objects.equals(operator, other.operator)
-                && Objects.equals(value1, other.value1) && Objects.equals(value2, other.value2);
+        return Objects.equals(path, other.path)
+                && Objects.equals(operator, other.operator)
+                && Objects.equals(value1, other.value1)
+                && Objects.equals(value2, other.value2);
     }
 
     /**
      * Generate the {@link Predicate} used to filter results.
      *
      * @return The {@link Predicate}.<br>
-     *         If {@link #operator} is {@code null}, then return an empty {@link Predicate}.
+     * If {@link #operator} is {@code null}, then return an empty {@link Predicate}.
      */
     @Override
     public Predicate get() {

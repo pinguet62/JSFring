@@ -1,35 +1,31 @@
 package fr.pinguet62.jsfring.webapp.jsf.component.filter;
 
-import static java.util.Arrays.asList;
-
-import java.io.IOException;
+import fr.pinguet62.jsfring.webapp.jsf.component.filter.operator.Operator;
+import lombok.Getter;
+import lombok.Setter;
+import org.primefaces.component.inputtext.InputText;
+import org.primefaces.component.selectonemenu.SelectOneMenu;
 
 import javax.faces.application.Application;
-import javax.faces.component.FacesComponent;
-import javax.faces.component.NamingContainer;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
-import javax.faces.component.UINamingContainer;
+import javax.faces.component.*;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.event.PostValidateEvent;
 import javax.faces.event.PreValidateEvent;
 import javax.faces.validator.Validator;
+import java.io.IOException;
 
-import org.primefaces.component.inputtext.InputText;
-import org.primefaces.component.selectonemenu.SelectOneMenu;
+import static java.util.Arrays.asList;
 
-import fr.pinguet62.jsfring.webapp.jsf.component.filter.operator.Operator;
-import lombok.Getter;
-import lombok.Setter;
-
-/** {@link UIComponent} who manage the {@link PathFilter}. */
+/**
+ * {@link UIComponent} who manage the {@link PathFilter}.
+ */
 @FacesComponent("fr.pinguet62.jsfring.webapp.jsf.component.filter.PathFilterComponent")
 public final class PathFilterComponent extends UIInput implements NamingContainer {
 
-    private static enum PropertyKeys {
-        operator;
+    private enum PropertyKeys {
+        operator
     }
 
     @Getter
@@ -57,7 +53,9 @@ public final class PathFilterComponent extends UIInput implements NamingContaine
         }
     }
 
-    /** Initialize input fields with initial value passed in parameter. */
+    /**
+     * Initialize input fields with initial value passed in parameter.
+     */
     @Override
     public void encodeBegin(FacesContext context) throws IOException {
         PathFilter<?, ?> filter = getValue();
@@ -68,7 +66,9 @@ public final class PathFilterComponent extends UIInput implements NamingContaine
         super.encodeBegin(context);
     }
 
-    /** @see UIInput#executeValidate(FacesContext) */
+    /**
+     * @see UIInput#executeValidate(FacesContext)
+     */
     private void executeValidate(FacesContext context) {
         try {
             validate(context);
@@ -119,7 +119,9 @@ public final class PathFilterComponent extends UIInput implements NamingContaine
         return this;
     }
 
-    /** @return The value casted to type {@link PathFilter}. */
+    /**
+     * @return The value casted to type {@link PathFilter}.
+     */
     @Override
     public PathFilter<?, ?> getValue() {
         return (PathFilter<?, ?>) super.getValue();

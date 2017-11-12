@@ -1,48 +1,45 @@
 package fr.pinguet62.jsfring.webservice.converter;
 
-import static java.lang.Integer.MAX_VALUE;
-import static java.lang.Math.random;
-import static java.util.UUID.randomUUID;
-import static java.util.stream.Collectors.toSet;
-import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertThat;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
+import fr.pinguet62.jsfring.SpringBootConfig;
+import fr.pinguet62.jsfring.dao.sql.RightDao;
+import fr.pinguet62.jsfring.model.sql.Profile;
+import fr.pinguet62.jsfring.model.sql.Right;
+import fr.pinguet62.jsfring.webservice.dto.ProfileDto;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.convert.ConversionService;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.inject.Inject;
+import static java.lang.Integer.MAX_VALUE;
+import static java.lang.Math.random;
+import static java.util.UUID.randomUUID;
+import static java.util.stream.Collectors.toSet;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.convert.ConversionService;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.dao.sql.RightDao;
-import fr.pinguet62.jsfring.model.sql.Profile;
-import fr.pinguet62.jsfring.model.sql.Right;
-import fr.pinguet62.jsfring.webservice.converter.ProfileFromDtoConverter;
-import fr.pinguet62.jsfring.webservice.dto.ProfileDto;
-
-/** @see ProfileFromDtoConverter */
+/**
+ * @see ProfileFromDtoConverter
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringBootConfig.class, webEnvironment = DEFINED_PORT)
 public class ProfileFromDtoConverterTest {
 
-    @Inject
+    @Autowired
     private ConversionService conversionService;
 
-    @Inject
+    @Autowired
     private RightDao rightDao;
 
-    /** Check simple fields. */
+    /**
+     * Check simple fields.
+     */
     @Test
     public void test_convert() {
         int id = (int) (MAX_VALUE * random());

@@ -1,11 +1,8 @@
 package fr.pinguet62.jsfring.webapp.jsf.config.security;
 
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
-import java.lang.annotation.Retention;
-
-import javax.inject.Inject;
-
+import fr.pinguet62.jsfring.dao.sql.UserDao;
+import fr.pinguet62.jsfring.model.sql.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -16,8 +13,9 @@ import org.springframework.security.test.context.support.WithSecurityContext;
 import org.springframework.security.test.context.support.WithSecurityContextFactory;
 import org.springframework.stereotype.Component;
 
-import fr.pinguet62.jsfring.dao.sql.UserDao;
-import fr.pinguet62.jsfring.model.sql.User;
+import java.lang.annotation.Retention;
+
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Retention(RUNTIME)
 @WithSecurityContext(factory = RequiresAnyUserSecurityContextFactory.class)
@@ -27,10 +25,10 @@ public @interface RequiresAnyUser {
 @Component
 class RequiresAnyUserSecurityContextFactory implements WithSecurityContextFactory<RequiresAnyUser> {
 
-    @Inject
+    @Autowired
     private UserDao userDao;
 
-    @Inject
+    @Autowired
     private UserDetailsService userDetailsService;
 
     @Override

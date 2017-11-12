@@ -1,33 +1,29 @@
 package fr.pinguet62.jsfring.webapp.jsf;
 
-import static org.springframework.data.querydsl.SimpleEntityPathResolver.INSTANCE;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.EntityPath;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Predicate;
+import fr.pinguet62.jsfring.service.AbstractService;
+import lombok.extern.slf4j.Slf4j;
+import org.primefaces.component.datatable.DataTable;
+import org.primefaces.model.LazyDataModel;
+import org.springframework.data.domain.Pageable;
 
+import javax.persistence.Entity;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Entity;
-
-import org.primefaces.component.datatable.DataTable;
-import org.primefaces.model.LazyDataModel;
-import org.springframework.data.domain.Pageable;
-
-import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.EntityPath;
-import com.querydsl.core.types.OrderSpecifier;
-import com.querydsl.core.types.Predicate;
-
-import fr.pinguet62.jsfring.service.AbstractService;
-import lombok.extern.slf4j.Slf4j;
+import static org.springframework.data.querydsl.SimpleEntityPathResolver.INSTANCE;
 
 /**
  * Abstract class used to display results in {@link DataTable}.
  * <p>
  * Eager and lazy loading can be used simple by calling the corresponding method into xHTML view.
  *
- * @param <T>
- *            The type of objects to display.
+ * @param <T> The type of objects to display.
  */
 @Slf4j
 public abstract class AbstractBean<T extends Serializable> implements Serializable {
@@ -41,7 +37,9 @@ public abstract class AbstractBean<T extends Serializable> implements Serializab
      */
     private Iterable<T> list;
 
-    /** The {@link EntityPath} of target {@link Entity}. */
+    /**
+     * The {@link EntityPath} of target {@link Entity}.
+     */
     @SuppressWarnings("unchecked")
     private final EntityPath<T> path = INSTANCE
             .createPath((Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
@@ -120,7 +118,9 @@ public abstract class AbstractBean<T extends Serializable> implements Serializab
      */
     public abstract AbstractService<T, ? extends Serializable> getService();
 
-    /** Refresh the content, by reseting cached {@link #list}. */
+    /**
+     * Refresh the content, by reseting cached {@link #list}.
+     */
     protected void refresh() {
         log.trace("Eager loading: refresh");
         list = null;

@@ -1,10 +1,6 @@
 package fr.pinguet62.jsfring.batch.admin.config;
 
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.admin.web.JobInfo;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.configuration.DuplicateJobException;
@@ -14,9 +10,11 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 import org.springframework.batch.core.configuration.support.ApplicationContextFactory;
 import org.springframework.batch.core.configuration.support.AutomaticJobRegistrar;
 import org.springframework.batch.core.configuration.support.ReferenceJobFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
-import lombok.extern.slf4j.Slf4j;
+import javax.annotation.PostConstruct;
+import java.util.List;
 
 /**
  * {@link JobRegistry#register(JobFactory) Registar} all {@link Job}s.
@@ -36,13 +34,15 @@ import lombok.extern.slf4j.Slf4j;
 @Configuration
 public class AutoJobRegistry {
 
-    @Inject
+    @Autowired
     private JobRegistry jobRegistry;
 
-    @Inject
+    @Autowired
     private List<Job> jobs;
 
-    /** Execute initializer. */
+    /**
+     * Execute initializer.
+     */
     @PostConstruct
     private void init() {
         for (Job job : jobs) {

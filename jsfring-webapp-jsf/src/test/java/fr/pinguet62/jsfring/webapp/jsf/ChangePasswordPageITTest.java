@@ -1,32 +1,7 @@
 package fr.pinguet62.jsfring.webapp.jsf;
 
-import static fr.pinguet62.jsfring.common.security.userdetails.UserDetailsUtils.getCurrent;
-import static fr.pinguet62.jsfring.model.sql.User.PASSWORD_REGEX;
-import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
-import static fr.pinguet62.jsfring.util.MatcherUtils.matches;
-import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.get;
-import static java.util.UUID.randomUUID;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertThat;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
-
-import javax.inject.Inject;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.common.PasswordGenerator;
 import fr.pinguet62.jsfring.model.sql.QUser;
@@ -37,23 +12,46 @@ import fr.pinguet62.jsfring.webapp.jsf.config.security.RequiresAnyUser;
 import fr.pinguet62.jsfring.webapp.jsf.config.security.WithAnyUser;
 import fr.pinguet62.jsfring.webapp.jsf.config.security.WithUserHavingRoles;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.ChangePasswordPage;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
-/** @see ChangePasswordPage */
+import static fr.pinguet62.jsfring.common.security.userdetails.UserDetailsUtils.getCurrent;
+import static fr.pinguet62.jsfring.model.sql.User.PASSWORD_REGEX;
+import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
+import static fr.pinguet62.jsfring.util.MatcherUtils.matches;
+import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.get;
+import static java.util.UUID.randomUUID;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.assertThat;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
+
+/**
+ * @see ChangePasswordPage
+ */
 @SpringRequestScoped
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringBootConfig.class, webEnvironment = DEFINED_PORT)
 // DbUnit
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class,
-    WithSecurityContextTestExecutionListener.class })
+@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class,
+        WithSecurityContextTestExecutionListener.class})
 @DatabaseSetup(DATASET)
 public class ChangePasswordPageITTest {
 
     private ChangePasswordPage page;
 
-    @Inject
+    @Autowired
     private UserService userService;
 
-    /** Page requires login. */
+    /**
+     * Page requires login.
+     */
     @Before
     public void before() {
         page = get().gotoChangePasswordPage();
@@ -79,7 +77,9 @@ public class ChangePasswordPageITTest {
         assertThat(userService.get(getUser().getEmail()).getPassword(), is(equalTo(newPassword)));
     }
 
-    /** The confirm password doesn't match to the new password. */
+    /**
+     * The confirm password doesn't match to the new password.
+     */
     @Test
     @RequiresAnyUser
     public void test_confirmNotMatchs() {
@@ -95,7 +95,9 @@ public class ChangePasswordPageITTest {
         assertThat(page.getMessageError(), is(not(nullValue())));
     }
 
-    /** The confirm password doesn't match to the new password. */
+    /**
+     * The confirm password doesn't match to the new password.
+     */
     @Test
     @WithAnyUser
     public void test_invalidCurrent() {
@@ -112,7 +114,9 @@ public class ChangePasswordPageITTest {
         assertThat(page.getMessageError(), is(not(nullValue())));
     }
 
-    /** The confirm password doesn't match to the new password. */
+    /**
+     * The confirm password doesn't match to the new password.
+     */
     @Test
     @WithAnyUser
     public void test_ruleValidation() {

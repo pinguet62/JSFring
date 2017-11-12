@@ -1,13 +1,13 @@
 package fr.pinguet62.jsfring.service.config;
 
-import static java.util.Arrays.asList;
-
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCache;
 import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import static java.util.Arrays.asList;
 
 @Configuration
 @EnableCaching

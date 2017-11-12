@@ -1,30 +1,31 @@
 package fr.pinguet62.jsfring.common.querydsl;
 
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Predicate;
+import fr.pinguet62.jsfring.util.querydsl.model.QProfile;
+import fr.pinguet62.jsfring.util.querydsl.model.QRight;
+import fr.pinguet62.jsfring.util.querydsl.model.QUser;
+import org.junit.Ignore;
+import org.junit.Test;
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import static java.util.Arrays.asList;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import org.junit.Ignore;
-import org.junit.Test;
-
-import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.Predicate;
-
-import fr.pinguet62.jsfring.common.querydsl.FilterConverter;
-import fr.pinguet62.jsfring.util.querydsl.model.QProfile;
-import fr.pinguet62.jsfring.util.querydsl.model.QRight;
-import fr.pinguet62.jsfring.util.querydsl.model.QUser;
-
-/** @see FilterConverter */
+/**
+ * @see FilterConverter
+ */
 public final class FilterConverterTest {
 
-    /** @see FilterConverter#apply(Map) */
+    /**
+     * @see FilterConverter#apply(Map)
+     */
     @Test
     public void test_apply() {
         QUser user = QUser.user;

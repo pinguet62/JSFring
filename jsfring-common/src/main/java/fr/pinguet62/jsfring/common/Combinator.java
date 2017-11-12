@@ -1,12 +1,14 @@
 package fr.pinguet62.jsfring.common;
 
-import static java.util.Collections.swap;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-/** Generate all combinations of a {@link List} of objects. */
+import static java.util.Collections.swap;
+
+/**
+ * Generate all combinations of a {@link List} of objects.
+ */
 public final class Combinator<T> implements Supplier<List<List<T>>> {
 
     private final List<T> src;
@@ -18,10 +20,8 @@ public final class Combinator<T> implements Supplier<List<List<T>>> {
     }
 
     /**
-     * @param fil
-     *            The already elements iterated.
-     * @param rest
-     *            The (unordered) next elements on iterate.
+     * @param fil  The already elements iterated.
+     * @param rest The (unordered) next elements on iterate.
      */
     private void combine(List<T> fil, List<T> rest) {
         int size = rest.size();

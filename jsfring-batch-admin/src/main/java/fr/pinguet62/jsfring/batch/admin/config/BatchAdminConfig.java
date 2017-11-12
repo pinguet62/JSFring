@@ -1,20 +1,21 @@
 package fr.pinguet62.jsfring.batch.admin.config;
 
-import javax.sql.DataSource;
-
 import org.springframework.batch.core.configuration.annotation.BatchConfigurer;
 import org.springframework.batch.core.configuration.annotation.DefaultBatchConfigurer;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.Primary;
 
+import javax.sql.DataSource;
+
 @Configuration
-@ImportResource({ "classpath:/org/springframework/batch/admin/web/resources/webapp-config.xml",
-        "classpath:/org/springframework/batch/admin/web/resources/servlet-config.xml" })
+@ImportResource({
+        "classpath:/org/springframework/batch/admin/web/resources/webapp-config.xml",
+        "classpath:/org/springframework/batch/admin/web/resources/servlet-config.xml"})
 public class BatchAdminConfig {
 
     /**

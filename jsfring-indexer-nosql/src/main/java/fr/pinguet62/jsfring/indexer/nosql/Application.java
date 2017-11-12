@@ -1,64 +1,59 @@
 package fr.pinguet62.jsfring.indexer.nosql;
 
-import static java.lang.String.valueOf;
-import static java.time.format.DateTimeFormatter.ofPattern;
+import com.moviejukebox.allocine.AllocineApi;
+import com.moviejukebox.allocine.model.*;
+import fr.pinguet62.jsfring.SpringBootConfig;
+import fr.pinguet62.jsfring.dao.nosql.MovieDao;
+import fr.pinguet62.jsfring.dao.nosql.PersonDao;
+import fr.pinguet62.jsfring.dao.nosql.UserDao;
+import fr.pinguet62.jsfring.model.nosql.*;
+import fr.pinguet62.jsfring.model.nosql.Movie;
+import fr.pinguet62.jsfring.model.nosql.Person;
+import lombok.extern.slf4j.Slf4j;
+import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.inject.Inject;
-
-import org.bson.types.ObjectId;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.stereotype.Component;
-
-import com.moviejukebox.allocine.AllocineApi;
-import com.moviejukebox.allocine.model.MovieInfos;
-import com.moviejukebox.allocine.model.MoviePerson;
-import com.moviejukebox.allocine.model.PersonInfos;
-import com.moviejukebox.allocine.model.Review;
-import com.moviejukebox.allocine.model.Writer;
-
-import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.dao.nosql.MovieDao;
-import fr.pinguet62.jsfring.dao.nosql.PersonDao;
-import fr.pinguet62.jsfring.dao.nosql.UserDao;
-import fr.pinguet62.jsfring.model.nosql.Casting;
-import fr.pinguet62.jsfring.model.nosql.Comment;
-import fr.pinguet62.jsfring.model.nosql.Movie;
-import fr.pinguet62.jsfring.model.nosql.Person;
-import fr.pinguet62.jsfring.model.nosql.User;
-import lombok.extern.slf4j.Slf4j;
+import static java.lang.String.valueOf;
+import static java.time.format.DateTimeFormatter.ofPattern;
 
 @Slf4j
 @Component
 public class Application implements CommandLineRunner {
 
-    /** Convert {@link Long} to {@link ObjectId}. */
+    /**
+     * Convert {@link Long} to {@link ObjectId}.
+     */
     private static ObjectId format(long code) {
         return new ObjectId(0, 0, (short) 0, (int) code);
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         SpringApplication.run(SpringBootConfig.class, args);
     }
 
-    @Inject
+    @Autowired
     private AllocineApi api;
 
-    @Inject
+    @Autowired
     private MovieDao movieDao;
 
-    @Inject
+    @Autowired
     private PersonDao personDao;
 
-    @Inject
+    @Autowired
     private UserDao userDao;
 
-    /** @see Movie */
+    /**
+     * @see Movie
+     */
     private Movie createMoveIfNotExists(long code) throws Exception {
         Optional<Movie> foundMovie = movieDao.findById(format(code));
         if (foundMovie.isPresent())
@@ -68,8 +63,7 @@ public class Application implements CommandLineRunner {
         MovieInfos movieDto = api.getMovieInfos(valueOf(code));
         Movie movie = new Movie();
         movie.setId(format(movieDto.getCode()));
-        movie.setReleaseDate(movieDto.getReleaseDate() == null ? null
-                : LocalDateTime.parse(movieDto.getReleaseDate(), ofPattern("yyyy-MM-dd")));
+        movie.setReleaseDate(movieDto.getReleaseDate() == null ? null : LocalDateTime.parse(movieDto.getReleaseDate(), ofPattern("yyyy-MM-dd")));
         movie.setSynopsis(movieDto.getSynopsis());
         movie.setTitle(movieDto.getTitle());
 
@@ -97,7 +91,9 @@ public class Application implements CommandLineRunner {
         return movieDao.save(movie);
     }
 
-    /** @see Person */
+    /**
+     * @see Person
+     */
     private Person getOrCreatePerson(long code) throws Exception {
         Optional<Person> existingPerson = personDao.findById(format(code));
         if (existingPerson.isPresent())
@@ -112,7 +108,9 @@ public class Application implements CommandLineRunner {
         return personDao.save(person);
     }
 
-    /** @see User */
+    /**
+     * @see User
+     */
     private User getOrCreateUser(Writer writer) {
         String pseudo = writer.getName();
 

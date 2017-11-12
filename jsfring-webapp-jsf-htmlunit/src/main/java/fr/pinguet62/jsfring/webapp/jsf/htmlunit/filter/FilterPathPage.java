@@ -1,7 +1,6 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit.filter;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage;
 
 public final class FilterPathPage extends AbstractPage {

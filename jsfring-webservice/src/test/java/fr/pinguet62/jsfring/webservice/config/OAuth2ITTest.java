@@ -1,47 +1,18 @@
 package fr.pinguet62.jsfring.webservice.config;
 
-import static fr.pinguet62.jsfring.common.UrlUtils.formatAuthorization;
-import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
-import static fr.pinguet62.jsfring.util.MatcherUtils.parameter;
-import static fr.pinguet62.jsfring.webservice.config.RestTemplateConfig.BASE_URL;
-import static java.nio.charset.StandardCharsets.UTF_8;
-import static java.util.Arrays.asList;
-import static org.apache.http.client.utils.URLEncodedUtils.format;
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.Matchers.nullValue;
-import static org.hamcrest.Matchers.startsWith;
-import static org.junit.Assert.assertThat;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
-import static org.springframework.security.oauth2.common.OAuth2AccessToken.ACCESS_TOKEN;
-import static org.springframework.security.oauth2.common.OAuth2AccessToken.EXPIRES_IN;
-import static org.springframework.security.oauth2.common.OAuth2AccessToken.REFRESH_TOKEN;
-import static org.springframework.security.oauth2.common.OAuth2AccessToken.TOKEN_TYPE;
-import static org.springframework.security.oauth2.common.util.OAuth2Utils.CLIENT_ID;
-import static org.springframework.security.oauth2.common.util.OAuth2Utils.GRANT_TYPE;
-import static org.springframework.security.oauth2.common.util.OAuth2Utils.REDIRECT_URI;
-import static org.springframework.security.oauth2.common.util.OAuth2Utils.RESPONSE_TYPE;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.io.IOException;
-import java.net.URI;
-import java.net.URL;
-
-import javax.inject.Inject;
-import javax.servlet.Filter;
-
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlInput;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import fr.pinguet62.jsfring.SpringBootConfig;
+import fr.pinguet62.jsfring.dao.sql.UserDao;
+import fr.pinguet62.jsfring.model.sql.User;
 import org.apache.http.message.BasicNameValuePair;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.util.OAuth2Utils;
@@ -56,21 +27,34 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
+import javax.servlet.Filter;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URL;
 
-import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.dao.sql.UserDao;
-import fr.pinguet62.jsfring.model.sql.User;
+import static fr.pinguet62.jsfring.common.UrlUtils.formatAuthorization;
+import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
+import static fr.pinguet62.jsfring.util.MatcherUtils.parameter;
+import static fr.pinguet62.jsfring.webservice.config.RestTemplateConfig.BASE_URL;
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static java.util.Arrays.asList;
+import static org.apache.http.client.utils.URLEncodedUtils.format;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
+import static org.springframework.security.oauth2.common.OAuth2AccessToken.*;
+import static org.springframework.security.oauth2.common.util.OAuth2Utils.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-/** Test several scenarios of OAuth2 server. */
+/**
+ * Test several scenarios of OAuth2 server.
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringBootConfig.class, webEnvironment = DEFINED_PORT)
 // DbUnit
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
+@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class})
 @DatabaseSetup(DATASET)
 public class OAuth2ITTest {
 
@@ -81,15 +65,15 @@ public class OAuth2ITTest {
 
     private final String redirectUri = "http://example.com";
 
-    @Inject
+    @Autowired
     private Filter springSecurityFilterChain;
 
     private User user;
 
-    @Inject
+    @Autowired
     private UserDao userDao;
 
-    @Inject
+    @Autowired
     private WebApplicationContext webApplicationContext;
 
     @Before

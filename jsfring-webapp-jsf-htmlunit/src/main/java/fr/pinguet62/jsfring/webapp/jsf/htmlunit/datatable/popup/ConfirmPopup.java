@@ -1,17 +1,18 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.popup;
 
-import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.Delay.LONG;
-
-import java.io.IOException;
-
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.NavigatorException;
 
-/** {@link Popup} for "Delete" action. */
+import java.io.IOException;
+
+import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.Delay.LONG;
+
+/**
+ * {@link Popup} for "Delete" action.
+ */
 public final class ConfirmPopup extends AbstractPage implements Popup {
 
     public ConfirmPopup(HtmlPage page) {
@@ -29,9 +30,7 @@ public final class ConfirmPopup extends AbstractPage implements Popup {
      * @param classe The {@code class} attribute on which filter.
      */
     private void clickOnButton(String classe) {
-        HtmlButton button = (HtmlButton) getDialog()
-                .getByXPath("./div[contains(@class, 'ui-dialog-buttonpane')]/button[contains(@class, '" + classe + "')]")
-                .get(0);
+        HtmlButton button = (HtmlButton) getDialog().getByXPath("./div[contains(@class, 'ui-dialog-buttonpane')]/button[contains(@class, '" + classe + "')]").get(0);
         try {
             page = button.click();
             waitJS(LONG);

@@ -1,11 +1,10 @@
 package fr.pinguet62.jsfring.webapp.jsf.jasperreport.sample;
 
-import javax.inject.Named;
-
 import fr.pinguet62.jsfring.webapp.jsf.config.scope.SpringViewScoped;
 import fr.pinguet62.jsfring.webapp.jsf.jasperreport.AbstractJasperReportBean;
+import org.springframework.stereotype.Component;
 
-@Named
+@Component
 @SpringViewScoped
 public final class UsersRightsJasperReportBean extends AbstractJasperReportBean {
 

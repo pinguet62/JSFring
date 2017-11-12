@@ -1,9 +1,5 @@
 package fr.pinguet62.jsfring.common.querydsl;
 
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.function.Function;
-
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.support.QueryBase;
 import com.querydsl.core.types.EntityPath;
@@ -12,8 +8,11 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.ComparableExpressionBase;
 import com.querydsl.core.types.dsl.LiteralExpression;
 import com.querydsl.core.types.dsl.SimpleExpression;
-
 import fr.pinguet62.jsfring.common.reflection.PropertyResolver;
+
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.function.Function;
 
 /**
  * Convert a {@link Map} who associate the property and the value, to the {@link Predicate} used to filter a {@link QueryBase
@@ -25,12 +24,13 @@ import fr.pinguet62.jsfring.common.reflection.PropertyResolver;
  */
 public final class FilterConverter implements Function<Map<String, Object>, Predicate> {
 
-    /** The meta-object. */
+    /**
+     * The meta-object.
+     */
     private final EntityPath<?> meta;
 
     /**
-     * @param meta
-     *            The meta-object.
+     * @param meta The meta-object.
      */
     public FilterConverter(EntityPath<?> meta) {
         this.meta = meta;
@@ -39,13 +39,10 @@ public final class FilterConverter implements Function<Map<String, Object>, Pred
     /**
      * Apply the filter: get the {@link Predicate}.
      *
-     * @param filters
-     *            The association of property/value.
+     * @param filters The association of property/value.
      * @return The {@link Predicate} built with different filters.
-     * @throws NullPointerException
-     *             If {@code filters} is {@code null}.
-     * @throws ClassCastException
-     *             The target field is not a {@link ComparableExpressionBase}, so doen't support filter.
+     * @throws NullPointerException If {@code filters} is {@code null}.
+     * @throws ClassCastException   The target field is not a {@link ComparableExpressionBase}, so doen't support filter.
      * @see PropertyResolver Transform property name to {@link SimpleExpression} .
      */
     @Override

@@ -1,23 +1,22 @@
 package fr.pinguet62.jsfring.dao.sql;
 
-import static java.time.LocalDateTime.now;
-
-import java.time.LocalDateTime;
-
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import org.springframework.stereotype.Repository;
-
 import com.querydsl.jpa.impl.JPAUpdateClause;
-
 import fr.pinguet62.jsfring.dao.sql.common.CommonRepository;
 import fr.pinguet62.jsfring.model.sql.QUser;
 import fr.pinguet62.jsfring.model.sql.User;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-/** @see User */
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.time.LocalDateTime;
+
+import static java.time.LocalDateTime.now;
+
+/**
+ * @see User
+ */
 @Repository
 public interface UserDao extends CommonRepository<User, String>, UserDaoCustom {
 
@@ -36,10 +35,12 @@ interface UserDaoCustom {
 @Slf4j
 class UserDaoImpl implements UserDaoCustom {
 
-    @Inject
+    @Autowired
     private UserDao dao;
 
-    /** The {@link EntityManager}. */
+    /**
+     * The {@link EntityManager}.
+     */
     @PersistenceContext
     protected EntityManager em;
 
@@ -49,10 +50,8 @@ class UserDaoImpl implements UserDaoCustom {
      * <p>
      * Reset the {@link EntityManager} before call, to impact calling methods.
      *
-     * @param numberOfDays
-     *            Number of days (positive).
-     * @throws IllegalArgumentException
-     *             Zero or negative number of days.
+     * @param numberOfDays Number of days (positive).
+     * @throws IllegalArgumentException Zero or negative number of days.
      */
     @Override
     public void disableInactiveUsers(int numberOfDays) {
@@ -71,8 +70,7 @@ class UserDaoImpl implements UserDaoCustom {
     /**
      * Reset the {@link User#lastConnection last connection date} to the current day.
      *
-     * @param user
-     *            The {@link User} to update.
+     * @param user The {@link User} to update.
      */
     @Override
     public void resetLastConnectionDate(User user) {

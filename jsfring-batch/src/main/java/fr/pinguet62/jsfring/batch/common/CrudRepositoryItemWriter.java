@@ -1,14 +1,13 @@
 package fr.pinguet62.jsfring.batch.common;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.List;
-
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.data.RepositoryItemWriter;
 import org.springframework.data.repository.CrudRepository;
 
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * An {@link ItemWriter} using {@link CrudRepository} to {@link CrudRepository#save(Object) create or update} items.
@@ -35,7 +34,7 @@ public class CrudRepositoryItemWriter<T> implements ItemWriter<T> {
     }
 
     @Override
-    public void write(List<? extends T> items) throws Exception {
+    public void write(List<? extends T> items) {
         log.debug("Writing to the repository with {0} items", items.size());
         for (T object : items)
             repository.save(object);

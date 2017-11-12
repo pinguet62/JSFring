@@ -1,17 +1,17 @@
 package fr.pinguet62.jsfring.common.spring;
 
-import static org.springframework.core.ResolvableType.forClass;
-import static org.springframework.core.ResolvableType.forClassWithGenerics;
-
-import java.util.Map;
-
 import org.junit.Test;
 import org.springframework.core.ResolvableType;
 import org.springframework.core.convert.converter.Converter;
 
-import fr.pinguet62.jsfring.common.spring.GenericTypeDescriptor;
+import java.util.Map;
 
-/** @see GenericTypeDescriptor */
+import static org.springframework.core.ResolvableType.forClass;
+import static org.springframework.core.ResolvableType.forClassWithGenerics;
+
+/**
+ * @see GenericTypeDescriptor
+ */
 public final class GenericTypeDescriptorTest {
 
     /**
@@ -21,8 +21,11 @@ public final class GenericTypeDescriptorTest {
      */
     @Test
     public void test_multiGenericTypes() {
-        ResolvableType resolvableType = forClassWithGenerics(Map.class, forClass(String.class),
-                forClassWithGenerics(Converter.class, Integer.class, Number.class));
+        ResolvableType resolvableType = forClassWithGenerics(
+                Map.class,
+                forClass(String.class),
+                forClassWithGenerics(Converter.class, Integer.class, Number.class)
+        );
         new GenericTypeDescriptor(resolvableType);
     }
 

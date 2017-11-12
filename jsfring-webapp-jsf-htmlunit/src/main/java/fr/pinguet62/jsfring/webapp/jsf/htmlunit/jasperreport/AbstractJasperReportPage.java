@@ -1,18 +1,19 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit.jasperreport;
 
-import java.awt.Panel;
+import com.gargoylesoftware.htmlunit.html.HtmlButton;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlSpan;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.NavigatorException;
+
+import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import com.gargoylesoftware.htmlunit.html.HtmlButton;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSpan;
-
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.NavigatorException;
-
-/** @see AbstractJasperReportBean */
+/**
+ * @see AbstractJasperReportBean
+ */
 public abstract class AbstractJasperReportPage extends AbstractPage {
 
     public AbstractJasperReportPage(HtmlPage page) {
@@ -22,8 +23,7 @@ public abstract class AbstractJasperReportPage extends AbstractPage {
     /**
      * Into the {@link Panel} footer, find the {@link HtmlButton} from title.
      *
-     * @param buttonTitle
-     *            The {@link HtmlButton} label.
+     * @param buttonTitle The {@link HtmlButton} label.
      * @return The {@link InputStream} returned after export button click.
      */
     protected InputStream export(String buttonTitle) {

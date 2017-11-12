@@ -1,10 +1,9 @@
 package fr.pinguet62.jsfring.webservice.dto;
 
-import java.util.List;
-
+import lombok.Data;
 import org.springframework.data.domain.Page;
 
-import lombok.Data;
+import java.util.List;
 
 /**
  * DTO for {@link Page paginated results}.

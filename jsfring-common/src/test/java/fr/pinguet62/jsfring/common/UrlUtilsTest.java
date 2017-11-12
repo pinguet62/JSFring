@@ -1,17 +1,21 @@
 package fr.pinguet62.jsfring.common;
 
+import org.junit.Test;
+
 import static fr.pinguet62.jsfring.common.UrlUtils.formatAuthorization;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
-import org.junit.Test;
-
-/** @see UrlUtils */
+/**
+ * @see UrlUtils
+ */
 public class UrlUtilsTest {
 
-    /** @see UrlUtils#formatAuthorization(String, String) */
+    /**
+     * @see UrlUtils#formatAuthorization(String, String)
+     */
     @Test
     public void test_formatAuthorization() {
         assertThat(formatAuthorization("foo", "bar"), is(equalTo("Zm9vOmJhcg==")));

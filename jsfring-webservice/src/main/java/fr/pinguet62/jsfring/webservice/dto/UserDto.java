@@ -1,12 +1,14 @@
 package fr.pinguet62.jsfring.webservice.dto;
 
-import java.time.LocalDateTime;
-import java.util.Set;
-
 import fr.pinguet62.jsfring.model.sql.User;
 import lombok.Data;
 
-/** @see User */
+import java.time.LocalDateTime;
+import java.util.Set;
+
+/**
+ * @see User
+ */
 @Data
 public final class UserDto {
 

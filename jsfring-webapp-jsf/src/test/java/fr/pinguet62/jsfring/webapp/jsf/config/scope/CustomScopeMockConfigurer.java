@@ -1,19 +1,18 @@
 package fr.pinguet62.jsfring.webapp.jsf.config.scope;
 
-import static org.springframework.web.context.WebApplicationContext.SCOPE_SESSION;
-
-import javax.enterprise.inject.spi.Bean;
-import javax.inject.Inject;
-
 import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.CustomScopeConfigurer;
 import org.springframework.beans.factory.config.Scope;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.springframework.web.context.WebApplicationContext.SCOPE_SESSION;
+
 /**
  * Mock for webapp session {@link Scope}.<br>
- * Permit to {@link Inject} {@link Bean} into JUnit tests.
+ * Permit to {@link Autowired} {@link Bean} into JUnit tests.
  *
  * @see WebApplicationContext#SCOPE_SESSION
  */
@@ -26,7 +25,9 @@ public class CustomScopeMockConfigurer extends CustomScopeConfigurer {
 
 }
 
-/** Workaround for <b>Singleton</b> {@link Scope}. */
+/**
+ * Workaround for <b>Singleton</b> {@link Scope}.
+ */
 @Component
 class StaticScope implements Scope {
 

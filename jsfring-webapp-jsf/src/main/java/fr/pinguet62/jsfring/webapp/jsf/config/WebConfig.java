@@ -1,5 +1,19 @@
 package fr.pinguet62.jsfring.webapp.jsf.config;
 
+import com.sun.faces.config.ConfigureListener;
+import org.springframework.boot.web.servlet.ServletContextInitializer;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import javax.faces.context.FacesContextFactory;
+import javax.faces.webapp.FacesServlet;
+import javax.servlet.Servlet;
+import javax.servlet.ServletContext;
+
 import static com.sun.faces.config.WebConfiguration.BooleanWebContextInitParameter.ForceLoadFacesConfigFiles;
 import static java.lang.Boolean.TRUE;
 import static javax.faces.application.ViewHandler.DEFAULT_FACELETS_SUFFIX;
@@ -7,23 +21,9 @@ import static javax.faces.application.ViewHandler.FACELETS_SKIP_COMMENTS_PARAM_N
 import static javax.faces.convert.Converter.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE_PARAM_NAME;
 import static org.primefaces.util.Constants.ContextParams.THEME;
 
-import javax.faces.context.FacesContextFactory;
-import javax.faces.webapp.FacesServlet;
-import javax.servlet.Servlet;
-import javax.servlet.ServletContext;
-
-import org.springframework.boot.web.servlet.ServletContextInitializer;
-import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import com.sun.faces.config.ConfigureListener;
-
-/** Java {@code "web.xml"} configuration */
+/**
+ * Java {@code "web.xml"} configuration
+ */
 @Configuration
 public class WebConfig {
 
@@ -73,7 +73,7 @@ public class WebConfig {
      */
     @Bean
     public ServletListenerRegistrationBean<ConfigureListener> jsfConfigureListener() {
-        return new ServletListenerRegistrationBean<ConfigureListener>(new ConfigureListener());
+        return new ServletListenerRegistrationBean<>(new ConfigureListener());
     }
 
     /**

@@ -1,9 +1,9 @@
 package fr.pinguet62.jsfring.common.reflection;
 
-import static java.util.Objects.nonNull;
-
 import java.lang.reflect.Field;
 import java.util.function.Function;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Get the target attribute value by reflection.
@@ -15,14 +15,15 @@ import java.util.function.Function;
  */
 public final class PropertyResolver implements Function<String, Object> {
 
-    /** The source object. */
+    /**
+     * The source object.
+     */
     private final Object obj;
 
     /**
      * Constructor.
      *
-     * @param obj
-     *            The source object.
+     * @param obj The source object.
      */
     public PropertyResolver(Object obj) {
         this.obj = obj;
@@ -31,17 +32,14 @@ public final class PropertyResolver implements Function<String, Object> {
     /**
      * Apply the conversion: get the target attribute value.
      *
-     * @param property
-     *            The {@link String} property.
+     * @param property The {@link String} property.
      * @return The {@link Object}.
-     * @throws IllegalArgumentException
-     *             Invalid property value: invalid field name, space, invalid character, ...
-     * @throws NullPointerException
-     *             The property is {@code null}.
+     * @throws IllegalArgumentException Invalid property value: invalid field name, space, invalid character, ...
+     * @throws NullPointerException     The property is {@code null}.
      */
     @Override
     public Object apply(String property) {
-        nonNull(property);
+        requireNonNull(property);
         if (property.isEmpty() || property.endsWith("."))
             throw new IllegalArgumentException("Invalid properties path: " + property);
 
@@ -52,8 +50,7 @@ public final class PropertyResolver implements Function<String, Object> {
             try {
                 field = currentObject.getClass().getDeclaredField(attributeName);
             } catch (NoSuchFieldException | SecurityException exception) {
-                throw new IllegalArgumentException("Attribute not found: " + currentObject.getClass() + "#" + attributeName,
-                        exception);
+                throw new IllegalArgumentException("Attribute not found: " + currentObject.getClass() + "#" + attributeName, exception);
             }
             // Value
             try {

@@ -1,20 +1,19 @@
 package fr.pinguet62.jsfring.test;
 
-import javax.inject.Inject;
-import javax.sql.DataSource;
-
+import com.github.springtestdbunit.bean.DatabaseConfigBean;
+import com.github.springtestdbunit.bean.DatabaseDataSourceConnectionFactoryBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.github.springtestdbunit.bean.DatabaseConfigBean;
-import com.github.springtestdbunit.bean.DatabaseDataSourceConnectionFactoryBean;
+import javax.sql.DataSource;
 
 @Configuration
 public class DbUnitConfig {
 
     public static final String DATASET = "/dataset.xml";
 
-    @Inject
+    @Autowired
     private DataSource dataSource;
 
     @Bean

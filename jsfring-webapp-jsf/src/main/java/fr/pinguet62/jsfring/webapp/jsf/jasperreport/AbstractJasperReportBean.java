@@ -1,19 +1,12 @@
 package fr.pinguet62.jsfring.webapp.jsf.jasperreport;
 
-import static fr.pinguet62.jsfring.webapp.jsf.jasperreport.ExportType.CSV;
-import static fr.pinguet62.jsfring.webapp.jsf.jasperreport.ExportType.DOCX;
-import static fr.pinguet62.jsfring.webapp.jsf.jasperreport.ExportType.HTML;
-import static fr.pinguet62.jsfring.webapp.jsf.jasperreport.ExportType.JSON;
-import static fr.pinguet62.jsfring.webapp.jsf.jasperreport.ExportType.ODS;
-import static fr.pinguet62.jsfring.webapp.jsf.jasperreport.ExportType.ODT;
-import static fr.pinguet62.jsfring.webapp.jsf.jasperreport.ExportType.PDF;
-import static fr.pinguet62.jsfring.webapp.jsf.jasperreport.ExportType.PPTX;
-import static fr.pinguet62.jsfring.webapp.jsf.jasperreport.ExportType.RTF;
-import static fr.pinguet62.jsfring.webapp.jsf.jasperreport.ExportType.TEXT;
-import static fr.pinguet62.jsfring.webapp.jsf.jasperreport.ExportType.XLS;
-import static fr.pinguet62.jsfring.webapp.jsf.jasperreport.ExportType.XLSX;
-import static fr.pinguet62.jsfring.webapp.jsf.jasperreport.ExportType.XML;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.sql.DataSource;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -21,26 +14,16 @@ import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.Map;
 
-import javax.inject.Inject;
-import javax.sql.DataSource;
+import static fr.pinguet62.jsfring.webapp.jsf.jasperreport.ExportType.*;
 
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
-
-import net.sf.jasperreports.engine.JRAbstractExporter;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.export.SimpleExporterInput;
-
-/** Abstract bean used to display and export {@link JasperReport}. */
+/**
+ * Abstract bean used to display and export {@link JasperReport}.
+ */
 public abstract class AbstractJasperReportBean implements Serializable {
 
     private static final long serialVersionUID = 1;
 
-    @Inject
+    @Autowired
     private transient DataSource dataSource;
 
     public StreamedContent getCsvFile() {
@@ -107,11 +90,9 @@ public abstract class AbstractJasperReportBean implements Serializable {
      * <li>Generate {@link StreamedContent} for PrimeFaces file download</li>
      * </ol>
      *
-     * @param targetType
-     *            The {@link ExportType}.
+     * @param targetType The {@link ExportType}.
      * @return The {@link StreamedContent} used by PrimeFaces.
-     * @throws JasperReportRuntimeException
-     *             Error rendering report.
+     * @throws JasperReportRuntimeException Error rendering report.
      */
     protected StreamedContent getStreamedContent(ExportType targetType) {
         try {

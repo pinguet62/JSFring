@@ -1,21 +1,20 @@
 package fr.pinguet62.jsfring.webservice.config;
 
-import static fr.pinguet62.jsfring.webservice.config.Oauth2Helper.HEADER_AUTHORIZATION;
-
-import javax.inject.Inject;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.web.client.RestTemplate;
 
+import static fr.pinguet62.jsfring.webservice.config.Oauth2Helper.HEADER_AUTHORIZATION;
+
 @Configuration
 public class RestTemplateConfig {
 
     public static final String BASE_URL = "http://localhost:8080";
 
-    @Inject
+    @Autowired
     private Oauth2Helper helper;
 
     @Bean

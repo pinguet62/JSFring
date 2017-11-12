@@ -1,15 +1,13 @@
 package fr.pinguet62.jsfring.webapp.jsf.component.filter.operator;
 
-import java.io.Serializable;
-import java.util.List;
-
-import org.primefaces.component.selectonemenu.SelectOneMenu;
-
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.SimpleExpression;
-
 import fr.pinguet62.jsfring.webapp.jsf.component.filter.OperatorConverter;
+import org.primefaces.component.selectonemenu.SelectOneMenu;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * The implementation must:
@@ -19,10 +17,8 @@ import fr.pinguet62.jsfring.webapp.jsf.component.filter.OperatorConverter;
  * check if the value is in the {@link List}).</li>
  * </ul>
  *
- * @param <Exp>
- *            The type of {@link SimpleExpression} on which operator will be applied.
- * @param <T>
- *            The type of parameters.
+ * @param <Exp> The type of {@link SimpleExpression} on which operator will be applied.
+ * @param <T>   The type of parameters.
  */
 public interface Operator<Exp extends SimpleExpression<T>, T> extends Serializable {
 
@@ -30,14 +26,11 @@ public interface Operator<Exp extends SimpleExpression<T>, T> extends Serializab
      * Apply the {@link Operator} on {@link SimpleExpression path}, with parameters (if required), and generate the
      * {@link BooleanExpression}.
      *
-     * @param path
-     *            The {@link SimpleExpression} on which apply the operator.
-     * @param arg1
-     *            The first parameter of operator.<br>
-     *            Ignored if the operator doesn't take parameter.
-     * @param arg2
-     *            The second parameter of operator.<br>
-     *            Ignored if the operator take only 1 parameter.
+     * @param path The {@link SimpleExpression} on which apply the operator.
+     * @param arg1 The first parameter of operator.<br>
+     *             Ignored if the operator doesn't take parameter.
+     * @param arg2 The second parameter of operator.<br>
+     *             Ignored if the operator take only 1 parameter.
      * @return The {@link BooleanExpression where cause} to apply for filtering.
      */
     Predicate apply(Exp path, T arg1, T arg2);

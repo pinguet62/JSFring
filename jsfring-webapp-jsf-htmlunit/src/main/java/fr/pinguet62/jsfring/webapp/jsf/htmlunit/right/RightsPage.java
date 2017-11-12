@@ -1,11 +1,10 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit.right;
 
-import java.util.function.Function;
-
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
-
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.AbstractDatatablePage;
+
+import java.util.function.Function;
 
 public final class RightsPage extends AbstractDatatablePage<RightRow, Void> {
 

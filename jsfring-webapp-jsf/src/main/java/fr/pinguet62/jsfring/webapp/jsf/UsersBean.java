@@ -1,17 +1,5 @@
 package fr.pinguet62.jsfring.webapp.jsf;
 
-import static java.util.stream.Collectors.toList;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import org.primefaces.model.DualListModel;
-
 import fr.pinguet62.jsfring.model.sql.Profile;
 import fr.pinguet62.jsfring.model.sql.User;
 import fr.pinguet62.jsfring.service.AbstractService;
@@ -20,23 +8,37 @@ import fr.pinguet62.jsfring.service.UserService;
 import fr.pinguet62.jsfring.webapp.jsf.config.scope.SpringViewScoped;
 import lombok.Getter;
 import lombok.Setter;
+import org.primefaces.model.DualListModel;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-/** @see User */
-@Named
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
+
+/**
+ * @see User
+ */
+@Component
 @SpringViewScoped
 public final class UsersBean extends AbstractCrudBean<User> {
 
     private static final long serialVersionUID = 1;
 
-    /** The {@link Profile} association (available/associated) of the {@link #getSelectedValue() selected user}. */
+    /**
+     * The {@link Profile} association (available/associated) of the {@link #getSelectedValue() selected user}.
+     */
     @Getter
     @Setter
     private DualListModel<Profile> profilesAssociation;
 
-    @Inject
+    @Autowired
     private transient ProfileService profileService;
 
-    @Inject
+    @Autowired
     private transient UserService userService;
 
     /**
@@ -75,8 +77,7 @@ public final class UsersBean extends AbstractCrudBean<User> {
 
         // Custom
         List<Profile> associatedProfiles = new ArrayList<>(getSelectedValue().getProfiles());
-        List<Profile> availableProfiles = profileService.getAll().stream()
-                .filter(profile -> !associatedProfiles.contains(profile)).collect(toList());
+        List<Profile> availableProfiles = profileService.getAll().stream().filter(profile -> !associatedProfiles.contains(profile)).collect(toList());
         profilesAssociation = new DualListModel<>(availableProfiles, associatedProfiles);
     }
 

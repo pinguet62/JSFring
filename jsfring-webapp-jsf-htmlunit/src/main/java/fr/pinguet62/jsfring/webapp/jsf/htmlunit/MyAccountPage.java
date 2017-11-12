@@ -2,7 +2,6 @@ package fr.pinguet62.jsfring.webapp.jsf.htmlunit;
 
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.field.SelectOneMenu;
 
 public final class MyAccountPage extends AbstractPage {

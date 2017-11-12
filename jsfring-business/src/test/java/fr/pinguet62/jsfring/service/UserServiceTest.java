@@ -1,24 +1,13 @@
 package fr.pinguet62.jsfring.service;
 
-import static fr.pinguet62.jsfring.model.sql.User.PASSWORD_REGEX;
-import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
-import static fr.pinguet62.jsfring.util.MatcherUtils.matches;
-import static java.util.stream.Stream.generate;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.argThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import javax.inject.Inject;
-import javax.validation.constraints.Pattern;
-
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import fr.pinguet62.jsfring.SpringBootConfig;
+import fr.pinguet62.jsfring.dao.sql.UserDao;
+import fr.pinguet62.jsfring.model.sql.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
@@ -27,25 +16,34 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.transaction.TransactionSystemException;
 
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
+import javax.validation.constraints.Pattern;
 
-import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.dao.sql.UserDao;
-import fr.pinguet62.jsfring.model.sql.User;
+import static fr.pinguet62.jsfring.model.sql.User.PASSWORD_REGEX;
+import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
+import static fr.pinguet62.jsfring.util.MatcherUtils.matches;
+import static java.util.stream.Stream.generate;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.Mockito.*;
 
-/** @see UserService */
+/**
+ * @see UserService
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringBootConfig.class)
 // DbUnit
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
+@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class})
 @DatabaseSetup(DATASET)
 public class UserServiceTest {
 
-    @Inject
+    @Autowired
     private UserService service;
 
-    /** @see UserService#forgottenPassword(String) */
+    /**
+     * @see UserService#forgottenPassword(String)
+     */
     @Test
     public void test_forgottenPassword() {
         String email = "sample@domain.org";
@@ -93,7 +91,9 @@ public class UserServiceTest {
         assertTrue(generate(UserService::randomPassword).limit(100).allMatch(pwd -> pwd.matches(PASSWORD_REGEX)));
     }
 
-    /** @see UserService#updatePassword(String, String) */
+    /**
+     * @see UserService#updatePassword(String, String)
+     */
     @Test
     public void test_updatePassword() {
         String email = "sample@domain.org";

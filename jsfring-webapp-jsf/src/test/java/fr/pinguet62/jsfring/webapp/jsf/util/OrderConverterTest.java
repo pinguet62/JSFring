@@ -1,30 +1,27 @@
 package fr.pinguet62.jsfring.webapp.jsf.util;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertThat;
-import static org.primefaces.model.SortOrder.ASCENDING;
-import static org.primefaces.model.SortOrder.DESCENDING;
-import static org.primefaces.model.SortOrder.UNSORTED;
-
-import java.util.function.Function;
-
-import org.junit.Test;
-import org.primefaces.model.SortOrder;
-
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.ComparableExpressionBase;
-
 import fr.pinguet62.jsfring.model.sql.QProfile;
 import fr.pinguet62.jsfring.model.sql.QRight;
 import fr.pinguet62.jsfring.model.sql.QUser;
-import fr.pinguet62.jsfring.webapp.jsf.util.OrderConverter;
+import org.junit.Test;
+import org.primefaces.model.SortOrder;
 
-/** @see OrderConverter */
+import java.util.function.Function;
+
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
+import static org.primefaces.model.SortOrder.*;
+
+/**
+ * @see OrderConverter
+ */
 public final class OrderConverterTest {
 
-    /** @see OrderConverter#apply(SortOrder) */
+    /**
+     * @see OrderConverter#apply(SortOrder)
+     */
     @Test
     public void test_apply() {
         Function<ComparableExpressionBase<?>, OrderSpecifier<?>> ascOrderApplier = new OrderConverter().apply(ASCENDING);

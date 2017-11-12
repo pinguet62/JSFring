@@ -4,8 +4,11 @@ public final class NavigatorException extends RuntimeException {
 
     private static final long serialVersionUID = 1;
 
-    /** Default constructor. */
-    public NavigatorException() {}
+    /**
+     * Default constructor.
+     */
+    public NavigatorException() {
+    }
 
     /**
      * Constructor with message.

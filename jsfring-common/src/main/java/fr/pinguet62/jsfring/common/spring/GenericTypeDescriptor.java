@@ -1,9 +1,9 @@
 package fr.pinguet62.jsfring.common.spring;
 
-import java.lang.annotation.Annotation;
-
 import org.springframework.core.ResolvableType;
 import org.springframework.core.convert.TypeDescriptor;
+
+import java.lang.annotation.Annotation;
 
 /**
  * {@link TypeDescriptor} with {@link ResolvableType} constructor.

@@ -1,5 +1,29 @@
 package fr.pinguet62.jsfring.dao.sql;
 
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.querydsl.core.types.Predicate;
+import fr.pinguet62.jsfring.SpringBootConfig;
+import fr.pinguet62.jsfring.model.sql.Profile;
+import fr.pinguet62.jsfring.model.sql.QProfile;
+import fr.pinguet62.jsfring.model.sql.QRight;
+import fr.pinguet62.jsfring.model.sql.Right;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
+import javax.sql.DataSource;
+import java.util.List;
+
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
 import static java.util.UUID.randomUUID;
 import static java.util.stream.Collectors.toList;
@@ -8,50 +32,24 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.sql.DataSource;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.querydsl.core.types.Predicate;
-
-import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.model.sql.Profile;
-import fr.pinguet62.jsfring.model.sql.QProfile;
-import fr.pinguet62.jsfring.model.sql.QRight;
-import fr.pinguet62.jsfring.model.sql.Right;
-
-/** Simple tests for JPA relationships. */
+/**
+ * Simple tests for JPA relationships.
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringBootConfig.class)
 @Transactional
 // DbUnit
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class,
-    TransactionalTestExecutionListener.class })
+@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
 @DatabaseSetup(DATASET)
 public class JpaTest {
 
-    @Inject
+    @Autowired
     private DataSource ds;
 
-    @Inject
+    @Autowired
     private ProfileDao profileDao;
 
-    @Inject
+    @Autowired
     private RightDao rightDao;
 
     /**
@@ -112,8 +110,8 @@ public class JpaTest {
             assertTrue(
                     // Native
                     e instanceof EntityNotFoundException
-                    // Spring Wrapper
-                    || e.getCause() instanceof EntityNotFoundException);
+                            // Spring Wrapper
+                            || e.getCause() instanceof EntityNotFoundException);
         }
     }
 

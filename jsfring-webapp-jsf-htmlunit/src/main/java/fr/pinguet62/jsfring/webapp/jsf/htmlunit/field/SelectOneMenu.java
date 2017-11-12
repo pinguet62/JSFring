@@ -1,16 +1,15 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit.field;
 
-import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.Delay.SHORT;
+import com.gargoylesoftware.htmlunit.html.HtmlDivision;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlOption;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.NavigatorException;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gargoylesoftware.htmlunit.html.HtmlDivision;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlOption;
-
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.NavigatorException;
+import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.Delay.SHORT;
 
 public final class SelectOneMenu extends ReadWriteField<HtmlDivision, String> {
 
@@ -19,8 +18,7 @@ public final class SelectOneMenu extends ReadWriteField<HtmlDivision, String> {
     /**
      * <code>&lt;div class="ui-selectonemenu..."&gt;</code>
      *
-     * @param html
-     *            The {@link HtmlDivision}.
+     * @param html The {@link HtmlDivision}.
      */
     public SelectOneMenu(HtmlDivision html) {
         super(html);
@@ -32,8 +30,7 @@ public final class SelectOneMenu extends ReadWriteField<HtmlDivision, String> {
         List<KeyLabelIndex> items = new ArrayList<>();
         int index = 0;
         for (HtmlOption option : options) {
-            items.add(new KeyLabelIndex(index, option.getAttribute("value"), option.asText(),
-                    "selected".equals(option.getAttribute("selected"))));
+            items.add(new KeyLabelIndex(index, option.getAttribute("value"), option.asText(), "selected".equals(option.getAttribute("selected"))));
             index++;
         }
         return items;
@@ -45,8 +42,7 @@ public final class SelectOneMenu extends ReadWriteField<HtmlDivision, String> {
     }
 
     /**
-     * @param key
-     *            The key of {@link HtmlOption}.
+     * @param key The key of {@link HtmlOption}.
      */
     @Override
     public void setValue(String key) {

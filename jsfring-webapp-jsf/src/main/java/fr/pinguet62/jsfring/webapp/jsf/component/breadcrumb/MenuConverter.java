@@ -1,13 +1,13 @@
 package fr.pinguet62.jsfring.webapp.jsf.component.breadcrumb;
 
-import java.util.function.Function;
-
 import org.primefaces.component.breadcrumb.BreadCrumb;
 import org.primefaces.component.menu.Menu;
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.MenuElement;
 import org.primefaces.model.menu.MenuItem;
 import org.primefaces.model.menu.Submenu;
+
+import java.util.function.Function;
 
 /**
  * Converter used to convert {@link MenuElement} ({@link Submenu} or {@link MenuItem}) to a {@link MenuItem}.
@@ -20,11 +20,9 @@ public final class MenuConverter implements Function<MenuElement, MenuItem> {
      * The {@link Submenu} is converted to {@link MenuItem} with similar properties.<br>
      * The {@link MenuItem} is copied with only necessary properties.
      *
-     * @param element
-     *            The {@link MenuElement} to convert.
+     * @param element The {@link MenuElement} to convert.
      * @return The {@link MenuItem} to display in the {@link BreadCrumb}.
-     * @throws IllegalArgumentException
-     *             Unknown type.
+     * @throws IllegalArgumentException Unknown type.
      */
     @Override
     public MenuItem apply(MenuElement element) {
@@ -38,8 +36,7 @@ public final class MenuConverter implements Function<MenuElement, MenuItem> {
     /**
      * Create new {@link MenuItem} and copy all necessary properties.
      *
-     * @param menuItem
-     *            The {@link MenuItem} to copy.
+     * @param menuItem The {@link MenuItem} to copy.
      * @return The new {@link MenuItem}.
      */
     private MenuItem apply(MenuItem menuItem) {
@@ -53,8 +50,7 @@ public final class MenuConverter implements Function<MenuElement, MenuItem> {
     /**
      * Convert to {@link MenuItem} with similar properties.
      *
-     * @param submenu
-     *            The {@link Submenu} to convert.
+     * @param submenu The {@link Submenu} to convert.
      * @return The {@link MenuItem}.
      */
     private MenuItem apply(Submenu submenu) {

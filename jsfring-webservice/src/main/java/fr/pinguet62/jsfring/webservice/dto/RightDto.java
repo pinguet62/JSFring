@@ -3,7 +3,9 @@ package fr.pinguet62.jsfring.webservice.dto;
 import fr.pinguet62.jsfring.model.sql.Right;
 import lombok.Data;
 
-/** @see Right */
+/**
+ * @see Right
+ */
 @Data
 public final class RightDto {
 

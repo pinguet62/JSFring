@@ -1,7 +1,6 @@
 package fr.pinguet62.jsfring.webapp.jsf.config;
 
-import javax.inject.Inject;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -18,10 +17,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static final String LOGIN_PROCESSING_URL = "/j_spring_security_check";
 
-    @Inject
+    @Autowired
     private UserDetailsService userDetailsService;
 
-    /** Use custom {@link UserDetailsService}. */
+    /**
+     * Use custom {@link UserDetailsService}.
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
@@ -67,6 +68,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PersistentTokenRepository tokenRepository() {
         return new InMemoryTokenRepositoryImpl();
-    };
+    }
 
 }

@@ -1,20 +1,14 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit.filter;
 
-import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.Delay.MEDIUM;
-import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.Delay.SHORT;
+import com.gargoylesoftware.htmlunit.html.*;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.NavigatorException;
 
 import java.io.IOException;
 import java.util.List;
 
-import com.gargoylesoftware.htmlunit.html.HtmlButton;
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSelect;
-import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
-import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
-
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.NavigatorException;
+import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.Delay.MEDIUM;
+import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.Delay.SHORT;
 
 public class FilterField extends AbstractPage {
 
@@ -26,8 +20,7 @@ public class FilterField extends AbstractPage {
     }
 
     /**
-     * @param i
-     *            The column index.
+     * @param i The column index.
      */
     private HtmlTableDataCell getColumn(int i) {
         return (HtmlTableDataCell) getFilter().getByXPath("./td").get(i);
@@ -61,8 +54,7 @@ public class FilterField extends AbstractPage {
     }
 
     /**
-     * @param operator
-     *            The {@link Class class} of operator.
+     * @param operator The {@link Class class} of operator.
      */
     public void setOperator(Class<?> operator) {
         String value = operator == null ? "" : operator.getName();
@@ -77,10 +69,8 @@ public class FilterField extends AbstractPage {
     /**
      * Set value to argument.
      *
-     * @param index
-     *            The argument index.
-     * @param value
-     *            The argument value.
+     * @param index The argument index.
+     * @param value The argument value.
      */
     public void setValue(int index, String value) {
         getInputValues().get(index).setValueAttribute(value);

@@ -1,5 +1,19 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable;
 
+import com.gargoylesoftware.htmlunit.html.*;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.DateUtils;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.NavigatorException;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.popup.ConfirmPopup;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.popup.ShowPopup;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.popup.UpdatePopup;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.StreamSupport;
+
 import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.Delay.MEDIUM;
 import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.Delay.SHORT;
 import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.DateUtils.DATETIME_FORMATTER;
@@ -9,33 +23,11 @@ import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.function.Function;
-import java.util.stream.StreamSupport;
-
-import com.gargoylesoftware.htmlunit.html.DomElement;
-import com.gargoylesoftware.htmlunit.html.HtmlButton;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlTableCell;
-import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
-import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
-
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.DateUtils;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.NavigatorException;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.popup.ConfirmPopup;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.popup.ShowPopup;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.popup.UpdatePopup;
-
 /**
  * Row of datatable of {@link AbstractDatatablePage}.
  *
- * @param <SP>
- *            The {@link ShowPopup} type.
- * @param <UP>
- *            The {@link UpdatePopup} type.
+ * @param <SP> The {@link ShowPopup} type.
+ * @param <UP> The {@link UpdatePopup} type.
  */
 public abstract class AbstractRow<SP, UP> extends AbstractPage {
 
@@ -44,8 +36,7 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
     /**
      * Initialize the "actions" cell.
      *
-     * @param row
-     *            The {@link HtmlTableRow table row}.
+     * @param row The {@link HtmlTableRow table row}.
      */
     protected AbstractRow(HtmlTableRow row) {
         super(row.getHtmlPageOrNull());
@@ -56,8 +47,7 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
      * Click on "delete" action button.
      *
      * @return The {@link ConfirmPopup}.
-     * @throws UnsupportedOperationException
-     *             "Delete" action not available.
+     * @throws UnsupportedOperationException "Delete" action not available.
      */
     public ConfirmPopup actionDelete() {
         HtmlButton button = getActionButtonDelete();
@@ -79,8 +69,7 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
      * Click on "show" action button.
      *
      * @return The {@link ShowPopup}.
-     * @throws UnsupportedOperationException
-     *             "Show" action not available.
+     * @throws UnsupportedOperationException "Show" action not available.
      */
     public SP actionShow() {
         HtmlButton button = getActionButtonShow();
@@ -103,8 +92,7 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
      * Click on "update" action button.
      *
      * @return The {@link UpdatePopup}.
-     * @throws UnsupportedOperationException
-     *             "Update" action not available.
+     * @throws UnsupportedOperationException "Update" action not available.
      */
     public UP actionUpdate() {
         HtmlButton button = getActionButtonUpdate();
@@ -126,12 +114,10 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
     /**
      * Find action {@link HtmlButton button}, in action column, by XPath.
      *
-     * @param xpath
-     *            The XPath to find {@link HtmlButton}.
+     * @param xpath The XPath to find {@link HtmlButton}.
      * @return The {@link HtmlButton}.<br>
-     *         {@code null} if not found.
-     * @throws NavigatorException
-     *             More than 1 {@link HtmlButton} found.
+     * {@code null} if not found.
+     * @throws NavigatorException More than 1 {@link HtmlButton} found.
      */
     private HtmlButton getActionButton(String xpath) {
         List<HtmlTableCell> cells = row.getByXPath("./td");
@@ -155,15 +141,14 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
     }
 
     // TODO i18n
+
     /**
      * Get the {@link Boolean}.
      *
-     * @param column
-     *            The column index.
+     * @param column The column index.
      * @return The {@link Boolean}.<br>
-     *         {@code null} if empty cell.
-     * @throws NavigatorException
-     *             Unknown boolean format.
+     * {@code null} if empty cell.
+     * @throws NavigatorException Unknown boolean format.
      */
     protected Boolean getBoolean(int column) {
         String content = getString(column);
@@ -181,8 +166,7 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
     /**
      * Get the {@link LocalDateTime}.
      *
-     * @param column
-     *            The column index.
+     * @param column The column index.
      * @return The {@link LocalDateTime}.
      * @see DateUtils#parseDateOrDateTime(String)
      */
@@ -210,10 +194,9 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
     /**
      * Get the {@link String}.
      *
-     * @param column
-     *            The column index.
+     * @param column The column index.
      * @return The {@link String}.<br>
-     *         {@code null} if empty cell.
+     * {@code null} if empty cell.
      */
     protected String getString(int column) {
         List<DomElement> tds = StreamSupport.stream(row.getChildElements().spliterator(), false).collect(toList());

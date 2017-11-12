@@ -1,37 +1,38 @@
 package fr.pinguet62.jsfring.webapp.jsf.i18n;
 
-import static java.util.Optional.ofNullable;
-import static javax.faces.context.FacesContext.getCurrentInstance;
-import static org.apache.commons.collections.IteratorUtils.toList;
-import static org.springframework.web.context.WebApplicationContext.SCOPE_SESSION;
+import org.springframework.stereotype.Component;
 
+import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Locale;
 
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
-import javax.inject.Named;
-
-import org.springframework.context.annotation.Scope;
+import static java.util.Optional.ofNullable;
+import static javax.faces.context.FacesContext.getCurrentInstance;
+import static org.apache.commons.collections.IteratorUtils.toList;
 
 /**
  * Bean used to store the user's {@link Locale}.
  *
  * @see LangFilter
  */
-@Named
-@Scope(SCOPE_SESSION)
-public final class LangBean implements Serializable {
+@Component
+@javax.faces.bean.SessionScoped // TODO @org.springframework.web.context.annotation.SessionScope
+public class LangBean implements Serializable {
 
     private static final long serialVersionUID = 1;
 
-    /** {@link Locale} supported by the application. */
+    /**
+     * {@link Locale} supported by the application.
+     */
     private static Collection<Locale> supportedLocales; // Cached
 
     private Locale locale;
 
-    /** @return {@link Locale#getLanguage()} */
+    /**
+     * @return {@link Locale#getLanguage()}
+     */
     public String getLanguage() {
         return ofNullable(getLocale()).map(Locale::getLanguage).orElse(null);
     }
@@ -71,8 +72,7 @@ public final class LangBean implements Serializable {
      * If {@link FacesContext} is not {@code null}, then the new {@link Locale} will be {@link UIViewRoot#setLocale(Locale) set
      * to ViewRoot}.
      *
-     * @param locale
-     *            {@link #locale}
+     * @param locale {@link #locale}
      */
     public void setLocale(Locale locale) {
         this.locale = locale;

@@ -1,48 +1,43 @@
 package fr.pinguet62.jsfring.dao.nosql;
 
-import static java.util.UUID.randomUUID;
-import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.assertThat;
-
-import java.util.Optional;
-
-import javax.inject.Inject;
-
+import fr.pinguet62.jsfring.SpringBootConfig;
+import fr.pinguet62.jsfring.model.nosql.Movie;
+import fr.pinguet62.jsfring.model.nosql.Person;
 import org.bson.types.ObjectId;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.model.nosql.Movie;
-import fr.pinguet62.jsfring.model.nosql.Person;
+import java.util.Optional;
+
+import static java.util.UUID.randomUUID;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
 
 /**
- * @see QueryDslMongoRepository
  * @see MongoRepository
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringBootConfig.class)
 public class NoSQLRepositoryTest {
 
-    @Inject
+    @Autowired
     private MovieDao movieDao;
 
-    @Inject
+    @Autowired
     private PersonDao personDao;
 
-    @Inject
+    @Autowired
     private UserDao userDao;
 
-    /** @see MongoRepository#insert(Object) */
+    /**
+     * @see MongoRepository#insert(Object)
+     */
     @Test(expected = DuplicateKeyException.class)
     public void test_create_idAlreadyExists() {
         Person existing = personDao.findAll().get(0);
@@ -53,7 +48,9 @@ public class NoSQLRepositoryTest {
         personDao.insert(entityWithSameId);
     }
 
-    /** @see MongoRepository#insert(Object) */
+    /**
+     * @see MongoRepository#insert(Object)
+     */
     @Test
     public void test_create_new() {
         long initialCount = personDao.count();
@@ -66,7 +63,9 @@ public class NoSQLRepositoryTest {
         assertThat(actualCount, is(equalTo(initialCount + 1)));
     }
 
-    /** @see MongoRepository#findAll() */
+    /**
+     * @see MongoRepository#findAll()
+     */
     // @Test
     public void test_findAll() {
         assertThat(userDao.findAll(), is(not(empty())));
@@ -74,7 +73,9 @@ public class NoSQLRepositoryTest {
         assertThat(movieDao.findAll(), is(not(empty())));
     }
 
-    /** @see DBRef */
+    /**
+     * @see DBRef
+     */
     // @Test
     public void test_oneToMany() {
         ObjectId id = movieDao.findAll().get(0).getId();

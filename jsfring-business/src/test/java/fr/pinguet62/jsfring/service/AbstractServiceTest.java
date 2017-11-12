@@ -1,50 +1,48 @@
 package fr.pinguet62.jsfring.service;
 
-import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.assertThat;
-
-import java.io.Serializable;
-import java.util.Random;
-
-import javax.inject.Inject;
-
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import fr.pinguet62.jsfring.SpringBootConfig;
+import fr.pinguet62.jsfring.common.PasswordGenerator;
+import fr.pinguet62.jsfring.model.sql.Profile;
+import fr.pinguet62.jsfring.model.sql.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
+import java.io.Serializable;
+import java.util.Random;
 
-import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.common.PasswordGenerator;
-import fr.pinguet62.jsfring.model.sql.Profile;
-import fr.pinguet62.jsfring.model.sql.User;
+import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
 
-/** @see AbstractService */
+/**
+ * @see AbstractService
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringBootConfig.class)
 // DbUnit
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
+@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class})
 @DatabaseSetup(DATASET)
 public class AbstractServiceTest {
 
-    @Inject
+    @Autowired
     private ProfileService profileService;
 
-    @Inject
+    @Autowired
     private RightService rightService;
 
-    @Inject
+    @Autowired
     private UserService userService;
 
-    /** @see AbstractService#create(Serializable) */
+    /**
+     * @see AbstractService#create(Serializable)
+     */
     @Test
     public void test_create() {
         {
@@ -54,13 +52,14 @@ public class AbstractServiceTest {
         }
         {
             int initialCount = userService.getAll().size();
-            userService.create(User.builder().email("foo@bar.org").password(new PasswordGenerator().get())
-                    .active(new Random().nextBoolean()).build());
+            userService.create(User.builder().email("foo@bar.org").password(new PasswordGenerator().get()).active(new Random().nextBoolean()).build());
             assertThat(userService.getAll(), hasSize(initialCount + 1));
         }
     }
 
-    /** @see AbstractService#delete(Serializable) */
+    /**
+     * @see AbstractService#delete(Serializable)
+     */
     @Test
     public void test_delete() {
         profileService.delete(profileService.get(1));
@@ -70,7 +69,9 @@ public class AbstractServiceTest {
         assertThat(profileService.getAll(), hasSize(0));
     }
 
-    /** @see AbstractService#get(Serializable) */
+    /**
+     * @see AbstractService#get(Serializable)
+     */
     @Test
     public void test_get() {
         {
@@ -86,7 +87,9 @@ public class AbstractServiceTest {
         }
     }
 
-    /** @see AbstractDao#getAll() */
+    /**
+     * @see AbstractService#getAll()
+     */
     @Test
     public void test_getAll() {
         assertThat(rightService.getAll(), hasSize(5));
@@ -94,7 +97,9 @@ public class AbstractServiceTest {
         assertThat(userService.getAll(), hasSize(3));
     }
 
-    /** @see AbstractService#update(Object) */
+    /**
+     * @see AbstractService#update(Serializable)
+     */
     @Test
     public void test_update() {
         int id = 1;

@@ -1,13 +1,12 @@
 package fr.pinguet62.jsfring.webservice.converter;
 
-import static java.util.stream.Collectors.toSet;
-
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.stereotype.Component;
-
 import fr.pinguet62.jsfring.model.sql.Profile;
 import fr.pinguet62.jsfring.model.sql.User;
 import fr.pinguet62.jsfring.webservice.dto.UserDto;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
+
+import static java.util.stream.Collectors.toSet;
 
 @Component
 public final class UserConverter implements Converter<User, UserDto> {

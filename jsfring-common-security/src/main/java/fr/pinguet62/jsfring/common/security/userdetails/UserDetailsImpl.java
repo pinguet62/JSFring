@@ -1,16 +1,15 @@
 package fr.pinguet62.jsfring.common.security.userdetails;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
+import fr.pinguet62.jsfring.model.sql.Profile;
+import fr.pinguet62.jsfring.model.sql.Right;
+import fr.pinguet62.jsfring.model.sql.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import fr.pinguet62.jsfring.model.sql.Profile;
-import fr.pinguet62.jsfring.model.sql.Right;
-import fr.pinguet62.jsfring.model.sql.User;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Simple implementation of {@link UserDetails} wrapping {@link User}.
@@ -40,13 +39,17 @@ public final class UserDetailsImpl implements UserDetails {
         return grantedAuths;
     }
 
-    /** @return {@link User#getPassword()} */
+    /**
+     * @return {@link User#getPassword()}
+     */
     @Override
     public String getPassword() {
         return user.getPassword();
     }
 
-    /** @return {@link User#getEmail()} */
+    /**
+     * @return {@link User#getEmail()}
+     */
     @Override
     public String getUsername() {
         return user.getEmail();
@@ -82,7 +85,9 @@ public final class UserDetailsImpl implements UserDetails {
         return true;
     }
 
-    /** @return {@link User#getActive()} */
+    /**
+     * @return {@link User#getActive()}
+     */
     @Override
     public boolean isEnabled() {
         return user.getActive();

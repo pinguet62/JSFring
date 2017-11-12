@@ -1,18 +1,17 @@
 package fr.pinguet62.jsfring.webservice;
 
+import fr.pinguet62.jsfring.model.sql.User;
+import fr.pinguet62.jsfring.service.UserService;
+import fr.pinguet62.jsfring.webservice.dto.UserDto;
+import org.springframework.core.convert.ConversionService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 import static fr.pinguet62.jsfring.webservice.UserWebservice.PATH;
 import static java.util.Objects.requireNonNull;
 import static org.springframework.core.convert.TypeDescriptor.collection;
 import static org.springframework.core.convert.TypeDescriptor.valueOf;
-
-import java.util.List;
-
-import org.springframework.core.convert.ConversionService;
-import org.springframework.web.bind.annotation.*;
-
-import fr.pinguet62.jsfring.model.sql.User;
-import fr.pinguet62.jsfring.service.UserService;
-import fr.pinguet62.jsfring.webservice.dto.UserDto;
 
 @RestController
 @RequestMapping(PATH)

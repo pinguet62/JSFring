@@ -1,18 +1,19 @@
 package fr.pinguet62.jsfring.service;
 
-import static fr.pinguet62.jsfring.service.config.CacheConfig.PROFILE_CACHE;
-
-import java.util.List;
-
+import fr.pinguet62.jsfring.dao.sql.ProfileDao;
+import fr.pinguet62.jsfring.model.sql.Profile;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.pinguet62.jsfring.dao.sql.ProfileDao;
-import fr.pinguet62.jsfring.model.sql.Profile;
+import java.util.List;
 
-/** The service for {@link Profile}. */
+import static fr.pinguet62.jsfring.service.config.CacheConfig.PROFILE_CACHE;
+
+/**
+ * The service for {@link Profile}.
+ */
 @Service
 public class ProfileService extends AbstractService<Profile, Integer> {
 

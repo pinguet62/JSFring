@@ -1,17 +1,11 @@
 package fr.pinguet62.jsfring.webservice.converter;
 
-import static java.util.Arrays.asList;
-import static org.hamcrest.Matchers.instanceOf;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
-import static org.springframework.core.ResolvableType.forClassWithGenerics;
-import static org.springframework.data.domain.Pageable.unpaged;
-
-import javax.inject.Inject;
-
+import fr.pinguet62.jsfring.SpringBootConfig;
+import fr.pinguet62.jsfring.common.spring.GenericTypeDescriptor;
+import fr.pinguet62.jsfring.webservice.dto.PageDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.core.convert.ConversionService;
@@ -21,16 +15,22 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.common.spring.GenericTypeDescriptor;
-import fr.pinguet62.jsfring.webservice.dto.PageDto;
+import static java.util.Arrays.asList;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
+import static org.springframework.core.ResolvableType.forClassWithGenerics;
+import static org.springframework.data.domain.Pageable.unpaged;
 
-/** @see PageGenericConverter */
+/**
+ * @see PageGenericConverter
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringBootConfig.class, webEnvironment = DEFINED_PORT)
 public class PageGenericConverterTest {
 
-    @Inject
+    @Autowired
     private ConversionService conversionService;
 
     @Test

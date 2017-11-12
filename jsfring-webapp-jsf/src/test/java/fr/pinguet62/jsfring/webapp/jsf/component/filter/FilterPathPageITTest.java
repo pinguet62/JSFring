@@ -1,17 +1,14 @@
 package fr.pinguet62.jsfring.webapp.jsf.component.filter;
 
-import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.get;
-import static fr.pinguet62.jsfring.webapp.jsf.sample.FilterPathBean.EXPRESSION_STRING;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-
-import java.util.Arrays;
-import java.util.function.Function;
-
-import javax.faces.validator.LongRangeValidator;
-import javax.faces.validator.RegexValidator;
-
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Predicate;
+import fr.pinguet62.jsfring.SpringBootConfig;
+import fr.pinguet62.jsfring.webapp.jsf.component.filter.operator.EqualsToOperator;
+import fr.pinguet62.jsfring.webapp.jsf.component.filter.operator.IsNullOperator;
+import fr.pinguet62.jsfring.webapp.jsf.component.filter.operator.Operator;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.filter.FilterField;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.filter.FilterPathPage;
+import fr.pinguet62.jsfring.webapp.jsf.sample.FilterPathBean;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -20,19 +17,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestContextManager;
 
-import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.Predicate;
+import javax.faces.validator.LongRangeValidator;
+import javax.faces.validator.RegexValidator;
+import java.util.Arrays;
+import java.util.function.Function;
 
-import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.webapp.jsf.component.filter.NumberPathFilter;
-import fr.pinguet62.jsfring.webapp.jsf.component.filter.PathFilter;
-import fr.pinguet62.jsfring.webapp.jsf.component.filter.StringPathFilter;
-import fr.pinguet62.jsfring.webapp.jsf.component.filter.operator.EqualsToOperator;
-import fr.pinguet62.jsfring.webapp.jsf.component.filter.operator.IsNullOperator;
-import fr.pinguet62.jsfring.webapp.jsf.component.filter.operator.Operator;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.filter.FilterField;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.filter.FilterPathPage;
-import fr.pinguet62.jsfring.webapp.jsf.sample.FilterPathBean;
+import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.get;
+import static fr.pinguet62.jsfring.webapp.jsf.sample.FilterPathBean.EXPRESSION_STRING;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 
 /**
  * @see PathFilter
@@ -61,15 +55,15 @@ public class FilterPathPageITTest {
      */
     @Parameters
     public static Iterable<Object[]> params() {
-        return Arrays.asList(new Object[][] { //
+        return Arrays.asList(new Object[][]{ //
                 // ===== String
 
-                { fieldString, null, new String[] {}, new BooleanBuilder() },
+                {fieldString, null, new String[]{}, new BooleanBuilder()},
 
-                { fieldString, IsNullOperator.class, new String[] {}, EXPRESSION_STRING.isNull() },
+                {fieldString, IsNullOperator.class, new String[]{}, EXPRESSION_STRING.isNull()},
 
-                { fieldString, EqualsToOperator.class, new String[] { "" }, EXPRESSION_STRING.eq("") },
-                { fieldString, EqualsToOperator.class, new String[] { "foo" }, EXPRESSION_STRING.eq("foo") },
+                {fieldString, EqualsToOperator.class, new String[]{""}, EXPRESSION_STRING.eq("")},
+                {fieldString, EqualsToOperator.class, new String[]{"foo"}, EXPRESSION_STRING.eq("foo")},
                 /*
                  * { fieldString, StartsWithOperator.class, new String[] { "" },
                  * new BooleanBuilder() }, { fieldString,
@@ -207,16 +201,16 @@ public class FilterPathPageITTest {
 
     /**
      * @param fieldFactory The function to get {@link FilterField} to test from
-     *            {@link FilterPathPage}.
-     * @param operator The {@link Operator} implementation to choose.
-     * @param values The values.<br>
-     *            All values that the operator has parameters<br>
-     *            An empty array if no parameter.
-     * @param result The {@link Predicate} result.<br>
-     *            {@code null} for fail.
+     *                     {@link FilterPathPage}.
+     * @param operator     The {@link Operator} implementation to choose.
+     * @param values       The values.<br>
+     *                     All values that the operator has parameters<br>
+     *                     An empty array if no parameter.
+     * @param result       The {@link Predicate} result.<br>
+     *                     {@code null} for fail.
      */
     public FilterPathPageITTest(Function<FilterPathPage, FilterField> fieldFactory, Class<?> operator, String[] values,
-            Predicate result) throws Exception {
+                                Predicate result) throws Exception {
         new TestContextManager(getClass()).prepareTestInstance(this); // @RunWith(SpringJUnit4ClassRunner.class)
         this.fieldFactory = fieldFactory;
         this.operator = operator;

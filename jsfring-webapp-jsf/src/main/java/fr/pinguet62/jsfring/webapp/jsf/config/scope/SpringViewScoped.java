@@ -1,8 +1,8 @@
 package fr.pinguet62.jsfring.webapp.jsf.config.scope;
 
-import javax.faces.view.ViewScoped;
-
 import org.springframework.context.annotation.Scope;
+
+import javax.faces.view.ViewScoped;
 
 /**
  * @see Scope

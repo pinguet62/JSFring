@@ -1,10 +1,9 @@
 package fr.pinguet62.jsfring.webservice.converter;
 
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.stereotype.Component;
-
 import fr.pinguet62.jsfring.model.sql.Right;
 import fr.pinguet62.jsfring.webservice.dto.RightDto;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
 @Component
 public final class RightConverter implements Converter<Right, RightDto> {

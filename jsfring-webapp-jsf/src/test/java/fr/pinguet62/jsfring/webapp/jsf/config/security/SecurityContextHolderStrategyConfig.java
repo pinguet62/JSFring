@@ -1,12 +1,12 @@
 package fr.pinguet62.jsfring.webapp.jsf.config.security;
 
-import static org.springframework.security.core.context.SecurityContextHolder.SYSTEM_PROPERTY;
-
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextHolderStrategy;
 import org.springframework.security.core.context.SecurityContextImpl;
+
+import static org.springframework.security.core.context.SecurityContextHolder.SYSTEM_PROPERTY;
 
 @Configuration
 public class SecurityContextHolderStrategyConfig {

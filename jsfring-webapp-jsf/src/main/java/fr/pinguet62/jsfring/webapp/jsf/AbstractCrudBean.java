@@ -1,18 +1,16 @@
 package fr.pinguet62.jsfring.webapp.jsf;
 
-import static javax.faces.application.FacesMessage.SEVERITY_ERROR;
-import static javax.faces.application.FacesMessage.SEVERITY_INFO;
-import static javax.faces.context.FacesContext.getCurrentInstance;
-
-import java.io.Serializable;
-
-import javax.faces.application.FacesMessage;
-
+import fr.pinguet62.jsfring.service.AbstractService;
+import lombok.extern.slf4j.Slf4j;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.model.LazyDataModel;
 
-import fr.pinguet62.jsfring.service.AbstractService;
-import lombok.extern.slf4j.Slf4j;
+import javax.faces.application.FacesMessage;
+import java.io.Serializable;
+
+import static javax.faces.application.FacesMessage.SEVERITY_ERROR;
+import static javax.faces.application.FacesMessage.SEVERITY_INFO;
+import static javax.faces.context.FacesContext.getCurrentInstance;
 
 /**
  * {@link AbstractSelectableBean} with CRUD operations on selected value.
@@ -20,9 +18,7 @@ import lombok.extern.slf4j.Slf4j;
  * Before each action, the {@link AbstractSelectableBean#setSelectedValue(Serializable) selected value} is initialized with
  * chosen value, and action are performed on him.
  *
- * @param <T>
- *            The type of objects to display.
- *
+ * @param <T> The type of objects to display.
  * @see AbstractService#create(Serializable)
  * @see AbstractService#get(Serializable)
  * @see AbstractService#update(Serializable)
@@ -77,6 +73,7 @@ public abstract class AbstractCrudBean<T extends Serializable> extends AbstractS
     }
 
     // TODO Default implementation: java.lang.Class.newInstance()
+
     /**
      * Get a new instance of the value.<br>
      * Used by {@link #create()} method to initialize the new object.

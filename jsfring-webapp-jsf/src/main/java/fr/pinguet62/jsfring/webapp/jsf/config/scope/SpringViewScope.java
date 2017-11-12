@@ -1,20 +1,19 @@
 package fr.pinguet62.jsfring.webapp.jsf.config.scope;
 
-import static javax.faces.context.FacesContext.getCurrentInstance;
-
-import java.util.Map;
-
-import javax.faces.component.UIViewRoot;
-
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.config.Scope;
 import org.springframework.context.annotation.Bean;
+
+import javax.faces.component.UIViewRoot;
+import java.util.Map;
+
+import static javax.faces.context.FacesContext.getCurrentInstance;
 
 /**
  * JSF view {@link Scope} implementation for Spring.
  *
  * @see <a href= "https://cagataycivici.wordpress.com/2010/02/17/port-jsf-2-0s-viewscope-to-spring-3-0/" >Porting JSF 2.0’s
- *      ViewScope to Spring 3.0</a>
+ * ViewScope to Spring 3.0</a>
  */
 public final class SpringViewScope implements Scope {
 
@@ -36,7 +35,9 @@ public final class SpringViewScope implements Scope {
         return bean;
     }
 
-    /** @return {@code null} */
+    /**
+     * @return {@code null}
+     */
     @Override
     public String getConversationId() {
         return null;
@@ -57,7 +58,9 @@ public final class SpringViewScope implements Scope {
         return getCurrentInstance().getViewRoot().getViewMap().remove(name);
     }
 
-    /** @return {@code null} */
+    /**
+     * @return {@code null}
+     */
     @Override
     public Object resolveContextualObject(String key) {
         return null;

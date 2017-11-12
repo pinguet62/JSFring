@@ -1,16 +1,15 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit.user.popup;
 
-import java.util.List;
-
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.popup.CreatePopup;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.field.CheckBox;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.field.InputText;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.field.PickList;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.field.ReadWriteField;
+
+import java.util.List;
 
 public final class UserCreatePopup extends AbstractUserPopup implements CreatePopup {
 

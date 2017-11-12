@@ -1,18 +1,17 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit.jasperreport;
 
-import static java.lang.String.valueOf;
-
-import java.time.LocalDateTime;
-import java.util.List;
-
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
-
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.field.AutocompleteInputText;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.field.DatetimeInputText;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.field.InputText;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+import static java.lang.String.valueOf;
 
 public final class ParametersJasperReportPage extends AbstractJasperReportPage {
 

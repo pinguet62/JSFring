@@ -1,18 +1,13 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit.field;
 
-import static java.util.stream.Collectors.toList;
+import com.gargoylesoftware.htmlunit.html.*;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.NavigatorException;
 
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 
-import com.gargoylesoftware.htmlunit.html.HtmlButton;
-import com.gargoylesoftware.htmlunit.html.HtmlDivision;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlListItem;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.NavigatorException;
+import static java.util.stream.Collectors.toList;
 
 public final class PickList extends ReadWriteField<HtmlDivision, List<String>> {
 
@@ -43,8 +38,7 @@ public final class PickList extends ReadWriteField<HtmlDivision, List<String>> {
     }
 
     /**
-     * @param classValue
-     *            The {@code "class"} tag attribute used to determinate what type of action is.
+     * @param classValue The {@code "class"} tag attribute used to determinate what type of action is.
      */
     private HtmlButton getActionButton(String classValue) {
         return (HtmlButton) html
@@ -52,8 +46,7 @@ public final class PickList extends ReadWriteField<HtmlDivision, List<String>> {
     }
 
     /**
-     * @param classValue
-     *            The {@code "class"} tag attribute used to determinate if it's the source or target list.
+     * @param classValue The {@code "class"} tag attribute used to determinate if it's the source or target list.
      */
     private List<HtmlListItem> getList(String classValue) {
         return html.getByXPath("./div/ul[contains(@class, '" + classValue + "')]/li");
@@ -72,7 +65,9 @@ public final class PickList extends ReadWriteField<HtmlDivision, List<String>> {
         return getTarget().stream().map(HtmlElement::asText).collect(toList());
     }
 
-    /** Warning: the item values must be unique. */
+    /**
+     * Warning: the item values must be unique.
+     */
     @Override
     public void setValue(List<String> values) {
         // Check unique

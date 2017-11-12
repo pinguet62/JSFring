@@ -70,67 +70,6 @@
 				</p:blockUI>
 			</div>
 		</h:form>
-
-		<br/>
-		<p:tabView>
-			<p:tab title="parameters.xhtml">
-				<pre>
-&lt;!-- Parameters --&gt;
-&lt;p:inputText value=&quot;\#{parametersJasperReportBean.stringParam}&quot; /&gt;
-&lt;p:inputText value=&quot;\#{parametersJasperReportBean.integerParam}&quot; /&gt;
-&lt;p:calendar value=&quot;\#{parametersJasperReportBean.dateParam}&quot; mask=&quot;true&quot; pattern=&quot;dd/MM/yyyy&quot; /&gt;
-&lt;p:autoComplete multiple=&quot;true&quot; completeMethod=&quot;\#{parametersJasperReportBean.complete}&quot; value=&quot;\#{parametersJasperReportBean.listParam}&quot; /&gt;
-...
-
-&lt;!-- Export buttons --&gt;
-&lt;p:commandButton ajax=&quot;false&quot; value=&quot;PDF&quot;&gt;
-	&lt;p:fileDownload value=&quot;\#{parametersJasperReportBean.pdfFile}&quot; /&gt;
-&lt;/p:commandButton&gt;
-&lt;p:commandButton ajax=&quot;false&quot; value=&quot;TEXT&quot;&gt;
-	&lt;p:fileDownload value=&quot;\#{parametersJasperReportBean.textFile}&quot; /&gt;
-&lt;/p:commandButton&gt;
-&lt;p:commandButton ajax=&quot;false&quot; value=&quot;CSV&quot;&gt;
-	&lt;p:fileDownload value=&quot;\#{parametersJasperReportBean.csvFile}&quot; /&gt;
-&lt;/p:commandButton&gt;
-...
-				</pre>
-			</p:tab>
-			<p:tab title="ParameterJasperReportTest.java">
-				<pre>
-@Named
-@SpringViewScoped
-public class ParametersJasperReportBean extends AbstractJasperReportBean {
-
-    private String stringParam; // + getter/setter
-    
-    private Integer integerParam; // + getter/setter
-    
-    private Date dateParam; // + getter/setter
-    
-    private List&lt;String&gt; listParam; // + getter/setter
-    public List&lt;String&gt; complete(String query) {
-        List&lt;String&gt; values = asList(&quot;Avion&quot;, &quot;Ballon&quot;, &quot;Cadeau&quot;, /*...*/ &quot;Z&egrave;bre&quot;);
-        return values.stream().map(String::toLowerCase).filter(it -&gt; it.contains(query.toLowerCase())).collect(toList());
-    }
-
-    @Override
-    protected String getReportPath() {
-        return &quot;/report/parameters.jrxml&quot;;
-    }
-
-    @Override
-    protected Map&lt;String, Object&gt; getParameters() {
-        Map&lt;String, Object&gt; params = new HashMap&lt;&gt;();
-        params.put(&quot;stringParam&quot;, stringParam);
-        params.put(&quot;integerParam&quot;, integerParam);
-        params.put(&quot;dateParam&quot;, dateParam);
-        params.put(&quot;listParam&quot;, listParam);
-        return params;
-    }
-}
-				</pre>
-			</p:tab>
-		</p:tabView>
 	</ui:define>
 
 </ui:composition>

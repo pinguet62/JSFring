@@ -1,30 +1,13 @@
 package frpinguet62.jsfring.util;
 
-import static fr.pinguet62.jsfring.util.FileFormatMatcher.isCSV;
-import static fr.pinguet62.jsfring.util.FileFormatMatcher.isDOC;
-import static fr.pinguet62.jsfring.util.FileFormatMatcher.isDOCX;
-import static fr.pinguet62.jsfring.util.FileFormatMatcher.isHTML;
-import static fr.pinguet62.jsfring.util.FileFormatMatcher.isImage;
-import static fr.pinguet62.jsfring.util.FileFormatMatcher.isODP;
-import static fr.pinguet62.jsfring.util.FileFormatMatcher.isODS;
-import static fr.pinguet62.jsfring.util.FileFormatMatcher.isODT;
-import static fr.pinguet62.jsfring.util.FileFormatMatcher.isPDF;
-import static fr.pinguet62.jsfring.util.FileFormatMatcher.isPPT;
-import static fr.pinguet62.jsfring.util.FileFormatMatcher.isPPTX;
-import static fr.pinguet62.jsfring.util.FileFormatMatcher.isRTF;
-import static fr.pinguet62.jsfring.util.FileFormatMatcher.isTXT;
-import static fr.pinguet62.jsfring.util.FileFormatMatcher.isXLS;
-import static fr.pinguet62.jsfring.util.FileFormatMatcher.isXLSX;
-import static fr.pinguet62.jsfring.util.FileFormatMatcher.isXML;
-import static fr.pinguet62.jsfring.util.FileFormatMatcher.isZIP;
-import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.assertThat;
+import fr.pinguet62.jsfring.util.FileFormatMatcher;
+import org.junit.Test;
 
 import java.io.InputStream;
 
-import org.junit.Test;
-
-import fr.pinguet62.jsfring.util.FileFormatMatcher;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.*;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertThat;
 
 /**
  * Check the <i>exact type</i> of <b>Microsoft Office</b> and <b>Open Document</b> documents.<br>
@@ -41,15 +24,16 @@ public final class FileFormatMatcherTest {
     /**
      * Get the resource file test from extension.
      *
-     * @param filename
-     *            The extension, without {@code ""}.
+     * @param extension The extension, without {@code "."}
      * @return The {@link InputStream} of resource.
      */
     private InputStream getFileAsStream(String extension) {
         return getClass().getResourceAsStream("/example." + extension);
     }
 
-    /** @see FileFormatMatcher#isCSV(InputStream) */
+    /**
+     * @see FileFormatMatcher#isCSV()
+     */
     @Test
     public void test_isCSV() {
         String path = "csv";
@@ -71,7 +55,9 @@ public final class FileFormatMatcherTest {
         // assertThat(getFileAsStream(path), not(isZIP()));
     }
 
-    /** @see FileFormatMatcher#isDOC(InputStream) */
+    /**
+     * @see FileFormatMatcher#isDOC()
+     */
     @Test
     public void test_isDOC() {
         String path = "doc";
@@ -93,7 +79,9 @@ public final class FileFormatMatcherTest {
         assertThat(getFileAsStream(path), isZIP());
     }
 
-    /** @see FileFormatMatcher#isDOCX(InputStream) */
+    /**
+     * @see FileFormatMatcher#isDOCX()
+     */
     @Test
     public void test_isDOCX() {
         String path = "docx";
@@ -115,7 +103,9 @@ public final class FileFormatMatcherTest {
         assertThat(getFileAsStream(path), isZIP());
     }
 
-    /** @see FileFormatMatcher#isHTML(InputStream) */
+    /**
+     * @see FileFormatMatcher#isHTML()
+     */
     @Test
     public void test_isHTML() {
         String path = "html";
@@ -137,7 +127,9 @@ public final class FileFormatMatcherTest {
         // assertThat(getFileAsStream(path), not(isZIP()));
     }
 
-    /** @see FileFormatMatcher#isImage(InputStream) */
+    /**
+     * @see FileFormatMatcher#isImage()
+     */
     @Test
     public void test_isImage() {
         assertThat(getFileAsStream("jpg"), isImage());
@@ -145,7 +137,9 @@ public final class FileFormatMatcherTest {
         assertThat(getFileAsStream("svg"), isImage());
     }
 
-    /** @see FileFormatMatcher#isODP(InputStream) */
+    /**
+     * @see FileFormatMatcher#isODP()
+     */
     @Test
     public void test_isODP() {
         String path = "odp";
@@ -167,7 +161,9 @@ public final class FileFormatMatcherTest {
         assertThat(getFileAsStream(path), isZIP());
     }
 
-    /** @see FileFormatMatcher#isODS(InputStream) */
+    /**
+     * @see FileFormatMatcher#isODS()
+     */
     @Test
     public void test_isODS() {
         String path = "ods";
@@ -189,7 +185,9 @@ public final class FileFormatMatcherTest {
         assertThat(getFileAsStream(path), isZIP());
     }
 
-    /** @see FileFormatMatcher#isODT(InputStream) */
+    /**
+     * @see FileFormatMatcher#isODT()
+     */
     @Test
     public void test_isODT() {
         String path = "odt";
@@ -211,7 +209,9 @@ public final class FileFormatMatcherTest {
         assertThat(getFileAsStream(path), isZIP());
     }
 
-    /** @see FileFormatMatcher#isPDF(InputStream) */
+    /**
+     * @see FileFormatMatcher#isPDF()
+     */
     @Test
     public void test_isPDF() {
         String path = "pdf";
@@ -233,7 +233,9 @@ public final class FileFormatMatcherTest {
         // assertThat(getFileAsStream(path), not(isZIP()));
     }
 
-    /** @see FileFormatMatcher#isPPT(InputStream) */
+    /**
+     * @see FileFormatMatcher#isPPT()
+     */
     @Test
     public void test_isPPT() {
         String path = "ppt";
@@ -255,7 +257,9 @@ public final class FileFormatMatcherTest {
         assertThat(getFileAsStream(path), isZIP());
     }
 
-    /** @see FileFormatMatcher#isPPTX(InputStream) */
+    /**
+     * @see FileFormatMatcher#isPPTX()
+     */
     @Test
     public void test_isPPTX() {
         String path = "pptx";
@@ -277,7 +281,9 @@ public final class FileFormatMatcherTest {
         assertThat(getFileAsStream(path), isZIP());
     }
 
-    /** @see FileFormatMatcher#isRTF(InputStream) */
+    /**
+     * @see FileFormatMatcher#isRTF()
+     */
     @Test
     public void test_isRTF() {
         String path = "rtf";
@@ -299,7 +305,9 @@ public final class FileFormatMatcherTest {
         // assertThat(getFileAsStream(path), not(isZIP()));
     }
 
-    /** @see FileFormatMatcher#isTXT(InputStream) */
+    /**
+     * @see FileFormatMatcher#isTXT()
+     */
     @Test
     public void test_isTXT() {
         String path = "txt";
@@ -321,7 +329,9 @@ public final class FileFormatMatcherTest {
         // assertThat(getFileAsStream(path), not(isZIP()));
     }
 
-    /** @see FileFormatMatcher#isXLS(InputStream) */
+    /**
+     * @see FileFormatMatcher#isXLS()
+     */
     @Test
     public void test_isXLS() {
         String path = "xls";
@@ -343,7 +353,9 @@ public final class FileFormatMatcherTest {
         assertThat(getFileAsStream(path), isZIP());
     }
 
-    /** @see FileFormatMatcher#isXLSX(InputStream) */
+    /**
+     * @see FileFormatMatcher#isXLSX()
+     */
     @Test
     public void test_isXLSX() {
         String path = "xlsx";
@@ -365,7 +377,9 @@ public final class FileFormatMatcherTest {
         assertThat(getFileAsStream(path), isZIP());
     }
 
-    /** @see FileFormatMatcher#isXML(InputStream) */
+    /**
+     * @see FileFormatMatcher#isXML()
+     */
     @Test
     public void test_isXML() {
         String path = "xml";
@@ -387,7 +401,9 @@ public final class FileFormatMatcherTest {
         // assertThat(getFileAsStream(path), not(isZIP()));
     }
 
-    /** @see FileFormatMatcher#isZIP(InputStream) */
+    /**
+     * @see FileFormatMatcher#isZIP()
+     */
     @Test
     public void test_isZIP() {
         String path = "zip";

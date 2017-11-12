@@ -1,7 +1,5 @@
 package fr.pinguet62.jsfring.webservice.config;
 
-import static java.util.Objects.requireNonNull;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -11,6 +9,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+
+import static java.util.Objects.requireNonNull;
 
 @Configuration
 @EnableAuthorizationServer
@@ -27,7 +27,9 @@ public class OAuth2Config {
             this.userDetailsService = requireNonNull(userDetailsService);
         }
 
-        /** Use custom {@link UserDetailsService}. */
+        /**
+         * Use custom {@link UserDetailsService}.
+         */
         @Override
         protected void configure(AuthenticationManagerBuilder auth) throws Exception {
             auth.userDetailsService(userDetailsService);

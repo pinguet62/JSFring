@@ -1,14 +1,10 @@
 package fr.pinguet62.jsfring.webapp.jsf.config.security;
 
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-import static java.util.Arrays.stream;
-import static java.util.stream.Collectors.joining;
-
-import java.lang.annotation.Retention;
-import java.util.Optional;
-
-import javax.inject.Inject;
-
+import fr.pinguet62.jsfring.dao.sql.UserDao;
+import fr.pinguet62.jsfring.model.sql.QUser;
+import fr.pinguet62.jsfring.model.sql.User;
+import fr.pinguet62.jsfring.test.TestRuntimeException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,16 +16,20 @@ import org.springframework.security.test.context.support.WithSecurityContext;
 import org.springframework.security.test.context.support.WithSecurityContextFactory;
 import org.springframework.stereotype.Component;
 
-import fr.pinguet62.jsfring.dao.sql.UserDao;
-import fr.pinguet62.jsfring.model.sql.QUser;
-import fr.pinguet62.jsfring.model.sql.User;
-import fr.pinguet62.jsfring.test.TestRuntimeException;
+import java.lang.annotation.Retention;
+import java.util.Optional;
+
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import static java.util.Arrays.stream;
+import static java.util.stream.Collectors.joining;
 
 @Retention(RUNTIME)
 @WithSecurityContext(factory = WithUserHavingRolesSecurityContextFactory.class)
 public @interface WithUserHavingRoles {
 
-    /** The required {@link GrantedAuthority#getAuthority() authorities}. */
+    /**
+     * The required {@link GrantedAuthority#getAuthority() authorities}.
+     */
     String[] value();
 
 }
@@ -37,10 +37,10 @@ public @interface WithUserHavingRoles {
 @Component
 class WithUserHavingRolesSecurityContextFactory implements WithSecurityContextFactory<WithUserHavingRoles> {
 
-    @Inject
+    @Autowired
     private UserDao userDao;
 
-    @Inject
+    @Autowired
     private UserDetailsService userDetailsService;
 
     @Override

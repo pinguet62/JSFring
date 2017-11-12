@@ -1,27 +1,14 @@
 package fr.pinguet62.jsfring.model.sql;
 
-import static javax.persistence.FetchType.EAGER;
-import static javax.persistence.GenerationType.IDENTITY;
+import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-
-import org.hibernate.validator.constraints.Length;
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Data
 @EqualsAndHashCode(of = "id")
@@ -46,7 +33,7 @@ public class Profile implements Serializable {
     // Validation
     @Length(min = 1, max = 255)
     // JPA
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false)
     private String title;
 
     @ManyToMany

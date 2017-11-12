@@ -1,11 +1,11 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit;
 
-import java.io.IOException;
-
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+
+import java.io.IOException;
 
 public final class ChangePasswordPage extends AbstractPage {
 
@@ -18,13 +18,11 @@ public final class ChangePasswordPage extends AbstractPage {
     }
 
     public void setActualPassword(String value) {
-        ((HtmlInput) getForm().getByXPath(".//input[contains(@id, 'currentPassword')]").get(0))
-        .setValueAttribute(value);
+        ((HtmlInput) getForm().getByXPath(".//input[contains(@id, 'currentPassword')]").get(0)).setValueAttribute(value);
     }
 
     public void setConfirmPassword(String value) {
-        ((HtmlInput) getForm().getByXPath(".//input[contains(@id, 'newPasswordConfirmation')]").get(0))
-        .setValueAttribute(value);
+        ((HtmlInput) getForm().getByXPath(".//input[contains(@id, 'newPasswordConfirmation')]").get(0)).setValueAttribute(value);
     }
 
     public void setNewPassword(String value) {

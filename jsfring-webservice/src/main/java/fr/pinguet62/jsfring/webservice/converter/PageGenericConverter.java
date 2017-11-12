@@ -1,15 +1,6 @@
 package fr.pinguet62.jsfring.webservice.converter;
 
-import static java.util.Collections.singleton;
-import static java.util.Objects.requireNonNull;
-import static java.util.stream.Collectors.toList;
-import static org.springframework.core.convert.TypeDescriptor.valueOf;
-
-import java.util.List;
-import java.util.Set;
-import java.util.function.Function;
-import java.util.stream.StreamSupport;
-
+import fr.pinguet62.jsfring.webservice.dto.PageDto;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.GenericConverter;
@@ -17,7 +8,15 @@ import org.springframework.core.convert.support.GenericConversionService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
-import fr.pinguet62.jsfring.webservice.dto.PageDto;
+import java.util.List;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.StreamSupport;
+
+import static java.util.Collections.singleton;
+import static java.util.Objects.requireNonNull;
+import static java.util.stream.Collectors.toList;
+import static org.springframework.core.convert.TypeDescriptor.valueOf;
 
 /**
  * {@link GenericConverter} from {@link Page} to {@link PageDto}.
@@ -39,7 +38,9 @@ public class PageGenericConverter implements GenericConverter {
         return convertTyped(source, sourceType, targetType);
     }
 
-    /** Generic method used to cast objects to correct type. */
+    /**
+     * Generic method used to cast objects to correct type.
+     */
     @SuppressWarnings("unchecked")
     private <Pojo, Dto> Object convertTyped(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
         Page<Pojo> page = (Page<Pojo>) source;

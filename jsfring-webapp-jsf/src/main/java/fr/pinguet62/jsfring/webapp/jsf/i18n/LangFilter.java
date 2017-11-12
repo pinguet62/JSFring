@@ -1,21 +1,15 @@
 package fr.pinguet62.jsfring.webapp.jsf.i18n;
 
-import static org.springframework.web.context.support.WebApplicationContextUtils.getRequiredWebApplicationContext;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Locale;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.web.context.support.WebApplicationContextUtils;
+import static org.springframework.web.context.support.WebApplicationContextUtils.getRequiredWebApplicationContext;
 
 /**
  * Filter who intercepts GET parameters used to change user's {@link Locale}. <br>
@@ -27,13 +21,19 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 @WebFilter("/*")
 public final class LangFilter implements Filter {
 
-    /** The parameter name. */
+    /**
+     * The parameter name.
+     */
     public static final String PARAMETER = "lang";
 
-    /** @see #init(FilterConfig) */
+    /**
+     * @see #init(FilterConfig)
+     */
     private BeanFactory factory;
 
-    /** No action. */
+    /**
+     * No action.
+     */
     @Override
     public void destroy() {
         // No action
@@ -48,7 +48,7 @@ public final class LangFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        String locale = ((HttpServletRequest) request).getParameter(PARAMETER);
+        String locale = request.getParameter(PARAMETER);
         if (locale != null) {
             LangBean langBean = factory.getBean(LangBean.class);
             langBean.setLocale(new Locale(locale));
@@ -64,7 +64,7 @@ public final class LangFilter implements Filter {
      * @see WebApplicationContextUtils#getRequiredWebApplicationContext(javax.servlet.ServletContext)
      */
     @Override
-    public void init(FilterConfig config) throws ServletException {
+    public void init(FilterConfig config) {
         factory = getRequiredWebApplicationContext(config.getServletContext());
     }
 

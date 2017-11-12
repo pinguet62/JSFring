@@ -1,10 +1,9 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable;
 
-import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.Delay.MEDIUM;
-import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.Delay.SHORT;
-import static java.lang.Integer.parseInt;
-import static java.util.regex.Pattern.compile;
-import static java.util.stream.Collectors.toList;
+import com.gargoylesoftware.htmlunit.html.*;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.NavigatorException;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.popup.CreatePopup;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,26 +15,15 @@ import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.gargoylesoftware.htmlunit.html.DomText;
-import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
-import com.gargoylesoftware.htmlunit.html.HtmlButton;
-import com.gargoylesoftware.htmlunit.html.HtmlDivision;
-import com.gargoylesoftware.htmlunit.html.HtmlImage;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSpan;
-import com.gargoylesoftware.htmlunit.html.HtmlTable;
-import com.gargoylesoftware.htmlunit.html.HtmlTableHeaderCell;
-import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
-
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.NavigatorException;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.popup.CreatePopup;
+import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.Delay.MEDIUM;
+import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.Delay.SHORT;
+import static java.lang.Integer.parseInt;
+import static java.util.regex.Pattern.compile;
+import static java.util.stream.Collectors.toList;
 
 /**
- * @param <T>
- *            The {@link AbstractRow} type.
- * @param <CP>
- *            The {@link CreatePopup} type.
+ * @param <T>  The {@link AbstractRow} type.
+ * @param <CP> The {@link CreatePopup} type.
  */
 public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> extends AbstractPage implements Iterable<T> {
 
@@ -57,9 +45,8 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
     }
 
     /**
-     * @param iconPath
-     *            The icon file path.<br>
-     *            Example: {@code "/img/foo.png"}.
+     * @param iconPath The icon file path.<br>
+     *                 Example: {@code "/img/foo.png"}.
      * @return The downloaded {@link InputStream}.
      */
     protected InputStream export(String iconPath) {
@@ -72,27 +59,37 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
         }
     }
 
-    /** @return The download {@link InputStream}. */
+    /**
+     * @return The download {@link InputStream}.
+     */
     public InputStream exportCSV() {
         return export("/img/csv.png");
     }
 
-    /** @return The download {@link InputStream}. */
+    /**
+     * @return The download {@link InputStream}.
+     */
     public InputStream exportPDF() {
         return export("/img/pdf.png");
     }
 
-    /** @return The download {@link InputStream}. */
+    /**
+     * @return The download {@link InputStream}.
+     */
     public InputStream exportXLS() {
         return export("/img/xls.png");
     }
 
-    /** @return The download {@link InputStream}. */
+    /**
+     * @return The download {@link InputStream}.
+     */
     public InputStream exportXLSX() {
         return export("/img/xlsx.png");
     }
 
-    /** @return The download {@link InputStream}. */
+    /**
+     * @return The download {@link InputStream}.
+     */
     public InputStream exportXML() {
         return export("/img/xml.png");
     }
@@ -155,8 +152,7 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
     }
 
     /**
-     * @param title
-     *            The column title.
+     * @param title The column title.
      * @return The {@link HtmlTableHeaderCell}.
      */
     protected HtmlTableHeaderCell getDatatableTableHeader(String title) {
@@ -193,7 +189,7 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
      * <code>&lt;tbody&gt;&lt;tr&gt;</code>
      *
      * @return The {@link AbstractRow}s.<br>
-     *         An empty {@link List} if empty datatable.
+     * An empty {@link List} if empty datatable.
      */
     public List<T> getRows() {
         List<HtmlTableRow> rows = getDatatableTable().getByXPath("./tbody/tr");
@@ -202,7 +198,9 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
         return rows.stream().map(getRowFactory()).collect(toList());
     }
 
-    /** @return The title on Datatable header. */
+    /**
+     * @return The title on Datatable header.
+     */
     public String getTitle() {
         DomText dom = (DomText) getDatatableHeader().getByXPath("./text()").get(0);
         return dom.asText();
@@ -225,8 +223,7 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
     }
 
     /**
-     * @throws NavigatorException
-     *             No next page. See {@link #hasNextPage()}.
+     * @throws NavigatorException No next page. See {@link #hasNextPage()}.
      */
     public void gotoNextPage() {
         Iterator<HtmlSpan> current = getCurrentPage();
@@ -272,8 +269,7 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
      * <p>
      * <code>&lt;span class="...ui-column-title..."&gt;</code>
      *
-     * @param title
-     *            The column title.
+     * @param title The column title.
      */
     protected void sortBy(String title) {
         HtmlTableHeaderCell header = getDatatableTableHeader(title);

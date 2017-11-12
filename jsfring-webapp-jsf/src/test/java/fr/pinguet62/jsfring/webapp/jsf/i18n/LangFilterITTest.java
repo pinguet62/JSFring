@@ -1,30 +1,24 @@
 package fr.pinguet62.jsfring.webapp.jsf.i18n;
 
-import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.get;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.assertThat;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
-
-import javax.inject.Inject;
-
+import fr.pinguet62.jsfring.SpringBootConfig;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage;
-import fr.pinguet62.jsfring.webapp.jsf.i18n.LangBean;
-import fr.pinguet62.jsfring.webapp.jsf.i18n.LangFilter;
+import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.get;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringBootConfig.class, webEnvironment = DEFINED_PORT)
 public class LangFilterITTest {
 
-    @Inject
+    @Autowired
     private LangBean langBean;
 
     private AbstractPage navigator;

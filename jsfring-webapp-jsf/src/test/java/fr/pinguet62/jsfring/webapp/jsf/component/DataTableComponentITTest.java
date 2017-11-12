@@ -1,49 +1,8 @@
 package fr.pinguet62.jsfring.webapp.jsf.component;
 
-import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
-import static fr.pinguet62.jsfring.util.FileFormatMatcher.isCSV;
-import static fr.pinguet62.jsfring.util.FileFormatMatcher.isPDF;
-import static fr.pinguet62.jsfring.util.FileFormatMatcher.isXLS;
-import static fr.pinguet62.jsfring.util.FileFormatMatcher.isXLSX;
-import static fr.pinguet62.jsfring.util.FileFormatMatcher.isXML;
-import static fr.pinguet62.jsfring.util.MatcherUtils.equalToTruncated;
-import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.get;
-import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.user.UsersPage.Column.EMAIL;
-import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.user.UsersPage.Column.values;
-import static java.lang.Integer.compare;
-import static java.time.temporal.ChronoUnit.SECONDS;
-import static java.util.Comparator.comparing;
-import static java.util.stream.Collectors.toList;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertThat;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Stream;
-
-import javax.inject.Inject;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.opencsv.CSVReader;
-
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.dao.sql.ProfileDao;
 import fr.pinguet62.jsfring.dao.sql.RightDao;
@@ -57,11 +16,7 @@ import fr.pinguet62.jsfring.webapp.jsf.AbstractSelectableBean;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.AbstractDatatablePage;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.AbstractRow;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.popup.ConfirmPopup;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.popup.DetailsPopup;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.popup.Popup;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.popup.ShowPopup;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.popup.UpdatePopup;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.popup.*;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.field.Field;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.user.UserRow;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.user.UsersPage;
@@ -69,6 +24,36 @@ import fr.pinguet62.jsfring.webapp.jsf.htmlunit.user.UsersPage.ActiveFilter;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.user.UsersPage.Column;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.user.popup.UserShowPopup;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.user.popup.UserUpdatePopup;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Stream;
+
+import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.*;
+import static fr.pinguet62.jsfring.util.MatcherUtils.equalToTruncated;
+import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.get;
+import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.user.UsersPage.Column.EMAIL;
+import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.user.UsersPage.Column.values;
+import static java.lang.Integer.compare;
+import static java.time.temporal.ChronoUnit.SECONDS;
+import static java.util.Comparator.comparing;
+import static java.util.stream.Collectors.toList;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertThat;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
 
 /**
  * @see AbstractBean
@@ -80,17 +65,17 @@ import fr.pinguet62.jsfring.webapp.jsf.htmlunit.user.popup.UserUpdatePopup;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringBootConfig.class, webEnvironment = DEFINED_PORT)
 // DbUnit
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
+@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class})
 @DatabaseSetup(DATASET)
 public final class DataTableComponentITTest {
 
-    @Inject
+    @Autowired
     private ProfileDao profileDao;
 
-    @Inject
+    @Autowired
     private RightDao rightDao;
 
-    @Inject
+    @Autowired
     private UserDao userDao;
 
     /**
@@ -385,7 +370,9 @@ public final class DataTableComponentITTest {
         }
     }
 
-    /** @see AbstractDatatablePage#exportPDF() */
+    /**
+     * @see AbstractDatatablePage#exportPDF()
+     */
     @Test
     public void test_export_pdf() throws IOException {
         UsersPage usersPage = get().gotoUsersPage();
@@ -393,7 +380,9 @@ public final class DataTableComponentITTest {
         assertThat(is, isPDF());
     }
 
-    /** @see AbstractDatatablePage#exportXLS() */
+    /**
+     * @see AbstractDatatablePage#exportXLS()
+     */
     @Test
     public void test_export_xls() throws IOException {
         UsersPage usersPage = get().gotoUsersPage();
@@ -401,7 +390,9 @@ public final class DataTableComponentITTest {
         assertThat(is, isXLS());
     }
 
-    /** @see AbstractDatatablePage#exportXLSX() */
+    /**
+     * @see AbstractDatatablePage#exportXLSX()
+     */
     @Test
     public void test_export_xlsx() throws IOException {
         UsersPage usersPage = get().gotoUsersPage();
@@ -409,7 +400,9 @@ public final class DataTableComponentITTest {
         assertThat(is, isXLSX());
     }
 
-    /** @see AbstractDatatablePage#exportXML() */
+    /**
+     * @see AbstractDatatablePage#exportXML()
+     */
     @Test
     public void test_export_xml() throws Exception {
         UsersPage usersPage = get().gotoUsersPage();
@@ -417,7 +410,9 @@ public final class DataTableComponentITTest {
         assertThat(is, isXML());
     }
 
-    /** @see UsersPage#filterByActive(ActiveFilter) */
+    /**
+     * @see UsersPage#filterByActive(ActiveFilter)
+     */
     @Test
     public void test_filter_custom() {
         UsersPage usersPage = get().gotoUsersPage();
@@ -434,7 +429,9 @@ public final class DataTableComponentITTest {
         assertThat(usersPage.getTotalCount(), is(equalTo(3)));
     }
 
-    /** @see UsersPage#filterEmail(String) */
+    /**
+     * @see UsersPage#filterEmail(String)
+     */
     @Test
     public void test_filter_default() {
         final String value = "super";
@@ -470,7 +467,9 @@ public final class DataTableComponentITTest {
         assertThat(nav.gotoRightsPage().getTotalCount(), is(equalTo((int) rightDao.count())));
     }
 
-    /** @see UsersPage#sortByEmail() */
+    /**
+     * @see UsersPage#sortByEmail()
+     */
     @Test
     public void test_sort_email() {
         List<String> emails = userDao.findAll().stream().map(User::getEmail).sorted().collect(toList());

@@ -1,24 +1,23 @@
 package fr.pinguet62.jsfring.webservice;
 
-import static fr.pinguet62.jsfring.webservice.ProfileWebservice.PATH;
-import static fr.pinguet62.jsfring.webservice.converter.OrderConverter.ASC;
-import static java.util.Objects.requireNonNull;
-import static org.springframework.core.ResolvableType.forClassWithGenerics;
-import static org.springframework.core.convert.TypeDescriptor.collection;
-import static org.springframework.core.convert.TypeDescriptor.valueOf;
-
-import java.util.List;
-
-import org.springframework.core.convert.ConversionService;
-import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.*;
-
 import fr.pinguet62.jsfring.common.spring.GenericTypeDescriptor;
 import fr.pinguet62.jsfring.model.sql.Profile;
 import fr.pinguet62.jsfring.model.sql.QProfile;
 import fr.pinguet62.jsfring.service.ProfileService;
 import fr.pinguet62.jsfring.webservice.dto.PageDto;
 import fr.pinguet62.jsfring.webservice.dto.ProfileDto;
+import org.springframework.core.convert.ConversionService;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+import static fr.pinguet62.jsfring.webservice.ProfileWebservice.PATH;
+import static fr.pinguet62.jsfring.webservice.converter.OrderConverter.ASC;
+import static java.util.Objects.requireNonNull;
+import static org.springframework.core.ResolvableType.forClassWithGenerics;
+import static org.springframework.core.convert.TypeDescriptor.collection;
+import static org.springframework.core.convert.TypeDescriptor.valueOf;
 
 @RestController
 @RequestMapping(PATH)
@@ -43,25 +42,21 @@ public final class ProfileWebservice extends AbstractWebservice<Profile, Integer
     }
 
     /**
-     * @param page
-     *            The page index.<br>
-     *            Default: the first page is {@code 0}.
-     * @param pageSize
-     *            The page size.
-     * @param sortField
-     *            The field to sort.<br>
-     *            Default: {@code null} for default order.
-     * @param sortOrder
-     *            The sort order.<br>
-     *            Default: ascending.<br>
-     *            Not used if no field to sort.
+     * @param page      The page index.<br>
+     *                  Default: the first page is {@code 0}.
+     * @param pageSize  The page size.
+     * @param sortField The field to sort.<br>
+     *                  Default: {@code null} for default order.
+     * @param sortOrder The sort order.<br>
+     *                  Default: ascending.<br>
+     *                  Not used if no field to sort.
      * @return The found results.
      */
     @GetMapping("/find")
     public PageDto<ProfileDto> find(@RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "pageSize", defaultValue = "20") int pageSize,
-            @RequestParam(value = "sortField") String sortField,
-            @RequestParam(value = "sortOrder", defaultValue = ASC) String sortOrder) {
+                                    @RequestParam(value = "pageSize", defaultValue = "20") int pageSize,
+                                    @RequestParam(value = "sortField") String sortField,
+                                    @RequestParam(value = "sortOrder", defaultValue = ASC) String sortOrder) {
         Page<Profile> results = super.findAll(profileService, QProfile.profile, page, pageSize, sortField, sortOrder);
         return (PageDto<ProfileDto>) conversionService.convert(results,
                 new GenericTypeDescriptor(forClassWithGenerics(Page.class, Profile.class)),

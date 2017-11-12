@@ -1,5 +1,21 @@
 package fr.pinguet62.jsfring.webapp.jsf;
 
+import fr.pinguet62.jsfring.model.sql.User;
+import fr.pinguet62.jsfring.service.UserService;
+import fr.pinguet62.jsfring.webapp.jsf.config.scope.SpringViewScoped;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
+import javax.validation.constraints.Pattern;
+import java.io.Serializable;
+import java.util.Locale;
+
 import static fr.pinguet62.jsfring.common.security.userdetails.UserDetailsUtils.getCurrent;
 import static fr.pinguet62.jsfring.model.sql.User.PASSWORD_REGEX;
 import static fr.pinguet62.jsfring.model.sql.User.PASSWORD_VALIDATION_MESSAGE;
@@ -7,26 +23,10 @@ import static javax.faces.application.FacesMessage.SEVERITY_ERROR;
 import static javax.faces.application.FacesMessage.SEVERITY_INFO;
 import static javax.faces.context.FacesContext.getCurrentInstance;
 
-import java.io.Serializable;
-import java.util.Locale;
-
-import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.validation.constraints.Pattern;
-
-import org.springframework.context.MessageSource;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import fr.pinguet62.jsfring.model.sql.User;
-import fr.pinguet62.jsfring.service.UserService;
-import fr.pinguet62.jsfring.webapp.jsf.config.scope.SpringViewScoped;
-import lombok.Getter;
-import lombok.Setter;
-
-/** Page to change its {@link User#password}. */
-@Named
+/**
+ * Page to change its {@link User#password}.
+ */
+@Component
 @SpringViewScoped
 public final class ChangePasswordBean implements Serializable {
 
@@ -36,7 +36,7 @@ public final class ChangePasswordBean implements Serializable {
     @Setter
     private String currentPassword;
 
-    @Inject
+    @Autowired
     private transient MessageSource messageSource;
 
     @Getter
@@ -48,16 +48,14 @@ public final class ChangePasswordBean implements Serializable {
     @Setter
     private String newPasswordConfirmation;
 
-    @Inject
+    @Autowired
     private transient UserService userService;
 
     /**
      * Display message.
      *
-     * @param severity
-     *            The {@link FacesMessage} severity.
-     * @param code
-     *            Code of i18n message.
+     * @param severity The {@link FacesMessage} severity.
+     * @param code     Code of i18n message.
      */
     private void showMessage(Severity severity, String code) {
         Locale locale = getCurrentInstance().getViewRoot().getLocale();

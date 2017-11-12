@@ -1,15 +1,14 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit.profile.popup;
 
-import java.util.List;
-
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
-
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.popup.ShowPopup;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.field.Field;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.field.ListField;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.field.StringOutputText;
+
+import java.util.List;
 
 public class ProfileShowPopup extends AbstractProfilePopup implements ShowPopup {
 

@@ -1,17 +1,16 @@
 package fr.pinguet62.jsfring.webapp.jsf.util;
 
-import java.util.function.Function;
-
-import org.primefaces.model.SortOrder;
-
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.ComparableExpressionBase;
 import com.querydsl.core.types.dsl.EntityPathBase;
 import com.querydsl.core.types.dsl.SimpleExpression;
-
 import fr.pinguet62.jsfring.common.reflection.PropertyResolver;
+import org.primefaces.model.SortOrder;
 
-// TOSO Spring converter
+import java.util.function.Function;
+
+// TODO Spring converter
+
 /**
  * Convert the property and the {@link SortOrder} of an {@link EntityPathBase} to the {@link OrderSpecifier} to apply.
  * <p>
@@ -22,14 +21,11 @@ public final class OrderConverter implements Function<SortOrder, Function<Compar
     /**
      * Apply the order: get the {@link OrderSpecifier}.
      *
-     * @param order
-     *            The {@link SortOrder} (from PrimeFaces).
+     * @param order The {@link SortOrder} (from PrimeFaces).
      * @return The {@link OrderSpecifier}.<br>
-     *         {@code null} if the order is {@link SortOrder#UNSORTED}.
-     * @throws NullPointerException
-     *             If {@code property} or {@code order} is {@code null}.
-     * @throws ClassCastException
-     *             The target field is not a {@link ComparableExpressionBase}, so doen't support filter.
+     * {@code null} if the order is {@link SortOrder#UNSORTED}.
+     * @throws NullPointerException If {@code property} or {@code order} is {@code null}.
+     * @throws ClassCastException   The target field is not a {@link ComparableExpressionBase}, so doesn't support filter.
      * @see PropertyResolver Transform property name to {@link SimpleExpression} .
      */
     @Override

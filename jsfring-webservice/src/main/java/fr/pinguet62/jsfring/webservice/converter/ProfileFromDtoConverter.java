@@ -1,20 +1,18 @@
 package fr.pinguet62.jsfring.webservice.converter;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.HashSet;
-import java.util.List;
-
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.stereotype.Component;
-
 import com.querydsl.core.types.Predicate;
-
 import fr.pinguet62.jsfring.model.sql.Profile;
 import fr.pinguet62.jsfring.model.sql.QRight;
 import fr.pinguet62.jsfring.model.sql.Right;
 import fr.pinguet62.jsfring.service.RightService;
 import fr.pinguet62.jsfring.webservice.dto.ProfileDto;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
+
+import java.util.HashSet;
+import java.util.List;
+
+import static java.util.Objects.requireNonNull;
 
 @Component
 public final class ProfileFromDtoConverter implements Converter<ProfileDto, Profile> {

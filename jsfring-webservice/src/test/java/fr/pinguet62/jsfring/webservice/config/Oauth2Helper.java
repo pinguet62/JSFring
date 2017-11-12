@@ -1,5 +1,15 @@
 package fr.pinguet62.jsfring.webservice.config;
 
+import fr.pinguet62.jsfring.dao.sql.UserDao;
+import fr.pinguet62.jsfring.model.sql.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.json.BasicJsonParser;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.security.oauth2.provider.ClientDetails;
+import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
+
 import static fr.pinguet62.jsfring.common.UrlUtils.formatAuthorization;
 import static fr.pinguet62.jsfring.webservice.config.RestTemplateConfig.BASE_URL;
 import static org.springframework.http.HttpMethod.POST;
@@ -8,31 +18,21 @@ import static org.springframework.security.oauth2.common.OAuth2AccessToken.BEARE
 import static org.springframework.security.oauth2.common.util.OAuth2Utils.GRANT_TYPE;
 import static org.springframework.web.util.UriComponentsBuilder.fromHttpUrl;
 
-import javax.inject.Inject;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.json.BasicJsonParser;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.security.oauth2.provider.ClientDetails;
-import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
-
-import fr.pinguet62.jsfring.dao.sql.UserDao;
-import fr.pinguet62.jsfring.model.sql.User;
-
-/** Client used to get OAuth2 token. */
+/**
+ * Client used to get OAuth2 token.
+ */
 @Component
 public class Oauth2Helper {
 
-    /** Key of {@code Authorization} header. */
+    /**
+     * Key of {@code Authorization} header.
+     */
     public static final String HEADER_AUTHORIZATION = "Authorization";
 
     @Autowired
     private ClientDetails details;
 
-    @Inject
+    @Autowired
     private UserDao userDao;
 
     /**

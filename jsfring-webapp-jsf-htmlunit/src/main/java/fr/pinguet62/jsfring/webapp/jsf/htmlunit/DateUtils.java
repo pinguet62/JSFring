@@ -1,10 +1,10 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit;
 
-import static java.time.format.DateTimeFormatter.ofPattern;
+import lombok.experimental.UtilityClass;
 
 import java.time.format.DateTimeFormatter;
 
-import lombok.experimental.UtilityClass;
+import static java.time.format.DateTimeFormatter.ofPattern;
 
 @UtilityClass
 public class DateUtils {

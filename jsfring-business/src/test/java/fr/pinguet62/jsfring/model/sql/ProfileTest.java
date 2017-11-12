@@ -1,17 +1,19 @@
 package fr.pinguet62.jsfring.model.sql;
 
-import static fr.pinguet62.jsfring.model.sql.Profile.builder;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.assertThat;
-
 import org.junit.Test;
 
-/** @see Profile */
+import static fr.pinguet62.jsfring.model.sql.Profile.builder;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.assertThat;
+
+/**
+ * @see Profile
+ */
 public final class ProfileTest {
 
-    /** @see Profile#equals(Object) */
+    /**
+     * @see Profile#equals(Object)
+     */
     @Test
     public void test_equals() {
         assertThat(builder().build(), is(equalTo(builder().build())));

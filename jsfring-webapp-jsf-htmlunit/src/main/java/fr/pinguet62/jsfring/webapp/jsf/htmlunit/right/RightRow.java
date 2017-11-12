@@ -1,13 +1,12 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit.right;
 
-import java.util.function.Function;
-
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
-
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.AbstractRow;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.right.popup.RightShowPopup;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.right.popup.RightUpdatePopup;
+
+import java.util.function.Function;
 
 public final class RightRow extends AbstractRow<RightShowPopup, RightUpdatePopup> {
 

@@ -1,20 +1,9 @@
 package fr.pinguet62.jsfring.webapp.jsf.config;
 
-import static org.springframework.boot.autoconfigure.AutoConfigurationPackages.get;
-import static org.springframework.util.ClassUtils.resolveClassName;
-
-import java.lang.annotation.Annotation;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.inject.Inject;
-import javax.servlet.ServletContainerInitializer;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.HandlesTypes;
-
+import com.sun.faces.config.FacesInitializer;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackages;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,9 +13,17 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.core.type.filter.AssignableTypeFilter;
 
-import com.sun.faces.config.FacesInitializer;
+import javax.servlet.ServletContainerInitializer;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.HandlesTypes;
+import java.lang.annotation.Annotation;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-import lombok.extern.slf4j.Slf4j;
+import static org.springframework.boot.autoconfigure.AutoConfigurationPackages.get;
+import static org.springframework.util.ClassUtils.resolveClassName;
 
 /**
  * Fix for JSF with Spring Boot.
@@ -49,7 +46,7 @@ import lombok.extern.slf4j.Slf4j;
 @Configuration
 public class JSFInitializerConfig implements ServletContextInitializer {
 
-    @Inject
+    @Autowired
     private BeanFactory beanFactory;
 
     /**
@@ -58,13 +55,11 @@ public class JSFInitializerConfig implements ServletContextInitializer {
      * Get the {@link HandlesTypes} used into {@link ServletContainerInitializer} class, and list all declared annotation of
      * {@link HandlesTypes#value()}.
      *
-     * @param initializerClass
-     *            The {@link ServletContainerInitializer} on witch find {@link HandlesTypes}.
+     * @param initializerClass The {@link ServletContainerInitializer} on witch find {@link HandlesTypes}.
      * @return The built {@link ClassPathScanningCandidateComponentProvider scanner}.
      */
     @SuppressWarnings("unchecked")
-    private ClassPathScanningCandidateComponentProvider constructScannerForServletInitializer(
-            Class<? extends ServletContainerInitializer> initializerClass) {
+    private ClassPathScanningCandidateComponentProvider constructScannerForServletInitializer(Class<? extends ServletContainerInitializer> initializerClass) {
         ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
         for (Class<?> class1 : initializerClass.getAnnotation(HandlesTypes.class).value())
             if (class1.isAnnotation()) {
@@ -80,13 +75,10 @@ public class JSFInitializerConfig implements ServletContextInitializer {
     /**
      * Use the scanner to find all classes of each package.
      *
-     * @param scanner
-     *            The {@link ClassPathScanningCandidateComponentProvider scanner} to find classes of classpath.
-     * @param basePackagesToScan
-     *            The packages to scan.
+     * @param scanner            The {@link ClassPathScanningCandidateComponentProvider scanner} to find classes of classpath.
+     * @param basePackagesToScan The packages to scan.
      */
-    private Set<Class<?>> findAnnotatedClasses(ClassPathScanningCandidateComponentProvider scanner,
-            List<String> basePackagesToScan) {
+    private Set<Class<?>> findAnnotatedClasses(ClassPathScanningCandidateComponentProvider scanner, List<String> basePackagesToScan) {
         Set<Class<?>> annotatedClasses = new HashSet<>();
         for (String basePackage : basePackagesToScan) {
             log.debug("Scanning under {}", basePackage);
@@ -102,10 +94,8 @@ public class JSFInitializerConfig implements ServletContextInitializer {
         runServletInitializer(servletContext, new FacesInitializer(), basePackagesToScan);
     }
 
-    private void runServletInitializer(ServletContext servletContext, FacesInitializer facesInitializer,
-            List<String> basePackagesToScan) throws ServletException {
-        ClassPathScanningCandidateComponentProvider scanner = constructScannerForServletInitializer(
-                facesInitializer.getClass());
+    private void runServletInitializer(ServletContext servletContext, FacesInitializer facesInitializer, List<String> basePackagesToScan) throws ServletException {
+        ClassPathScanningCandidateComponentProvider scanner = constructScannerForServletInitializer(facesInitializer.getClass());
         Set<Class<?>> annotatedClasses = findAnnotatedClasses(scanner, basePackagesToScan);
         facesInitializer.onStartup(annotatedClasses, servletContext);
     }

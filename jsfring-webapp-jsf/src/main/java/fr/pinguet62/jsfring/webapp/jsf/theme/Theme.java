@@ -46,11 +46,9 @@ public enum Theme {
     /**
      * Get the {@link Theme} from the {@link #key}.
      *
-     * @param key
-     *            The key.
+     * @param key The key.
      * @return The {@link Theme}.
-     * @throws IllegalArgumentException
-     *             Unknown {@link #key}.
+     * @throws IllegalArgumentException Unknown {@link #key}.
      */
     public static Theme fromKey(String key) {
         for (Theme theme : values())
@@ -59,18 +57,22 @@ public enum Theme {
         throw new IllegalArgumentException("Unknown key: " + key);
     }
 
-    /** The path of image. */
+    /**
+     * The path of image.
+     */
     @Getter
     private final String image;
 
-    /** The unique key used by PrimeFaces. */
+    /**
+     * The unique key used by PrimeFaces.
+     */
     @Getter
     private final String key;
 
     @Getter
     private final String name;
 
-    private Theme(String key, String name, String image) {
+    Theme(String key, String name, String image) {
         this.key = key;
         this.name = name;
         this.image = image;

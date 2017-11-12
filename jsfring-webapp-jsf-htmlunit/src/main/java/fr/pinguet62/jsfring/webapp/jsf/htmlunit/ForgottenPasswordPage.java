@@ -1,15 +1,14 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit;
 
-import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.Delay.LONG;
-
-import java.io.IOException;
-
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.field.InputText;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.field.ReadWriteField;
+
+import java.io.IOException;
+
+import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.Delay.LONG;
 
 public final class ForgottenPasswordPage extends AbstractPage {
 

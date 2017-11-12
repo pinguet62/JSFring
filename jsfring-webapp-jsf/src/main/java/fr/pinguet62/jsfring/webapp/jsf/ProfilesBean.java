@@ -1,17 +1,5 @@
 package fr.pinguet62.jsfring.webapp.jsf;
 
-import static java.util.stream.Collectors.toList;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import org.primefaces.model.DualListModel;
-
 import fr.pinguet62.jsfring.model.sql.Profile;
 import fr.pinguet62.jsfring.model.sql.Right;
 import fr.pinguet62.jsfring.service.AbstractService;
@@ -20,23 +8,37 @@ import fr.pinguet62.jsfring.service.RightService;
 import fr.pinguet62.jsfring.webapp.jsf.config.scope.SpringViewScoped;
 import lombok.Getter;
 import lombok.Setter;
+import org.primefaces.model.DualListModel;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-/** @see Profile */
-@Named
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
+
+/**
+ * @see Profile
+ */
+@Component
 @SpringViewScoped
 public final class ProfilesBean extends AbstractCrudBean<Profile> {
 
     private static final long serialVersionUID = 1;
 
-    @Inject
+    @Autowired
     private transient ProfileService profileService;
 
-    /** The {@link Right} association (available/associated) of the {@link #getSelectedValue() selected profile}. */
+    /**
+     * The {@link Right} association (available/associated) of the {@link #getSelectedValue() selected profile}.
+     */
     @Getter
     @Setter
-    private DualListModel<Right> rightsAssociation = new DualListModel<Right>();
+    private DualListModel<Right> rightsAssociation = new DualListModel<>();
 
-    @Inject
+    @Autowired
     private transient RightService rightService;
 
     /**
@@ -76,9 +78,8 @@ public final class ProfilesBean extends AbstractCrudBean<Profile> {
 
         // Right association
         List<Right> associatedRights = new ArrayList<>(getSelectedValue().getRights());
-        List<Right> availableRights = rightService.getAll().stream().filter(right -> !associatedRights.contains(right))
-                .collect(toList());
-        rightsAssociation = new DualListModel<Right>(availableRights, associatedRights);
+        List<Right> availableRights = rightService.getAll().stream().filter(right -> !associatedRights.contains(right)).collect(toList());
+        rightsAssociation = new DualListModel<>(availableRights, associatedRights);
     }
 
     /**

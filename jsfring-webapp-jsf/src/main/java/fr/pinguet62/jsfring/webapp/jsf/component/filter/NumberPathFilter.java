@@ -1,20 +1,16 @@
 package fr.pinguet62.jsfring.webapp.jsf.component.filter;
 
-import static java.util.Arrays.asList;
+import com.querydsl.core.types.dsl.NumberExpression;
+import fr.pinguet62.jsfring.webapp.jsf.component.filter.operator.*;
 
 import java.io.Serializable;
 import java.util.List;
 
-import com.querydsl.core.types.dsl.NumberExpression;
+import static java.util.Arrays.asList;
 
-import fr.pinguet62.jsfring.webapp.jsf.component.filter.operator.BetweenOperator;
-import fr.pinguet62.jsfring.webapp.jsf.component.filter.operator.EqualsToOperator;
-import fr.pinguet62.jsfring.webapp.jsf.component.filter.operator.GreaterThanOperator;
-import fr.pinguet62.jsfring.webapp.jsf.component.filter.operator.IsNullOperator;
-import fr.pinguet62.jsfring.webapp.jsf.component.filter.operator.LessThanOperator;
-import fr.pinguet62.jsfring.webapp.jsf.component.filter.operator.Operator;
-
-/** A {@link PathFilter} for {@link NumberExpression} fields. */
+/**
+ * A {@link PathFilter} for {@link NumberExpression} fields.
+ */
 public class NumberPathFilter<T extends Number & Comparable<?>> extends PathFilter<NumberExpression<T>, T>
         implements Serializable {
 
@@ -26,8 +22,13 @@ public class NumberPathFilter<T extends Number & Comparable<?>> extends PathFilt
 
     @Override
     public List<Operator<NumberExpression<T>, T>> getOperators() {
-        return asList(new IsNullOperator<>(), new EqualsToOperator<NumberExpression<T>, T>(), new GreaterThanOperator<T>(),
-                new LessThanOperator<T>(), new BetweenOperator<T>());
+        return asList(
+                new IsNullOperator<>(),
+                new EqualsToOperator<NumberExpression<T>, T>(),
+                new GreaterThanOperator<T>(),
+                new LessThanOperator<T>(),
+                new BetweenOperator<T>()
+        );
     }
 
 }

@@ -1,19 +1,23 @@
 package fr.pinguet62.jsfring.webapp.jsf.component.filter;
 
-import static java.lang.Class.forName;
+import fr.pinguet62.jsfring.webapp.jsf.component.filter.operator.Operator;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import fr.pinguet62.jsfring.webapp.jsf.component.filter.operator.Operator;
+import static java.lang.Class.forName;
 
-/** Use the {@link Class#getName() class name} as key for {@link Operator}. */
+/**
+ * Use the {@link Class#getName() class name} as key for {@link Operator}.
+ */
 @FacesConverter(value = "fr.pinguet62.jsfring.webapp.jsf.component.filter.OperatorConverter", forClass = Operator.class)
 public final class OperatorConverter implements Converter {
 
-    /** @see Class#newInstance() */
+    /**
+     * @see Class#newInstance()
+     */
     @Override
     public Operator<?, ?> getAsObject(FacesContext context, UIComponent component, String className) {
         try {
@@ -25,7 +29,7 @@ public final class OperatorConverter implements Converter {
 
     /**
      * @return The converted {@link Operator}.<br>
-     *         If {@code value == null}, then return {@code null}.
+     * If {@code value == null}, then return {@code null}.
      * @see Class#getName()
      */
     @Override

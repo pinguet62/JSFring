@@ -1,49 +1,46 @@
 package fr.pinguet62.jsfring.batch.common;
 
-import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
-import static java.util.Arrays.asList;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.assertThat;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.persistence.Entity;
-
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import fr.pinguet62.jsfring.SpringBootConfig;
+import fr.pinguet62.jsfring.dao.sql.ProfileDao;
+import fr.pinguet62.jsfring.model.sql.Profile;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
+import javax.persistence.Entity;
+import java.util.ArrayList;
+import java.util.List;
 
-import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.dao.sql.ProfileDao;
-import fr.pinguet62.jsfring.model.sql.Profile;
+import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
+import static java.util.Arrays.asList;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
 
-/** @see CrudRepositoryItemWriter */
+/**
+ * @see CrudRepositoryItemWriter
+ */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = { SpringBootConfig.class })
+@SpringBootTest(classes = {SpringBootConfig.class})
 // DbUnit
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
+@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class})
 @DatabaseSetup(DATASET)
 public class CrudRepositoryItemWriterTest {
 
-    @Inject
+    @Autowired
     private ProfileDao dao;
 
     private CrudRepositoryItemWriter<Profile> writer;
 
     @Before
     public void initItemWriter() {
-        writer = new CrudRepositoryItemWriter<Profile>(dao);
+        writer = new CrudRepositoryItemWriter<>(dao);
     }
 
     /**
@@ -52,7 +49,7 @@ public class CrudRepositoryItemWriterTest {
      * @see CrudRepositoryItemWriter#write(List)
      */
     @Test
-    public void test_create() throws Exception {
+    public void test_create() {
         long initialCount = dao.count();
 
         Profile entity = new Profile();
@@ -70,7 +67,7 @@ public class CrudRepositoryItemWriterTest {
      * @see CrudRepositoryItemWriter#write(List)
      */
     @Test
-    public void test_multiple() throws Exception {
+    public void test_multiple() {
         long initialCount = dao.count();
 
         int nb = 5;
@@ -92,7 +89,7 @@ public class CrudRepositoryItemWriterTest {
      * @see CrudRepositoryItemWriter#write(List)
      */
     @Test
-    public void test_update() throws Exception {
+    public void test_update() {
         long initialCount = dao.count();
 
         final String newValue = "new title";

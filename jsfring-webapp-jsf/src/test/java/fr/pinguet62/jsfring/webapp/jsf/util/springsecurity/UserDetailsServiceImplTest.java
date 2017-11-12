@@ -1,20 +1,15 @@
 package fr.pinguet62.jsfring.webapp.jsf.util.springsecurity;
 
-import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
-import static java.time.LocalDateTime.now;
-import static java.time.temporal.ChronoUnit.SECONDS;
-import static org.exparity.hamcrest.date.LocalDateTimeMatchers.within;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertThat;
-
-import java.time.LocalDateTime;
-
-import javax.inject.Inject;
-
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.querydsl.core.BooleanBuilder;
+import fr.pinguet62.jsfring.SpringBootConfig;
+import fr.pinguet62.jsfring.common.security.userdetails.UserDetailsServiceImpl;
+import fr.pinguet62.jsfring.model.sql.User;
+import fr.pinguet62.jsfring.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,27 +18,29 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.querydsl.core.BooleanBuilder;
+import java.time.LocalDateTime;
 
-import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.common.security.userdetails.UserDetailsServiceImpl;
-import fr.pinguet62.jsfring.model.sql.User;
-import fr.pinguet62.jsfring.service.UserService;
+import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
+import static java.time.LocalDateTime.now;
+import static java.time.temporal.ChronoUnit.SECONDS;
+import static org.exparity.hamcrest.date.LocalDateTimeMatchers.within;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
 
-/** @see UserDetailsServiceImpl */
+/**
+ * @see UserDetailsServiceImpl
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringBootConfig.class)
-//DbUnit
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
+// DbUnit
+@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class})
 @DatabaseSetup(DATASET)
 public class UserDetailsServiceImplTest {
 
-    @Inject
+    @Autowired
     private UserDetailsService userDetailsService;
 
-    @Inject
+    @Autowired
     private UserService userService;
 
     /**

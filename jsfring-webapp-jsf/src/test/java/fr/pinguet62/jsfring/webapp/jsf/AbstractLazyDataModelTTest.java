@@ -1,17 +1,21 @@
 package fr.pinguet62.jsfring.webapp.jsf;
 
-import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
-import static fr.pinguet62.jsfring.util.MatcherUtils.sorted;
-import static java.lang.Integer.MAX_VALUE;
-import static java.util.Comparator.comparing;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-import static org.primefaces.model.SortOrder.ASCENDING;
-import static org.primefaces.model.SortOrder.DESCENDING;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.querydsl.core.BooleanBuilder;
+import fr.pinguet62.jsfring.SpringBootConfig;
+import fr.pinguet62.jsfring.model.sql.QRight;
+import fr.pinguet62.jsfring.model.sql.Right;
+import fr.pinguet62.jsfring.service.AbstractService;
+import fr.pinguet62.jsfring.service.RightService;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.primefaces.model.SortOrder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import java.io.Serializable;
 import java.util.Comparator;
@@ -19,27 +23,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.primefaces.model.SortOrder;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.querydsl.core.BooleanBuilder;
-
-import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.model.sql.QRight;
-import fr.pinguet62.jsfring.model.sql.Right;
-import fr.pinguet62.jsfring.service.AbstractService;
-import fr.pinguet62.jsfring.service.RightService;
-import fr.pinguet62.jsfring.webapp.jsf.AbstractBean;
-import fr.pinguet62.jsfring.webapp.jsf.AbstractLazyDataModel;
+import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
+import static fr.pinguet62.jsfring.util.MatcherUtils.sorted;
+import static java.lang.Integer.MAX_VALUE;
+import static java.util.Comparator.comparing;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
+import static org.primefaces.model.SortOrder.ASCENDING;
+import static org.primefaces.model.SortOrder.DESCENDING;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
 
 /**
  * @see AbstractLazyDataModel
@@ -47,8 +39,8 @@ import fr.pinguet62.jsfring.webapp.jsf.AbstractLazyDataModel;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringBootConfig.class, webEnvironment = DEFINED_PORT)
-//DbUnit
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
+// DbUnit
+@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class})
 @DatabaseSetup(DATASET)
 public class AbstractLazyDataModelTTest {
 
@@ -77,10 +69,12 @@ public class AbstractLazyDataModelTTest {
     // The model to test
     private final AbstractLazyDataModel<Right> model = new AbstractLazyDataModel<Right>(bean);
 
-    @Inject
+    @Autowired
     private RightService service;
 
-    /** Check that results are filtered. */
+    /**
+     * Check that results are filtered.
+     */
     @Test
     public void test_load_filter() {
         // Default
@@ -113,7 +107,9 @@ public class AbstractLazyDataModelTTest {
         assertThat(resultsDesc, is(sorted(desc)));
     }
 
-    /** Check that pagination is correct. */
+    /**
+     * Check that pagination is correct.
+     */
     @Test
     public void test_load_pagination() {
         List<Right> resultsP1 = model.load(0, 2, NO_SORT, DEFAULT_ORDER, NO_FILTER);

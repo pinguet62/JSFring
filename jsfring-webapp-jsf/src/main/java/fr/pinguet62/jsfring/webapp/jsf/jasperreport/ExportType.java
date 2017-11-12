@@ -1,32 +1,22 @@
 package fr.pinguet62.jsfring.webapp.jsf.jasperreport;
 
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
-
 import lombok.Getter;
 import net.sf.jasperreports.engine.JRAbstractExporter;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.export.HtmlExporter;
-import net.sf.jasperreports.engine.export.JRCsvExporter;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.engine.export.JRRtfExporter;
-import net.sf.jasperreports.engine.export.JRTextExporter;
-import net.sf.jasperreports.engine.export.JRXlsExporter;
-import net.sf.jasperreports.engine.export.JRXmlExporter;
-import net.sf.jasperreports.engine.export.JsonExporter;
+import net.sf.jasperreports.engine.export.*;
 import net.sf.jasperreports.engine.export.oasis.JROdsExporter;
 import net.sf.jasperreports.engine.export.oasis.JROdtExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRPptxExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
-import net.sf.jasperreports.export.ExporterInput;
-import net.sf.jasperreports.export.SimpleHtmlExporterOutput;
-import net.sf.jasperreports.export.SimpleJsonExporterOutput;
-import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
-import net.sf.jasperreports.export.SimpleWriterExporterOutput;
-import net.sf.jasperreports.export.SimpleXmlExporterOutput;
+import net.sf.jasperreports.export.*;
 
-/** The available {@link JRAbstractExporter} type. */
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+
+/**
+ * The available {@link JRAbstractExporter} type.
+ */
 public enum ExportType {
 
     /**
@@ -264,15 +254,15 @@ public enum ExportType {
     @Getter
     private final String extension;
 
-    /** The mime content type. */
+    /**
+     * The mime content type.
+     */
     @Getter
     private final String mime;
 
     /**
-     * @param mime
-     *            The mime content type.
-     * @param extension
-     *            The {@link #extension}.
+     * @param mime      The mime content type.
+     * @param extension The {@link #extension}.
      */
     private ExportType(String mime, String extension) {
         this.extension = extension;
@@ -282,11 +272,9 @@ public enum ExportType {
     /**
      * Visitor method who export the report to {@link OutputStreamt}.
      *
-     * @param The
-     *            {@link ExporterInput} to export.
+     * @param The {@link ExporterInput} to export.
      * @return The {@link OutputStream}.
-     * @throws JRException
-     *             When an error occurs during export.
+     * @throws JRException When an error occurs during export.
      */
     public abstract ByteArrayOutputStream export(ExporterInput exporterInput) throws JRException;
 

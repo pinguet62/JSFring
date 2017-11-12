@@ -1,8 +1,8 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit.field;
 
-import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.Delay.SHORT;
-
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
+
+import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.Delay.SHORT;
 
 public final class InputText extends ReadWriteField<HtmlInput, String> {
 

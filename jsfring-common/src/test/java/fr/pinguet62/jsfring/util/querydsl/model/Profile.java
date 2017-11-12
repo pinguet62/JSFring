@@ -1,4 +1,4 @@
 package fr.pinguet62.jsfring.util.querydsl.model;
 
-
-public class Profile {}
+public class Profile {
+}

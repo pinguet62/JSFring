@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>fr.pinguet62.jsfring</groupId>
-		<artifactId>jsfring</artifactId>
-		<version>1.0-SNAPSHOT</version>
-	</parent>
+    <parent>
+        <groupId>fr.pinguet62.jsfring</groupId>
+        <artifactId>jsfring</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
 
-	<artifactId>webapp-angularjs</artifactId>
-	<packaging>war</packaging>
+    <artifactId>webapp-angularjs</artifactId>
+    <packaging>war</packaging>
 
-	<name>AngularJS</name>
-	<description>AngularJS web application, using Webjars</description>
-	<url>http://jsfring-${project.artifactId}.herokuapp.com</url>
+    <name>AngularJS</name>
+    <description>AngularJS web application, using Webjars</description>
+    <url>http://jsfring-${project.artifactId}.herokuapp.com</url>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>com.heroku.sdk</groupId>
-				<artifactId>heroku-maven-plugin</artifactId>
-				<configuration>
-					<includeTarget>false</includeTarget>
-					<includes>
-						<include>jsfring-${project.artifactId}/target/${project.artifactId}-${project.version}</include>
-					</includes>
-					<appName>jsfring-${project.artifactId}</appName>
-					<buildpacks>
-						<!-- Non-root "package.json" support -->
-						<buildpack>https://github.com/pinguet62/heroku-buildpack-nodejs</buildpack>
-					</buildpacks>
-					<configVars>
-						<!-- Install "devDependencies" dependencies -->
-						<!-- See: https://devcenter.heroku.com/articles/nodejs-support#devdependencies -->
-						<NPM_CONFIG_PRODUCTION>false</NPM_CONFIG_PRODUCTION>
-					</configVars>
-					<processTypes>
-						<!-- "prefix": non-root "package.json" support -->
-						<web>npm run heroku --prefix target/${project.artifactId}-${project.version}</web>
-					</processTypes>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.heroku.sdk</groupId>
+                <artifactId>heroku-maven-plugin</artifactId>
+                <configuration>
+                    <includeTarget>false</includeTarget>
+                    <includes>
+                        <include>jsfring-${project.artifactId}/target/${project.artifactId}-${project.version}</include>
+                    </includes>
+                    <appName>jsfring-${project.artifactId}</appName>
+                    <buildpacks>
+                        <!-- Non-root "package.json" support -->
+                        <buildpack>https://github.com/pinguet62/heroku-buildpack-nodejs</buildpack>
+                    </buildpacks>
+                    <configVars>
+                        <!-- Install "devDependencies" dependencies -->
+                        <!-- See: https://devcenter.heroku.com/articles/nodejs-support#devdependencies -->
+                        <NPM_CONFIG_PRODUCTION>false</NPM_CONFIG_PRODUCTION>
+                    </configVars>
+                    <processTypes>
+                        <!-- "prefix": non-root "package.json" support -->
+                        <web>npm run heroku --prefix target/${project.artifactId}-${project.version}</web>
+                    </processTypes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

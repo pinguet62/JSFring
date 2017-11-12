@@ -1,15 +1,8 @@
 package fr.pinguet62.jsfring.webapp.jsf.sample;
 
-import java.io.Serializable;
-
-import javax.faces.validator.LongRangeValidator;
-import javax.faces.validator.RegexValidator;
-import javax.inject.Named;
-
 import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.core.types.dsl.StringExpression;
 import com.querydsl.core.types.dsl.StringPath;
-
 import fr.pinguet62.jsfring.model.sql.QUser;
 import fr.pinguet62.jsfring.model.sql.User;
 import fr.pinguet62.jsfring.webapp.jsf.component.filter.NumberPathFilter;
@@ -17,8 +10,13 @@ import fr.pinguet62.jsfring.webapp.jsf.component.filter.StringPathFilter;
 import fr.pinguet62.jsfring.webapp.jsf.config.scope.SpringViewScoped;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.stereotype.Component;
 
-@Named
+import javax.faces.validator.LongRangeValidator;
+import javax.faces.validator.RegexValidator;
+import java.io.Serializable;
+
+@Component
 @SpringViewScoped
 public final class FilterPathBean implements Serializable {
 
@@ -45,7 +43,9 @@ public final class FilterPathBean implements Serializable {
     @Setter
     private NumberPathFilter<Integer> numberFilterLongRange = new NumberPathFilter<Integer>(EXPRESSION_NUMBER);
 
-    /** @see User#email */
+    /**
+     * @see User#email
+     */
     @Getter
     @Setter
     private StringPathFilter stringFilterDefault = new StringPathFilter(EXPRESSION_STRING);

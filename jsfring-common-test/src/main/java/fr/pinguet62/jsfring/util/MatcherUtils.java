@@ -1,8 +1,12 @@
 package fr.pinguet62.jsfring.util;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.apache.commons.collections.CollectionUtils.isEqualCollection;
-import static org.apache.http.client.utils.URLEncodedUtils.parse;
+import com.google.common.collect.Lists;
+import lombok.experimental.UtilityClass;
+import org.apache.commons.collections.ListUtils;
+import org.apache.http.NameValuePair;
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
 
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -12,27 +16,19 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 
-import org.apache.commons.collections.ListUtils;
-import org.apache.http.NameValuePair;
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.apache.commons.collections.CollectionUtils.isEqualCollection;
+import static org.apache.http.client.utils.URLEncodedUtils.parse;
 
-import com.google.common.collect.Lists;
-
-import lombok.experimental.UtilityClass;
-
-/** Utility class with simple {@link Matcher}s. */
+/**
+ * Utility class with simple {@link Matcher}s.
+ */
 @UtilityClass
 public class MatcherUtils {
 
     /**
      * Check that the {@link LocalDateTime} is equals to another with a delta.
      *
-     * @param expected
-     *            The {@link LocalDateTime}.
-     * @param field
-     *            The field from the field {@code Calendar}.
      * @return The built {@link Matcher}.
      */
     public Matcher<LocalDateTime> equalToTruncated(LocalDateTime expected, TemporalUnit unit) {
@@ -42,8 +38,7 @@ public class MatcherUtils {
             }
 
             /**
-             * @param actual
-             *            The {@link LocalDateTime} to compare.
+             * @param actual The {@link LocalDateTime} to compare.
              */
             @Override
             protected boolean matchesSafely(LocalDateTime actual) {
@@ -55,15 +50,15 @@ public class MatcherUtils {
                     return Objects.equals(actual.truncatedTo(unit), expected.truncatedTo(unit));
             }
         };
-    };
+    }
+
+    ;
 
     /**
      * Check That 2 {@link Iterable}s are {@link Object#equals(Object) equals}, without considering the order.
      *
-     * @param <T>
-     *            The type of elements.
-     * @param expected
-     *            The expected {@link Iterable}.
+     * @param <T>      The type of elements.
+     * @param expected The expected {@link Iterable}.
      * @return The built {@link Matcher}.
      */
     public <T> Matcher<Iterable<T>> equalWithoutOrderTo(Iterable<T> expected) {
@@ -73,8 +68,7 @@ public class MatcherUtils {
             }
 
             /**
-             * @param actual
-             *            The {@link Iterable} to check.
+             * @param actual The {@link Iterable} to check.
              * @see ListUtils#intersection(List, List)
              */
             @Override
@@ -86,19 +80,17 @@ public class MatcherUtils {
                 return isEqualCollection(actualList, expectedList);
             }
         };
-    };
+    }
+
+    ;
 
     /**
      * {@link Matcher} used to {@link Function map} object to another type and apply another {@link Matcher} on mapped value.
      *
-     * @param <S>
-     *            The source type.
-     * @param <M>
-     *            The mapped type.
-     * @param mapper
-     *            The {@link Function mapper}.
-     * @param matcher
-     *            The {@link Matcher} to apply on converted value.
+     * @param <S>     The source type.
+     * @param <M>     The mapped type.
+     * @param mapper  The {@link Function mapper}.
+     * @param matcher The {@link Matcher} to apply on converted value.
      * @return The built {@link Matcher}.
      */
     public <S, M> Matcher<S> mappedTo(Function<S, M> mapper, Matcher<M> matcher) {
@@ -110,8 +102,7 @@ public class MatcherUtils {
             /**
              * Convert source object and apply {@link Matcher}.
              *
-             * @param actual
-             *            The source object.
+             * @param actual The source object.
              * @see Matcher#matches(Object)
              */
             @Override
@@ -125,8 +116,7 @@ public class MatcherUtils {
     /**
      * Check that value {@link String#matches(String) matches to regex}.
      *
-     * @param regex
-     *            The regex.
+     * @param regex The regex.
      * @return The built {@link Matcher}.
      * @see String#matches(String)
      */
@@ -137,8 +127,7 @@ public class MatcherUtils {
             }
 
             /**
-             * @param actual
-             *            The {@link String} to test.
+             * @param actual The {@link String} to test.
              * @see String#matches(String)
              */
             @Override
@@ -151,10 +140,8 @@ public class MatcherUtils {
     /**
      * Check that {@link URL} parameter matches to a predicate.
      *
-     * @param paramKey
-     *            The key of parameter.
-     * @param paramValueMatcher
-     *            The {@link Matcher} to apply on value of parameter.
+     * @param paramKey          The key of parameter.
+     * @param paramValueMatcher The {@link Matcher} to apply on value of parameter.
      * @return The built {@link Matcher}.
      * @see String#matches(String)
      */
@@ -165,15 +152,17 @@ public class MatcherUtils {
             }
 
             /**
-             * @param query
-             *            The {@link URL#getQuery()} to test.
+             * @param query The {@link URL#getQuery()} to test.
              * @see String#matches(String)
              */
             @Override
             protected boolean matchesSafely(String query) {
                 List<NameValuePair> parameters = parse(query, UTF_8);
-                String paramValue = parameters.stream().filter(p -> p.getName().equals(paramKey)).findAny()
-                        .map(NameValuePair::getValue).orElse(null);
+                String paramValue = parameters.stream()
+                        .filter(p -> p.getName().equals(paramKey))
+                        .findAny()
+                        .map(NameValuePair::getValue)
+                        .orElse(null);
                 return paramValueMatcher.matches(paramValue);
             }
         };
@@ -182,10 +171,8 @@ public class MatcherUtils {
     /**
      * Check that {@link List} is sorted.
      *
-     * @param <T>
-     *            The type of elements.
-     * @param comparator
-     *            The {@link Comparator} used by algorithm.
+     * @param <T>        The type of elements.
+     * @param comparator The {@link Comparator} used by algorithm.
      * @return The built {@link Matcher}.
      * @see Comparator#compare(Object, Object)
      */
@@ -196,8 +183,7 @@ public class MatcherUtils {
             }
 
             /**
-             * @param values
-             *            The {@link List} to check.
+             * @param values The {@link List} to check.
              * @return If {@link List} is correctly sorted.
              * @throws ClassCastException
              *             If the list contains elements that are not {@link Comparable}.

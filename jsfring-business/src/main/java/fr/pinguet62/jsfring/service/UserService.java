@@ -1,20 +1,21 @@
 package fr.pinguet62.jsfring.service;
 
-import static java.lang.String.format;
-import static java.time.LocalDateTime.now;
-import static java.util.Objects.requireNonNull;
-
+import fr.pinguet62.jsfring.common.PasswordGenerator;
+import fr.pinguet62.jsfring.dao.sql.UserDao;
+import fr.pinguet62.jsfring.model.sql.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.pinguet62.jsfring.common.PasswordGenerator;
-import fr.pinguet62.jsfring.dao.sql.UserDao;
-import fr.pinguet62.jsfring.model.sql.User;
-import lombok.extern.slf4j.Slf4j;
+import static java.lang.String.format;
+import static java.time.LocalDateTime.now;
+import static java.util.Objects.requireNonNull;
 
-/** The service for {@link User}. */
+/**
+ * The service for {@link User}.
+ */
 @Slf4j
 @Service
 public class UserService extends AbstractService<User, String> {
@@ -65,10 +66,8 @@ public class UserService extends AbstractService<User, String> {
     /**
      * Reset the password of {@code User} and sent these informations to email.
      *
-     * @param email
-     *            The user's email.
-     * @throws IllegalArgumentException
-     *             Email unknown.
+     * @param email The user's email.
+     * @throws IllegalArgumentException Email unknown.
      */
     @Transactional
     public void forgottenPassword(String email) {
@@ -92,12 +91,9 @@ public class UserService extends AbstractService<User, String> {
     /**
      * Update the {@link User#password user's password}.
      *
-     * @param email
-     *            The {@link User#email user's email}.
-     * @param password
-     *            The new {@link User#password user's password}.
-     * @throws IllegalArgumentException
-     *             User not found.
+     * @param email    The {@link User#email user's email}.
+     * @param password The new {@link User#password user's password}.
+     * @throws IllegalArgumentException User not found.
      */
     @Transactional
     public void updatePassword(String email, String password) {

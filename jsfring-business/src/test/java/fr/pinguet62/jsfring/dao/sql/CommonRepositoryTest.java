@@ -1,27 +1,18 @@
 package fr.pinguet62.jsfring.dao.sql;
 
-import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
-import static fr.pinguet62.jsfring.util.MatcherUtils.mappedTo;
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.everyItem;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-
-import java.io.Serializable;
-import java.util.List;
-import java.util.Random;
-
-import javax.inject.Inject;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.GeneratedValue;
-
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.querydsl.core.types.Predicate;
+import fr.pinguet62.jsfring.SpringBootConfig;
+import fr.pinguet62.jsfring.common.PasswordGenerator;
+import fr.pinguet62.jsfring.dao.sql.common.CommonRepository;
+import fr.pinguet62.jsfring.model.sql.Profile;
+import fr.pinguet62.jsfring.model.sql.QRight;
+import fr.pinguet62.jsfring.model.sql.Right;
+import fr.pinguet62.jsfring.model.sql.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
@@ -32,38 +23,40 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.querydsl.core.types.Predicate;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.GeneratedValue;
+import java.util.List;
+import java.util.Random;
 
-import fr.pinguet62.jsfring.SpringBootConfig;
-import fr.pinguet62.jsfring.common.PasswordGenerator;
-import fr.pinguet62.jsfring.dao.sql.common.CommonRepository;
-import fr.pinguet62.jsfring.model.sql.Profile;
-import fr.pinguet62.jsfring.model.sql.QRight;
-import fr.pinguet62.jsfring.model.sql.Right;
-import fr.pinguet62.jsfring.model.sql.User;
+import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
+import static fr.pinguet62.jsfring.util.MatcherUtils.mappedTo;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
-/** @see CommonRepository */
+/**
+ * @see CommonRepository
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringBootConfig.class)
 @Transactional
 // DbUnit
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class,
-    TransactionalTestExecutionListener.class })
+@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
 @DatabaseSetup(DATASET)
 public class CommonRepositoryTest {
 
-    @Inject
+    @Autowired
     private ProfileDao profileDao;
 
-    @Inject
+    @Autowired
     private RightDao rightDao;
 
-    @Inject
+    @Autowired
     private UserDao userDao;
 
-    /** @see CrudRepository#count() */
+    /**
+     * @see CrudRepository#count()
+     */
     @Test
     public void test_count() {
         assertThat(rightDao.count(), is(equalTo(5L)));
@@ -71,7 +64,9 @@ public class CommonRepositoryTest {
         assertThat(userDao.count(), is(equalTo(3L)));
     }
 
-    /** @see CrudRepository#delete(Object) */
+    /**
+     * @see CrudRepository#delete(Object)
+     */
     @Test
     public void test_delete() {
         assertThat(profileDao.count(), is(equalTo(2L)));
@@ -81,7 +76,9 @@ public class CommonRepositoryTest {
         assertThat(profileDao.count(), is(equalTo(0L)));
     }
 
-    /** @see CrudRepository#deleteAll() */
+    /**
+     * @see CrudRepository#deleteAll()
+     */
     @Test
     public void test_deleteAll() {
         assertThat(profileDao.count(), is(equalTo(2L)));
@@ -92,7 +89,9 @@ public class CommonRepositoryTest {
         profileDao.deleteAll();
     }
 
-    /** @see JpaRepository#findAll() */
+    /**
+     * @see JpaRepository#findAll()
+     */
     @Test
     public void test_findAll() {
         assertThat(rightDao.findAll(), hasSize(5));
@@ -100,7 +99,9 @@ public class CommonRepositoryTest {
         assertThat(userDao.findAll(), hasSize(3));
     }
 
-    /** @see QuerydslPredicateExecutor#findAll(Predicate) */
+    /**
+     * @see QuerydslPredicateExecutor#findAll(Predicate)
+     */
     @Test
     public void test_findAll_Predicate() {
         final String keyword = "PROFILE";
@@ -111,7 +112,9 @@ public class CommonRepositoryTest {
         assertThat(rights, everyItem(mappedTo(Right::getCode, containsString(keyword))));
     }
 
-    /** @see QuerydslPredicateExecutor#findAll(Predicate) */
+    /**
+     * @see QuerydslPredicateExecutor#findAll(Predicate)
+     */
     @Test
     public void test_findAll_Predicate_notFound() {
         List<Right> rights = rightDao.findAll(QRight.right_.code.contains("#$!@"));
@@ -121,7 +124,7 @@ public class CommonRepositoryTest {
     /**
      * Get an entity from its key.
      *
-     * @see JpaRepository#getOne(Serializable)
+     * @see JpaRepository#getOne(Object)
      */
     @Test
     public void test_getOne() {
@@ -141,7 +144,7 @@ public class CommonRepositoryTest {
     /**
      * If the entity doesn't exists, an {@link EntityNotFoundException} must be thrown.
      *
-     * @see JpaRepository#getOne(Serializable)
+     * @see JpaRepository#getOne(Object)
      */
     @Test
     public void test_getOne_notExisting() {
@@ -155,7 +158,9 @@ public class CommonRepositoryTest {
         }
     }
 
-    /** @see CrudRepository#save(Object) */
+    /**
+     * @see CrudRepository#save(Object)
+     */
     @Test
     public void test_save_create() {
         {
@@ -165,8 +170,12 @@ public class CommonRepositoryTest {
         }
         {
             long count = userDao.count();
-            userDao.save(User.builder().email("foo@bar.fr").password(new PasswordGenerator().get())
-                    .active(new Random().nextBoolean()).build());
+            userDao.save(
+                    User.builder()
+                            .email("foo@bar.fr")
+                            .password(new PasswordGenerator().get())
+                            .active(new Random().nextBoolean())
+                            .build());
             assertThat(userDao.count(), is(equalTo(count + 1)));
         }
     }

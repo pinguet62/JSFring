@@ -1,14 +1,12 @@
 package fr.pinguet62.jsfring.webapp.jsf.config.scope;
 
-import javax.enterprise.context.RequestScoped;
-
 import org.springframework.context.annotation.Scope;
-import org.springframework.web.context.WebApplicationContext;
+
+import static org.springframework.web.context.WebApplicationContext.SCOPE_REQUEST;
 
 /**
- * @see Scope
- * @see RequestScoped
+ * Meta-annotation for <i>request</i> {@link Scope}.
  */
-@Scope(WebApplicationContext.SCOPE_REQUEST)
+@Scope(SCOPE_REQUEST)
 public @interface SpringRequestScoped {
 }

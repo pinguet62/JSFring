@@ -1,17 +1,15 @@
 package fr.pinguet62.jsfring.common.reflection;
 
+import fr.pinguet62.jsfring.util.querydsl.model.QProfile;
+import fr.pinguet62.jsfring.util.querydsl.model.QRight;
+import fr.pinguet62.jsfring.util.querydsl.model.QUser;
+import org.junit.Test;
+
 import static java.util.Arrays.asList;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
-
-import org.junit.Test;
-
-import fr.pinguet62.jsfring.common.reflection.PropertyResolver;
-import fr.pinguet62.jsfring.util.querydsl.model.QProfile;
-import fr.pinguet62.jsfring.util.querydsl.model.QRight;
-import fr.pinguet62.jsfring.util.querydsl.model.QUser;
 
 /**
  * @see PropertyResolver
@@ -35,7 +33,9 @@ public final class PropertyResolverTest {
             }
     }
 
-    /** Multi-property. */
+    /**
+     * Multi-property.
+     */
     @Test
     public void test_appy() {
         class Bar {
@@ -54,7 +54,9 @@ public final class PropertyResolverTest {
         assertThat(new PropertyResolver(foo).apply("bar.attr"), is(equalTo(foo.bar.attr)));
     }
 
-    /** Meta-model for QueryDsl. */
+    /**
+     * Meta-model for QueryDsl.
+     */
     @Test
     public void test_appy_QModel() {
         {

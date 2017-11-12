@@ -1,27 +1,19 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit.user;
 
-import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.Delay.MEDIUM;
-import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.Delay.SHORT;
-import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.user.UsersPage.Column.ACTIVE;
-import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.user.UsersPage.Column.EMAIL;
+import com.gargoylesoftware.htmlunit.html.*;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.NavigatorException;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.AbstractDatatablePage;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.field.SelectOneButton;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.user.popup.UserCreatePopup;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.function.Function;
 
-import com.gargoylesoftware.htmlunit.html.HtmlButton;
-import com.gargoylesoftware.htmlunit.html.HtmlDivision;
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
-import com.gargoylesoftware.htmlunit.html.HtmlLabel;
-import com.gargoylesoftware.htmlunit.html.HtmlListItem;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlTableHeaderCell;
-import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
-
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.NavigatorException;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.AbstractDatatablePage;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.field.SelectOneButton;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.user.popup.UserCreatePopup;
+import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.Delay.MEDIUM;
+import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.Delay.SHORT;
+import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.user.UsersPage.Column.ACTIVE;
+import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.user.UsersPage.Column.EMAIL;
 
 public final class UsersPage extends AbstractDatatablePage<UserRow, UserCreatePopup> {
 
@@ -67,8 +59,7 @@ public final class UsersPage extends AbstractDatatablePage<UserRow, UserCreatePo
      * Test if the {@link Column} is visible.<br>
      * Check that {@link HtmlTableHeaderCell table header} {@code class} contains {@code "ui-helper-hidden"} value.
      *
-     * @param column
-     *            The {@link Column}.
+     * @param column The {@link Column}.
      * @return The result.
      */
     public boolean columnVisibile(Column column) {
@@ -86,9 +77,8 @@ public final class UsersPage extends AbstractDatatablePage<UserRow, UserCreatePo
     }
 
     /**
-     * @param value
-     *            The value to set.<br>
-     *            {@code null} to reset filter.
+     * @param value The value to set.<br>
+     *              {@code null} to reset filter.
      */
     public void filterEmail(String value) {
         HtmlInput input = (HtmlInput) getDatatableTableHeader(EMAIL.getTitle())
@@ -146,8 +136,7 @@ public final class UsersPage extends AbstractDatatablePage<UserRow, UserCreatePo
      * <p>
      * <code>&lt;span class="...ui-column-title..."&gt;</code>
      *
-     * @param column
-     *            The {@link Column}.
+     * @param column The {@link Column}.
      */
     public void sortBy(Column column) {
         sortBy(column.getTitle());

@@ -1,7 +1,6 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit.user.popup;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.popup.DetailsPopup;
 

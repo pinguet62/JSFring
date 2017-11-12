@@ -1,9 +1,7 @@
 package fr.pinguet62.jsfring.common.security.userdetails;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.Optional;
-
+import fr.pinguet62.jsfring.dao.sql.UserDao;
+import fr.pinguet62.jsfring.model.sql.User;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,10 +10,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.pinguet62.jsfring.dao.sql.UserDao;
-import fr.pinguet62.jsfring.model.sql.User;
+import java.util.Optional;
 
-// TODO Move to common project
+import static java.util.Objects.requireNonNull;
+
 /**
  * Implementation of {@link UserDetailsService}.<br>
  * <ol>
@@ -42,11 +40,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      * The login process.<br>
      * Reset {@link User#lastConnection} after connection.
      *
-     * @param id
-     *            The {@link User#email user's login}.
+     * @param id The {@link User#email user's login}.
      * @return The {@link UserDetails}.
-     * @throws UsernameNotFoundException
-     *             If {@link User} is not found.
+     * @throws UsernameNotFoundException If {@link User} is not found.
      * @see UserDetailsImpl
      */
     @Override

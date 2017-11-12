@@ -1,6 +1,8 @@
 package fr.pinguet62.jsfring.test;
 
-/** Simple override of {@link RuntimeException} used by tests. */
+/**
+ * Simple override of {@link RuntimeException} used by tests.
+ */
 public class TestRuntimeException extends RuntimeException {
 
     private static final long serialVersionUID = 1;
@@ -16,8 +18,7 @@ public class TestRuntimeException extends RuntimeException {
     /**
      * Constructor with message.
      *
-     * @param message
-     *            The detail message.
+     * @param message The detail message.
      * @see RuntimeException#RuntimeException(String)
      */
     public TestRuntimeException(String message) {
@@ -27,8 +28,7 @@ public class TestRuntimeException extends RuntimeException {
     /**
      * Constructor with cause.
      *
-     * @param cause
-     *            The {@link Exception#getCause()}.
+     * @param cause The {@link Exception#getCause()}.
      * @see RuntimeException#RuntimeException(Throwable)
      */
     public TestRuntimeException(Throwable cause) {
