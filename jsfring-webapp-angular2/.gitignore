@@ -1,4 +1,3 @@
-src/main/webapp/node_modules/
-src/main/webapp/typings/
-src/main/webapp/app/**/*.js
-src/main/webapp/app/**/*.js.map
+/node_modules
+/dist
+package-lock.json

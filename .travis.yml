@@ -51,5 +51,5 @@ after_script:
     - mvn -DskipTests heroku:deploy -pl jsfring-batch-admin
     - mvn -DskipTests heroku:deploy -pl jsfring-webservice
 #    - mvn -DskipTests heroku:deploy -pl jsfring-webapp-angularjs
-#    - mvn -DskipTests heroku:deploy -pl jsfring-webapp-angular2
+    - mvn -DskipTests heroku:deploy -pl jsfring-webapp-angular2
     - mvn -DskipTests heroku:deploy -pl jsfring-webapp-jsf

@@ -6,10 +6,12 @@
     "ng": "ng",
     "prestart": "node ./prestart.js",
     "start": "ng serve",
+    "prebuild": "node ./prestart.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "heroku": "http-server ./dist -p $PORT -c-1"
   },
   "private": false,
   "dependencies": {
@@ -26,6 +28,7 @@
     "@angular/router": "^5.0.0",
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",
+    "http-server": "^0.10.0",
     "primeng": "^5.0.0-rc.0",
     "rxjs": "^5.5.2",
     "zone.js": "^0.8.14"

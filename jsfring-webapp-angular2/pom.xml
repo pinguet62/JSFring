@@ -10,7 +10,6 @@
     </parent>
 
     <artifactId>webapp-angular2</artifactId>
-    <packaging>war</packaging>
 
     <name>Angular 2</name>
     <description>Angular 2 web application</description>
@@ -18,15 +17,78 @@
 
     <build>
         <plugins>
+            <!-- Disable unnecessary phases -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
                 <configuration>
                     <filesets>
                         <fileset>
-                            <directory>src/main/webapp/node_modules</directory>
+                            <directory>node_modules</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>dist</directory>
                         </fileset>
                     </filesets>
                 </configuration>
+            </plugin>
+
+            <!-- NodeJS & NPM -->
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>1.6</version>
+                <configuration>
+                    <installDirectory>target</installDirectory>
+                    <workingDirectory>.</workingDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>node-npm</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                        <configuration>
+                            <nodeVersion>v8.9.1</nodeVersion>
+                            <npmVersion>5.5.1</npmVersion>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>install</arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>build</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>run build</arguments>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
@@ -35,7 +97,8 @@
                 <configuration>
                     <includeTarget>false</includeTarget>
                     <includes>
-                        <include>jsfring-${project.artifactId}/target/${project.artifactId}-${project.version}</include>
+                        <include>jsfring-${project.artifactId}/package.json</include>
+                        <include>jsfring-${project.artifactId}/dist</include>
                     </includes>
                     <appName>jsfring-${project.artifactId}</appName>
                     <buildpacks>
@@ -48,8 +111,7 @@
                         <NPM_CONFIG_PRODUCTION>false</NPM_CONFIG_PRODUCTION>
                     </configVars>
                     <processTypes>
-                        <!-- "prefix": non-root "package.json" support -->
-                        <web>npm run heroku --prefix target/${project.artifactId}-${project.version}</web>
+                        <web>npm run heroku</web>
                     </processTypes>
                 </configuration>
             </plugin>
