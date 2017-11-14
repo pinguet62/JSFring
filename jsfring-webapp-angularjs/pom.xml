@@ -10,7 +10,6 @@
     </parent>
 
     <artifactId>webapp-angularjs</artifactId>
-    <packaging>war</packaging>
 
     <name>AngularJS</name>
     <description>AngularJS web application, using Webjars</description>
@@ -18,13 +17,81 @@
 
     <build>
         <plugins>
+            <!-- Disable unnecessary phases -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>node_modules</directory>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+
+            <!-- NodeJS & NPM -->
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>1.6</version>
+                <configuration>
+                    <installDirectory>target</installDirectory>
+                    <workingDirectory>.</workingDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>node-npm</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                        <configuration>
+                            <nodeVersion>v8.9.1</nodeVersion>
+                            <npmVersion>5.5.1</npmVersion>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>install</arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>com.heroku.sdk</groupId>
                 <artifactId>heroku-maven-plugin</artifactId>
                 <configuration>
                     <includeTarget>false</includeTarget>
                     <includes>
-                        <include>jsfring-${project.artifactId}/target/${project.artifactId}-${project.version}</include>
+                        <include>jsfring-${project.artifactId}/css</include>
+                        <include>jsfring-${project.artifactId}/images</include>
+                        <include>jsfring-${project.artifactId}/js</include>
+                        <include>jsfring-${project.artifactId}/views</include>
+                        <include>jsfring-${project.artifactId}/404.html</include>
+                        <include>jsfring-${project.artifactId}/favicon.ico</include>
+                        <include>jsfring-${project.artifactId}/index.html</include>
+                        <include>jsfring-${project.artifactId}/package.json</include>
                     </includes>
                     <appName>jsfring-${project.artifactId}</appName>
                     <buildpacks>
@@ -37,8 +104,7 @@
                         <NPM_CONFIG_PRODUCTION>false</NPM_CONFIG_PRODUCTION>
                     </configVars>
                     <processTypes>
-                        <!-- "prefix": non-root "package.json" support -->
-                        <web>npm run heroku --prefix target/${project.artifactId}-${project.version}</web>
+                        <web>npm run heroku</web>
                     </processTypes>
                 </configuration>
             </plugin>

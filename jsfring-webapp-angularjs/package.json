@@ -1,0 +1,24 @@
+{
+  "name": "JSFring",
+  "version": "1.0.0",
+  "scripts": {
+    "lite": "lite-server",
+    "start": "npm run lite",
+    "heroku": "http-server ./ -p $PORT -c-1"
+  },
+  "dependencies": {
+    "jquery": "3.2.1",
+    "angular": "1.5.11",
+    "angular-route": "1.5.11",
+    "angular-translate": "2.16.0",
+    "angular-ui-grid": "4.0.10",
+    "pdfmake": "0.1.33",
+    "bootstrap": "3.3.7",
+    "angular-bootstrap": "0.12.2",
+    "ng-dialog": "1.4.0"
+  },
+  "devDependencies": {
+    "lite-server": "^2.3.0",
+    "http-server": "^0.10.0"
+  }
+}

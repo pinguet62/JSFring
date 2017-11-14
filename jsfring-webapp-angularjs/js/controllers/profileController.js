@@ -53,7 +53,7 @@
 			// };
 			
 			// TODO synchrone
-			var rights = null;
+			let rights = null;
 			rightService.list(function(results) {
 				rights = results;
 			});
@@ -66,8 +66,8 @@
 					source: [],
 					target: []
 				};
-				// TODO Synchrone: var rights = rightService.list();
-				for (var i = 0 ; i < rights.length ; i ++)
+				// TODO Synchrone: let rights = rightService.list();
+				for (let i = 0 ; i < rights.length ; i ++)
 					if ($scope.selectedValue.rights.indexOf($scope.itemKeyConverter(rights[i])) === -1)
 						$scope.rightsAssociation.source.push(rights[i]);
 					else
@@ -77,7 +77,7 @@
 			$scope.update = function() {
 				// Right association
 				$scope.selectedValue.rights = [];
-				for (var i = 0 ; i < $scope.rightsAssociation.target.length ; i ++)
+				for (let i = 0 ; i < $scope.rightsAssociation.target.length ; i ++)
 					$scope.selectedValue.rights.push($scope.itemKeyConverter($scope.rightsAssociation.target[i]));
 				
 				profileService.update($scope.selectedValue);

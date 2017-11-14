@@ -7,7 +7,7 @@
 	 * @return The index of object. -1 if not found.
 	 */
 	function find(array, predicate) {
-		for (var i = 0 ; i < array.length ; i ++)
+		for (let i = 0 ; i < array.length ; i ++)
 			if (predicate(array[i], i))
 				return i;
 		return -1;

@@ -54,7 +54,7 @@
 			// };
 			
 			// TODO synchrone
-			var profiles = null;
+			let profiles = null;
 			profileService.list(function(results) {
 				profiles = results;
 			});
@@ -67,8 +67,8 @@
 					source: [],
 					target: []
 				};
-				// TODO Synchrone: var profiles = rightService.list();
-				for (var i = 0 ; i < profiles.length ; i ++)
+				// TODO Synchrone: let profiles = rightService.list();
+				for (let i = 0 ; i < profiles.length ; i ++)
 					if ($scope.selectedValue.profiles.indexOf($scope.itemKeyConverter(profiles[i])) === -1)
 						$scope.profilesAssociation.source.push(profiles[i]);
 					else
@@ -78,7 +78,7 @@
 			$scope.update = function() {
 				// Profile association
 				$scope.selectedValue.profiles = [];
-				for (var i = 0 ; i < profilesAssociation.target.length ; i ++)
+				for (let i = 0 ; i < profilesAssociation.target.length ; i ++)
 					$scope.selectedValue.rights.push($scope.itemKeyConverter($scope.profilesAssociation.target[i]));
 				
 				userService.update($scope.selectedValue);

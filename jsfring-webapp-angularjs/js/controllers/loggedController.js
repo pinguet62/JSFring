@@ -11,7 +11,7 @@
 	angular.module('jsangleApp')
 		.controller('loggedController', ['$scope', '$routeParams', '$http', '$location', function($scope, $routeParams, $http, $location) {
 
-			var token = $routeParams.access_token
+			let token = $routeParams.access_token
 			$http.defaults.headers.common.Authorization = 'Bearer ' + token // Save for webservice calls
 			$location.path('/') // Reset URL
 
