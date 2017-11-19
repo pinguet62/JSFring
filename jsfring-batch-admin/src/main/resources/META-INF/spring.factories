@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+fr.pinguet62.jsfring.batch.admin.config.BatchAdminAutoConfiguration,\
+fr.pinguet62.jsfring.batch.admin.config.BatchAdminAutoConfigurationFix

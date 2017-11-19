@@ -19,7 +19,7 @@ import org.springframework.transaction.PlatformTransactionManager;
  * @see SimpleBatchConfiguration
  */
 @Configuration
-public class FixBatchAdminConfig extends SimpleBatchConfiguration {
+public class BatchAdminConfigFix extends SimpleBatchConfiguration {
 
     @Autowired
     private JobRepository jobRepository;
