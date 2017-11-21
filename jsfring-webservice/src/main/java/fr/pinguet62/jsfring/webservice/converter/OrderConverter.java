@@ -3,11 +3,9 @@ package fr.pinguet62.jsfring.webservice.converter;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.ComparableExpressionBase;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
 
-@Component
 public class OrderConverter implements Converter<String, Function<ComparableExpressionBase<?>, OrderSpecifier<?>>> {
 
     public static final String ASC = "asc";
@@ -22,7 +20,7 @@ public class OrderConverter implements Converter<String, Function<ComparableExpr
             case DESC:
                 return x -> x.desc();
             default:
-                throw new UnsupportedOperationException("Unknow sort: " + order);
+                throw new UnsupportedOperationException("Unknown sort: " + order);
         }
     }
 

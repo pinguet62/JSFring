@@ -17,8 +17,11 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
+import static com.jayway.jsonpath.matchers.JsonPathMatchers.hasJsonPath;
+import static com.jayway.jsonpath.matchers.JsonPathMatchers.isJson;
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
 import static fr.pinguet62.jsfring.webservice.ProfileWebservice.PATH;
+import static java.util.Comparator.comparing;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
@@ -64,6 +67,37 @@ public class ProfileWebserviceITTest {
         List<Profile> expected = profileDao.findAll();
 
         assertThat(actual, arrayWithSize(expected.size()));
+    }
+
+    /**
+     * @see ProfileWebservice#find(int, int, String, String)
+     */
+    @Test
+    public void test_find() {
+        int page = 0;
+        int pageSize = 1;
+        String sortField = "title";
+        String sortOrder = "desc";
+
+        String result = authenticatedRestTemplate.getForObject(
+                PATH + "/find" + "?page={page}&pageSize={pageSize}&sortField={sortField}&sortOrder={sortOrder}",
+                String.class,
+                page, pageSize, sortField, sortOrder
+        );
+
+        Profile profile = profileDao.findAll().stream()
+                .sorted(comparing(Profile::getTitle).reversed()) // sortField
+                .findFirst().get();
+        assertThat(result, allOf(
+                hasJsonPath("total", equalTo((int) profileDao.count())), // no filter
+                hasJsonPath("results", hasSize(pageSize)),
+                hasJsonPath("results[0]", allOf(
+                        isJson(),
+                        hasJsonPath("id", equalTo(profile.getId())),
+                        hasJsonPath("title", equalTo(profile.getTitle())),
+                        hasJsonPath("rights", hasSize(profile.getRights().size()))
+                ))
+        ));
     }
 
 }

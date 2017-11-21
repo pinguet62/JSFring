@@ -6,8 +6,8 @@ import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.ComparableExpressionBase;
 import fr.pinguet62.jsfring.common.reflection.PropertyResolver;
-import fr.pinguet62.jsfring.common.spring.GenericTypeDescriptor;
 import fr.pinguet62.jsfring.service.AbstractService;
+import fr.pinguet62.jsfring.webservice.converter.OrderConverter;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,8 +19,7 @@ import java.io.Serializable;
 import java.util.function.Function;
 
 import static java.util.Objects.requireNonNull;
-import static org.springframework.core.ResolvableType.forClassWithGenerics;
-import static org.springframework.core.convert.TypeDescriptor.valueOf;
+import static org.springframework.data.querydsl.QSort.unsorted;
 
 public abstract class AbstractWebservice<T extends Serializable, PK extends Serializable> {
 
@@ -29,6 +28,8 @@ public abstract class AbstractWebservice<T extends Serializable, PK extends Seri
     public AbstractWebservice(ConversionService conversionService) {
         this.conversionService = requireNonNull(conversionService);
     }
+
+    // TODO refactor with AbstractLazyDataModel#load()
 
     /**
      * @param service   The {@link AbstractService}.
@@ -42,23 +43,19 @@ public abstract class AbstractWebservice<T extends Serializable, PK extends Seri
      */
     public Page<T> findAll(AbstractService<T, PK> service, EntityPath<T> path, int pageIndex, int pageSize, String sortField,
                            String sortOrder) {
-        // Pagination
-        Pageable pageable = new QPageRequest(pageIndex, pageSize);
-
-        // Sorting
+        // Order
+        QSort sort = unsorted();
         if (sortField != null) {
             ComparableExpressionBase<?> field = (ComparableExpressionBase<?>) new PropertyResolver(path).apply(sortField);
-            @SuppressWarnings("unchecked")
-            Function<ComparableExpressionBase<?>, OrderSpecifier<?>> orderer = (Function<ComparableExpressionBase<?>, OrderSpecifier<?>>) conversionService
-                    .convert(sortOrder, valueOf(String.class), new GenericTypeDescriptor(
-                            forClassWithGenerics(Function.class, ComparableExpressionBase.class, OrderSpecifier.class)));
-            OrderSpecifier<?> order = orderer.apply(field);
-            pageable.getSort().and(new QSort(order));
+            Function<ComparableExpressionBase<?>, OrderSpecifier<?>> orderApplier = new OrderConverter().convert(sortOrder);
+            OrderSpecifier<?> orderSpecifier = orderApplier.apply(field);
+            sort = new QSort(orderSpecifier);
         }
         // Filter
-        // TODO Evolution: webservice filter
+        // TODO enhancement: webservice filter
         Predicate predicate = new BooleanBuilder();
 
+        Pageable pageable = new QPageRequest(pageIndex, pageSize, sort);
         return service.findAll(predicate, pageable);
     }
 

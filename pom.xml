@@ -137,6 +137,7 @@
 						<!-- Generated sources -->
 						<exclude>org/bson/types/QObjectId.class</exclude>
 						<exclude>fr/pinguet62/jsfring/model/**/Q*.class</exclude>
+						<exclude>fr/pinguet62/jsfring/webservice/converter/*MapperImpl.class</exclude>
 						<!-- Fix -->
 						<exclude>**com.steadystate*</exclude>
 					</excludes>

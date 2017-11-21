@@ -1,9 +1,10 @@
 package fr.pinguet62.jsfring.webservice;
 
-import fr.pinguet62.jsfring.common.spring.GenericTypeDescriptor;
 import fr.pinguet62.jsfring.model.sql.Profile;
 import fr.pinguet62.jsfring.model.sql.QProfile;
 import fr.pinguet62.jsfring.service.ProfileService;
+import fr.pinguet62.jsfring.webservice.converter.PageMapper;
+import fr.pinguet62.jsfring.webservice.converter.ProfileMapper;
 import fr.pinguet62.jsfring.webservice.dto.PageDto;
 import fr.pinguet62.jsfring.webservice.dto.ProfileDto;
 import org.springframework.core.convert.ConversionService;
@@ -15,9 +16,6 @@ import java.util.List;
 import static fr.pinguet62.jsfring.webservice.ProfileWebservice.PATH;
 import static fr.pinguet62.jsfring.webservice.converter.OrderConverter.ASC;
 import static java.util.Objects.requireNonNull;
-import static org.springframework.core.ResolvableType.forClassWithGenerics;
-import static org.springframework.core.convert.TypeDescriptor.collection;
-import static org.springframework.core.convert.TypeDescriptor.valueOf;
 
 @RestController
 @RequestMapping(PATH)
@@ -25,19 +23,22 @@ public final class ProfileWebservice extends AbstractWebservice<Profile, Integer
 
     public static final String PATH = "/profile";
 
-    private final ConversionService conversionService;
-
     private final ProfileService profileService;
 
-    public ProfileWebservice(ConversionService conversionService, ProfileService profileService) {
+    private final ProfileMapper converter;
+
+    private final ConversionService conversionService;
+
+    public ProfileWebservice(ProfileService profileService, ProfileMapper converter, ConversionService conversionService) {
         super(conversionService);
-        this.conversionService = requireNonNull(conversionService);
         this.profileService = requireNonNull(profileService);
+        this.converter = requireNonNull(converter);
+        this.conversionService = requireNonNull(conversionService);
     }
 
     @PutMapping
     public void create(@RequestBody ProfileDto profileDto) {
-        Profile profile = conversionService.convert(profileDto, Profile.class);
+        Profile profile = converter.fromDto(profileDto);
         profileService.create(profile);
     }
 
@@ -53,34 +54,32 @@ public final class ProfileWebservice extends AbstractWebservice<Profile, Integer
      * @return The found results.
      */
     @GetMapping("/find")
-    public PageDto<ProfileDto> find(@RequestParam(value = "page", defaultValue = "0") int page,
-                                    @RequestParam(value = "pageSize", defaultValue = "20") int pageSize,
-                                    @RequestParam(value = "sortField") String sortField,
-                                    @RequestParam(value = "sortOrder", defaultValue = ASC) String sortOrder) {
+    public PageDto<ProfileDto> find(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "pageSize", defaultValue = "20") int pageSize,
+            @RequestParam(value = "sortField") String sortField,
+            @RequestParam(value = "sortOrder", defaultValue = ASC) String sortOrder
+    ) {
         Page<Profile> results = super.findAll(profileService, QProfile.profile, page, pageSize, sortField, sortOrder);
-        return (PageDto<ProfileDto>) conversionService.convert(results,
-                new GenericTypeDescriptor(forClassWithGenerics(Page.class, Profile.class)),
-                new GenericTypeDescriptor(forClassWithGenerics(PageDto.class, ProfileDto.class)));
+        return PageMapper.toDto(results, converter::toDto);
     }
 
     @GetMapping("/{id}")
     public ProfileDto get(@PathVariable int id) {
         Profile profile = profileService.get(id);
-        if (profile == null)
-            return null;
-        return conversionService.convert(profile, ProfileDto.class);
+        return converter.toDto(profile);
     }
 
     @GetMapping
     public List<ProfileDto> list() {
-        List<Profile> pojos = profileService.getAll();
-        return (List<ProfileDto>) conversionService.convert(pojos, collection(List.class, valueOf(Profile.class)),
-                collection(List.class, valueOf(ProfileDto.class)));
+        List<Profile> profiles = profileService.getAll();
+        return converter.toDto(profiles);
     }
 
     @PostMapping
     public void update(@RequestBody ProfileDto profileDto) {
-        Profile profile = conversionService.convert(profileDto, Profile.class);
+        Profile profile = profileService.get(profileDto.getId());
+        converter.updateFromDto(profile, profileDto);
         profileService.update(profile);
     }
 
