@@ -10,17 +10,16 @@ env:
 
 before_install:
     # Versionning
-    # Disabled: - mvn versioneye:update
     - mvn versions:display-dependency-updates
     - mvn versions:display-plugin-updates
     - mvn versions:display-property-updates
 
-install: # Default: `mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V`
-    # Disabled
+# Override: `mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V`
+install: true
 
-# Override: add integration-test Maven phase
-script: # Default: `mvn test -B`
-    - mvn -B package
+# Override: `mvn test -B`
+script:
+    - mvn clean install -B
     
     # Documentation: generate site
     # Disabled: - mvn site
