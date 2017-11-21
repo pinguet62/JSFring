@@ -60,7 +60,7 @@
 			<dependency>
 				<groupId>com.opencsv</groupId>
 				<artifactId>opencsv</artifactId>
-				<version>4.0</version>
+				<version>4.1</version>
 			</dependency>
 			<!-- Micosoft Office -->
 			<dependency>
@@ -192,41 +192,8 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<groupId>org.asciidoctor</groupId>
-				<artifactId>asciidoctor-maven-plugin</artifactId>
-				<version>1.5.6</version>
-				<executions>
-					<execution>
-						<id>output-html</id>
-						<phase>generate-resources</phase>
-						<goals>
-							<goal>process-asciidoc</goal>
-						</goals>
-						<configuration>
-							<sourceHighlighter>coderay</sourceHighlighter>
-							<backend>html</backend>
-							<attributes>
-								<toc />
-								<linkcss>false</linkcss>
-							</attributes>
-						</configuration>
-					</execution>
-					<execution>
-						<id>output-docbook</id>
-						<phase>generate-resources</phase>
-						<goals>
-							<goal>process-asciidoc</goal>
-						</goals>
-						<configuration>
-							<backend>docbook</backend>
-							<doctype>book</doctype>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 
-			<!-- Prerequis: "HEROKU_API_KEY" env variable -->
+			<!-- Requirement: "HEROKU_API_KEY" env variable -->
 			<!-- Usage: mvn heroku:deploy -pl %MODULE% -->
 			<plugin>
 				<groupId>com.heroku.sdk</groupId>
