@@ -1,4 +1,4 @@
-package fr.pinguet62.jsfring.webservice;
+package fr.pinguet62.jsfring.webservice.controller;
 
 import fr.pinguet62.jsfring.model.sql.User;
 import fr.pinguet62.jsfring.service.UserService;
@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static fr.pinguet62.jsfring.webservice.UserWebservice.PATH;
+import static fr.pinguet62.jsfring.webservice.controller.UserController.PATH;
 import static java.util.Objects.requireNonNull;
 
 @RestController
 @RequestMapping(PATH)
-public final class UserWebservice {
+public final class UserController {
 
     public static final String PATH = "/user";
 
@@ -21,7 +21,7 @@ public final class UserWebservice {
 
     private final UserMapper converter;
 
-    public UserWebservice(UserService userService, UserMapper converter) {
+    public UserController(UserService userService, UserMapper converter) {
         this.userService = requireNonNull(userService);
         this.converter = requireNonNull(converter);
     }

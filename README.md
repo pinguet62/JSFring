@@ -19,7 +19,7 @@ Layers :
 			* <img src="https://upload.wikimedia.org/wikipedia/en/4/45/MongoDB-Logo.svg" height="25" /> [MongoDB](https://www.mongodb.org)
 	* <img src="https://avatars2.githubusercontent.com/u/7044479?v=3&s=200" height="25" /> [Querydsl](http://www.querydsl.com)
 * Webservice:
-	* <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> [**Spring MVC**](https://spring.io/guides/gs/serving-web-content/) by <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" />
+	* <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> [**Spring MVC**](https://spring.io/guides/gs/serving-web-content) by <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" />
 	* <img src="https://www.javacodegeeks.com/wp-content/uploads/2014/07/spring-security-project.png" height="25" /> [Spring security](http://projects.spring.io/spring-security) by <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" />
 	* <img src="http://oauth.net/images/oauth-2-sm.png" height="25" /> [OAuth2](http://oauth.net/2) by <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" />
 * Webapp:
@@ -35,8 +35,9 @@ Layers :
 			* <img src="https://angular-translate.github.io/img/logo/angular-translate-alternative/angular-translate_alternative_medium2.png" height="25" /> [Angular Translate](https://angular-translate.github.io)
 			* [ngDialog](http://ngmodules.org/modules/ngDialog)
 			* [UI Grid](http://ui-grid.info)
-	* <img src="https://angular.io/resources/images/logos/angular/angular.svg" height="25" /> [**Angular**](https://angular.io)
-		* <img src="http://www.primefaces.org/primeng/showcase/resources/images/primeng.svg" height="25" /> [Primeng](http://www.primefaces.org/primeng)
+	* <img src="https://angular.io/assets/images/logos/angular/logo-nav@2x.png" height="25" /> [**Angular**](https://angular.io)
+		* <img src="https://www.primefaces.org/primeng/assets/showcase/images/logo.png" height="25" /> [Primeng](http://www.primefaces.org/primeng)
+		* [Material 2](https://material.angular.io)
 * Batch:
 	* <img src="https://www.javacodegeeks.com/wp-content/uploads/2014/07/spring-batch-project.png" height="25" /> [Spring batch](http://projects.spring.io/spring-batch) by <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" />
 	* [Spring batch admin](http://docs.spring.io/spring-batch-admin)
@@ -44,8 +45,6 @@ Layers :
 Transverse :
 * *Transverse*
 	* <img src="https://upload.wikimedia.org/wikipedia/fr/2/2e/Java_Logo.svg" height="25" /> [**Java**](http://www.oracle.com/technetwork/java/index.html)
-	* **Java EE**
-		* [CDI](https://docs.oracle.com/javaee/7/tutorial/cdi-basic.htm) (Contexts and Dependency Injection)
 	* <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> [**Spring framework**](http://projects.spring.io/spring-framework)
 		* <img src="http://g00glen00b.be/wp-content/uploads/2012/08/spring-boot-logo.png" height="25" /> [Spring Boot](http://projects.spring.io/spring-boot) by <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" />
 		* [Caching Data](https://spring.io/guides/gs/caching)
@@ -53,9 +52,8 @@ Transverse :
 * Tests:
 	* <img src="http://junit.org/junit4/images/junit-logo.png" height="25" /> [**JUnit**](http://junit.org)
 	* <img src="http://hamcrest.org/images/logo.jpg" height="25" /> [Hamcrest](http://hamcrest.org/JavaHamcrest)
-	* <img src="http://dbunit.sourceforge.net/images/dbunit-logo.jpg" height="25" /> [**DBUnit**](http://dbunit.sourceforge.net)
-	* <img src="http://htmlunit.sourceforge.net/images/GargoyleSoftwareLogo.jpg" height="25" /> [**HtmlUnit**](http://htmlunit.sourceforge.net/)
-	* [Spring Test DBUnit](http://springtestdbunit.github.io/spring-test-dbunit)
+	* <img src="http://dbunit.sourceforge.net/images/dbunit-logo.jpg" height="25" /> [**DBUnit**](http://dbunit.sourceforge.net) + [Spring Test DBUnit](http://springtestdbunit.github.io/spring-test-dbunit)
+	* <img src="http://htmlunit.sourceforge.net/images/GargoyleSoftwareLogo.jpg" height="25" /> [**HtmlUnit**](http://htmlunit.sourceforge.net)
 * Logging:
 	* <img src="http://www.slf4j.org/images/logos/slf4j-logo.jpg" height="25" /> [SLF4J](http://www.slf4j.org)
 	* <img src="https://logback.qos.ch/images/logos/lblogo.jpg" height="25" /> [**Logback**](https://logback.qos.ch)

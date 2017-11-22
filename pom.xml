@@ -1,293 +1,294 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.0.M6</version>
-	</parent>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.0.M6</version>
+    </parent>
 
-	<groupId>fr.pinguet62.jsfring</groupId>
-	<artifactId>jsfring</artifactId>
-	<version>1.0-SNAPSHOT</version>
-	<packaging>pom</packaging>
+    <groupId>fr.pinguet62.jsfring</groupId>
+    <artifactId>jsfring</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
-	<modules>
-		<module>jsfring-documentation</module>
-		<module>jsfring-database</module>
-		<module>jsfring-common</module>
-		<module>jsfring-common-test</module>
-		<module>jsfring-common-security</module>
-		<module>jsfring-business</module>
-		<module>jsfring-indexer-nosql</module>
-		<module>jsfring-task</module>
-		<module>jsfring-batch</module>
-		<module>jsfring-batch-admin</module>
-		<module>jsfring-webservice</module>
-		<module>jsfring-webapp-angularjs</module>
-		<module>jsfring-webapp-angular2</module>
-		<module>jsfring-webapp-jsf-htmlunit</module>
-		<module>jsfring-webapp-jsf</module>
-	</modules>
+    <modules>
+        <module>jsfring-documentation</module>
+        <module>jsfring-database</module>
+        <module>jsfring-common</module>
+        <module>jsfring-common-test</module>
+        <module>jsfring-common-security</module>
+        <module>jsfring-business</module>
+        <module>jsfring-indexer-nosql</module>
+        <module>jsfring-task</module>
+        <module>jsfring-batch</module>
+        <module>jsfring-batch-admin</module>
+        <module>jsfring-webservice</module>
+        <module>jsfring-webapp-angularjs</module>
+        <module>jsfring-webapp-angular2</module>
+        <module>jsfring-webapp-jsf-htmlunit</module>
+        <module>jsfring-webapp-jsf</module>
+    </modules>
 
-	<properties>
-		<java.version>1.8</java.version>
-		<dependency.locations.enabled>false</dependency.locations.enabled>
-	</properties>
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-		</dependency>
-	</dependencies>
-	<dependencyManagement>
-		<dependencies>
-			<!-- ===== File parsing ===== -->
-			<!-- CSV -->
-			<dependency>
-				<groupId>com.opencsv</groupId>
-				<artifactId>opencsv</artifactId>
-				<version>4.1</version>
-			</dependency>
-			<!-- Micosoft Office -->
-			<dependency>
-				<groupId>org.apache.poi</groupId>
-				<artifactId>poi-ooxml</artifactId>
-				<!-- old required by PrimeFaces -->
-				<version>3.16</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.poi</groupId>
-				<artifactId>poi-scratchpad</artifactId>
-				<!-- old required by PrimeFaces -->
-				<version>3.16</version>
-			</dependency>
-			<!-- OpenDocument -->
-			<dependency>
-				<groupId>org.odftoolkit</groupId>
-				<artifactId>odfdom-java</artifactId>
-				<version>0.8.7</version>
-			</dependency>
-			<!-- HTML -->
-			<dependency>
-				<groupId>org.jsoup</groupId>
-				<artifactId>jsoup</artifactId>
-				<version>1.10.3</version>
-			</dependency>
-			<!-- PDF -->
-			<dependency>
-				<groupId>com.lowagie</groupId>
-				<artifactId>itext</artifactId>
-				<!-- old required by PrimeFaces -->
-				<version>2.1.7</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
 
-	<build>
-		<plugins>
-			<plugin>
-				<!-- https://www.VersionEye.com -->
-				<!-- Usage: -->
-				<!-- mvn versioneye:create -->
-				<!-- mvn versioneye:update -->
-				<groupId>com.versioneye</groupId>
-				<artifactId>versioneye-maven-plugin</artifactId>
-				<version>3.11.4</version>
-				<configuration>
-					<apiKey>73246844526169383da8</apiKey>
-					<ignoreDependencyManagement>true</ignoreDependencyManagement>
-				</configuration>
-			</plugin>
-			<plugin>
-				<!-- Usage: -->
-				<!-- mvn versions:display-dependency-updates -->
-				<!-- mvn versions:display-plugin-updates -->
-				<!-- mvn versions:display-property-updates -->
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>versions-maven-plugin</artifactId>
-				<configuration>
-					<processParent>false</processParent>
-					<processDependencyManagement>false</processDependencyManagement>
-				</configuration>
-			</plugin>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
-			<!-- Code Coverage -->
-			<plugin>
-				<!-- Agent -->
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.7.9</version>
-				<configuration>
-					<excludes>
-						<exclude>fr/pinguet62/jsfring/gui/htmlunit/**/*.*</exclude>
-						<!-- Generated sources -->
-						<exclude>org/bson/types/QObjectId.class</exclude>
-						<exclude>fr/pinguet62/jsfring/model/**/Q*.class</exclude>
-						<exclude>fr/pinguet62/jsfring/webservice/converter/*MapperImpl.class</exclude>
-						<!-- Fix -->
-						<exclude>**com.steadystate*</exclude>
-					</excludes>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>report</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<!-- Reporting -->
-				<!-- https://coveralls.io -->
-				<groupId>org.eluder.coveralls</groupId>
-				<artifactId>coveralls-maven-plugin</artifactId>
-				<version>4.3.0</version>
-			</plugin>
+    <dependencyManagement>
+        <dependencies>
+            <!-- ===== File parsing ===== -->
+            <!-- CSV -->
+            <dependency>
+                <groupId>com.opencsv</groupId>
+                <artifactId>opencsv</artifactId>
+                <version>4.1</version>
+            </dependency>
+            <!-- Micosoft Office -->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <!-- old required by PrimeFaces -->
+                <version>3.16</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-scratchpad</artifactId>
+                <!-- old required by PrimeFaces -->
+                <version>3.16</version>
+            </dependency>
+            <!-- OpenDocument -->
+            <dependency>
+                <groupId>org.odftoolkit</groupId>
+                <artifactId>odfdom-java</artifactId>
+                <version>0.8.7</version>
+            </dependency>
+            <!-- HTML -->
+            <dependency>
+                <groupId>org.jsoup</groupId>
+                <artifactId>jsoup</artifactId>
+                <version>1.10.3</version>
+            </dependency>
+            <!-- PDF -->
+            <dependency>
+                <groupId>com.lowagie</groupId>
+                <artifactId>itext</artifactId>
+                <!-- old required by PrimeFaces -->
+                <version>2.1.7</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
-			<!-- Documentation: site -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-site-plugin</artifactId>
-				<configuration>
-					<!-- See com.github.github:site-maven-plugin:site -->
-					<skipDeploy>true</skipDeploy>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>com.github.github</groupId>
-				<artifactId>site-maven-plugin</artifactId>
-				<version>0.12</version>
-				<configuration>
-					<message>Building site</message>
-					<userName>${env.GITHUB_USERNAME}</userName>
-					<password>${env.GITHUB_PASSWORD}</password>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>site</goal>
-						</goals>
-						<phase>site-deploy</phase>
-					</execution>
-				</executions>
-			</plugin>
+    <build>
+        <plugins>
+            <plugin>
+                <!-- https://www.VersionEye.com -->
+                <!-- Usage: -->
+                <!-- mvn versioneye:create -->
+                <!-- mvn versioneye:update -->
+                <groupId>com.versioneye</groupId>
+                <artifactId>versioneye-maven-plugin</artifactId>
+                <version>3.11.4</version>
+                <configuration>
+                    <apiKey>73246844526169383da8</apiKey>
+                    <ignoreDependencyManagement>true</ignoreDependencyManagement>
+                </configuration>
+            </plugin>
+            <plugin>
+                <!-- Usage: -->
+                <!-- mvn versions:display-dependency-updates -->
+                <!-- mvn versions:display-plugin-updates -->
+                <!-- mvn versions:display-property-updates -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <configuration>
+                    <processParent>false</processParent>
+                    <processDependencyManagement>false</processDependencyManagement>
+                </configuration>
+            </plugin>
 
-			<!-- Requirement: "HEROKU_API_KEY" env variable -->
-			<!-- Usage: mvn heroku:deploy -pl %MODULE% -->
-			<plugin>
-				<groupId>com.heroku.sdk</groupId>
-				<artifactId>heroku-maven-plugin</artifactId>
-				<version>1.2.5</version>
-				<!-- Spring Boot: default configuration (override or non-Spring-Boot projects) -->
-				<configuration>
-					<includeTarget>false</includeTarget>
-					<includes>
-						<include>jsfring-${project.artifactId}/target/${project.artifactId}-${project.version}.${project.packaging}</include>
-					</includes>
-					<appName>jsfring-${project.artifactId}</appName>
-					<buildpacks>
-						<!-- No <buildpack> because already built by Travis CI -->
-					</buildpacks>
-					<processTypes>
-						<web>java $JAVA_OPTS -Dserver.port=$PORT -jar target/${project.artifactId}-${project.version}.${project.packaging}</web>
-					</processTypes>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+            <!-- Code Coverage -->
+            <plugin>
+                <!-- Agent -->
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.7.9</version>
+                <configuration>
+                    <excludes>
+                        <exclude>fr/pinguet62/jsfring/gui/htmlunit/**/*.*</exclude>
+                        <!-- Generated sources -->
+                        <exclude>org/bson/types/QObjectId.class</exclude>
+                        <exclude>fr/pinguet62/jsfring/model/**/Q*.class</exclude>
+                        <exclude>fr/pinguet62/jsfring/webservice/converter/*MapperImpl.class</exclude>
+                        <!-- Fix -->
+                        <exclude>**com.steadystate*</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <!-- Reporting -->
+                <!-- https://coveralls.io -->
+                <groupId>org.eluder.coveralls</groupId>
+                <artifactId>coveralls-maven-plugin</artifactId>
+                <version>4.3.0</version>
+            </plugin>
 
-	<!-- TODO Remove after Spring RELEASE -->
-	<repositories>
-		<repository>
-			<id>spring-snapshots</id>
-			<name>Spring Snapshots</name>
-			<url>https://repo.spring.io/snapshot</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>spring-milestones</id>
-			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/milestone</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>spring-snapshots</id>
-			<name>Spring Snapshots</name>
-			<url>https://repo.spring.io/snapshot</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>
-		<pluginRepository>
-			<id>spring-milestones</id>
-			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/milestone</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
+            <!-- Documentation: site -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <configuration>
+                    <!-- See com.github.github:site-maven-plugin:site -->
+                    <skipDeploy>true</skipDeploy>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>0.12</version>
+                <configuration>
+                    <message>Building site</message>
+                    <userName>${env.GITHUB_USERNAME}</userName>
+                    <password>${env.GITHUB_PASSWORD}</password>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>site</goal>
+                        </goals>
+                        <phase>site-deploy</phase>
+                    </execution>
+                </executions>
+            </plugin>
 
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<configuration>
-					<additionalparam>-Xdoclint:none</additionalparam>
-					<failOnError>false</failOnError>
-				</configuration>
-			</plugin>
-		</plugins>
-	</reporting>
+            <!-- Requirement: "HEROKU_API_KEY" env variable -->
+            <!-- Usage: mvn heroku:deploy -pl %MODULE% -->
+            <plugin>
+                <groupId>com.heroku.sdk</groupId>
+                <artifactId>heroku-maven-plugin</artifactId>
+                <version>1.2.5</version>
+                <!-- Spring Boot: default configuration (override or non-Spring-Boot projects) -->
+                <configuration>
+                    <includeTarget>false</includeTarget>
+                    <includes>
+                        <include>jsfring-${project.artifactId}/target/${project.artifactId}-${project.version}.${project.packaging}</include>
+                    </includes>
+                    <appName>jsfring-${project.artifactId}</appName>
+                    <buildpacks>
+                        <!-- No <buildpack> because already built by Travis CI -->
+                    </buildpacks>
+                    <processTypes>
+                        <web>java $JAVA_OPTS -Dserver.port=$PORT -jar target/${project.artifactId}-${project.version}.${project.packaging}</web>
+                    </processTypes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
-	<scm>
-		<url>https://github.com/pinguet62/JSFring</url>
-	</scm>
+    <!-- TODO Remove after Spring RELEASE -->
+    <repositories>
+        <repository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>https://repo.spring.io/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>https://repo.spring.io/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 
-	<name>JSFring</name>
-	<description>Full web application who integrated all Java EE frameworks: Spring, JPA, JSF, AngularJS, ...</description>
-	<url>https://github.com/pinguet62/JSFring</url>
-	<licenses>
-		<license>
-			<name>Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License</name>
-			<url>http://creativecommons.org/licenses/by-nc-sa/4.0/</url>
-			<comments>CC BY-NC-SA 4.0</comments>
-		</license>
-	</licenses>
-	<developers>
-		<developer>
-			<id>pinguet62</id>
-			<name>PINGUET Julien</name>
-			<email>pinguet62@gmail.com</email>
-			<url>https://github.com/pinguet62</url>
-			<roles>
-				<role>architect</role>
-				<role>developer</role>
-			</roles>
-			<timezone>+1</timezone>
-		</developer>
-	</developers>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <additionalparam>-Xdoclint:none</additionalparam>
+                    <failOnError>false</failOnError>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+
+    <scm>
+        <url>https://github.com/pinguet62/JSFring</url>
+    </scm>
+
+    <name>JSFring</name>
+    <description>Full web application who integrated all Java EE frameworks: Spring, JPA, JSF, AngularJS, ...</description>
+    <url>https://github.com/pinguet62/JSFring</url>
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>pinguet62</id>
+            <name>PINGUET Julien</name>
+            <email>pinguet62@gmail.com</email>
+            <url>https://github.com/pinguet62</url>
+            <roles>
+                <role>architect</role>
+                <role>developer</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>
 
 </project>

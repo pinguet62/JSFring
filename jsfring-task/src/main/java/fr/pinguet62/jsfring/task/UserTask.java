@@ -19,13 +19,13 @@ public class UserTask {
     @Autowired
     private UserDao dao;
 
-    @Value("${app.task.user.disableInactives.numberOfDays}")
+    @Value("${jsfring.task.user.disableInactives.numberOfDays}")
     private int numberOfDays;
 
     /**
      * Disable all users who have not connected since a delay.
      */
-    @Scheduled(cron = "${app.task.user.disableInactives}")
+    @Scheduled(cron = "${jsfring.task.user.disableInactives}")
     @Transactional
     public void disableInactiveUsers() {
         log.info("Scheduling...");

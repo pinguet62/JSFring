@@ -72,7 +72,7 @@ public final class ExportJasperReportITTest {
     }
 
     /**
-     * @see ExportType#GRAPHICS_2D
+     * @see ExportType#JSON
      * @see UsersRightsJasperReportBean#getJsonFile()
      */
     @Test
@@ -96,7 +96,7 @@ public final class ExportJasperReportITTest {
      * @see UsersRightsJasperReportBean#getOdtFile()
      */
     @Test
-    public void test_odt() throws Exception {
+    public void test_odt() {
         InputStream is = page.exportODT();
         assertThat(is, isODT());
     }

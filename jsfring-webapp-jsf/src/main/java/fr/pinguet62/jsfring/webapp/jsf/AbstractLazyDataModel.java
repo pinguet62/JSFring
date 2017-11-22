@@ -1,26 +1,23 @@
 package fr.pinguet62.jsfring.webapp.jsf;
 
 import com.querydsl.core.types.EntityPath;
-import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.ComparableExpressionBase;
 import fr.pinguet62.jsfring.common.querydsl.FilterConverter;
-import fr.pinguet62.jsfring.common.reflection.PropertyResolver;
+import fr.pinguet62.jsfring.common.querydsl.SortConverter;
 import fr.pinguet62.jsfring.service.AbstractService;
-import fr.pinguet62.jsfring.webapp.jsf.util.OrderConverter;
+import fr.pinguet62.jsfring.webapp.jsf.util.PrimefacesSortOrderConverter;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.data.querydsl.QSort;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
-
-import static org.springframework.data.querydsl.QSort.unsorted;
 
 // TODO Order: getOrderSpecifiers() not used
 
@@ -62,8 +59,8 @@ public class AbstractLazyDataModel<T extends Serializable> extends LazyDataModel
      * @param firstIndex Index of first element in current page to load.<br>
      *                   Filter element (first page, first row) has an index of {@code 0}.
      * @param pageSize   The number of result per page.
-     * @param sortField  The field name on which filter.<br>
-     *                   Default: {@code null}.
+     *                   {@link Pageable#getPageSize()}
+     * @param sortField  The {@link ComparableExpressionBase path} on which sort, relative to {@code path}.
      * @param sortOrder  The order of sort.<br>
      *                   Default: {@link SortOrder#ASCENDING}.
      * @param filters    Association of field names to value set by user to filter results.<br>
@@ -71,22 +68,23 @@ public class AbstractLazyDataModel<T extends Serializable> extends LazyDataModel
      * @see AbstractService#findAll(Predicate, Pageable)
      */
     @Override
-    public List<T> load(int firstIndex, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+    public List<T> load(
+            int firstIndex, int pageSize,
+            String sortField, SortOrder sortOrder,
+            Map<String, Object> filters
+    ) {
         EntityPath<T> path = bean.getPath();
 
-        // Pagination
-        int pageIndex = firstIndex / pageSize;
         // Order
-        QSort sort = unsorted();
-        if (sortField != null) {
-            ComparableExpressionBase<?> field = (ComparableExpressionBase<?>) new PropertyResolver(path).apply(sortField);
-            Function<ComparableExpressionBase<?>, OrderSpecifier<?>> orderApplier = new OrderConverter().apply(sortOrder);
-            OrderSpecifier<?> orderSpecifier = orderApplier.apply(field);
-            sort = new QSort(orderSpecifier);
-        }
+        Direction direction = new PrimefacesSortOrderConverter().apply(sortOrder);
+        QSort sort = new SortConverter(path).apply(sortField, direction);
+
         // Filter
         Predicate datatablePredicates = new FilterConverter(path).apply(filters);
         Predicate predicate = bean.getPredicate().and(datatablePredicates);
+
+        // Pagination
+        int pageIndex = firstIndex / pageSize;
 
         // Request
         Pageable pageable = new QPageRequest(pageIndex, pageSize, sort);

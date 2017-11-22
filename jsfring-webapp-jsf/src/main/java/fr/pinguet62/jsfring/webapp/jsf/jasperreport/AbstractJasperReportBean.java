@@ -11,6 +11,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Map;
 
@@ -25,6 +26,56 @@ public abstract class AbstractJasperReportBean implements Serializable {
 
     @Autowired
     private transient DataSource dataSource;
+
+    /**
+     * Get the {@link Map} who contains the parameters for report.
+     * <p>
+     * By default no parameter is required. But if the report contains parameters, this method must be {@link Override override}
+     * .
+     *
+     * @return The {@link Map} of parameters.
+     */
+    protected Map<String, Object> getParameters() {
+        return null;
+    }
+
+    /**
+     * Get the resource path of report to use.<br>
+     * Must contain the extension ({@code jrxml}, {@code .jasper} or other).
+     *
+     * @return The path.
+     */
+    protected abstract String getReportPath();
+
+    /**
+     * Export the current report to {@link ExportType target format}.<br>
+     * <ol>
+     * <li>Compile and initialize the {@link JasperReport}</li>
+     * <li>{@link JRAbstractExporter Export} the {@link JasperReport}</li>
+     * <li>Generate {@link StreamedContent} for PrimeFaces file download</li>
+     * </ol>
+     *
+     * @param targetType The {@link ExportType}.
+     * @return The {@link StreamedContent} used by PrimeFaces.
+     * @throws JasperReportRuntimeException Error rendering report.
+     */
+    protected StreamedContent getStreamedContent(ExportType targetType) {
+        try (Connection connection = dataSource.getConnection()) {
+            // Jasper: compile
+            JasperReport jasperReport = JasperCompileManager.compileReport(getClass().getResourceAsStream(getReportPath()));
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, getParameters(), connection);
+
+            // Jasper: export
+            ByteArrayOutputStream outputStream = targetType.export(new SimpleExporterInput(jasperPrint));
+            byte[] bytes = outputStream.toByteArray();
+
+            // PrimeFaces download
+            InputStream inputStream = new ByteArrayInputStream(bytes);
+            return new DefaultStreamedContent(inputStream, targetType.getMime(), "report." + targetType.getExtension());
+        } catch (JRException | SQLException e) {
+            throw new JasperReportRuntimeException(e);
+        }
+    }
 
     public StreamedContent getCsvFile() {
         return getStreamedContent(CSV);
@@ -50,18 +101,6 @@ public abstract class AbstractJasperReportBean implements Serializable {
         return getStreamedContent(ODT);
     }
 
-    /**
-     * Get the {@link Map} who contains the parameters for report.
-     * <p>
-     * By default no parameter is required. But if the report contains parameters, this method must be {@link Override override}
-     * .
-     *
-     * @return The {@link Map} of parameters.
-     */
-    protected Map<String, Object> getParameters() {
-        return null;
-    }
-
     public StreamedContent getPdfFile() {
         return getStreamedContent(PDF);
     }
@@ -70,46 +109,8 @@ public abstract class AbstractJasperReportBean implements Serializable {
         return getStreamedContent(PPTX);
     }
 
-    /**
-     * Get the resource path of report to use.<br>
-     * Must contain the extension ({@code jrxml}, {@code .jasper} or other).
-     *
-     * @return The path.
-     */
-    protected abstract String getReportPath();
-
     public StreamedContent getRtfFile() {
         return getStreamedContent(RTF);
-    }
-
-    /**
-     * Export the current report to {@link ExportType target format}.<br>
-     * <ol>
-     * <li>Compile and initialize the {@link JasperReport}</li>
-     * <li>{@link JRAbstractExporter Export} the {@link JasperReport}</li>
-     * <li>Generate {@link StreamedContent} for PrimeFaces file download</li>
-     * </ol>
-     *
-     * @param targetType The {@link ExportType}.
-     * @return The {@link StreamedContent} used by PrimeFaces.
-     * @throws JasperReportRuntimeException Error rendering report.
-     */
-    protected StreamedContent getStreamedContent(ExportType targetType) {
-        try {
-            // Jasper: compile
-            JasperReport jasperReport = JasperCompileManager.compileReport(getClass().getResourceAsStream(getReportPath()));
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, getParameters(), dataSource.getConnection());
-
-            // Jasper: export
-            ByteArrayOutputStream outputStream = targetType.export(new SimpleExporterInput(jasperPrint));
-            byte[] bytes = outputStream.toByteArray();
-
-            // PrimeFaces download
-            InputStream inputStream = new ByteArrayInputStream(bytes);
-            return new DefaultStreamedContent(inputStream, targetType.getMime(), "report." + targetType.getExtension());
-        } catch (JRException | SQLException e) {
-            throw new JasperReportRuntimeException(e);
-        }
     }
 
     public StreamedContent getTextFile() {
