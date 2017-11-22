@@ -23,12 +23,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Logging -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j2</artifactId>
-        </dependency>
-
         <!-- JPA 2.0 -->
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>

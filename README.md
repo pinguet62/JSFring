@@ -58,7 +58,7 @@ Transverse :
 	* [Spring Test DBUnit](http://springtestdbunit.github.io/spring-test-dbunit)
 * Logging:
 	* <img src="http://www.slf4j.org/images/logos/slf4j-logo.jpg" height="25" /> [SLF4J](http://www.slf4j.org)
-	* <img src="http://logging.apache.org/log4j/2.x/images/logo.jpg" height="25" /> [**Log4j2**](http://logging.apache.org/log4j/2.x)
+	* <img src="https://logback.qos.ch/images/logos/lblogo.jpg" height="25" /> [**Logback**](https://logback.qos.ch)
 * Mail:
 	* <img src="https://upload.wikimedia.org/wikipedia/fr/d/d0/Spring_framework.png" height="25" /> [JavaMail](http://www.oracle.com/technetwork/java/javamail/index.html)
 * Reporting:

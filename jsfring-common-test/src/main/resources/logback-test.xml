@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- extends: Spring Boot -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+
+    <!-- fix: Hibernate(dll=create) + ManyToOne/OneToMany -->
+    <logger name="org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl" level="OFF" additivity="true"/>
+
+    <!-- Application -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration>
