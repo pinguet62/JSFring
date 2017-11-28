@@ -17,8 +17,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
-
 /**
  * @see Profile
  */
@@ -78,7 +76,7 @@ public final class ProfilesBean extends AbstractCrudBean<Profile> {
 
         // Right association
         List<Right> associatedRights = new ArrayList<>(getSelectedValue().getRights());
-        List<Right> availableRights = rightService.getAll().stream().filter(right -> !associatedRights.contains(right)).collect(toList());
+        List<Right> availableRights = rightService.getAll().filter(right -> !associatedRights.contains(right)).collectList().block();
         rightsAssociation = new DualListModel<>(availableRights, associatedRights);
     }
 

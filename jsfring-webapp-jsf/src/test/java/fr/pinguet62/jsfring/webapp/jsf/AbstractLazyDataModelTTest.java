@@ -50,7 +50,7 @@ public class AbstractLazyDataModelTTest {
 
     private static final int FIRST_PAGE = 0;
 
-    private static final Map<String, Object> NO_FILTER = new HashMap<String, Object>();
+    private static final Map<String, Object> NO_FILTER = new HashMap<>();
 
     private static final int NO_LIMITE = MAX_VALUE;
 
@@ -67,7 +67,7 @@ public class AbstractLazyDataModelTTest {
     };
 
     // The model to test
-    private final AbstractLazyDataModel<Right> model = new AbstractLazyDataModel<Right>(bean);
+    private final AbstractLazyDataModel<Right> model = new AbstractLazyDataModel<>(bean);
 
     @Autowired
     private RightService service;
@@ -79,11 +79,11 @@ public class AbstractLazyDataModelTTest {
     public void test_load_filter() {
         // Default
         model.load(FIRST_PAGE, NO_LIMITE, NO_SORT, DEFAULT_ORDER, NO_FILTER);
-        assertThat(model.getRowCount(), is(equalTo(service.findAll(new BooleanBuilder()).size())));
+        assertThat(model.getRowCount(), is(equalTo(service.findAll(new BooleanBuilder()).count().block().intValue())));
 
         // User input
         final String input = "P";
-        final long nb = service.getAll().stream().map(Right::getCode).filter(c -> c.startsWith(input)).count();
+        final long nb = service.getAll().map(Right::getCode).filter(c -> c.startsWith(input)).count().block();
         assertThat(nb, is(greaterThan(1L))); // useful test case
         Map<String, Object> filters = new HashMap<>();
         filters.put(COLUMN, input);

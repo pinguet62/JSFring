@@ -5,8 +5,8 @@ import fr.pinguet62.jsfring.service.UserService;
 import fr.pinguet62.jsfring.webservice.converter.UserMapper;
 import fr.pinguet62.jsfring.webservice.dto.UserDto;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import static fr.pinguet62.jsfring.webservice.controller.UserController.PATH;
 import static java.util.Objects.requireNonNull;
@@ -33,22 +33,25 @@ public final class UserController {
     }
 
     @GetMapping("/{email:.+}")
-    public UserDto get(@PathVariable String email) {
-        User user = userService.get(email);
-        return converter.toDto(user);
+    public Mono<UserDto> get(@PathVariable String email) {
+        return userService
+                .get(email)
+                .map(converter::toDto);
     }
 
     @GetMapping
-    public List<UserDto> list() {
-        List<User> users = userService.getAll();
-        return converter.toDto(users);
+    public Flux<UserDto> list() {
+        return userService
+                .getAll()
+                .map(converter::toDto);
     }
 
     @PostMapping
     public void update(@RequestBody UserDto userDto) {
-        User user = userService.get(userDto.getEmail());
-        converter.updateFromDto(user, userDto);
-        userService.update(user);
+        userService
+                .get(userDto.getEmail())
+                .doOnNext(user -> converter.updateFromDto(user, userDto))
+                .doOnNext(userService::update);
     }
 
 }

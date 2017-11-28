@@ -58,7 +58,7 @@ public class ChangePasswordPageITTest {
     }
 
     private User getUser() {
-        return userService.findAll(QUser.user.email.eq(getCurrent().getUsername())).get(0);
+        return userService.findAll(QUser.user.email.eq(getCurrent().getUsername())).blockFirst();
     }
 
     @Test
@@ -74,7 +74,7 @@ public class ChangePasswordPageITTest {
         // Checks
         assertThat(page.getMessageInfo(), is(not(nullValue())));
         assertThat(page.getMessageError(), is(nullValue()));
-        assertThat(userService.get(getUser().getEmail()).getPassword(), is(equalTo(newPassword)));
+        assertThat(userService.get(getUser().getEmail()).block().getPassword(), is(equalTo(newPassword)));
     }
 
     /**

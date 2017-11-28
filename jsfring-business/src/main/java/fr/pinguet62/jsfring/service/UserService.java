@@ -8,6 +8,7 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Mono;
 
 import static java.lang.String.format;
 import static java.time.LocalDateTime.now;
@@ -55,7 +56,7 @@ public class UserService extends AbstractService<User, String> {
      */
     @Override
     @Transactional
-    public User create(User object) {
+    public Mono<User> create(User object) {
         // Generate password
         object.setPassword(randomPassword());
         object.setLastConnection(now());

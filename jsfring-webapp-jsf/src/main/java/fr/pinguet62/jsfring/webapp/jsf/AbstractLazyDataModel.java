@@ -88,7 +88,7 @@ public class AbstractLazyDataModel<T extends Serializable> extends LazyDataModel
 
         // Request
         Pageable pageable = new QPageRequest(pageIndex, pageSize, sort);
-        Page<T> page = bean.getService().findAll(predicate, pageable);
+        Page<T> page = bean.getService().findAll(predicate, pageable).block();
 
         // Save result state
         setRowCount((int) page.getTotalElements());

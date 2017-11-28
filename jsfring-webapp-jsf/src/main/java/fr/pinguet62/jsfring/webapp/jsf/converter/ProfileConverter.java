@@ -17,7 +17,7 @@ import static java.lang.Integer.parseInt;
  */
 @Component
 @FacesConverter("profileConverter")
-public class ProfileConverter implements Converter {
+public class ProfileConverter implements Converter<Profile> {
 
     @Autowired
     private ProfileService profileService;
@@ -27,17 +27,15 @@ public class ProfileConverter implements Converter {
      * @return The {@link Profile}.
      */
     @Override
-    public Object getAsObject(FacesContext context, UIComponent component, String id) {
-        return profileService.get(parseInt(id));
+    public Profile getAsObject(FacesContext context, UIComponent component, String id) {
+        return profileService.get(parseInt(id)).block();
     }
 
     /**
-     * @param object The {@link Profile}.
      * @return The {@link Profile#id id} as {@link String}.
      */
     @Override
-    public String getAsString(FacesContext context, UIComponent component, Object object) {
-        Profile profile = (Profile) object;
+    public String getAsString(FacesContext context, UIComponent component, Profile profile) {
         return profile.getId().toString();
     }
 

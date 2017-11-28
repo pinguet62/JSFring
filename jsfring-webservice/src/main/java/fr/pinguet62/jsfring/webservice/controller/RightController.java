@@ -1,12 +1,11 @@
 package fr.pinguet62.jsfring.webservice.controller;
 
-import fr.pinguet62.jsfring.model.sql.Right;
 import fr.pinguet62.jsfring.service.RightService;
 import fr.pinguet62.jsfring.webservice.converter.RightMapper;
 import fr.pinguet62.jsfring.webservice.dto.RightDto;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import static fr.pinguet62.jsfring.webservice.controller.RightController.PATH;
 import static java.util.Objects.requireNonNull;
@@ -27,22 +26,25 @@ public final class RightController {
     }
 
     @GetMapping("/{code}")
-    public RightDto get(@PathVariable String code) {
-        Right right = rightService.get(code);
-        return converter.toDto(right);
+    public Mono<RightDto> get(@PathVariable String code) {
+        return rightService
+                .get(code)
+                .map(converter::toDto);
     }
 
     @GetMapping
-    public List<RightDto> list() {
-        List<Right> rights = rightService.getAll();
-        return converter.toDto(rights);
+    public Flux<RightDto> list() {
+        return rightService
+                .getAll()
+                .map(converter::toDto);
     }
 
     @PostMapping
     public void update(@RequestBody RightDto rightDto) {
-        Right right = rightService.get(rightDto.getCode());
-        converter.updateFromDto(right, rightDto);
-        rightService.update(right);
+        rightService
+                .get(rightDto.getCode())
+                .doOnNext(right -> converter.updateFromDto(right, rightDto))
+                .doOnNext(rightService::update);
     }
 
 }

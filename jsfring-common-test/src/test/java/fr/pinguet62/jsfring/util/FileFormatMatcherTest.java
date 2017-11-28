@@ -1,6 +1,5 @@
-package frpinguet62.jsfring.util;
+package fr.pinguet62.jsfring.util;
 
-import fr.pinguet62.jsfring.util.FileFormatMatcher;
 import org.junit.Test;
 
 import java.io.InputStream;

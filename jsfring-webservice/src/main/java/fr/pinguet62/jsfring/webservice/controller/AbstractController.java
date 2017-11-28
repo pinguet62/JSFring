@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.data.querydsl.QSort;
+import reactor.core.publisher.Mono;
 
 import javax.persistence.Entity;
 import java.io.Serializable;
@@ -27,7 +28,7 @@ public abstract class AbstractController<T extends Serializable, PK extends Seri
      * @param sortOrder {@link Direction#name()}
      * @return {@link AbstractService#findAll(Predicate, Pageable)}
      */
-    public Page<T> findAll(
+    public Mono<Page<T>> findAll(
             AbstractService<T, PK> service, EntityPath<T> path,
             int pageIndex, int pageSize, String sortField, String sortOrder
     ) {

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Mono;
 
 import java.io.Serializable;
 import java.util.List;

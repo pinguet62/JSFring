@@ -49,14 +49,14 @@ public class UserDetailsServiceImplTest {
      */
     @Test
     public void test_login() {
-        String email = userService.findAll(new BooleanBuilder()).get(0).getEmail();
+        String email = userService.findAll(new BooleanBuilder()).blockFirst().getEmail();
 
         // login
         UserDetails userDetails = userDetailsService.loadUserByUsername(email);
         assertThat(userDetails, is(not(nullValue())));
 
         // Test: last connection date
-        LocalDateTime lastConnection = userService.get(email).getLastConnection();
+        LocalDateTime lastConnection = userService.get(email).block().getLastConnection();
         assertThat(lastConnection, within(30, SECONDS, now()));
     }
 
@@ -68,7 +68,7 @@ public class UserDetailsServiceImplTest {
     @Test(expected = UsernameNotFoundException.class)
     public void test_login_unknownLogin() {
         String email = "unknown login";
-        assertThat(userService.get(email), is(nullValue()));
+        assertThat(userService.get(email).block(), is(nullValue()));
 
         userDetailsService.loadUserByUsername(email);
     }

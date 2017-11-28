@@ -116,14 +116,14 @@ public class UserServiceTest {
      */
     @Test(expected = TransactionSystemException.class)
     public void test_updatePassword_invalidNewPassword() {
-        User user = service.getAll().get(0);
+        User user = service.getAll().blockFirst();
         String email = user.getEmail();
 
         String initialPassword = user.getPassword();
         assertThat(initialPassword, matches(PASSWORD_REGEX));
 
         String newPassword = "bad";
-        assertThat(service.get(email).getPassword(), is(not(equalTo(newPassword))));
+        assertThat(service.get(email).block().getPassword(), is(not(equalTo(newPassword))));
         assertThat(newPassword, not(matches(PASSWORD_REGEX)));
 
         service.updatePassword(email, newPassword); // TransactionSystemException

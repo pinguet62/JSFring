@@ -15,7 +15,7 @@ import javax.faces.convert.FacesConverter;
  */
 @Component
 @FacesConverter("rightConverter")
-public final class RightConverter implements Converter {
+public final class RightConverter implements Converter<Right> {
 
     @Autowired
     private RightService rightService;
@@ -25,17 +25,15 @@ public final class RightConverter implements Converter {
      * @return The {@link Right}.
      */
     @Override
-    public Object getAsObject(FacesContext context, UIComponent component, String code) {
-        return rightService.get(code);
+    public Right getAsObject(FacesContext context, UIComponent component, String code) {
+        return rightService.get(code).block();
     }
 
     /**
-     * @param object The {@link Right}.
      * @return The {@link Right#code code}.
      */
     @Override
-    public String getAsString(FacesContext context, UIComponent component, Object object) {
-        Right right = (Right) object;
+    public String getAsString(FacesContext context, UIComponent component, Right right) {
         return right.getCode();
     }
 

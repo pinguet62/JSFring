@@ -1,6 +1,5 @@
-package frpinguet62.jsfring.util;
+package fr.pinguet62.jsfring.util;
 
-import fr.pinguet62.jsfring.util.MatcherUtils;
 import org.hamcrest.Matcher;
 import org.junit.Test;
 

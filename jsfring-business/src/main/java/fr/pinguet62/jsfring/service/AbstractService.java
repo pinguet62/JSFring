@@ -7,9 +7,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.io.Serializable;
-import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 
@@ -42,8 +43,8 @@ public abstract class AbstractService<T extends Serializable, ID extends Seriali
      * @see CommonRepository#save(Object)
      */
     @Transactional
-    public T create(T object) {
-        return dao.save(object);
+    public Mono<T> create(T object) {
+        return Mono.just(dao.save(object));
     }
 
     /**
@@ -65,8 +66,8 @@ public abstract class AbstractService<T extends Serializable, ID extends Seriali
      * @see CommonRepository#findAll(Predicate)
      */
     @Transactional(readOnly = true)
-    public List<T> findAll(Predicate predicate) {
-        return dao.findAll(predicate);
+    public Flux<T> findAll(Predicate predicate) {
+        return Flux.fromIterable(dao.findAll(predicate));
     }
 
     /**
@@ -78,8 +79,8 @@ public abstract class AbstractService<T extends Serializable, ID extends Seriali
      * @see CommonRepository#findAll(Predicate, Pageable)
      */
     @Transactional(readOnly = true)
-    public Page<T> findAll(Predicate predicate, Pageable pageable) {
-        return dao.findAll(predicate, pageable);
+    public Mono<Page<T>> findAll(Predicate predicate, Pageable pageable) {
+        return Mono.just(dao.findAll(predicate, pageable));
     }
 
     /**
@@ -90,8 +91,8 @@ public abstract class AbstractService<T extends Serializable, ID extends Seriali
      * @see CrudRepository#findById(Object)
      */
     @Transactional(readOnly = true)
-    public T get(ID id) {
-        return dao.findById(id).orElse(null);
+    public Mono<T> get(ID id) {
+        return Mono.justOrEmpty(dao.findById(id));
     }
 
     /**
@@ -101,8 +102,8 @@ public abstract class AbstractService<T extends Serializable, ID extends Seriali
      * @see CommonRepository#findAll()
      */
     @Transactional(readOnly = true)
-    public List<T> getAll() {
-        return dao.findAll();
+    public Flux<T> getAll() {
+        return Flux.fromIterable(dao.findAll());
     }
 
     /**
@@ -113,8 +114,9 @@ public abstract class AbstractService<T extends Serializable, ID extends Seriali
      * @see CommonRepository#save(Object)
      */
     @Transactional
-    public T update(T object) {
-        return dao.save(object);
+    public Mono<T> update(T object) {
+        T x = dao.save(object);
+        return Mono.just(x);
     }
 
 }

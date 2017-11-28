@@ -7,10 +7,9 @@ import fr.pinguet62.jsfring.webservice.converter.PageMapper;
 import fr.pinguet62.jsfring.webservice.converter.ProfileMapper;
 import fr.pinguet62.jsfring.webservice.dto.PageDto;
 import fr.pinguet62.jsfring.webservice.dto.ProfileDto;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import static fr.pinguet62.jsfring.webservice.controller.ProfileController.PATH;
 import static java.util.Objects.requireNonNull;
@@ -48,33 +47,37 @@ public final class ProfileController extends AbstractController<Profile, Integer
      * @return The found results.
      */
     @GetMapping("/find")
-    public PageDto<ProfileDto> find(
+    public Mono<PageDto<ProfileDto>> find(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "pageSize", defaultValue = "20") int pageSize,
             @RequestParam(value = "sortField") String sortField,
             @RequestParam(value = "sortOrder", defaultValue = "ASC") String sortOrder
     ) {
-        Page<Profile> results = super.findAll(profileService, QProfile.profile, page, pageSize, sortField, sortOrder);
-        return PageMapper.toDto(results, converter::toDto);
+        return super
+                .findAll(profileService, QProfile.profile, page, pageSize, sortField, sortOrder)
+                .map(x -> PageMapper.toDto(x, converter::toDto));
     }
 
     @GetMapping("/{id}")
-    public ProfileDto get(@PathVariable int id) {
-        Profile profile = profileService.get(id);
-        return converter.toDto(profile);
+    public Mono<ProfileDto> get(@PathVariable int id) {
+        return profileService
+                .get(id)
+                .map(converter::toDto);
     }
 
     @GetMapping
-    public List<ProfileDto> list() {
-        List<Profile> profiles = profileService.getAll();
-        return converter.toDto(profiles);
+    public Flux<ProfileDto> list() {
+        return profileService
+                .getAll()
+                .map(converter::toDto);
     }
 
     @PostMapping
     public void update(@RequestBody ProfileDto profileDto) {
-        Profile profile = profileService.get(profileDto.getId());
-        converter.updateFromDto(profile, profileDto);
-        profileService.update(profile);
+        profileService
+                .get(profileDto.getId())
+                .doOnNext(profile -> converter.updateFromDto(profile, profileDto))
+                .doOnNext(profileService::update);
     }
 
 }

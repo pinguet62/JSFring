@@ -70,7 +70,7 @@ public abstract class AbstractBean<T extends Serializable> implements Serializab
     public Iterable<T> getList() {
         if (list == null) {
             log.debug("Eager loading: initialization");
-            list = getService().findAll(getPredicate());
+            list = getService().findAll(getPredicate()).collectList().block();
         }
         return list;
     }

@@ -11,7 +11,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -25,7 +24,7 @@ public abstract class ProfileMapper {
 
     protected Set<Right> keyToEntity(Set<String> keys) {
         Predicate predicate = QRight.right_.code.in(keys);
-        return new HashSet<>(rightService.findAll(predicate));
+        return rightService.findAll(predicate).collect(toSet()).block();
     }
 
     protected Set<String> entityToKey(Set<Right> keys) {
