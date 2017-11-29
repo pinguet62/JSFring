@@ -16,6 +16,12 @@
     <description>Common dependencies for security</description>
 
     <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- ===== Project ===== -->
         <dependency>
             <groupId>${project.groupId}</groupId>

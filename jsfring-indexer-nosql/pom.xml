@@ -16,6 +16,12 @@
     <description>Populate database from Allocine.fr</description>
 
     <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- ===== Project ===== -->
         <dependency>
             <groupId>${project.groupId}</groupId>

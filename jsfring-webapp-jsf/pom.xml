@@ -17,6 +17,12 @@
     <url>http://jsfring-${project.artifactId}.herokuapp.com</url>
 
     <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- ===== Project ===== -->
         <dependency>
             <groupId>${project.groupId}</groupId>

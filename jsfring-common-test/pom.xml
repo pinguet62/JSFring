@@ -16,6 +16,12 @@
     <description>Common dependencies for tests for other modules</description>
 
     <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- ===== Spring ===== -->
         <dependency>
             <groupId>org.springframework</groupId>

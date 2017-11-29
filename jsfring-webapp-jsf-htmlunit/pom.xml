@@ -16,6 +16,12 @@
     <description>Wrapper of HtmlUnit used to navigate on JSF webapp</description>
 
     <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- HtmlUnit -->
         <dependency>
             <groupId>net.sourceforge.htmlunit</groupId>
