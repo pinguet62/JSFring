@@ -19,7 +19,7 @@
     <PROFILES_RIGHTS profile="2" right="USER_RW" />
 
 
-    <user email="root@admin.fr" password="{noop}Azerty1!" active="true" last_connection="2015-11-14 13:45:41" />
+    <user email="root@admin.fr" password="{noop}Azerty1!" active="true" last_connection="2017-12-08 13:45:41" />
     <USERS_PROFILES user="root@admin.fr" profile="1" />
     <USERS_PROFILES user="root@admin.fr" profile="2" />
 

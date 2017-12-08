@@ -63,7 +63,12 @@ class UserDaoImpl implements UserDaoCustom {
         em.clear(); // because first-level cache is not updated by this method
 
         QUser u = QUser.user;
-        long nb = new JPAUpdateClause(em, u).where(u.lastConnection.before(lastAccepted)).set(u.active, false).execute();
+        long nb = new JPAUpdateClause(em, u)
+                .where(
+                        u.lastConnection.isNotNull()
+                                .and(u.lastConnection.before(lastAccepted)))
+                .set(u.active, false)
+                .execute();
         log.info("Number of users disabled: {}", nb);
     }
 
