@@ -65,6 +65,10 @@ Transverse :
 Utils :
 * <img src="https://maven.apache.org/images/maven-logo-black-on-white.png" height="25" /> [**Maven**](https://maven.apache.org)
 
+Production
+* <img src="https://www.docker.com/sites/all/themes/docker/assets/images/brand-full.svg" height="25" /> [**Docker**](https://www.docker.com)
+* <img src="https://www-assets3.herokucdn.com/assets/logo-purple-08fb38cebb99e3aac5202df018eb337c5be74d5214768c90a8198c97420e4201.svg" height="25" /> [Heroku](https://www.heroku.com)
+
 ### TODO
 
 * [Multitenancy](https://en.wikipedia.org/wiki/Multitenancy) architecture

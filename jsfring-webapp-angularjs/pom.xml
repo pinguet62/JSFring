@@ -79,6 +79,11 @@
             </plugin>
 
             <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
                 <groupId>com.heroku.sdk</groupId>
                 <artifactId>heroku-maven-plugin</artifactId>
                 <configuration>

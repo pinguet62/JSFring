@@ -1,0 +1,91 @@
+version: '2'
+services:
+  # Services
+  postgres:
+    image: postgres:10.1-alpine
+    environment:
+      - POSTGRES_DB=db
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - ./jsfring-database/src/main/resources/initdb:/docker-entrypoint-initdb.d
+    expose:
+      - "5432"
+    ports:
+      - 5432:5432 # local debug
+  mongo:
+    image: mongo:3.4
+    command: --smallfiles
+    ports:
+      - 27017:27017 # local debug
+  smtp:
+    image: schickling/mailcatcher
+    ports:
+      - 1025:1025 # local debug
+      - 8081:1080
+  # Script
+  database:
+    image: pinguet62/jsfring-database
+    build: ./jsfring-database
+    environment:
+      - LIQUIBASE_URL=jdbc:postgresql://postgres:5432/db?user=user&password=password
+    # 1st execution can fail, because of postgres startup
+    command: liquibase update
+  # Background
+  task:
+    image: pinguet62/jsfring-task
+    build: ./jsfring-task
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/db?user=user&password=password
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/jsfring
+      - SPRING_MAIL_HOST=smtp
+      - SPRING_MAIL_PORT=1025
+      - SPRING_MAIL_USERNAME=
+      - SPRING_MAIL_PASSWORD=
+  # Webapp
+  batch-admin:
+    image: pinguet62/jsfring-batch-admin
+    build: ./jsfring-batch-admin
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/db?user=user&password=password
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/jsfring
+      - SPRING_MAIL_HOST=smtp
+      - SPRING_MAIL_PORT=1025
+      - SPRING_MAIL_USERNAME=
+      - SPRING_MAIL_PASSWORD=
+    ports:
+      - 8082:8080
+  webapp-angular2:
+    image: pinguet62/jsfring-webapp-angular2
+    build: ./jsfring-webapp-angular2
+    ports:
+      - 8083:80
+  webapp-angularjs:
+    image: pinguet62/jsfring-webapp-angularjs
+    build: ./jsfring-webapp-angularjs
+    ports:
+      - 8084:3000
+  webapp-jsf:
+    image: pinguet62/jsfring-webapp-jsf
+    build: ./jsfring-webapp-jsf
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/db?user=user&password=password
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/jsfring
+      - SPRING_MAIL_HOST=smtp
+      - SPRING_MAIL_PORT=1025
+      - SPRING_MAIL_USERNAME=
+      - SPRING_MAIL_PASSWORD=
+    ports:
+      - 8085:8080
+  webservice:
+    image: pinguet62/jsfring-webservice
+    build: ./jsfring-webservice
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/db?user=user&password=password
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/jsfring
+      - SPRING_MAIL_HOST=smtp
+      - SPRING_MAIL_PORT=1025
+      - SPRING_MAIL_USERNAME=
+      - SPRING_MAIL_PASSWORD=
+    ports:
+      - 8086:8080

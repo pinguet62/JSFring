@@ -48,6 +48,11 @@
             </plugin>
 
             <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <version>3.5.3</version>

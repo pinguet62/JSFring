@@ -187,7 +187,7 @@
                 </executions>
             </plugin>
 
-            <!-- Requirement: "HEROKU_API_KEY" env variable -->
+            <!-- Requirement: "HEROKU_API_KEY" environment variable -->
             <!-- Usage: mvn heroku:deploy -pl %MODULE% -->
             <plugin>
                 <groupId>com.heroku.sdk</groupId>
@@ -209,6 +209,31 @@
                 </configuration>
             </plugin>
         </plugins>
+
+        <pluginManagement>
+            <plugins>
+                <!-- Requirement: "DOCKERHUB_USERNAME" environment variable -->
+                <!-- Requirement: "DOCKERHUB_PASSWORD" environment variable -->
+                <!-- Requirement: "docker.io" server -->
+                <plugin>
+                    <groupId>com.spotify</groupId>
+                    <artifactId>dockerfile-maven-plugin</artifactId>
+                    <version>1.3.6</version>
+                    <configuration>
+                        <repository>pinguet62/jsfring-${project.artifactId}</repository>
+                        <useMavenSettingsForAuth>true</useMavenSettingsForAuth>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>build</goal>
+                                <goal>push</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
     <!-- TODO Remove after Spring RELEASE -->
