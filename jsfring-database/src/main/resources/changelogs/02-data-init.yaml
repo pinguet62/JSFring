@@ -1,6 +1,6 @@
 databaseChangeLog:
 -   changeSet:
-        id: 01-data-initial
+        id: 02-data-init
         author: Pinguet62
         comment: Required initial data (roles for security)
         changes:

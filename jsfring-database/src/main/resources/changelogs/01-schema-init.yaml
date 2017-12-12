@@ -1,6 +1,6 @@
 databaseChangeLog:
 -   changeSet:
-        id: 00.a-schema-initial
+        id: 01.1-schema-init
         author: Pinguet62
         comment: Base tables
         changes:
@@ -63,7 +63,7 @@ databaseChangeLog:
                             nullable: true
                         remarks: Null if never connected.
 -   changeSet:
-        id: 00.b-schema-initial
+        id: 01.2-schema-init
         author: Pinguet62
         comment: ManyToMany tables between base tables
         changes:

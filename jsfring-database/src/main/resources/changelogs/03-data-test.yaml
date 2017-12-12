@@ -1,6 +1,6 @@
 databaseChangeLog:
 -   changeSet:
-        id: 02-data-test
+        id: 03-data-test
         author: Pinguet62
         comment: Initial data for testing
         changes:
