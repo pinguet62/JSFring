@@ -51,24 +51,24 @@
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>javax.faces</artifactId>
-            <version>2.3.3</version>
+            <version>${javax.faces.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>javax.servlet.jsp-api</artifactId>
-            <version>2.3.2-b02</version>
+            <version>${javax.servlet.jsp-api.version}</version>
         </dependency>
 
         <!-- ===== PrimeFaces ===== -->
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>6.1</version>
+            <version>${primefaces.version}</version>
         </dependency>
         <dependency>
             <groupId>org.primefaces.themes</groupId>
             <artifactId>all-themes</artifactId>
-            <version>1.0.10</version>
+            <version>${all-themes.version}</version>
         </dependency>
         <dependency>
             <!-- DataExporter: PDF -->
@@ -99,14 +99,14 @@
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
-            <version>6.4.3</version>
+            <version>${jasperreports.version}</version>
         </dependency>
 
         <!-- Fix ClassNotFoundException -->
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
-            <version>2.0</version>
+            <version>${cdi-api.version}</version>
             <!--<scope>provided</scope>-->
         </dependency>
 

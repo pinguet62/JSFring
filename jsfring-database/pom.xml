@@ -55,7 +55,7 @@
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
-                <version>3.5.3</version>
+                <version>${liquibase.version}</version>
                 <configuration>
                     <url>jdbc:postgresql://ec2-54-221-204-213.compute-1.amazonaws.com:5432/d8596e9tldmpik?user=eqekmczvvtafzf&amp;password=275db6b08053178f22f5bdef1f556697875d2e5e4abfc34da5a82f01bbd0dc33&amp;ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory</url>
                     <changeLogFile>src/main/resources/changelog-master.yaml</changeLogFile>
