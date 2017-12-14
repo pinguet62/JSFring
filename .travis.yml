@@ -46,5 +46,5 @@ after_script:
     - mvn -B liquibase:update -pl jsfring-database
     - mvn -B -DskipTests heroku:deploy -pl jsfring-webservice
     - mvn -B -DskipTests heroku:deploy -pl jsfring-webapp-angularjs
-    - mvn -B -DskipTests heroku:deploy -pl jsfring-webapp-angular2
+    - mvn -B -DskipTests heroku:deploy -pl jsfring-webapp-angular
     - mvn -B -DskipTests heroku:deploy -pl jsfring-webapp-jsf

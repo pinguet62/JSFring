@@ -9,7 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>webapp-angular2</artifactId>
+    <artifactId>webapp-angular</artifactId>
 
     <name>Angular 2</name>
     <description>Angular 2 web application</description>

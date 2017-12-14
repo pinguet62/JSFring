@@ -55,9 +55,9 @@ services:
       - SPRING_MAIL_PASSWORD=
     ports:
       - 8082:8080
-  webapp-angular2:
-    image: pinguet62/jsfring-webapp-angular2
-    build: ./jsfring-webapp-angular2
+  webapp-angular:
+    image: pinguet62/jsfring-webapp-angular
+    build: ./jsfring-webapp-angular
     ports:
       - 8083:80
   webapp-angularjs:

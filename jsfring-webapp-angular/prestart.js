@@ -1,7 +1,7 @@
 /** Generate configuration file from environment variables. */
 
 const constantes = [
-  {configKey: 'api', envName: 'jsfring.webservice.url', default: `window.location.origin.replace('jsfring-webapp-angular2', 'jsfring-webservice')`},
+  {configKey: 'api', envName: 'jsfring.webservice.url', default: `window.location.origin.replace('jsfring-webapp-angular', 'jsfring-webservice')`},
 ]
 
 let lines = []
