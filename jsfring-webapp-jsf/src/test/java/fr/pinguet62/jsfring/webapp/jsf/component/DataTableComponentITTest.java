@@ -24,13 +24,13 @@ import fr.pinguet62.jsfring.webapp.jsf.htmlunit.user.UsersPage.ActiveFilter;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.user.UsersPage.Column;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.user.popup.UserShowPopup;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.user.popup.UserUpdatePopup;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -54,6 +54,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
+import static org.springframework.test.context.TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS;
 
 /**
  * @see AbstractBean
@@ -62,10 +63,10 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
  * @see DataTableComponent
  * @see AbstractDatatablePage
  */
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = SpringBootConfig.class, webEnvironment = DEFINED_PORT)
 // DbUnit
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class})
+@TestExecutionListeners(mergeMode = MERGE_WITH_DEFAULTS, listeners = DbUnitTestExecutionListener.class)
 @DatabaseSetup(DATASET)
 public final class DataTableComponentITTest {
 
@@ -314,7 +315,8 @@ public final class DataTableComponentITTest {
      * @see UsersPage#hideOrShowColumn(Column)
      * @see UsersPage#columnVisibile(Column)
      */
-    // @Test
+    @Test
+    @Disabled // TODO
     public void test_columnToggler() {
         UsersPage page = get().gotoUsersPage();
         for (Column column : values()) {

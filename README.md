@@ -50,7 +50,7 @@ Transverse :
 		* [Caching Data](https://spring.io/guides/gs/caching)
 		* [Scheduling Tasks](https://spring.io/guides/gs/scheduling-tasks)
 * Tests:
-	* <img src="http://junit.org/junit4/images/junit-logo.png" height="25" /> [**JUnit**](http://junit.org)
+	* <img src="http://junit.org/junit5/assets/img/junit5-logo.png" height="25" /> [**JUnit**](http://junit.org/junit5)
 	* <img src="http://hamcrest.org/images/logo.jpg" height="25" /> [Hamcrest](http://hamcrest.org/JavaHamcrest)
 	* <img src="http://dbunit.sourceforge.net/images/dbunit-logo.jpg" height="25" /> [**DBUnit**](http://dbunit.sourceforge.net) + [Spring Test DBUnit](http://springtestdbunit.github.io/spring-test-dbunit)
 	* <img src="http://htmlunit.sourceforge.net/images/GargoyleSoftwareLogo.jpg" height="25" /> [**HtmlUnit**](http://htmlunit.sourceforge.net)

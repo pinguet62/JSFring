@@ -6,13 +6,12 @@ import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.jasperreport.AbstractJasperReportPage;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.jasperreport.UsersRightsJasperReportPage;
 import fr.pinguet62.jsfring.webapp.jsf.jasperreport.sample.UsersRightsJasperReportBean;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.io.InputStream;
 
@@ -21,22 +20,23 @@ import static fr.pinguet62.jsfring.util.FileFormatMatcher.*;
 import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.get;
 import static org.junit.Assert.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
+import static org.springframework.test.context.TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS;
 
 /**
  * @see AbstractJasperReportBean#getStreamedContent(ExportType)
  * @see ExportType
  * @see AbstractJasperReportPage
  */
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = SpringBootConfig.class, webEnvironment = DEFINED_PORT)
 // DbUnit
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class})
+@TestExecutionListeners(mergeMode = MERGE_WITH_DEFAULTS, listeners = DbUnitTestExecutionListener.class)
 @DatabaseSetup(DATASET)
 public final class ExportJasperReportITTest {
 
     private UsersRightsJasperReportPage page;
 
-    @Before
+    @BeforeEach
     public void before() {
         page = get().gotoReportsUsersRightsPage();
     }

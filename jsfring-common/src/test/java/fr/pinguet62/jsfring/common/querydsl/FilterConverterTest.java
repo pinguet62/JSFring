@@ -5,8 +5,8 @@ import com.querydsl.core.types.Predicate;
 import fr.pinguet62.jsfring.util.querydsl.model.QProfile;
 import fr.pinguet62.jsfring.util.querydsl.model.QRight;
 import fr.pinguet62.jsfring.util.querydsl.model.QUser;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -17,6 +17,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @see FilterConverter
@@ -47,7 +48,7 @@ public final class FilterConverterTest {
      *
      * @see FilterConverter#apply(Map)
      */
-    @Ignore // TODO Fix
+    @Disabled // TODO Fix
     @Test
     public void test_apply_number() {
         QProfile profile = QProfile.profile;
@@ -82,13 +83,13 @@ public final class FilterConverterTest {
     }
 
     /**
-     * @see FilterConverter#apply(Map)
      * @see NullPointerException
+     * @see FilterConverter#apply(Map)
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void test_apply_parameter_null() {
         FilterConverter filter = new FilterConverter(QUser.user);
-        filter.apply(null);
+        assertThrows(NullPointerException.class, () -> filter.apply(null));
     }
 
     /**

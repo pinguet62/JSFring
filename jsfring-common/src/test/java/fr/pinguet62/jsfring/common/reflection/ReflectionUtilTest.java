@@ -2,7 +2,7 @@ package fr.pinguet62.jsfring.common.reflection;
 
 import fr.pinguet62.jsfring.common.querydsl.ReflectionUtils;
 import fr.pinguet62.jsfring.util.querydsl.model.*;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.persistence.Entity;
 

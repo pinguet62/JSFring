@@ -10,14 +10,13 @@ import fr.pinguet62.jsfring.webapp.jsf.htmlunit.right.RightRow;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.right.RightsPage;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.right.popup.RightShowPopup;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.right.popup.RightUpdatePopup;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
 import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.get;
@@ -25,14 +24,15 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
+import static org.springframework.test.context.TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS;
 
 /**
  * @see RightsPage
  */
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = SpringBootConfig.class, webEnvironment = DEFINED_PORT)
 // DbUnit
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class})
+@TestExecutionListeners(mergeMode = MERGE_WITH_DEFAULTS, listeners = DbUnitTestExecutionListener.class)
 @DatabaseSetup(DATASET)
 public final class RightsPageITTest {
 
@@ -41,7 +41,7 @@ public final class RightsPageITTest {
     @Autowired
     private RightDao rightDao;
 
-    @Before
+    @BeforeEach
     public void before() {
         page = get().gotoRightsPage();
     }

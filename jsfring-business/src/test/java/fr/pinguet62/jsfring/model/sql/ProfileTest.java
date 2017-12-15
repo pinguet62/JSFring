@@ -1,6 +1,6 @@
 package fr.pinguet62.jsfring.model.sql;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static fr.pinguet62.jsfring.model.sql.Profile.builder;
 import static org.hamcrest.CoreMatchers.*;

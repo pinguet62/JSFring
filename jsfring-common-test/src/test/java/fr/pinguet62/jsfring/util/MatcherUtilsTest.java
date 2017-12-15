@@ -1,7 +1,7 @@
 package fr.pinguet62.jsfring.util;
 
 import org.hamcrest.Matcher;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.net.MalformedURLException;
 import java.time.LocalDateTime;

@@ -5,15 +5,14 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.dao.sql.UserDao;
 import fr.pinguet62.jsfring.model.sql.User;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.TransactionSystemException;
 
 import javax.validation.constraints.Pattern;
@@ -25,16 +24,18 @@ import static java.util.stream.Stream.generate;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.context.TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS;
 
 /**
  * @see UserService
  */
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = SpringBootConfig.class)
 // DbUnit
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class})
+@TestExecutionListeners(mergeMode = MERGE_WITH_DEFAULTS, listeners = DbUnitTestExecutionListener.class)
 @DatabaseSetup(DATASET)
 public class UserServiceTest {
 
@@ -45,7 +46,7 @@ public class UserServiceTest {
      * @see UserService#forgottenPassword(String)
      */
     @Test
-    public void test_forgottenPassword() {
+    public void test_forgottenPassword_ok() {
         String email = "sample@domain.org";
         String initialPassword = "initial";
 
@@ -68,7 +69,7 @@ public class UserServiceTest {
      *
      * @see UserService#forgottenPassword(String)
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void test_forgottenPassword_unknownEmail() {
         String email = "sample@domain.org";
 
@@ -77,7 +78,7 @@ public class UserServiceTest {
 
         when(dao.findByEmail(email)).thenReturn(null);
 
-        service.forgottenPassword(email); // IllegalArgumentException
+        assertThrows(IllegalArgumentException.class, () -> service.forgottenPassword(email));
     }
 
     /**
@@ -95,7 +96,7 @@ public class UserServiceTest {
      * @see UserService#updatePassword(String, String)
      */
     @Test
-    public void test_updatePassword() {
+    public void test_updatePassword_ok() {
         String email = "sample@domain.org";
         String newPassword = "newPassword";
 
@@ -114,7 +115,7 @@ public class UserServiceTest {
      *
      * @see UserService#updatePassword(String, String)
      */
-    @Test(expected = TransactionSystemException.class)
+    @Test
     public void test_updatePassword_invalidNewPassword() {
         User user = service.getAll().blockFirst();
         String email = user.getEmail();
@@ -126,7 +127,7 @@ public class UserServiceTest {
         assertThat(service.get(email).block().getPassword(), is(not(equalTo(newPassword))));
         assertThat(newPassword, not(matches(PASSWORD_REGEX)));
 
-        service.updatePassword(email, newPassword); // TransactionSystemException
+        assertThrows(TransactionSystemException.class, () -> service.updatePassword(email, newPassword));
     }
 
     /**
@@ -134,7 +135,7 @@ public class UserServiceTest {
      *
      * @see UserService#updatePassword(String, String)
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void test_updatePassword_unknownEmail() {
         String email = "sample@domain.org";
 
@@ -143,7 +144,7 @@ public class UserServiceTest {
 
         when(dao.findByEmail(email)).thenReturn(null);
 
-        service.updatePassword(email, "newPassword"); // IllegalArgumentException
+        assertThrows(IllegalArgumentException.class, () -> service.updatePassword(email, "newPassword"));
     }
 
 }

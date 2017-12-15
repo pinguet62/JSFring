@@ -1,6 +1,6 @@
 package fr.pinguet62.jsfring.util;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
 
@@ -18,7 +18,7 @@ import static org.junit.Assert.assertThat;
  *
  * @see FileFormatMatcher
  */
-public final class FileFormatMatcherTest {
+public class FileFormatMatcherTest {
 
     /**
      * Get the resource file test from extension.

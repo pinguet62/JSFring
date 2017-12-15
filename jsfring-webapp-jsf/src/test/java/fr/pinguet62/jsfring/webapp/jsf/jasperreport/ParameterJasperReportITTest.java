@@ -4,11 +4,12 @@ import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.jasperreport.ParametersJasperReportPage;
 import fr.pinguet62.jsfring.webapp.jsf.jasperreport.sample.ParametersJasperReportBean;
 import org.apache.commons.io.IOUtils;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,13 +29,13 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 /**
  * @see ParametersJasperReportBean
  */
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = SpringBootConfig.class, webEnvironment = DEFINED_PORT)
 public class ParameterJasperReportITTest {
 
     private ParametersJasperReportPage page;
 
-    @Before
+    @BeforeEach
     public void before() {
         page = get().gotoParametersJasperReportPage();
     }
@@ -42,7 +43,8 @@ public class ParameterJasperReportITTest {
     /**
      * @see Date
      */
-    // TODO Fix @Test
+    @Test
+    @Disabled // TODO Fix
     public void test_date() throws IOException {
         LocalDateTime date = now();
 

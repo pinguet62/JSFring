@@ -6,16 +6,15 @@ import com.querydsl.core.BooleanBuilder;
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.model.sql.User;
 import fr.pinguet62.jsfring.service.UserService;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
 
@@ -25,14 +24,16 @@ import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.exparity.hamcrest.date.LocalDateTimeMatchers.within;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.springframework.test.context.TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS;
 
 /**
  * @see UserDetailsServiceImpl
  */
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = SpringBootConfig.class)
 // DbUnit
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class})
+@TestExecutionListeners(mergeMode = MERGE_WITH_DEFAULTS, listeners = DbUnitTestExecutionListener.class)
 @DatabaseSetup(DATASET)
 public class UserDetailsServiceImplTest {
 
@@ -48,7 +49,7 @@ public class UserDetailsServiceImplTest {
      * @see UserDetailsServiceImpl#loadUserByUsername(String)
      */
     @Test
-    public void test_login() {
+    public void test_ok() {
         String email = userService.findAll(new BooleanBuilder()).blockFirst().getEmail();
 
         // login
@@ -65,12 +66,12 @@ public class UserDetailsServiceImplTest {
      *
      * @see UserDetailsServiceImpl#loadUserByUsername(String)
      */
-    @Test(expected = UsernameNotFoundException.class)
-    public void test_login_unknownLogin() {
+    @Test
+    public void test_unknownLogin() {
         String email = "unknown login";
         assertThat(userService.get(email).block(), is(nullValue()));
 
-        userDetailsService.loadUserByUsername(email);
+        assertThrows(UsernameNotFoundException.class, () -> userDetailsService.loadUserByUsername(email));
     }
 
 }

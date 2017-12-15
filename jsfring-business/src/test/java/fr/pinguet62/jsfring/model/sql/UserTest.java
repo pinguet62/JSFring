@@ -1,7 +1,7 @@
 package fr.pinguet62.jsfring.model.sql;
 
 import fr.pinguet62.jsfring.common.Combinator;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 

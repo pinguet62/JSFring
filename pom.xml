@@ -33,6 +33,9 @@
     </modules>
 
     <properties>
+        <!-- parent -->
+        <maven-surefire-plugin.version>2.20</maven-surefire-plugin.version>
+        <!-- this -->
         <opencsv.version>4.1</opencsv.version>
         <poi.version>3.16</poi.version><!-- old required by PrimeFaces -->
         <odfdom-java.version>0.8.7</odfdom-java.version>
@@ -198,6 +201,17 @@
                 <groupId>org.eluder.coveralls</groupId>
                 <artifactId>coveralls-maven-plugin</artifactId>
                 <version>${coveralls-maven-plugin.version}</version>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.junit.platform</groupId>
+                        <artifactId>junit-platform-surefire-provider</artifactId>
+                        <version>${junit-platform.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
 
             <!-- Requirement: "HEROKU_API_KEY" environment variable -->

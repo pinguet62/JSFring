@@ -1,6 +1,6 @@
 package fr.pinguet62.jsfring.common;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static fr.pinguet62.jsfring.common.UrlUtils.formatAuthorization;
 import static org.hamcrest.Matchers.equalTo;

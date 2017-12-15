@@ -3,7 +3,7 @@ package fr.pinguet62.jsfring.common.reflection;
 import fr.pinguet62.jsfring.util.querydsl.model.QProfile;
 import fr.pinguet62.jsfring.util.querydsl.model.QRight;
 import fr.pinguet62.jsfring.util.querydsl.model.QUser;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static java.util.Arrays.asList;
 import static org.hamcrest.Matchers.equalTo;
@@ -15,7 +15,7 @@ import static org.junit.Assert.fail;
  * @see PropertyResolver
  * @see PropertyResolver#apply(String)
  */
-public final class PropertyResolverTest {
+public class PropertyResolverTest {
 
     /**
      * An {@link IllegalArgumentException} must be thrown because the attribute doesn't exist.
