@@ -9,6 +9,11 @@
             <password>${env.OSSRH_PASSWORD}</password>
         </server>
         <server>
+            <id>github</id>
+            <username>${env.GITHUB_USERNAME}</username>
+            <password>${env.GITHUB_PASSWORD}</password>
+        </server>
+        <server>
             <id>docker.io</id>
             <username>${env.DOCKERHUB_USERNAME}</username>
             <password>${env.DOCKERHUB_PASSWORD}</password>

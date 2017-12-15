@@ -200,34 +200,6 @@
                 <version>${coveralls-maven-plugin.version}</version>
             </plugin>
 
-            <!-- Documentation: site -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-                <configuration>
-                    <!-- See com.github.github:site-maven-plugin:site -->
-                    <skipDeploy>true</skipDeploy>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>com.github.github</groupId>
-                <artifactId>site-maven-plugin</artifactId>
-                <version>${site-maven-plugin.version}</version>
-                <configuration>
-                    <message>Building site</message>
-                    <userName>${env.GITHUB_USERNAME}</userName>
-                    <password>${env.GITHUB_PASSWORD}</password>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>site</goal>
-                        </goals>
-                        <phase>site-deploy</phase>
-                    </execution>
-                </executions>
-            </plugin>
-
             <!-- Requirement: "HEROKU_API_KEY" environment variable -->
             <!-- Usage: mvn heroku:deploy -pl %MODULE% -->
             <plugin>

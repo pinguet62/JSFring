@@ -52,6 +52,30 @@
                     </dependency>
                 </dependencies>
             </plugin>
+
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>${site-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>site</goal>
+                        </goals>
+                        <configuration>
+                            <!-- See: settings.xml -->
+                            <server>github</server>
+                            <!-- org.asciidoctor:asciidoctor-maven-plugin outputDirectory -->
+                            <outputDirectory>${project.build.directory}/generated-docs</outputDirectory>
+                            <message>Update</message>
+                            <!-- Not auto-detected from <project.scm> -->
+                            <repositoryName>${project.parent.artifactId}</repositoryName>
+                            <repositoryOwner>${env.GITHUB_USERNAME}</repositoryOwner>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
