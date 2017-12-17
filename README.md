@@ -71,7 +71,6 @@ Production
 
 ### TODO
 
-* [Multitenancy](https://en.wikipedia.org/wiki/Multitenancy) architecture
 * Datastore
 	* <img src="http://www.steamulo.com/blobs/com.cardiweb.cardiboxv6.cm.business.Article/3131807079036093132/img/1/fr/logo-elastic.png" height="25" /> [Elasticsearch](https://www.elastic.co/fr)
 * Test
@@ -79,63 +78,53 @@ Production
 * Logging
 	* <img src="http://logz.io/wp-content/uploads/2015/12/logstash-logo.png" height="25" /> [Logstash](https://www.elastic.co/products/logstash)
 
-## Continuous Updating
+## Licence
 
-All dependencies use the latest version.
+<img src="https://www.apache.org/img/asf_logo.png" height="25" /> [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-<img src="https://libraries.io/assets/logo-ff2b4e24d68406c7bddf1bea8d15a9f3f06623bc47933cda0c7dc22828dd4a6a.svg" height="25" /> 
-[Libraries.io](https://libraries.io) 
-[![Libraries.io for GitHub](https://img.shields.io/librariesio/github/pinguet62/jsfring.svg)](https://libraries.io/github/pinguet62/jsfring)
+## The development is _continuous_
 
-## Security & vulnerabilities
+### Continuous documentation
 
-<img src="https://res.cloudinary.com/snyk/image/upload/v1468845259/logo/snyk-dog.svg" height="25" /> 
-[Snyk](https://snyk.io) 
-[![Known Vulnerabilities](https://snyk.io/test/github/pinguet62/jsfring/badge.svg)](https://snyk.io/test/github/pinguet62/jsfring)
+_Generate_ and _deploy_ documentation... continuously!
 
-## Static analysis
+<img src="http://flashinformatique.epfl.ch/IMG/arton2527.png" height="25" /> [AsciiDoc](http://asciidoctor.org)
 
-### Code quality
+See [**GitHub page**](https://pinguet62.github.io/JSFring)
 
-Check that *source code* respect *best practices*:
-* project metrics
-* code patterns
-* code coverage
-* code complexity
-* code duplication
-* ...
+### Continuous updating
 
-<img src="https://www.codacy.com/versioned/images/favicon.png" height="25" /> 
-[Codacy](https://www.codacy.com) 
-[![Codacy Badge](https://api.codacy.com/project/badge/9ea574afb85b496294af3b6057e278aa)](https://www.codacy.com/app/pinguet62/JSFring)
+Be alerted by _new versions_... continuously!
 
-## Build & Test
+<img src="https://libraries.io/assets/logo-ff2b4e24d68406c7bddf1bea8d15a9f3f06623bc47933cda0c7dc22828dd4a6a.svg" height="25" /> [Libraries.io](https://libraries.io) [![Libraries.io for GitHub](https://img.shields.io/librariesio/github/pinguet62/jsfring.svg)](https://libraries.io/github/pinguet62/jsfring)
+
+### Continuous security
+
+Be alerted by _known vulnerabilities_... continuously!
+
+<img src="https://res.cloudinary.com/snyk/image/upload/v1468845259/logo/snyk-dog.svg" height="25" /> [Snyk](https://snyk.io) [![Known Vulnerabilities](https://snyk.io/test/github/pinguet62/jsfring/badge.svg)](https://snyk.io/test/github/pinguet62/jsfring)
+
+### Continuous code quality & review
+
+<img src="https://www.codacy.com/versioned/images/favicon.png" height="25" /> [Codacy](https://www.codacy.com) [![Codacy Badge](https://api.codacy.com/project/badge/9ea574afb85b496294af3b6057e278aa)](https://www.codacy.com/app/pinguet62/JSFring)
 
 ### Continuous Integration
 
-Build and run unit/integration tests, in continue!
+_Build_ and _run unit/integration tests_... continuously!
 
-<img src="http://img.photobucket.com/albums/v330/pretendercrazy/travis-an_zpsb8ef2f7e.gif" height="25" /> 
-[Travis CI](https://travis-ci.org) 
-[![Build Status](https://travis-ci.org/pinguet62/JSFring.svg?branch=master)](https://travis-ci.org/pinguet62/JSFring)
+<img src="http://img.photobucket.com/albums/v330/pretendercrazy/travis-an_zpsb8ef2f7e.gif" height="25" /> [Travis CI](https://travis-ci.org) [![Build Status](https://travis-ci.org/pinguet62/JSFring.svg?branch=master)](https://travis-ci.org/pinguet62/JSFring)
 
 ### Code coverage
 
-Measure the degree to which the source code of a program is *tested*.
+See _code complexity_ and _code coverage_... continuously!
 
-<img src="https://coveralls.io/favicon.png" height="25" /> 
-[Coveralls](https://coveralls.io) 
-[![Coverage Status](https://coveralls.io/repos/github/pinguet62/JSFring/badge.svg?branch=master)](https://coveralls.io/github/pinguet62/JSFring?branch=master)
+<img src="https://coveralls.io/favicon.png" height="25" /> [Coveralls](https://coveralls.io) [![Coverage Status](https://coveralls.io/repos/github/pinguet62/JSFring/badge.svg?branch=master)](https://coveralls.io/github/pinguet62/JSFring?branch=master)
 
-<img src="https://avatars2.githubusercontent.com/u/8226205?v=3&s=200" height="25" /> 
-[Codecov](https://codecov.io) 
-[![codecov.io](https://codecov.io/github/pinguet62/JSFring/coverage.svg?branch=master)](https://codecov.io/github/pinguet62/JSFring?branch=master)
+<img src="https://avatars2.githubusercontent.com/u/8226205?v=3&s=200" height="25" /> [Codecov](https://codecov.io) [![codecov.io](https://codecov.io/github/pinguet62/JSFring/coverage.svg?branch=master)](https://codecov.io/github/pinguet62/JSFring?branch=master)
 
-## Install & Runtime
+### Continuous Deployment
 
-### SaaS (Software as a Service): Continuous Deployment
-
-Multi web-application deployed on cloud... in continue!
+Multi application _deployment_ on cloud... in continue!
 
 * Webapp:
 	* JSF: <img src="https://www-assets3.herokucdn.com/assets/logo-purple-08fb38cebb99e3aac5202df018eb337c5be74d5214768c90a8198c97420e4201.svg" height="25" /> [Heroku](https://www.heroku.com/home) [![Heroku](https://heroku-badge.herokuapp.com/?app=jsfring-webapp-jsf)](https://jsfring-webapp-jsf.herokuapp.com)
@@ -143,13 +132,3 @@ Multi web-application deployed on cloud... in continue!
 	* Angular 2: <img src="https://www-assets3.herokucdn.com/assets/logo-purple-08fb38cebb99e3aac5202df018eb337c5be74d5214768c90a8198c97420e4201.svg" height="25" /> [Heroku](https://www.heroku.com/home) [![Heroku](https://heroku-badge.herokuapp.com/?app=jsfring-webapp-angular)](https://jsfring-webapp-angular.herokuapp.com)
 	* Batch-admin: <img src="https://www-assets3.herokucdn.com/assets/logo-purple-08fb38cebb99e3aac5202df018eb337c5be74d5214768c90a8198c97420e4201.svg" height="25" /> [Heroku](https://www.heroku.com/home) [![Heroku](https://heroku-badge.herokuapp.com/?app=jsfring-batch-admin)](https://jsfring-batch-admin.herokuapp.com)
 * Webservice: <img src="https://www-assets3.herokucdn.com/assets/logo-purple-08fb38cebb99e3aac5202df018eb337c5be74d5214768c90a8198c97420e4201.svg" height="25" /> [Heroku](https://www.heroku.com/home) [![Heroku](https://heroku-badge.herokuapp.com/?app=jsfring-webservice)](https://jsfring-webservice.herokuapp.com)
-
-## Documentation
-
-See [**Maven site**](http://pinguet62.github.io/JSFring)
-
-## Licence
-
-<img src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png" height="25" />
-[Creative Commons BY-NC-SA](http://creativecommons.org/licenses/by-nc-sa/4.0)
-[![Creative Commons BY-NC-SA](https://img.shields.io/badge/Licence-Creative%20Commons-brightgreen.svg)](http://creativecommons.org/licenses/by-nc-sa/4.0)
