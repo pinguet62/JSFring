@@ -60,6 +60,8 @@ services:
     build: ./jsfring-webapp-angular
     ports:
       - 8083:80
+    environment:
+      - JSFRING_WEBAPP_ANGULAR_CONFIG={"api":"window.location.origin.replace('8083', '8086')"}
   webapp-angularjs:
     image: pinguet62/jsfring-webapp-angularjs
     build: ./jsfring-webapp-angularjs

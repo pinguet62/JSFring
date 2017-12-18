@@ -1,8 +1,8 @@
-import {NgModule} from "@angular/core";
+import {NgModule, APP_INITIALIZER} from "@angular/core";
 import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {RouterModule} from "@angular/router";
 import {MatAutocompleteModule, MatButtonModule, MatCheckboxModule, MatDialogModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatSelectModule, MatSidenavModule, MatTableModule, MatToolbarModule} from "@angular/material";
 import {MenubarModule, DataTableModule, InputTextModule, ButtonModule, SliderModule, DialogModule, CheckboxModule, CalendarModule} from "primeng/primeng";
@@ -19,6 +19,8 @@ import {RightComponent} from "./right/right.component";
 import {UserService} from "./user/user.service";
 import {ProfileService} from "./profile/profile.service";
 import {RightService} from "./right/right.service";
+
+import {configInitialize} from './config';
 
 @NgModule({
     imports: [
@@ -38,7 +40,13 @@ import {RightService} from "./right/right.service";
     bootstrap: [AppComponent],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: ContentTypeHeaderHttpClientInterceptor, multi: true},
-        UserService, ProfileService, RightService
+        UserService, ProfileService, RightService,
+        {
+            provide: APP_INITIALIZER,
+            useFactory: configInitialize,
+            deps: [HttpClient],
+            multi: true
+        }
     ]
 })
 export class AppModule {}
