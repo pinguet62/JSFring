@@ -23,19 +23,31 @@ script:
     # Documentation: generate site
     # Disabled: - mvn site
 
-# Reporting
-after_success:
-    # Coveralls.io: publish
-    - mvn coveralls:report
-    # Codecov.io: publish
-    - bash <(curl -s https://codecov.io/bash)
-
 # Information about failure
 after_failure:
     # show memory usage again
     - sudo free -m -t
     # show actions of the OOM killer
     - sudo dmesg
+
+# Reporting
+after_success:
+    # Codacy
+    # Workaround: support for multi-reports
+    - mkdir -p target/site/jacoco
+    - curl -L "https://oss.sonatype.org/service/local/artifact/maven/redirect?g=org.jacoco&a=jacoco&e=zip&r=snapshots&v=LATEST" -o target/jacoco.zip
+    - unzip -j target/jacoco.zip lib/jacococli.jar -d target
+    - |
+      java -jar target/jacococli.jar report \
+          jsfring-common/target/jacoco.exec --classfiles jsfring-common/target/classes --sourcefiles jsfring-common/src/main/java \
+          jsfring-common-test/target/jacoco.exec --classfiles jsfring-common-test/target/classes --sourcefiles jsfring-common-test\src/main/java \
+          jsfring-common-security/target/jacoco.exec --classfiles jsfring-common-security/target/classes --sourcefiles jsfring-common-security\src/main/java \
+          jsfring-business/target/jacoco.exec --classfiles jsfring-business/target/classes --sourcefiles jsfring-business\src/main/java \
+          jsfring-batch/target/jacoco.exec --classfiles jsfring-batch/target/classes --sourcefiles jsfring-batch\src/main/java \
+          jsfring-webservice/target/jacoco.exec --classfiles jsfring-webservice/target/classes --sourcefiles jsfring-webservice\src/main/java \
+          jsfring-webapp-jsf/target/jacoco.exec --classfiles jsfring-webapp-jsf/target/classes --sourcefiles jsfring-webapp-jsf\src/main/java \
+          --xml target/site/jacoco/jacoco.xml
+    - mvn -B -N com.gavinmogan:codacy-maven-plugin:coverage -DcoverageReportFile=target/site/jacoco/jacoco.xml
 
 # Deploy
 after_script:

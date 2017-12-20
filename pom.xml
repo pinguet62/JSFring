@@ -43,7 +43,7 @@
         <itext.version>2.1.7</itext.version><!-- old required by PrimeFaces -->
         <versioneye-maven-plugin.version>3.11.4</versioneye-maven-plugin.version>
         <jacoco-maven-plugin.version>0.7.9</jacoco-maven-plugin.version>
-        <coveralls-maven-plugin.version>4.3.0</coveralls-maven-plugin.version>
+        <codacy-maven-plugin.version>1.0.3</codacy-maven-plugin.version>
         <site-maven-plugin.version>0.12</site-maven-plugin.version>
         <dockerfile-maven-plugin.version>1.3.6</dockerfile-maven-plugin.version>
         <heroku-maven-plugin.version>2.0.2</heroku-maven-plugin.version>
@@ -194,13 +194,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <!-- Reporting -->
-                <!-- https://coveralls.io -->
-                <groupId>org.eluder.coveralls</groupId>
-                <artifactId>coveralls-maven-plugin</artifactId>
-                <version>${coveralls-maven-plugin.version}</version>
             </plugin>
 
             <plugin>

@@ -104,7 +104,9 @@ Be alerted by _known vulnerabilities_... continuously!
 
 <img src="https://res.cloudinary.com/snyk/image/upload/v1468845259/logo/snyk-dog.svg" height="25" /> [Snyk](https://snyk.io) [![Known Vulnerabilities](https://snyk.io/test/github/pinguet62/jsfring/badge.svg)](https://snyk.io/test/github/pinguet62/jsfring)
 
-### Continuous code quality & review
+### Continuous code quality
+
+_Review automatically_ issues, complexity, duplicated code, performance, ... continuously! 
 
 <img src="https://www.codacy.com/versioned/images/favicon.png" height="25" /> [Codacy](https://www.codacy.com) [![Codacy Badge](https://api.codacy.com/project/badge/9ea574afb85b496294af3b6057e278aa)](https://www.codacy.com/app/pinguet62/JSFring)
 
@@ -116,11 +118,9 @@ _Build_ and _run unit/integration tests_... continuously!
 
 ### Code coverage
 
-See _code complexity_ and _code coverage_... continuously!
+See test _code coverage_... continuously!
 
-<img src="https://coveralls.io/favicon.png" height="25" /> [Coveralls](https://coveralls.io) [![Coverage Status](https://coveralls.io/repos/github/pinguet62/JSFring/badge.svg?branch=master)](https://coveralls.io/github/pinguet62/JSFring?branch=master)
-
-<img src="https://avatars2.githubusercontent.com/u/8226205?v=3&s=200" height="25" /> [Codecov](https://codecov.io) [![codecov.io](https://codecov.io/github/pinguet62/JSFring/coverage.svg?branch=master)](https://codecov.io/github/pinguet62/JSFring?branch=master)
+<img src="https://www.codacy.com/versioned/images/favicon.png" height="25" /> [Codacy](https://www.codacy.com) [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/9ea574afb85b496294af3b6057e278aa)](https://www.codacy.com/app/pinguet62/JSFring?utm_source=github.com&utm_medium=referral&utm_content=pinguet62/JSFring&utm_campaign=Badge_Coverage)
 
 ### Continuous Deployment
 
