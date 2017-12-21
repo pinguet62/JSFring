@@ -1,11 +1,10 @@
-import {Component} from "@angular/core";
-import {HttpParams} from "@angular/common/http";
-
+import {Component} from '@angular/core';
+import {HttpParams} from '@angular/common/http';
 import {environment} from '../environments/environment';
-import {SecurityService} from "./security/security.service";
+import {SecurityService} from './security/security.service';
 
 @Component({
-    selector: 'app-root',
+    selector: 'p62-app',
     template: `
         <mat-toolbar color="primary">
             <!-- Open menu -->
@@ -71,7 +70,7 @@ import {SecurityService} from "./security/security.service";
 export class AppComponent {
 
     constructor(private securityService: SecurityService) {
-        securityService.unauthorized.subscribe((x: any) => console.log("toto: " + x));
+        securityService.unauthorized.subscribe((x: any) => console.log('toto: ' + x));
     }
 
     login(): void {
@@ -79,7 +78,7 @@ export class AppComponent {
         paramBuilder.append('client_id', 'clientId');
         paramBuilder.append('response_type', 'token');
         paramBuilder.append('scope', 'read');
-        paramBuilder.append('redirect_uri', window.location.protocol + "//" + window.location.host + '/oauth');
+        paramBuilder.append('redirect_uri', window.location.protocol + '//' + window.location.host + '/oauth');
 
         let authorizeUrl: string = environment.api + '/oauth/authorize' + '?' + paramBuilder.toString();
 

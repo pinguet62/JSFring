@@ -1,20 +1,16 @@
-import {Component} from "@angular/core";
-
-import {Column, InputText} from "primeng/primeng";
-
-import {DatatableComponent, DatatableColumnsComponent} from "../shared/datatable.component"
-import {ProfileService} from "./profile.service";
+import {Component} from '@angular/core';
+import {ProfileService} from './profile.service';
 
 @Component({
-    selector: 'profile',
+    selector: 'p62-profile',
     template: `
         <p62-datatable [service]="profileService" [(selectedValue)]="selectedProfile">
-        
+
             <p62-datatable-columns>
                 <p-column field="id" header="Id" sortable="true" filter="true" filterMatchMode="contains" hidden="true"></p-column>
                 <p-column field="title" header="Title" sortable="true" filter="true" filterMatchMode="contains"></p-column>
             </p62-datatable-columns>
-        
+
             <p62-datatable-dialog>
                 <ng-template [ngIf]="selectedProfile">
                     <mat-input-container>
@@ -26,13 +22,14 @@ import {ProfileService} from "./profile.service";
                     </mat-input-container>
                 </ng-template>
             </p62-datatable-dialog>
-        
+
         </p62-datatable>`
 })
 export class ProfileComponent {
 
-    selectedProfil: any;
+    selectedProfile: any;
 
-    constructor(public profileService: ProfileService) {}
+    constructor(public profileService: ProfileService) {
+    }
 
 }

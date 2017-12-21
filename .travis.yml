@@ -20,8 +20,6 @@ install: true
 # Override: `mvn test -B`
 script:
     - mvn -B clean deploy --settings .travis-settings.xml
-    # Documentation: generate site
-    # Disabled: - mvn site
 
 # Information about failure
 after_failure:
@@ -48,11 +46,6 @@ after_success:
           jsfring-webapp-jsf/target/jacoco.exec --classfiles jsfring-webapp-jsf/target/classes --sourcefiles jsfring-webapp-jsf\src/main/java \
           --xml target/site/jacoco/jacoco.xml
     - mvn -B -N com.gavinmogan:codacy-maven-plugin:coverage -DcoverageReportFile=target/site/jacoco/jacoco.xml
-
-# Deploy
-after_script:
-    # Documentation: GitHub pages site
-    # Disabled: - mvn --non-recursive com.github.github:site-maven-plugin:site
 
     # Heroku
     - mvn -B liquibase:update -pl jsfring-database

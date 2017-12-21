@@ -1,7 +1,8 @@
-import {Component} from "@angular/core";
+import {Component} from '@angular/core';
 
 @Component({
     selector: 'p62-index',
     template: ''
 })
-export class IndexComponent {}
+export class IndexComponent {
+}

@@ -1,4 +1,4 @@
-import {Injectable, EventEmitter} from "@angular/core";
+import {EventEmitter, Injectable} from '@angular/core';
 
 /** Store information about user's security information. */
 @Injectable()

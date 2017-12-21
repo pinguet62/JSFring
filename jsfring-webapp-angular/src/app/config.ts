@@ -1,6 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../environments/environment';
-import "rxjs/add/operator/do";
+import 'rxjs/add/operator/do';
 
 export function configInitialize(http: HttpClient): () => Promise<any> {
     return () => http

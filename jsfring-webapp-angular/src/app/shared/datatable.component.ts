@@ -1,13 +1,13 @@
-import {Component, ContentChild, ContentChildren, Input, Output, EventEmitter, OnInit, QueryList} from "@angular/core";
-import {Button, Checkbox, Column} from "primeng/primeng";
-
-import {CrudService} from "./crud.service";
+import {Component, ContentChild, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList} from '@angular/core';
+import {Column} from 'primeng/primeng';
+import {CrudService} from './crud.service';
 
 @Component({
     selector: 'p62-datatable-dialog',
     template: '<ng-content></ng-content>'
 })
-export class DatatableDialogComponent {}
+export class DatatableDialogComponent {
+}
 
 @Component({
     selector: 'p62-datatable-columns',
@@ -31,13 +31,13 @@ export class DatatableColumnsComponent {
     template: `
         <p-dataTable [value]="values" selectionMode="single" [(selection)]="selectedValue" (onRowSelect)="onRowSelect($event.data)">
             <p-column *ngFor="let column of datatableColumns.columns"
-                     [field]="column.field"
-                     [hidden]="column.hidden"
-                     [sortable]="column.sortable"
-                     [filter]="column.filter" [filterMatchMode]="column.filterMatchMode"
-                     [header]="column.header" [footer]="column.footer"></p-column>
+                      [field]="column.field"
+                      [hidden]="column.hidden"
+                      [sortable]="column.sortable"
+                      [filter]="column.filter" [filterMatchMode]="column.filterMatchMode"
+                      [header]="column.header" [footer]="column.footer"></p-column>
         </p-dataTable>
-        
+
         <!-- TODO modal & z-index -->
         <!-- TODO width & responsive -->
         <p-dialog header="Show/Update/Create" [(visible)]="displayDialog" [modal]="true" [width]="500" [responsive]="true">

@@ -23,6 +23,13 @@
       true,
       "spaces"
     ],
+    "ordered-imports": [
+      true,
+      {
+        "import-sources-order": "any",
+        "named-imports-order": "case-insensitive"
+      }
+    ],
     "interface-over-type-literal": true,
     "label-position": true,
     "max-line-length": [
@@ -80,7 +87,7 @@
       "check-else",
       "check-whitespace"
     ],
-    "prefer-const": true,
+    "prefer-const": false,
     "quotemark": [
       true,
       "single"

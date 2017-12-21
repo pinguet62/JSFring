@@ -1,8 +1,7 @@
-import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
-
-import {CrudService} from "../shared/crud.service";
-import {Profile} from "./profile.model";
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {CrudService} from '../shared/crud.service';
+import {Profile} from './profile.model';
 
 @Injectable()
 export class ProfileService extends CrudService<Profile> {

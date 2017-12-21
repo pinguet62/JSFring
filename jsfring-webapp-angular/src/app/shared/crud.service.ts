@@ -1,6 +1,5 @@
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs/Observable";
-
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
 import {environment} from '../../environments/environment';
 
 export abstract class CrudService<T> {
@@ -11,7 +10,8 @@ export abstract class CrudService<T> {
 
     protected abstract getId(value: T): string;
 
-    constructor(protected http: HttpClient) {}
+    constructor(protected http: HttpClient) {
+    }
 
     findAll(): Observable<T[]> {
         let targetUrl: string = this.baseUrl + this.getServiceSubUrl();

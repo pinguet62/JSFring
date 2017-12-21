@@ -1,24 +1,23 @@
-import {NgModule, APP_INITIALIZER} from "@angular/core";
-import {BrowserModule} from "@angular/platform-browser";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from '@angular/common/http';
-import {RouterModule} from "@angular/router";
-import {MatAutocompleteModule, MatButtonModule, MatCheckboxModule, MatDialogModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatSelectModule, MatSidenavModule, MatTableModule, MatToolbarModule} from "@angular/material";
-import {MenubarModule, DataTableModule, InputTextModule, ButtonModule, SliderModule, DialogModule, CheckboxModule, CalendarModule} from "primeng/primeng";
-
+import {APP_INITIALIZER, NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
+import {RouterModule} from '@angular/router';
+import {MatAutocompleteModule, MatButtonModule, MatCheckboxModule, MatDialogModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatSelectModule, MatSidenavModule, MatTableModule, MatToolbarModule} from '@angular/material';
+import {ButtonModule, CalendarModule, CheckboxModule, DataTableModule, DialogModule, InputTextModule, MenubarModule, SliderModule} from 'primeng/primeng';
 import {ContentTypeHeaderHttpClientInterceptor} from './content-type-header-http-client.http-interceptor';
-import {routes} from "./app.routing";
-import {AppComponent} from "./app.component";
-import {SecurityModule} from "./security/security-module";
-import {DatatableComponent, DatatableColumnsComponent, DatatableDialogComponent} from "./shared/datatable.component";
-import {IndexComponent} from "./index.component";
-import {UserComponent} from "./user/user.component";
-import {ProfileComponent} from "./profile/profile.component";
-import {RightComponent} from "./right/right.component";
-import {UserService} from "./user/user.service";
-import {ProfileService} from "./profile/profile.service";
-import {RightService} from "./right/right.service";
+import {routes} from './app.routing';
+import {AppComponent} from './app.component';
+import {SecurityModule} from './security/security-module';
+import {DatatableColumnsComponent, DatatableComponent, DatatableDialogComponent} from './shared/datatable.component';
+import {IndexComponent} from './index.component';
+import {UserComponent} from './user/user.component';
+import {ProfileComponent} from './profile/profile.component';
+import {RightComponent} from './right/right.component';
+import {UserService} from './user/user.service';
+import {ProfileService} from './profile/profile.service';
+import {RightService} from './right/right.service';
 
 import {configInitialize} from './config';
 
@@ -49,4 +48,5 @@ import {configInitialize} from './config';
         }
     ]
 })
-export class AppModule {}
+export class AppModule {
+}
