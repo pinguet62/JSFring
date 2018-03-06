@@ -13,13 +13,13 @@ import {RightService} from './right.service';
 
             <p62-datatable-dialog>
                 <ng-template [ngIf]="selectedRight">
-                    <mat-input-container>
+                    <mat-form-field>
                         <input matInput placeholder="Code" [(value)]="selectedRight.code" disabled>
-                    </mat-input-container>
+                    </mat-form-field>
                     <br>
-                    <mat-input-container>
+                    <mat-form-field>
                         <input matInput placeholder="Title" [(value)]="selectedRight.title">
-                    </mat-input-container>
+                    </mat-form-field>
                 </ng-template>
             </p62-datatable-dialog>
 

@@ -15,9 +15,9 @@ import {UserService} from './user.service';
 
             <p62-datatable-dialog>
                 <ng-template [ngIf]="selectedUser">
-                    <mat-input-container>
+                    <mat-form-field>
                         <input matInput placeholder="Email" [(value)]="selectedUser.email" disabled>
-                    </mat-input-container>
+                    </mat-form-field>
                     <br>
                     <mat-checkbox [(ngModel)]="selectedUser.active">Active</mat-checkbox>
                     <br>

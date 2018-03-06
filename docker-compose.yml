@@ -2,7 +2,7 @@ version: '2'
 services:
   # Services
   postgres:
-    image: postgres:10.1-alpine
+    image: postgres:11-alpine
     environment:
       - POSTGRES_DB=db
       - POSTGRES_USER=user

@@ -1,2 +1,3 @@
 {
+  "api": "window.location.origin.replace('8083', '8086')"
 }

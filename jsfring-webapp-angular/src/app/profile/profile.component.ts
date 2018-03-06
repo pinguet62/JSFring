@@ -13,13 +13,13 @@ import {ProfileService} from './profile.service';
 
             <p62-datatable-dialog>
                 <ng-template [ngIf]="selectedProfile">
-                    <mat-input-container>
+                    <mat-form-field>
                         <input matInput placeholder="Id" [(value)]="selectedProfile.id" disabled>
-                    </mat-input-container>
+                    </mat-form-field>
                     <br>
-                    <mat-input-container>
+                    <mat-form-field>
                         <input matInput placeholder="Title" [(value)]="selectedProfile.title">
-                    </mat-input-container>
+                    </mat-form-field>
                 </ng-template>
             </p62-datatable-dialog>
 

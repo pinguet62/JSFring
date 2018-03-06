@@ -4,7 +4,7 @@ import {environment} from '../environments/environment';
 import {SecurityService} from './security/security.service';
 
 @Component({
-    selector: 'p62-app',
+    selector: 'app-root',
     template: `
         <mat-toolbar color="primary">
             <!-- Open menu -->

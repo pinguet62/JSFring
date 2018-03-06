@@ -1,4 +1,4 @@
-FROM node:9.2.0-alpine
+FROM node:10-alpine
 
 COPY . /opt/jsfring/webapp-angularjs
 RUN rm -rf /opt/jsfring/webapp-angularjs/target
