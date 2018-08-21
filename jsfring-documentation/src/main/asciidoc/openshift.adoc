@@ -1,0 +1,19 @@
+# OpenShift
+
+## Register *Docker Hub* repository
+
+[source,shell]
+----
+oc tag docker.io/pinguet62/jsfring-XXX:latest jsfring-XXX:latest --scheduled
+----
+
+Example:
+[source,shell]
+----
+oc tag docker.io/pinguet62/jsfring-webapp-angular:latest jsfring-webapp-angular:latest --scheduled
+----
+
+## Enable _auto-deploy_
+
+Use `--scheduled` for _auto-deploy_. +
+Or set `spec.tags.*.importPolicy.scheduled` YAML option to `true`.
