@@ -6,8 +6,9 @@ export function configInitialize(http: HttpClient): () => Promise<any> {
     return () => http
         .get(environment.configFile)
         .pipe(tap(config => {
-            for (let prop in config)
-                environment[prop] = eval(config[prop]);
+            for (const [key, value] of Object.entries(config)) {
+                environment[key] = eval(value);
+            }
         }))
         .toPromise();
 }

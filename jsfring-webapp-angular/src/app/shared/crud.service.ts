@@ -14,24 +14,24 @@ export abstract class CrudService<T> {
     }
 
     findAll(): Observable<T[]> {
-        let targetUrl: string = this.baseUrl + this.getServiceSubUrl();
+        const targetUrl: string = this.baseUrl + this.getServiceSubUrl();
         return this.http.get<T[]>(targetUrl);
     }
 
     create(value: T): Observable<T> {
-        let url: string = this.baseUrl + this.getServiceSubUrl();
-        let body: string = JSON.stringify(value);
+        const url: string = this.baseUrl + this.getServiceSubUrl();
+        const body: string = JSON.stringify(value);
         return this.http.put<T>(url, body);
     }
 
     update(value: T): Observable<T> {
-        let url: string = this.baseUrl + this.getServiceSubUrl()/* + '/' + this.getId(value)*/;
-        let body: string = JSON.stringify(value);
+        const url: string = this.baseUrl + this.getServiceSubUrl()/* + '/' + this.getId(value)*/;
+        const body: string = JSON.stringify(value);
         return this.http.post<T>(url, body);
     }
 
     delete(value: T): Observable<T> {
-        let url: string = this.baseUrl + this.getServiceSubUrl() + '/' + this.getId(value);
+        const url: string = this.baseUrl + this.getServiceSubUrl() + '/' + this.getId(value);
         return this.http.delete<T>(url);
     }
 

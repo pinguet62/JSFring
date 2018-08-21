@@ -86,9 +86,10 @@ export class DatatableComponent implements OnInit {
      * @return The new cloned object.
      */
     private clone(src: any): any {
-        let tgt = new (<any>src.constructor)();
-        for (let prop in src)
+        const tgt = new (<any>src.constructor)();
+        for (const prop in src) {
             tgt[prop] = src[prop];
+        }
         return tgt;
     }
 

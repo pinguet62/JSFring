@@ -11,8 +11,9 @@ export class OAuthHeaderHttpClientInterceptor implements HttpInterceptor {
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (this.securityService.token)
+        if (this.securityService.token) {
             req = req.clone({headers: req.headers.set('Authorization', 'Bearer ' + this.securityService.token)});
+        }
         return next.handle(req);
     }
 

@@ -22,9 +22,11 @@ export class UserService extends CrudService<User> {
 
     findAll(): Observable<User[]> {
         return super.findAll().pipe(map((users: User[]) => {
-            for (let user of users)
-                if (user.lastConnection !== null)
+            for (const user of users) {
+                if (user.lastConnection !== null) {
                     user.lastConnection = new Date(user.lastConnection);
+                }
+            }
             return users;
         }));
     }

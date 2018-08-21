@@ -31,30 +31,42 @@ export class AuthorizeComponent {
 
     /** Check that user has all roles. */
     private isAllGranted(): boolean {
-        if (this.areAllGranted === '') return true;
-        for (let role of this.splitAndTrim(this.areAllGranted))
+        if (this.areAllGranted === '') {
+            return true;
+        }
+        for (const role of this.splitAndTrim(this.areAllGranted)) {
             // If any role is missing: false
-            if (this.securityService.getRoles().indexOf(role) < 0)
+            if (this.securityService.getRoles().indexOf(role) < 0) {
                 return false;
+            }
+        }
         return true;
     }
 
     /** Check that user has any roles. */
     private isAnyGranted(): boolean {
-        if (this.areAnyGranted === '') return true;
-        for (let role of this.splitAndTrim(this.areAnyGranted))
+        if (this.areAnyGranted === '') {
+            return true;
+        }
+        for (const role of this.splitAndTrim(this.areAnyGranted)) {
             // If any role is present: true
-            if (this.securityService.getRoles().indexOf(role) >= 0)
+            if (this.securityService.getRoles().indexOf(role) >= 0) {
                 return true;
+            }
+        }
         return false;
     }
 
     /** Check that user doesn't have all roles. */
     private isNotGranted(): boolean {
-        if (this.areNotGranted === '') return true;
-        for (let role of this.splitAndTrim(this.areNotGranted))
-            if (this.securityService.getRoles().indexOf(role) >= 0)
+        if (this.areNotGranted === '') {
+            return true;
+        }
+        for (const role of this.splitAndTrim(this.areNotGranted)) {
+            if (this.securityService.getRoles().indexOf(role) >= 0) {
                 return false;
+            }
+        }
         return true;
     }
 

@@ -74,13 +74,13 @@ export class AppComponent {
     }
 
     login(): void {
-        let paramBuilder: HttpParams = new HttpParams();
+        const paramBuilder: HttpParams = new HttpParams();
         paramBuilder.append('client_id', 'clientId');
         paramBuilder.append('response_type', 'token');
         paramBuilder.append('scope', 'read');
         paramBuilder.append('redirect_uri', window.location.protocol + '//' + window.location.host + '/oauth');
 
-        let authorizeUrl: string = environment.api + '/oauth/authorize' + '?' + paramBuilder.toString();
+        const authorizeUrl: string = environment.api + '/oauth/authorize' + '?' + paramBuilder.toString();
 
         window.location.replace(authorizeUrl); // let popup: Window = window.open(authorizeUrl, 'Login', 'location=1');
     }
