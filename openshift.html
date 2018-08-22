@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.6.1">
-<title>JSFring</title>
+<title>OpenShift</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -427,16 +427,33 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>JSFring</h1>
+<h1>OpenShift</h1>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_modules_architecture">Modules architecture</h2>
+<h2 id="_register_strong_docker_hub_strong_repository">Register <strong>Docker Hub</strong> repository</h2>
 <div class="sectionbody">
-<div class="imageblock">
+<div class="listingblock">
 <div class="content">
-<img src="images/diag-f5016d1c8cb32bf8872e74d98d8dd7f1.png" alt="diag f5016d1c8cb32bf8872e74d98d8dd7f1" width="800" height="350">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc tag docker.io/pinguet62/jsfring-XXX:latest jsfring-XXX:latest --scheduled</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc tag docker.io/pinguet62/jsfring-webapp-angular:latest jsfring-webapp-angular:latest --scheduled</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_enable_em_auto_deploy_em">Enable <em>auto-deploy</em></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Use <code>--scheduled</code> for <em>auto-deploy</em>.<br>
+Or set <code>spec.tags.*.importPolicy.scheduled</code> YAML option to <code>true</code>.</p>
 </div>
 </div>
 </div>
