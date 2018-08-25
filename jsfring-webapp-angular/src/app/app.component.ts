@@ -1,7 +1,9 @@
 import {Component} from '@angular/core';
 import {HttpParams} from '@angular/common/http';
+import {MatSnackBar} from "@angular/material";
 import {environment} from '../environments/environment';
 import {SecurityService} from './security/security.service';
+import {WebSocketService} from './websocket';
 
 @Component({
     selector: 'app-root',
@@ -69,7 +71,14 @@ import {SecurityService} from './security/security.service';
 })
 export class AppComponent {
 
-    constructor(private securityService: SecurityService) {
+    constructor(
+        snackBar: MatSnackBar,
+        websocketService: WebSocketService,
+        private securityService: SecurityService,
+    ) {
+        websocketService.userRightsUpdated.subscribe(message =>
+            snackBar.open(message)
+        );
         securityService.unauthorized.subscribe((x: any) => console.log('toto: ' + x));
     }
 
