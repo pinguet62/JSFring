@@ -23,6 +23,16 @@ services:
     ports:
       - 1025:1025 # local debug
       - 8081:1080
+  kafka:
+    image: spotify/kafka
+    ports:
+      - 9092:9092 # local debug (Kafka)
+      - 2181:2181 # local debug (Zookeeper)
+    environment:
+      - ADVERTISED_HOST=kafka
+      - ADVERTISED_PORT=9092
+      - GROUP_ID=mygroupid
+      - TOPICS=mytopic
   # Script
   database:
     image: pinguet62/jsfring-database
@@ -89,5 +99,8 @@ services:
       - SPRING_MAIL_PORT=1025
       - SPRING_MAIL_USERNAME=
       - SPRING_MAIL_PASSWORD=
+      - KAFKA_HOST=kafka:9092
+      - spring.kafka.properties.security.protocol=PLAINTEXT # disable security
+      - KAFKA_TOPIC_PREFIX=
     ports:
       - 8086:8080
