@@ -7,5 +7,5 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 @Configuration
 @EnableGlobalMethodSecurity(jsr250Enabled = true)
 @PropertySource("classpath:/application-common-security.properties")
-public class SecurityConfig {
+public class CommonSecurityConfig {
 }
