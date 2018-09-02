@@ -7,5 +7,8 @@
 export const environment = {
     production: false,
     configFile: 'assets/config.json',
-    api: window.location.origin.replace('jsfring-webapp-angular', 'jsfring-webservice')
+    api: window.location.origin
+        .replace('4200', '8080') // local
+        .replace('8083', '8086') // Docker compose
+        .replace('jsfring-webapp-angular', 'jsfring-webservice') // Heroku
 };

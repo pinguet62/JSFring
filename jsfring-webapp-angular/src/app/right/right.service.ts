@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
 import {CrudService} from '../shared/crud.service';
 import {Right} from './right.model';
 
@@ -7,11 +7,7 @@ import {Right} from './right.model';
 export class RightService extends CrudService<Right> {
 
     constructor(protected http: HttpClient) {
-        super(http);
-    }
-
-    protected getServiceSubUrl(): string {
-        return '/right';
+        super(http, '/right');
     }
 
     protected getId(value: Right): string {

@@ -2,16 +2,16 @@ import {Component} from '@angular/core';
 import {ProfileService} from './profile.service';
 
 @Component({
-    selector: 'p62-profile',
+    selector: 'app-profile',
     template: `
-        <p62-datatable [service]="profileService" [(selectedValue)]="selectedProfile">
+        <app-datatable [service]="profileService" [(selectedValue)]="selectedProfile">
 
-            <p62-datatable-columns>
+            <app-datatable-columns>
                 <p-column field="id" header="Id" sortable="true" filter="true" filterMatchMode="contains" hidden="true"></p-column>
                 <p-column field="title" header="Title" sortable="true" filter="true" filterMatchMode="contains"></p-column>
-            </p62-datatable-columns>
+            </app-datatable-columns>
 
-            <p62-datatable-dialog>
+            <app-datatable-dialog>
                 <ng-template [ngIf]="selectedProfile">
                     <mat-form-field>
                         <input matInput placeholder="Id" [(value)]="selectedProfile.id" disabled>
@@ -21,15 +21,16 @@ import {ProfileService} from './profile.service';
                         <input matInput placeholder="Title" [(value)]="selectedProfile.title">
                     </mat-form-field>
                 </ng-template>
-            </p62-datatable-dialog>
+            </app-datatable-dialog>
 
-        </p62-datatable>`
+        </app-datatable>`
 })
 export class ProfileComponent {
 
     selectedProfile: any;
 
     constructor(public profileService: ProfileService) {
+        console.log('profile');
     }
 
 }

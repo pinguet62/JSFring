@@ -2,16 +2,16 @@ import {Component} from '@angular/core';
 import {RightService} from './right.service';
 
 @Component({
-    selector: 'p62-right',
+    selector: 'app-right',
     template: `
-        <p62-datatable [service]="rightService" [(selectedValue)]="selectedRight">
+        <app-datatable [service]="rightService" [(selectedValue)]="selectedRight">
 
-            <p62-datatable-columns>
+            <app-datatable-columns>
                 <p-column field="code" header="Code" sortable="true" filter="true" filterMatchMode="contains"></p-column>
                 <p-column field="title" header="Title" sortable="true" filter="true" filterMatchMode="contains"></p-column>
-            </p62-datatable-columns>
+            </app-datatable-columns>
 
-            <p62-datatable-dialog>
+            <app-datatable-dialog>
                 <ng-template [ngIf]="selectedRight">
                     <mat-form-field>
                         <input matInput placeholder="Code" [(value)]="selectedRight.code" disabled>
@@ -21,9 +21,9 @@ import {RightService} from './right.service';
                         <input matInput placeholder="Title" [(value)]="selectedRight.title">
                     </mat-form-field>
                 </ng-template>
-            </p62-datatable-dialog>
+            </app-datatable-dialog>
 
-        </p62-datatable>`
+        </app-datatable>`
 })
 export class RightComponent {
 

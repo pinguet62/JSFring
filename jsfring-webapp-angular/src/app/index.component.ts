@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 
 @Component({
-    selector: 'p62-index',
+    selector: 'app-index',
     template: ''
 })
 export class IndexComponent {

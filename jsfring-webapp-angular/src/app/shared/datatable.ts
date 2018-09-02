@@ -1,16 +1,17 @@
-import {Component, ContentChild, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList} from '@angular/core';
-import {Column} from 'primeng/primeng';
+import {CommonModule} from '@angular/common';
+import {Component, ContentChild, ContentChildren, EventEmitter, Input, NgModule, OnInit, Output, QueryList} from '@angular/core';
+import {Column, DataTableModule, DialogModule} from 'primeng/primeng';
 import {CrudService} from './crud.service';
 
 @Component({
-    selector: 'p62-datatable-dialog',
+    selector: 'app-datatable-dialog',
     template: '<ng-content></ng-content>'
 })
 export class DatatableDialogComponent {
 }
 
 @Component({
-    selector: 'p62-datatable-columns',
+    selector: 'app-datatable-columns',
     template: ''
 })
 export class DatatableColumnsComponent {
@@ -23,11 +24,11 @@ export class DatatableColumnsComponent {
  * Wrapper for {@link primeng/primeng/DataTable}.
  * @param service The CRUD service.
  * @param selectedValue The selected value.
- * @param <p62-datatable-columns> The {@link primeng/primeng/Column}s definition.
- * @param <p62-datatable-dialog> The {@link primeng/primeng/Dialog}s content.
+ * @param <app-datatable-columns> The {@link primeng/primeng/Column}s definition.
+ * @param <app-datatable-dialog> The {@link primeng/primeng/Dialog}s content.
  */
 @Component({
-    selector: 'p62-datatable',
+    selector: 'app-datatable',
     template: `
         <p-dataTable [value]="values" selectionMode="single" [(selection)]="selectedValue" (onRowSelect)="onRowSelect($event.data)">
             <p-column *ngFor="let column of datatableColumns.columns"
@@ -41,7 +42,7 @@ export class DatatableColumnsComponent {
         <!-- TODO modal & z-index -->
         <!-- TODO width & responsive -->
         <p-dialog header="Show/Update/Create" [(visible)]="displayDialog" [modal]="true" [width]="500" [responsive]="true">
-            <ng-content select="p62-datatable-dialog"></ng-content>
+            <ng-content select="app-datatable-dialog"></ng-content>
             <footer>
                 <button pButton type="button" (click)="save()" icon="fa-check" label="Save"></button>
                 <button pButton type="button" (click)="delete()" icon="fa-close" label="Delete"></button>
@@ -117,4 +118,17 @@ export class DatatableComponent implements OnInit {
         this.displayDialog = false;
     }
 
+}
+
+@NgModule({
+    imports: [
+        // framework
+        CommonModule,
+        // app
+        DataTableModule, DialogModule,
+    ],
+    declarations: [DatatableDialogComponent, DatatableColumnsComponent, DatatableComponent],
+    exports: [DatatableDialogComponent, DatatableColumnsComponent, DatatableComponent],
+})
+export class DatatableModule {
 }

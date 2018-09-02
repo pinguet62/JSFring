@@ -4,35 +4,30 @@ import {environment} from '../../environments/environment';
 
 export abstract class CrudService<T> {
 
-    private baseUrl: string = environment.api;
+    private readonly baseUrl: string;
 
-    protected abstract getServiceSubUrl(): string;
+    protected constructor(protected http: HttpClient, resourceUrl: string) {
+        this.baseUrl = environment.api + resourceUrl;
+    }
 
     protected abstract getId(value: T): string;
 
-    constructor(protected http: HttpClient) {
-    }
-
     findAll(): Observable<T[]> {
-        const targetUrl: string = this.baseUrl + this.getServiceSubUrl();
-        return this.http.get<T[]>(targetUrl);
+        return this.http.get<T[]>(this.baseUrl);
     }
 
     create(value: T): Observable<T> {
-        const url: string = this.baseUrl + this.getServiceSubUrl();
         const body: string = JSON.stringify(value);
-        return this.http.put<T>(url, body);
+        return this.http.put<T>(this.baseUrl, body);
     }
 
     update(value: T): Observable<T> {
-        const url: string = this.baseUrl + this.getServiceSubUrl()/* + '/' + this.getId(value)*/;
         const body: string = JSON.stringify(value);
-        return this.http.post<T>(url, body);
+        return this.http.post<T>(this.baseUrl /* + '/' + this.getId(value)*/, body);
     }
 
     delete(value: T): Observable<T> {
-        const url: string = this.baseUrl + this.getServiceSubUrl() + '/' + this.getId(value);
-        return this.http.delete<T>(url);
+        return this.http.delete<T>(`${this.baseUrl}/${this.getId(value)}`);
     }
 
 }

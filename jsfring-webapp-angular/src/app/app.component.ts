@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {MatSnackBar} from "@angular/material";
+import {MatSnackBar} from '@angular/material';
 import {SecurityService} from './oauth2';
 import {WebSocketService} from './websocket';
 
@@ -19,7 +19,7 @@ import {WebSocketService} from './websocket';
             <span style="flex: 1 1 auto"></span>
             <div *ngIf="!securityService.isAuthenticated(); then notAuthenticatedBlock else authenticatedBlock"></div>
             <ng-template #notAuthenticatedBlock>
-                <button mat-raised-button color="accent" oauth2LoginClick>Login</button>
+                <button mat-raised-button color="accent" appOauth2LoginClick>Login</button>
             </ng-template>
             <mat-menu #authenticatedMenu="matMenu">
                 <button mat-menu-item>

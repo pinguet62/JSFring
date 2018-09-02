@@ -3,7 +3,7 @@ import {Directive, HostListener} from '@angular/core';
 import {environment} from '../../environments/environment';
 
 /** @example `<button loginClick>` */
-@Directive({selector: '[oauth2LoginClick]'})
+@Directive({selector: '[appOauth2LoginClick]'})
 export class Oauth2LoginClickDirective {
     @HostListener('click')
     redirectToOauth2(): void {
