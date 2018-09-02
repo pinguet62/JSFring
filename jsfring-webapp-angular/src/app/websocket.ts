@@ -2,6 +2,7 @@ import {APP_INITIALIZER, Injectable, NgModule} from "@angular/core";
 import {StompService} from "@stomp/ng2-stompjs";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
+import {environment} from "../environments/environment";
 
 @Injectable()
 export class WebSocketService extends StompService {
@@ -9,7 +10,7 @@ export class WebSocketService extends StompService {
 
     constructor() {
         super({
-            url: "ws://localhost:8080/stomp",
+            url: environment.api.replace(new RegExp("https?"), "ws") + "/stomp",
             headers: null,
             heartbeat_in: 0,
             heartbeat_out: 0,

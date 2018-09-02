@@ -4,19 +4,23 @@ import {EventEmitter, Injectable} from '@angular/core';
 @Injectable()
 export class SecurityService {
 
-    token: string;
-    roles: Array<string>;
+    private _token: string;
+
+    get token() {
+        return this._token;
+    }
+
+    set token(value: string) {
+        this._token = value;
+        if (value) {
+            this.onConnect.emit(null);
+        }
+    }
 
     public onConnect: EventEmitter<any> = new EventEmitter<any>();
-    public unauthorized: EventEmitter<any> = new EventEmitter<any>();
 
     isAuthenticated(): boolean {
         return this.token != null;
-    }
-
-    // TODO: Webservice call "oauth/authorities"
-    getRoles(): Array<string> {
-        return ['role1', 'role2'];
     }
 
 }

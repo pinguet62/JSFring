@@ -1,8 +1,6 @@
 import {Component} from '@angular/core';
-import {HttpParams} from '@angular/common/http';
 import {MatSnackBar} from "@angular/material";
-import {environment} from '../environments/environment';
-import {SecurityService} from './security/security.service';
+import {SecurityService} from './oauth2';
 import {WebSocketService} from './websocket';
 
 @Component({
@@ -21,7 +19,7 @@ import {WebSocketService} from './websocket';
             <span style="flex: 1 1 auto"></span>
             <div *ngIf="!securityService.isAuthenticated(); then notAuthenticatedBlock else authenticatedBlock"></div>
             <ng-template #notAuthenticatedBlock>
-                <button mat-raised-button color="accent" (click)="login()">Login</button>
+                <button mat-raised-button color="accent" oauth2LoginClick>Login</button>
             </ng-template>
             <mat-menu #authenticatedMenu="matMenu">
                 <button mat-menu-item>
@@ -74,24 +72,11 @@ export class AppComponent {
     constructor(
         snackBar: MatSnackBar,
         websocketService: WebSocketService,
-        private securityService: SecurityService,
+        public securityService: SecurityService,
     ) {
         websocketService.userRightsUpdated.subscribe(message =>
             snackBar.open(message)
         );
-        securityService.unauthorized.subscribe((x: any) => console.log('toto: ' + x));
-    }
-
-    login(): void {
-        const paramBuilder: HttpParams = new HttpParams();
-        paramBuilder.append('client_id', 'clientId');
-        paramBuilder.append('response_type', 'token');
-        paramBuilder.append('scope', 'read');
-        paramBuilder.append('redirect_uri', window.location.protocol + '//' + window.location.host + '/oauth');
-
-        const authorizeUrl: string = environment.api + '/oauth/authorize' + '?' + paramBuilder.toString();
-
-        window.location.replace(authorizeUrl); // let popup: Window = window.open(authorizeUrl, 'Login', 'location=1');
     }
 
 }

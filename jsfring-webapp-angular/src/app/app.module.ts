@@ -23,7 +23,6 @@ import {ButtonModule, CalendarModule, CheckboxModule, DataTableModule, DialogMod
 import {ContentTypeHeaderHttpClientInterceptor} from './content-type-header-http-client.http-interceptor';
 import {routes} from './app.routing';
 import {AppComponent} from './app.component';
-import {SecurityModule} from './security/security-module';
 import {DatatableColumnsComponent, DatatableComponent, DatatableDialogComponent} from './shared/datatable.component';
 import {IndexComponent} from './index.component';
 import {UserComponent} from './user/user.component';
@@ -34,6 +33,7 @@ import {ProfileService} from './profile/profile.service';
 import {RightService} from './right/right.service';
 import {configInitialize} from './config';
 import {WebSocketModule} from './websocket';
+import {OAuth2Module} from './oauth2';
 
 @NgModule({
     imports: [
@@ -42,7 +42,7 @@ import {WebSocketModule} from './websocket';
         HttpClientModule,
         MatAutocompleteModule, MatButtonModule, MatCheckboxModule, MatDialogModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatSelectModule, MatSidenavModule, MatSnackBarModule, MatTableModule, MatToolbarModule,
         MenubarModule, DataTableModule, InputTextModule, ButtonModule, SliderModule, DialogModule, CheckboxModule, CalendarModule,
-        RouterModule.forRoot(routes), SecurityModule, WebSocketModule,
+        RouterModule.forRoot(routes), WebSocketModule, OAuth2Module,
     ],
     declarations: [
         AppComponent,
