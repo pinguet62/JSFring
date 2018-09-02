@@ -13,7 +13,7 @@ import {WebSocketService} from './websocket';
             </button>
 
             <!-- Title -->
-            <span>JSFring</span>
+            <h1>JSFring</h1>
 
             <!-- Current user -->
             <span style="flex: 1 1 auto"></span>

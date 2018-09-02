@@ -26,3 +26,10 @@ exports.config = {
     jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
   }
 };
+
+// Travis CI config
+if (process.env.TRAVIS) {
+  exports.config.capabilities.chromeOptions = {
+    args: ['--headless']
+  }
+};
