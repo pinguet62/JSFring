@@ -30,7 +30,6 @@ export class ProfileComponent {
     selectedProfile: any;
 
     constructor(public profileService: ProfileService) {
-        console.log('profile');
     }
 
 }

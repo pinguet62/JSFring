@@ -74,9 +74,9 @@ export class AppComponent {
         websocketService: WebSocketService,
         public securityService: SecurityService,
     ) {
-        websocketService.userRightsUpdated.subscribe(message =>
-            snackBar.open(message)
-        );
+        // websocketService.userRightsUpdated.subscribe(message =>
+        //     snackBar.open(message)
+        // );
     }
 
 }

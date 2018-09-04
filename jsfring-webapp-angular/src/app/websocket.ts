@@ -1,24 +1,33 @@
 import {APP_INITIALIZER, Injectable, NgModule} from '@angular/core';
-import {StompService} from '@stomp/ng2-stompjs';
+import {StompRService} from '@stomp/ng2-stompjs';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {environment} from '../environments/environment';
+import {SecurityService} from './oauth2';
 
 @Injectable()
-export class WebSocketService extends StompService {
+export class WebSocketService extends StompRService {
     public readonly userRightsUpdated: Observable<string>;
 
-    constructor() {
-        super({
-            url: environment.api.replace(new RegExp('https?'), 'ws') + '/stomp',
-            headers: null,
+    constructor(private securityService: SecurityService) {
+        super();
+
+        securityService.onConnect.subscribe(() => this.initStomp());
+
+        this.userRightsUpdated = this.subscribe('/topic/USER_RIGHTS_UPDATED')
+            .pipe(map(it => it.body));
+    }
+
+    private initStomp() {
+        this.config = {
+            url: environment.api.replace(/^http/, 'ws') + '/stomp?access_token=' + this.securityService.token,
+            headers: {},
             heartbeat_in: 0,
             heartbeat_out: 0,
             reconnect_delay: 1000,
             debug: false,
-        });
-        this.userRightsUpdated = this.subscribe('/topic/USER_RIGHTS_UPDATED')
-            .pipe(map(it => it.body));
+        };
+        this.initAndConnect();
     }
 }
 
