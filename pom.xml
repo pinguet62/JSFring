@@ -209,7 +209,12 @@
                         <include>jsfring-${project.artifactId}/target/${project.artifactId}-${project.version}.${project.packaging}</include>
                     </includes>
                     <appName>jsfring-${project.artifactId}</appName>
+                    <configVars>
+                        <!-- see buildpack: "heroku-buildpack-exec" -->
+                        <EXEC_CMD>printf 'java.runtime.version=9' > system.properties</EXEC_CMD>
+                    </configVars>
                     <buildpacks>
+                        <buildpack>https://github.com/pinguet62/heroku-buildpack-exec.git</buildpack>
                         <!-- "heroku/jvm" auto-detected by this plugin -->
                     </buildpacks>
                     <processTypes>
