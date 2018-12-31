@@ -127,7 +127,7 @@
                     <appName>jsfring-${project.artifactId}</appName>
                     <configVars>
                         <!-- see buildpack: "heroku-buildpack-exec" -->
-                        <EXEC_CMD>printf '{\n  "root": "dist/JSFring"\n}' > static.json</EXEC_CMD>
+                        <EXEC_CMD>printf '{\n  "root": "dist/JSFring",\n  "routes": {\n    "/**": "index.html"\n}' > static.json</EXEC_CMD>
                     </configVars>
                     <buildpacks>
                         <!-- override -->
