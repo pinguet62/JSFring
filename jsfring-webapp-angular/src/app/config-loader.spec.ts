@@ -10,7 +10,7 @@ describe('config-loader', () => {
 
     it('configLoaderInitializer', async () => {
         const configValue = 'http://localhost:8080';
-        let http = jasmine.createSpyObj<HttpClient>('http', Object.keys(HttpClient.prototype));
+        let http = jasmine.createSpyObj<HttpClient>('http', ['get']);
         http.get.and.returnValue(of({api: `"${configValue}"`}));
         await configLoaderInitializer(http)();
         expect(environment.api).toEqual(configValue);
