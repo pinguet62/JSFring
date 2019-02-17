@@ -12,7 +12,7 @@
     "angular-translate": "2.16.0",
     "angular-ui-grid": "4.0.11",
     "pdfmake": "0.1.40",
-    "bootstrap": "3.4.0",
+    "bootstrap": "3.4.1",
     "angular-bootstrap": "0.12.2",
     "ng-dialog": "1.4.0"
   },
