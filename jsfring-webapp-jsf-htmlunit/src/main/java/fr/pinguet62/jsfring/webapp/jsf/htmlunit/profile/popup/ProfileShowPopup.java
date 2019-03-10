@@ -1,8 +1,6 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit.profile.popup;
 
-import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.popup.ShowPopup;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.field.Field;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.field.ListField;
@@ -17,12 +15,11 @@ public class ProfileShowPopup extends AbstractProfilePopup implements ShowPopup 
     }
 
     public Field<?, List<String>> getRights() {
-        return new ListField(
-                (HtmlDivision) getFieldTableCell(1).getByXPath("./div[contains(@class, 'ui-datalist')]").get(0));
+        return new ListField(getFieldTableCell(1).getFirstByXPath("./div[contains(@class, 'ui-datalist')]"));
     }
 
     public Field<?, ?> getTitle() {
-        return new StringOutputText((HtmlSpan) getFieldTableCell(0).getByXPath("./span").get(0));
+        return new StringOutputText(getFieldTableCell(0).getFirstByXPath("./span"));
     }
 
 }

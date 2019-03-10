@@ -1,6 +1,11 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable;
 
-import com.gargoylesoftware.htmlunit.html.*;
+import com.gargoylesoftware.htmlunit.html.DomElement;
+import com.gargoylesoftware.htmlunit.html.HtmlButton;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlTableCell;
+import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
+import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.DateUtils;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.NavigatorException;
@@ -57,7 +62,7 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
 
         try {
             HtmlPage page = button.click();
-            debug();
+            debug(page);
 
             return new ConfirmPopup(page);
         } catch (IOException e) {
@@ -80,7 +85,7 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
         try {
             HtmlPage page = button.click();
             waitJS(SHORT);
-            debug();
+            debug(page);
 
             return getPopupShowFactory().apply(page);
         } catch (IOException e) {
@@ -103,7 +108,7 @@ public abstract class AbstractRow<SP, UP> extends AbstractPage {
         try {
             HtmlPage page = button.click();
             waitJS(MEDIUM);
-            debug();
+            debug(page);
 
             return getPopupUpdateFactory().apply(page);
         } catch (IOException e) {

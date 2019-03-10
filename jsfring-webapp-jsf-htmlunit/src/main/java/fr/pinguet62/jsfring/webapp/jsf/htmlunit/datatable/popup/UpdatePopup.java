@@ -9,7 +9,7 @@ public interface UpdatePopup extends SubmitPopup {
 
     @Override
     default HtmlDivision getDialog() {
-        return (HtmlDivision) getPage().getByXPath("//div[contains(@class, 'ui-dialog') and contains(@id, 'updateDialog')]").get(0);
+        return getPage().getFirstByXPath("//div[contains(@class, 'ui-dialog') and contains(@id, 'updateDialog')]");
     }
 
 }

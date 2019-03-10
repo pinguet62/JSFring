@@ -11,7 +11,7 @@ public final class MyAccountPage extends AbstractPage {
     }
 
     private HtmlDivision getField(int i) {
-        return (HtmlDivision) page.getByXPath("//form//table/tbody/tr[" + (i + 1) + "]/td[2]/div").get(0);
+        return page.getFirstByXPath("//form//table/tbody/tr[" + (i + 1) + "]/td[2]/div");
     }
 
     public SelectOneMenu getLangSwitcher() {

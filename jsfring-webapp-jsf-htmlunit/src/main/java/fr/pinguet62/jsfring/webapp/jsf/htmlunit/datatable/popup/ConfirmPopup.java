@@ -30,11 +30,11 @@ public final class ConfirmPopup extends AbstractPage implements Popup {
      * @param classe The {@code class} attribute on which filter.
      */
     private void clickOnButton(String classe) {
-        HtmlButton button = (HtmlButton) getDialog().getByXPath("./div[contains(@class, 'ui-dialog-buttonpane')]/button[contains(@class, '" + classe + "')]").get(0);
+        HtmlButton button = getDialog().getFirstByXPath("./div[contains(@class, 'ui-dialog-buttonpane')]/button[contains(@class, '" + classe + "')]");
         try {
             page = button.click();
             waitJS(LONG);
-            debug();
+            debug(page);
         } catch (IOException e) {
             throw new NavigatorException(e);
         }
@@ -46,7 +46,7 @@ public final class ConfirmPopup extends AbstractPage implements Popup {
 
     @Override
     public HtmlDivision getDialog() {
-        return (HtmlDivision) getPage().getByXPath("//div[contains(@class, 'ui-confirm-dialog')]").get(0);
+        return getPage().getFirstByXPath("//div[contains(@class, 'ui-confirm-dialog')]");
     }
 
 }

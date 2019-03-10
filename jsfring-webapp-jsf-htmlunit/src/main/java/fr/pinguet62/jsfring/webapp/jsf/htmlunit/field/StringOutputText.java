@@ -10,7 +10,7 @@ public final class StringOutputText extends OutputText<String> {
 
     @Override
     public String getValue() {
-        return html.asText();
+        return html.getTextContent();
     }
 
 }

@@ -12,7 +12,7 @@ public final class InputText extends ReadWriteField<HtmlInput, String> {
 
     @Override
     public String getValue() {
-        return html.asText();
+        return html.getValueAttribute();
     }
 
     public boolean isError() {

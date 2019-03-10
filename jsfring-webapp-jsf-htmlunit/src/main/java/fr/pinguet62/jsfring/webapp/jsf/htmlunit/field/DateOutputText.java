@@ -1,11 +1,11 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit.field;
 
-import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.DateUtils.DATETIME_FORMATTER;
-import static org.apache.commons.lang3.StringUtils.isBlank;
+import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 
 import java.time.LocalDateTime;
 
-import com.gargoylesoftware.htmlunit.html.HtmlSpan;
+import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.DateUtils.DATETIME_FORMATTER;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public final class DateOutputText extends OutputText<LocalDateTime> {
 

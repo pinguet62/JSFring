@@ -1,12 +1,17 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit.field;
 
-import com.gargoylesoftware.htmlunit.html.*;
+import com.gargoylesoftware.htmlunit.html.HtmlButton;
+import com.gargoylesoftware.htmlunit.html.HtmlDivision;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlListItem;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.NavigatorException;
 
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 
+import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.Delay.SHORT;
 import static java.util.stream.Collectors.toList;
 
 public final class PickList extends ReadWriteField<HtmlDivision, List<String>> {
@@ -18,8 +23,8 @@ public final class PickList extends ReadWriteField<HtmlDivision, List<String>> {
     private void clickAddSelected() {
         HtmlButton button = getActionButton("ui-picklist-button-add");
         try {
-            HtmlPage page = button.click();
-            waitJS(Delay.SHORT);
+            page = button.click();
+            waitJS(SHORT);
             debug(page);
         } catch (IOException e) {
             throw new NavigatorException(e);
@@ -29,8 +34,8 @@ public final class PickList extends ReadWriteField<HtmlDivision, List<String>> {
     private void clickRemoveSelected() {
         HtmlButton button = getActionButton("ui-picklist-button-remove");
         try {
-            HtmlPage page = button.click();
-            waitJS(Delay.SHORT);
+            page = button.click();
+            waitJS(SHORT);
             debug(page);
         } catch (IOException e) {
             throw new NavigatorException(e);
@@ -41,8 +46,7 @@ public final class PickList extends ReadWriteField<HtmlDivision, List<String>> {
      * @param classValue The {@code "class"} tag attribute used to determinate what type of action is.
      */
     private HtmlButton getActionButton(String classValue) {
-        return (HtmlButton) html
-                .getByXPath("./div[@class='ui-picklist-buttons']/div/button[contains(@class, '" + classValue + "')]").get(0);
+        return html.getFirstByXPath("./div[@class='ui-picklist-buttons']/div/button[contains(@class, '" + classValue + "')]");
     }
 
     /**
@@ -71,7 +75,7 @@ public final class PickList extends ReadWriteField<HtmlDivision, List<String>> {
     @Override
     public void setValue(List<String> values) {
         // Check unique
-        if (values.size() != new HashSet<String>(values).size())
+        if (values.size() != new HashSet<>(values).size())
             throw new IllegalArgumentException("There are duplicate values");
 
         try {

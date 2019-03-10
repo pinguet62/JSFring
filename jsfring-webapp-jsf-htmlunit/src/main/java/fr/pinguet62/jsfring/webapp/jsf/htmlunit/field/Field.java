@@ -1,7 +1,6 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit.field;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
-
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage;
 
 /**

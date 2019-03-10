@@ -28,7 +28,7 @@ import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static java.io.File.createTempFile;
+import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.Delay.LONG;
 import static java.lang.Thread.sleep;
 import static java.nio.charset.Charset.defaultCharset;
 import static java.util.stream.Collectors.joining;
@@ -70,11 +70,7 @@ public class AbstractPage {
 
     /** Initialize the {@link #TMP_FILE}. */
     static {
-        try {
-            TMP_FILE = createTempFile("jsfring-", null);
-        } catch (IOException e) {
-            throw new NavigatorException(e);
-        }
+        TMP_FILE = new File("C:\\Users\\Pinguet62\\Downloads\\JSFring.html");
         log.debug("Temporary file: {}", TMP_FILE);
     }
 
@@ -95,8 +91,8 @@ public class AbstractPage {
      * @param content The content of file to write.
      */
     public static void debug(String content) {
-        if (!log.isDebugEnabled())
-            return;
+//        if (!log.isDebugEnabled())
+//            return;
 
         try {
             IOUtils.write(content, new FileOutputStream(TMP_FILE), defaultCharset());
@@ -193,7 +189,7 @@ public class AbstractPage {
      */
     public String getTheme() {
         String resourceUrl = "/javax.faces.resource/theme.css.xhtml?ln=primefaces-";
-        HtmlLink link = (HtmlLink) page.getByXPath("//head/link[contains(@href, '" + resourceUrl + "')]").get(0);
+        HtmlLink link = page.getFirstByXPath("//head/link[contains(@href, '" + resourceUrl + "')]");
         return link.getAttribute("href").substring(resourceUrl.length());
     }
 
@@ -216,7 +212,8 @@ public class AbstractPage {
     private <T extends AbstractPage> T gotoPage(String subUrl, Function<HtmlPage, T> factory) {
         try {
             page = webClient.getPage(getUrl(subUrl));
-            debug();
+            waitJS(LONG);
+            debug(page);
             return factory.apply(page);
         } catch (IOException e) {
             throw new NavigatorException("Error going to sub-url: " + subUrl, e);

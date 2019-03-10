@@ -30,7 +30,11 @@ import javax.swing.text.rtf.RTFEditorKit;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.util.zip.ZipInputStream;
 
 import static java.lang.Character.isISOControl;

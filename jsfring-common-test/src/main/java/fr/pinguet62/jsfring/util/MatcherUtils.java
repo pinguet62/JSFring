@@ -35,6 +35,7 @@ public class MatcherUtils {
         return new TypeSafeMatcher<LocalDateTime>() {
             @Override
             public void describeTo(Description description) {
+                description.appendValue(expected);
             }
 
             /**
@@ -65,6 +66,7 @@ public class MatcherUtils {
         return new TypeSafeMatcher<Iterable<T>>() {
             @Override
             public void describeTo(Description description) {
+                description.appendValue(expected);
             }
 
             /**
@@ -124,6 +126,7 @@ public class MatcherUtils {
         return new TypeSafeMatcher<String>() {
             @Override
             public void describeTo(Description description) {
+                description.appendText("Match string ").appendValue(regex);
             }
 
             /**
@@ -149,6 +152,7 @@ public class MatcherUtils {
         return new TypeSafeMatcher<String>() {
             @Override
             public void describeTo(Description description) {
+                description.appendText("Has parameter key ").appendValue(paramKey).appendDescriptionOf(paramValueMatcher);
             }
 
             /**

@@ -15,7 +15,7 @@ import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.debug;
 public interface SubmitPopup extends Popup {
 
     default void submit() {
-        HtmlButton submit = (HtmlButton) getDialog().getByXPath("./div[contains(@class, 'ui-dialog-content')]/form/button").get(0);
+        HtmlButton submit = getDialog().getFirstByXPath("./div[contains(@class, 'ui-dialog-content')]/form/button");
         try {
             HtmlPage page = submit.click();
             waitJS(LONG);

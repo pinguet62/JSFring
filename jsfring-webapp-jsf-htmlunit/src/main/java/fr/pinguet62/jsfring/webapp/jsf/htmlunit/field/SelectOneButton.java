@@ -47,9 +47,7 @@ public final class SelectOneButton<T> extends ReadWriteField<HtmlDivision, T> {
     @Override
     public void setValue(T value) {
         HtmlDivision button = getChoices().stream()
-                .filter(div -> converter
-                        .apply(((HtmlSpan) div.getByXPath("./span[contains(@class, 'ui-button-text')]").get(0)).asText())
-                        .equals(value))
+                .filter(div -> converter.apply((div.<HtmlSpan>getFirstByXPath("./span[contains(@class, 'ui-button-text')]")).getTextContent()).equals(value))
                 .findAny().get();
         try {
             button.click();

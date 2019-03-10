@@ -1,6 +1,5 @@
 package fr.pinguet62.jsfring.webapp.jsf;
 
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.querydsl.core.BooleanBuilder;
 import fr.pinguet62.jsfring.SpringBootConfig;
@@ -40,7 +39,7 @@ import static org.springframework.test.context.TestExecutionListeners.MergeMode.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = SpringBootConfig.class, webEnvironment = DEFINED_PORT)
 // DbUnit
-@TestExecutionListeners(mergeMode = MERGE_WITH_DEFAULTS, listeners = DbUnitTestExecutionListener.class)
+@TestExecutionListeners(mergeMode = MERGE_WITH_DEFAULTS, listeners = OrderedDbUnitTestExecutionListener.class)
 @DatabaseSetup(DATASET)
 public class AbstractLazyDataModelTTest {
 

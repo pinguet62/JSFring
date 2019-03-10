@@ -9,7 +9,7 @@ public interface ShowPopup extends Popup {
 
     @Override
     default HtmlDivision getDialog() {
-        return (HtmlDivision) getPage().getByXPath("//div[contains(@class, 'ui-dialog') and contains(@id, 'showDialog')]").get(0);
+        return getPage().getFirstByXPath("//div[contains(@class, 'ui-dialog') and contains(@id, 'showDialog')]");
     }
 
 }

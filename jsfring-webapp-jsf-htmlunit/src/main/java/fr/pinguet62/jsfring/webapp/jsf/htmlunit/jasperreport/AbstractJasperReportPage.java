@@ -27,10 +27,9 @@ public abstract class AbstractJasperReportPage extends AbstractPage {
      * @return The {@link InputStream} returned after export button click.
      */
     protected InputStream export(String buttonTitle) {
-        List<HtmlButton> buttons = page.getByXPath(
-                "//div[contains(@class, 'ui-layout-center')]//form//div[contains(@class, 'ui-panel-footer')]//button");
+        List<HtmlButton> buttons = page.getByXPath("//div[contains(@class, 'ui-layout-center')]//form//div[contains(@class, 'ui-panel-footer')]//button");
         HtmlButton exporter = buttons.stream()
-                .filter(button -> ((HtmlSpan) button.getByXPath("./span").get(0)).getTextContent().equals(buttonTitle))
+                .filter(button -> button.<HtmlSpan>getFirstByXPath("./span").getTextContent().equals(buttonTitle))
                 .findAny().get();
         try {
             return exporter.click().getWebResponse().getContentAsStream();
