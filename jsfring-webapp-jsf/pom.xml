@@ -107,7 +107,6 @@
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
             <version>${cdi-api.version}</version>
-            <!--<scope>provided</scope>-->
         </dependency>
 
         <!-- ===== Test ===== -->
