@@ -77,7 +77,7 @@
         <!-- webapp-jsf -->
         <javax.faces.version>2.4.0</javax.faces.version>
         <javax.servlet.jsp-api.version>2.3.3</javax.servlet.jsp-api.version>
-        <primefaces.version>6.2</primefaces.version><!-- TODO 7.0 -->
+        <primefaces.version>7.0</primefaces.version><!-- TODO 7.0 -->
         <all-themes.version>1.0.10</all-themes.version>
         <cdi-api.version>2.0.SP1</cdi-api.version>
         <jasperreports.version>6.8.1</jasperreports.version>
