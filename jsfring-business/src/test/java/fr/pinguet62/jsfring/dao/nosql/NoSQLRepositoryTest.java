@@ -1,6 +1,5 @@
 package fr.pinguet62.jsfring.dao.nosql;
 
-import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.model.nosql.Movie;
 import fr.pinguet62.jsfring.model.nosql.Person;
 import org.bson.types.ObjectId;
@@ -8,7 +7,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -17,15 +16,19 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.Optional;
 
 import static java.util.UUID.randomUUID;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @see MongoRepository
  */
+@DataMongoTest
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = SpringBootConfig.class)
 public class NoSQLRepositoryTest {
 
     @Autowired

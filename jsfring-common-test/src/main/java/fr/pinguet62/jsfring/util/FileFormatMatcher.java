@@ -2,10 +2,10 @@ package fr.pinguet62.jsfring.util;
 
 import com.lowagie.text.pdf.PdfReader;
 import com.opencsv.CSVReader;
-import org.apache.poi.POIXMLException;
 import org.apache.poi.hslf.usermodel.HSLFSlideShow;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hwpf.HWPFDocument;
+import org.apache.poi.ooxml.POIXMLException;
 import org.apache.poi.openxml4j.exceptions.NotOfficeXmlFileException;
 import org.apache.poi.poifs.filesystem.NotOLE2FileException;
 import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
@@ -19,7 +19,7 @@ import org.jsoup.Jsoup;
 import org.odftoolkit.odfdom.doc.OdfPresentationDocument;
 import org.odftoolkit.odfdom.doc.OdfSpreadsheetDocument;
 import org.odftoolkit.odfdom.doc.OdfTextDocument;
-import org.w3c.tidy.Tidy;
+import org.odftoolkit.odfdom.pkg.OdfPackage;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
@@ -30,11 +30,17 @@ import javax.swing.text.rtf.RTFEditorKit;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.logging.Logger;
 import java.util.zip.ZipInputStream;
 
 import static java.lang.Character.isISOControl;
 import static java.lang.Character.isWhitespace;
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static java.util.logging.Level.OFF;
 import static javax.imageio.ImageIO.read;
 import static javax.xml.parsers.DocumentBuilderFactory.newInstance;
 import static org.apache.commons.io.IOUtils.toByteArray;
@@ -43,6 +49,10 @@ import static org.apache.commons.io.IOUtils.toByteArray;
  * Utility class used to verify is the format file is correct.
  */
 public final class FileFormatMatcher {
+
+    static {
+        Logger.getLogger(OdfPackage.class.getName()).setLevel(OFF);
+    }
 
     /**
      * @return The {@link Matcher} to check that the {@link InputStream} is a CSV file.
@@ -122,9 +132,12 @@ public final class FileFormatMatcher {
 
             @Override
             protected boolean matchesSafely(InputStream is) {
-                Tidy tidy = new Tidy();
-                tidy.parse(is, new StringWriter());
-                return tidy.getParseErrors() == 0;
+                try {
+                    Jsoup.parse(is, UTF_8.name(), "");
+                    return true;
+                } catch (IOException e) {
+                    return false;
+                }
             }
         };
     }

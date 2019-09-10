@@ -1,14 +1,9 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit.profile.popup;
 
-import com.gargoylesoftware.htmlunit.html.HtmlDivision;
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.popup.UpdatePopup;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.field.InputText;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.field.PickList;
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.field.ReadWriteField;
-
-import java.util.List;
 
 public class ProfileUpdatePopup extends AbstractProfilePopup implements UpdatePopup {
 
@@ -16,13 +11,12 @@ public class ProfileUpdatePopup extends AbstractProfilePopup implements UpdatePo
         super(page);
     }
 
-    public ReadWriteField<?, List<String>> getRights() {
-        return new PickList((HtmlDivision) getFieldTableCell(1).getByXPath("./div").get(0));
+    public PickList getRights() {
+        return new PickList(getFieldTableCell(1).getFirstByXPath("./div"));
     }
 
-    public ReadWriteField<?, String> getTitle() {
-        return new InputText(
-                (HtmlInput) getFieldTableCell(0).getByXPath("./input[contains(@class, 'ui-inputtext')]").get(0));
+    public InputText getTitle() {
+        return new InputText(getFieldTableCell(0).getFirstByXPath("./input[contains(@class, 'ui-inputtext')]"));
     }
 
 }

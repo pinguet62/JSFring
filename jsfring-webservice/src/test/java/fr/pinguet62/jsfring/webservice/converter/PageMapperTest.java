@@ -2,7 +2,7 @@ package fr.pinguet62.jsfring.webservice.converter;
 
 import fr.pinguet62.jsfring.webservice.dto.PageDto;
 import kotlin.jvm.functions.Function1;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 

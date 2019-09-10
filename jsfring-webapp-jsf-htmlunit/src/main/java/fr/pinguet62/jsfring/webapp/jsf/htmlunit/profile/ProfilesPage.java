@@ -20,12 +20,11 @@ public final class ProfilesPage extends AbstractDatatablePage<ProfileRow, Profil
 
     @Override
     public ProfileCreatePopup actionCreate() {
-        HtmlButton button = (HtmlButton) getDatatableHeader().getByXPath("./button[contains(@onclick, 'createDialog')]")
-                .get(0);
+        HtmlButton button = getDatatableHeader().getFirstByXPath("./button[contains(@onclick, 'createDialog')]");
         try {
             HtmlPage page = button.click();
             waitJS(SHORT);
-            debug();
+            debug(page);
 
             return new ProfileCreatePopup(page);
         } catch (IOException e) {

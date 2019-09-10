@@ -13,7 +13,7 @@ import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.debug;
 public interface Popup {
 
     default void close() {
-        HtmlAnchor x = (HtmlAnchor) getDialog().getByXPath("./div[contains(@class, 'ui-dialog-titlebar')]/a[contains(@class, 'ui-dialog-titlebar-close')]").get(0);
+        HtmlAnchor x = getDialog().getFirstByXPath("./div[contains(@class, 'ui-dialog-titlebar')]/a[contains(@class, 'ui-dialog-titlebar-close')]");
         try {
             HtmlPage page = x.click();
             debug(page); // TODO debug();

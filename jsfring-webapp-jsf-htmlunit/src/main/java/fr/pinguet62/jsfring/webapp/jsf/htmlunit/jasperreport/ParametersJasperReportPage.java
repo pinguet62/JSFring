@@ -25,28 +25,27 @@ public final class ParametersJasperReportPage extends AbstractJasperReportPage {
      */
     private HtmlTableDataCell getParam(int row) {
         return (HtmlTableDataCell) page
-                .getByXPath(
-                        "//form//div[contains(@class, 'ui-panel')]/div[contains(@class, 'ui-panel-content')]/table/tbody/tr/td[2]")
+                .getByXPath("//form//div[contains(@class, 'ui-panel')]/div[contains(@class, 'ui-panel-content')]/table/tbody/tr/td[2]")
                 .get(row);
     }
 
     public void setDate(LocalDateTime value) {
-        HtmlInput input = (HtmlInput) getParam(2).getByXPath("./span/input").get(0);
+        HtmlInput input = getParam(2).getFirstByXPath("./span/input");
         new DatetimeInputText(input).setValue(value);
     }
 
     public void setInteger(int value) {
-        HtmlInput input = (HtmlInput) getParam(1).getByXPath("./input").get(0);
+        HtmlInput input = getParam(1).getFirstByXPath("./input");
         new InputText(input).setValue(valueOf(value));
     }
 
     public void setList(List<String> value) {
-        HtmlDivision div = (HtmlDivision) getParam(3).getByXPath("./div").get(0);
+        HtmlDivision div = getParam(3).getFirstByXPath("./div");
         new AutocompleteInputText(div).setValue(value);
     }
 
     public void setString(String value) {
-        HtmlInput input = (HtmlInput) getParam(0).getByXPath("./input").get(0);
+        HtmlInput input = getParam(0).getFirstByXPath("./input");
         new InputText(input).setValue(value);
     }
 

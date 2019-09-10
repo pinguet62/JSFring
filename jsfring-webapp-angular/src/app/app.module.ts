@@ -5,6 +5,8 @@ import {MatButtonModule, MatIconModule, MatListModule, MatMenuModule, MatSidenav
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule} from '@angular/router';
+import {ServiceWorkerModule} from '@angular/service-worker';
+import {environment} from '../environments/environment';
 import {AppComponent} from './app.component';
 import {routes} from './app.routing';
 import {ConfigLoaderModule} from './config-loader';
@@ -21,6 +23,7 @@ import {WebSocketModule} from './websocket';
         // libs
         MatButtonModule, MatIconModule, MatListModule, MatMenuModule, MatSidenavModule, MatSnackBarModule, MatToolbarModule,
         // app
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
         RouterModule.forRoot(routes), ConfigLoaderModule, OAuth2Module, WebSocketModule,
     ],
     declarations: [

@@ -21,14 +21,14 @@ public final class LoginPage extends AbstractPage {
      * @return The target page.
      */
     public AbstractPage doLogin(String login, String password) {
-        HtmlForm form = (HtmlForm) page.getByXPath("//form").get(0);
+        HtmlForm form = page.getFirstByXPath("//form");
         form.getInputByName("username").setValueAttribute(login);
         form.getInputByName("password").setValueAttribute(password);
-        HtmlButton submit = (HtmlButton) form.getByXPath(".//button[@type='submit']").get(0);
+        HtmlButton submit = form.getFirstByXPath(".//button[@type='submit']");
 
         try {
             page = submit.click();
-            debug();
+            debug(page);
         } catch (IOException e) {
             throw new NavigatorException(e);
         }
@@ -40,10 +40,10 @@ public final class LoginPage extends AbstractPage {
     }
 
     public ForgottenPasswordPage gotoForgottenPasswordPage() {
-        HtmlAnchor anchor = (HtmlAnchor) page.getByXPath("//a[contains(@href, 'forgottenPassword.xhtml')]").get(0);
+        HtmlAnchor anchor = page.getFirstByXPath("//a[contains(@href, 'forgottenPassword.xhtml')]");
         try {
             page = anchor.click();
-            debug();
+            debug(page);
         } catch (IOException e) {
             throw new NavigatorException(e);
         }

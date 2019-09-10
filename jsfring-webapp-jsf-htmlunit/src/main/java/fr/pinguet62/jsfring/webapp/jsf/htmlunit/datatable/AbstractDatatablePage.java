@@ -1,6 +1,15 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable;
 
-import com.gargoylesoftware.htmlunit.html.*;
+import com.gargoylesoftware.htmlunit.html.DomText;
+import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
+import com.gargoylesoftware.htmlunit.html.HtmlButton;
+import com.gargoylesoftware.htmlunit.html.HtmlDivision;
+import com.gargoylesoftware.htmlunit.html.HtmlImage;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlSpan;
+import com.gargoylesoftware.htmlunit.html.HtmlTable;
+import com.gargoylesoftware.htmlunit.html.HtmlTableHeaderCell;
+import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.NavigatorException;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.popup.CreatePopup;
@@ -32,11 +41,11 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
     }
 
     public CP actionCreate() {
-        HtmlButton button = (HtmlButton) getDatatableHeader().getByXPath("./button[contains(@onclick, 'createDialog')]").get(0);
+        HtmlButton button = getDatatableHeader().getFirstByXPath("./button[contains(@onclick, 'createDialog')]");
         try {
             HtmlPage page = button.click();
             waitJS(MEDIUM);
-            debug();
+            debug(page);
 
             return getPopupCreateFactory().apply(page);
         } catch (IOException e) {
@@ -50,7 +59,7 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
      * @return The downloaded {@link InputStream}.
      */
     protected InputStream export(String iconPath) {
-        HtmlImage icon = (HtmlImage) getDatatableFooter().getByXPath("./a/img[contains(@src, '" + iconPath + "')]").get(0);
+        HtmlImage icon = getDatatableFooter().getFirstByXPath("./a/img[contains(@src, '" + iconPath + "')]");
         HtmlAnchor link = (HtmlAnchor) icon.getParentNode();
         try {
             return link.click().getWebResponse().getContentAsStream();
@@ -122,15 +131,15 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
      * @return The {@link HtmlDivision}.
      */
     protected HtmlDivision getDatatable() {
-        return (HtmlDivision) page.getByXPath("//div[contains(@class, 'ui-datatable')]").get(0);
+        return page.getFirstByXPath("//div[contains(@class, 'ui-datatable')]");
     }
 
     protected HtmlDivision getDatatableFooter() {
-        return (HtmlDivision) getDatatable().getByXPath("./div[contains(@class, 'ui-datatable-footer')]").get(0);
+        return getDatatable().getFirstByXPath("./div[contains(@class, 'ui-datatable-footer')]");
     }
 
     protected HtmlDivision getDatatableHeader() {
-        return (HtmlDivision) getDatatable().getByXPath("./div[contains(@class, 'ui-datatable-header')]").get(0);
+        return getDatatable().getFirstByXPath("./div[contains(@class, 'ui-datatable-header')]");
     }
 
     /**
@@ -139,7 +148,7 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
      * @return The {@link HtmlDivision} who contains the paginator buttons.
      */
     protected HtmlDivision getDatatablePaginator() {
-        return (HtmlDivision) getDatatable().getByXPath("./div[contains(@class, 'ui-paginator')][2]").get(0);
+        return getDatatable().getFirstByXPath("./div[contains(@class, 'ui-paginator')][2]");
     }
 
     /**
@@ -148,7 +157,7 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
      * @return The {@link HtmlTable}.
      */
     protected HtmlTable getDatatableTable() {
-        return (HtmlTable) getDatatable().getByXPath("./div[@class='ui-datatable-tablewrapper']/table").get(0);
+        return getDatatable().getFirstByXPath("./div[@class='ui-datatable-tablewrapper']/table");
     }
 
     /**
@@ -156,10 +165,10 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
      * @return The {@link HtmlTableHeaderCell}.
      */
     protected HtmlTableHeaderCell getDatatableTableHeader(String title) {
-        Optional<HtmlTableHeaderCell> find = getDatatableTableHeaders().stream().filter(
-                th -> ((HtmlSpan) th.getByXPath("./span[contains(@class, 'ui-column-title')]").get(0)).asText().equals(title))
+        Optional<HtmlTableHeaderCell> find = getDatatableTableHeaders().stream()
+                .filter(th -> th.<HtmlSpan>getFirstByXPath("./span[contains(@class, 'ui-column-title')]").getTextContent().equals(title))
                 .findAny();
-        return find.isPresent() ? find.get() : null;
+        return find.orElse(null);
     }
 
     /**
@@ -202,8 +211,8 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
      * @return The title on Datatable header.
      */
     public String getTitle() {
-        DomText dom = (DomText) getDatatableHeader().getByXPath("./text()").get(0);
-        return dom.asText();
+        DomText dom = getDatatableHeader().getFirstByXPath("./text()");
+        return dom.getTextContent();
     }
 
     /**
@@ -212,11 +221,10 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
      * @return The total count of lines.
      */
     public int getTotalCount() {
-        HtmlSpan currentPageReportTemplate = (HtmlSpan) getDatatablePaginator()
-                .getByXPath("./span[contains(@class, 'ui-paginator-current')]").get(0);
+        HtmlSpan currentPageReportTemplate = getDatatablePaginator().getFirstByXPath("./span[contains(@class, 'ui-paginator-current')]");
         // Parse "x-y of z"
         Pattern pattern = compile(" [0-9]+$");
-        Matcher matcher = pattern.matcher(currentPageReportTemplate.asText());
+        Matcher matcher = pattern.matcher(currentPageReportTemplate.getTextContent());
         matcher.find();
         String total = matcher.group().substring(1);
         return parseInt(total);
@@ -235,7 +243,7 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
         try {
             page = next.click();
             waitJS(SHORT);
-            debug();
+            debug(page);
         } catch (IOException e) {
             throw new NavigatorException(e);
         }
@@ -276,7 +284,7 @@ public abstract class AbstractDatatablePage<T extends AbstractRow<?, ?>, CP> ext
         try {
             page = header.click();
             waitJS(SHORT);
-            debug();
+            debug(page);
         } catch (IOException e) {
             throw new NavigatorException(e);
         }

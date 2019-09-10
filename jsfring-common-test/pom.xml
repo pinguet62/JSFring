@@ -100,12 +100,6 @@
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
         </dependency>
-        <!-- Html validator -->
-        <dependency>
-            <groupId>net.sf.jtidy</groupId>
-            <artifactId>jtidy</artifactId>
-            <version>${jtidy.version}</version>
-        </dependency>
 
         <!-- ===== Utils ===== -->
         <dependency>

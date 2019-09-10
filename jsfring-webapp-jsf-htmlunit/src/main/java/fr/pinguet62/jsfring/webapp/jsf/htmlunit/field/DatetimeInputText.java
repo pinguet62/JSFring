@@ -1,14 +1,13 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit.field;
 
-import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.DateUtils.DATETIME_FORMATTER;
+import com.gargoylesoftware.htmlunit.html.HtmlInput;
+import com.gargoylesoftware.htmlunit.javascript.host.event.KeyboardEvent;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.NavigatorException;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
-import com.gargoylesoftware.htmlunit.javascript.host.event.KeyboardEvent;
-
-import fr.pinguet62.jsfring.webapp.jsf.htmlunit.NavigatorException;
+import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.DateUtils.DATETIME_FORMATTER;
 
 public final class DatetimeInputText extends ReadWriteField<HtmlInput, LocalDateTime> {
 

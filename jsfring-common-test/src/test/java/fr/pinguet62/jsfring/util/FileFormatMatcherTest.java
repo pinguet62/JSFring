@@ -4,7 +4,23 @@ import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
 
-import static fr.pinguet62.jsfring.util.FileFormatMatcher.*;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isCSV;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isDOC;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isDOCX;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isHTML;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isImage;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isODP;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isODS;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isODT;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isPDF;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isPPT;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isPPTX;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isRTF;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isTXT;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isXLS;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isXLSX;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isXML;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isZIP;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 
@@ -385,7 +401,7 @@ public class FileFormatMatcherTest {
         // assertThat(getFileAsStream(path), not(isCSV()));
         assertThat(getFileAsStream(path), not(isDOC()));
         assertThat(getFileAsStream(path), not(isDOCX()));
-        assertThat(getFileAsStream(path), not(isHTML()));
+        assertThat(getFileAsStream(path), isHTML());
         assertThat(getFileAsStream(path), not(isODP()));
         assertThat(getFileAsStream(path), not(isODS()));
         assertThat(getFileAsStream(path), not(isODT()));

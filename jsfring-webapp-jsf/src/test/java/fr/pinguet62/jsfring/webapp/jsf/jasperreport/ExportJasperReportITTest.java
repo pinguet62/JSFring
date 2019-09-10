@@ -1,8 +1,8 @@
 package fr.pinguet62.jsfring.webapp.jsf.jasperreport;
 
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import fr.pinguet62.jsfring.SpringBootConfig;
+import fr.pinguet62.jsfring.webapp.jsf.OrderedDbUnitTestExecutionListener;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.jasperreport.AbstractJasperReportPage;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.jasperreport.UsersRightsJasperReportPage;
 import fr.pinguet62.jsfring.webapp.jsf.jasperreport.sample.UsersRightsJasperReportBean;
@@ -16,7 +16,19 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.io.InputStream;
 
 import static fr.pinguet62.jsfring.test.DbUnitConfig.DATASET;
-import static fr.pinguet62.jsfring.util.FileFormatMatcher.*;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isCSV;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isDOCX;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isHTML;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isImage;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isODS;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isODT;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isPDF;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isPPTX;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isRTF;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isTXT;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isXLS;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isXLSX;
+import static fr.pinguet62.jsfring.util.FileFormatMatcher.isXML;
 import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage.get;
 import static org.junit.Assert.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
@@ -30,7 +42,7 @@ import static org.springframework.test.context.TestExecutionListeners.MergeMode.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = SpringBootConfig.class, webEnvironment = DEFINED_PORT)
 // DbUnit
-@TestExecutionListeners(mergeMode = MERGE_WITH_DEFAULTS, listeners = DbUnitTestExecutionListener.class)
+@TestExecutionListeners(mergeMode = MERGE_WITH_DEFAULTS, listeners = OrderedDbUnitTestExecutionListener.class)
 @DatabaseSetup(DATASET)
 public final class ExportJasperReportITTest {
 

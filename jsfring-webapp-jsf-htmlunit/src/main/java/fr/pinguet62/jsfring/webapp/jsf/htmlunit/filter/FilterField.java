@@ -1,6 +1,11 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit.filter;
 
-import com.gargoylesoftware.htmlunit.html.*;
+import com.gargoylesoftware.htmlunit.html.HtmlButton;
+import com.gargoylesoftware.htmlunit.html.HtmlInput;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlSelect;
+import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
+import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.NavigatorException;
 
@@ -23,11 +28,11 @@ public class FilterField extends AbstractPage {
      * @param i The column index.
      */
     private HtmlTableDataCell getColumn(int i) {
-        return (HtmlTableDataCell) getFilter().getByXPath("./td").get(i);
+        return getFilter().<HtmlTableDataCell>getByXPath("./td").get(i);
     }
 
     private HtmlTableRow getFilter() {
-        return (HtmlTableRow) page.getByXPath("//form/table/tbody/tr").get(index);
+        return page.<HtmlTableRow>getByXPath("//form/table/tbody/tr").get(index);
     }
 
     // FIXME "div/label/span" instead of "div/span" after submit
@@ -58,12 +63,10 @@ public class FilterField extends AbstractPage {
      */
     public void setOperator(Class<?> operator) {
         String value = operator == null ? "" : operator.getName();
-        HtmlSelect select = (HtmlSelect) getColumn(2)
-                .getByXPath("./div/div[contains(@class, 'ui-selectonemenu')]/div[@class='ui-helper-hidden-accessible']/select")
-                .get(0);
+        HtmlSelect select = getColumn(2).getFirstByXPath("./div/div[contains(@class, 'ui-selectonemenu')]/div[@class='ui-helper-hidden-accessible']/select");
         page = select.setSelectedAttribute(value, true);
         waitJS(SHORT);
-        debug();
+        debug(page);
     }
 
     /**
@@ -78,11 +81,11 @@ public class FilterField extends AbstractPage {
     }
 
     public void submit() {
-        HtmlButton button = (HtmlButton) getColumn(3).getByXPath("./button").get(0);
+        HtmlButton button = getColumn(3).getFirstByXPath("./button");
         try {
             page = button.click();
             waitJS(MEDIUM);
-            debug();
+            debug(page);
         } catch (IOException e) {
             throw new NavigatorException(e);
         }

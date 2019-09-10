@@ -14,26 +14,26 @@ public final class ChangePasswordPage extends AbstractPage {
     }
 
     private HtmlForm getForm() {
-        return (HtmlForm) page.getByXPath("//form").get(0);
+        return page.getFirstByXPath("//form");
     }
 
     public void setActualPassword(String value) {
-        ((HtmlInput) getForm().getByXPath(".//input[contains(@id, 'currentPassword')]").get(0)).setValueAttribute(value);
+        getForm().<HtmlInput>getFirstByXPath(".//input[contains(@id, 'currentPassword')]").setValueAttribute(value);
     }
 
     public void setConfirmPassword(String value) {
-        ((HtmlInput) getForm().getByXPath(".//input[contains(@id, 'newPasswordConfirmation')]").get(0)).setValueAttribute(value);
+        getForm().<HtmlInput>getFirstByXPath(".//input[contains(@id, 'newPasswordConfirmation')]").setValueAttribute(value);
     }
 
     public void setNewPassword(String value) {
-        ((HtmlInput) getForm().getByXPath(".//input[contains(@id, 'newPassword')]").get(0)).setValueAttribute(value);
+        getForm().<HtmlInput>getFirstByXPath(".//input[contains(@id, 'newPassword')]").setValueAttribute(value);
     }
 
     public void submit() {
-        HtmlButton submit = (HtmlButton) getForm().getByXPath(".//button[@type='submit']").get(0);
+        HtmlButton submit = getForm().getFirstByXPath(".//button[@type='submit']");
         try {
             page = submit.click();
-            debug();
+            debug(page);
         } catch (IOException e) {
             throw new NavigatorException(e);
         }

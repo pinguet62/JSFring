@@ -1,6 +1,13 @@
 package fr.pinguet62.jsfring.webapp.jsf.htmlunit.user;
 
-import com.gargoylesoftware.htmlunit.html.*;
+import com.gargoylesoftware.htmlunit.html.HtmlButton;
+import com.gargoylesoftware.htmlunit.html.HtmlDivision;
+import com.gargoylesoftware.htmlunit.html.HtmlInput;
+import com.gargoylesoftware.htmlunit.html.HtmlLabel;
+import com.gargoylesoftware.htmlunit.html.HtmlListItem;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlTableHeaderCell;
+import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.NavigatorException;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.datatable.AbstractDatatablePage;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.field.SelectOneButton;
@@ -17,13 +24,16 @@ import static fr.pinguet62.jsfring.webapp.jsf.htmlunit.user.UsersPage.Column.EMA
 
 public final class UsersPage extends AbstractDatatablePage<UserRow, UserCreatePopup> {
 
-    public static enum ActiveFilter {
+    public enum ActiveFilter {
         All, No, Yes;
     }
 
-    public static enum Column {
+    public enum Column {
 
-        ACTIONS(4, "Actions"), ACTIVE(2, "Active"), EMAIL(1, "Email"), LAST_CONNECTION(3, "Last connection");
+        ACTIONS(4, "Actions"),
+        ACTIVE(2, "Active"),
+        EMAIL(1, "Email"),
+        LAST_CONNECTION(3, "Last connection");
 
         public static Column fromTitle(String title) {
             for (Column column : values())
@@ -36,7 +46,7 @@ public final class UsersPage extends AbstractDatatablePage<UserRow, UserCreatePo
 
         private final String title;
 
-        private Column(int index, String title) {
+        Column(int index, String title) {
             this.index = index;
             this.title = title;
         }
@@ -62,17 +72,15 @@ public final class UsersPage extends AbstractDatatablePage<UserRow, UserCreatePo
      * @param column The {@link Column}.
      * @return The result.
      */
-    public boolean columnVisibile(Column column) {
+    public boolean columnVisible(Column column) {
         HtmlTableHeaderCell th = getDatatableTableHeader(column.getTitle());
         return !th.getAttribute("class").contains("ui-helper-hidden");
     }
 
     public void filterByActive(ActiveFilter value) {
         // TODO common abstract parent method
-        HtmlDivision div = (HtmlDivision) getDatatableTableHeader(ACTIVE.getTitle())
-                .getByXPath("./div[contains(@class, 'ui-column-customfilter')]/div[contains(@class, 'ui-selectonebutton')]")
-                .get(0);
-        SelectOneButton<ActiveFilter> selectOneButton = new SelectOneButton<ActiveFilter>(div, ActiveFilter::valueOf);
+        HtmlDivision div = getDatatableTableHeader(ACTIVE.getTitle()).getFirstByXPath("./div[contains(@class, 'ui-column-customfilter')]/div[contains(@class, 'ui-selectonebutton')]");
+        SelectOneButton<ActiveFilter> selectOneButton = new SelectOneButton<>(div, ActiveFilter::valueOf);
         selectOneButton.setValue(value);
     }
 
@@ -81,15 +89,10 @@ public final class UsersPage extends AbstractDatatablePage<UserRow, UserCreatePo
      *              {@code null} to reset filter.
      */
     public void filterEmail(String value) {
-        HtmlInput input = (HtmlInput) getDatatableTableHeader(EMAIL.getTitle())
-                .getByXPath("./input[contains(@class, 'ui-column-filter')]").get(0);
-        try {
-            input.type(value);
-            waitJS(MEDIUM);
-            debug();
-        } catch (IOException e) {
-            throw new NavigatorException(e);
-        }
+        HtmlInput input = getDatatableTableHeader(EMAIL.getTitle()).getFirstByXPath("./input[contains(@class, 'ui-column-filter')]");
+        input.setValueAttribute(value);
+        waitJS(MEDIUM);
+        debug();
     }
 
     @Override
@@ -105,27 +108,26 @@ public final class UsersPage extends AbstractDatatablePage<UserRow, UserCreatePo
     // TODO test
     public void hideOrShowColumn(Column column) {
         try {
-            HtmlButton toggler = (HtmlButton) getDatatableHeader().getByXPath("./button[contains(@id, 'toggler')]").get(0);
+            HtmlButton toggler = getDatatableHeader().getFirstByXPath("./button[contains(@id, 'toggler')]");
 
             // Show Toogler
             page = toggler.click();
             waitJS(SHORT);
-            debug();
+            debug(page);
 
-            List<HtmlListItem> choices = page.getByXPath(
-                    "//div[contains(@class, 'ui-columntoggler')]/ul[contains(@class, 'ui-columntoggler-items')]/li[contains(@class, 'ui-columntoggler-item')]");
+            List<HtmlListItem> choices = page.getByXPath("//div[contains(@class, 'ui-columntoggler')]/ul[contains(@class, 'ui-columntoggler-items')]/li[contains(@class, 'ui-columntoggler-item')]");
             HtmlListItem choice = choices.stream()
-                    .filter(li -> Column.fromTitle(((HtmlLabel) li.getByXPath("./label").get(0)).asText()).equals(column))
+                    .filter(li -> Column.fromTitle(li.<HtmlLabel>getFirstByXPath("./label").asText()).equals(column))
                     .findAny().get();
             choice.click();
-            page = ((HtmlDivision) choice.getByXPath("./div[contains(@class, 'ui-chkbox')]").get(0)).click();
+            page = choice.<HtmlDivision>getFirstByXPath("./div[contains(@class, 'ui-chkbox')]").click();
             waitJS(SHORT);
-            debug();
+            debug(page);
 
             // Hide Toogler
             page = toggler.click();
             waitJS(SHORT);
-            debug();
+            debug(page);
         } catch (IOException e) {
             throw new NavigatorException(e);
         }

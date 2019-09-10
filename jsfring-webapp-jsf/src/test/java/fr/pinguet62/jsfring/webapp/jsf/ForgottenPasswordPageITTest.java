@@ -1,11 +1,12 @@
 package fr.pinguet62.jsfring.webapp.jsf;
 
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import fr.pinguet62.jsfring.SpringBootConfig;
 import fr.pinguet62.jsfring.dao.sql.UserDao;
 import fr.pinguet62.jsfring.model.sql.QUser;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.AbstractPage;
 import fr.pinguet62.jsfring.webapp.jsf.htmlunit.ForgottenPasswordPage;
+import fr.pinguet62.jsfring.webapp.jsf.htmlunit.LoginPage;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ import static org.springframework.test.context.TestExecutionListeners.MergeMode.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = SpringBootConfig.class, webEnvironment = DEFINED_PORT)
 // DbUnit
-@TestExecutionListeners(mergeMode = MERGE_WITH_DEFAULTS, listeners = DbUnitTestExecutionListener.class)
+@TestExecutionListeners(mergeMode = MERGE_WITH_DEFAULTS, listeners = OrderedDbUnitTestExecutionListener.class)
 @DatabaseSetup(DATASET)
 public class ForgottenPasswordPageITTest {
 
