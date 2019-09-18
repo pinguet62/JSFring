@@ -47,7 +47,7 @@
 		lazy="#{cc.attrs.lazy}" paginator="true"
 		currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords}"
 		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-		rows="2" rowsPerPageTemplate="2 5 10"
+		rows="2" rowsPerPageTemplate="2,5,10"
 		emptyMessage="#{msg['dataTable.noRecord']}">
 		<!-- EL expression cannot be passed directly by "var" argument -->
 		<c:set target="#{component}" property="var" value="#{cc.attrs.var}" />

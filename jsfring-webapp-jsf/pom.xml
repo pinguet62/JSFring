@@ -118,6 +118,18 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <!-- default-->
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <!-- fix IntelliJ: Spring Boot doesn't handle /webapp folder -->
+                <directory>src/main/webapp</directory>
+                <targetPath>${project.build.outputDirectory}/META-INF/resources</targetPath>
+            </resource>
+        </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
